@@ -12,6 +12,7 @@ gem 'pg', '0.18.4'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
