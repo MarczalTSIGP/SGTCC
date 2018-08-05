@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      Contact:
+        one: "Contato"
+        other: "Contatos"
+    attributes:
+      attribute_commons: &commons
+        name: "Nome"
+        email: "Email"
+      contact:
+        message: "Mensagem"
+        <<: *commons
