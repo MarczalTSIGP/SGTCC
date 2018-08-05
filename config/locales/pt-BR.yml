@@ -4,10 +4,18 @@ pt-BR:
       Contact:
         one: "Contato"
         other: "Contatos"
+      User:
+        one: "Usuário"
+        other: "Usuários"
     attributes:
       attribute_commons: &commons
         name: "Nome"
         email: "Email"
       contact:
         message: "Mensagem"
+        <<: *commons
+      user:
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+        remember_me: "Lembre-me"
         <<: *commons
