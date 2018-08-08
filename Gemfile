@@ -1,17 +1,15 @@
-ruby '2.5.0'
+ruby '2.5.1'
 
 gem 'rails', '~> 5.2.0'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
-gem 'sqlite3'
-gem 'jbuilder', '~> 2.5'
+gem 'bootsnap', '>= 1.1.0', require: false
+
 gem 'pg', '0.18.4'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'bootsnap', '>= 1.1.0', require: false
 gem 'simple_form'
 gem 'rails-i18n'
 gem 'devise'
