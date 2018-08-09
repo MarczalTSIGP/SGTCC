@@ -1,24 +1,14 @@
-# README
+# Sistema de Gestão de Processos de Trabalho de Conclusão de Curso (SGTCC)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+----
+## O que é o SGTCC?
 
-Things you may want to cover:
+É um sistema de gestão de procesos de trabalho de conclusão de curso de Tecnologia em Sistemas para Internet (TSI) da UTFPR Câmpus Guarapuava.
 
-* Ruby version
+----
 
-* System dependencies
+## Sobre
 
-* Configuration
+O objetivo desse sistema é aperfeiçoar o SGTCC do curso de TSI, de modo a eliminar o uso de documentos impressos e assinaturas físicas. Para este fim, será utilizado a assinatura eletrônica.
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
