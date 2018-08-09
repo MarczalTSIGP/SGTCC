@@ -1,0 +1,97 @@
+pt-BR:
+  devise:
+    confirmations:
+      confirmed: Sua conta foi confirmada com sucesso. Você está logado.
+      send_instructions: Dentro de minutos, você receberá um e-mail com instruções
+        para a confirmação da sua conta.
+      send_paranoid_instructions: Se o seu endereço de e-mail estiver cadastrado,
+        você receberá uma mensagem com instruções para confirmação da sua conta.
+    failure:
+      already_authenticated: Você já está logado.
+      inactive: Sua conta ainda não foi ativada.
+      invalid: "E-mail ou senha inválida."
+      last_attempt: Você tem mais uma tentativa antes de bloquear sua conta.
+      locked: Sua conta está bloqueada.
+      not_found_in_database: "%{authentication_keys} ou senha inválida."
+      timeout: Sua sessão expirou, por favor, efetue login novamente para continuar.
+      unauthenticated: Para continuar, efetue login ou registre-se.
+      unconfirmed: Antes de continuar, confirme a sua conta.
+    mailer:
+      hello: Olá
+      welcome: Seja bem vindo
+      confirm_email: Você pode confirmar sua conta de email, através do link abaixo
+      confirmation_instructions:
+        subject: Instruções de confirmação
+      reset_password_instructions:
+        subject: Instruções de troca de senha
+        someone_request: Alguém solicitou um link para mudar sua senha. Você pode fazer isso através do link abaixo.
+        button: Mudar minha senha
+        ignore: Se você não solicitou isso, por favor ignore esse email.
+        create_new: Sua senha não vai mudar até que você acesse o link acima e crie uma nova.
+      unlock_instructions:
+        subject: Instruções de desbloqueio
+        locked: Sua conta foi bloqueada, por causa de excessivas tentativas de login mal sucedidas.
+        unlock: Clique no link abaixo para desbloquear sua conta
+      password_change:
+        subject: "Senha mudou"
+        notify: "Nós estamos entrando em contato para notificar que sua senha mudou."
+    passwords:
+      change_password: Mude sua senha
+      change_my_password: Mudar minha senha
+      no_token: Você só pode acessar essa página através de um e-mail de troca de
+        senha. Se já estiver acessando por um e-mail, verifique se a URL fornecida
+        está completa.
+      send_instructions: Dentro de minutos, você receberá um e-mail com instruções
+        para a troca da sua senha.
+      send_paranoid_instructions: Se o seu endereço de e-mail estiver cadastrado,
+        você receberá um link de recuperação da senha via e-mail.
+      updated: Sua senha foi alterada com sucesso. Você está logado.
+      updated_not_active: Sua senha foi alterada com sucesso.
+      forgot_password: Esqueceu sua senha?
+      send_reset_instructions: Me envie as instruções de redefinição de senha por e-mail
+    registrations:
+      destroyed: Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em
+        breve.
+      signed_up: Login efetuado com sucesso!
+      signed_up_but_inactive: Você foi cadastrado com sucesso. No entanto, não foi
+        possível efetuar login, pois sua conta não foi ativada.
+      signed_up_but_locked: Você foi cadastrado com sucesso. No entanto, não foi possível
+        efetuar login, pois sua conta está bloqueada.
+      signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada
+        para o seu endereço de e-mail. Por favor, abra o link para confirmar a sua
+        conta.
+      update_needs_confirmation: Você atualizou a sua conta com sucesso, mas o seu
+        novo endereço de e-mail precisa ser confirmado. Por favor, acesse-o e clique
+        no link de confirmação que enviamos.
+      updated: Sua conta foi atualizada com sucesso.
+    sessions:
+      already_signed_out: Saiu com sucesso.
+      signed_in: Login efetuado com sucesso!
+      signed_out: Saiu com sucesso.
+    unlocks:
+      send_instructions: Dentro de minutos, você receberá um email com instruções
+        para o desbloqueio da sua conta.
+      send_paranoid_instructions: Se sua conta existir, você receberá um e-mail com
+        instruções para desbloqueá-la em alguns minutos.
+      unlocked: Sua conta foi desbloqueada com sucesso. Efetue login para continuar.
+    users:
+      edit: Editar usuário
+    hints:
+      field_blank: "deixe o campo em branco se não quiser mudar"
+      current_password: "é preciso digitar sua senha atual para confirmar as mudanças"
+      minimum_characters: "caracteres no mínimo"
+  errors:
+    messages:
+      invalid: "é inválido"
+      blank: "não pode ficar em branco"
+      not_equal_password: "não é igual a Senha"
+      already_confirmed: já foi confirmado
+      confirmation_period_expired: precisa ser confirmada em até %{period}, por favor,
+        solicite uma nova
+      expired: expirou, por favor, solicite uma nova
+      not_found: não encontrado
+      not_locked: não foi bloqueado
+      not_saved:
+        one: 'Não foi possível salvar %{resource}: 1 erro'
+        other: 'Não foi possível salvar %{resource}: %{count} erros.'
+
