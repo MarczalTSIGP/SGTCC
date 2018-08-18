@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SistemaGestaoTcc</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +11,11 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <div class="container">
+      <%= render 'shared/flash_messages'%>
+      <%= yield %>
+    </div>
+
   </body>
 </html>

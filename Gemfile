@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'bullet'  
+  gem 'bullet'
   gem 'brakeman'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
