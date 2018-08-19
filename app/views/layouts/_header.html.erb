@@ -21,20 +21,21 @@
 
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 						<%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
-							<%= icon('fas', 'user') %> Profile
+							<%= icon('fas', 'user') %> <%= t('sessions.profile') %>
 						<% end %>
 
 						<%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
-							<%= icon('fas', 'sign-out-alt') %> Sign out
+							<%= icon('fas', 'sign-out-alt') %> <%= t('sessions.sign_out') %>
 						<% end %>
 					</div>
-				</div>
-			</div>
+
+				</div><!-- div.dropdown !-->
+			</div><!-- div.d-flex order-lg-2 !-->
 
 			<a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
 				<span class="header-toggler-icon"></span>
 			</a>
-		</div>
-	</div>
-</div>
+		</div><!-- div.d-flex !-->
+	</div><!-- div.container !-->
+</div><!-- div.header py-4 !-->
 

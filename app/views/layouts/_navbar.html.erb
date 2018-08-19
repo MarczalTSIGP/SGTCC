@@ -1,68 +1,17 @@
 <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
   <div class="container">
-    <div class="row align-items-center">
+    <div class="row align-items-center p-3">
 
       <div class="col-lg-3 ml-auto">
         <form class="input-icon my-3 my-lg-0">
-          <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
+          <input type="search" class="form-control header-search" placeholder="<%= t('search') %>&hellip;" tabindex="1">
+
           <div class="input-icon-addon">
             <%= icon('fas', 'search') %>
           </div>
         </form>
       </div>
 
-      <div class="col-lg order-lg-first">
-        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <%= icon('fas', 'home') %>
-              Página inicial
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <%= icon('far', 'user') %>
-               Acadêmicos
-            </a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              <%= icon('far', 'user') %>
-              Professores
-            </a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              <%= icon('far', 'calendar') %>
-              Calendários
-            </a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              <%= icon('fas', 'file-signature') %>
-              Orientações
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <%= icon('far', 'clipboard') %>
-              Bancas
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <%= icon('far', 'file') %>
-              Páginas
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+    </div><!-- div.row align-items-center !-->
+  </div><!-- div.container !-->
+</div><!-- div.header collapse !-->

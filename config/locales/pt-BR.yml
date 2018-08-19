@@ -19,3 +19,19 @@ pt-BR:
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
         <<: *commons
+  sessions:
+    sign_in: "Login"
+    sign_out: "Sair"
+    sign_up: "Cadastrar"
+    profile: "Perfil"
+    guest: "Convidado"
+  passwords:
+    forgot_password: "Esqueci a senha"
+  home_page: "Página inicial"
+  academics: "Acadêmicos"
+  professors: "Professores"
+  calendars: "Calendários"
+  meetings: "Reuniões"
+  examination_boards: "Bancas"
+  pages: "Páginas"
+  search: "Procurar"

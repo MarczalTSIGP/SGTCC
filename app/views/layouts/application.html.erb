@@ -13,12 +13,31 @@
   <body>
     <div class="page">
       <div class="page-main">
+
 	<%= render 'shared/flash_messages'%>
 	<%= render 'layouts/header' %>
 	<%= render 'layouts/navbar' %>
-	<%= yield %>
-      </div>
+
+	<div class="my-3 my-md-5">
+	  <div class="container">
+	    <div class="row">
+
+	      <%= render 'layouts/sidebar' %>
+
+	      <div class="col-lg-9">
+		<div class="card">
+		  <%= yield %>
+		</div>
+	      </div>
+
+	    </div><!-- div.row !-->
+	  </div><!-- div.container !-->
+	</div><!-- div.my-3 !-->
+
+      </div><!-- div.page-main !-->
+
       <%= render 'layouts/footer' %>
-    </div>
+
+    </div><!-- div.page !-->
   </body>
 </html>

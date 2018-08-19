@@ -4,7 +4,7 @@
 </div>
 
 <div class="card-body p-6">
-  <div class="card-title">Forgot password</div>
+  <div class="card-title"><%= t('passwords.forgot_password') %></div>
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <%= f.error_notification %>
 

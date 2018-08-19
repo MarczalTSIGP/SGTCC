@@ -1,19 +1,20 @@
 <div class="text-center mb-6">
   <%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
 </div>
+
 <div class="card-body p-6">
 
-  <div class="card-title">Login to your account</div>
+  <div class="card-title"><%= t('sessions.sign_in') %></div>
 
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
-      <%= f.input :email, required: false, autofocus: true %>
-      <%= f.input :password, required: false %>
+      <%= f.input :email, autofocus: true %>
+      <%= f.input :password %>
       <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Log in", class: 'btn-primary btn-block' %>
+      <%= f.button :submit, t('sessions.sign_in'), class: 'btn-primary btn-block' %>
     </div>
   <% end %>
 
