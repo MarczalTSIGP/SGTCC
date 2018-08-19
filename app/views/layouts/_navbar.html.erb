@@ -6,7 +6,7 @@
         <form class="input-icon my-3 my-lg-0">
           <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
           <div class="input-icon-addon">
-            <i class="fe fe-search"></i>
+            <%= icon('fas', 'search') %>
           </div>
         </form>
       </div>
@@ -14,46 +14,50 @@
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
           <li class="nav-item">
-            <a href="./index.html" class="nav-link active"><i class="fe fe-home"></i> Página inicial</a>
+            <a href="#" class="nav-link active">
+              <%= icon('fas', 'home') %>
+              Página inicial
+            </a>
           </li>
 
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
-              <i class="fe fe-users"></i>
-              Acadêmicos
+            <a href="#" class="nav-link" data-toggle="dropdown">
+              <%= icon('far', 'user') %>
+               Acadêmicos
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
-              <i class="fe fe-users"></i>
+            <a href="#" class="nav-link" data-toggle="dropdown">
+              <%= icon('far', 'user') %>
               Professores
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
-              <i class="fe fe-calendar"></i>
+            <a href="#" class="nav-link" data-toggle="dropdown">
+              <%= icon('far', 'calendar') %>
               Calendários
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a href="./form-elements.html" class="nav-link"><i class="fe fe-file-text"></i>
+            <a href="#" class="nav-link">
+              <%= icon('fas', 'file-signature') %>
               Orientações
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="./gallery.html" class="nav-link">
-              <i class="fe fe-clipboard"></i>
+            <a href="#" class="nav-link">
+              <%= icon('far', 'clipboard') %>
               Bancas
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="./docs/index.html" class="nav-link">
-              <i class="fe fe-file-plus"></i>
+            <a href="#" class="nav-link">
+              <%= icon('far', 'file') %>
               Páginas
             </a>
           </li>
