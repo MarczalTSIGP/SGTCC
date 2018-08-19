@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login/Registro</title>
+		<%= csrf_meta_tags %>
+
+		<%= stylesheet_link_tag    'application', media: 'all',
+			'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application',
+			'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+
+	<div id="<%= controller_name %>-<%= action_name %>">
+
+		<div class="page">
+			<div class="page-single">
+				<div class="container">
+
+					<div class="row">
+
+						<div class="col col-login mx-auto">
+
+							<%= render 'shared/flash_messages'%>
+							<%= yield %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
+
