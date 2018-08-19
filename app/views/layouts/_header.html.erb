@@ -20,18 +20,13 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-						<a class="dropdown-item" href="#">
-							<%= icon('fas', 'user') %>
-							Profile
-						</a>
-						<a class="dropdown-item" href="#">
-							<%= icon('fas', 'cog') %>
-							Settings
-						</a>
-						<a class="dropdown-item" href="#">
-							<%= icon('fas', 'sign-out-alt') %>
-							Sign out
-						</a>
+						<%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+							<%= icon('fas', 'user') %> Profile
+						<% end %>
+
+						<%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
+							<%= icon('fas', 'sign-out-alt') %> Sign out
+						<% end %>
 					</div>
 				</div>
 			</div>

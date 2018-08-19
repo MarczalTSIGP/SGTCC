@@ -1,15 +1,27 @@
-<h2>Forgot your password?</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+<div class="text-center mb-6">
+  <%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
+</div>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-  </div>
+<div class="card-body p-6">
+  <div class="card-title">Forgot password</div>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
+    <div class="form-inputs">
+      <%= f.input :email, autofocus: true, placeholder: 'Enter email' %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="form-actions">
+      <%= f.button :submit, "Send me reset password instructions", class: 'btn-primary btn-block' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="text-center text-muted">
+  Forget it,
+  <%= link_to "send me back", new_session_path(resource_name) %>
+  to the sign in screen.<br />
+</div>
+
+
