@@ -1,23 +1,19 @@
-<div class="text-center mb-6">
-  <%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
-</div>
+<% provide(:head_title, t('sessions.sign_in')) %>
+<% provide(:title, t('sessions.sign_in')) %>
 
-<div class="card-body p-6">
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :email, autofocus: true %>
+    <%= f.input :password %>
+    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  </div>
 
-  <div class="card-title"><%= t('sessions.sign_in') %></div>
+  <div class="form-actions">
+    <%= f.button :submit, t('sessions.sign_in'), class: 'btn-primary btn-block' %>
+  </div>
+<% end %>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :email, autofocus: true %>
-      <%= f.input :password %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-    </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, t('sessions.sign_in'), class: 'btn-primary btn-block' %>
-    </div>
-  <% end %>
-
+<div class="card-footer">
   <%= render "devise/shared/links" %>
 </div>
 

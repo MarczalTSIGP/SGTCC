@@ -22,11 +22,14 @@ pt-BR:
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
-    sign_up: "Cadastrar"
+    sign_up: "Cadastrar-se"
     profile: "Perfil"
     guest: "Convidado"
+    edit_profile: "Editar perfil"
+    sign_in_with: "Entrar com"
   passwords:
     forgot_password: "Esqueci a senha"
+    forgot_your_password: "Esqueceu sua senha?"
   home_page: "Página inicial"
   academics: "Acadêmicos"
   professors: "Professores"

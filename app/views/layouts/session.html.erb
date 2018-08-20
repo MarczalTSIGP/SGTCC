@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Login/Registro</title>
+		<title>
+			<%= full_title(yield(:head_title)) %>
+		</title>
 		<%= csrf_meta_tags %>
 
 		<%= stylesheet_link_tag    'session', media: 'all',
@@ -11,7 +13,6 @@
 </head>
 
 <body>
-
 	<div id="<%= controller_name %>-<%= action_name %>">
 
 		<div class="page">
@@ -19,19 +20,29 @@
 				<div class="container">
 
 					<div class="row">
-
 						<div class="col col-login mx-auto">
-
 							<%= render 'shared/flash_messages'%>
-							<%= yield %>
+
+							<div class="text-center mb-6">
+								<%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
+							</div>
+
+							<div class="card p-6">
+									<div class="card-title">
+										<h3 class="text-center"><%= yield :title %></h3>
+									</div>
+								<div class="card-body">
+									<%= yield %>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+					</div><!-- div.row !-->
 
-	</div>
+				</div><!-- div.container !-->
+			</div><!-- div.page-single !-->
+		</div><!-- div.page !-->
 
+	</div><!-- div#id !-->
 </body>
 </html>
 

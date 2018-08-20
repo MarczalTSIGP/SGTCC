@@ -1,13 +1,16 @@
 en:
   hello: "Hello world"
   sessions:
-    sign_in: "Login"
+    sign_in: "Log in"
     sign_out: "Sign out"
     sign_up: "Sign up"
     profile: "Profile"
     guest: "Guest"
+    edit_profile: "Edit profile"
+    sign_in_with: "Sign in with"
   passwords:
     forgot_password: "Forgot password"
+    forgot_your_password: "Forgot your password?"
   home_page: "Home"
   academics: "Academics"
   professors: "Professors"
