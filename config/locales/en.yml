@@ -8,9 +8,15 @@ en:
     guest: "Guest"
     edit_profile: "Edit profile"
     sign_in_with: "Sign in with"
+    register: "Register"
   passwords:
     forgot_password: "Forgot password"
     forgot_your_password: "Forgot your password?"
+    change_your_password: "Change your password"
+    change_my_password: "Change my password"
+    send_me_reset_instructions: "Send me reset password instructions"
+  placeholder:
+    email: "Enter email"
   home_page: "Home"
   academics: "Academics"
   professors: "Professors"
@@ -19,3 +25,5 @@ en:
   examination_boards: "Examination boards"
   pages: "Pages"
   search: "Search"
+  back: "Back"
+  update: "Update"

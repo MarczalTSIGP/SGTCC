@@ -5,19 +5,17 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, autofocus: true, placeholder: 'Enter email' %>
+    <%= f.input :email, autofocus: true, placeholder: t('placeholder.email') %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions", class: 'btn-primary btn-block' %>
+    <%= f.button :submit, t('passwords.send_me_reset_instructions'), class: 'btn-primary btn-block' %>
   </div>
 <% end %>
 </div>
 
-<div class="text-center text-muted">
-  Forget it,
-  <%= link_to "send me back", new_session_path(resource_name) %>
-  to the sign in screen.<br />
+<div class="text-right">
+  <%= link_to t('back'), new_session_path(resource_name) %>
 </div>
 
 

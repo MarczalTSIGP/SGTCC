@@ -27,9 +27,15 @@ pt-BR:
     guest: "Convidado"
     edit_profile: "Editar perfil"
     sign_in_with: "Entrar com"
+    register: "Cadastrar"
   passwords:
     forgot_password: "Esqueci a senha"
     forgot_your_password: "Esqueceu sua senha?"
+    change_your_password: "Altere sua senha"
+    change_my_password: "Alterar senha"
+    send_me_reset_instructions: "Enviar email com instruções"
+  placeholder:
+    email: "Digite o email"
   home_page: "Página inicial"
   academics: "Acadêmicos"
   professors: "Professores"
@@ -38,3 +44,5 @@ pt-BR:
   examination_boards: "Bancas"
   pages: "Páginas"
   search: "Procurar"
+  back: "Voltar"
+  update: "Atualizar"

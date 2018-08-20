@@ -5,22 +5,22 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :email, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.input :current_password %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Update", class: 'btn-primary btn-block' %>
+    <%= f.button :submit, t('simple_form.buttons.update'), class: 'btn-primary btn-block' %>
   </div>
 <% end %>
 
-<div class="card-footer">
-  <%= link_to "Back", :back %>
+<div class="text-right mt-5">
+  <%= link_to t('back'), :back %>
 </div>
