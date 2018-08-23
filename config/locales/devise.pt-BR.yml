@@ -76,7 +76,7 @@ pt-BR:
       send_paranoid_instructions: Se sua conta existir, você receberá um e-mail com
         instruções para desbloqueá-la em alguns minutos.
       unlocked: Sua conta foi desbloqueada com sucesso. Efetue login para continuar.
-      resend_unlock_instructions: Reenviar instruções para o desbloqueio da conta
+      resend_unlock_instructions: Reenviar instruções para o desbloqueio da conta"
     users:
       edit: Editar usuário
     hints:

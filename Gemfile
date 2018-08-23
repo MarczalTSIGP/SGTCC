@@ -20,6 +20,7 @@ gem 'rails-i18n'
 gem 'reek', require: false
 gem 'rubocop', require: false
 gem 'simple_form'
+gem 'rubocop-rspec'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
