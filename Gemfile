@@ -12,6 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap', '~> 4.0.0'
 gem 'bundle-audit', require: false
 gem 'devise'
+gem 'devise-i18n'
 gem 'font-awesome-sass'
 gem 'htmlbeautifier'
 gem 'jquery-rails'
@@ -19,8 +20,8 @@ gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'rubocop', require: false
-gem 'simple_form'
 gem 'rubocop-rspec'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

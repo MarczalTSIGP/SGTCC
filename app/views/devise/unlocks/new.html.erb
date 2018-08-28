@@ -1,5 +1,4 @@
-<% provide(:head_title, t('devise.unlocks.resend_unlock_instructions')) %>
-<% provide(:title, t('devise.unlocks.resend_unlock_instructions')) %>
+<h2><%= t(".resend_unlock_instructions") %></h2>
 
 <%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
   <%= f.error_notification %>
@@ -10,10 +9,8 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, t('devise.unlocks.resend_unlock_instructions') %>
+    <%= f.button :submit, t(".resend_unlock_instructions") %>
   </div>
 <% end %>
 
-<div class="card-footer">
-  <%= render "devise/shared/links" %>
-</div>
+<%= render "devise/shared/links" %>
