@@ -23,6 +23,7 @@ pt-BR:
       hello: Olá
       welcome: Seja bem vindo
       confirm_email: Você pode confirmar sua conta de email, através do link abaixo
+      confirm_account: Confirmar minha conta
       confirmation_instructions:
         subject: Instruções de confirmação
       reset_password_instructions:
@@ -35,6 +36,11 @@ pt-BR:
         subject: Instruções de desbloqueio
         locked: Sua conta foi bloqueada, por causa de excessivas tentativas de login mal sucedidas.
         unlock: Clique no link abaixo para desbloquear sua conta
+      email_change:
+        notify: "Nós estamos entrando em contato para notificar que seu e-mail vai ser alterado para"
+      email_changed:
+        subject: "E-mail alterado"
+        notify: "Nós estamos entrando em contato para notificar que seu e-mail mudou para"
       password_change:
         subject: "Senha mudou"
         notify: "Nós estamos entrando em contato para notificar que sua senha mudou."
