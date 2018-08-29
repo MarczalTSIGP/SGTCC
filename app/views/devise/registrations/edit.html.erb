@@ -16,12 +16,10 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, t(".update") %>
+    <%= f.button :submit, t(".update"), class: 'btn-primary btn-block'  %>
   </div>
 <% end %>
 
-<h3><%= t(".cancel_my_account") %></h3>
-
-<p><%= t(".unhappy") %> <%= link_to t(".cancel_my_account"), registration_path(resource_name), data: { confirm: t(".are_you_sure") }, method: :delete %></p>
-
-<%= link_to t("devise.shared.links.back"), :back %>
+<div class="text-right mt-5">
+  <%= link_to t("devise.shared.links.back"), :back %>
+</div>

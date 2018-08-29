@@ -31,7 +31,7 @@ pt-BR:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso.
       new:
-        resend_confirmation_instructions: Reenviar instruções de confirmação
+        resend_confirmation_instructions: Reenviar instruções
       send_instructions: Dentro de minutos, você receberá um email com as instruções de confirmação da sua conta.
       send_paranoid_instructions: Se o seu email existir em nosso banco de dados, você receberá um email com instruções sobre como confirmar sua conta em alguns minutos.
     failure:
@@ -82,7 +82,7 @@ pt-BR:
         new_password: Nova senha
       new:
         forgot_your_password: Esqueceu sua senha?
-        send_me_reset_password_instructions: Enviar instruções para redefinição da senha
+        send_me_reset_password_instructions: Enviar instruções
       no_token: Você não pode acessar esta página sem estar logado. Se você veio de um email de redefinição de senha, por favor certifique-se de ter digitado a URL corretamente.
       send_instructions: Dentro de minutos, você receberá um email com as instruções de redefinição da sua senha.
       send_paranoid_instructions: Se o seu email existir em nosso banco de dados, você receberá um email com um link para recuperação da senha.
