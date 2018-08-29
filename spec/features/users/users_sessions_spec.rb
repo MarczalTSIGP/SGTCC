@@ -10,13 +10,16 @@ describe "Users:Sessions", type: :feature do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
 
-    click_button I18n.t('sessions.sign_in')
+    click_button I18n.t('devise.shared.links.sign_in')
 
     click_link 'Renan Gabriel'
 
     expect(page.current_path).to eq root_path
-    expect(page).to have_selector('div.alert.alert-info',
-                                  text: I18n.t('devise.registrations.signed_up'))
+
+    expect(page).to have_selector(
+      'div.alert.alert-info',
+      text: I18n.t('devise.sessions.signed_in')
+    )
   end
 
   it "displays the user's error message when user or password is wrong" do
@@ -27,11 +30,14 @@ describe "Users:Sessions", type: :feature do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'passworda'
 
-    click_button I18n.t('sessions.sign_in')
+    click_button I18n.t('devise.shared.links.sign_in')
 
     expect(page.current_path).to eq new_user_session_path
-    expect(page).to have_selector('div.alert.alert-warning',
-                                  text: I18n.t('devise.failure.invalid'))
+
+    expect(page).to have_selector(
+      'div.alert.alert-warning',
+      text: I18n.t('devise.failure.invalid', authentication_keys: 'Email')
+    )
   end
 
   it 'displays success logout message when the user click on logout' do
@@ -44,8 +50,11 @@ describe "Users:Sessions", type: :feature do
     click_link('Sair')
 
     expect(page.current_path).to eq new_user_session_path
-    expect(page).to have_selector('div.alert.alert-info',
-                                  text: 'Saiu com sucesso.')
+
+    expect(page).to have_selector(
+      'div.alert.alert-info',
+      text: I18n.t('devise.sessions.already_signed_out')
+    )
   end
 
   context 'Register a user' do
@@ -63,8 +72,11 @@ describe "Users:Sessions", type: :feature do
       end.to change(User, :count).by(1)
 
       expect(page.current_path).to eq root_path
-      expect(page).to have_selector('div.alert.alert-info',
-                                    text: I18n.t('devise.registrations.signed_up'))
+
+      expect(page).to have_selector(
+        'div.alert.alert-info',
+        text: I18n.t('devise.registrations.signed_up')
+      )
     end
 
     it 'should not register a user with invalid date, and must show a error message' do
@@ -82,7 +94,7 @@ describe "Users:Sessions", type: :feature do
                                     text: 'Alguns erros foram encontrados, por favor verifique:')
 
       within('div.user_email') do
-        expect(page).to have_content('é inválido')
+        expect(page).to have_content('não é válido')
       end
 
       within('div.user_password') do
