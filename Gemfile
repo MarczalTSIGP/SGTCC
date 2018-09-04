@@ -4,12 +4,13 @@ ruby '2.5.1'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
+gem 'sass-rails', '~> 5.0'
 gem 'rails', '~> 5.2.0'
-gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.1'
+gem 'tabler-rubygem'
 gem 'bundle-audit', require: false
 gem 'devise'
 gem 'devise-i18n'
