@@ -1,25 +1,31 @@
-<h2><%= t(".title", resource: resource_name.to_s.humanize) %></h2>
+<% provide(:head_title, t("sessions.edit_profile")) %>
+<% provide(:title, t("sessions.edit_profile")) %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name,
+                    url: send("professor_registration_path"),
+                    html: { method: :put }) do |f| %>
+
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :email, required: true, autofocus: true %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p><%= t(".currently_waiting_confirmation_for_email", email: resource.unconfirmed_email) %></p>
-    <% end %>
+    <%= f.input :password, autocomplete: "off",
+      hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
+      required: false %>
 
-    <%= f.input :password, autocomplete: "off", hint: t(".leave_blank_if_you_don_t_want_to_change_it"), required: false %>
     <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: t(".we_need_your_current_password_to_confirm_your_changes"), required: true %>
+
+    <%= f.input :current_password,
+      hint: t(".we_need_your_current_password_to_confirm_your_changes"),
+      required: true %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, t(".update"), class: 'btn-primary btn-block'  %>
+    <%= f.button :submit, t(".update"), class: 'btn-primary btn-block' %>
   </div>
 <% end %>
 
 <div class="text-right mt-5">
-  <%= link_to t("devise.shared.links.back"), :back %>
+  <%= link_to t("devise.shared.links.back"), :professors_root %>
 </div>
