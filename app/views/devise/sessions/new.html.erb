@@ -1,4 +1,5 @@
 <% provide(:title, t(".sign_in")) %>
+<% provide(:head_title, t(".sign_in")) %>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">

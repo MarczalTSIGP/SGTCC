@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { confirmations: 'confirmations' }
   root to: 'home#index'
+
+  devise_for :users
+
+  authenticate :user do
+    namespace :professors do
+      root to: 'dashboard#index'
+    end
+  end
 end
