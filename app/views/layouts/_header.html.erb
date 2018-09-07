@@ -11,11 +11,13 @@
 					<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 						<span class="ml-2 d-none d-lg-block">
 							<span class="text-default">
-								<%= current_user.email %>
-							</span>
-							<small class="text-muted d-block mt-1">
 								Administrator
-							</small>
+							</span>
+							<% if user_signed_in? %>
+								<small class="text-muted d-block mt-1">
+									<%= current_user.email %>
+								</small>
+							<% end %>
 						</span>
 					</a>
 
