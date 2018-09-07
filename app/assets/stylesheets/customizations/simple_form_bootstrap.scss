@@ -1,15 +1,3 @@
-/* Bootstrap 4 compatibility
--------------------------------------------------- */
-.has-error {
-  .invalid-feedback {
-    display: block;
-  }
-
-  label, span.help-block {
-    color: $form-feedback-invalid-color;
-  }
-
-  .form-control {
-    border-color: $form-feedback-invalid-color;
-  }
+.form-control-label {
+  @extend .form-label;
 }
