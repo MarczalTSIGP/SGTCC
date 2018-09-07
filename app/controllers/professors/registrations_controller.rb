@@ -1,5 +1,5 @@
 class Professors::RegistrationsController < Devise::RegistrationsController
-  layout 'layouts/session'
+  layout 'layouts/application'
 
   protected
   def after_update_path_for(resource)
