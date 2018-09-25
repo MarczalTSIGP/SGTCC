@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :professors
+
   root to: 'home#index'
 
-  devise_for :users, :controllers => { registrations: "professors/registrations" }
-
-  devise_scope :user do
+  as :professor do
     get '/professors/edit' => 'professors/registrations#edit', :as => 'edit_professor_registration'
     put '/professors' => 'professors/registrations#update', :as => 'professor_registration'
   end
 
-  authenticate :user do
+  authenticate :professor do
     namespace :professors do
       root to: 'dashboard#index'
     end

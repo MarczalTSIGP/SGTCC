@@ -7,6 +7,9 @@ pt-BR:
       User:
         one: "Usuário"
         other: "Usuários"
+      Professor:
+        one: "Professor"
+        other: "Professores"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -14,7 +17,7 @@ pt-BR:
       contact:
         message: "Mensagem"
         <<: *commons
-      user:
+      professor:
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"

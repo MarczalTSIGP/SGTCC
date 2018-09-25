@@ -13,9 +13,9 @@
 							<span class="text-default">
 								Administrator
 							</span>
-							<% if user_signed_in? %>
+							<% if professor_signed_in? %>
 								<small class="text-muted d-block mt-1">
-									<%= current_user.email %>
+									<%= current_professor.email %>
 								</small>
 							<% end %>
 						</span>
@@ -26,7 +26,7 @@
 							<%= icon('fas', 'user') %> <%= t('sessions.profile') %>
 						<% end %>
 
-						<%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
+						<%= link_to(destroy_professor_session_path, method: :delete, class: "dropdown-item") do %>
 							<%= icon('fas', 'sign-out-alt') %> <%= t('sessions.sign_out') %>
 						<% end %>
 					</div>
