@@ -6,8 +6,6 @@
     <%= f.input :email, required: false, autofocus: true %>
     <%= f.input :password, required: false %>
 
-    <%= render "devise/shared/links" %>
-
     <%= f.input :remember_me, as: :checkbox_tabler if devise_mapping.rememberable? %>
   </div>
 

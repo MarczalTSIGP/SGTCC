@@ -11,7 +11,7 @@ describe "Professors:Profiles", type: :feature do
 			fill_in Professor.human_attribute_name(:email), with: 'email@email.com'
 			fill_in I18n.t('simple_form.labels.defaults.current_password'), with: professor.password
 
-			find('input[name="commit"]').click
+			submit_form
 
 			expect(page.current_path).to eq edit_professor_registration_path
 			expect(page).to have_selector('div.alert.alert-info',
@@ -30,7 +30,7 @@ describe "Professors:Profiles", type: :feature do
 			fill_in I18n.t('simple_form.labels.defaults.current_password'), with: professor.password
 
 			expect do
-				find('input[name="commit"]').click
+				submit_form
 			end.to change(Professor, :count).by(0)
 
 			expect(page).to have_selector('div.alert.alert-danger',

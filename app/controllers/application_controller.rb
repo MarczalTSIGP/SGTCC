@@ -4,9 +4,15 @@ class ApplicationController < ActionController::Base
   protected
 
   def layout_by_resource
-    return 'layouts/session' if devise_controller?
+    return 'layouts/sessions/session' if devise_controller?
 
     'layouts/application'
+  end
+
+  def after_sign_in_path_for(resource)
+    return professors_root_path if resource.is_a?(Professor)
+
+    root_path
   end
 
   private

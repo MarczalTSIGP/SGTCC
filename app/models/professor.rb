@@ -1,6 +1,6 @@
 class Professor < ApplicationRecord
   devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+         :rememberable, :validatable
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
