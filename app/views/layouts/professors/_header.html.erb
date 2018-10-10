@@ -1,0 +1,33 @@
+<div class="header py-4">
+  <div class="container">
+    <div class="d-flex">
+      <%= link_to professors_root_path, class: 'header-brand' do %>
+        <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi'  %>
+      <% end  %>
+      <div class="d-flex order-lg-2 ml-auto">
+
+        <div class="dropdown">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url('<%= image_path('default-user.png') %>')"></span> 
+
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default"><%= current_professor.email %></span>
+              <small class="text-muted d-block mt-1">Administrator</small>
+            </span>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <%= link_to edit_professor_registration_path, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-user"></i> <%= t('sessions.profile') %>
+            <% end %>
+            <%= link_to destroy_professor_session_path, method: :delete, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-log-out"></i> <%= t('sessions.sign_out') %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

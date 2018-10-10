@@ -11,11 +11,14 @@ pt-BR:
       # html: '<abbr title="required">*</abbr>'
     buttons:
       cancel: 'Cancelar'
+      update: 'Atualizar'
     error_notification:
       default_message: "Alguns erros foram encontrados, por favor verifique:"
     # Labels and hints examples
-    # labels:
-    #   password: 'Password'
+    labels:
+      defaults:
+        password: 'Senha'
+        current_password: 'Senha atual'
     #   user:
     #     new:
     #       email: 'E-mail para efetuar o sign in.'

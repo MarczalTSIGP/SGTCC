@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SistemaGestaoTcc</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+      <%= full_title(yield(:head_title)) %>
+    </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= favicon_link_tag %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="page">
+      <div class="page-main">
+	<div class="container">
+	  <%= render 'shared/flash_messages'%>
+
+	  <%= yield %>
+
+	</div>
+      </div>
+    </di>
   </body>
 </html>

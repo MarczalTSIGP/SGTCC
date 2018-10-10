@@ -7,6 +7,9 @@ pt-BR:
       User:
         one: "Usuário"
         other: "Usuários"
+      Professor:
+        one: "Professor"
+        other: "Professores"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -14,8 +17,29 @@ pt-BR:
       contact:
         message: "Mensagem"
         <<: *commons
-      user:
+      professor:
         password: "Senha"
+        current_password: "Senha atual"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
         <<: *commons
+  sessions:
+    sign_in: "Login"
+    sign_out: "Sair"
+    sign_up: "Cadastrar-se"
+    profile: "Meu Perfil"
+    guest: "Convidado"
+    edit_profile: "Editar perfil"
+    sign_in_with: "Entrar com"
+    register: "Cadastrar"
+  links:
+    home_page: "Página inicial"
+    academics: "Acadêmicos"
+    professors: "Professores"
+    calendars: "Calendários"
+    meetings: "Reuniões"
+    examination_boards: "Bancas"
+    pages: "Páginas"
+    search: "Procurar"
+    back: "Voltar"
+    update: "Atualizar"
