@@ -1,15 +1,32 @@
 pt-BR:
+  breadcrumbs:
+    homepage: "Página inicial"
+    academics:
+      index: 'Acadêmicos'
+      new: 'Novo Acadêmico'
+      edit: 'Editar Acadêmico'
+      show: 'Visualizar Acadêmico'
+    professors:
+      index: 'Professores'
+      new: 'Cadastrar Professor'
+      edit: 'Editar Professor'
+      show: 'Visualizar Professor'
+    calendars:
+      index: "Calendários"
+    meetings:
+      index: "Reuniões"
+    examination_boards:
+      index: "Bancas"
+    pages:
+      index: "Páginas"
   activerecord:
     models:
-      Contact:
-        one: "Contato"
-        other: "Contatos"
-      User:
-        one: "Usuário"
-        other: "Usuários"
-      Professor:
+      professor:
         one: "Professor"
         other: "Professores"
+      academic:
+        one: "Acadêmico"
+        other: "Acadêmicos"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -18,6 +35,9 @@ pt-BR:
       contact:
         message: "Mensagem"
         <<: *commons
+      academic:
+        ra: "Registro Acadêmico (RA)"
+        gender: "Gênero"
       professor:
         profile_image: "Imagem do perfil"
         password: "Senha"
@@ -25,6 +45,31 @@ pt-BR:
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
         <<: *commons
+  helpers:
+    currently: 'Atualmente'
+    boolean:
+      'true': 'Sim'
+      'false': 'Não'
+  enums:
+    genders:
+      male: 'Masculino'
+      female: 'Feminino'
+    semesters:
+      first: '1º'
+      second: '2º'
+  flash:
+    actions:
+      update:
+        m: '%{resource_name} Atualizado com sucesso!'
+        f: '%{resource_name} Atualizada com sucesso!'
+      create:
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
+      destroy:
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
+        bond: 'Não é possível remover %{resource_name} com vínculos!'
+      errors: 'Existem dados incorretos!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
@@ -34,17 +79,6 @@ pt-BR:
     edit_profile: "Editar perfil"
     sign_in_with: "Entrar com"
     register: "Cadastrar"
-  links:
-    home_page: "Página inicial"
-    academics: "Acadêmicos"
-    professors: "Professores"
-    calendars: "Calendários"
-    meetings: "Reuniões"
-    examination_boards: "Bancas"
-    pages: "Páginas"
-    search: "Procurar"
-    back: "Voltar"
-    update: "Atualizar"
   errors:
     page_not_found:
       label: "Página não encontrada!"
@@ -56,3 +90,5 @@ pt-BR:
       label: "Entidade não processável!"
       message: "A mudança que você queria foi rejeitada..."
       details: "Talvez você tentou alterar algo que você não possui acesso."
+  prompt:
+    confirm: "Você tem certeza?"

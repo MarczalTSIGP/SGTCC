@@ -1,0 +1,35 @@
+<% provide(:page_title, t('breadcrumbs.academics.show')) %>
+<% provide(:head_title, t('breadcrumbs.academics.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body text-center">
+    <img class="card-profile-img" src="<%= image_path('default-user.png') %>">
+    <p>
+      <strong>Name:</strong>
+      <%= @academic.name %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @academic.email %>
+    </p>
+
+    <p>
+      <strong>Ra:</strong>
+      <%= @academic.ra %>
+    </p>
+
+    <p>
+      <strong>Gender:</strong>
+      <%= @academic.gender %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), academics_path, class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'), edit_academic_path(@academic), class: 'btn btn-primary ml-auto' %>
+</div>
+

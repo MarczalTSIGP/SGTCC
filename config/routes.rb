@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   end
 
   authenticate :professor do
+    resources :academics
+
     namespace :professors do
       root to: 'dashboard#index'
     end

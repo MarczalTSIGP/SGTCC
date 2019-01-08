@@ -1,5 +1,42 @@
 en:
-  hello: "Hello world"
+  breadcrumbs:
+    homepage: "Homepage"
+    academics:
+      index: 'Academics'
+      new: 'New Academic'
+      edit: 'Edit Academic'
+      show: 'Show Academic'
+    professors:
+      index: 'Professors'
+      new: 'New Professor'
+      edit: 'Edit Professor'
+      show: 'Show Professor'
+    calendars:
+      index: "Calendars"
+    meetings:
+      index: "Meetings"
+    examination_boards:
+      index: "Examination boards"
+    pages:
+      index: "Pages"
+  activerecord:
+    models:
+      professor:
+        one: "Professor"
+        other: "Professors"
+      academic:
+        one: "Academic"
+        other: "Academics"
+    attributes:
+      attribute_commons: &commons
+        name: "Name"
+        email: "Email"
+      professor:
+        password: "Password"
+        current_password: "Current password"
+        password_confirmation: "Password confirmation"
+        remember_me: "Remember me"
+        <<: *commons
   sessions:
     sign_in: "Log in"
     sign_out: "Sign out"
@@ -9,17 +46,6 @@ en:
     edit_profile: "Edit profile"
     sign_in_with: "Sign in with"
     register: "Register"
-  links:
-    home_page: "Home"
-    academics: "Academics"
-    professors: "Professors"
-    calendars: "Calendars"
-    meetings: "Meetings"
-    examination_boards: "Examination boards"
-    pages: "Pages"
-    search: "Search"
-    back: "Back"
-    update: "Update"
   errors:
     page_not_found:
       label: "Page Not Found!"
@@ -31,4 +57,5 @@ en:
       label: "Unprocessable Entity!"
       message: "The change you wanted was rejected..."
       details: "Maybe you tried to change something you didn't have access to."
-
+  prompt:
+    confirm: "Are you sure?"

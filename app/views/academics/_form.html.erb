@@ -1,0 +1,18 @@
+
+<%= simple_form_for(@academic) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :ra %>
+    <%= f.input :gender %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'), academics_path, class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

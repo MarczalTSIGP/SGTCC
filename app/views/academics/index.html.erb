@@ -1,0 +1,47 @@
+<% provide(:page_title, t('breadcrumbs.academics.index')) %>
+<% provide(:head_title, t('breadcrumbs.academics.index')) %>
+
+<%= link_to t('breadcrumbs.academics.new'), new_academic_path, class: 'btn btn-outline-primary float-right' %>
+
+<div class="table-striped mt-5">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Ra</th>
+        <th>Gender</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @academics.each do |academic| %>
+        <tr>
+          <td><%= academic.name %></td>
+          <td><%= academic.email %></td>
+          <td><%= academic.ra %></td>
+          <td><%= academic.gender %></td>
+          <td>
+            <%= link_to(academic) do %>
+              <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to(edit_academic_path(academic)) do %>
+              <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to academic, method: :delete, data: { confirm: t('prompt.confirm') } do %>
+              <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+

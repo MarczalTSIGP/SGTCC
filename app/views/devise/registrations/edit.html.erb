@@ -29,11 +29,9 @@
     </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t(".update"), class: 'btn-primary btn-block' %>
+  <div class="d-flex">
+    <%= link_to t("simple_form.buttons.back"), :professors_root, class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, t(".update"), class: 'btn-primary ml-auto' %>
   </div>
 <% end %>
-
-<div class="text-right mt-5">
-  <%= link_to t("devise.shared.links.back"), :professors_root %>
-</div>
