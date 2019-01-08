@@ -1,0 +1,20 @@
+<div class="error-page">
+  <div class="container text-center">
+    <div class="display-1 text-muted mb-5">
+      <i class="si si-exclamation"></i> 422
+    </div>
+
+    <h1 class="h2 mb-3">
+      <%= t('errors.unprocessable_entity.label') %>
+    </h1>
+
+    <p class="h4 text-muted font-weight-normal mb-7">
+      <%= t('errors.unprocessable_entity.message') %>
+      <%= t('errors.unprocessable_entity.details') %>
+    </p>
+
+    <%= link_to root_path, class: 'btn btn-primary' do %>
+      <i class="fe fe-arrow-left mr-2"></i><%= t('links.back') %>
+    <% end %>
+  </div>
+</div>

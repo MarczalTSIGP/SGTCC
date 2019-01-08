@@ -43,3 +43,14 @@ pt-BR:
     search: "Procurar"
     back: "Voltar"
     update: "Atualizar"
+  errors:
+    page_not_found:
+      label: "Página não encontrada!"
+      message: "Essa página não foi encontrada..."
+    internal_server_error:
+      label: "Erro interno no servidor!"
+      message: "Nosso serviço não está disponível no momento..."
+    unprocessable_entity:
+      label: "Entidade não processável!"
+      message: "A mudança que você queria foi rejeitada..."
+      details: "Talvez você tentou alterar algo que você não possui acesso."
