@@ -54,6 +54,7 @@ group :test do
   gem 'guard-rspec', require: false
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :production do
