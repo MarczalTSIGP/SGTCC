@@ -21,7 +21,7 @@ class AcademicsController < Professors::BaseController
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Academic.model_name.human)
-      redirect_to @academic
+      redirect_to academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
@@ -32,7 +32,7 @@ class AcademicsController < Professors::BaseController
     if @academic.update(academic_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Academic.model_name.human)
-      redirect_to @academic
+      redirect_to academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
