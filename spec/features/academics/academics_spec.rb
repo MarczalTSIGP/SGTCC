@@ -54,13 +54,11 @@ describe 'Academics', type: :feature do
         submit_form
 
         expect(page.current_path).to eq academics_path
+        expect_alert_success(resource_name, 'flash.actions.create.m')
 
-        have_contains(
-          'div.alert.alert-success',
-          I18n.t('flash.actions.create.m', resource_name: resource_name)
-        )
-
-        have_contains('table tbody', attributes[:name])
+        within('table tbody') do
+          expect(page).to have_content(attributes[:name])
+        end
       end
     end
 
@@ -68,11 +66,24 @@ describe 'Academics', type: :feature do
       it 'show errors' do
         submit_form
 
-        have_contains('div.alert.alert-danger',   I18n.t('flash.actions.errors'))
-        have_contains('div.academic_name',        I18n.t('errors.messages.blank'))
-        have_contains('div.academic_email',       I18n.t('errors.messages.blank'))
-        have_contains('div.academic_ra',          I18n.t('errors.messages.blank'))
-        have_contains('fieldset.academic_gender', I18n.t('errors.messages.blank'))
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: I18n.t('flash.actions.errors'))
+
+        within('div.academic_name') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+
+        within('div.academic_email') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+
+        within('div.academic_ra') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+
+        within('fieldset.academic_gender') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
       end
     end
   end
@@ -106,10 +117,7 @@ describe 'Academics', type: :feature do
         submit_form
 
         expect(page.current_path).to eq academics_path
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   resource_name: resource_name))
+        expect_alert_success(resource_name, 'flash.actions.update.m')
 
         within('table tbody') do
           expect(page).to have_content(new_name)
