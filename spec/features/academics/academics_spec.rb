@@ -30,10 +30,12 @@ describe 'Academics', type: :feature do
         academic = create(:academic)
         visit academic_path(academic)
 
+        gender = I18n.t("enums.genders.#{academic.gender}")
+
         expect(page).to have_content(academic.name)
         expect(page).to have_content(academic.email)
         expect(page).to have_content(academic.ra)
-        #expect(page).to have_content(academic.gender)
+        expect(page).to have_content(gender)
       end
     end
   end
