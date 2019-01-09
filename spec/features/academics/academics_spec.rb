@@ -145,4 +145,19 @@ describe 'Academics', type: :feature do
     end
   end
 
+  describe '#destroy' do
+    it 'academic' do
+      academic = create(:academic)
+      visit academics_path
+
+      within first('.destroy').click
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t('flash.actions.destroy.m',
+                                                 resource_name: resource_name))
+      within('table tbody') do
+        expect(page).not_to have_content(academic.name)
+      end
+    end
+  end
 end
