@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_210736) do
   create_table "academics", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "ra"
+    t.string "ra"
     t.string "gender", limit: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

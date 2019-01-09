@@ -1,7 +1,10 @@
 <% provide(:page_title, t('breadcrumbs.academics.index')) %>
 <% provide(:head_title, t('breadcrumbs.academics.index')) %>
 
-<%= link_to t('breadcrumbs.academics.new'), new_academic_path, class: 'btn btn-outline-primary float-right' %>
+<%= link_to(new_academic_path, class: 'btn btn-outline-primary float-right') do %>
+  <i class="fe fe-plus"></i>
+  <%= t('breadcrumbs.academics.new') %>
+<% end %>
 
 <div class="table-striped mt-5">
   <table class="table card-table table-vcenter text-nowrap">

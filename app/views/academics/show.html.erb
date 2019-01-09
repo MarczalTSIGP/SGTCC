@@ -6,23 +6,23 @@
   <div class="card-body text-center">
     <img class="card-profile-img" src="<%= image_path('default-user.png') %>">
     <p>
-      <strong>Name:</strong>
+      <strong><%= Academic.human_attribute_name('name') %>:</strong>
       <%= @academic.name %>
     </p>
 
     <p>
-      <strong>Email:</strong>
+      <strong><%= Academic.human_attribute_name('email') %>:</strong>
       <%= @academic.email %>
     </p>
 
     <p>
-      <strong>Ra:</strong>
+      <strong><%= Academic.human_attribute_name('ra') %>:</strong>
       <%= @academic.ra %>
     </p>
 
     <p>
-      <strong>Gender:</strong>
-      <%= @academic.gender %>
+      <strong><%= Academic.human_attribute_name('gender') %>:</strong>
+      <%= t("enums.genders.#{@academic.gender}") %>
     </p>
   </div>
 </div>

@@ -38,6 +38,7 @@ pt-BR:
       academic:
         ra: "Registro Acadêmico (RA)"
         gender: "Gênero"
+        <<: *commons
       professor:
         profile_image: "Imagem do perfil"
         password: "Senha"
