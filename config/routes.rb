@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   as :professor do
-    get '/professors/edit' => 'professors/registrations#edit', :as => 'edit_professor_registration'
-    put '/professors' => 'professors/registrations#update', :as => 'professor_registration'
+    get '/professors/edit' => 'professors/registrations#edit',
+        :as => 'edit_professor_registration'
+
+    put '/professors' => 'professors/registrations#update',
+        :as => 'professor_registration'
   end
 
   authenticate :professor do

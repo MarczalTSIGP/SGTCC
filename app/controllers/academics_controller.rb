@@ -2,17 +2,28 @@ class AcademicsController < Professors::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
 
   def index
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_academic_path
+
     @academics = Academic.all
   end
 
   def show
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.show'),
+                   academic_path(@academic.id)
   end
 
   def new
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_academic_path
+
     @academic = Academic.new
   end
 
   def edit
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.edit'), edit_academic_path
   end
 
   def create

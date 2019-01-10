@@ -9,6 +9,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap', '~> 4.1.1'
+gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
