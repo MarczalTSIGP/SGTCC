@@ -29,3 +29,7 @@
 config/application.yml
 
 coverage
+
+config/application.yml
+
+public/uploads/*

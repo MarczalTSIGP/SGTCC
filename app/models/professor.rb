@@ -8,4 +8,6 @@ class Professor < ApplicationRecord
                     length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  mount_uploader :profile_image, AdminProfileImageUploader
 end

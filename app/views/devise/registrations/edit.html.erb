@@ -8,18 +8,24 @@
 
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+  <%= f.input :email, required: true, autofocus: true %>
 
-    <%= f.input :password, autocomplete: "off",
-      hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
-      required: false %>
+  <div class="form-row">
+    <div class="col-sm-8">
 
-    <%= f.input :password_confirmation, required: false %>
+      <%= f.input :password, autocomplete: "off",
+        hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
+        required: false %>
 
-    <%= f.input :current_password,
-      hint: t(".we_need_your_current_password_to_confirm_your_changes"),
-      required: true %>
+      <%= f.input :password_confirmation, required: false %>
+
+      <%= f.input :current_password,
+        hint: t(".we_need_your_current_password_to_confirm_your_changes"),
+        required: true %>
+
+      <%= f.label :profile_image %><br>
+      <%= f.file_field :profile_image %>
+    </div>
   </div>
 
   <div class="form-actions">
