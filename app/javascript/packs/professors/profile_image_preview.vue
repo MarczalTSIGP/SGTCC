@@ -3,7 +3,7 @@
     <div id="box-image-preview"
          data-toggle="tooltip"
          data-placement="left"
-         title="Clique na imagem para alterá-la">
+         :title="$t('messages.registration.edit_image')">
 
       <div class="input-field image_preview">
         <div class="box-image center">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="text-box text-center">
-      <p class="text-input">Clique na imagem para alterá-la</p>
+      <p class="text-input">{{ $t('messages.registration.edit_image') }}</p>
     </div>
   </div>
 </template>
