@@ -13,18 +13,18 @@ import ProfileImagePreview from './professors/registrations/profile_image_previe
 import TurbolinksAdapter from 'vue-turbolinks';
 import { messages } from '../i18n/messages';
 
-Vue.use(TurbolinksAdapter)
-Vue.use(VueI18n)
+Vue.use(TurbolinksAdapter);
+Vue.use(VueI18n);
 
 const i18n = new VueI18n({
   locale: 'pt-BR',
   messages,
-})
+});
 
 document.addEventListener('turbolinks:load', () => {
-  const app = new Vue({
+  new Vue({
     i18n,
     el: '#app',
     components: { ProfileImagePreview }
-  })
-})
+  });
+});
