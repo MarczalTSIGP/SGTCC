@@ -9,7 +9,7 @@
 
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
-import ProfileImagePreview from './professors/registrations/profile_image_preview';
+import ProfileImagePreview from '../components/professors/registrations/profile_image_preview';
 import TurbolinksAdapter from 'vue-turbolinks';
 import { messages } from '../i18n/messages';
 
