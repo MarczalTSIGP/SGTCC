@@ -7,10 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import Vue from 'vue/dist/vue.js';
+import Vue from 'vue/dist/vue.esm'
 import ProfileImagePreview from './professors/profile_image_preview';
+import TurbolinksAdapter from 'vue-turbolinks'
 
-document.addEventListener('DOMContentLoaded', () => {
+Vue.use(TurbolinksAdapter)
+
+document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
     el: '#app',
     components: { ProfileImagePreview }
