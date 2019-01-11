@@ -23,6 +23,7 @@ gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
+gem 'webpacker', '~> 3.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -22,9 +22,12 @@
       <%= f.input :current_password,
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),
         required: true %>
+    </div>
 
-      <%= f.label :profile_image %><br>
-      <%= f.file_field :profile_image %>
+    <div class="col-4">
+      <profile-image-preview
+        :image-source="<%= resource.profile_image.url.to_json %>">
+      </profile-image-preview>
     </div>
   </div>
 
