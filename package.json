@@ -16,6 +16,7 @@
     "webpack-dev-server": "2.11.2"
   },
   "scripts": {
+    "webpack": "./bin/webpack-dev-server",
     "lint": "yarn run eslint --ext .vue --ext .js app/javascript"
   }
 }
