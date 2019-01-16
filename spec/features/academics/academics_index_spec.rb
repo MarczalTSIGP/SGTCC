@@ -8,13 +8,13 @@ describe 'Academics', type: :feature do
 
       academics = create_list(:academic, 3)
 
-      visit academics_path
+      visit admins_academics_path
 
       academics.each do |a|
         expect(page).to have_content(a.name)
 
-        expect(page).to have_link(href: edit_academic_path(a))
-        destroy_link = "a[href='#{academic_path(a)}'][data-method='delete']"
+        expect(page).to have_link(href: edit_admins_academic_path(a))
+        destroy_link = "a[href='#{admins_academic_path(a)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
     end

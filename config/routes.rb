@@ -16,10 +16,9 @@ Rails.application.routes.draw do
   end
 
   authenticate :admin do
-    resources :academics
-
     namespace :admins do
       root to: 'dashboard#index'
+      resources :academics
     end
   end
 end

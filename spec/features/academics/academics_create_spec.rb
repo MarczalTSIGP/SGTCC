@@ -10,7 +10,7 @@ describe 'Academics', type: :feature do
 
   describe '#create' do
     before(:each) do
-      visit new_academic_path
+      visit new_admins_academic_path
     end
 
     context 'with valid fields' do
@@ -23,7 +23,7 @@ describe 'Academics', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq academics_path
+        expect(page.current_path).to eq admins_academics_path
         expect_alert_success(resource_name, 'flash.actions.create.m')
 
         within('table tbody') do

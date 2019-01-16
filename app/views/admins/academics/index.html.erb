@@ -1,7 +1,7 @@
 <% provide(:page_title, t('breadcrumbs.academics.index')) %>
 <% provide(:head_title, t('breadcrumbs.academics.index')) %>
 
-<%= link_to(new_academic_path, class: 'btn btn-outline-primary float-right') do %>
+<%= link_to(new_admins_academic_path, class: 'btn btn-outline-primary float-right') do %>
   <i class="fe fe-plus"></i>
   <%= t('breadcrumbs.academics.new') %>
 <% end %>
@@ -26,13 +26,13 @@
           <td><%= academic.ra %></td>
           <td><%= t("enums.genders.#{academic.gender}") %></td>
           <td>
-            <%= link_to(academic) do %>
+            <%= link_to(admins_academic_path(academic)) do %>
               <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
             <% end %>
-            <%= link_to(edit_academic_path(academic)) do %>
+            <%= link_to(edit_admins_academic_path(academic)) do %>
               <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
             <% end %>
-            <%= link_to academic, method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy' do %>
+            <%= link_to admins_academic_path(academic), method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy' do %>
               <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
             <% end %>
           </td>

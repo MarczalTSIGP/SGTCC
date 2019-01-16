@@ -11,7 +11,7 @@ describe 'Academics::destroy', type: :feature do
   describe '#destroy' do
     it 'academic' do
       academic = create(:academic)
-      visit academics_path
+      visit admins_academics_path
 
       within first('.destroy').click
 

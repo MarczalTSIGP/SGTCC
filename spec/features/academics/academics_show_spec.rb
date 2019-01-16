@@ -8,7 +8,7 @@ describe 'Academics', type: :feature do
         login_as(admin, scope: :admin)
 
         academic = create(:academic)
-        visit academic_path(academic)
+        visit admins_academic_path(academic)
 
         gender = I18n.t("enums.genders.#{academic.gender}")
 

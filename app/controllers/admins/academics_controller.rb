@@ -1,29 +1,29 @@
-class AcademicsController < Admins::BaseController
+class Admins::AcademicsController < Admins::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
 
   def index
-    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
-    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_academic_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), admins_academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_admins_academic_path
 
     @academics = Academic.all
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), admins_academics_path
     add_breadcrumb I18n.t('breadcrumbs.academics.show'),
-                   academic_path(@academic.id)
+                   admins_academic_path(@academic.id)
   end
 
   def new
-    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
-    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_academic_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), admins_academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.new'), new_admins_academic_path
 
     @academic = Academic.new
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.academics.index'), academics_path
-    add_breadcrumb I18n.t('breadcrumbs.academics.edit'), edit_academic_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.index'), admins_academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.edit'), edit_admins_academic_path
   end
 
   def create
@@ -32,7 +32,7 @@ class AcademicsController < Admins::BaseController
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Academic.model_name.human)
-      redirect_to academics_path
+      redirect_to admins_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
@@ -43,7 +43,7 @@ class AcademicsController < Admins::BaseController
     if @academic.update(academic_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Academic.model_name.human)
-      redirect_to academics_path
+      redirect_to admins_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -54,7 +54,7 @@ class AcademicsController < Admins::BaseController
     @academic.destroy
     flash[:success] = I18n.t('flash.actions.destroy.m',
                              resource_name: Academic.model_name.human)
-    redirect_to academics_url
+    redirect_to admins_academics_url
   end
 
   private

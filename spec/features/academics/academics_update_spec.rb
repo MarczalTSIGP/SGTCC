@@ -12,7 +12,7 @@ describe 'Academics', type: :feature do
     let(:academic) { create(:academic) }
 
     before(:each) do
-      visit edit_academic_path(academic)
+      visit edit_admins_academic_path(academic)
     end
 
     context 'fill fields' do
@@ -36,7 +36,7 @@ describe 'Academics', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq academics_path
+        expect(page.current_path).to eq admins_academics_path
         expect_alert_success(resource_name, 'flash.actions.update.m')
 
         within('table tbody') do
