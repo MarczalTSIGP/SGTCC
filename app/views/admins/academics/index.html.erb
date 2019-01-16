@@ -19,25 +19,7 @@
     </thead>
 
     <tbody>
-      <% @academics.each do |academic| %>
-        <tr>
-          <td><%= academic.name %></td>
-          <td><%= academic.email %></td>
-          <td><%= academic.ra %></td>
-          <td><%= t("enums.genders.#{academic.gender}") %></td>
-          <td>
-            <%= link_to(admins_academic_path(academic)) do %>
-              <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
-            <% end %>
-            <%= link_to(edit_admins_academic_path(academic)) do %>
-              <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
-            <% end %>
-            <%= link_to admins_academic_path(academic), method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy' do %>
-              <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render @academics %>
     </tbody>
   </table>
 </div>
