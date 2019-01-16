@@ -100,7 +100,7 @@ pt-BR:
         title: Editar %{resource}
         unhappy: Não está contente?
         update: Atualizar
-        we_need_your_current_password_to_confirm_your_changes: precisamos da sua senha atual para confirmar suas mudanças
+        current_password_to_confirm: precisamos da sua senha atual para confirmar suas mudanças
       new:
         sign_up: Inscrever-se
       signed_up: Bem vindo! Você realizou seu registro com sucesso.

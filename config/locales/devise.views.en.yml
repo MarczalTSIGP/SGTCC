@@ -98,7 +98,7 @@ en:
         title: Edit %{resource}
         unhappy: Unhappy?
         update: Update
-        we_need_your_current_password_to_confirm_your_changes: we need your current password to confirm your changes
+        current_password_to_confirm: we need your current password to confirm your changes
       new:
         sign_up: Sign up
       signed_up: Welcome! You have signed up successfully.
