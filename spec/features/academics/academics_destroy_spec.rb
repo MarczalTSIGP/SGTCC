@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Academics::destroy', type: :feature do
-  let(:admin) { create(:professor) }
+  let(:admin) { create(:admin) }
   let(:resource_name) { Academic.model_name.human }
 
   before(:each) do
-    login_as(admin, scope: :professor)
+    login_as(admin, scope: :admin)
   end
 
   describe '#destroy' do

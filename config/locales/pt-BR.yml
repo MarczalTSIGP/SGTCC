@@ -21,6 +21,9 @@ pt-BR:
       index: "Páginas"
   activerecord:
     models:
+      admin:
+        one: "Administrador"
+        other: "Administradores"
       professor:
         one: "Professor"
         other: "Professores"

@@ -1,4 +1,4 @@
-class AcademicsController < Professors::BaseController
+class AcademicsController < Admins::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
 
   def index

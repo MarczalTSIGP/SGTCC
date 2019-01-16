@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_210736) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "professors", force: :cascade do |t|
+  create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -38,5 +38,8 @@ ActiveRecord::Schema.define(version: 2019_02_21_210736) do
     t.index ["email"], name: "index_professors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_professors_on_reset_password_token", unique: true
     t.index ["username"], name: "index_professors_on_username", unique: true
+
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 end

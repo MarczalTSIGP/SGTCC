@@ -4,8 +4,8 @@ describe 'Academics', type: :feature do
   describe '#show' do
     context 'show academics' do
       it 'show academic page' do
-        admin = create(:professor)
-        login_as(admin, scope: :professor)
+        admin = create(:admin)
+        login_as(admin, scope: :admin)
 
         academic = create(:academic)
         visit academic_path(academic)

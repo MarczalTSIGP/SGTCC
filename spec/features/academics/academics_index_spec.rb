@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Academics', type: :feature do
   describe '#index' do
     it 'show all academics with options' do
-      admin = create(:professor)
-      login_as(admin, scope: :professor)
+      admin = create(:admin)
+      login_as(admin, scope: :admin)
 
       academics = create_list(:academic, 3)
 

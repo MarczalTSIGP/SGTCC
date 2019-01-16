@@ -1,4 +1,4 @@
-class Professor < ApplicationRecord
+class Admin < ApplicationRecord
   devise :database_authenticatable,
          :rememberable, :validatable
 

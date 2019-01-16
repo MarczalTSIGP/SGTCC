@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Professor, type: :model do
+RSpec.describe Admin, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_length_of(:email) }
