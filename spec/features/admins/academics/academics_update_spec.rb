@@ -15,15 +15,6 @@ describe 'Academics', type: :feature do
       visit edit_admins_academic_path(academic)
     end
 
-    context 'fill fields' do
-      it 'with correct values' do
-        expect(page).to have_field 'academic_name',
-                                   with: academic.name
-        expect(page).to have_field 'academic_email',
-                                   with: academic.email
-      end
-    end
-
     context 'with valid fields' do
       it 'update academic' do
         attributes = attributes_for(:academic)
