@@ -12,6 +12,9 @@ describe 'Academics', type: :feature do
 
       academics.each do |a|
         expect(page).to have_content(a.name)
+        expect(page).to have_content(a.email)
+        expect(page).to have_content(a.ra)
+        expect(page).to have_content(complete_date(a.created_at))
 
         expect(page).to have_link(href: edit_admins_academic_path(a))
         destroy_link = "a[href='#{admins_academic_path(a)}'][data-method='delete']"

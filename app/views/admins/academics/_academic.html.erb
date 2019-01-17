@@ -3,7 +3,7 @@
     <td><%= academic.name %></td>
     <td><%= academic.email %></td>
     <td><%= academic.ra %></td>
-    <td><%= t("enums.genders.#{academic.gender}") %></td>
+    <td><%= complete_date(academic.created_at) %></td>
     <td>
       <%= link_to(admins_academic_path(academic)) do %>
         <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
