@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
@@ -34,6 +34,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
   gem 'brakeman'
   gem 'bullet'
   gem 'listen', '>= 3.0.5', '< 3.2'

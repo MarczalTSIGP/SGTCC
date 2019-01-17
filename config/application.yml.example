@@ -1,6 +1,7 @@
 database: &database
   db.username: postgres
   db.password: postgres
+  db.host: localhost
 
 mailer: &mailer
   mailer.host: localhost
@@ -16,5 +17,5 @@ test:
 
 production:
   <<: *database
-  mailer.host: tsi.gp.utfpr.edu.br
+  mailer.host: sgtcc.gp.utfpr.edu.br
   mailer.port: '80'
