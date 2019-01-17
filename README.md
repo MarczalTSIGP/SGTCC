@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/390307da2efc215ddb48/maintainability)](https://codeclimate.com/github/utfpr-gp-tsi/SGTCC/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/390307da2efc215ddb48/test_coverage)](https://codeclimate.com/github/utfpr-gp-tsi/SGTCC/test_coverage)
+[![Build Status](https://travis-ci.org/utfpr-gp-tsi/SGTCC.svg?branch=development)](https://travis-ci.org/utfpr-gp-tsi/SGTCC)
+
 # Sistema de Gestão de Processos de Trabalho de Conclusão de Curso (SGTCC)
 
 ----
