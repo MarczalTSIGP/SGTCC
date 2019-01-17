@@ -19,8 +19,6 @@ gem 'jquery-rails'
 gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
-gem 'rubocop', require: false
-gem 'rubocop-rspec'
 gem 'simple_form'
 
 group :development, :test do
@@ -34,19 +32,21 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'bullet'
-  gem 'brakeman'
-  gem 'bullet'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+
+  gem 'brakeman', require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'bullet'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'guard-rspec', require: false
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
   gem 'simplecov-console', require: false
 end
 

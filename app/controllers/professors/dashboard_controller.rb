@@ -1,4 +1,3 @@
 class Professors::DashboardController < Professors::BaseController
-  def index
-  end
+  def index; end
 end

@@ -1,0 +1,12 @@
+mailer: &mailer
+  mailer.host: localhost
+  mailer.port: '3000'
+
+development:
+  <<: *mailer
+
+test:
+  <<: *mailer
+
+production:
+  <<: *mailer

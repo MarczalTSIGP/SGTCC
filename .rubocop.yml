@@ -1,0 +1,103 @@
+require: rubocop-rspec
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.4
+  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
+  # to ignore them, so only the ones explicitly set in this file are enabled.
+  # DisabledByDefault: true
+  Exclude:
+    - '*/templates//'
+    - '*/vendor//'
+    - 'actionpack/lib/action_dispatch/journey/parser.rb'
+    - 'railties/test/fixtures/tmp/*/'
+    - 'db/schema.rb'
+    - 'db/migrate/20180925232654_devise_create_professors.rb'
+    - 'config/initializers/simple_form.rb'
+    - 'config/initializers/simple_form_bootstrap.rb'
+    - 'config/initializers/devise.rb'
+    - 'lib/tasks/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - 'config/environments/production.rb'
+    - 'config/initializers/backtrace_silencers.rb'
+    - 'config/initializers/content_security_policy.rb'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+
+Metrics/AbcSize:
+  Exclude:
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/*'
+
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/*'
+    - 'spec/rails_helper.rb'
+
+Style/StringLiterals:
+  Exclude:
+    - 'bin/*'
+    - 'config/puma.rb'
+    - 'config/environments/production.rb'
+
+Style/StderrPuts:
+  Exclude:
+    - 'bin/*'
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Style/FormatString:
+  EnforcedStyle: 'percent'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/development.rb'
+    - 'spec/**/*'
+    - 'lib/tasks/populate.rake'
+    - 'config/routes.rb'
+
+Naming/VariableNumber:
+  EnforcedStyle: non_integer
+
+RSpec/MultipleExpectations:
+  Max: 2
+  Exclude:
+    - 'spec/features/**/*'
+
+RSpec/ExampleLength:
+  Max: 20
