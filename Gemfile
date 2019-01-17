@@ -47,6 +47,7 @@ group :test do
   gem 'database_cleaner'
   gem 'guard-rspec', require: false
   gem 'simplecov', :require => false
+  gem 'simplecov-console', require: false
 end
 
 group :production do
