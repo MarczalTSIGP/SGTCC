@@ -34,4 +34,6 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
   config.use_transactional_fixtures = false
+
+  config.include ApplicationHelper
 end

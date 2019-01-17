@@ -35,9 +35,8 @@ pt-BR:
         name: "Nome"
         email: "Email"
         username: "Usuário institucional"
-      contact:
-        message: "Mensagem"
-        <<: *commons
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
       academic:
         ra: "Registro Acadêmico (RA)"
         gender: "Gênero"

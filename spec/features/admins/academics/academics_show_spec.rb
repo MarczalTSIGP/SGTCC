@@ -16,6 +16,8 @@ describe 'Academics', type: :feature do
         expect(page).to have_content(academic.email)
         expect(page).to have_content(academic.ra)
         expect(page).to have_content(gender)
+        expect(page).to have_content(complete_date(academic.created_at))
+        expect(page).to have_content(complete_date(academic.updated_at))
       end
     end
   end

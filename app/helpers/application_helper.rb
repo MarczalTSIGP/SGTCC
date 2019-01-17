@@ -11,4 +11,8 @@ module ApplicationHelper
       page_title + ' | ' + base_title
     end
   end
+
+  def complete_date(date)
+    I18n.localize(date, format: :long)
+  end
 end
