@@ -3,7 +3,7 @@ class Professors::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_update_path_for(resource)
+  def after_update_path_for(*)
     edit_professor_registration_path
   end
 
