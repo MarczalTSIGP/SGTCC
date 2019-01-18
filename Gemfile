@@ -5,7 +5,6 @@ ruby '2.5.3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
-gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
@@ -23,6 +22,7 @@ gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
+gem 'sassc-rails'
 gem 'webpacker', '~> 3.5'
 
 group :development, :test do
