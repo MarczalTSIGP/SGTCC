@@ -7,5 +7,3 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     edit_admin_registration_path
   end
 end
-
-
