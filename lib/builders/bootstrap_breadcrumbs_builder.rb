@@ -17,16 +17,10 @@ class BootstrapBreadcrumbsBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
     name = compute_name(element)
     path = compute_path(element)
 
-    current = @context.current_page?(path)
-
+    is_current_page = @context.current_page?(path)
     item_tag = @options.fetch(:tag, :li)
 
-    tag_options =
-      if current
-        { class: [ 'breadcrumb-item', 'active' ], 'aria-current': 'page' }
-      else
-        { class: 'breadcrumb-item' }
-      end
+    tag_options = get_tag_options(is_current_page)
 
     @context.content_tag(item_tag, tag_options) do
       @context.link_to_unless_current(name, path, element.options)
@@ -37,5 +31,13 @@ class BootstrapBreadcrumbsBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
 
   def should_render?
     @elements.any? || @options[:show_empty]
+  end
+
+  def get_tag_options(is_current_page)
+    if is_current_page
+      { class: ['breadcrumb-item', 'active'], 'aria-current': 'page' }
+    else
+      { class: 'breadcrumb-item' }
+    end
   end
 end

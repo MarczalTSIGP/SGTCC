@@ -11,7 +11,7 @@ class Academic < ApplicationRecord
 
   def self.human_genders
     hash = {}
-    genders.keys.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
+    genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
   end
 end

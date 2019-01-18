@@ -20,15 +20,13 @@ class Admins::AcademicsController < Admins::BaseController
     @academics = Academic.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @academic = Academic.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @academic = Academic.new(academic_params)
