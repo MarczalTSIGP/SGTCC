@@ -16,8 +16,8 @@ rvm:
   - 2.5.3
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
-  - yarn run webpack
-  - yarn run lint
+  - bundle exec rails webpacker:install
+  - ./bin/webpack-dev-server
   - bundle exec rspec
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
