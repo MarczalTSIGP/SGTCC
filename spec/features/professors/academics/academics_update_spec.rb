@@ -1,39 +1,45 @@
 require 'rails_helper'
 
 describe 'Academics', type: :feature do
-  let(:admin) { create(:admin) }
+  let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
   before(:each) do
-    login_as(admin, scope: :admin)
+    login_as(professor, scope: :professor)
   end
 
-  describe '#create' do
+  describe '#update' do
+    let(:academic) { create(:academic) }
+
     before(:each) do
-      visit new_admins_academic_path
+      visit edit_professors_academic_path(academic)
     end
 
     context 'with valid fields' do
-      it 'create academic' do
+      it 'update academic' do
         attributes = attributes_for(:academic)
-        fill_in 'academic_name',   with: attributes[:name]
-        fill_in 'academic_email',  with: attributes[:email]
-        fill_in 'academic_ra',     with: attributes[:ra]
-        choose 'academic_gender_male'
+
+        new_name = 'Teste'
+        fill_in 'academic_name', with: new_name
+        fill_in 'academic_email', with: attributes[:email]
+
+        choose 'academic_gender_female'
 
         submit_form
 
-        expect(page.current_path).to eq admins_academics_path
-        expect_alert_success(resource_name, 'flash.actions.create.m')
+        expect(page.current_path).to eq professors_academics_path
+        expect_alert_success(resource_name, 'flash.actions.update.m')
 
         within('table tbody') do
-          expect(page).to have_content(attributes[:name])
+          expect(page).to have_content(new_name)
         end
       end
     end
 
     context 'with invalid fields' do
       it 'show errors' do
+        fill_in 'academic_name', with: ''
+        fill_in 'academic_email', with: ''
         submit_form
 
         expect(page).to have_selector('div.alert.alert-danger',
@@ -46,16 +52,7 @@ describe 'Academics', type: :feature do
         within('div.academic_email') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
-
-        within('div.academic_ra') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('fieldset.academic_gender') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
       end
     end
   end
 end
-

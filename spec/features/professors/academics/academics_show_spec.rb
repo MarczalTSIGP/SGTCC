@@ -4,11 +4,11 @@ describe 'Academics', type: :feature do
   describe '#show' do
     context 'show academics' do
       it 'show academic page' do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
+        professor = create(:professor)
+        login_as(professor, scope: :professor)
 
         academic = create(:academic)
-        visit admins_academic_path(academic)
+        visit professors_academic_path(academic)
 
         gender = I18n.t("enums.genders.#{academic.gender}")
 

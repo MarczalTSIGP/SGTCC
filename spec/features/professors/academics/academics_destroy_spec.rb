@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe 'Academics::destroy', type: :feature do
-  let(:admin) { create(:admin) }
+  let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
   before(:each) do
-    login_as(admin, scope: :admin)
+    login_as(professor, scope: :professor)
   end
 
   describe '#destroy' do
     it 'academic' do
       academic = create(:academic)
-      visit admins_academics_path
+      visit professors_academics_path
 
       within first('.destroy').click
 

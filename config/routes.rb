@@ -3,20 +3,20 @@ Rails.application.routes.draw do
     get code, to: 'errors#show', code: code, as: 'error_' + code
   end
 
-  devise_for :admins
+  devise_for :professors
 
   root to: 'home#index'
 
-  as :admin do
-    get '/admins/edit' => 'admins/registrations#edit',
-        :as => 'edit_admin_registration'
+  as :professor do
+    get '/professors/edit' => 'professors/registrations#edit',
+        :as => 'edit_professor_registration'
 
-    put '/admins' => 'admins/registrations#update',
-        :as => 'admin_registration'
+    put '/professors' => 'professors/registrations#update',
+        :as => 'professor_registration'
   end
 
-  authenticate :admin do
-    namespace :admins do
+  authenticate :professor do
+    namespace :professors do
       root to: 'dashboard#index'
       resources :academics
     end

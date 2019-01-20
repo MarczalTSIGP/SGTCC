@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-describe 'Admins:logout', type: :feature do
-  let(:admin) { create(:admin) }
+describe 'Professors:logout', type: :feature do
+  let(:professor) { create(:professor) }
 
   before(:each) do
-    login_as(admin, scope: :admin)
+    login_as(professor, scope: :professor)
 
-    visit admins_root_url
+    visit professors_root_url
   end
 
   it 'displays success logout message when the user click on logout' do
-    click_link admin.email
+    click_link professor.email
     click_link(I18n.t('sessions.sign_out'))
 
-    expect(page.current_path).to eq new_admin_session_path
+    expect(page.current_path).to eq new_professor_session_path
 
     expect(page).to have_selector(
       'div.alert.alert-info',

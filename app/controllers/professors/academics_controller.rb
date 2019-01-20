@@ -1,19 +1,19 @@
-class Admins::AcademicsController < Admins::BaseController
+class Professors::AcademicsController < Professors::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.index'),
-                 :admins_academics_path
+                 :professors_academics_path
 
   add_breadcrumb I18n.t('breadcrumbs.academics.show'),
-                 :admins_academic_path,
+                 :professors_academic_path,
                  only: [:show]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.new'),
-                 :new_admins_academic_path,
+                 :new_professors_academic_path,
                  only: [:new]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.edit'),
-                 :edit_admins_academic_path,
+                 :edit_professors_academic_path,
                  only: [:edit]
 
   def index
@@ -34,7 +34,7 @@ class Admins::AcademicsController < Admins::BaseController
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Academic.model_name.human)
-      redirect_to admins_academics_path
+      redirect_to professors_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
@@ -45,7 +45,7 @@ class Admins::AcademicsController < Admins::BaseController
     if @academic.update(academic_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Academic.model_name.human)
-      redirect_to admins_academics_path
+      redirect_to professors_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -56,7 +56,7 @@ class Admins::AcademicsController < Admins::BaseController
     @academic.destroy
     flash[:success] = I18n.t('flash.actions.destroy.m',
                              resource_name: Academic.model_name.human)
-    redirect_to admins_academics_url
+    redirect_to professors_academics_url
   end
 
   private
