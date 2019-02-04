@@ -22,8 +22,7 @@ install:
   - yarn
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
-  - bundle exec rails webpacker:install  
-  - ./bin/webpack-dev-server
+  - bundle exec rails webpacker:compile
   - yarn lint
   - bundle exec rspec
 after_script:
