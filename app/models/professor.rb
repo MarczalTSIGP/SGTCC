@@ -9,5 +9,5 @@ class Professor < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  mount_uploader :profile_image, AdminProfileImageUploader
+  mount_uploader :profile_image, ProfessorProfileImageUploader
 end
