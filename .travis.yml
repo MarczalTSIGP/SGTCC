@@ -3,7 +3,11 @@ env:
     - CC_TEST_REPORTER_ID=0bdc7cf0256747d51c968c18502f27c34c50afd1a3dfd136ddc6e6ffc51b8c1d
 addons:
   postgresql: 9.6
+  apt:
+    update: true
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -14,10 +18,21 @@ dist: trusty
 language: ruby
 rvm:
   - 2.5.3
+install:
+  - bundle install
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
-  - ./bin/webpack-dev-server
+  - bundle exec rails webpacker:compile
+  - yarn lint
+  - bundle exec rubocop
   - bundle exec rspec
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
+cache:
+  yarn: true
+  directories:
+    - node_modules
