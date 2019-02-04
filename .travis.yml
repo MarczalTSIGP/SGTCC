@@ -3,7 +3,11 @@ env:
     - CC_TEST_REPORTER_ID=0bdc7cf0256747d51c968c18502f27c34c50afd1a3dfd136ddc6e6ffc51b8c1d
 addons:
   postgresql: 9.6
+  apt:
+    update: true
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
   - psql -c 'create database travis_ci_test;' -U postgres
