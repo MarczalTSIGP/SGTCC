@@ -79,7 +79,6 @@ export default {
 
   mounted() {
     this.imageData = this.profileImageUrl;
-    this.profileImageHasErrors();
   },
 
   methods: {
