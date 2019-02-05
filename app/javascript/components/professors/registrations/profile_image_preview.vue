@@ -25,7 +25,10 @@
               v-if="profileImageHasErrors()"
               class="invalid-feedback d-block"
             >
-              <p v-for="profileImageError in profileImageErrors">
+              <p
+                v-for="(profileImageError, index) in profileImageErrors"
+                :key="index"
+              >
                 {{ profileImageError }}
               </p>
             </div>
@@ -62,16 +65,16 @@ export default {
     },
   },
 
-  computed: {
-    profileImageClass: function() {
-      return this.profileImageHasError ? 'invalid' : 'valid';
-    },
-  },
-
   data() {
     return {
       imageData: ''
     };
+  },
+
+  computed: {
+    profileImageClass: function() {
+      return this.profileImageHasError ? 'invalid' : 'valid';
+    },
   },
 
   mounted() {
