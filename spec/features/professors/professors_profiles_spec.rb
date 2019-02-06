@@ -27,10 +27,8 @@ describe 'Professors:Profiles', type: :feature do
       end
     end
 
-    it 'does not update with invalid date, ao show a error message', js: true do
+    it 'does not update with invalid date', js: true do
       fill_in 'professor_email', with: 'email'
-      fill_in 'professor_password', with: 'abc123'
-      fill_in 'professor_password_confirmation', with: 'abc123'
       fill_in 'professor_current_password', with: professor.password
 
       attach_file 'professor_profile_image', FileSpecHelper.pdf.path
