@@ -31,10 +31,17 @@ config/application.yml
 coverage
 
 config/application.yml
-
+# Ignore uploaded files in development
 public/uploads/*
+
+# Ignore precompiled javascript
 /public/packs
 /public/packs-test
+/public/assets
+
 /node_modules
+
+# Ignore yarn files
+/yarn-error.log
 yarn-debug.log*
 .yarn-integrity
