@@ -25,7 +25,8 @@ describe 'Professors:Profiles', type: :feature do
       # within('a.nav-link') do
       #   expect(page).to have_content(new_email)
       #   professor.reload
-      #   expect(page).to have_css("span[style=\"background-image: url('#{professor.profile_image}')\"]")
+      #   css_class = "span[style=\"background-image: url('#{professor.profile_image}')\"]"
+      #   expect(page).to have_css(css_class)
       # end
     end
 
