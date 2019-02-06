@@ -11,7 +11,6 @@ require 'support/database_cleaner'
 require 'support/helpers/form'
 
 require 'support/file_spec_helper'
-require 'support/carrier_wave'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -28,4 +27,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
+  config.use_transactional_fixtures = false
 end
