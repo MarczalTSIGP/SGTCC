@@ -11,6 +11,7 @@ require 'support/database_cleaner'
 require 'support/helpers/form'
 
 require 'support/file_spec_helper'
+require 'support/capybara'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
