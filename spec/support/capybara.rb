@@ -6,4 +6,3 @@ Capybara.register_driver :firefox_headless do |app|
 end
 
 Capybara.javascript_driver = :firefox_headless
-
