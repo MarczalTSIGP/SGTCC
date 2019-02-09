@@ -23,4 +23,3 @@ describe 'Academics', type: :feature do
     end
   end
 end
-

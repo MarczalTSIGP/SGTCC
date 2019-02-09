@@ -8,9 +8,9 @@ RSpec.describe Academic, type: :model do
     it { is_expected.to validate_presence_of(:ra) }
     it { is_expected.to validate_presence_of(:gender) }
 
-    context 'email' do
+    context 'with email' do
       it { is_expected.to allow_value('email@addresse.foo').for(:email) }
-      it { is_expected.to_not allow_value('foo').for(:email) }
+      it { is_expected.not_to allow_value('foo').for(:email) }
     end
   end
 end

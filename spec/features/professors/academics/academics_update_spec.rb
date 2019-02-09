@@ -4,14 +4,14 @@ describe 'Academics', type: :feature do
   let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
-  before(:each) do
+  before do
     login_as(professor, scope: :professor)
   end
 
   describe '#update' do
     let(:academic) { create(:academic) }
 
-    before(:each) do
+    before do
       visit edit_professors_academic_path(academic)
     end
 
@@ -27,7 +27,7 @@ describe 'Academics', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq professors_academics_path
+        expect(page).to have_current_path professors_academics_path
         expect_alert_success(resource_name, 'flash.actions.update.m')
 
         within('table tbody') do

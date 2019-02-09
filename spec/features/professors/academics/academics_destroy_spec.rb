@@ -4,7 +4,7 @@ describe 'Academics::destroy', type: :feature do
   let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
-  before(:each) do
+  before do
     login_as(professor, scope: :professor)
   end
 

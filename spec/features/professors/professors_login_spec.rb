@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 describe 'Professors:login', type: :feature do
-
   let(:professor) { create(:professor) }
 
-  before(:each) do
+  before do
     visit new_professor_session_path
   end
 
@@ -14,7 +13,7 @@ describe 'Professors:login', type: :feature do
 
     submit_form
 
-    expect(page.current_path).to eq professors_root_path
+    expect(page).to have_current_path professors_root_path
 
     expect(page).to have_selector(
       'div.alert.alert-info',
@@ -28,7 +27,7 @@ describe 'Professors:login', type: :feature do
 
     submit_form
 
-    expect(page.current_path).to eq new_professor_session_path
+    expect(page).to have_current_path new_professor_session_path
 
     expect(page).to have_selector(
       'div.alert.alert-warning',
