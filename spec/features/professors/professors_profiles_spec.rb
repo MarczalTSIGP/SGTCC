@@ -16,7 +16,7 @@ describe 'Professors:Profiles', type: :feature do
       attach_file 'professor_profile_image', FileSpecHelper.image.path
       fill_in 'professor_current_password', with: professor.password
 
-      find('input[name="commit"]').click
+      submit_form('input[name="commit"]')
 
       expect(page).to have_current_path edit_professor_registration_path
       expect(page).to have_selector('div.alert.alert-info',
@@ -33,7 +33,7 @@ describe 'Professors:Profiles', type: :feature do
 
       attach_file 'professor_profile_image', FileSpecHelper.pdf.path
 
-      find('input[name="commit"]').click
+      submit_form('input[name="commit"]')
 
       expect(page).to have_selector('div.alert.alert-danger',
                                     text: I18n.t('simple_form.error_notification.default_message'))
