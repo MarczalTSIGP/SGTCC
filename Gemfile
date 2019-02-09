@@ -5,26 +5,31 @@ ruby '2.5.3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
-gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap', '~> 4.1.1'
 gem 'bundle-audit', require: false
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-i18n'
 gem 'devise'
 gem 'devise-i18n'
 gem 'font-awesome-sass'
 gem 'htmlbeautifier'
 gem 'jquery-rails'
+gem 'mini_magick'
 gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
+gem 'sassc-rails'
+gem 'webpacker', '~> 3.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails'
+  gem 'geckodriver-helper'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
 end

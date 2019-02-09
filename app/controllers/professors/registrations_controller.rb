@@ -3,7 +3,15 @@ class Professors::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_update_path_for(_resource)
+  def after_update_path_for(*)
     edit_professor_registration_path
+  end
+
+  def account_update_params
+    params.require(:professor).permit(:email,
+                                      :password,
+                                      :password_confirmation,
+                                      :current_password,
+                                      :profile_image)
   end
 end

@@ -9,10 +9,8 @@ class ApplicationController < ActionController::Base
     'layouts/application'
   end
 
-  def after_sign_in_path_for(resource)
-    return professors_root_path if resource.is_a?(Professor)
-
-    root_path
+  def after_sign_in_path_for(*)
+    professors_root_path
   end
 
   private

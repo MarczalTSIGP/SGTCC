@@ -18,6 +18,7 @@ pt-BR:
         message: "Mensagem"
         <<: *commons
       professor:
+        profile_image: "Imagem do perfil"
         password: "Senha"
         current_password: "Senha atual"
         password_confirmation: "Confirmação de senha"

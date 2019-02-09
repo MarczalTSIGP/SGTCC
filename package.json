@@ -1,5 +1,22 @@
 {
   "name": "sistema-gestao-tcc",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "vue": "^2.5.21",
+    "vue-i18n": "^8.7.0",
+    "vue-loader": "14.2.2",
+    "vue-template-compiler": "^2.5.21",
+    "vue-turbolinks": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.1.0",
+    "webpack-dev-server": "2.11.2"
+  },
+  "scripts": {
+    "webpack": "./bin/webpack-dev-server",
+    "lint": "yarn run eslint --ext .vue --ext .js app/javascript"
+  }
 }

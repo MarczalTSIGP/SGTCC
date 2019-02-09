@@ -19,6 +19,9 @@ AllCops:
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
     - 'lib/tasks/*'
+    - 'node_modules/**/*'
+    - 'bin/webpack'
+    - 'bin/webpack-dev-server'
 
 Style/Documentation:
   Enabled: false
