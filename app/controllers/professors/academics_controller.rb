@@ -17,7 +17,7 @@ class Professors::AcademicsController < Professors::BaseController
                  only: [:edit]
 
   def index
-    @academics = Academic.all
+    @academics = Academic.order(name: :asc)
   end
 
   def show; end

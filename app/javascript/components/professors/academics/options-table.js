@@ -10,14 +10,15 @@ export default {
   perPageValues: [],
   skin: 'table table-striped table-hover',
   sortIcon: {
+    is: '',
     base: 'fe',
     up: 'fe-arrow-up',
     down: 'fe-arrow-down',
-    is: ''
   },
   texts: {
     filterPlaceholder: 'Buscar...',
     filter: '',
     count:'{count} registros|{count} registros|1 registro',
+    noResults: 'Nenhum resultado encontrado'
   },
 };
