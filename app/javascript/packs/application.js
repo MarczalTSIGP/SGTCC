@@ -9,10 +9,16 @@
 
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
-import ProfileImagePreview from '../components/professors/registrations/profile_image_preview';
 import TurbolinksAdapter from 'vue-turbolinks';
-import { messages } from '../i18n/messages';
 
+import {axios} from './axios-config';
+import {components} from './components';
+import {ClientTable} from 'vue-tables-2';
+import {messages} from '../i18n/messages';
+
+Vue.prototype.$axios = axios;
+
+Vue.use(ClientTable);
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 
@@ -25,6 +31,6 @@ document.addEventListener('turbolinks:load', () => {
   new Vue({
     i18n,
     el: '#app',
-    components: { ProfileImagePreview }
+    components
   });
 });

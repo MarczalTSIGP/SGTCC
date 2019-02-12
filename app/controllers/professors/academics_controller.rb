@@ -54,9 +54,11 @@ class Professors::AcademicsController < Professors::BaseController
 
   def destroy
     @academic.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Academic.model_name.human)
-    redirect_to professors_academics_url
+
+    message = I18n.t('flash.actions.destroy.m',
+                     resource_name: Academic.model_name.human)
+
+    render json: message
   end
 
   private
