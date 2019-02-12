@@ -22,6 +22,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'bin/webpack'
     - 'bin/webpack-dev-server'
+    - 'lib/builders/bootstrap_breadcrumbs_builder'
 
 Style/SignalException:
   Exclude:
