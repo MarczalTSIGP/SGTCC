@@ -1,19 +1,19 @@
-class Professors::AcademicsController < Professors::BaseController
+class Responsible::AcademicsController < Responsible::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.index'),
-                 :professors_academics_path
+                 :responsible_academics_path
 
   add_breadcrumb I18n.t('breadcrumbs.academics.show'),
-                 :professors_academic_path,
+                 :responsible_academic_path,
                  only: [:show]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.new'),
-                 :new_professors_academic_path,
+                 :new_responsible_academic_path,
                  only: [:new]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.edit'),
-                 :edit_professors_academic_path,
+                 :edit_responsible_academic_path,
                  only: [:edit]
 
   def index
@@ -34,7 +34,7 @@ class Professors::AcademicsController < Professors::BaseController
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Academic.model_name.human)
-      redirect_to professors_academics_path
+      redirect_to responsible_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
@@ -45,7 +45,7 @@ class Professors::AcademicsController < Professors::BaseController
     if @academic.update(academic_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Academic.model_name.human)
-      redirect_to professors_academics_path
+      redirect_to responsible_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit

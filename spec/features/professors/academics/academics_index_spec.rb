@@ -8,7 +8,7 @@ describe 'Academics', type: :feature do
 
       academics = create_list(:academic, 3)
 
-      visit professors_academics_path
+      visit responsible_academics_path
 
       academics.each do |a|
         expect(page).to have_content(a.name)

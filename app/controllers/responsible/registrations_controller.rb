@@ -1,4 +1,4 @@
-class Professors::RegistrationsController < Devise::RegistrationsController
+class Responsible::RegistrationsController < Devise::RegistrationsController
   include LDAPAuthentication
 
   layout 'layouts/professors/application'
@@ -6,7 +6,7 @@ class Professors::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(*)
-    edit_professor_registration_path
+    edit_responsible_registration_path
   end
 
   def account_update_params

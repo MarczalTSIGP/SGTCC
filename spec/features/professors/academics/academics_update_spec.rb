@@ -12,7 +12,7 @@ describe 'Academics', type: :feature do
     let(:academic) { create(:academic) }
 
     before do
-      visit edit_professors_academic_path(academic)
+      visit edit_responsible_academic_path(academic)
     end
 
     context 'with valid fields', js: true do
@@ -25,7 +25,7 @@ describe 'Academics', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path professors_academics_path
+        expect(page).to have_current_path responsible_academics_path
         expect_alert_success(resource_name, 'flash.actions.update.m')
 
         within('table tbody') do

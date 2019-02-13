@@ -12,7 +12,7 @@ describe 'Academics::destroy', type: :feature do
     context 'with valid destroy', js: true do
       it 'academic' do
         create(:academic)
-        visit professors_academics_path
+        visit responsible_academics_path
 
         within first('#destroy').click
 

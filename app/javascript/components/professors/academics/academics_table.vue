@@ -80,14 +80,14 @@ export default {
     },
 
     show(id) {
-      return this.$axios.get(`/professors/academics/${id}`);
+      return this.$axios.get(`/responsible/academics/${id}`);
     },
 
     async confirmDestroy(id) {
       const confirmDialog = confirm('Tem certeza que deseja deletar?');
 
       if (confirmDialog) {
-        await this.$axios.delete(`/professors/academics/${id}`);
+        await this.$axios.delete(`/responsible/academics/${id}`);
       }
     }
   },

@@ -5,14 +5,14 @@ describe 'Professors:logout', type: :feature do
 
   before do
     login_as(professor, scope: :professor)
-    visit professors_root_url
+    visit responsible_root_url
   end
 
   it 'displays success logout message when the user click on logout' do
     click_link professor.email
     click_link(I18n.t('sessions.sign_out'))
 
-    expect(page).to have_current_path new_professor_session_path
+    expect(page).to have_current_path new_responsible_session_path
 
     expect(page).to have_selector(
       'div.alert.alert-info',

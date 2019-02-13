@@ -6,7 +6,7 @@ describe 'Professors:Profiles', type: :feature do
 
     before do
       login_as(professor, scope: :professor)
-      visit edit_professor_registration_path
+      visit edit_responsible_registration_path
     end
 
     it 'updates with success when the data are valid', js: true do

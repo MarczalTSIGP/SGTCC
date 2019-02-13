@@ -3,7 +3,7 @@
 <% provide(:title, t("sessions.edit_profile")) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: send("#{resource_name}_registration_path"),
+                    url: send("responsible_registration_path"),
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="d-flex">
-    <%= link_to t("simple_form.buttons.back"), :professors_root, class: 'btn btn-secondary' %>
+    <%= link_to t("simple_form.buttons.back"), :responsible_root, class: 'btn btn-secondary' %>
 
     <%= f.button :submit, t(".update"), class: 'btn-primary ml-auto' %>
   </div>

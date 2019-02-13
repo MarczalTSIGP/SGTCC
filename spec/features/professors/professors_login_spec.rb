@@ -4,7 +4,7 @@ describe 'Professors:login', type: :feature do
   let(:professor) { create(:professor) }
 
   before do
-    visit new_professor_session_path
+    visit new_responsible_session_path
   end
 
   it 'displays the professors perfil links on valid login' do
@@ -13,7 +13,7 @@ describe 'Professors:login', type: :feature do
 
     submit_form
 
-    expect(page).to have_current_path professors_root_path
+    expect(page).to have_current_path responsible_root_path
 
     expect(page).to have_selector(
       'div.alert.alert-info',
@@ -27,7 +27,7 @@ describe 'Professors:login', type: :feature do
 
     submit_form
 
-    expect(page).to have_current_path new_professor_session_path
+    expect(page).to have_current_path new_responsible_session_path
 
     expect(page).to have_selector(
       'div.alert.alert-warning',

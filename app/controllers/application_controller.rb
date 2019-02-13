@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(*)
-    professors_root_path
+    responsible_root_path
   end
 
   private
 
   def after_sign_out_path_for(*)
-    new_professor_session_path
+    new_responsible_session_path
   end
 end

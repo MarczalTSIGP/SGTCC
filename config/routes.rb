@@ -3,20 +3,34 @@ Rails.application.routes.draw do
     get code, to: 'errors#show', code: code, as: 'error_' + code
   end
 
-  devise_for :professors
+  devise_for :professors, skip: [:sessions]
 
   root to: 'home#index'
 
   as :professor do
-    get '/professors/edit' => 'professors/registrations#edit',
-        :as => 'edit_professor_registration'
+    get '/responsible/login',
+        to: 'devise/sessions#new',
+        as: 'new_responsible_session'
 
-    put '/professors' => 'professors/registrations#update',
-        :as => 'professor_registration'
+    post '/responsible/login',
+         to: 'devise/sessions#create',
+         as: 'responsible_session'
+
+    delete '/responsible/logout',
+           to: 'devise/sessions#destroy',
+           as: 'destroy_responsible_session'
+
+    get '/responsible/edit',
+        to: 'responsible/registrations#edit',
+        as: 'edit_responsible_registration'
+
+    put '/responsible',
+        to: 'responsible/registrations#update',
+        as: 'responsible_registration'
   end
 
   authenticate :professor do
-    namespace :professors do
+    namespace :responsible do
       root to: 'dashboard#index'
       resources :academics
     end

@@ -8,7 +8,7 @@ describe 'Academics', type: :feature do
 
       academics = create_list(:academic, 10)
 
-      visit professors_academics_path
+      visit responsible_academics_path
 
       academic = academics.first
 
