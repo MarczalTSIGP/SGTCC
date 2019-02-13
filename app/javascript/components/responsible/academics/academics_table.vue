@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-client-table
-      :data="getData()"
+      :data="academics"
       :columns="columns"
       :options="options"
     >
@@ -29,7 +29,7 @@
         </a>
         <a
           href="#"
-          @click="confirmDestroy(props.row.id)"
+          @click.prevent="confirmDestroy(props.row.id)"
         >
           <i
             id="destroy"
@@ -47,6 +47,7 @@
 
 import moment from 'moment';
 import options from './options-table';
+import swal from 'sweetalert';
 
 export default {
   name: 'AcademicsTable',
@@ -54,7 +55,7 @@ export default {
   props: {
     data: {
       type: Array,
-      required: true
+      required: true,
     },
   },
 
@@ -67,30 +68,64 @@ export default {
         'created_at',
         'icons'
       ],
-      options
+      options,
+      academics: [],
     };
   },
 
+  created() {
+    this.setData();
+  },
+
   methods: {
-    getData() {
-      return this.data.map((item) => {
+    setData(data = this.data) {
+      this.academics = this.formatDate(data);
+    },
+
+    formatDate(data) {
+      return data.map((item) => {
         item.created_at = moment(item.created_at);
         return item;
       });
     },
 
+    async updateData() {
+      const url = '/responsible/academics';
+      const response = await this.$axios.get(url);
+      const data = response.data;
+
+      this.setData(data);
+    },
+
+    getRelativeUrl(id) {
+      return `/responsible/academics/${id}`;
+    },
+
     show(id) {
-      return this.$axios.get(`/responsible/academics/${id}`);
+      return this.$axios.get(this.getRelativeUrl(id));
     },
 
     async confirmDestroy(id) {
-      const confirmDialog = confirm('Tem certeza que deseja deletar?');
+      const messages = this.$i18n.messages['pt-BR'].messages;
+      const confirmMessage = messages['confirm'].delete;
+
+      const confirmDialog = await swal({
+        title: confirmMessage,
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      });
 
       if (confirmDialog) {
-        await this.$axios.delete(`/responsible/academics/${id}`);
+        const response = await this.$axios.delete(this.getRelativeUrl(id));
+
+        swal(response.data.message, {
+          icon: 'success',
+        });
+
+        this.updateData();
       }
     }
   },
-
 };
 </script>

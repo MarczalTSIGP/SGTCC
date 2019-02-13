@@ -18,6 +18,10 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def index
     @academics = Academic.order(name: :asc)
+
+    render json: @academics if request.format.json?
+
+    @academics
   end
 
   def show; end
@@ -55,8 +59,10 @@ class Responsible::AcademicsController < Responsible::BaseController
   def destroy
     @academic.destroy
 
-    message = I18n.t('flash.actions.destroy.m',
-                     resource_name: Academic.model_name.human)
+    flash_message = I18n.t('flash.actions.destroy.m',
+                           resource_name: Academic.model_name.human)
+
+    message = { status: :ok, message: flash_message }
 
     render json: message
   end
