@@ -23,8 +23,6 @@ describe 'Academics', type: :feature do
         fill_in 'academic_name', with: new_name
         fill_in 'academic_email', with: attributes[:email]
 
-        choose 'academic_gender_female'
-
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_academics_path

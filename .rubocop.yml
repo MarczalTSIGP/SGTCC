@@ -19,10 +19,10 @@ AllCops:
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
     - 'lib/tasks/*'
+    - 'lib/builders/bootstrap_breadcrumbs_builder.rb'
     - 'node_modules/**/*'
     - 'bin/webpack'
     - 'bin/webpack-dev-server'
-    - 'lib/builders/bootstrap_breadcrumbs_builder'
 
 Style/SignalException:
   Exclude:

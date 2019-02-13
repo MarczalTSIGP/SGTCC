@@ -14,6 +14,7 @@ describe 'Academics', type: :feature do
         expect(page).to have_content(a.name)
         expect(page).to have_content(a.email)
         expect(page).to have_content(a.ra)
+        expect(page).to have_content(a.created_at.strftime('%d/%m/%Y'))
       end
     end
   end
