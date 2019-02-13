@@ -17,8 +17,12 @@ describe 'Academics::destroy', type: :feature do
         within first('#destroy').click
 
         sleep 1.second
-        alert = page.driver.browser.switch_to.alert
-        expect { alert.accept }.to change(Academic, :count).by(0)
+
+        find('.swal-button--confirm').click
+
+        expect(page).to have_selector('div.swal-text',
+                                      text: I18n.t('flash.actions.destroy.m',
+                                                   resource_name: resource_name))
       end
     end
   end
