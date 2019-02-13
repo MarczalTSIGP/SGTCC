@@ -2,9 +2,13 @@
  * Vue Tables 2
  **************************************************************/
 .VueTables {
+  .VueTables__search {
+    float: none !important;
+  }
+
   .VueTables__search-field {
-    input[type="text"] {
-      width: 100%;
+    input[type="text"].form-control {
+        width: 100%;
     }
   }
 

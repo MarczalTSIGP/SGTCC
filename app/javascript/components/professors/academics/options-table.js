@@ -21,4 +21,5 @@ export default {
     count:'{count} registros|{count} registros|1 registro',
     noResults: 'Nenhum resultado encontrado'
   },
+  theme: 'bootstrap4'
 };
