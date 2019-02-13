@@ -32,6 +32,7 @@
           @click="confirmDestroy(props.row.id)"
         >
           <i
+            id="destroy"
             class="fe fe-trash"
             data-toggle="tooltip"
             title="Delete"

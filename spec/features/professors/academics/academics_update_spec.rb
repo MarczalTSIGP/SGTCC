@@ -15,7 +15,7 @@ describe 'Academics', type: :feature do
       visit edit_professors_academic_path(academic)
     end
 
-    context 'with valid fields' do
+    context 'with valid fields', js: true do
       it 'update academic' do
         attributes = attributes_for(:academic)
 
@@ -25,7 +25,7 @@ describe 'Academics', type: :feature do
 
         choose 'academic_gender_female'
 
-        submit_form
+        submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_academics_path
         expect_alert_success(resource_name, 'flash.actions.update.m')

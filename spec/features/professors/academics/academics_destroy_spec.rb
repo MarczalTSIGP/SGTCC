@@ -9,17 +9,16 @@ describe 'Academics::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    it 'academic' do
-      academic = create(:academic)
-      visit professors_academics_path
+    context 'with valid destroy', js: true do
+      it 'academic' do
+        create(:academic)
+        visit professors_academics_path
 
-      within first('.destroy').click
+        within first('#destroy').click
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.m',
-                                                 resource_name: resource_name))
-      within('table tbody') do
-        expect(page).not_to have_content(academic.name)
+        sleep 1.second
+        alert = page.driver.browser.switch_to.alert
+        expect { alert.accept }.to change(Academic, :count).by(0)
       end
     end
   end

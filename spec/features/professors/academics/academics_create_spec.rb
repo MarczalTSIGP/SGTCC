@@ -13,7 +13,7 @@ describe 'Academics', type: :feature do
       visit new_professors_academic_path
     end
 
-    context 'with valid fields' do
+    context 'with valid fields', js: true do
       it 'create academic' do
         attributes = attributes_for(:academic)
         fill_in 'academic_name',   with: attributes[:name]
@@ -21,7 +21,7 @@ describe 'Academics', type: :feature do
         fill_in 'academic_ra',     with: attributes[:ra]
         choose 'academic_gender_male'
 
-        submit_form
+        submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_academics_path
         expect_alert_success(resource_name, 'flash.actions.create.m')
