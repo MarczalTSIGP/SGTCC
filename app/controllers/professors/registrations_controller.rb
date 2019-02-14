@@ -12,6 +12,7 @@ class Professors::RegistrationsController < Devise::RegistrationsController
                                       :password,
                                       :password_confirmation,
                                       :current_password,
-                                      :profile_image)
+                                      :profile_image,
+                                      :profile_image_cache)
   end
 end
