@@ -33,11 +33,6 @@
               </p>
             </div>
           </div>
-          <input
-            id="professor_profile_image_cache"
-            type="hidden"
-            name="professor[profile_image_cache]"
-          >
         </div>
       </div>
 
@@ -72,13 +67,13 @@ export default {
   },
 
   computed: {
-    profileImageClass: function() {
+    profileImageClass() {
       return this.profileImageHasError ? 'invalid' : 'valid';
     },
   },
 
   mounted() {
-    this.imageData = this.profileImageUrl;
+    this.updateImageData();
   },
 
   methods: {
@@ -98,6 +93,10 @@ export default {
 
     profileImageHasErrors() {
       return this.profileImageErrors.length > 0;
+    },
+
+    updateImageData() {
+      this.imageData = this.profileImageUrl;
     },
   },
 };

@@ -23,12 +23,13 @@
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),
         required: true %>
     </div>
-    
+
     <div class="col-4">
       <profile-image-preview
         :profile-image-url="<%= resource.profile_image.url.to_json %>"
         :profile-image-errors="<%= resource.errors[:profile_image] %>">
       </profile-image-preview>
+      <%= f.hidden_field :profile_image_cache %>
     </div>
   </div>
 
