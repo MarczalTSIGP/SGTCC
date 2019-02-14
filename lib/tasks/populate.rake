@@ -1,7 +1,8 @@
 namespace :db do
-desc "Erase and fill database"
-  task :populate => :environment do
-	  require 'populator'
+  desc 'Erase and fill database'
+
+  task populate: :environment do
+    require 'populator'
     require 'faker'
 
     [Academic].each(&:delete_all)

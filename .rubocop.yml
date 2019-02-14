@@ -18,7 +18,6 @@ AllCops:
     - 'config/initializers/simple_form.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
-    - 'lib/tasks/*'
     - 'lib/builders/bootstrap_breadcrumbs_builder.rb'
     - 'node_modules/**/*'
     - 'bin/webpack'
@@ -88,6 +87,9 @@ Style/BlockComments:
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'config/environments/production.rb'
+
+Layout/Tab:
+  Enabled: false
 
 Style/FormatString:
   EnforcedStyle: 'percent'

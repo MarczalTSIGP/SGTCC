@@ -6,7 +6,7 @@ export default {
     created_at: 'criado em',
     icons: '',
   },
-  perPage: 5,
+  perPage: 25,
   perPageValues: [],
   skin: 'table table-striped table-hover',
   sortIcon: {
@@ -18,7 +18,8 @@ export default {
   texts: {
     filterPlaceholder: 'Buscar...',
     filter: '',
-    count:'{count} registros|{count} registros|1 registro',
+    limit: 'Registros por página',
+    count:'Apresentando {to} de {count} registros|{count} registros|1 registro',
     noResults: 'Nenhum resultado encontrado'
   },
   theme: 'bootstrap4'
