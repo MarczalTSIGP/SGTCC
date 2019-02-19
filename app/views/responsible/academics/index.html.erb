@@ -7,6 +7,23 @@
 <% end %>
 
 <br>
-<hr>
 
-<academics-table :data="<%= @academics.to_json %>" />
+<div class="table-striped">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Academic.human_attribute_name('name') %></th>
+        <th><%= Academic.human_attribute_name('email') %></th>
+        <th><%= Academic.human_attribute_name('ra') %></th>
+        <th><%= Academic.human_attribute_name('gender') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render 'responsible/academics/academic' %>
+    </tbody>
+  </table>
+</div>
+
+<br>

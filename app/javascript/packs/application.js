@@ -13,16 +13,10 @@ import TurbolinksAdapter from 'vue-turbolinks';
 
 import {axios} from './axios-config';
 import {components} from './components';
-import {ClientTable} from 'vue-tables-2';
 import {messages} from '../i18n/messages';
 
 Vue.prototype.$axios = axios;
 
-const options = {};
-const useVuex = false;
-const theme = 'bootstrap4';
-
-Vue.use(ClientTable, options, useVuex, theme);
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 
