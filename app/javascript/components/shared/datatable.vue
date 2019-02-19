@@ -3,7 +3,7 @@
     <loader :show-loader="isLoading" />
 
     <div
-      v-show="!isLoading"
+      v-show="isNotLoading"
       class="mt-5 table-striped table-responsive w-100"
     >
       <table class="table card-table table-vcenter text-nowrap">
@@ -30,14 +30,44 @@
             >
               {{ item[title] }}
             </td>
-            <td />
+            <td>
+              <a
+                :href="getShowLink(item.id)"
+              >
+                <i
+                  class="fe fe-search"
+                  data-toggle="tooltip"
+                  title="Show"
+                />
+              </a>
+              <a
+                :href="getEditLink(item.id)"
+              >
+                <i
+                  class="fe fe-edit"
+                  data-toggle="tooltip"
+                  title="Edit"
+                />
+              </a>
+              <a
+                :href="getLinkWithId(item.id)"
+                @click.prevent="confirmDestroy(item.id)"
+              >
+                <i
+                  id="destroy"
+                  class="fe fe-trash"
+                  data-toggle="tooltip"
+                  title="Delete"
+                />
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <pagination
-      v-if="!isLoading"
+      v-if="isNotLoading"
       :page-link="url"
       :total="pagination.totalPages"
       :active-page="pagination.activePage"
@@ -49,6 +79,7 @@
 
 import Loader from './loader';
 import Pagination from './pagination/pagination';
+import swal from 'sweetalert';
 
 export default {
   components: {
@@ -91,6 +122,10 @@ export default {
     isLoading() {
       return !!this.loading;
     },
+
+    isNotLoading() {
+      return !this.isLoading;
+    },
   },
 
   mounted() {
@@ -110,6 +145,18 @@ export default {
 
     stopLoading() {
       this.loading = false;
+    },
+
+    getLinkWithId(id) {
+      return `${this.url}/${id}`;
+    },
+
+    getShowLink(id) {
+      return this.getLinkWithId(id);
+    },
+
+    getEditLink(id) {
+      return `${this.getLinkWithId(id)}/edit`;
     },
 
     getUrlWithPage(page) {
@@ -136,6 +183,29 @@ export default {
       this.items = response.data.data;
       this.pagination.totalPages = response.data.total_pages;
       this.stopLoading();
+    },
+
+    async confirmDestroy(id) {
+      const messages = this.$i18n.messages['pt-BR'].messages;
+      const confirmMessage = messages['confirm'].delete;
+
+      const confirmDialog = await swal({
+        title: confirmMessage,
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      });
+
+      if (confirmDialog) {
+        const url = this.getLinkWithId(id);
+        const response = await this.$axios.delete(url);
+
+        swal(response.data.message, {
+          icon: 'success',
+        });
+
+        this.fetchData();
+      }
     },
   },
 };

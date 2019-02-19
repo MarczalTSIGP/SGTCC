@@ -37,7 +37,6 @@ Rails.application.routes.draw do
     namespace :responsible do
       root to: 'dashboard#index'
       resources :academics,
-                except: :destroy,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
     end

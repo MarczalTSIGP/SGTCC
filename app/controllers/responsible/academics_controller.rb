@@ -17,7 +17,7 @@ class Responsible::AcademicsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @page = params[:page]
+    @page = params[:page] || 1
 
     @academics = Academic.order(:name).page @page
 
