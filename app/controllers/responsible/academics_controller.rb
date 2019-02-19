@@ -17,9 +17,13 @@ class Responsible::AcademicsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @academics = Academic.order(name: :asc)
+    @page = params[:page]
 
-    render json: @academics if request.format.json?
+    @academics = Academic.order(:name).page @page
+
+    data = { data: @academics, total_pages: @academics.total_pages }
+
+    render json: data if request.format.json?
 
     @academics
   end

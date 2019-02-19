@@ -1,6 +1,7 @@
 <% provide(:page_title, t('breadcrumbs.academics.index')) %>
 <% provide(:head_title, t('breadcrumbs.academics.index')) %>
 
+
 <div class="clearfix">
   <%= link_to(new_responsible_academic_path, class: 'btn btn-outline-primary float-right') do %>
     <i class="fe fe-plus"></i>
@@ -8,21 +9,9 @@
   <% end %>
 </div>
 
-<div class="mt-5 table-striped table-responsive w-100">
-  <table class="table card-table table-vcenter text-nowrap">
-    <thead>
-      <tr>
-        <th><%= Academic.human_attribute_name('name') %></th>
-        <th><%= Academic.human_attribute_name('email') %></th>
-        <th><%= Academic.human_attribute_name('ra') %></th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<datatable
+  :page="<%= @page %>"
+  url="<%= responsible_academics_path %>"
+  :head="['name', 'email', 'ra']"
+/>
 
-    <tbody>
-      <%= render 'responsible/academics/academic' %>
-    </tbody>
-  </table>
-</div>
-
-<br>

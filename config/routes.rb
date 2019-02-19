@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     get code, to: 'errors#show', code: code, as: 'error_' + code
   end
 
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+
   devise_for :professors, skip: [:sessions]
 
   root to: 'home#index'
@@ -32,7 +36,10 @@ Rails.application.routes.draw do
   authenticate :professor do
     namespace :responsible do
       root to: 'dashboard#index'
-      resources :academics
+      resources :academics,
+                except: :destroy,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
     end
   end
 end

@@ -11,9 +11,9 @@ import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
 
-import {axios} from './axios-config';
+import {axios} from '../utils/axios/axios-config';
+import {messages} from '../utils/i18n/messages';
 import {components} from './components';
-import {messages} from '../i18n/messages';
 
 Vue.prototype.$axios = axios;
 
@@ -29,6 +29,6 @@ document.addEventListener('turbolinks:load', () => {
   new Vue({
     i18n,
     el: '#app',
-    components
+    components,
   });
 });
