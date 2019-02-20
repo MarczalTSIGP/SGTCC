@@ -10,7 +10,7 @@
       v-show="!isDots()"
       :href="pageLink"
       class="page-link"
-      @click.prevent="handleClick"
+      @click="handleClick"
     >
       {{ page }}
     </a>

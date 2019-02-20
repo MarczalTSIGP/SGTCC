@@ -176,8 +176,8 @@ export default {
       return `${this.url}/page/${page}`;
     },
 
-    changeUrl(newUrl) {
-      window.history.pushState('/', '', newUrl);
+    changeUrl(page) {
+      window.history.pushState({}, '', `${page}`);
     },
 
     formatDate(date, format = 'DD/MM/YYYY') {
@@ -189,7 +189,7 @@ export default {
     listenPagination() {
       this.$root.$on('pagination', (page) => {
         const newUrl = this.getUrlWithPage(page);
-        this.changeUrl(newUrl);
+        this.changeUrl(page);
         this.setActivePage(page);
         this.fetchData(page);
       });

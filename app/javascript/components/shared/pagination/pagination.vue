@@ -65,7 +65,7 @@ export default {
     },
 
     getPageLink(page) {
-      return `${this.pageLink}?page=${page}`;
+      return `${this.pageLink}/page/${page}`;
     },
   },
 };
