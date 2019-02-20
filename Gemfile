@@ -23,7 +23,7 @@ gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
-gem 'webpacker', '~> 3.5'
+gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -32,6 +32,16 @@ group :development, :test do
   gem 'geckodriver-helper'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
+
+  gem 'capistrano',         require: false
+  gem 'sshkit-sudo',        require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+  gem 'capistrano-rails-db',require: false
+  gem 'capistrano-yarn',    require: false
+  gem 'capistrano-nvm', require: false
 end
 
 group :development do

@@ -6,6 +6,7 @@ default: &default
   password: <%= ENV['db.password'] %>
   host:  <%= ENV['db.host'] %>
 
+
 development:
   <<: *default
   database: sgtcc_development
