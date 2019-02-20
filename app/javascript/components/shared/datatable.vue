@@ -1,6 +1,11 @@
 <template>
   <div>
-    <loader :show-loader="isLoading" />
+    <div v-show="isLoading">
+      <spinner
+        size="large"
+        message="Carregando..."
+      />
+    </div>
 
     <div
       v-show="isNotLoading"
@@ -81,13 +86,13 @@
 
 import moment from 'moment';
 import swal from 'sweetalert';
-import Loader from './loader';
 import Pagination from './pagination/pagination';
+import Spinner from 'vue-simple-spinner';
 
 export default {
   components: {
-    Loader,
     Pagination,
+    Spinner
   },
 
   props: {
@@ -138,8 +143,7 @@ export default {
 
   mounted() {
     this.setMomentLocale();
-    this.listenPagination();
-    this.setActivePage(this.page);
+    this.setActivePage();
     this.fetchData();
   },
 
@@ -148,8 +152,8 @@ export default {
       moment.locale('pt-BR');
     },
 
-    setActivePage(page) {
-      this.pagination.activePage = page;
+    setActivePage() {
+      this.pagination.activePage = this.page;
     },
 
     startLoading() {
@@ -176,27 +180,14 @@ export default {
       return `${this.url}/page/${page}`;
     },
 
-    changeUrl(page) {
-      window.history.pushState({}, '', `${page}`);
-    },
-
     formatDate(date, format = 'DD/MM/YYYY') {
       const momentDate = moment(date.created_at);
 
       return momentDate.format(format);
     },
 
-    listenPagination() {
-      this.$root.$on('pagination', (page) => {
-        const newUrl = this.getUrlWithPage(page);
-        this.changeUrl(page);
-        this.setActivePage(page);
-        this.fetchData(page);
-      });
-    },
-
-    async fetchData(page = this.page) {
-      const url = this.getUrlWithPage(page);
+    async fetchData() {
+      const url = this.getUrlWithPage(this.page);
       const response = await this.$axios.get(url);
 
       this.items = response.data.data;
