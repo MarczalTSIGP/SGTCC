@@ -14,7 +14,8 @@ describe 'Academics::destroy', type: :feature do
         create(:academic)
         visit responsible_academics_path
 
-        within first('#destroy').click
+        sleep 3.seconds
+        within first('.destroy').click
 
         sleep 1.second
 

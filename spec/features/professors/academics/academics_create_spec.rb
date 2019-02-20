@@ -26,6 +26,8 @@ describe 'Academics', type: :feature do
         expect(page).to have_current_path responsible_academics_path
         expect_alert_success(resource_name, 'flash.actions.create.m')
 
+        sleep 3.seconds
+
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
         end

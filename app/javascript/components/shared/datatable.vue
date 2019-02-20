@@ -25,10 +25,13 @@
             :key="index"
           >
             <td
-              v-for="title in head"
+              v-for="title in body"
               :key="title"
             >
               {{ item[title] }}
+            </td>
+            <td>
+              {{ formatDate(item['created_at']) }}
             </td>
             <td>
               <a
@@ -54,8 +57,7 @@
                 @click.prevent="confirmDestroy(item.id)"
               >
                 <i
-                  id="destroy"
-                  class="fe fe-trash"
+                  class="destroy fe fe-trash"
                   data-toggle="tooltip"
                   title="Delete"
                 />
@@ -77,9 +79,10 @@
 
 <script>
 
+import moment from 'moment';
+import swal from 'sweetalert';
 import Loader from './loader';
 import Pagination from './pagination/pagination';
-import swal from 'sweetalert';
 
 export default {
   components: {
@@ -90,6 +93,11 @@ export default {
   props: {
     url: {
       type: String,
+      required: true,
+    },
+
+    body: {
+      type: Array,
       required: true,
     },
 
@@ -113,7 +121,7 @@ export default {
       pagination: {
         urlLink: '',
         activePage: 1,
-        totalPages: 0
+        totalPages: 1
       },
     };
   },
@@ -129,12 +137,17 @@ export default {
   },
 
   mounted() {
+    this.setMomentLocale();
     this.listenPagination();
     this.setActivePage(this.page);
     this.fetchData();
   },
 
   methods: {
+    setMomentLocale() {
+      moment.locale('pt-BR');
+    },
+
     setActivePage(page) {
       this.pagination.activePage = page;
     },
@@ -165,6 +178,12 @@ export default {
 
     changeUrl(newUrl) {
       window.history.pushState('/', '', newUrl);
+    },
+
+    formatDate(date, format = 'DD/MM/YYYY') {
+      const momentDate = moment(date.created_at);
+
+      return momentDate.format(format);
     },
 
     listenPagination() {

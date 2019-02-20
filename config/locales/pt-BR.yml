@@ -1,4 +1,7 @@
 pt-BR:
+  datatable:
+    academics:
+      head: ['Nome', 'Email', 'RA', 'Criado em']
   breadcrumbs:
     homepage: "Página inicial"
     academics:

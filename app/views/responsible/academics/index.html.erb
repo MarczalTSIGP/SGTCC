@@ -11,7 +11,8 @@
 
 <datatable
   :page="<%= @page %>"
-  :head="['name', 'email', 'ra']"
+  :head="<%= t('datatable.academics.head') %>"
+  :body="['name', 'email', 'ra']"
   url="<%= responsible_academics_path %>"
 />
 
