@@ -3,7 +3,7 @@
     <div v-show="isLoading">
       <spinner
         size="large"
-        message="Carregando..."
+        :message="$t('messages.loading')"
       />
     </div>
 
@@ -45,7 +45,7 @@
                 <i
                   class="fe fe-search"
                   data-toggle="tooltip"
-                  title="Show"
+                  :title="$t('messages.links.show')"
                 />
               </a>
               <a
@@ -54,7 +54,7 @@
                 <i
                   class="fe fe-edit"
                   data-toggle="tooltip"
-                  title="Edit"
+                  :title="$t('messages.links.edit')"
                 />
               </a>
               <a
@@ -64,7 +64,7 @@
                 <i
                   class="destroy fe fe-trash"
                   data-toggle="tooltip"
-                  title="Delete"
+                  :title="$t('messages.links.delete')"
                 />
               </a>
             </td>

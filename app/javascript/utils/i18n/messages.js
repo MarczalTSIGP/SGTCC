@@ -7,6 +7,12 @@ export const messages = {
       confirm: {
         delete: 'Você tem certeza que deseja deletar?'
       },
+      loading: 'Carregando...',
+      links: {
+        show: 'Visualizar',
+        edit: 'Editar',
+        delete: 'Deletar'
+      },
     }
   },
   'en': {
