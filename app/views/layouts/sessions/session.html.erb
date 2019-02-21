@@ -9,13 +9,14 @@
 		<%= stylesheet_link_tag    'session', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 		<%= javascript_include_tag 'session', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 		<%= favicon_link_tag %>
 	</head>
 
 	<body id="<%= controller_name %>-<%= action_name %>" >
 
-		<div class="page">
+		<div id="app" class="page">
 			<div class="page-single">
 				<div class="container">
 

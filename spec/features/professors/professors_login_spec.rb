@@ -7,11 +7,11 @@ describe 'Professors:login', type: :feature do
     visit new_responsible_session_path
   end
 
-  it 'displays the professors perfil links on valid login' do
+  it 'displays the professors perfil links on valid login', js: true do
     fill_in 'professor_email', with: professor.email
     fill_in 'professor_password', with: 'password'
 
-    submit_form
+    submit_form('input[name="commit"]')
 
     expect(page).to have_current_path responsible_root_path
 
@@ -21,11 +21,11 @@ describe 'Professors:login', type: :feature do
     )
   end
 
-  it 'displays the professors error message when user or password is wrong' do
+  it 'displays the professors error', js: true do
     fill_in 'professor_email', with: professor.email
     fill_in 'professor_password', with: 'passworda'
 
-    submit_form
+    submit_form('input[name="commit"]')
 
     expect(page).to have_current_path new_responsible_session_path
 

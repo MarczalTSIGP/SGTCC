@@ -25,20 +25,18 @@ describe 'Academics', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_academics_path
+        expect(page).to have_current_path responsible_academic_path(academic)
         expect_alert_success(resource_name, 'flash.actions.update.m')
 
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect(page).to have_content(new_name)
       end
     end
 
-    context 'with invalid fields' do
+    context 'with invalid fields', js: true do
       it 'show errors' do
         fill_in 'academic_name', with: ''
         fill_in 'academic_email', with: ''
-        submit_form
+        submit_form('input[name="commit"]')
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))

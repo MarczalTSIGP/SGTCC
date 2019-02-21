@@ -53,7 +53,7 @@ class Responsible::AcademicsController < Responsible::BaseController
     if @academic.update(academic_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Academic.model_name.human)
-      redirect_to responsible_academics_path
+      redirect_to responsible_academic_path(@academic)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit

@@ -34,9 +34,9 @@ describe 'Academics', type: :feature do
       end
     end
 
-    context 'with invalid fields' do
+    context 'with invalid fields', js: true do
       it 'show errors' do
-        submit_form
+        submit_form('input[name="commit"]')
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))

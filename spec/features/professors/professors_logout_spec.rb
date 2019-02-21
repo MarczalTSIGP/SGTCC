@@ -5,10 +5,10 @@ describe 'Professors:logout', type: :feature do
 
   before do
     login_as(professor, scope: :professor)
-    visit responsible_root_url
+    visit responsible_academics_path
   end
 
-  it 'displays success logout message when the user click on logout' do
+  it 'displays success logout message', js: true do
     click_link professor.email
     click_link(I18n.t('sessions.sign_out'))
 
