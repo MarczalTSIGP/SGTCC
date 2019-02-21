@@ -1,5 +1,11 @@
 <template>
   <ul class="pagination mt-5 float-right">
+    <a
+      :href="getPreviousLink()"
+      class="page-link"
+    >
+      {{ $t('messages.pagination.previous') }}
+    </a>
     <li
       v-for="(page, index) in paginationArr"
       :key="index"
@@ -10,6 +16,12 @@
         :page-link="getPageLink(page)"
       />
     </li>
+    <a
+      :href="getNextLink()"
+      class="page-link"
+    >
+      {{ $t('messages.pagination.next') }}
+    </a>
   </ul>
 </template>
 
@@ -66,6 +78,22 @@ export default {
 
     getPageLink(page) {
       return `${this.pageLink}/page/${page}`;
+    },
+
+    getPreviousLink() {
+      if (this.activePage === 1) return '';
+
+      const previousPage = this.activePage - 1;
+
+      return this.getPageLink(previousPage);
+    },
+
+    getNextLink() {
+      if (this.activePage === this.total) return '';
+
+      const nextPage = this.activePage + 1;
+
+      return this.getPageLink(nextPage);
     },
   },
 };

@@ -13,6 +13,10 @@ export const messages = {
         edit: 'Editar',
         delete: 'Deletar'
       },
+      pagination: {
+        next: 'Próximo',
+        previous: 'Anterior'
+      },
     }
   },
   'en': {
