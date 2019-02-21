@@ -192,7 +192,10 @@ export default {
 
       this.items = response.data.data;
       this.pagination.totalPages = response.data.total_pages;
-      this.stopLoading();
+
+      setTimeout(() => {
+        this.stopLoading();
+      }, 200);
     },
 
     async confirmDestroy(id) {
