@@ -17,15 +17,7 @@ class Responsible::AcademicsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @page = params[:page] || 1
-
     @academics = Academic.page(@page).search(params[:term])
-
-    data = { data: @academics, total_pages: @academics.total_pages }
-
-    render json: data if request.format.json?
-
-    @academics
   end
 
   def show; end
@@ -63,12 +55,10 @@ class Responsible::AcademicsController < Responsible::BaseController
   def destroy
     @academic.destroy
 
-    flash_message = I18n.t('flash.actions.destroy.m',
-                           resource_name: Academic.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m',
+                             resource_name: Academic.model_name.human)
 
-    message = { status: :ok, message: flash_message }
-
-    render json: message
+    redirect_to responsible_academics_path
   end
 
   private

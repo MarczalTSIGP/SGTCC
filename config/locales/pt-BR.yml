@@ -1,7 +1,4 @@
 pt-BR:
-  datatable:
-    academics:
-      head: ['Nome', 'Email', 'RA', 'Criado em']
   views:
     pagination:
       first: "&laquo;"

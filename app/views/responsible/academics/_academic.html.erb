@@ -3,6 +3,7 @@
     <td><%= academic.name %></td>
     <td><%= academic.email %></td>
     <td><%= academic.ra %></td>
+    <td><%= academic.created_at.strftime("%d/%m/%Y") %></td>
     <td>
       <%= link_to(responsible_academic_path(academic)) do %>
         <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
@@ -10,7 +11,10 @@
       <%= link_to(edit_responsible_academic_path(academic)) do %>
         <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
       <% end %>
-      <%= link_to responsible_academic_path(academic), method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy' do %>
+      <%= link_to responsible_academic_path(academic),
+        method: :delete,
+        data: { confirm: t('prompt.confirm') },
+        class: 'destroy' do %>
         <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
       <% end %>
     </td>
