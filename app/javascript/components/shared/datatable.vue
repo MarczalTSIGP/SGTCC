@@ -26,7 +26,7 @@
 
         <tbody>
           <tr
-            v-for="(item, index) in items"
+            v-for="(item, index) in data"
             :key="index"
           >
             <td
@@ -116,6 +116,11 @@ export default {
       default() {
         return 1;
       },
+    },
+
+    data: {
+      type: Array,
+      required: true,
     },
   },
 

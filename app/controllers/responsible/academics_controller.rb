@@ -19,7 +19,7 @@ class Responsible::AcademicsController < Responsible::BaseController
   def index
     @page = params[:page] || 1
 
-    @academics = Academic.order(:name).page @page
+    @academics = Academic.page(@page).search(params[:term])
 
     data = { data: @academics, total_pages: @academics.total_pages }
 

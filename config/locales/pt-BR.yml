@@ -2,6 +2,13 @@ pt-BR:
   datatable:
     academics:
       head: ['Nome', 'Email', 'RA', 'Criado em']
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Seguinte &rsaquo;"
+      truncate: "&hellip;"
   breadcrumbs:
     homepage: "Página inicial"
     academics:

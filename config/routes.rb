@@ -36,9 +36,15 @@ Rails.application.routes.draw do
   authenticate :professor do
     namespace :responsible do
       root to: 'dashboard#index'
+
       resources :academics,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
+
+      get 'academics/search/(:term)/(page/:page)',
+          constraints: { term: /[^\/]+/ },
+          to: 'academics#index',
+          as: 'academics_search'
     end
   end
 end

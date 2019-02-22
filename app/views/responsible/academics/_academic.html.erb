@@ -1,0 +1,18 @@
+<% @academics.each do |academic| %>
+  <tr>
+    <td><%= academic.name %></td>
+    <td><%= academic.email %></td>
+    <td><%= academic.ra %></td>
+    <td>
+      <%= link_to(responsible_academic_path(academic)) do %>
+        <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <% end %>
+      <%= link_to(edit_responsible_academic_path(academic)) do %>
+        <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+      <% end %>
+      <%= link_to responsible_academic_path(academic), method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy' do %>
+        <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
