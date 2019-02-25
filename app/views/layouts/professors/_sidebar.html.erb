@@ -1,13 +1,13 @@
 <div class="col-lg-3 mb-4">
 	<div class="list-group list-group-transparent mb-0">
-		<%= link_to(responsible_root_path, class: 'list-group-item list-group-item-action active') do %>
+		<%= active_link_to(responsible_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
 			<span class="icon mr-3">
 				<%= icon('fas', 'home') %>
 			</span>
 			<%= t('breadcrumbs.homepage') %>
 		<% end %>
 
-		<%= link_to(responsible_academics_path, class: 'list-group-item list-group-item-action') do %>
+		<%= active_link_to(responsible_academics_path, class: 'list-group-item list-group-item-action') do %>
 			<span class="icon mr-3">
 				<%= icon('fas', 'user-graduate') %>
 			</span>
