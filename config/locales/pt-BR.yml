@@ -65,7 +65,7 @@ pt-BR:
           one: 'Total de <b>1</b> %{entry_name}'
           other: 'Total de <b> %{count}</b> %{entry_name}'
       more_pages:
-        display_entries: "Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}!"
+        display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
   enums:
     genders:
       male: 'Masculino'

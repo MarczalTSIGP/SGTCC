@@ -7,10 +7,6 @@ export const messages = {
     },
   },
   'en': {
-    messages: {
-      registration: {
-        edit_image: 'Click on image to change it'
-      },
-    }
+    messages: {}
   }
 };
