@@ -11,6 +11,7 @@ ldap: &ldap
   ldap.on: 'false'
   ldap.host: localhost
   ldap.port: '3389'
+  ldap.base: ''
 
 development:
   <<: *database

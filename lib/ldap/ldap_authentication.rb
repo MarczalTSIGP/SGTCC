@@ -8,8 +8,7 @@ module SGTCC
       ldap.host = ENV['ldap.host']
       ldap.port = ENV['ldap.port']
 
-      base = 'ou=professores,ou=servidores,ou=usuarios,ou=colaboradores,ou=todos,'
-      base += 'dc=utfpr,dc=edu,dc=br'
+      base = ENV['ldap.base']
       ldap.authenticate "uid=#{user},#{base}", pwd
 
       return true if ldap.bind

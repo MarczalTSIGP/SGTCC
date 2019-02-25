@@ -7,11 +7,12 @@ if ENV['ldap.on'].eql?('true')
       class LdapAuthenticatable < Authenticatable
         def authenticate!
           return unless params[:professor]
+
           user = Professor.find_by(username: username)
 
           return success!(user) if user && SGTCC::LDAP.authenticate(username, password)
 
-          raise(:invalid_login)
+          fail(:invalid_login)
         end
 
         def username
