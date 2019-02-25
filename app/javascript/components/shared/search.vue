@@ -35,6 +35,9 @@ export default {
       type: String,
       required: true,
     },
+    searchTerm: {
+      type: String
+    }
   },
 
   data() {
@@ -43,12 +46,20 @@ export default {
     };
   },
 
+  mounted() {
+    this.setFieldSearchTerm();
+  },
+
   methods: {
     search() {
       const link = this.$refs.link;
       link.href = `${this.url}/${this.term}`;
       link.click();
     },
+
+    setFieldSearchTerm() {
+      this.term = this.searchTerm;
+    }
   },
 };
 

@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-8">
-    <search url="<%= responsible_academics_search_path %>" />
+    <search url="<%= responsible_academics_search_path %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-4">
     <%= link_to(new_responsible_academic_path, class: 'btn btn-outline-primary d-block') do %>
@@ -14,7 +14,11 @@
   </div>
 </div>
 
-<div class="table-striped mt-5 table-responsive w-100">
+<div class="text-right mt-3">
+  <%= page_entries_info @academics %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
@@ -27,11 +31,9 @@
     </thead>
 
     <tbody>
-      <% if (@academics.size === 0) %>
-        <tr>
-          <%= render 'shared/no_results' %>
-        </tr>
-      <% end %>
+      <tr>
+        <%= render('shared/no_results') if @academics.empty? %>
+      </tr>
       <%= render @academics %>
     </tbody>
   </table>
