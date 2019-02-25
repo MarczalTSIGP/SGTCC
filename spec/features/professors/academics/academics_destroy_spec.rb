@@ -16,8 +16,8 @@ describe 'Academics::destroy', type: :feature do
 
         within first('.destroy').click
 
-        sleep 1.second
         alert = page.driver.browser.switch_to.alert
+        sleep 2.seconds
         expect { alert.accept }.to change(Academic, :count).by(0)
         expect_alert_success(resource_name, 'flash.actions.destroy.m')
       end
