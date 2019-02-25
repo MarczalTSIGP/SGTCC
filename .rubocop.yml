@@ -23,6 +23,10 @@ AllCops:
     - 'bin/webpack'
     - 'bin/webpack-dev-server'
 
+Style/SignalException:
+  Exclude:
+    - 'config/initializers/ldap_authenticatable.rb'
+
 Style/Documentation:
   Enabled: false
 

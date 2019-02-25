@@ -8,16 +8,12 @@
 
   <%= f.error_notification %>
 
-  <%= f.input :email, required: true, autofocus: true %>
+  <%= f.input :name, required: true, autofocus: true %>
+  <%= f.input :email %>
+  <%= f.input :username, readonly: true %>
 
   <div class="form-row">
     <div class="col-sm-8">
-
-      <%= f.input :password, autocomplete: "off",
-        hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
-        required: false %>
-
-      <%= f.input :password_confirmation, required: false %>
 
       <%= f.input :current_password,
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),

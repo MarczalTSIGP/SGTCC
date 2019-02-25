@@ -14,6 +14,7 @@ pt-BR:
       attribute_commons: &commons
         name: "Nome"
         email: "Email"
+        username: "Usuário institucional"
       contact:
         message: "Mensagem"
         <<: *commons

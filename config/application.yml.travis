@@ -2,11 +2,17 @@ mailer: &mailer
   mailer.host: localhost
   mailer.port: '3000'
 
+ldap: &ldap
+  ldap.on: 'false'
+
 development:
   <<: *mailer
+  <<: *ldap
 
 test:
   <<: *mailer
+  <<: *ldap
 
 production:
   <<: *mailer
+  <<: *ldap
