@@ -24,6 +24,7 @@ gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
 gem 'webpacker', '~> 3.5'
+gem 'net-ldap'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

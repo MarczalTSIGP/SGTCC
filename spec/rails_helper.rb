@@ -13,6 +13,10 @@ require 'support/helpers/form'
 require 'support/file_spec_helper'
 require 'support/capybara'
 
+require 'support/matchers/have_flash'
+require 'support/matchers/have_contents'
+require 'support/matchers/have_message'
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
