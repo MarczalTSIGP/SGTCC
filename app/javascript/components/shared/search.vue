@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <div class="input-icon col-8">
+  <div>
+    <div class="input-group input-icon">
       <input
         id="users_search_input"
         v-model="term"
@@ -10,16 +10,16 @@
         class="form-control"
         @keyup.enter="search()"
       >
-    </div>
-    <div class="col-4">
-      <a
-        ref="link"
-        href="#"
-        class="btn btn-outline-primary"
-        @click="search()"
-      >
-        Procurar
-      </a>
+      <span class="input-group-append">
+        <a
+          ref="link"
+          href="#"
+          class="btn btn-outline-primary"
+          @click="search()"
+        >
+          <i class="fe fe-search" />
+        </a>
+      </span>
     </div>
   </div>
 </template>
