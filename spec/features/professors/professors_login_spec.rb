@@ -8,30 +8,26 @@ describe 'Professors:login', type: :feature do
   end
 
   it 'displays the professors perfil links on valid login', js: true do
-    fill_in 'professor_email', with: professor.email
+    fill_in 'professor_username', with: professor.username
     fill_in 'professor_password', with: 'password'
 
     submit_form('input[name="commit"]')
 
     expect(page).to have_current_path responsible_root_path
-
-    expect(page).to have_selector(
-      'div.alert.alert-info',
-      text: I18n.t('devise.sessions.signed_in')
-    )
+    expect(page).to have_flash(:info, text: I18n.t('devise.sessions.signed_in'))
   end
 
   it 'displays the professors error', js: true do
-    fill_in 'professor_email', with: professor.email
+    fill_in 'professor_username', with: professor.username
     fill_in 'professor_password', with: 'passworda'
 
     submit_form('input[name="commit"]')
 
     expect(page).to have_current_path new_responsible_session_path
 
-    expect(page).to have_selector(
-      'div.alert.alert-warning',
-      text: I18n.t('devise.failure.invalid', authentication_keys: 'Email')
-    )
+    resource_name = Professor.human_attribute_name(:username)
+    expect(page).to have_flash(:warning,
+                               text: I18n.t('devise.failure.invalid',
+                                            authentication_keys: resource_name))
   end
 end
