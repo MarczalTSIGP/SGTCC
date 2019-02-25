@@ -42,7 +42,7 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       get 'academics/search/(:term)/(page/:page)',
-          constraints: { term: /[^\/]+/ },
+          constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
           as: 'academics_search'
     end
