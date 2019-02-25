@@ -27,6 +27,11 @@
     </thead>
 
     <tbody>
+      <% if (@academics.size === 0) %>
+        <tr>
+          <%= render 'shared/no_results' %>
+        </tr>
+      <% end %>
       <%= render @academics %>
     </tbody>
   </table>

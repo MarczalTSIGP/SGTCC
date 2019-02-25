@@ -53,6 +53,7 @@ pt-BR:
         remember_me: "Lembre-me"
         <<: *commons
   helpers:
+    no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
     boolean:
       'true': 'Sim'
