@@ -7,15 +7,23 @@ mailer: &mailer
   mailer.host: localhost
   mailer.port: '3000'
 
+ldap: &ldap
+  ldap.on: 'false'
+  ldap.host: localhost
+  ldap.port: '3389'
+
 development:
   <<: *database
   <<: *mailer
+  <<: *ldap
 
 test:
   <<: *database
   <<: *mailer
+  <<: *ldap
 
 production:
   <<: *database
   mailer.host: sgtcc.gp.utfpr.edu.br
   mailer.port: '80'
+  <<: *ldap

@@ -1,4 +1,6 @@
 class Professors::RegistrationsController < Devise::RegistrationsController
+  include LDAPAuthentication
+
   layout 'layouts/professors/application'
 
   protected
@@ -8,9 +10,8 @@ class Professors::RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:professor).permit(:email,
-                                      :password,
-                                      :password_confirmation,
+    params.require(:professor).permit(:name,
+                                      :email,
                                       :current_password,
                                       :profile_image,
                                       :profile_image_cache)
