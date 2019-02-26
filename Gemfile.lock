@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/stephancom/populator.git
+  revision: 3814e8a7d24679046ada0060224082178e840259
+  branch: rails-5
+  specs:
+    populator (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -24,6 +31,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activejob (5.2.1)
       activesupport (= 5.2.1)
       globalid (>= 0.3.6)
@@ -70,6 +80,7 @@ GEM
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
     brakeman (4.3.1)
+    breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
     bullet (5.7.6)
       activesupport (>= 3.0.0)
@@ -123,6 +134,8 @@ GEM
     factory_bot_rails (4.11.0)
       factory_bot (~> 4.11.0)
       railties (>= 3.0.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25)
     font-awesome-sass (5.2.0)
       sassc (>= 1.11)
@@ -157,6 +170,18 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.1.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     kwalify (0.7.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -298,6 +323,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     shellany (0.0.1)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     simple_form (4.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -360,11 +387,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_link_to
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.1.1)
   brakeman
+  breadcrumbs_on_rails
   bullet
   bundle-audit
   byebug
@@ -375,15 +404,18 @@ DEPENDENCIES
   devise
   devise-i18n
   factory_bot_rails
+  faker
   font-awesome-sass
   geckodriver-helper
   guard-rspec
   htmlbeautifier
   jquery-rails
+  kaminari
   listen (>= 3.0.5, < 3.2)
   mini_magick
   net-ldap
   pg (= 0.18.4)
+  populator!
   puma (~> 3.7)
   rails (~> 5.2.0)
   rails-i18n
@@ -393,6 +425,7 @@ DEPENDENCIES
   rubocop-rspec
   sassc-rails
   selenium-webdriver
+  shoulda-matchers (~> 3.1)
   simple_form
   simplecov
   simplecov-console
@@ -408,4 +441,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.17.3
+   1.16.2

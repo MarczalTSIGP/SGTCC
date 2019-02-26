@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>
-			<%= full_title(yield(:head_title)) %>
-		</title>
-		<%= csrf_meta_tags %>
+  <head>
+    <title>
+      <%= full_title(yield(:head_title)) %>
+    </title>
 
-		<%= stylesheet_link_tag    'session', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'session', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-		<%= javascript_include_tag 'session', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'session',  'data-turbolinks-track': 'reload' %>
 
-		<%= favicon_link_tag %>
-	</head>
+    <%= favicon_link_tag %>
+  </head>
 
-	<body id="<%= controller_name %>-<%= action_name %>" >
+  <body id="<%= controller_name %>-<%= action_name %>" >
 
-		<div class="page">
-			<div class="page-single">
-				<div class="container">
+    <div id="app" class="page">
+      <div class="page-single">
+        <div class="container">
 
-					<div class="row">
-						<div class="col col-login mx-auto">
+	  <div class="row">
+	    <div class="col col-login mx-auto">
 
-							<div class="text-center mb-6">
-								<%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
-							</div>
+	      <div class="text-center mb-6">
+	        <%= image_tag("tsi.png", alt: "logo-tsi", class: 'header-brand-img') %>
+	      </div>
 
-							<div class="card card-body p-6">
-								<%= render 'shared/flash_messages'%>
+	      <div class="card card-body p-6">
+	        <%= render 'shared/flash_messages'%>
 
-								<div class="card-title">
-									<h4 class="text-center">
-										<%= yield :title %>
-									</h4>
-								</div>
-
-								<%= yield %>
-
-							</div> <!-- .card -->
-						</div>
-					</div> <!-- .row -->
-				</div> <!-- .container -->
-
-			</div>
+	        <div class="card-title">
+		  <h4 class="text-center">
+		    <%= yield :title %>
+		  </h4>
 		</div>
-	</body>
+
+		<%= yield %>
+
+	      </div> <!-- .card -->
+	    </div>
+	  </div> <!-- .row -->
+        </div> <!-- .container -->
+
+      </div>
+    </div>
+  </body>
 </html>

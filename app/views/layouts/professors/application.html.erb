@@ -38,6 +38,7 @@
 	      <%= render 'layouts/professors/sidebar' %>
 
 	      <div class="col-lg-9">
+		<%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
 		<div class="card">
 		  <div class="card-body">
 		    <%= render 'shared/flash_messages'%>
