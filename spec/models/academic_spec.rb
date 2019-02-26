@@ -28,6 +28,11 @@ RSpec.describe Academic, type: :model do
       expect(academic.email).to eq(academics.first.email)
     end
 
+    it 'returns academic by ra' do
+      academics = Academic.search(academic.ra)
+      expect(academic.ra).to eq(academics.first.ra)
+    end
+
     context 'with accents' do
       it 'in attribute' do
         academic = create(:academic, name: 'João')
