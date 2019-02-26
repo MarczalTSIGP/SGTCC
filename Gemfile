@@ -8,7 +8,9 @@ gem 'rails', '~> 5.2.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
+gem 'active_link_to'
 gem 'bootstrap', '~> 4.1.1'
+gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
@@ -17,6 +19,7 @@ gem 'devise-i18n'
 gem 'font-awesome-sass'
 gem 'htmlbeautifier'
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'mini_magick'
 gem 'pg', '0.18.4'
 gem 'rails-i18n'
@@ -31,6 +34,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails'
   gem 'geckodriver-helper'
+  gem 'faker'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
 
@@ -51,6 +55,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'populator', git: 'https://github.com/stephancom/populator.git', branch: 'rails-5'
   gem 'web-console', '>= 3.3.0'
 
   gem 'brakeman', require: false
@@ -64,6 +69,7 @@ group :test do
   gem 'guard-rspec', require: false
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :production do

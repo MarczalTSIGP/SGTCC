@@ -11,7 +11,9 @@ pt-BR:
       # html: '<abbr title="required">*</abbr>'
     buttons:
       cancel: 'Cancelar'
+      edit: 'Editar'
       update: 'Atualizar'
+      back: 'Voltar'
     error_notification:
       default_message: "Alguns erros foram encontrados, por favor verifique:"
     # Labels and hints examples

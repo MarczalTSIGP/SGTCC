@@ -1,0 +1,52 @@
+<% provide(:page_title, t('breadcrumbs.academics.show')) %>
+<% provide(:head_title, t('breadcrumbs.academics.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body text-center">
+    <img class="card-profile-img" src="<%= image_path('default/default-user.png') %>">
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('name') %>:
+      </strong>
+      <%= @academic.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('email') %>:
+      </strong>
+      <%= @academic.email %>
+    </p>
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('ra') %>:
+      </strong>
+      <%= @academic.ra %>
+    </p>
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('gender') %>:
+      </strong>
+      <%= t("enums.genders.#{@academic.gender}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@academic.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Academic.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@academic.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), responsible_academics_path, class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'), edit_responsible_academic_path(@academic), class: 'btn btn-primary ml-auto' %>
+</div>
+
