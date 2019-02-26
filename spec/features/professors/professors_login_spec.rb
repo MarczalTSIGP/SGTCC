@@ -30,4 +30,15 @@ describe 'Professors:login', type: :feature do
                                text: I18n.t('devise.failure.invalid',
                                             authentication_keys: resource_name))
   end
+
+  context 'when user is not authenticated' do
+    before do
+      visit responsible_academics_path
+    end
+
+    it 'redirect to login page', js: true do
+      expect(page).to have_current_path new_responsible_session_path
+      expect(page).to have_flash(:warning, text: I18n.t('devise.failure.unauthenticated'))
+    end
+  end
 end
