@@ -5,6 +5,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     it 'defaulf' do
       expect(helper.full_title).to eql('SGTCC')
     end
+
     it 'title' do
       expect(helper.full_title('Home')).to eql('Home | SGTCC')
     end

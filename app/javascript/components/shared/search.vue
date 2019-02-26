@@ -35,8 +35,10 @@ export default {
       type: String,
       required: true,
     },
+
     searchTerm: {
-      type: String
+      type: String,
+      default: ''
     }
   },
 
