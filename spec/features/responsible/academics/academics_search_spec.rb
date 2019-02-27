@@ -9,7 +9,6 @@ describe 'Academics::search', type: :feature do
     visit responsible_academics_path
   end
 
-
   describe '#search' do
     context 'when finds the academic' do
       it 'finds the academic by the name', js: true do
