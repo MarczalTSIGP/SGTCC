@@ -17,7 +17,6 @@ class Academic < ApplicationRecord
 
   mount_uploader :profile_image, ProfileImageUploader
 
-  attr_writer :login
   attr_accessor :skip_password_validation
 
   def self.human_genders

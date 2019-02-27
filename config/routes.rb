@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
-  devise_for :academics, skip: [:sessios]
+  devise_for :academics, skip: [:sessions]
   devise_for :professors, skip: [:sessions]
 
   root to: 'home#index'
