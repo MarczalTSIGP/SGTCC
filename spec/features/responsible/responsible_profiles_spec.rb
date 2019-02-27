@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professors:Profiles', type: :feature do
+describe 'Responsible:profiles', type: :feature do
   context 'when update a professor' do
     let(:professor) { create(:professor) }
 

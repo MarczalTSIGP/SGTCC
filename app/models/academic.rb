@@ -38,14 +38,10 @@ class Academic < ApplicationRecord
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     conditions_hash = conditions.to_h
-    login = conditions.delete(:ra)
+    ra = conditions.delete(:ra)
 
-    if login
-      where(conditions_hash)
-        .find_by(['lower(ra) = :value', { value: login.downcase }])
-    elsif conditions.key?(:ra)
-      find_by(conditions_hash)
-    end
+    where(conditions_hash)
+      .find_by(['lower(ra) = :value', { value: ra.downcase }])
   end
 
   protected
