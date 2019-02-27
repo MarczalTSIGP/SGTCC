@@ -1,13 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
-  describe 'full title' do
-    it 'defaulf' do
-      expect(helper.full_title).to eql('SGTCC')
+  describe '#full_title' do
+    context 'when not receive any param' do
+      it 'show title' do
+        expect(helper.full_title).to eql('SGTCC')
+      end
     end
 
-    it 'title' do
-      expect(helper.full_title('Home')).to eql('Home | SGTCC')
+    context 'when receive param' do
+      it 'show {param} | title' do
+        expect(helper.full_title('Home')).to eql('Home | SGTCC')
+      end
+    end
+  end
+
+  describe '#complete_date' do
+    context 'when not receive param' do
+      it 'show complete date' do
+        date = Time.zone.now
+        converted_date = I18n.localize(date, format: :long)
+        expect(helper.complete_date(date)).to eql(converted_date)
+      end
     end
   end
 end

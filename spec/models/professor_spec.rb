@@ -11,8 +11,11 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
 
-    context 'with email' do
+    context 'when email is valid' do
       it { is_expected.to allow_value('email@addresse.foo').for(:email) }
+    end
+
+    context 'when email is not valid' do
       it { is_expected.not_to allow_value('foo').for(:email) }
     end
   end
