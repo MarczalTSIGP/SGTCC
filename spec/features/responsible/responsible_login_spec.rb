@@ -7,36 +7,40 @@ describe 'Responsible:login', type: :feature do
     visit new_responsible_session_path
   end
 
-  it 'displays the professors perfil links on valid login', js: true do
-    fill_in 'professor_username', with: professor.username
-    fill_in 'professor_password', with: 'password'
+  context 'when login is valid', js: true do
+    it 'show success message' do
+      fill_in 'professor_username', with: professor.username
+      fill_in 'professor_password', with: 'password'
 
-    submit_form('input[name="commit"]')
+      submit_form('input[name="commit"]')
 
-    expect(page).to have_current_path responsible_root_path
-    expect(page).to have_flash(:info, text: I18n.t('devise.sessions.signed_in'))
+      expect(page).to have_current_path responsible_root_path
+      expect(page).to have_flash(:info, text: I18n.t('devise.sessions.signed_in'))
+    end
   end
 
-  it 'displays the professors error', js: true do
-    fill_in 'professor_username', with: professor.username
-    fill_in 'professor_password', with: 'passworda'
+  context 'when login is not valid', js: true do
+    it 'show errors messages' do
+      fill_in 'professor_username', with: professor.username
+      fill_in 'professor_password', with: 'passworda'
 
-    submit_form('input[name="commit"]')
+      submit_form('input[name="commit"]')
 
-    expect(page).to have_current_path new_responsible_session_path
+      expect(page).to have_current_path new_responsible_session_path
 
-    resource_name = Professor.human_attribute_name(:username)
-    expect(page).to have_flash(:warning,
-                               text: I18n.t('devise.failure.invalid',
-                                            authentication_keys: resource_name))
+      resource_name = Professor.human_attribute_name(:username)
+
+      warning_message = I18n.t('devise.failure.invalid', authentication_keys: resource_name)
+      expect(page).to have_flash(:warning, text: warning_message)
+    end
   end
 
-  context 'when user is not authenticated' do
+  context 'when responsible is not authenticated' do
     before do
       visit responsible_academics_path
     end
 
-    it 'redirect to login page', js: true do
+    it 'redirect to the login page', js: true do
       expect(page).to have_current_path new_responsible_session_path
       expect(page).to have_flash(:warning, text: I18n.t('devise.failure.unauthenticated'))
     end

@@ -8,15 +8,15 @@ describe 'Responsible:logout', type: :feature do
     visit responsible_academics_path
   end
 
-  it 'displays success logout message', js: true do
-    click_link professor.name
-    click_link(I18n.t('sessions.sign_out'))
+  context 'when responsible logout' do
+    it 'show success message', js: true do
+      click_link professor.name
+      click_link(I18n.t('sessions.sign_out'))
 
-    expect(page).to have_current_path new_responsible_session_path
+      expect(page).to have_current_path new_responsible_session_path
 
-    expect(page).to have_flash(
-      :info,
-      text: I18n.t('devise.sessions.already_signed_out')
-    )
+      info_message = I18n.t('devise.sessions.already_signed_out')
+      expect(page).to have_flash(:info, text: info_message)
+    end
   end
 end

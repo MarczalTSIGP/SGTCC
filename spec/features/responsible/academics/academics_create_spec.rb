@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics', type: :feature do
+describe 'Academic::create', type: :feature do
   let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
@@ -13,8 +13,8 @@ describe 'Academics', type: :feature do
       visit new_responsible_academic_path
     end
 
-    context 'with valid fields', js: true do
-      it 'create academic' do
+    context 'when academic is valid', js: true do
+      it 'create an academic' do
         attributes = attributes_for(:academic)
         fill_in 'academic_name',   with: attributes[:name]
         fill_in 'academic_email',  with: attributes[:email]
@@ -24,7 +24,9 @@ describe 'Academics', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_academics_path
-        expect_alert_success(resource_name, 'flash.actions.create.m')
+
+        success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: success_message)
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
@@ -32,7 +34,7 @@ describe 'Academics', type: :feature do
       end
     end
 
-    context 'with invalid fields', js: true do
+    context 'when academic is not valid', js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
 
