@@ -18,6 +18,16 @@ RSpec.describe Academic, type: :model do
     end
   end
 
+  describe '#human_genders' do
+    it 'returns the genders' do
+      genders = Academic.genders
+      hash = {}
+      genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
+
+      expect(Academic.human_genders).to eq(hash)
+    end
+  end
+
   describe '#search' do
     let(:academic) { create(:academic) }
 

@@ -12,6 +12,7 @@
       >
       <span class="input-group-append">
         <a
+          id="search"
           ref="link"
           href="#"
           class="btn btn-outline-primary"
