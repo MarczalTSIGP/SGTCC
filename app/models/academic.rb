@@ -1,7 +1,7 @@
 class Academic < ApplicationRecord
   devise :database_authenticatable,
          :rememberable, :validatable,
-         authentication_keys: [:login]
+         authentication_keys: [:ra]
 
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
@@ -35,14 +35,10 @@ class Academic < ApplicationRecord
     end
   end
 
-  def login
-    @login || ra
-  end
-
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     conditions_hash = conditions.to_h
-    login = conditions.delete(:login)
+    login = conditions.delete(:ra)
 
     if login
       where(conditions_hash)
