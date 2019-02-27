@@ -3,20 +3,20 @@
 <% provide(:title, t("sessions.edit_profile")) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: send("responsible_registration_path"),
+                    url: send("academics_registration_path"),
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>
 
   <%= f.input :name, required: true, autofocus: true %>
   <%= f.input :email %>
-  <%= f.input :username, readonly: true %>
+  <%= f.input :ra %>
 
   <div class="form-row">
     <div class="col-sm-8">
 
       <%= f.input :current_password,
-        hint: t(".we_need_your_current_password_to_confirm_your_changes"),
+        hint: t('devise.registrations.edit.current_password_to_confirm'),
         required: true %>
     </div>
 
@@ -33,6 +33,6 @@
   <div class="d-flex">
     <%= link_to t("simple_form.buttons.back"), :responsible_root, class: 'btn btn-secondary' %>
 
-    <%= f.button :submit, t(".update"), class: 'btn-primary ml-auto' %>
+    <%= f.button :submit, t("devise.registrations.edit.update"), class: 'btn-primary ml-auto' %>
   </div>
 <% end %>
