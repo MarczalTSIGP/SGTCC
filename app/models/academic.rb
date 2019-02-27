@@ -40,8 +40,7 @@ class Academic < ApplicationRecord
     conditions_hash = conditions.to_h
     ra = conditions.delete(:ra)
 
-    where(conditions_hash)
-      .find_by(['lower(ra) = :value', { value: ra.downcase }])
+    where(conditions_hash).find_by(ra: ra)
   end
 
   protected
