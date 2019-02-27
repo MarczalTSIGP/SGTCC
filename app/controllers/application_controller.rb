@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     'layouts/application'
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(*)
     if resource_name == :professor
       responsible_root_path
     else
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(*)
     if resource_name == :professor
       new_responsible_session_path
     else
