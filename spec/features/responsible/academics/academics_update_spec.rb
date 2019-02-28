@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics', type: :feature do
+describe 'Academic::update', type: :feature do
   let(:professor) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
@@ -15,8 +15,8 @@ describe 'Academics', type: :feature do
       visit edit_responsible_academic_path(academic)
     end
 
-    context 'with valid fields', js: true do
-      it 'update academic' do
+    context 'when data is valid', js: true do
+      it 'updates the academic' do
         attributes = attributes_for(:academic)
 
         new_name = 'Teste'
@@ -26,13 +26,14 @@ describe 'Academics', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_academic_path(academic)
-        expect_alert_success(resource_name, 'flash.actions.update.m')
 
+        success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_content(new_name)
       end
     end
 
-    context 'with invalid fields', js: true do
+    context 'when the academic is not valid', js: true do
       it 'show errors' do
         fill_in 'academic_name', with: ''
         fill_in 'academic_email', with: ''

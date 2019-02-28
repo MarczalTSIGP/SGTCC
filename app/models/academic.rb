@@ -25,7 +25,7 @@ class Academic < ApplicationRecord
     hash
   end
 
-  def self.search(search)
+  def self.search(search = nil)
     if search
       where('unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR ra ILIKE ?',
             "%#{search}%", "%#{search}%", "%#{search}%").order('name ASC')
