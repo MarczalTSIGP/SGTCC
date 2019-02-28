@@ -7,11 +7,30 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
-  devise_for :academics, skip: [:sessions]
-  devise_for :professors, skip: [:sessions]
-
   root to: 'home#index'
 
+  #========================================
+  # Responsible
+  #========================================
+  authenticate :professor do
+    namespace :responsible do
+      root to: 'dashboard#index'
+
+      resources :academics,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'academics/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'academics#index',
+          as: 'academics_search'
+    end
+  end
+
+  #========================================
+  # Professors
+  #========================================
+  devise_for :professors, skip: [:sessions]
   as :professor do
     get '/responsible/login',
         to: 'devise/sessions#new',
@@ -34,6 +53,10 @@ Rails.application.routes.draw do
         as: 'responsible_registration'
   end
 
+  #========================================
+  # Academics
+  #========================================
+  devise_for :academics, skip: [:sessions]
   as :academic do
     get '/academics/login',
         to: 'devise/sessions#new',
@@ -54,21 +77,6 @@ Rails.application.routes.draw do
     put '/academics',
         to: 'academics/registrations#update',
         as: 'academics_registration'
-  end
-
-  authenticate :professor do
-    namespace :responsible do
-      root to: 'dashboard#index'
-
-      resources :academics,
-                constraints: { id: /[0-9]+/ },
-                concerns: :paginatable
-
-      get 'academics/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'academics#index',
-          as: 'academics_search'
-    end
   end
 
   authenticate :academic do
