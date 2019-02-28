@@ -1,4 +1,6 @@
 class Academic < ApplicationRecord
+  attr_accessor :skip_password_validation
+
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:ra]
@@ -17,7 +19,6 @@ class Academic < ApplicationRecord
 
   mount_uploader :profile_image, ProfileImageUploader
 
-  attr_accessor :skip_password_validation
 
   def self.human_genders
     hash = {}
@@ -32,14 +33,6 @@ class Academic < ApplicationRecord
     else
       order(:name)
     end
-  end
-
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    conditions_hash = conditions.to_h
-    ra = conditions.delete(:ra)
-
-    where(conditions_hash).find_by(ra: ra)
   end
 
   protected
