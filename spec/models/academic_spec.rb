@@ -77,5 +77,15 @@ RSpec.describe Academic, type: :model do
         expect(academic.name).to eq(results_search.first.name)
       end
     end
+
+    context 'when returns academics ordered by name' do
+      it 'returns ordered' do
+        create_list(:academic, 30)
+        academics_ordered = Academic.order(:name)
+        academic = academics_ordered.first
+        results_search = Academic.search
+        expect(academic.name). to eq(results_search.first.name)
+      end
+    end
   end
 end
