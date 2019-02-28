@@ -7,11 +7,16 @@ class Academic < ApplicationRecord
 
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
-  validates :name,   presence: true
-  validates :gender, presence: true
+  validates :name,
+            presence: true
+
+  validates :gender,
+            presence: true
+
   validates :ra,
             presence: true,
             uniqueness: true
+
   validates :email,
             presence: true,
             format: { with: Devise.email_regexp },
