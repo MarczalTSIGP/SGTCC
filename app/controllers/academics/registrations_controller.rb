@@ -10,7 +10,6 @@ class Academics::RegistrationsController < Devise::RegistrationsController
   def account_update_params
     params.require(:academic).permit(:name,
                                      :email,
-                                     :ra,
                                      :current_password,
                                      :profile_image,
                                      :profile_image_cache)
