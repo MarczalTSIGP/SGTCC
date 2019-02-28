@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+      <%= full_title(yield(:head_title)) %>
+    </title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= favicon_link_tag %>
+  </head>
+
+  <body>
+    <div id="app" class="page">
+      <div class="page-main">
+
+	<%= render 'layouts/academics/header' %>
+
+	<div class="my-3 my-md-5">
+	  <div class="container">
+
+	    <div class="page-header">
+	      <div class="page-options d-flex">
+		<h1 class="page-title">
+		  <%= yield(:page_title) %>
+		</h1>
+	      </div>
+	    </div>
+
+	    <div class="row">
+
+	      <%= render 'layouts/academics/sidebar' %>
+
+	      <div class="col-lg-9">
+		<%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
+		<div class="card">
+		  <div class="card-body">
+		    <%= render 'shared/flash_messages'%>
+		    <%= yield %>
+		  </div>
+		</div>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+      </div>
+
+      <%= render 'layouts/academics/footer' %>
+
+    </div>
+  </body>
+</html>

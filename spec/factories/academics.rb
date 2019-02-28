@@ -4,5 +4,7 @@ FactoryBot.define do
     sequence(:email) { |n| "email#{n}@email.com" }
     ra { Faker::Number.number(7) }
     gender { Academic.genders.values.sample }
+    password { 'password' }
+    password_confirmation { 'password' }
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professors:logout', type: :feature do
+describe 'Responsible:logout', type: :feature do
   let(:professor) { create(:professor) }
 
   before do

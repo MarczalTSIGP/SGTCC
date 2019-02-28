@@ -12,13 +12,13 @@
             class="file_preview active"
             :src="imageData"
           >
-          <div :class="`form-group file optional professor_profile_image form-group-${profileImageClass}`">
+          <div :class="`form-group file optional ${inputId} form-group-${profileImageClass}`">
             <input
-              id="professor_profile_image"
+              :id="inputId"
               :class="`form-control-file is-${profileImageClass} file optional`"
               accept="image/*"
               type="file"
-              name="professor[profile_image]"
+              :name="inputName"
               @change="previewImage"
             >
             <div
@@ -58,6 +58,11 @@ export default {
       type: Array,
       required: true
     },
+
+    resource: {
+      type: String,
+      required: true
+    },
   },
 
   data() {
@@ -67,6 +72,14 @@ export default {
   },
 
   computed: {
+    inputId() {
+      return `${this.resource}_profile_image`;
+    },
+
+    inputName() {
+      return `${this.resource}[profile_image]`;
+    },
+
     profileImageClass() {
       return this.profileImageHasError ? 'invalid' : 'valid';
     },

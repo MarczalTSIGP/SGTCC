@@ -33,6 +33,7 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def create
     @academic = Academic.new(academic_params)
+    @academic.skip_password_validation = true
 
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m',
