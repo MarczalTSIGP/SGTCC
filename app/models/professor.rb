@@ -12,4 +12,13 @@ class Professor < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   mount_uploader :profile_image, ProfileImageUploader
+
+  def self.search(search = nil)
+    if search
+      where('unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?',
+            "%#{search}%", "%#{search}%", "%#{search}%").order('name ASC')
+    else
+      order(:name)
+    end
+  end
 end
