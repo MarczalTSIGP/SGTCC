@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_02_27_113434) do
     t.string "gender", limit: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "encrypted_password", default: "$2a$11$IP4EZ6GmQS2c6yH6plhUHOjfdolLjrDyaOiEmrZrooOGEnzy1fOXa", null: false
+    t.string "encrypted_password", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
