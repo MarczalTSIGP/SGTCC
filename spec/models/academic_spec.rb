@@ -5,7 +5,7 @@ RSpec.describe Academic, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email) }
-    it { is_expected.to validate_uniqueness_of(:ra) }
+    it { is_expected.to validate_uniqueness_of(:ra).case_insensitive }
     it { is_expected.to validate_presence_of(:ra) }
     it { is_expected.to validate_presence_of(:gender) }
 

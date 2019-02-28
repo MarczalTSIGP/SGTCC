@@ -41,16 +41,16 @@ pt-BR:
         username: "Usuário institucional"
         created_at: "Criado em"
         updated_at: "Atualizado em"
+        password: "Senha"
+        current_password: "Senha atual"
+        password_confirmation: "Confirmação de senha"
+        remember_me: "Lembre-me"
       academic:
         ra: "RA"
         gender: "Gênero"
         <<: *commons
       professor:
         profile_image: "Imagem do perfil"
-        password: "Senha"
-        current_password: "Senha atual"
-        password_confirmation: "Confirmação de senha"
-        remember_me: "Lembre-me"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

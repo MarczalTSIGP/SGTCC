@@ -1,6 +1,7 @@
 class Professor < ApplicationRecord
   devise :database_authenticatable,
-         :rememberable, :validatable
+         :rememberable, :validatable,
+         authentication_keys: [:username]
 
   validates :name, presence: true
   validates :username, presence: true,
@@ -10,5 +11,5 @@ class Professor < ApplicationRecord
                     format: { with: Devise.email_regexp },
                     uniqueness: { case_sensitive: false }
 
-  mount_uploader :profile_image, ProfessorProfileImageUploader
+  mount_uploader :profile_image, ProfileImageUploader
 end

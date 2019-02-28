@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professors:login', type: :feature do
+describe 'Responsible:login', type: :feature do
   let(:professor) { create(:professor) }
 
   before do

@@ -11,7 +11,9 @@ namespace :db do
         name: Faker::Name.name,
         email: Faker::Internet.email,
         ra: Faker::Number.number(7),
-        gender: Academic.genders.values.sample
+        gender: Academic.genders.values.sample,
+        password: '123456',
+        password_confirmation: '123456'
       )
     end
   end
