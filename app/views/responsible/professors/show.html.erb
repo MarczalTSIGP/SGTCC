@@ -1,0 +1,52 @@
+<% provide(:page_title, t('breadcrumbs.professors.show')) %>
+<% provide(:head_title, t('breadcrumbs.professors.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body text-center">
+    <img class="card-profile-img" src="<%= @professor.profile_image %>">
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('name') %>:
+      </strong>
+      <%= @professor.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('email') %>:
+      </strong>
+      <%= @professor.email %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('username') %>:
+      </strong>
+      <%= @professor.username %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('gender') %>:
+      </strong>
+      <%= t("enums.genders.#{@professor.gender}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@professor.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@professor.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), responsible_professors_path, class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'), edit_responsible_professor_path(@professor), class: 'btn btn-primary ml-auto' %>
+</div>
+

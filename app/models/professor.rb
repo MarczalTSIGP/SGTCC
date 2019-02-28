@@ -27,6 +27,12 @@ class Professor < ApplicationRecord
 
   mount_uploader :profile_image, ProfileImageUploader
 
+  def self.human_genders
+    hash = {}
+    genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
+    hash
+  end
+
   def self.search(search = nil)
     if search
       where('unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?',

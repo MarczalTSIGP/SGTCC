@@ -15,7 +15,7 @@ pt-BR:
       show: 'Visualizar Acadêmico'
     professors:
       index: 'Professores'
-      new: 'Cadastrar Professor'
+      new: 'Novo Professor'
       edit: 'Editar Professor'
       show: 'Visualizar Professor'
     calendars:
@@ -38,16 +38,16 @@ pt-BR:
       attribute_commons: &commons
         name: "Nome"
         email: "Email"
+        gender: "Gênero"
         username: "Usuário institucional"
-        created_at: "Criado em"
-        updated_at: "Atualizado em"
         password: "Senha"
         current_password: "Senha atual"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
       academic:
         ra: "RA"
-        gender: "Gênero"
         <<: *commons
       professor:
         profile_image: "Imagem do perfil"
