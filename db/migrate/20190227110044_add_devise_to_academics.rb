@@ -4,7 +4,7 @@ class AddDeviseToAcademics < ActiveRecord::Migration[5.2]
   def self.up
     change_table :academics, bulk: true do |t|
       ## Database authenticatable
-      t.string :encrypted_password, null: false
+      t.string :encrypted_password, null: true
 
       ## Recoverable
       t.string   :reset_password_token
