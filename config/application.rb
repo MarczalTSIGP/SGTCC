@@ -12,6 +12,7 @@ module SistemaGestaoTcc
     config.load_defaults 5.2
     config.exceptions_app = routes
 
+    config.autoload_paths += Dir["#{config.root}/lib/devise/"]
     config.autoload_paths += Dir["#{config.root}/lib/builders/"]
     config.eager_load_paths += Dir["#{config.root}/lib/builders/"]
 
