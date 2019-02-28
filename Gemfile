@@ -59,7 +59,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'rails-controller-testing'
 end
 
 group :production do
