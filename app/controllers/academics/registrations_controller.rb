@@ -1,4 +1,6 @@
 class Academics::RegistrationsController < Devise::RegistrationsController
+  include LDAPAuthentication
+
   layout 'layouts/academics/application'
 
   protected

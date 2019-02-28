@@ -17,9 +17,14 @@ module LDAPAuthentication
   def authenticate(pwd)
     require './lib/ldap/ldap_authentication'
 
-    user = send(:"current_#{resource_name}").username
+    if resource_name == :academic
+      user = "a#{current_academic.ra}"
+    else
+      user = current_professor.username
+    end
 
-    return false unless SGTCC::LDAP.authenticate(user, pwd)
+    base = resource_name.to_s.pluralize
+    return false unless SGTCC::LDAP.authenticate(user, pwd, base)
     true
   end
 end
