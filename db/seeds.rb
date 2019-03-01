@@ -1,6 +1,3 @@
-Professor.create_with(name: 'Diego Marczal', username: 'marczal', password: '123456')
-         .find_or_create_by!(email: 'responsavel@email.com')
-
 professor_types = %w[Efetivo Temporário]
 professor_types.each do |category|
   ProfessorType.find_or_create_by!(name: category)
@@ -25,3 +22,17 @@ professor_titles = [
 professor_titles.each do |title|
   ProfessorTitle.find_or_create_by!(name: title[:name], abbr: title[:abbr])
 end
+
+Professor.create_with(
+  name: 'Diego Marczal',
+  username: 'marczal',
+  gender: 'M',
+  lattes: 'https://www.lattes.com/marczal',
+  professor_title_id: 3,
+  professor_type_id: 1,
+  professor_role_id: 1,
+  is_active: true,
+  password: '123456'
+).find_or_create_by!(email: 'responsavel@email.com')
+
+
