@@ -49,7 +49,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
     if @professor.update(professor_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Professor.model_name.human)
-      redirect_to responsible_professors_path
+      redirect_to responsible_professor_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
