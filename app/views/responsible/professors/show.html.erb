@@ -33,13 +33,13 @@
       <strong>
         <%= Professor.human_attribute_name('is_active') %>:
       </strong>
-      <%= @professor.is_active %>
+      <%= t("helpers.boolean.#{@professor.is_active}") %>
     </p>
     <p>
       <strong>
         <%= Professor.human_attribute_name('available_advisor') %>:
       </strong>
-      <%= @professor.available_advisor %>
+      <%= t("helpers.boolean.#{@professor.available_advisor}") %>
     </p>
     <p>
       <strong>

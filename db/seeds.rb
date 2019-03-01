@@ -32,6 +32,7 @@ Professor.create_with(
   professor_type_id: 1,
   professor_role_id: 1,
   is_active: true,
+  available_advisor: false,
   password: '123456'
 ).find_or_create_by!(email: 'responsavel@email.com')
 
