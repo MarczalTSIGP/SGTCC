@@ -53,6 +53,9 @@ pt-BR:
         profile_image: "Imagem do perfil"
         is_active: "Ativo no sistema"
         available_advisor: "Disponível para orientação"
+        professor_type: "Tipo"
+        professor_role: "Papel"
+        professor_title: "Títulação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -110,3 +113,6 @@ pt-BR:
       details: "Talvez você tentou alterar algo que você não possui acesso."
   prompt:
     confirm: "Você tem certeza?"
+    select:
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'

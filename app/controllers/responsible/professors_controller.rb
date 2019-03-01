@@ -77,7 +77,10 @@ class Responsible::ProfessorsController < Responsible::BaseController
       :lattes,
       :gender,
       :is_active,
-      :available_advisor
+      :available_advisor,
+      :professor_type_id,
+      :professor_role_id,
+      :professor_title_id
     )
   end
 end
