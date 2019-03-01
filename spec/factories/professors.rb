@@ -9,5 +9,8 @@ FactoryBot.define do
     available_advisor { Faker::Boolean.boolean }
     password { 'password' }
     password_confirmation { 'password' }
+    professor_title
+    professor_type
+    professor_role
   end
 end
