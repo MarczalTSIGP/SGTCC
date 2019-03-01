@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Academic::create', type: :feature do
-  let(:professor) { create(:professor) }
+  let(:responsible) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
   before do
-    login_as(professor, scope: :professor)
+    login_as(responsible, scope: :professor)
   end
 
   describe '#create' do

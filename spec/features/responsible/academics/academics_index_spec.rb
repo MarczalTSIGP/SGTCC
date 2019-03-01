@@ -4,8 +4,8 @@ describe 'Academic::index', type: :feature do
   describe '#index' do
     context 'when shows all academics' do
       it 'shows all academics with options', js: true do
-        professor = create(:professor)
-        login_as(professor, scope: :professor)
+        responsible = create(:professor)
+        login_as(responsible, scope: :professor)
 
         academics = create_list(:academic, 3)
 

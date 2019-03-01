@@ -4,8 +4,8 @@ describe 'Academics::pagination', type: :feature do
   describe '#pagination' do
     context 'when finds the last academic on second page' do
       it 'finds the last academic', js: true do
-        professor = create(:professor)
-        login_as(professor, scope: :professor)
+        responsible = create(:professor)
+        login_as(responsible, scope: :professor)
 
         create_list(:academic, 30)
         visit responsible_academics_path

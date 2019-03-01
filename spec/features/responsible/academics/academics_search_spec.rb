@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Academics::search', type: :feature do
-  let(:professor) { create(:professor) }
+  let(:responsible) { create(:professor) }
   let(:academics) { create_list(:academic, 25) }
 
   before do
-    login_as(professor, scope: :professor)
+    login_as(responsible, scope: :professor)
     visit responsible_academics_path
   end
 
