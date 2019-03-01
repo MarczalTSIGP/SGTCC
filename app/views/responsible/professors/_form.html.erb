@@ -1,0 +1,16 @@
+<%= simple_form_for [:responsible, @professor] do |f| %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :username %>
+    <%= f.input :gender,
+                as: :radio_buttons,
+                collection: Professor.human_genders,
+                item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'), responsible_professors_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
