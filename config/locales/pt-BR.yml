@@ -51,6 +51,8 @@ pt-BR:
         <<: *commons
       professor:
         profile_image: "Imagem do perfil"
+        is_active: "Ativo no sistema"
+        available_advisor: "Disponível para orientação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

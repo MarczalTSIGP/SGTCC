@@ -14,10 +14,18 @@
 
   <div class="form-row">
     <div class="col-sm-8">
-
+      <%= f.input :lattes %>
       <%= f.input :current_password,
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),
         required: true %>
+
+      <%= f.input :gender,
+                  as: :radio_buttons,
+                  collection: Professor.human_genders,
+                  item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+
+      <%= f.input :is_active, as: :checkbox_tabler %>
+      <%= f.input :available_advisor, as: :checkbox_tabler %>
     </div>
 
     <div class="col-4">
