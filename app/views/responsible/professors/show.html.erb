@@ -25,6 +25,24 @@
     </p>
     <p>
       <strong>
+        <%= Professor.human_attribute_name('lattes') %>:
+      </strong>
+      <%= @professor.lattes %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('is_active') %>:
+      </strong>
+      <%= @professor.is_active %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('available_advisor') %>:
+      </strong>
+      <%= @professor.available_advisor %>
+    </p>
+    <p>
+      <strong>
         <%= Professor.human_attribute_name('gender') %>:
       </strong>
       <%= t("enums.genders.#{@professor.gender}") %>

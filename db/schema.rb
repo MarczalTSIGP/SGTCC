@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_200940) do
+ActiveRecord::Schema.define(version: 2019_03_01_183622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 2019_02_28_200940) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
+  create_table "professor_roles", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "professor_titles", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+  end
+
+  create_table "professor_types", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "professors", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -46,9 +59,18 @@ ActiveRecord::Schema.define(version: 2019_02_28_200940) do
     t.string "gender", limit: 1
     t.boolean "is_active", default: false
     t.boolean "available_advisor"
+    t.bigint "professor_title_id"
+    t.bigint "professor_type_id"
+    t.bigint "professor_role_id"
     t.index ["email"], name: "index_professors_on_email", unique: true
+    t.index ["professor_role_id"], name: "index_professors_on_professor_role_id"
+    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
+    t.index ["professor_type_id"], name: "index_professors_on_professor_type_id"
     t.index ["reset_password_token"], name: "index_professors_on_reset_password_token", unique: true
     t.index ["username"], name: "index_professors_on_username", unique: true
   end
 
+  add_foreign_key "professors", "professor_roles"
+  add_foreign_key "professors", "professor_titles"
+  add_foreign_key "professors", "professor_types"
 end
