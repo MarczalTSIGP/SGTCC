@@ -31,4 +31,81 @@ RSpec.describe Professor, type: :model do
       it { is_expected.not_to allow_value('lattes.com').for(:lattes) }
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to belong_to(:professor_role) }
+    it { is_expected.to belong_to(:professor_type) }
+    it { is_expected.to belong_to(:professor_title) }
+  end
+
+  describe '#human_genders' do
+    it 'returns the genders' do
+      genders = Professor.genders
+      hash = {}
+      genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
+
+      expect(Professor.human_genders).to eq(hash)
+    end
+  end
+
+  describe '#search' do
+    let(:professor) { create(:professor) }
+
+    context 'when finds professor by attributes' do
+      it 'returns professor by name' do
+        results_search = Professor.search(professor.name)
+        expect(professor.name).to eq(results_search.first.name)
+      end
+
+      it 'returns professor by email' do
+        results_search = Professor.search(professor.email)
+        expect(professor.email).to eq(results_search.first.email)
+      end
+
+      it 'returns professor by username' do
+        results_search = Professor.search(professor.username)
+        expect(professor.username).to eq(results_search.first.username)
+      end
+    end
+
+    context 'when finds professor by name with accents' do
+      it 'returns professor' do
+        professor = create(:professor, name: 'João')
+        results_search = Professor.search('Joao')
+        expect(professor.name).to eq(results_search.first.name)
+      end
+    end
+
+    context 'when finds professor by name on search term with accents' do
+      it 'returns professor' do
+        professor = create(:professor, name: 'Joao')
+        results_search = Professor.search('João')
+        expect(professor.name).to eq(results_search.first.name)
+      end
+    end
+
+    context 'when finds professor by name ignoring the case sensitive' do
+      it 'returns professor by attribute' do
+        professor = create(:professor, name: 'Ana')
+        results_search = Professor.search('an')
+        expect(professor.name).to eq(results_search.first.name)
+      end
+
+      it 'returns professor by search term' do
+        professor = create(:professor, name: 'ana')
+        results_search = Professor.search('AN')
+        expect(professor.name).to eq(results_search.first.name)
+      end
+    end
+
+    context 'when returns professors ordered by name' do
+      it 'returns ordered' do
+        create_list(:professor, 30)
+        professors_ordered = Professor.order(:name)
+        professor = professors_ordered.first
+        results_search = Professor.search
+        expect(professor.name). to eq(results_search.first.name)
+      end
+    end
+  end
 end
