@@ -1,4 +1,6 @@
 class Professor < ApplicationRecord
+  attr_accessor :skip_password_validation
+
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:username]
@@ -40,5 +42,12 @@ class Professor < ApplicationRecord
     else
       order(:name)
     end
+  end
+
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+    super
   end
 end

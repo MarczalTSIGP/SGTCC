@@ -33,6 +33,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def create
     @professor = Professor.new(professor_params)
+    @professor.skip_password_validation = true
 
     if @professor.save
       flash[:success] = I18n.t('flash.actions.create.m',
@@ -72,10 +73,10 @@ class Responsible::ProfessorsController < Responsible::BaseController
     params.require(:professor).permit(
       :name,
       :email,
-      :login_utfpr,
+      :username,
       :lattes,
-      :is_active,
       :gender,
+      :is_active,
       :available_advisor
     )
   end

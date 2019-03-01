@@ -3,10 +3,14 @@
     <%= f.input :name %>
     <%= f.input :email %>
     <%= f.input :username %>
+    <%= f.input :lattes %>
     <%= f.input :gender,
                 as: :radio_buttons,
                 collection: Professor.human_genders,
                 item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+
+    <%= f.input :is_active, as: :checkbox_tabler %>
+    <%= f.input :available_advisor, as: :checkbox_tabler %>
   </div>
 
   <div class="d-flex">
