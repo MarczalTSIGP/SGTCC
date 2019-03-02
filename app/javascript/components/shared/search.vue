@@ -9,6 +9,7 @@
         placeholder="Procurar..."
         class="form-control"
         @keyup.enter="search()"
+        @keyup.capture="updateFieldSearchTerm"
       >
       <span class="input-group-append">
         <a
@@ -51,9 +52,7 @@ export default {
 
   computed: {
     searchUrl() {
-      const term = this.getFieldSearchTerm();
-
-      return `${this.url}/${term}`;
+      return `${this.url}/${this.term}`;
     },
   },
 
@@ -72,8 +71,8 @@ export default {
       this.term = this.searchTerm;
     },
 
-    getFieldSearchTerm() {
-      return this.term.replace('/', '');
+    updateFieldSearchTerm() {
+      this.term = this.term.replace('/', '');
     },
   },
 };
