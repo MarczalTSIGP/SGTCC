@@ -49,6 +49,14 @@ export default {
     };
   },
 
+  computed: {
+    searchUrl() {
+      const term = this.getFieldSearchTerm();
+
+      return `${this.url}/${term}`;
+    },
+  },
+
   mounted() {
     this.setFieldSearchTerm();
   },
@@ -56,13 +64,17 @@ export default {
   methods: {
     search() {
       const link = this.$refs.link;
-      link.href = `${this.url}/${this.term}`;
+      link.href = this.searchUrl;
       link.click();
     },
 
     setFieldSearchTerm() {
       this.term = this.searchTerm;
-    }
+    },
+
+    getFieldSearchTerm() {
+      return this.term.replace('/', '');
+    },
   },
 };
 
