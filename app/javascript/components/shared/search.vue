@@ -9,6 +9,7 @@
         placeholder="Procurar..."
         class="form-control"
         @keyup.enter="search()"
+        @keyup.capture="updateFieldSearchTerm"
       >
       <span class="input-group-append">
         <a
@@ -49,6 +50,12 @@ export default {
     };
   },
 
+  computed: {
+    searchUrl() {
+      return `${this.url}/${this.term}`;
+    },
+  },
+
   mounted() {
     this.setFieldSearchTerm();
   },
@@ -56,13 +63,17 @@ export default {
   methods: {
     search() {
       const link = this.$refs.link;
-      link.href = `${this.url}/${this.term}`;
+      link.href = this.searchUrl;
       link.click();
     },
 
     setFieldSearchTerm() {
       this.term = this.searchTerm;
-    }
+    },
+
+    updateFieldSearchTerm() {
+      this.term = this.term.replace(/\\|\//g, '');
+    },
   },
 };
 
