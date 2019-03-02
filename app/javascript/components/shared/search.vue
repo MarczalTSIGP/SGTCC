@@ -72,7 +72,7 @@ export default {
     },
 
     updateFieldSearchTerm() {
-      this.term = this.term.replace('/', '');
+      this.term = this.term.replace(/\\|\//g, '');
     },
   },
 };
