@@ -26,7 +26,7 @@ describe 'Academics::search', type: :feature do
 
     context 'when the result is not found' do
       it 'returns not found message', js: true do
-        fill_in 'term', with: 'a1#23123rere'
+        fill_in 'term', with: 'a1#231/ere'
         first('#search').click
 
         not_found_message = I18n.t('helpers.no_results')
