@@ -7,7 +7,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:lattes) }
     it { is_expected.to validate_presence_of(:gender) }
-
+    it { is_expected.to validate_presence_of(:working_area) }
     it { is_expected.to validate_presence_of(:password) }
 
     it { is_expected.to validate_length_of(:email) }

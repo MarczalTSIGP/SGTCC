@@ -7,6 +7,7 @@ FactoryBot.define do
     gender { Professor.genders.values.sample }
     is_active { Faker::Boolean.boolean }
     available_advisor { Faker::Boolean.boolean }
+    working_area { Faker::Markdown.emphasis }
     password { 'password' }
     password_confirmation { 'password' }
     professor_title

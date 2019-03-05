@@ -56,6 +56,7 @@ pt-BR:
         professor_type: "Tipo"
         professor_role: "Papel"
         professor_title: "Títulação"
+        working_area: "Área de atuação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

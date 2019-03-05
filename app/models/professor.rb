@@ -17,6 +17,9 @@ class Professor < ApplicationRecord
   validates :gender,
             presence: true
 
+  validates :working_area,
+            presence: true
+
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false }
