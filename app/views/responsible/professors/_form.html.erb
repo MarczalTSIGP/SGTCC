@@ -1,17 +1,36 @@
 <%= simple_form_for [:responsible, @professor] do |f| %>
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :username %>
-    <%= f.input :lattes %>
-    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :name %>
+      </div>
+      <div class="col-6">
+        <%= f.input :email %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :username %>
+      </div>
+      <div class="col-6">
+        <%= f.input :lattes %>
+      </div>
+    </div>
 
-    <%= f.association :professor_title,
-      prompt: t('prompt.select.m', name: 'título') %>
-    <%= f.association :professor_type,
-      prompt: t('prompt.select.m', name: 'tipo') %>
-    <%= f.association :professor_role,
-      prompt: t('prompt.select.m', name: 'papel') %>
+    <div class="row">
+      <div class="col-4">
+        <%= f.association :professor_title,
+          prompt: t('prompt.select.m', name: 'título') %>
+      </div>
+      <div class="col-4">
+        <%= f.association :professor_type,
+          prompt: t('prompt.select.m', name: 'tipo') %>
+      </div>
+      <div class="col-4">
+        <%= f.association :professor_role,
+          prompt: t('prompt.select.m', name: 'papel') %>
+      </div>
+    </div>
 
     <%= f.input :gender,
                 as: :radio_buttons,
@@ -20,6 +39,8 @@
 
     <%= f.input :is_active, as: :checkbox_tabler %>
     <%= f.input :available_advisor, as: :checkbox_tabler %>
+
+    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
   </div>
 
   <div class="d-flex">
