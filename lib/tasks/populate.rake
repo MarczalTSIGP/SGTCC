@@ -26,6 +26,7 @@ namespace :db do
         lattes: "http://lattes.com.#{index}",
         is_active: Faker::Boolean.boolean,
         available_advisor: Faker::Boolean.boolean,
+        working_area: Faker::Markdown.headers,
         professor_type_id: 2,
         professor_role_id: 1,
         professor_title_id: 1,

@@ -28,9 +28,10 @@ Professor.create_with(
   username: 'marczal',
   gender: 'M',
   lattes: 'https://www.lattes.com/marczal',
-  professor_title_id: 3,
-  professor_type_id: 1,
-  professor_role_id: 1,
+  professor_title_id: ProfessorTitle.last.id,
+  professor_type_id: ProfessorType.first.id,
+  professor_role_id: ProfessorRole.first.id,
+  working_area: 'Desenvolvimento web',
   is_active: true,
   available_advisor: false,
   password: '123456'
