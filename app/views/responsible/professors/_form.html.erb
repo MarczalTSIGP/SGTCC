@@ -4,7 +4,7 @@
     <%= f.input :email %>
     <%= f.input :username %>
     <%= f.input :lattes %>
-    <%= f.input :working_area %>
+    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
 
     <%= f.association :professor_title,
       prompt: t('prompt.select.m', name: 'título') %>
@@ -29,18 +29,4 @@
 
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
-<% end %>
-
-<%= content_for(:css) do %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<% end %>
-
-<%= content_for(:js) do %>
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-  <script>
-    var simplemde = new SimpleMDE({
-      element: document.getElementById('professor_working_area')
-    });
-  </script>
 <% end %>
