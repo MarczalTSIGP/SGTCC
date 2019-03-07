@@ -6,7 +6,7 @@
         v-model="term"
         type="text"
         name="term"
-        placeholder="Procurar..."
+        :placeholder="$t('messages.search')"
         class="form-control"
         @keyup.enter="search()"
         @keyup.capture="updateFieldSearchTerm"
@@ -25,7 +25,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 

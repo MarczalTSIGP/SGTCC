@@ -4,6 +4,7 @@ export const messages = {
       registration: {
         edit_image: 'Clique na imagem para alterá-la'
       },
+      search: 'Procurar...',
     },
   },
   'en': {
