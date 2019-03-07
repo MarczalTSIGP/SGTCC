@@ -4,8 +4,7 @@ professor_types.each do |category|
 end
 
 professor_roles = [
-  'Professor orientador',
-  'Professor coorientador',
+  'Professor responsável',
   'Professor de TCC 1'
 ]
 
@@ -16,7 +15,8 @@ end
 professor_titles = [
   { name: 'Especialista', abbr: 'Esp.' },
   { name: 'Mestre', abbr: 'Me.' },
-  { name: 'Doutor', abbr: 'Dr.' }
+  { name: 'Doutor', abbr: 'Dr.' },
+  { name: 'Doutora', abbr: 'Dra.' }
 ]
 
 professor_titles.each do |title|
@@ -28,9 +28,9 @@ Professor.create_with(
   username: 'marczal',
   gender: 'M',
   lattes: 'https://www.lattes.com/marczal',
-  professor_title_id: ProfessorTitle.last.id,
-  professor_type_id: ProfessorType.first.id,
-  professor_role_id: ProfessorRole.first.id,
+  professor_title_id: ProfessorTitle.pluck(:id).sample,
+  professor_type_id: ProfessorType.pluck(:id).sample,
+  professor_role_id: ProfessorRole.pluck(:id).sample,
   working_area: 'Desenvolvimento web',
   is_active: true,
   available_advisor: false,
