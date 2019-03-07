@@ -1,4 +1,6 @@
 class Professor < ApplicationRecord
+  include Searchable
+
   attr_accessor :skip_password_validation
 
   devise :database_authenticatable,
@@ -40,15 +42,6 @@ class Professor < ApplicationRecord
     hash = {}
     genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
-  end
-
-  def self.search(search = nil)
-    if search
-      where('unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?',
-            "%#{search}%", "%#{search}%", "%#{search}%").order('name ASC')
-    else
-      order(:name)
-    end
   end
 
   protected
