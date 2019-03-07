@@ -9,11 +9,11 @@ describe 'Professor::create', type: :feature do
   end
 
   describe '#create' do
-    before do
-      @type = create_list(:professor_type, 2).sample
-      @role = create_list(:professor_role, 3).sample
-      @title = create_list(:professor_title, 2).sample
+    let(:title) { create(:professor_title) }
+    let(:type) { create(:professor_type) }
+    let(:role) { create(:professor_role, 3) }
 
+    before do
       visit new_responsible_professor_path
     end
 
@@ -29,9 +29,9 @@ describe 'Professor::create', type: :feature do
           find('.fa-bold').click
         end
 
-        select @title.name, from: 'professor[professor_title_id]'
-        select @type.name, from: 'professor[professor_type_id]'
-        select @role.name, from: 'professor[professor_role_id]'
+        find('#professor_professor_title_id').find(:xpath, 'option[2]').select_option
+        find('#professor_professor_role_id').find(:xpath, 'option[2]').select_option
+        find('#professor_professor_type_id').find(:xpath, 'option[2]').select_option
 
         choose 'professor_gender_male'
 

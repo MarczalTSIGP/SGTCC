@@ -71,16 +71,11 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def professor_params
     params.require(:professor).permit(
-      :name,
-      :email,
-      :username,
-      :lattes,
-      :gender,
-      :is_active,
-      :working_area,
-      :available_advisor,
-      :professor_type_id,
-      :professor_role_id,
+      :name, :email,
+      :username, :lattes,
+      :gender, :is_active,
+      :working_area, :available_advisor,
+      :professor_type_id, :professor_role_id,
       :professor_title_id
     )
   end

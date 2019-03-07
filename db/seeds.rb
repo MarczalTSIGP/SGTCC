@@ -36,5 +36,3 @@ Professor.create_with(
   available_advisor: false,
   password: '123456'
 ).find_or_create_by!(email: 'responsavel@email.com')
-
-

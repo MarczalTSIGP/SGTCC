@@ -33,15 +33,21 @@ ActiveRecord::Schema.define(version: 2019_03_05_172016) do
 
   create_table "professor_roles", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professor_titles", force: :cascade do |t|
     t.string "name"
     t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professor_types", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professors", force: :cascade do |t|
