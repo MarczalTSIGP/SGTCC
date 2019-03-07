@@ -54,7 +54,7 @@ pt-BR:
         is_active: "Ativo no sistema"
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
-        professor_role: "Papel"
+        professor_roles: "Papéis"
         professor_title: "Títulação"
         working_area: "Área de atuação"
         <<: *commons

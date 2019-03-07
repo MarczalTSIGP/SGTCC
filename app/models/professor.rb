@@ -10,8 +10,10 @@ class Professor < ApplicationRecord
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
   belongs_to :professor_type
-  belongs_to :professor_role
   belongs_to :professor_title
+
+  has_many :assignments, dependent: :destroy
+  has_many :roles, through: :assignments
 
   validates :name,
             presence: true

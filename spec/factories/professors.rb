@@ -12,6 +12,5 @@ FactoryBot.define do
     password_confirmation { 'password' }
     professor_title
     professor_type
-    professor_role
   end
 end

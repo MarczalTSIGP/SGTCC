@@ -11,7 +11,7 @@ describe 'Professor::create', type: :feature do
   describe '#create' do
     let(:title) { create(:professor_title) }
     let(:type) { create(:professor_type) }
-    let(:role) { create(:professor_role, 3) }
+    let(:roles) { create_list(:role, 2) }
 
     before do
       visit new_responsible_professor_path
@@ -30,7 +30,6 @@ describe 'Professor::create', type: :feature do
         end
 
         find('#professor_professor_title_id').find(:xpath, 'option[2]').select_option
-        find('#professor_professor_role_id').find(:xpath, 'option[2]').select_option
         find('#professor_professor_type_id').find(:xpath, 'option[2]').select_option
 
         choose 'professor_gender_male'
