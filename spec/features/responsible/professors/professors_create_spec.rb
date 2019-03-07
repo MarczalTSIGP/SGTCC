@@ -24,7 +24,10 @@ describe 'Professor::create', type: :feature do
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_username', with: attributes[:username]
         fill_in 'professor_lattes', with: attributes[:lattes]
-        fill_in 'professor_working_area', with: attributes[:working_area]
+
+        within('div.editor-toolbar') do
+          find('.fa-bold').click
+        end
 
         select @title.name, from: 'professor[professor_title_id]'
         select @type.name, from: 'professor[professor_type_id]'
