@@ -19,7 +19,7 @@ describe 'Academic::create', type: :feature do
         fill_in 'academic_name',   with: attributes[:name]
         fill_in 'academic_email',  with: attributes[:email]
         fill_in 'academic_ra',     with: attributes[:ra]
-        choose 'academic_gender_male'
+        find('span', text: Professor.human_genders.first[0]).click
 
         submit_form('input[name="commit"]')
 
@@ -53,7 +53,7 @@ describe 'Academic::create', type: :feature do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
 
-        within('fieldset.academic_gender') do
+        within('div.academic_gender') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
       end

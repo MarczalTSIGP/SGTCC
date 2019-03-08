@@ -43,6 +43,7 @@
       </div>
 
       <%= f.association :roles,
+        input_html: { class: 'select-multiple' },
         disabled: true %>
 
       <%= f.input :current_password,

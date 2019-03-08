@@ -32,7 +32,7 @@ describe 'Professor::create', type: :feature do
         find('#professor_professor_title_id').find(:xpath, 'option[2]').select_option
         find('#professor_professor_type_id').find(:xpath, 'option[2]').select_option
 
-        choose 'professor_gender_male'
+        find('span', text: Professor.human_genders.first[0]).click
 
         submit_form('input[name="commit"]')
 
@@ -67,7 +67,7 @@ describe 'Professor::create', type: :feature do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
 
-        within('fieldset.professor_gender') do
+        within('div.professor_gender') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
 

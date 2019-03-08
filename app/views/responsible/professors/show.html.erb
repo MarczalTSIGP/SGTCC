@@ -59,14 +59,16 @@
       </strong>
       <%= @professor.professor_type.name %>
     </p>
-    <p>
-      <strong>
-        <%= Professor.human_attribute_name('roles') %>:
-      </strong>
-      <% @professor.roles.each do |role| %>
-        <span class="badge badge-primary"><%= role.name %></span>
-      <% end %>
-    </p>
+    <% unless @professor.roles.empty? %>
+      <p>
+        <strong>
+          <%= Professor.human_attribute_name('roles') %>:
+        </strong>
+        <% @professor.roles.each do |role| %>
+          <span class="badge badge-primary"><%= role.name %></span>
+        <% end %>
+      </p>
+    <% end %>
     <p>
       <strong>
         <%= Professor.human_attribute_name('working_area') %>:

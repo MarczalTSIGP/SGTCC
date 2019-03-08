@@ -28,7 +28,9 @@
       </div>
     </div>
 
-    <%= f.association :roles, prompt: t('prompt.select.m', name: 'papel') %>
+    <%= f.association :roles,
+      prompt: t('prompt.select.m', name: 'papel'),
+      input_html: { class: 'select-multiple' } %>
 
     <%= f.input :gender,
                 as: :radio_button_tabler,

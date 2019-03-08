@@ -51,7 +51,7 @@ document.addEventListener('turbolinks:load', () => {
       initSelectize() {
         const $ = window.jQuery;
 
-        $('select').selectize();
+        $('.select-multiple').selectize();
       },
     },
   });

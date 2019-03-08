@@ -1,3 +1,9 @@
 .error-page {
   margin-top: 15rem;
 }
+
+.form-group-invalid {
+  .invalid-feedback {
+    display: block;
+  }
+}
