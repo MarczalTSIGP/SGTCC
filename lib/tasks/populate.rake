@@ -5,6 +5,7 @@ namespace :db do
     require 'faker'
 
     [Academic].each(&:delete_all)
+    Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
       Academic.create(
@@ -27,9 +28,8 @@ namespace :db do
         is_active: Faker::Boolean.boolean,
         available_advisor: Faker::Boolean.boolean,
         working_area: Faker::Markdown.headers,
-        professor_type_id: 2,
-        professor_role_id: 1,
-        professor_title_id: 1,
+        professor_type_id: ProfessorType.pluck(:id).sample,
+        professor_title_id: ProfessorTitle.pluck(:id).sample,
         password: '123456',
         password_confirmation: '123456'
       )
