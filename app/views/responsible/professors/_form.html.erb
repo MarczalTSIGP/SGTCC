@@ -28,10 +28,10 @@
       </div>
     </div>
 
-    <%= f.association :roles %>
+    <%= f.association :roles, prompt: t('prompt.select.m', name: 'papel') %>
 
     <%= f.input :gender,
-                as: :radio_buttons,
+                as: :radio_button_tabler,
                 collection: Professor.human_genders,
                 item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
 
