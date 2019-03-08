@@ -49,6 +49,34 @@
     </p>
     <p>
       <strong>
+        <%= Professor.human_attribute_name('professor_title') %>:
+      </strong>
+      <%= @professor.professor_title.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('professor_type') %>:
+      </strong>
+      <%= @professor.professor_type.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('roles') %>:
+      </strong>
+      <% @professor.roles.each do |role| %>
+        <span class="badge badge-primary"><%= role.name %></span>
+      <% end %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset w-50 mx-auto text-left">
+        <vue-markdown-preview><%= @professor.working_area %></vue-markdown-preview>
+      </div>
+    </p>
+    <p>
+      <strong>
         <%= Professor.human_attribute_name('created_at') %>:
       </strong>
       <%= complete_date(@professor.created_at) %>

@@ -21,6 +21,9 @@ describe 'Professors::show', type: :feature do
         expect(page).to have_content(gender)
         expect(page).to have_content(is_active)
         expect(page).to have_content(available_advisor)
+        expect(page).to have_content(professor.professor_title.name)
+        expect(page).to have_content(professor.professor_type.name)
+
         expect(page).to have_content(complete_date(professor.created_at))
         expect(page).to have_content(complete_date(professor.updated_at))
       end
