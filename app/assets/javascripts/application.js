@@ -8,3 +8,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+
+// Vendors
+//--------------------
+//= require config/selectize

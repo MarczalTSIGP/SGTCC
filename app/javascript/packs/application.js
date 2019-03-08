@@ -33,6 +33,7 @@ document.addEventListener('turbolinks:load', () => {
     components,
     mounted() {
       this.initMarkdownEditor();
+      this.initSelectize();
     },
 
     methods: {
@@ -45,6 +46,12 @@ document.addEventListener('turbolinks:load', () => {
             element: document.getElementById(id)
           });
         });
+      },
+
+      initSelectize() {
+        const $ = window.jQuery;
+
+        $('select').selectize();
       },
     },
   });
