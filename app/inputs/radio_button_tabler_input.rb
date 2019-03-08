@@ -16,9 +16,7 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
       first_value = collection.first
       last_value = collection.last
 
-      template.concat div_tag
-      template.concat label_tag(first_value)
-      template.concat label_tag(last_value)
+      concat_tags(first_value, last_value)
     end
   end
 
@@ -39,6 +37,12 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
       template.concat @builder.radio_button(attribute_name, value[1], class: 'custom-control-input')
       template.concat span_tag(value[0])
     end
+  end
+
+  def concat_tags(first, last)
+    template.concat div_tag
+    template.concat label_tag(first)
+    template.concat label_tag(last)
   end
 
   def label(_wrapper_options)
