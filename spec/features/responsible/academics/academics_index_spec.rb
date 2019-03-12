@@ -12,10 +12,10 @@ describe 'Academic::index', type: :feature do
         visit responsible_academics_path
 
         academics.each do |a|
-          expect(page).to have_content(a.name)
-          expect(page).to have_content(a.email)
-          expect(page).to have_content(a.ra)
-          expect(page).to have_content(a.created_at.strftime('%d/%m/%Y'))
+          expect(page).to have_contents([a.name,
+                                         a.email,
+                                         a.ra,
+                                         a.created_at.strftime('%d/%m/%Y')])
         end
       end
     end

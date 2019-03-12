@@ -9,10 +9,6 @@ describe 'Professor::create', type: :feature do
   end
 
   describe '#create' do
-    let(:title) { create(:professor_title) }
-    let(:type) { create(:professor_type) }
-    let(:roles) { create_list(:role, 2) }
-
     before do
       visit new_responsible_professor_path
     end
@@ -24,27 +20,22 @@ describe 'Professor::create', type: :feature do
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_username', with: attributes[:username]
         fill_in 'professor_lattes', with: attributes[:lattes]
-
-        within('div.editor-toolbar') do
-          find('.fa-bold').click
-        end
-
-        find('#professor_professor_title_id').find(:xpath, 'option[2]').select_option
-        find('#professor_professor_type_id').find(:xpath, 'option[2]').select_option
-
         find('span', text: Professor.human_genders.first[0]).click
+        find('.fa-bold').click
+
+        find('#professor_professor_title_id-selectized').click
+        find('div.selectize-dropdown-content', text: ProfessorTitle.first.name).click
+
+        find('#professor_professor_type_id-selectized').click
+        find('div.selectize-dropdown-content', text: ProfessorType.first.name).click
 
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_professors_path
         success_message = I18n.t('flash.actions.create.m',
                                  resource_name: resource_name)
-
         expect(page).to have_flash(:success, text: success_message)
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -52,28 +43,14 @@ describe 'Professor::create', type: :feature do
       it 'show errors' do
         submit_form('input[name="commit"]')
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.professor_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_username') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_gender') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_lattes') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        message_blank_error = I18n.t('errors.messages.blank')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
       end
     end
   end

@@ -12,10 +12,10 @@ describe 'Professor::index', type: :feature do
         visit responsible_professors_path
 
         professors.each do |a|
-          expect(page).to have_content(a.name)
-          expect(page).to have_content(a.email)
-          expect(page).to have_content(a.username)
-          expect(page).to have_content(a.created_at.strftime('%d/%m/%Y'))
+          expect(page).to have_contents([a.name,
+                                         a.email,
+                                         a.username,
+                                         a.created_at.strftime('%d/%m/%Y')])
         end
       end
     end

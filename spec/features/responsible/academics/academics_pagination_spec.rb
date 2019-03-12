@@ -13,10 +13,10 @@ describe 'Academics::pagination', type: :feature do
 
         click_link(2)
 
-        expect(page).to have_content(academic.name)
-        expect(page).to have_content(academic.email)
-        expect(page).to have_content(academic.ra)
-        expect(page).to have_content(academic.created_at.strftime('%d/%m/%Y'))
+        expect(page).to have_contents([academic.name,
+                                       academic.email,
+                                       academic.ra,
+                                       academic.created_at.strftime('%d/%m/%Y')])
       end
     end
   end

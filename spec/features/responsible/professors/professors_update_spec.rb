@@ -43,24 +43,14 @@ describe 'Professor::update', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.professor_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_username') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.professor_lattes') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        message_blank_error = I18n.t('errors.messages.blank')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
       end
     end
   end

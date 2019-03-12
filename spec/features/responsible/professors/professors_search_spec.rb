@@ -17,10 +17,10 @@ describe 'Professor::search', type: :feature do
         fill_in 'term', with: professor.name
         first('#search').click
 
-        expect(page).to have_content(professor.name)
-        expect(page).to have_content(professor.email)
-        expect(page).to have_content(professor.username)
-        expect(page).to have_content(professor.created_at.strftime('%d/%m/%Y'))
+        expect(page).to have_contents([professor.name,
+                                       professor.email,
+                                       professor.username,
+                                       professor.created_at.strftime('%d/%m/%Y')])
       end
     end
 
@@ -29,11 +29,7 @@ describe 'Professor::search', type: :feature do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
 
-        not_found_message = I18n.t('helpers.no_results')
-
-        within('table tbody') do
-          expect(page).to have_content(not_found_message)
-        end
+        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
       end
     end
   end
