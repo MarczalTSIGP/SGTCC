@@ -25,7 +25,7 @@ end
 
 professor_responsible = Professor.create_with(
   name: 'Diego Marczal',
-  username: 'marczal',
+  email: 'responsavel@email.com',
   gender: 'M',
   lattes: 'https://www.lattes.com/marczal',
   professor_title_id: ProfessorTitle.pluck(:id).sample,
@@ -34,6 +34,6 @@ professor_responsible = Professor.create_with(
   is_active: true,
   available_advisor: false,
   password: '123456'
-).find_or_create_by!(email: 'responsavel@email.com')
+).find_or_create_by!(username: 'marczal')
 
 professor_responsible.roles << Role.first
