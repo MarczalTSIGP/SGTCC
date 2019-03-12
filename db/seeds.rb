@@ -36,4 +36,6 @@ professor_responsible = Professor.create_with(
   password: '123456'
 ).find_or_create_by!(username: 'marczal')
 
-professor_responsible.roles << Role.first
+if professor_responsible.roles.empty?
+  professor_responsible.roles << Role.first
+end
