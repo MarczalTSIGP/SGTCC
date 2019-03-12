@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Academic::update', type: :feature do
-  let(:professor) { create(:professor) }
+  let(:responsible) { create(:professor) }
   let(:resource_name) { Academic.model_name.human }
 
   before do
-    login_as(professor, scope: :professor)
+    login_as(responsible, scope: :professor)
   end
 
   describe '#update' do
@@ -39,16 +39,12 @@ describe 'Academic::update', type: :feature do
         fill_in 'academic_email', with: ''
         submit_form('input[name="commit"]')
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-
-        within('div.academic_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        message_blank_error = I18n.t('errors.messages.blank')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_name')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_email')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_gender')
       end
     end
   end

@@ -1,4 +1,6 @@
 class Academic < ApplicationRecord
+  include Searchable
+
   attr_accessor :skip_password_validation
 
   devise :database_authenticatable,
@@ -7,11 +9,16 @@ class Academic < ApplicationRecord
 
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
-  validates :name,   presence: true
-  validates :gender, presence: true
+  validates :name,
+            presence: true
+
+  validates :gender,
+            presence: true
+
   validates :ra,
             presence: true,
             uniqueness: true
+
   validates :email,
             presence: true,
             format: { with: Devise.email_regexp },
@@ -23,15 +30,6 @@ class Academic < ApplicationRecord
     hash = {}
     genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
-  end
-
-  def self.search(search = nil)
-    if search
-      where('unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR ra ILIKE ?',
-            "%#{search}%", "%#{search}%", "%#{search}%").order('name ASC')
-    else
-      order(:name)
-    end
   end
 
   protected

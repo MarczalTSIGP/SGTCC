@@ -4,8 +4,8 @@ describe 'Academics::pagination', type: :feature do
   describe '#pagination' do
     context 'when finds the last academic on second page' do
       it 'finds the last academic', js: true do
-        professor = create(:professor)
-        login_as(professor, scope: :professor)
+        responsible = create(:professor)
+        login_as(responsible, scope: :professor)
 
         create_list(:academic, 30)
         visit responsible_academics_path
@@ -13,10 +13,10 @@ describe 'Academics::pagination', type: :feature do
 
         click_link(2)
 
-        expect(page).to have_content(academic.name)
-        expect(page).to have_content(academic.email)
-        expect(page).to have_content(academic.ra)
-        expect(page).to have_content(academic.created_at.strftime('%d/%m/%Y'))
+        expect(page).to have_contents([academic.name,
+                                       academic.email,
+                                       academic.ra,
+                                       academic.created_at.strftime('%d/%m/%Y')])
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_27_113434) do
+ActiveRecord::Schema.define(version: 2019_03_07_191510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,28 @@ ActiveRecord::Schema.define(version: 2019_02_27_113434) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
+  create_table "assignments", force: :cascade do |t|
+    t.bigint "professor_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professor_id"], name: "index_assignments_on_professor_id"
+    t.index ["role_id"], name: "index_assignments_on_role_id"
+  end
+
+  create_table "professor_titles", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "professor_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "professors", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -42,9 +64,28 @@ ActiveRecord::Schema.define(version: 2019_02_27_113434) do
     t.string "profile_image"
     t.string "username"
     t.string "name"
+    t.string "lattes"
+    t.string "gender", limit: 1
+    t.boolean "is_active", default: false
+    t.boolean "available_advisor"
+    t.bigint "professor_title_id"
+    t.bigint "professor_type_id"
+    t.text "working_area"
     t.index ["email"], name: "index_professors_on_email", unique: true
+    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
+    t.index ["professor_type_id"], name: "index_professors_on_professor_type_id"
     t.index ["reset_password_token"], name: "index_professors_on_reset_password_token", unique: true
     t.index ["username"], name: "index_professors_on_username", unique: true
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "assignments", "professors"
+  add_foreign_key "assignments", "roles"
+  add_foreign_key "professors", "professor_titles"
+  add_foreign_key "professors", "professor_types"
 end

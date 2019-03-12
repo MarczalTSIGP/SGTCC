@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Academics::search', type: :feature do
-  let(:professor) { create(:professor) }
+  let(:responsible) { create(:professor) }
   let(:academics) { create_list(:academic, 25) }
 
   before do
-    login_as(professor, scope: :professor)
+    login_as(responsible, scope: :professor)
     visit responsible_academics_path
   end
 
@@ -17,10 +17,10 @@ describe 'Academics::search', type: :feature do
         fill_in 'term', with: academic.name
         first('#search').click
 
-        expect(page).to have_content(academic.name)
-        expect(page).to have_content(academic.email)
-        expect(page).to have_content(academic.ra)
-        expect(page).to have_content(academic.created_at.strftime('%d/%m/%Y'))
+        expect(page).to have_contents([academic.name,
+                                       academic.email,
+                                       academic.ra,
+                                       academic.created_at.strftime('%d/%m/%Y')])
       end
     end
 
@@ -29,11 +29,7 @@ describe 'Academics::search', type: :feature do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
 
-        not_found_message = I18n.t('helpers.no_results')
-
-        within('table tbody') do
-          expect(page).to have_content(not_found_message)
-        end
+        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
       end
     end
   end

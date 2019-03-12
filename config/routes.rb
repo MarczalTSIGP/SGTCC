@@ -20,10 +20,19 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :professors,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
           as: 'academics_search'
+
+      get 'professors/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#index',
+          as: 'professors_search'
     end
   end
 

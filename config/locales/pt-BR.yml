@@ -15,7 +15,7 @@ pt-BR:
       show: 'Visualizar Acadêmico'
     professors:
       index: 'Professores'
-      new: 'Cadastrar Professor'
+      new: 'Novo Professor'
       edit: 'Editar Professor'
       show: 'Visualizar Professor'
     calendars:
@@ -38,19 +38,25 @@ pt-BR:
       attribute_commons: &commons
         name: "Nome"
         email: "Email"
+        gender: "Gênero"
         username: "Usuário institucional"
-        created_at: "Criado em"
-        updated_at: "Atualizado em"
         password: "Senha"
         current_password: "Senha atual"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
       academic:
         ra: "RA"
-        gender: "Gênero"
         <<: *commons
       professor:
+        roles: "Papéis"
         profile_image: "Imagem do perfil"
+        is_active: "Ativo no sistema"
+        available_advisor: "Disponível para orientação"
+        professor_type: "Tipo"
+        professor_title: "Títulação"
+        working_area: "Área de atuação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -108,3 +114,6 @@ pt-BR:
       details: "Talvez você tentou alterar algo que você não possui acesso."
   prompt:
     confirm: "Você tem certeza?"
+    select:
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'

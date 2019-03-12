@@ -10,6 +10,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
+import SimpleMDE from 'simplemde';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
@@ -30,5 +31,28 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
+    mounted() {
+      this.initMarkdownEditor();
+      this.initSelectize();
+    },
+
+    methods: {
+      initMarkdownEditor() {
+        const $ = window.jQuery;
+
+        $('.markdown-editor').each(function () {
+          const id = $(this).attr('id');
+          new SimpleMDE({
+            element: document.getElementById(id)
+          });
+        });
+      },
+
+      initSelectize() {
+        const $ = window.jQuery;
+
+        $('select').selectize();
+      },
+    },
   });
 });

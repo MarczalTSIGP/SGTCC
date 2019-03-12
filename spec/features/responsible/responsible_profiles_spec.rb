@@ -16,6 +16,7 @@ describe 'Responsible:profiles', type: :feature do
 
         fill_in 'professor_email', with: new_email
         fill_in 'professor_name', with: new_name
+        fill_in 'professor_lattes', with: professor.lattes
 
         attach_file 'professor_profile_image', FileSpecHelper.image.path
         fill_in 'professor_current_password', with: professor.password
