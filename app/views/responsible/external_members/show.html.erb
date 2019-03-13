@@ -25,6 +25,12 @@
     </p>
     <p>
       <strong>
+        <%= ExternalMember.human_attribute_name('external_member_type') %>:
+      </strong>
+      <%= @external_member.external_member_type.name %>
+    </p>
+    <p>
+      <strong>
         <%= ExternalMember.human_attribute_name('personal_page') %>:
       </strong>
       <%= @external_member.personal_page %>

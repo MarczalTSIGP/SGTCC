@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_201131) do
+ActiveRecord::Schema.define(version: 2019_03_13_202227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 2019_03_13_201131) do
     t.string "profile_image"
     t.bigint "professor_title_id"
     t.string "personal_page"
+    t.bigint "external_member_type_id"
+    t.index ["external_member_type_id"], name: "index_external_members_on_external_member_type_id"
     t.index ["professor_title_id"], name: "index_external_members_on_professor_title_id"
   end
 
@@ -116,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_03_13_201131) do
 
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
+  add_foreign_key "external_members", "external_member_types"
   add_foreign_key "external_members", "professor_titles"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "professors", "professor_titles"

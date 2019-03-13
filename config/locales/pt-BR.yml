@@ -82,6 +82,8 @@ pt-BR:
         <<: *commons
       external_member:
         personal_page: "Página pessoal (link)"
+        external_member_type: "Tipo"
+        company_responsible: "Responsável de empresa"
         <<: *commons
       institution:
         <<: *commons

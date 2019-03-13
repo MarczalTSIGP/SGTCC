@@ -4,6 +4,7 @@ class ExternalMember < ApplicationRecord
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
   belongs_to :professor_title
+  belongs_to :external_member_type
 
   validates :name,
             presence: true
@@ -15,6 +16,7 @@ class ExternalMember < ApplicationRecord
             presence: true
 
   validates :personal_page,
+            allow_blank: true,
             format: { with: URI::DEFAULT_PARSER.make_regexp }
 
   validates :email,
@@ -29,5 +31,12 @@ class ExternalMember < ApplicationRecord
     hash = {}
     genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
+  end
+
+  def self.filter_by_company_responsible
+    company_responsible = ExternalMember.human_attribute_name('company_responsible')
+    company_responsible_id = ExternalMemberType.find_by(name: company_responsible).id
+
+    ExternalMember.where(external_member_type_id: company_responsible_id).order(:name)
   end
 end

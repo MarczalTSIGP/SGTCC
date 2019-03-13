@@ -6,6 +6,7 @@ FactoryBot.define do
     gender { ExternalMember.genders.values.sample }
     is_active { Faker::Boolean.boolean }
     working_area { Faker::Markdown.headers }
+    external_member_type
     professor_title
   end
 end

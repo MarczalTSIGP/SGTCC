@@ -10,6 +10,7 @@ describe 'ExternalMember::create', type: :feature do
 
   describe '#create' do
     before do
+      ExternalMemberType.create(name: 'Responsible')
       visit new_responsible_external_member_path
     end
 
@@ -23,6 +24,8 @@ describe 'ExternalMember::create', type: :feature do
         find('.fa-bold').click
         find('#external_member_professor_title_id-selectized').click
         find('div.selectize-dropdown-content', text: ProfessorTitle.first.name).click
+        find('#external_member_external_member_type_id-selectized').click
+        find('div.selectize-dropdown-content', text: ExternalMemberType.first.name).click
 
         submit_form('input[name="commit"]')
 
