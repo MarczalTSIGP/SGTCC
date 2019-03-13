@@ -1,0 +1,20 @@
+<tr>
+  <td><%= institution.name %></td>
+  <td><%= institution.trade_name %></td>
+  <td><%= institution.cnpj %></td>
+  <td><%= institution.created_at.strftime("%d/%m/%Y") %></td>
+  <td>
+    <%= link_to(responsible_institution_path(institution)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_institution_path(institution)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_institution_path(institution),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>

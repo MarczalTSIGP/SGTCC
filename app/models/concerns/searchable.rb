@@ -18,8 +18,10 @@ module Searchable
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR ra ILIKE ?'
       elsif table_name == 'professors'
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?'
-      else
+      elsif table_name == 'external_members'
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR working_area ILIKE ?'
+      else
+        'unaccent(trade_name) ILIKE unaccent(?) OR company_name ILIKE ? OR cnpj ILIKE ?'
       end
     end
   end

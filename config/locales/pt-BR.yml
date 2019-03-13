@@ -23,6 +23,11 @@ pt-BR:
       new: 'Novo Membro externo'
       edit: 'Editar Membro externo'
       show: 'Visualizar Membro externo'
+    institutions:
+      index: 'Instituições externas'
+      new: 'Nova Instituição externa'
+      edit: 'Editar Instituição externa'
+      show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
     meetings:
@@ -42,6 +47,9 @@ pt-BR:
       external_member:
         one: "Membro externo"
         other: "Membros externos"
+      institution:
+        one: "Instituição externa"
+        other: "Instituições externas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -68,6 +76,12 @@ pt-BR:
         <<: *commons
       external_member:
         personal_page: "Página pessoal (link)"
+        <<: *commons
+      institution:
+        name: "Razão social"
+        trade_name: "Nome fantasia"
+        external_member: "Responsável"
+        cnpj: "CNPJ"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

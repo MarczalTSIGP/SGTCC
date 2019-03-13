@@ -27,5 +27,12 @@
 			</span>
 			<%= t('breadcrumbs.external_members.index') %>
 		<% end %>
-	</div>
+
+    <%= active_link_to(responsible_institutions_path, class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-3">
+        <%= icon('fas', 'university') %>
+      </span>
+      <%= t('breadcrumbs.institutions.index') %>
+    <% end %>
+  </div>
 </div>
