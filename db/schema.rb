@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_012819) do
+ActiveRecord::Schema.define(version: 2019_03_13_024238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2019_03_13_012819) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "profile_image"
+    t.bigint "professor_title_id"
+    t.index ["professor_title_id"], name: "index_external_members_on_professor_title_id"
   end
 
   create_table "professor_titles", force: :cascade do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_03_13_012819) do
 
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
+  add_foreign_key "external_members", "professor_titles"
   add_foreign_key "professors", "professor_titles"
   add_foreign_key "professors", "professor_types"
 end

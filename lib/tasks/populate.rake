@@ -41,7 +41,8 @@ namespace :db do
         email: Faker::Internet.email,
         gender: Academic.genders.values.sample,
         is_active: Faker::Boolean.boolean,
-        working_area: Faker::Markdown.headers
+        working_area: Faker::Markdown.headers,
+        professor_title_id: ProfessorTitle.pluck(:id).sample
       )
     end
   end

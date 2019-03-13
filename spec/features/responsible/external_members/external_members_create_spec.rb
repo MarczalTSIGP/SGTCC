@@ -20,6 +20,8 @@ describe 'ExternalMember::create', type: :feature do
         fill_in 'external_member_email', with: attributes[:email]
         find('span', text: ExternalMember.human_genders.first[0]).click
         find('.fa-bold').click
+        find('#external_member_professor_title_id-selectized').click
+        find('div.selectize-dropdown-content', text: ProfessorTitle.first.name).click
 
         submit_form('input[name="commit"]')
 

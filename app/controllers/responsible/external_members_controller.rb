@@ -72,6 +72,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def external_member_params
     params.require(:external_member).permit(:name, :email,
-                                            :gender, :is_active, :working_area)
+                                            :gender, :is_active,
+                                            :working_area, :professor_title_id)
   end
 end

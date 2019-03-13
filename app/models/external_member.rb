@@ -3,6 +3,8 @@ class ExternalMember < ApplicationRecord
 
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
+  belongs_to :professor_title
+
   validates :name,
             presence: true
 

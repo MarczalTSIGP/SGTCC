@@ -19,6 +19,10 @@ RSpec.describe ExternalMember, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { is_expected.to belong_to(:professor_title) }
+  end
+
   describe '#human_genders' do
     it 'returns the genders' do
       genders = ExternalMember.genders

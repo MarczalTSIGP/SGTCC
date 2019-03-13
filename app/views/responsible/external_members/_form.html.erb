@@ -9,6 +9,9 @@
       </div>
     </div>
 
+    <%= f.association :professor_title,
+      prompt: t('prompt.select.m', name: 'título') %>
+
     <div class="row">
       <div class="col-6">
         <%= f.input :gender,
