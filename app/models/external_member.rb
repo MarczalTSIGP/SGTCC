@@ -14,6 +14,9 @@ class ExternalMember < ApplicationRecord
   validates :working_area,
             presence: true
 
+  validates :personal_page,
+            format: { with: URI::DEFAULT_PARSER.make_regexp }
+
   validates :email,
             presence: true,
             length: { maximum: 255 },

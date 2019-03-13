@@ -35,13 +35,14 @@ namespace :db do
       )
     end
 
-    100.times do
+    100.times do |index|
       ExternalMember.create(
         name: Faker::Name.name,
         email: Faker::Internet.email,
-        gender: Academic.genders.values.sample,
         is_active: Faker::Boolean.boolean,
         working_area: Faker::Markdown.headers,
+        gender: Academic.genders.values.sample,
+        personal_page: "http://page.com.#{index}",
         professor_title_id: ProfessorTitle.pluck(:id).sample
       )
     end

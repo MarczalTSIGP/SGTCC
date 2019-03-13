@@ -15,6 +15,7 @@ describe 'ExternalMember::show', type: :feature do
 
         expect(page).to have_contents([external_member.name,
                                        external_member.email,
+                                       external_member.personal_page,
                                        gender,
                                        is_active,
                                        complete_date(external_member.created_at),

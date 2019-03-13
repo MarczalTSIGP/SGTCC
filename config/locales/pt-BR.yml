@@ -67,6 +67,7 @@ pt-BR:
         professor_type: "Tipo"
         <<: *commons
       external_member:
+        personal_page: "Página pessoal (link)"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

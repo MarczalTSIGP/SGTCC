@@ -25,6 +25,12 @@
     </p>
     <p>
       <strong>
+        <%= ExternalMember.human_attribute_name('personal_page') %>:
+      </strong>
+      <%= @external_member.personal_page %>
+    </p>
+    <p>
+      <strong>
         <%= ExternalMember.human_attribute_name('gender') %>:
       </strong>
       <%= t("enums.genders.#{@external_member.gender}") %>

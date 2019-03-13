@@ -17,6 +17,14 @@ RSpec.describe ExternalMember, type: :model do
     context 'when email is not valid' do
       it { is_expected.not_to allow_value('foo').for(:email) }
     end
+
+    context 'when personal page is valid' do
+      it { is_expected.to allow_value('http://personalpage.com.br').for(:personal_page) }
+    end
+
+    context 'when personal page is not valid' do
+      it { is_expected.not_to allow_value('personalpage.com').for(:personal_page) }
+    end
   end
 
   describe 'associations' do

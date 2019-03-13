@@ -9,8 +9,15 @@
       </div>
     </div>
 
-    <%= f.association :professor_title,
-      prompt: t('prompt.select.m', name: 'título') %>
+    <div class="row">
+      <div class="col-6">
+        <%= f.association :professor_title,
+          prompt: t('prompt.select.m', name: 'título') %>
+      </div>
+      <div class="col-6">
+        <%= f.input :personal_page %>
+      </div>
+   </div>
 
     <div class="row">
       <div class="col-6">

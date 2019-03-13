@@ -18,6 +18,7 @@ describe 'ExternalMember::create', type: :feature do
         attributes = attributes_for(:external_member)
         fill_in 'external_member_name', with: attributes[:name]
         fill_in 'external_member_email', with: attributes[:email]
+        fill_in 'external_member_personal_page', with: attributes[:personal_page]
         find('span', text: ExternalMember.human_genders.first[0]).click
         find('.fa-bold').click
         find('#external_member_professor_title_id-selectized').click
@@ -43,6 +44,7 @@ describe 'ExternalMember::create', type: :feature do
         expect(page).to have_message(message_blank_error, in: 'div.external_member_name')
         expect(page).to have_message(message_blank_error, in: 'div.external_member_email')
         expect(page).to have_message(message_blank_error, in: 'div.external_member_gender')
+        expect(page).to have_message(message_blank_error, in: 'div.external_member_personal_page')
         expect(page).to have_message(message_blank_error, in: 'div.external_member_working_area')
       end
     end
