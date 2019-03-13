@@ -12,7 +12,7 @@ describe 'Institution::show', type: :feature do
 
         expect(page).to have_contents([institution.name,
                                        institution.trade_name,
-                                       institution.cnpj,
+                                       institution.cnpj_formatted,
                                        institution.external_member.name,
                                        complete_date(institution.created_at),
                                        complete_date(institution.updated_at)])

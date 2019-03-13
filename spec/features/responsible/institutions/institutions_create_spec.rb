@@ -9,7 +9,6 @@ describe 'Institution::create', type: :feature do
   end
 
   describe '#create' do
-
     before do
       ExternalMember.create(
         name: 'Teste', email: 'email@email.com',

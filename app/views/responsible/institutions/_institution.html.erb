@@ -1,7 +1,7 @@
 <tr>
   <td><%= institution.name %></td>
   <td><%= institution.trade_name %></td>
-  <td><%= institution.cnpj %></td>
+  <td><%= institution.cnpj_formatted %></td>
   <td><%= institution.created_at.strftime("%d/%m/%Y") %></td>
   <td>
     <%= link_to(responsible_institution_path(institution)) do %>

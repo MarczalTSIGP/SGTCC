@@ -4,7 +4,7 @@
       prompt: t('prompt.select.m', name: 'responsável da instituição') %>
     <%= f.input :name %>
     <%= f.input :trade_name %>
-    <%= f.input :cnpj %>
+    <%= f.input :cnpj, input_html: { 'data-mask': '00.000.000/0000-00'} %>
  </div>
 
   <div class="d-flex">
