@@ -1,11 +1,11 @@
 <%= simple_form_for [:responsible, @institution] do |f| %>
   <div class="form-inputs">
+    <%= f.association :external_member,
+      prompt: t('prompt.select.m', name: 'responsável da instituição') %>
     <%= f.input :name %>
     <%= f.input :trade_name %>
     <%= f.input :cnpj %>
-    <%= f.association :external_member,
-      prompt: t('prompt.select.m', name: 'responsável') %>
-  </div>
+ </div>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),

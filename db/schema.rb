@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2019_03_13_131044) do
   create_table "institutions", force: :cascade do |t|
     t.string "name"
     t.string "trade_name"
-    t.integer "cnpj"
+    t.string "cnpj"
     t.bigint "external_member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

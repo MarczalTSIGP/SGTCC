@@ -27,10 +27,7 @@ describe 'Academic::create', type: :feature do
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
 

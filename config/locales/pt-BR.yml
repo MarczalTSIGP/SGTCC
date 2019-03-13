@@ -78,11 +78,11 @@ pt-BR:
         personal_page: "Página pessoal (link)"
         <<: *commons
       institution:
-        name: "Razão social"
-        trade_name: "Nome fantasia"
-        external_member: "Responsável"
-        cnpj: "CNPJ"
         <<: *commons
+        name: "Razão social"
+        cnpj: "CNPJ"
+        trade_name: "Nome fantasia"
+        external_member: "Responsável da instituição"
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
