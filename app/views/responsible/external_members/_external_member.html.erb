@@ -1,0 +1,19 @@
+<tr>
+  <td><%= external_member.name %></td>
+  <td><%= external_member.email %></td>
+  <td><%= external_member.created_at.strftime("%d/%m/%Y") %></td>
+  <td>
+    <%= link_to(responsible_external_member_path(external_member)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_external_member_path(external_member)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_external_member_path(external_member),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>

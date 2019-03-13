@@ -39,6 +39,9 @@ pt-BR:
       academic:
         one: "Acadêmico"
         other: "Acadêmicos"
+      external_member:
+        one: "Membro externo"
+        other: "Membros externos"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -51,6 +54,7 @@ pt-BR:
         remember_me: "Lembre-me"
         created_at: "Criado em"
         updated_at: "Atualizado em"
+        working_area: "Área de atuação"
       academic:
         ra: "RA"
         <<: *commons
@@ -61,7 +65,8 @@ pt-BR:
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
         professor_title: "Títulação"
-        working_area: "Área de atuação"
+        <<: *commons
+      external_member:
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

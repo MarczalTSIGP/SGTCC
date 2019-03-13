@@ -21,7 +21,7 @@
 			<%= t('breadcrumbs.professors.index') %>
 		<% end %>
 
-		<%= link_to('#', class: 'list-group-item list-group-item-action') do %>
+		<%= active_link_to(responsible_external_members_path, class: 'list-group-item list-group-item-action') do %>
 			<span class="icon mr-3">
 				<%= icon('fas', 'users') %>
 			</span>
