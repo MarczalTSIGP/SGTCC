@@ -25,6 +25,20 @@
     </p>
     <p>
       <strong>
+        <%= ExternalMember.human_attribute_name('is_active') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@external_member.is_active}") %>
+    </p>
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset w-50 mx-auto text-left">
+        <vue-markdown-preview><%= @external_member.working_area %></vue-markdown-preview>
+      </div>
+    </p>
+    <p>
+      <strong>
         <%= ExternalMember.human_attribute_name('created_at') %>:
       </strong>
       <%= complete_date(@external_member.created_at) %>

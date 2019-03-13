@@ -4,7 +4,7 @@ namespace :db do
   task populate: :environment do
     require 'faker'
 
-    [Academic].each(&:delete_all)
+    [Academic, ExternalMember].each(&:delete_all)
     Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
@@ -32,6 +32,16 @@ namespace :db do
         professor_title_id: ProfessorTitle.pluck(:id).sample,
         password: '123456',
         password_confirmation: '123456'
+      )
+    end
+
+    100.times do
+      ExternalMember.create(
+        name: Faker::Name.name,
+        email: Faker::Internet.email,
+        gender: Academic.genders.values.sample,
+        is_active: Faker::Boolean.boolean,
+        working_area: Faker::Markdown.headers
       )
     end
   end

@@ -55,13 +55,13 @@ pt-BR:
         created_at: "Criado em"
         updated_at: "Atualizado em"
         working_area: "Área de atuação"
+        is_active: "Ativo no sistema"
       academic:
         ra: "RA"
         <<: *commons
       professor:
         roles: "Papéis"
         profile_image: "Imagem do perfil"
-        is_active: "Ativo no sistema"
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
         professor_title: "Títulação"
