@@ -1,0 +1,50 @@
+<% provide(:page_title, t('breadcrumbs.external_members.show')) %>
+<% provide(:head_title, t('breadcrumbs.external_members.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body text-center">
+    <img class="card-profile-img" src="<%= @external_member.profile_image %>">
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('name') %>:
+      </strong>
+      <%= @external_member.name %>
+    </p>
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('email') %>:
+      </strong>
+      <%= @external_member.email %>
+    </p>
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('gender') %>:
+      </strong>
+      <%= t("enums.genders.#{@external_member.gender}") %>
+    </p>
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@external_member.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= ExternalMember.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@external_member.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    responsible_external_members_path,
+    class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'),
+    edit_responsible_external_member_path(@external_member),
+    class: 'btn btn-primary ml-auto' %>
+</div>
+

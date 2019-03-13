@@ -16,6 +16,8 @@ class ExternalMember < ApplicationRecord
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
 
+  mount_uploader :profile_image, ProfileImageUploader
+
   def self.human_genders
     hash = {}
     genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }

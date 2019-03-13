@@ -33,8 +33,7 @@
 
     <%= f.input :gender,
                 as: :radio_button_tabler,
-                collection: Professor.human_genders,
-                item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+                collection: Professor.human_genders %>
 
     <%= f.input :is_active, as: :checkbox_tabler %>
     <%= f.input :available_advisor, as: :checkbox_tabler %>

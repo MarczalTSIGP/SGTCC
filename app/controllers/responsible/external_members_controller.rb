@@ -36,7 +36,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
     if @external_member.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: ExternalMember.model_name.human)
-      redirect_to responsible_external_member_path
+      redirect_to responsible_external_member_path(@external_member)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
