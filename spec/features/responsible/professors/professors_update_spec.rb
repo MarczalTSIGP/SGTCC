@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Professor::update', type: :feature do
   let(:responsible) { create(:professor) }
-  let(:resource_name) { professor.model_name.human }
+  let(:resource_name) { Professor.model_name.human }
 
   before do
     login_as(responsible, scope: :professor)

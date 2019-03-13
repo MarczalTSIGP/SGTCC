@@ -16,8 +16,10 @@ module Searchable
     def self.query_str
       if table_name == 'academics'
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR ra ILIKE ?'
-      else
+      elsif table_name == 'professors'
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?'
+      else
+        'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR working_area ILIKE ?'
       end
     end
   end

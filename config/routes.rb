@@ -37,6 +37,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'professors#index',
           as: 'professors_search'
+
+      get 'external_members/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'external_members#index',
+          as: 'external_members_search'
     end
   end
 

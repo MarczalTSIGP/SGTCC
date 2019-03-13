@@ -1,4 +1,6 @@
 class ExternalMember < ApplicationRecord
+  include Searchable
+
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
   validates :name,

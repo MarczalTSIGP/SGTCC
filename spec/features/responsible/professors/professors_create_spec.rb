@@ -51,6 +51,7 @@ describe 'Professor::create', type: :feature do
         expect(page).to have_message(message_blank_error, in: 'div.professor_username')
         expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
         expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_working_area')
       end
     end
   end
