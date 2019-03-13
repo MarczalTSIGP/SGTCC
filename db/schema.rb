@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_191510) do
+ActiveRecord::Schema.define(version: 2019_03_13_004419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2019_03_07_191510) do
     t.datetime "updated_at", null: false
     t.index ["professor_id"], name: "index_assignments_on_professor_id"
     t.index ["role_id"], name: "index_assignments_on_role_id"
+  end
+
+  create_table "external_members", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.boolean "is_active", default: false
+    t.string "gender", limit: 1
+    t.text "working_area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professor_titles", force: :cascade do |t|

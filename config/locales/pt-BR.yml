@@ -18,6 +18,11 @@ pt-BR:
       new: 'Novo Professor'
       edit: 'Editar Professor'
       show: 'Visualizar Professor'
+    external_members:
+      index: 'Membros externos'
+      new: 'Novo Membro externo'
+      edit: 'Editar Membro externo'
+      show: 'Visualizar Membro externo'
     calendars:
       index: "Calendários"
     meetings:
