@@ -37,6 +37,12 @@ pt-BR:
     pages:
       index: "Páginas"
   activerecord:
+    errors:
+      models:
+        institution:
+          attributes:
+            cnpj:
+              invalid_cnpj: "inválido"
     models:
       professor:
         one: "Professor"

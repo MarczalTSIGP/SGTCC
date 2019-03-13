@@ -21,7 +21,7 @@ module Searchable
       elsif table_name == 'external_members'
         'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR working_area ILIKE ?'
       else
-        'unaccent(name) ILIKE unaccent(?) OR unaccent(trade_name) ILIKE unaccent(?) OR name ILIKE ?'
+        'unaccent(name) ILIKE unaccent(?) OR unaccent(trade_name) ILIKE unaccent(?) OR cnpj ILIKE ?'
       end
     end
   end

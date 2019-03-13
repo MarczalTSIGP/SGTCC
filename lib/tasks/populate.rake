@@ -3,6 +3,7 @@ namespace :db do
 
   task populate: :environment do
     require 'faker'
+    require 'cpf_cnpj'
 
     [Academic, Institution, ExternalMember].each(&:delete_all)
     Professor.where.not(username: 'marczal').destroy_all
@@ -49,9 +50,9 @@ namespace :db do
 
     100.times do
       Institution.create(
-        name: Faker::Name.name,
-        trade_name: Faker::Name.name,
-        cnpj: Faker::Number.number(14),
+        name: Faker::Company.name,
+        trade_name: Faker::Company.buzzword,
+        cnpj: CNPJ.generate,
         external_member_id: ExternalMember.pluck(:id).sample
       )
     end

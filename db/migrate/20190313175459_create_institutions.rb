@@ -3,7 +3,7 @@ class CreateInstitutions < ActiveRecord::Migration[5.2]
     create_table :institutions do |t|
       t.string :name
       t.string :trade_name
-      t.string :cnpj
+      t.string :cnpj, unique: true
       t.references :external_member, foreign_key: true
 
       t.timestamps

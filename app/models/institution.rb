@@ -10,5 +10,7 @@ class Institution < ApplicationRecord
             presence: true
 
   validates :cnpj,
-            presence: true
+            cnpj: true,
+            presence: true,
+            uniqueness: { case_sensitive: false }
 end
