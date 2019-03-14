@@ -33,6 +33,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def create
     @external_member = ExternalMember.new(external_member_params)
+    @external_member.skip_password_validation = true
 
     if @external_member.save
       flash[:success] = I18n.t('flash.actions.create.m',

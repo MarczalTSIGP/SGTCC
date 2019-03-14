@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'Institution::create', type: :feature do
   let(:responsible) { create(:professor) }
   let(:resource_name) { Institution.model_name.human }
-  let(:external_member_types) { create_list(:external_member_type, 2) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -11,12 +10,15 @@ describe 'Institution::create', type: :feature do
 
   describe '#create' do
     before do
+      ExternalMemberType.create(name: 'Responsável de empresa')
       ExternalMember.create(
         name: 'Teste', email: 'email@email.com',
         personal_page: 'https://www.personalpage.com',
         professor_title_id: ProfessorTitle.first.id,
         gender: 'M', working_area: 'Teste',
-        external_member_type_id: external_member_types.first.id
+        external_member_type_id: ExternalMemberType.first.id,
+        password: '123456',
+        password_confirmation: '123456'
       )
       visit new_responsible_institution_path
     end

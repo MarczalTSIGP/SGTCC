@@ -1,6 +1,8 @@
 class ExternalMember < ApplicationRecord
   include Searchable
 
+  attr_accessor :skip_password_validation
+
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:email]
@@ -42,5 +44,12 @@ class ExternalMember < ApplicationRecord
     company_responsible_id = ExternalMemberType.find_by(name: company_responsible).id
 
     ExternalMember.where(external_member_type_id: company_responsible_id).order(:name)
+  end
+
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+    super
   end
 end
