@@ -12,8 +12,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(*)
     if resource_name == :professor
       responsible_root_path
-    else
+    elsif resource_name == :academic
       academics_root_path
+    else
+      external_members_root_path
     end
   end
 
@@ -22,8 +24,10 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(*)
     if resource_name == :professor
       new_responsible_session_path
-    else
+    elsif resource_name == :academic
       new_academics_session_path
+    else
+      new_external_members_session_path
     end
   end
 end

@@ -1,0 +1,69 @@
+<% provide(:head_title, t("sessions.edit_profile")) %>
+<% provide(:page_title, t("sessions.edit_profile")) %>
+<% provide(:title, t("sessions.edit_profile")) %>
+
+<%= simple_form_for(resource, as: resource_name,
+                    url: send("external_members_registration_path"),
+                    html: { method: :put, multipart: true }) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= f.input :name, required: true, autofocus: true %>
+
+  <div class="form-row">
+    <div class="col-sm-8">
+      <%= f.input :email %>
+
+      <%= f.input :current_password,
+        hint: t('devise.registrations.edit.current_password_to_confirm'),
+        required: true %>
+
+      <div class="row">
+        <div class="col-6">
+          <%= f.association :professor_title,
+            prompt: t('prompt.select.m', name: 'título'),
+            disabled: true %>
+        </div>
+        <div class="col-6">
+          <%= f.association :external_member_type,
+            prompt: t('prompt.select.m', name: 'tipo'),
+            disabled: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <%= f.input :gender,
+                      as: :radio_buttons,
+                      disabled: true,
+                      collection: ExternalMember.human_genders,
+                      item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+          <%= f.input :is_active, as: :checkbox_tabler %>
+        </div>
+        <div class="col-6">
+          <%= f.input :personal_page %>
+        </div>
+      </div>
+
+   </div>
+
+    <div class="col-sm-12 col-md-4">
+      <profile-image-preview
+        :resource="<%= resource_name.to_json %>"
+        :profile-image-url="<%= resource.profile_image.url.to_json %>"
+        :profile-image-errors="<%= resource.errors[:profile_image] %>">
+      </profile-image-preview>
+      <%= f.hidden_field :profile_image_cache %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t("simple_form.buttons.back"),
+      :external_members_root,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit,
+      t("devise.registrations.edit.update"),
+      class: 'btn-primary ml-auto' %>
+  </div>
+<% end %>

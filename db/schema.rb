@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_202227) do
+ActiveRecord::Schema.define(version: 2019_03_13_235643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,8 +58,13 @@ ActiveRecord::Schema.define(version: 2019_03_13_202227) do
     t.bigint "professor_title_id"
     t.string "personal_page"
     t.bigint "external_member_type_id"
+    t.string "encrypted_password"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["external_member_type_id"], name: "index_external_members_on_external_member_type_id"
     t.index ["professor_title_id"], name: "index_external_members_on_professor_title_id"
+    t.index ["reset_password_token"], name: "index_external_members_on_reset_password_token", unique: true
   end
 
   create_table "institutions", force: :cascade do |t|

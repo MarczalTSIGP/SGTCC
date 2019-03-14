@@ -8,5 +8,7 @@ FactoryBot.define do
     working_area { Faker::Markdown.headers }
     external_member_type
     professor_title
+    password { 'password' }
+    password_confirmation { 'password' }
   end
 end

@@ -40,6 +40,8 @@ namespace :db do
       ExternalMember.create(
         name: Faker::Name.name,
         email: Faker::Internet.email,
+        password: '123456',
+        password_confirmation: '123456',
         is_active: Faker::Boolean.boolean,
         working_area: Faker::Markdown.headers,
         gender: Academic.genders.values.sample,

@@ -111,4 +111,36 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
     end
   end
+
+  #========================================
+  # External members
+  #========================================
+  devise_for :external_members, skip: [:sessions]
+  as :external_member do
+    get '/external_members/login',
+        to: 'devise/sessions#new',
+        as: 'new_external_members_session'
+
+    post '/external_members/login',
+         to: 'devise/sessions#create',
+         as: 'external_members_session'
+
+    delete '/external_members/logout',
+           to: 'devise/sessions#destroy',
+           as: 'destroy_external_members_session'
+
+    get '/external_members/edit',
+        to: 'external_members/registrations#edit',
+        as: 'edit_external_members_registration'
+
+    put '/external_members',
+        to: 'external_members/registrations#update',
+        as: 'external_members_registration'
+  end
+
+  authenticate :external_member do
+    namespace :external_members do
+      root to: 'dashboard#index'
+    end
+  end
 end

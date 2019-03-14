@@ -1,6 +1,10 @@
 class ExternalMember < ApplicationRecord
   include Searchable
 
+  devise :database_authenticatable,
+         :rememberable, :validatable,
+         authentication_keys: [:email]
+
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 
   belongs_to :professor_title
