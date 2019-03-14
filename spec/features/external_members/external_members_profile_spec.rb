@@ -38,8 +38,10 @@ describe 'ExternalMember:profiles', type: :feature do
       error_message = I18n.t('simple_form.error_notification.default_message')
       expect(page).to have_flash(:danger, text: error_message)
 
-      expect(page).to have_message(I18n.t('errors.messages.blank'), in: 'div.external_member_name')
-      expect(page).to have_message(I18n.t('errors.messages.invalid'), in: 'div.external_member_email')
+      expect(page).to have_message(I18n.t('errors.messages.blank'),
+                                   in: 'div.external_member_name')
+      expect(page).to have_message(I18n.t('errors.messages.invalid'),
+                                   in: 'div.external_member_email')
       expect(page).to have_message(
         I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes'),
         in: 'div.external_member_current_password'
