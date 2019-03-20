@@ -46,8 +46,7 @@ namespace :db do
         working_area: Faker::Markdown.headers,
         gender: Academic.genders.values.sample,
         personal_page: "http://page.com.#{index}",
-        professor_title_id: ProfessorTitle.pluck(:id).sample,
-        external_member_type_id: ExternalMemberType.pluck(:id).sample
+        professor_title_id: ProfessorTitle.pluck(:id).sample
       )
     end
 

@@ -23,16 +23,6 @@ professor_titles.each do |title|
   ProfessorTitle.find_or_create_by!(name: title[:name], abbr: title[:abbr])
 end
 
-external_member_types = [
-  'Responsável de empresa',
-  'Coorientador externo',
-  'Membro de banca'
-]
-
-external_member_types.each do |type|
-  ExternalMemberType.find_or_create_by!(name: type)
-end
-
 professor_responsible = Professor.create_with(
   name: 'Diego Marczal',
   email: 'responsavel@email.com',

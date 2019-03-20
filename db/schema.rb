@@ -40,12 +40,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.index ["role_id"], name: "index_assignments_on_role_id"
   end
 
-  create_table "external_member_types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "external_members", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -57,12 +51,10 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.string "profile_image"
     t.bigint "professor_title_id"
     t.string "personal_page"
-    t.bigint "external_member_type_id"
     t.string "encrypted_password"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.index ["external_member_type_id"], name: "index_external_members_on_external_member_type_id"
     t.index ["professor_title_id"], name: "index_external_members_on_professor_title_id"
     t.index ["reset_password_token"], name: "index_external_members_on_reset_password_token", unique: true
   end
@@ -123,7 +115,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
 
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
-  add_foreign_key "external_members", "external_member_types"
   add_foreign_key "external_members", "professor_titles"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "professors", "professor_titles"
