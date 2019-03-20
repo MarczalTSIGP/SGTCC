@@ -27,6 +27,16 @@
       </strong>
       <%= @institution.external_member.name %>
     </p>
+    <% unless @institution.working_area.nil? %>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset w-50 mx-auto text-left">
+        <vue-markdown-preview><%= @institution.working_area %></vue-markdown-preview>
+      </div>
+    </p>
+    <% end %>
     <p>
       <strong>
         <%= Institution.human_attribute_name('created_at') %>:
