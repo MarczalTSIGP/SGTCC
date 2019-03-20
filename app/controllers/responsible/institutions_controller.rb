@@ -1,5 +1,6 @@
 class Responsible::InstitutionsController < Responsible::BaseController
   before_action :set_institution, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.institutions.index'),
                  :responsible_institutions_path
@@ -32,8 +33,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
     @institution = Institution.new(institution_params)
 
     if @institution.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Institution.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
       redirect_to responsible_institutions_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -43,8 +43,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
 
   def update
     if @institution.update(institution_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Institution.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
       redirect_to responsible_institution_path(@institution)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -54,9 +53,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
 
   def destroy
     @institution.destroy
-
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Institution.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
 
     redirect_to responsible_institutions_path
   end
@@ -65,6 +62,10 @@ class Responsible::InstitutionsController < Responsible::BaseController
 
   def set_institution
     @institution = Institution.find(params[:id])
+  end
+
+  def set_resource_name
+    @resource_name = Institution.model_name.human
   end
 
   def institution_params

@@ -1,5 +1,6 @@
 class Responsible::AcademicsController < Responsible::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.index'),
                  :responsible_academics_path
@@ -33,8 +34,7 @@ class Responsible::AcademicsController < Responsible::BaseController
     @academic.skip_password_validation = true
 
     if @academic.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Academic.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
       redirect_to responsible_academics_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -44,8 +44,7 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def update
     if @academic.update(academic_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Academic.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
       redirect_to responsible_academic_path(@academic)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -55,9 +54,7 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def destroy
     @academic.destroy
-
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Academic.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
 
     redirect_to responsible_academics_path
   end
@@ -66,6 +63,10 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def set_academic
     @academic = Academic.find(params[:id])
+  end
+
+  def set_resource_name
+    @resource_name = Academic.model_name.human
   end
 
   def academic_params
