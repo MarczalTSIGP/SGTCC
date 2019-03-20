@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Institution::create', type: :feature do
   let(:responsible) { create(:professor) }
   let(:resource_name) { Institution.model_name.human }
+  let!(:external_member) { create(:external_member) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -10,14 +11,6 @@ describe 'Institution::create', type: :feature do
 
   describe '#create' do
     before do
-      ExternalMember.create(
-        name: 'Teste', email: 'email@email.com',
-        personal_page: 'https://www.personalpage.com',
-        professor_title_id: ProfessorTitle.first.id,
-        gender: 'M', working_area: 'Teste',
-        password: '123456',
-        password_confirmation: '123456'
-      )
       visit new_responsible_institution_path
     end
 
@@ -25,7 +18,7 @@ describe 'Institution::create', type: :feature do
       it 'create an institution' do
         attributes = attributes_for(:institution)
         find('#institution_external_member_id-selectized').click
-        find('div.selectize-dropdown-content', text: ExternalMember.first.name).click
+        find('div.selectize-dropdown-content', text: external_member.name).click
 
         fill_in 'institution_name', with: attributes[:name]
         fill_in 'institution_trade_name', with: attributes[:trade_name]
