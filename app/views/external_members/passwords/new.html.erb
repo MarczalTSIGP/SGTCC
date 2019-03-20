@@ -1,0 +1,23 @@
+<% provide(:head_title, t('devise.passwords.new.forgot_your_password')) %>
+<% provide(:page_title, t('devise.passwords.new.forgot_your_password')) %>
+<% provide(:title, t('devise.passwords.new.forgot_your_password')) %>
+
+<%= simple_form_for(resource,
+                    as: resource_name,
+                    url: password_path(resource_name),
+                    html: { method: :post }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "email" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit,
+      t('devise.passwords.new.send_me_reset_password_instructions'),
+      class: 'btn btn-primary float-right mt-3' %>
+  </div>
+<% end %>

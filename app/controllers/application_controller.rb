@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(*)
     return new_responsible_session_path if resource_name == :professor
-    send("new_#{resource_name.to_s.pluralize}_session_path")
+    send("new_#{resource_name}_session_path")
   end
 end

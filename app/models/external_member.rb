@@ -6,7 +6,7 @@ class ExternalMember < ApplicationRecord
 
   devise :database_authenticatable,
          :rememberable, :validatable,
-         authentication_keys: [:email]
+         :recoverable, authentication_keys: [:email]
 
   enum gender: { male: 'M', female: 'F' }, _prefix: :gender
 

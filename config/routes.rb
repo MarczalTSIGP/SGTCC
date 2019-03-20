@@ -87,7 +87,7 @@ Rails.application.routes.draw do
   as :academic do
     get '/academics/login',
         to: 'devise/sessions#new',
-        as: 'new_academics_session'
+        as: 'new_academic_session'
 
     post '/academics/login',
          to: 'devise/sessions#create',
@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   as :external_member do
     get '/external_members/login',
         to: 'devise/sessions#new',
-        as: 'new_external_members_session'
+        as: 'new_external_member_session'
 
     post '/external_members/login',
          to: 'devise/sessions#create',

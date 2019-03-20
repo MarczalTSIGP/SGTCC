@@ -12,7 +12,7 @@ describe 'ExternalMember:logout', type: :feature do
     click_link external_member.name
     click_link(I18n.t('sessions.sign_out'))
 
-    expect(page).to have_current_path new_external_members_session_path
+    expect(page).to have_current_path new_external_member_session_path
 
     expect(page).to have_flash(
       :info,

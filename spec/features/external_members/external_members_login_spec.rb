@@ -4,7 +4,7 @@ describe 'ExternalMember:login', type: :feature do
   let(:external_member) { create(:external_member) }
 
   before do
-    visit new_external_members_session_path
+    visit new_external_member_session_path
   end
 
   it 'displays the external_members perfil links on valid login', js: true do
@@ -23,7 +23,7 @@ describe 'ExternalMember:login', type: :feature do
 
     submit_form('input[name="commit"]')
 
-    expect(page).to have_current_path new_external_members_session_path
+    expect(page).to have_current_path new_external_member_session_path
 
     resource_name = ExternalMember.human_attribute_name(:email)
     expect(page).to have_flash(:warning,
@@ -37,7 +37,7 @@ describe 'ExternalMember:login', type: :feature do
     end
 
     it 'redirect to login page', js: true do
-      expect(page).to have_current_path new_external_members_session_path
+      expect(page).to have_current_path new_external_member_session_path
       expect(page).to have_flash(:warning, text: I18n.t('devise.failure.unauthenticated'))
     end
   end
