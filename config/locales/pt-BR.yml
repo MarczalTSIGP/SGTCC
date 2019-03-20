@@ -151,3 +151,11 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+  mailer:
+    login: 'Acessar sistema'
+    external_member:
+      registration:
+        hello: 'Olá %{name}'
+        subject: 'Registrado com sucesso no SGTCC'
+        register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
+        login: 'Para realizar o login no sistema clique no link abaixo'

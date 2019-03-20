@@ -1,5 +1,6 @@
 class Responsible::ExternalMembersController < Responsible::BaseController
   before_action :set_external_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.external_members.index'),
                  :responsible_external_members_path
@@ -32,8 +33,8 @@ class Responsible::ExternalMembersController < Responsible::BaseController
     @external_member = ExternalMember.new(external_member_params)
 
     if @external_member.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: ExternalMember.model_name.human)
+      send_registration_email(@external_member, external_member_params[:password])
+      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
       redirect_to responsible_external_members_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -45,8 +46,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
     @external_member.skip_password_validation = true
 
     if @external_member.update(external_member_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: ExternalMember.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
       redirect_to responsible_external_member_path(@external_member)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -56,17 +56,25 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def destroy
     @external_member.destroy
-
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: ExternalMember.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
 
     redirect_to responsible_external_members_path
   end
 
   private
 
+  def send_registration_email(external_member, password)
+    ExternalMemberMailer.with(external_member: external_member,
+                              password: password)
+                        .registration_email.deliver_later
+  end
+
   def set_external_member
     @external_member = ExternalMember.find(params[:id])
+  end
+
+  def set_resource_name
+    @resource_name = ExternalMember.model_name.human
   end
 
   def external_member_params

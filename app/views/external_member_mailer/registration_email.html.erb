@@ -1,0 +1,9 @@
+<h1><%= t('mailer.external_member.registration.hello', name: @external_member.name) %></h1>
+<p>
+<%= t('mailer.external_member.registration.register', password: @password) %>.<br>
+</p>
+<p>
+  <%= t('mailer.external_member.registration.login') %>
+</p>
+
+<a href="<%= @url %>"> <%= t('mailer.login') %>.
