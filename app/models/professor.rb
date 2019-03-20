@@ -1,4 +1,5 @@
 class Professor < ApplicationRecord
+  include Classifiable
   include Searchable
 
   attr_accessor :skip_password_validation
@@ -39,12 +40,6 @@ class Professor < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   mount_uploader :profile_image, ProfileImageUploader
-
-  def self.human_genders
-    hash = {}
-    genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
-    hash
-  end
 
   protected
 
