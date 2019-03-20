@@ -17,10 +17,7 @@ class Responsible::AcademicsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    page = params[:page]
-    term = params[:term]
-
-    @academics = Academic.page(page).search(term)
+    @academics = Academic.page(params[:page]).search(params[:term])
   end
 
   def show; end

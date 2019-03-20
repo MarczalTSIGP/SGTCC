@@ -17,10 +17,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    page = params[:page]
-    term = params[:term]
-
-    @external_members = ExternalMember.page(page).search(term)
+    @external_members = ExternalMember.page(params[:page]).search(params[:term])
   end
 
   def show; end
