@@ -10,6 +10,7 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
   def account_update_params
     params.require(:external_member)
           .permit(:name, :email, :personal_page,
+                  :password, :password_confirmation,
                   :current_password,
                   :profile_image,
                   :profile_image_cache)
