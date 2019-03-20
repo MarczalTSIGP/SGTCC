@@ -18,6 +18,8 @@ describe 'ExternalMember::create', type: :feature do
         attributes = attributes_for(:external_member)
         fill_in 'external_member_name', with: attributes[:name]
         fill_in 'external_member_email', with: attributes[:email]
+        fill_in 'external_member_password', with: attributes[:password]
+        fill_in 'external_member_password_confirmation', with: attributes[:password_confirmation]
         fill_in 'external_member_personal_page', with: attributes[:personal_page]
         find('span', text: ExternalMember.human_genders.first[0]).click
         find('.fa-bold').click

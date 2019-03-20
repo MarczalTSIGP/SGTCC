@@ -30,7 +30,6 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def create
     @external_member = ExternalMember.new(external_member_params)
-    @external_member.skip_password_validation = true
 
     if @external_member.save
       flash[:success] = I18n.t('flash.actions.create.m',
@@ -43,6 +42,8 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def update
+    @external_member.skip_password_validation = true
+
     if @external_member.update(external_member_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: ExternalMember.model_name.human)
@@ -70,6 +71,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def external_member_params
     params.require(:external_member).permit(:name, :email, :gender,
+                                            :password, :password_confirmation,
                                             :is_active, :personal_page,
                                             :working_area, :scholarity_id)
   end

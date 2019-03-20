@@ -17,7 +17,16 @@
       <div class="col-6">
         <%= f.input :personal_page %>
       </div>
-  </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :password, autocomplete: "off" %>
+      </div>
+      <div class="col-6">
+        <%= f.input :password_confirmation %>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-6">

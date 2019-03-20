@@ -1,6 +1,6 @@
 class Academic < ApplicationRecord
-  include Searchable
   include Classifiable
+  include Searchable
 
   attr_accessor :skip_password_validation
 
