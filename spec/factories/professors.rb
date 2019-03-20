@@ -10,7 +10,7 @@ FactoryBot.define do
     working_area { Faker::Markdown.headers }
     password { 'password' }
     password_confirmation { 'password' }
-    professor_title
     professor_type
+    scholarity
   end
 end

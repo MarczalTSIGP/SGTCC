@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :professor_title do
+  factory :scholarity do
     sequence(:name) { |n| "name#{n}" }
     sequence(:abbr) { |n| "abbr#{n}" }
   end

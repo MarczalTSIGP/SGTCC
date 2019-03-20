@@ -70,7 +70,8 @@ pt-BR:
         updated_at: "Atualizado em"
         working_area: "Área de atuação"
         is_active: "Ativo no sistema"
-        professor_title: "Títulação"
+        scholarity: "Escolaridade"
+        role: "Papel"
       academic:
         ra: "RA"
         <<: *commons

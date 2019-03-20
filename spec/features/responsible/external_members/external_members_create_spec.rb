@@ -21,8 +21,8 @@ describe 'ExternalMember::create', type: :feature do
         fill_in 'external_member_personal_page', with: attributes[:personal_page]
         find('span', text: ExternalMember.human_genders.first[0]).click
         find('.fa-bold').click
-        find('#external_member_professor_title_id-selectized').click
-        find('div.selectize-dropdown-content', text: ProfessorTitle.first.name).click
+        find('#external_member_scholarity_id-selectized').click
+        find('div.selectize-dropdown-content', text: Scholarity.first.name).click
 
         submit_form('input[name="commit"]')
 

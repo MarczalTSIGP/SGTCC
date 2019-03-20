@@ -2,7 +2,7 @@
   <div class="form-inputs">
     <%= f.association :external_member,
       collection: ExternalMember.order(:name),
-      prompt: t('prompt.select.m', name: 'responsável da instituição') %>
+      prompt: t('prompt.select.m', name: Institution.human_attribute_name('external_member')) %>
     <%= f.input :name %>
     <%= f.input :trade_name %>
     <%= f.input :cnpj, input_html: { 'data-mask': '00.000.000/0000-00'} %>

@@ -30,7 +30,7 @@ namespace :db do
         available_advisor: Faker::Boolean.boolean,
         working_area: Faker::Markdown.headers,
         professor_type_id: ProfessorType.pluck(:id).sample,
-        professor_title_id: ProfessorTitle.pluck(:id).sample,
+        scholarity_id: Scholarity.pluck(:id).sample,
         password: '123456',
         password_confirmation: '123456'
       )
@@ -46,7 +46,7 @@ namespace :db do
         working_area: Faker::Markdown.headers,
         gender: Academic.genders.values.sample,
         personal_page: "http://page.com.#{index}",
-        professor_title_id: ProfessorTitle.pluck(:id).sample
+        scholarity_id: Scholarity.pluck(:id).sample
       )
     end
 

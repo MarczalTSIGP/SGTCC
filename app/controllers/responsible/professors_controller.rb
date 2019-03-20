@@ -75,7 +75,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
       :username, :lattes,
       :gender, :is_active,
       :working_area, :available_advisor,
-      :professor_type_id, :professor_title_id,
+      :professor_type_id, :scholarity_id,
       role_ids: []
     )
   end

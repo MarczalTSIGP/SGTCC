@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_235643) do
+ActiveRecord::Schema.define(version: 2019_03_20_162252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,14 +49,14 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "profile_image"
-    t.bigint "professor_title_id"
+    t.bigint "scholarity_id"
     t.string "personal_page"
     t.string "encrypted_password"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.index ["professor_title_id"], name: "index_external_members_on_professor_title_id"
     t.index ["reset_password_token"], name: "index_external_members_on_reset_password_token", unique: true
+    t.index ["scholarity_id"], name: "index_external_members_on_scholarity_id"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -67,13 +67,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["external_member_id"], name: "index_institutions_on_external_member_id"
-  end
-
-  create_table "professor_titles", force: :cascade do |t|
-    t.string "name"
-    t.string "abbr"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "professor_types", force: :cascade do |t|
@@ -97,13 +90,13 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.string "gender", limit: 1
     t.boolean "is_active", default: false
     t.boolean "available_advisor"
-    t.bigint "professor_title_id"
+    t.bigint "scholarity_id"
     t.bigint "professor_type_id"
     t.text "working_area"
     t.index ["email"], name: "index_professors_on_email", unique: true
-    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
     t.index ["professor_type_id"], name: "index_professors_on_professor_type_id"
     t.index ["reset_password_token"], name: "index_professors_on_reset_password_token", unique: true
+    t.index ["scholarity_id"], name: "index_professors_on_scholarity_id"
     t.index ["username"], name: "index_professors_on_username", unique: true
   end
 
@@ -113,10 +106,17 @@ ActiveRecord::Schema.define(version: 2019_03_13_235643) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scholarities", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
-  add_foreign_key "external_members", "professor_titles"
+  add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
-  add_foreign_key "professors", "professor_titles"
   add_foreign_key "professors", "professor_types"
+  add_foreign_key "professors", "scholarities"
 end

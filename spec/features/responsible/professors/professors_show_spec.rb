@@ -21,7 +21,7 @@ describe 'Professors::show', type: :feature do
                                        gender,
                                        is_active,
                                        available_advisor,
-                                       professor.professor_title.name,
+                                       professor.scholarity.name,
                                        professor.professor_type.name,
                                        complete_date(professor.created_at),
                                        complete_date(professor.updated_at)])
