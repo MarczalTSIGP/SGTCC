@@ -6,8 +6,6 @@ class Academic < ApplicationRecord
          :rememberable, :validatable,
          authentication_keys: [:ra]
 
-  enum gender: { male: 'M', female: 'F' }, _prefix: :gender
-
   validates :name,
             presence: true
 

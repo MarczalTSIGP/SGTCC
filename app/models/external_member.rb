@@ -6,8 +6,6 @@ class ExternalMember < ApplicationRecord
          :rememberable, :validatable,
          :recoverable, authentication_keys: [:email]
 
-  enum gender: { male: 'M', female: 'F' }, _prefix: :gender
-
   belongs_to :scholarity
 
   validates :name,

@@ -6,8 +6,6 @@ class Professor < ApplicationRecord
          :rememberable, :validatable,
          authentication_keys: [:username]
 
-  enum gender: { male: 'M', female: 'F' }, _prefix: :gender
-
   belongs_to :professor_type
   belongs_to :scholarity
 
