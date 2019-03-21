@@ -11,8 +11,8 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
     params.require(:external_member)
           .permit(:name, :email, :personal_page,
                   :password, :password_confirmation,
-                  :current_password,
-                  :profile_image,
-                  :profile_image_cache)
+                  :gender, :scholarity_id,
+                  :is_active, :current_password,
+                  :profile_image, :profile_image_cache)
   end
 end
