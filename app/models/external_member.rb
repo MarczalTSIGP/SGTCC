@@ -2,8 +2,6 @@ class ExternalMember < ApplicationRecord
   include Classifiable
   include Searchable
 
-  attr_accessor :skip_password_validation
-
   devise :database_authenticatable,
          :rememberable, :validatable,
          :recoverable, authentication_keys: [:email]
@@ -32,11 +30,4 @@ class ExternalMember < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   mount_uploader :profile_image, ProfileImageUploader
-
-  protected
-
-  def password_required?
-    return false if skip_password_validation
-    super
-  end
 end

@@ -31,7 +31,7 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def create
     @academic = Academic.new(academic_params)
-    @academic.skip_password_validation = true
+    @academic.define_singleton_method(:password_required?) { false }
 
     if @academic.save
       flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)

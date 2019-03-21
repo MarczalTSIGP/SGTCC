@@ -2,8 +2,6 @@ class Academic < ApplicationRecord
   include Classifiable
   include Searchable
 
-  attr_accessor :skip_password_validation
-
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:ra]
@@ -26,11 +24,4 @@ class Academic < ApplicationRecord
             uniqueness: { case_sensetive: false }
 
   mount_uploader :profile_image, ProfileImageUploader
-
-  protected
-
-  def password_required?
-    return false if skip_password_validation
-    super
-  end
 end

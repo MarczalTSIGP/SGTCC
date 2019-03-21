@@ -31,7 +31,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def create
     @professor = Professor.new(professor_params)
-    @professor.skip_password_validation = true
+    @professor.define_singleton_method(:password_required?) { false }
 
     if @professor.save
       flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)

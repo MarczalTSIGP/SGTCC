@@ -43,7 +43,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def update
-    @external_member.skip_password_validation = true
+    @external_member.define_singleton_method(:password_required?) { false }
 
     if @external_member.update(external_member_params)
       flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
