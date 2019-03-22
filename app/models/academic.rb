@@ -1,6 +1,7 @@
 class Academic < ApplicationRecord
   include Classifiable
   include Searchable
+  include ProfileImage
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -20,6 +21,4 @@ class Academic < ApplicationRecord
             presence: true,
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensetive: false }
-
-  mount_uploader :profile_image, ProfileImageUploader
 end

@@ -1,6 +1,7 @@
 class Professor < ApplicationRecord
   include Classifiable
   include Searchable
+  include ProfileImage
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -34,6 +35,4 @@ class Professor < ApplicationRecord
             length: { maximum: 255 },
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
-
-  mount_uploader :profile_image, ProfileImageUploader
 end
