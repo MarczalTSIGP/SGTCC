@@ -52,32 +52,37 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
     end
+
+    namespace :professors do
+      root to: 'dashboard#index'
+    end
   end
 
   #========================================
   # Professors
   #========================================
   devise_for :professors, skip: [:sessions]
+
   as :professor do
-    get '/responsible/login',
+    get '/professors/login',
         to: 'devise/sessions#new',
-        as: 'new_responsible_session'
+        as: 'new_professor_session'
 
-    post '/responsible/login',
+    post '/professors/login',
          to: 'devise/sessions#create',
-         as: 'responsible_session'
+         as: 'professor_session'
 
-    delete '/responsible/logout',
+    delete '/professors/logout',
            to: 'devise/sessions#destroy',
-           as: 'destroy_responsible_session'
+           as: 'destroy_professor_session'
 
-    get '/responsible/edit',
-        to: 'responsible/registrations#edit',
-        as: 'edit_responsible_registration'
+    get '/professors/edit',
+        to: 'professors/registrations#edit',
+        as: 'edit_professor_registration'
 
-    put '/responsible',
-        to: 'responsible/registrations#update',
-        as: 'responsible_registration'
+    put '/professors',
+        to: 'professors/registrations#update',
+        as: 'professor_registration'
   end
 
   #========================================
@@ -91,19 +96,19 @@ Rails.application.routes.draw do
 
     post '/academics/login',
          to: 'devise/sessions#create',
-         as: 'academics_session'
+         as: 'academic_session'
 
     delete '/academics/logout',
            to: 'devise/sessions#destroy',
-           as: 'destroy_academics_session'
+           as: 'destroy_academic_session'
 
     get '/academics/edit',
         to: 'academics/registrations#edit',
-        as: 'edit_academics_registration'
+        as: 'edit_academic_registration'
 
     put '/academics',
         to: 'academics/registrations#update',
-        as: 'academics_registration'
+        as: 'academic_registration'
   end
 
   authenticate :academic do

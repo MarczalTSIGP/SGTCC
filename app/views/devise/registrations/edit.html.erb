@@ -3,7 +3,7 @@
 <% provide(:title, t("sessions.edit_profile")) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: send("responsible_registration_path"),
+                    url: send("professor_registration_path"),
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>
@@ -36,8 +36,7 @@
         </div>
         <div class="col-6">
           <%= f.association :professor_type,
-            prompt: t('prompt.select.m', name: 'tipo'),
-            disabled: true %>
+            prompt: t('prompt.select.m', name: 'tipo') %>
         </div>
       </div>
 
@@ -50,7 +49,6 @@
 
       <%= f.input :gender,
                   as: :radio_buttons,
-                  disabled: true,
                   collection: Professor.human_genders,
                   item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
 

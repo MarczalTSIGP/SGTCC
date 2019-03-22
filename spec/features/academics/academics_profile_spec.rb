@@ -6,7 +6,7 @@ describe 'Responsible:profiles', type: :feature do
 
     before do
       login_as(academic, scope: :academic)
-      visit edit_academics_registration_path
+      visit edit_academic_registration_path
     end
 
     it 'updates with success when the data are valid', js: true do
@@ -21,7 +21,7 @@ describe 'Responsible:profiles', type: :feature do
 
       submit_form('input[name="commit"]')
 
-      expect(page).to have_current_path edit_academics_registration_path
+      expect(page).to have_current_path edit_academic_registration_path
       expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
 
       within('a.nav-link') do

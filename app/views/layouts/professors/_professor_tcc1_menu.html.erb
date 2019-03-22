@@ -1,0 +1,8 @@
+<h6 class="my-3"><%= t('views.sidebar.tcc1') %></h6>
+
+<%= active_link_to('#', active: :exact, class: 'list-group-item list-group-item-action') do %>
+	<span class="icon mr-3">
+		<%= icon('fas', 'home') %>
+	</span>
+	<%= t('breadcrumbs.homepage') %>
+<% end %>

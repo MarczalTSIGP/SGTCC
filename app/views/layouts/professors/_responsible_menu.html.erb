@@ -1,0 +1,36 @@
+<h6 class="mb-3"><%= t('views.sidebar.responsible') %></h6>
+
+<%= active_link_to(responsible_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
+	<span class="icon mr-3">
+		<%= icon('fas', 'home') %>
+	</span>
+	<%= t('breadcrumbs.homepage') %>
+<% end %>
+
+<%= active_link_to(responsible_academics_path, class: 'list-group-item list-group-item-action') do %>
+	<span class="icon mr-3">
+		<%= icon('fas', 'user-graduate') %>
+	</span>
+	<%= t('breadcrumbs.academics.index') %>
+<% end %>
+
+<%= active_link_to(responsible_professors_path, class: 'list-group-item list-group-item-action') do %>
+	<span class="icon mr-3">
+		<%= icon('fas', 'chalkboard-teacher') %>
+	</span>
+	<%= t('breadcrumbs.professors.index') %>
+<% end %>
+
+<%= active_link_to(responsible_external_members_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'users') %>
+  </span>
+  <%= t('breadcrumbs.external_members.index') %>
+<% end %>
+
+<%= active_link_to(responsible_institutions_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'university') %>
+  </span>
+  <%= t('breadcrumbs.institutions.index') %>
+<% end %>

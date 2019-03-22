@@ -6,6 +6,10 @@ pt-BR:
       previous: "&lsaquo; Anterior"
       next: "Seguinte &rsaquo;"
       truncate: "&hellip;"
+    sidebar:
+      responsible: "Responsável"
+      orientations: "Orientações"
+      tcc1: "TCC 1"
   breadcrumbs:
     homepage: "Página inicial"
     academics:

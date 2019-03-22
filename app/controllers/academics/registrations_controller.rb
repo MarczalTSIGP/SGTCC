@@ -6,7 +6,7 @@ class Academics::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(*)
-    edit_academics_registration_path
+    edit_academic_registration_path
   end
 
   def account_update_params

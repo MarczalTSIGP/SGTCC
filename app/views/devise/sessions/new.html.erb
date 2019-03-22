@@ -1,7 +1,7 @@
 <% provide(:title, t(".sign_in")) %>
 <% provide(:head_title, t(".sign_in")) %>
 
-<%= simple_form_for(resource, as: resource_name, url: responsible_session_path) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: professor_session_path) do |f| %>
   <div class="form-inputs">
     <%= f.input :username, required: false, autofocus: true %>
     <%= f.input :password, required: false %>

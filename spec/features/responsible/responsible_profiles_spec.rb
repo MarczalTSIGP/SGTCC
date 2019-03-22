@@ -6,7 +6,7 @@ describe 'Responsible:profiles', type: :feature do
 
     before do
       login_as(professor, scope: :professor)
-      visit edit_responsible_registration_path
+      visit edit_professor_registration_path
     end
 
     context 'when data is valid' do
@@ -23,7 +23,7 @@ describe 'Responsible:profiles', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path edit_responsible_registration_path
+        expect(page).to have_current_path edit_professor_registration_path
         expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
 
         within('a.nav-link') do

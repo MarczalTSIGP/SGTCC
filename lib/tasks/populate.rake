@@ -20,7 +20,7 @@ namespace :db do
     end
 
     100.times do |index|
-      Professor.create(
+      professor = Professor.create(
         name: Faker::Name.name,
         email: "professor#{index}@gmail.com",
         username: "professor#{index}",
@@ -34,6 +34,9 @@ namespace :db do
         password: '123456',
         password_confirmation: '123456'
       )
+
+      offset = rand(Role.count)
+      professor.roles << Role.offset(offset).first
     end
 
     100.times do |index|
