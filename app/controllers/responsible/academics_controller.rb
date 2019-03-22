@@ -1,6 +1,7 @@
 class Responsible::AcademicsController < Responsible::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
+  before_action :set_search_fields, only: [:index]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.index'),
                  :responsible_academics_path
@@ -18,7 +19,7 @@ class Responsible::AcademicsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @academics = Academic.page(params[:page]).search(params[:term])
+    @academics = Academic.page(params[:page]).search(params[:term], @search_fields)
   end
 
   def show; end
@@ -67,6 +68,14 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def set_resource_name
     @resource_name = Academic.model_name.human
+  end
+
+  def set_search_fields
+    @search_fields = {
+      name: { unaccent: true },
+      email: { unaccent: false },
+      ra: { unaccent: false }
+    }
   end
 
   def academic_params

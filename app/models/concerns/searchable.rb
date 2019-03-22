@@ -4,24 +4,15 @@ module Searchable
   extend ActiveSupport::Concern
 
   included do
-    def self.search(search = nil)
-      if search
-        where(query_str, "%#{search}%", "%#{search}%", "%#{search}%")
-          .order('name ASC')
-      else
-        order(:name)
-      end
-    end
+    def self.search(term = nil, search_fields = [], order_by = 'name ASC')
+      if term
+        search = search_fields.map do |name, value|
+          value[:unaccent] ? "unaccent(#{name}) ILIKE unaccent(?)" : "#{name} ILIKE ?"
+        end.join(' OR ')
 
-    def self.query_str
-      if table_name == 'academics'
-        'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR ra ILIKE ?'
-      elsif table_name == 'professors'
-        'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR username ILIKE ?'
-      elsif table_name == 'external_members'
-        'unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR working_area ILIKE ?'
+        where(search, *["%#{term}%"] * search_fields.count).order(order_by)
       else
-        'unaccent(name) ILIKE unaccent(?) OR unaccent(trade_name) ILIKE unaccent(?) OR cnpj ILIKE ?'
+        order(order_by)
       end
     end
   end

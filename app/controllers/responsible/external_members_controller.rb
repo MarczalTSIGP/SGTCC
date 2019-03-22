@@ -1,6 +1,7 @@
 class Responsible::ExternalMembersController < Responsible::BaseController
   before_action :set_external_member, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
+  before_action :set_search_fields, only: [:index]
 
   add_breadcrumb I18n.t('breadcrumbs.external_members.index'),
                  :responsible_external_members_path
@@ -18,7 +19,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @external_members = ExternalMember.page(params[:page]).search(params[:term])
+    @external_members = ExternalMember.page(params[:page]).search(params[:term], @search_fields)
   end
 
   def show; end
@@ -75,6 +76,13 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
   def set_resource_name
     @resource_name = ExternalMember.model_name.human
+  end
+
+  def set_search_fields
+    @search_fields = {
+      name: { unaccent: true },
+      email: { unaccent: false }
+    }
   end
 
   def external_member_params

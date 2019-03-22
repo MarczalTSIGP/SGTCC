@@ -30,20 +30,25 @@ RSpec.describe Academic, type: :model do
 
   describe '#search' do
     let(:academic) { create(:academic) }
+    let(:search_fields) do
+      { name: { unaccent: true },
+        email: { unaccent: false },
+        ra: { unaccent: false } }
+    end
 
     context 'when finds academic by attributes' do
       it 'returns academic by name' do
-        results_search = Academic.search(academic.name)
+        results_search = Academic.search(academic.name, search_fields)
         expect(academic.name).to eq(results_search.first.name)
       end
 
       it 'returns academic by email' do
-        results_search = Academic.search(academic.email)
+        results_search = Academic.search(academic.email, search_fields)
         expect(academic.email).to eq(results_search.first.email)
       end
 
       it 'returns academic by ra' do
-        results_search = Academic.search(academic.ra)
+        results_search = Academic.search(academic.ra, search_fields)
         expect(academic.ra).to eq(results_search.first.ra)
       end
     end
@@ -51,7 +56,7 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name with accents' do
       it 'returns academic' do
         academic = create(:academic, name: 'João')
-        results_search = Academic.search('Joao')
+        results_search = Academic.search('Joao', search_fields)
         expect(academic.name).to eq(results_search.first.name)
       end
     end
@@ -59,7 +64,7 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name on search term with accents' do
       it 'returns academic' do
         academic = create(:academic, name: 'Joao')
-        results_search = Academic.search('João')
+        results_search = Academic.search('João', search_fields)
         expect(academic.name).to eq(results_search.first.name)
       end
     end
@@ -67,13 +72,13 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name ignoring the case sensitive' do
       it 'returns academic by attribute' do
         academic = create(:academic, name: 'Ana')
-        results_search = Academic.search('an')
+        results_search = Academic.search('an', search_fields)
         expect(academic.name).to eq(results_search.first.name)
       end
 
       it 'returns academic by search term' do
         academic = create(:academic, name: 'ana')
-        results_search = Academic.search('AN')
+        results_search = Academic.search('AN', search_fields)
         expect(academic.name).to eq(results_search.first.name)
       end
     end

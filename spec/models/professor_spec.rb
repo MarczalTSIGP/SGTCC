@@ -50,20 +50,25 @@ RSpec.describe Professor, type: :model do
 
   describe '#search' do
     let(:professor) { create(:professor) }
+    let(:search_fields) do
+      { name: { unaccent: true },
+        email: { unaccent: false },
+        username: { unaccent: false } }
+    end
 
     context 'when finds professor by attributes' do
       it 'returns professor by name' do
-        results_search = Professor.search(professor.name)
+        results_search = Professor.search(professor.name, search_fields)
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by email' do
-        results_search = Professor.search(professor.email)
+        results_search = Professor.search(professor.email, search_fields)
         expect(professor.email).to eq(results_search.first.email)
       end
 
       it 'returns professor by username' do
-        results_search = Professor.search(professor.username)
+        results_search = Professor.search(professor.username, search_fields)
         expect(professor.username).to eq(results_search.first.username)
       end
     end
@@ -71,7 +76,7 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name with accents' do
       it 'returns professor' do
         professor = create(:professor, name: 'João')
-        results_search = Professor.search('Joao')
+        results_search = Professor.search('Joao', search_fields)
         expect(professor.name).to eq(results_search.first.name)
       end
     end
@@ -79,7 +84,7 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name on search term with accents' do
       it 'returns professor' do
         professor = create(:professor, name: 'Joao')
-        results_search = Professor.search('João')
+        results_search = Professor.search('João', search_fields)
         expect(professor.name).to eq(results_search.first.name)
       end
     end
@@ -87,13 +92,13 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name ignoring the case sensitive' do
       it 'returns professor by attribute' do
         professor = create(:professor, name: 'Ana')
-        results_search = Professor.search('an')
+        results_search = Professor.search('an', search_fields)
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by search term' do
         professor = create(:professor, name: 'ana')
-        results_search = Professor.search('AN')
+        results_search = Professor.search('AN', search_fields)
         expect(professor.name).to eq(results_search.first.name)
       end
     end

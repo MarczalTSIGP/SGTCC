@@ -43,15 +43,19 @@ RSpec.describe ExternalMember, type: :model do
 
   describe '#search' do
     let(:external_member) { create(:external_member) }
+    let(:search_fields) do
+      { name: { unaccent: true },
+        email: { unaccent: false } }
+    end
 
     context 'when finds external member by attributes' do
       it 'returns external member by name' do
-        results_search = ExternalMember.search(external_member.name)
+        results_search = ExternalMember.search(external_member.name, search_fields)
         expect(external_member.name).to eq(results_search.first.name)
       end
 
       it 'returns external member by email' do
-        results_search = ExternalMember.search(external_member.email)
+        results_search = ExternalMember.search(external_member.email, search_fields)
         expect(external_member.email).to eq(results_search.first.email)
       end
     end
@@ -59,7 +63,7 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name with accents' do
       it 'returns external member' do
         external_member = create(:external_member, name: 'João')
-        results_search = ExternalMember.search('Joao')
+        results_search = ExternalMember.search('Joao', search_fields)
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
@@ -67,7 +71,7 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name on search term with accents' do
       it 'returns external member' do
         external_member = create(:external_member, name: 'Joao')
-        results_search = ExternalMember.search('João')
+        results_search = ExternalMember.search('João', search_fields)
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
@@ -75,13 +79,13 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name ignoring the case sensitive' do
       it 'returns external member by attribute' do
         external_member = create(:external_member, name: 'Ana')
-        results_search = ExternalMember.search('an')
+        results_search = ExternalMember.search('an', search_fields)
         expect(external_member.name).to eq(results_search.first.name)
       end
 
       it 'returns external member by search term' do
         external_member = create(:external_member, name: 'ana')
-        results_search = ExternalMember.search('AN')
+        results_search = ExternalMember.search('AN', search_fields)
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
