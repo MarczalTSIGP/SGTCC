@@ -12,5 +12,15 @@ FactoryBot.define do
     password_confirmation { 'password' }
     professor_type
     scholarity
+
+    factory :responsible do
+      after :create do |professor|
+        role = create(:role, name: I18n.t('enums.roles.responsible')) if Role.all.empty?
+        if role
+          professor.roles << role
+          professor.save
+        end
+      end
+    end
   end
 end

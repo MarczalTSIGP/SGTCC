@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Responsible:login', type: :feature do
-  let(:professor) { create(:responsible) }
+describe 'Professors:login', type: :feature do
+  let(:professor) { create(:professor) }
 
   before do
     visit new_professor_session_path
@@ -14,7 +14,7 @@ describe 'Responsible:login', type: :feature do
 
       submit_form('input[name="commit"]')
 
-      expect(page).to have_current_path responsible_root_path
+      expect(page).to have_current_path professors_root_path
       expect(page).to have_flash(:info, text: I18n.t('devise.sessions.signed_in'))
     end
   end
@@ -35,9 +35,21 @@ describe 'Responsible:login', type: :feature do
     end
   end
 
-  context 'when responsible is not authenticated' do
+  context 'when professor is not authorized' do
     before do
+      login_as(professor, scope: :professor)
       visit responsible_academics_path
+    end
+
+    it 'redirect to the professors page', js: true do
+      expect(page).to have_current_path professors_root_path
+      expect(page).to have_flash(:warning, text: I18n.t('flash.not_authorized'))
+    end
+  end
+
+  context 'when professor is not authenticated' do
+    before do
+      visit professors_root_path
     end
 
     it 'redirect to the login page', js: true do

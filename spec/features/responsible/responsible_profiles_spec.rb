@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Responsible:profiles', type: :feature do
   context 'when updates the responsible' do
-    let(:professor) { create(:professor) }
+    let(:professor) { create(:responsible) }
 
     before do
       login_as(professor, scope: :professor)

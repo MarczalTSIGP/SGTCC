@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Responsible:logout', type: :feature do
-  let(:professor) { create(:professor) }
+  let(:professor) { create(:responsible) }
 
   before do
     login_as(professor, scope: :professor)
