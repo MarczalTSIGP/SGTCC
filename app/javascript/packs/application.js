@@ -57,6 +57,7 @@ document.addEventListener('turbolinks:load', () => {
         }
 
         $('select[data="selectize"]').selectize();
+        $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
       },
     },
   });
