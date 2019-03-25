@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(*)
     if resource_name == :professor
-      return responsible_root_path if current_professor.role?('Professor responsável')
+      return responsible_root_path if current_professor.role?(I18n.t('enums.roles.responsible'))
     end
     send("#{resource_name.to_s.pluralize}_root_path")
   end
