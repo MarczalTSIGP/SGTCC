@@ -1,3 +1,5 @@
 class Responsible::DashboardController < Responsible::BaseController
-  def index; end
+  def index
+    authorize(Professor)
+  end
 end

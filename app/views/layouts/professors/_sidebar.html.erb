@@ -1,11 +1,11 @@
 <div class="col-lg-3 mb-4">
-	<div class="list-group list-group-transparent mb-0">
-		<% if current_professor.role?('Professor responsável') %>
-		  <%= render 'layouts/professors/responsible_menu' %>
-	  <% end %>
-		<%= render 'layouts/professors/professor_menu' %>
-		<% if current_professor.role?('Professor de TCC 1') %>
+  <div class="list-group list-group-transparent mb-0">
+    <% if current_professor.role?(I18n.t('enums.roles.responsible')) %>
+      <%= render 'layouts/professors/responsible_menu' %>
+    <% end %>
+    <%= render 'layouts/professors/professor_menu' %>
+    <% if current_professor.role?(I18n.t('enums.roles.tcc1')) %>
       <%= render 'layouts/professors/professor_tcc1_menu' %>
-	  <% end %>
-	</div>
+    <% end %>
+  </div>
 </div>

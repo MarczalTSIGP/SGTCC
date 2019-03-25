@@ -1,6 +1,7 @@
 class Responsible::AcademicsController < Responsible::BaseController
   before_action :set_academic, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
+  before_action :authorize_academic
 
   add_breadcrumb I18n.t('breadcrumbs.academics.index'),
                  :responsible_academics_path
@@ -71,5 +72,9 @@ class Responsible::AcademicsController < Responsible::BaseController
 
   def academic_params
     params.require(:academic).permit(:name, :email, :ra, :gender)
+  end
+
+  def authorize_academic
+    authorize([:responsible, Academic])
   end
 end

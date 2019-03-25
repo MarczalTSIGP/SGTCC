@@ -4,8 +4,8 @@ professor_types.each do |category|
 end
 
 professor_roles = [
-  'Professor responsável',
-  'Professor de TCC 1'
+  I18n.t('enums.roles.responsible'),
+  I18n.t('enums.roles.tcc1')
 ]
 
 professor_roles.each do |role|

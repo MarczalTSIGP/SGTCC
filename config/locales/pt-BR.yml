@@ -117,6 +117,9 @@ pt-BR:
     semesters:
       first: '1º'
       second: '2º'
+    roles:
+      responsible: 'Professor responsável'
+      tcc1: 'Professor de TCC 1'
   flash:
     actions:
       update:
@@ -130,6 +133,7 @@ pt-BR:
         f: '%{resource_name} removida com sucesso!'
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
+    not_authorized: 'Acesso não autorizado!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"

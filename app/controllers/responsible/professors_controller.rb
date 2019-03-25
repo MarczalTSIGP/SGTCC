@@ -1,6 +1,7 @@
 class Responsible::ProfessorsController < Responsible::BaseController
   before_action :set_professor, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
+  before_action :authorize_professor
 
   add_breadcrumb I18n.t('breadcrumbs.professors.index'),
                  :responsible_professors_path
@@ -67,6 +68,10 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def set_resource_name
     @resource_name = Professor.model_name.human
+  end
+
+  def authorize_professor
+    authorize([:responsible, Professor])
   end
 
   def professor_params
