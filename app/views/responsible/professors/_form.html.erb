@@ -23,14 +23,14 @@
           prompt: t('prompt.select.f', name: Professor.human_attribute_name('scholarity')) %>
       </div>
       <div class="col-6">
-        <%= f.association :professor_type,
-          prompt: t('prompt.select.m', name: Professor.human_attribute_name('professor_type')) %>
+        <%= f.association :professor_title,
+          input_html: { data: 'selectize' },
+          prompt: t('prompt.select.m', name: 'título') %>
       </div>
-    </div>
+   </div>
 
     <%= f.association :roles,
       prompt: t('prompt.select.m', name: Professor.human_attribute_name('role')) %>
-
     <%= f.input :gender,
                 as: :radio_button_tabler,
                 collection: Professor.human_genders %>
