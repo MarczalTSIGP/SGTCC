@@ -9,19 +9,19 @@
   <%= f.error_notification %>
 
   <div class="row">
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= f.input :name, required: true, autofocus: true %>
     </div>
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= f.input :email %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= f.input :username, readonly: true %>
     </div>
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= f.input :lattes %>
     </div>
   </div>
@@ -47,16 +47,22 @@
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),
         required: true %>
 
-      <%= f.input :gender,
-                  as: :radio_buttons,
-                  collection: Professor.human_genders,
-                  item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
-
-      <%= f.input :is_active, as: :checkbox_tabler %>
-      <%= f.input :available_advisor, as: :checkbox_tabler %>
+     <div class="row">
+        <div class="col-sm-6">
+          <%= f.input :gender,
+                      as: :radio_buttons,
+                      disabled: true,
+                      collection: Professor.human_genders,
+                      item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :is_active, as: :checkbox_tabler %>
+          <%= f.input :available_advisor, as: :checkbox_tabler %>
+        </div>
+      </div>
    </div>
 
-    <div class="col-4">
+    <div class="col-sm-4">
       <profile-image-preview
         :resource="<%= resource_name.to_json %>"
         :profile-image-url="<%= resource.profile_image.url.to_json %>"

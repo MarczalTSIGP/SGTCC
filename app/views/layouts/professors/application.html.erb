@@ -23,21 +23,15 @@
 	<%= render 'layouts/professors/header' %>
 
 	<div class="my-3 my-md-5">
-	  <div class="container">
-
-	    <div class="page-header">
-	      <div class="page-options d-flex">
-		<h1 class="page-title">
-		  <%= yield(:page_title) %>
-		</h1>
-	      </div>
-	    </div>
-
+	  <div class="container-fluid">
 	    <div class="row">
-
 	      <%= render 'layouts/professors/sidebar' %>
 
-	      <div class="col-lg-9">
+	      <div class="col-md-10 col-sm-7">
+		<h1 class="page-title mb-3">
+		  <%= yield(:page_title) %>
+		</h1>
+
 		<%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
 		<div class="card">
 		  <div class="card-body">

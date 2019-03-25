@@ -1,11 +1,10 @@
-<div class="header py-4">
-  <div class="container">
+<div class="sticky-top header py-4">
+  <div class="container-fluid">
     <div class="d-flex">
-      <%= link_to responsible_root_path, class: 'header-brand' do %>
+      <%= link_to responsible_root_path, class: 'header-brand ml-5' do %>
         <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi'  %>
       <% end  %>
-      <div class="d-flex order-lg-2 ml-auto">
-
+      <div class="d-flex order-lg-2 ml-auto mr-5">
         <div class="dropdown">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url('<%= current_professor.profile_image %>')"></span>
@@ -25,9 +24,7 @@
             <% end %>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>
