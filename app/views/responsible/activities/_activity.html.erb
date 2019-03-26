@@ -1,7 +1,7 @@
 <tr>
   <td><%= activity.name %></td>
   <td><%= activity.activity_type.name %></td>
-  <td><%= activity.created_at.strftime("%d/%m/%Y") %></td>
+  <td><%= l(activity.created_at, format: :short) %></td>
   <td>
     <%= link_to(responsible_activity_path(activity)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
