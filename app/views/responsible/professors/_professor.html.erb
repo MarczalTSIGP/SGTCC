@@ -2,7 +2,7 @@
   <td><%= professor.name %></td>
   <td><%= professor.email %></td>
   <td><%= professor.username %></td>
-  <td><%= professor.created_at.strftime("%d/%m/%Y") %></td>
+  <td><%= short_date(professor.created_at) %></td>
   <td>
     <%= link_to(responsible_professor_path(professor)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
