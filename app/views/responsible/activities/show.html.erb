@@ -1,0 +1,42 @@
+<% provide(:page_title, t('breadcrumbs.activities.show')) %>
+<% provide(:head_title, t('breadcrumbs.activities.show')) %>
+
+<div class="card card-profile">
+  <div class="card-body text-center">
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('name') %>:
+      </strong>
+      <%= @activity.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('activity_type') %>:
+      </strong>
+      <%= @activity.activity_type.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@activity.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@activity.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    responsible_activities_path,
+    class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'),
+    edit_responsible_activity_path(@activity),
+    class: 'btn btn-primary ml-auto' %>
+</div>
+

@@ -47,6 +47,9 @@ pt-BR:
       index: "Páginas"
     activities:
       index: "Atividades"
+      new: "Nova Atividade"
+      edit: "Editar Atividade"
+      show: "Visualizar Atividade"
   activerecord:
     errors:
       models:
@@ -67,6 +70,9 @@ pt-BR:
       institution:
         one: "Instituição externa"
         other: "Instituições externas"
+      activity:
+        one: "Atividade"
+        other: "Atividades"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -92,6 +98,7 @@ pt-BR:
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
         <<: *commons
+<<<<<<< HEAD
       external_member:
         personal_page: "Página pessoal (link)"
         external_member_type: "Tipo"
@@ -103,6 +110,11 @@ pt-BR:
         cnpj: "CNPJ"
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
+=======
+      activity:
+        activity_type: "Tipo"
+        <<: *commons
+>>>>>>> Add controller and views
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
