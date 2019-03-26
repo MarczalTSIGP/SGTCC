@@ -39,3 +39,13 @@ professor_responsible = Professor.create_with(
 ).find_or_create_by!(username: 'marczal')
 
 professor_responsible.roles << Role.first if professor_responsible.roles.empty?
+
+activity_types = [
+  'Envio de documento',
+  'Envio de documento com assinatura',
+  'Informativa'
+]
+
+activity_types.each do |activity_type|
+  ActivityType.find_or_create_by!(name: activity_type)
+end

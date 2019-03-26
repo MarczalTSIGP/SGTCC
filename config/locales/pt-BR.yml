@@ -45,6 +45,8 @@ pt-BR:
       index: "Bancas"
     pages:
       index: "Páginas"
+    activities:
+      index: "Atividades"
   activerecord:
     errors:
       models:
