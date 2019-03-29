@@ -1,0 +1,64 @@
+<% provide(:page_title, t('breadcrumbs.institutions.show')) %>
+<% provide(:head_title, t('breadcrumbs.institutions.show')) %>
+
+<div class="card card-profile">
+  <div class="card-body text-center">
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('name') %>:
+      </strong>
+      <%= @institution.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('trade_name') %>:
+      </strong>
+      <%= @institution.trade_name %>
+    </p>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('cnpj') %>:
+      </strong>
+      <%= @institution.cnpj.formatted %>
+    </p>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('external_member') %>:
+      </strong>
+      <%= @institution.external_member.name %>
+    </p>
+    <% unless @institution.working_area.nil? %>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset w-50 mx-auto text-left">
+        <vue-markdown-preview><%= @institution.working_area %></vue-markdown-preview>
+      </div>
+    </p>
+    <% end %>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@institution.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Institution.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@institution.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    responsible_institutions_path,
+    class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'),
+    edit_responsible_institution_path(@institution),
+    class: 'btn btn-primary ml-auto' %>
+</div>
+

@@ -18,6 +18,16 @@ pt-BR:
       new: 'Novo Professor'
       edit: 'Editar Professor'
       show: 'Visualizar Professor'
+    external_members:
+      index: 'Membros externos'
+      new: 'Novo Membro externo'
+      edit: 'Editar Membro externo'
+      show: 'Visualizar Membro externo'
+    institutions:
+      index: 'Instituições externas'
+      new: 'Nova Instituição externa'
+      edit: 'Editar Instituição externa'
+      show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
     meetings:
@@ -27,6 +37,12 @@ pt-BR:
     pages:
       index: "Páginas"
   activerecord:
+    errors:
+      models:
+        institution:
+          attributes:
+            cnpj:
+              invalid_cnpj: "inválido"
     models:
       professor:
         one: "Professor"
@@ -34,6 +50,12 @@ pt-BR:
       academic:
         one: "Acadêmico"
         other: "Acadêmicos"
+      external_member:
+        one: "Membro externo"
+        other: "Membros externos"
+      institution:
+        one: "Instituição externa"
+        other: "Instituições externas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -46,18 +68,30 @@ pt-BR:
         remember_me: "Lembre-me"
         created_at: "Criado em"
         updated_at: "Atualizado em"
+        working_area: "Área de atuação"
+        is_active: "Ativo no sistema"
+        scholarity: "Escolaridade"
+        role: "Papel"
       academic:
         ra: "RA"
         <<: *commons
       professor:
         roles: "Papéis"
         profile_image: "Imagem do perfil"
-        is_active: "Ativo no sistema"
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
-        professor_title: "Títulação"
-        working_area: "Área de atuação"
         <<: *commons
+      external_member:
+        personal_page: "Página pessoal (link)"
+        external_member_type: "Tipo"
+        company_responsible: "Responsável de empresa"
+        <<: *commons
+      institution:
+        <<: *commons
+        name: "Razão social"
+        cnpj: "CNPJ"
+        trade_name: "Nome fantasia"
+        external_member: "Responsável da instituição"
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -117,3 +151,11 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+  mailer:
+    login: 'Acessar sistema'
+    external_member:
+      registration:
+        hello: 'Olá %{name}'
+        subject: 'Registrado com sucesso no SGTCC'
+        register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
+        login: 'Para realizar o login no sistema clique no link abaixo'

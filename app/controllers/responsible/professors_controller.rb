@@ -1,5 +1,6 @@
 class Responsible::ProfessorsController < Responsible::BaseController
   before_action :set_professor, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.index'),
                  :responsible_professors_path
@@ -17,10 +18,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    page = params[:page]
-    term = params[:term]
-
-    @professors = Professor.page(page).search(term)
+    @professors = Professor.page(params[:page]).search(params[:term]).order(:name)
   end
 
   def show; end
@@ -33,11 +31,10 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def create
     @professor = Professor.new(professor_params)
-    @professor.skip_password_validation = true
+    @professor.define_singleton_method(:password_required?) { false }
 
     if @professor.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Professor.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
       redirect_to responsible_professors_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -47,8 +44,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def update
     if @professor.update(professor_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Professor.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
       redirect_to responsible_professor_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -58,8 +54,8 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def destroy
     @professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Professor.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+
     redirect_to responsible_professors_url
   end
 
@@ -69,13 +65,17 @@ class Responsible::ProfessorsController < Responsible::BaseController
     @professor = Professor.find(params[:id])
   end
 
+  def set_resource_name
+    @resource_name = Professor.model_name.human
+  end
+
   def professor_params
     params.require(:professor).permit(
       :name, :email,
       :username, :lattes,
       :gender, :is_active,
       :working_area, :available_advisor,
-      :professor_type_id, :professor_title_id,
+      :professor_type_id, :scholarity_id,
       role_ids: []
     )
   end

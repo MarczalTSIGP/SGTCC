@@ -1,16 +1,16 @@
 class Professor < ApplicationRecord
+  include Classifiable
   include Searchable
-
-  attr_accessor :skip_password_validation
+  include ProfileImage
 
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:username]
 
-  enum gender: { male: 'M', female: 'F' }, _prefix: :gender
+  searchable :email, :username, name: { unaccent: true }
 
   belongs_to :professor_type
-  belongs_to :professor_title
+  belongs_to :scholarity
 
   has_many :assignments, dependent: :destroy
   has_many :roles, through: :assignments
@@ -37,19 +37,4 @@ class Professor < ApplicationRecord
             length: { maximum: 255 },
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
-
-  mount_uploader :profile_image, ProfileImageUploader
-
-  def self.human_genders
-    hash = {}
-    genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
-    hash
-  end
-
-  protected
-
-  def password_required?
-    return false if skip_password_validation
-    super
-  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_191510) do
+ActiveRecord::Schema.define(version: 2019_03_20_174948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_03_07_191510) do
     t.string "gender", limit: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "encrypted_password"
+    t.string "encrypted_password", default: "$2a$11$IP4EZ6GmQS2c6yH6plhUHOjfdolLjrDyaOiEmrZrooOGEnzy1fOXa", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -40,11 +40,34 @@ ActiveRecord::Schema.define(version: 2019_03_07_191510) do
     t.index ["role_id"], name: "index_assignments_on_role_id"
   end
 
-  create_table "professor_titles", force: :cascade do |t|
+  create_table "external_members", force: :cascade do |t|
     t.string "name"
-    t.string "abbr"
+    t.string "email"
+    t.boolean "is_active", default: false
+    t.string "gender", limit: 1
+    t.text "working_area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "profile_image"
+    t.bigint "scholarity_id"
+    t.string "personal_page"
+    t.string "encrypted_password"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["reset_password_token"], name: "index_external_members_on_reset_password_token", unique: true
+    t.index ["scholarity_id"], name: "index_external_members_on_scholarity_id"
+  end
+
+  create_table "institutions", force: :cascade do |t|
+    t.string "name"
+    t.string "trade_name"
+    t.string "cnpj"
+    t.bigint "external_member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "working_area"
+    t.index ["external_member_id"], name: "index_institutions_on_external_member_id"
   end
 
   create_table "professor_types", force: :cascade do |t|
@@ -68,13 +91,13 @@ ActiveRecord::Schema.define(version: 2019_03_07_191510) do
     t.string "gender", limit: 1
     t.boolean "is_active", default: false
     t.boolean "available_advisor"
-    t.bigint "professor_title_id"
+    t.bigint "scholarity_id"
     t.bigint "professor_type_id"
     t.text "working_area"
     t.index ["email"], name: "index_professors_on_email", unique: true
-    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
     t.index ["professor_type_id"], name: "index_professors_on_professor_type_id"
     t.index ["reset_password_token"], name: "index_professors_on_reset_password_token", unique: true
+    t.index ["scholarity_id"], name: "index_professors_on_scholarity_id"
     t.index ["username"], name: "index_professors_on_username", unique: true
   end
 
@@ -84,8 +107,38 @@ ActiveRecord::Schema.define(version: 2019_03_07_191510) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scholarities", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
-  add_foreign_key "professors", "professor_titles"
+  add_foreign_key "external_members", "scholarities"
+  add_foreign_key "institutions", "external_members"
   add_foreign_key "professors", "professor_types"
+  add_foreign_key "professors", "scholarities"
 end

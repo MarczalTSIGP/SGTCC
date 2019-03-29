@@ -1,6 +1,13 @@
 mailer: &mailer
+  mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
   mailer.host: localhost
-  mailer.port: '3000'
+  mailer.host.port: '3000'
+  mailer.smtp: 'smtp.mailtrap.io'
+  mailer.smtp.port: '2525'
+  mailer.smtp.domain: 'smtp.mailtrap.io'
+  mailer.smtp.username: ''
+  mailer.smtp.password: ''
+  mailer.smtp.authentication: 'cram_md5'
 
 ldap: &ldap
   ldap.on: 'false'

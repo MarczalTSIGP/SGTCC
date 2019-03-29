@@ -12,15 +12,17 @@ professor_roles.each do |role|
   Role.find_or_create_by!(name: role)
 end
 
-professor_titles = [
+scholarity = [
+  { name: 'Ensino médio completo', abbr: 'Ensino m.' },
+  { name: 'Graduado', abbr: 'Grad.' },
   { name: 'Especialista', abbr: 'Esp.' },
   { name: 'Mestre', abbr: 'Me.' },
   { name: 'Doutor', abbr: 'Dr.' },
   { name: 'Doutora', abbr: 'Dra.' }
 ]
 
-professor_titles.each do |title|
-  ProfessorTitle.find_or_create_by!(name: title[:name], abbr: title[:abbr])
+scholarity.each do |title|
+  Scholarity.find_or_create_by!(name: title[:name], abbr: title[:abbr])
 end
 
 professor_responsible = Professor.create_with(
@@ -28,7 +30,7 @@ professor_responsible = Professor.create_with(
   email: 'responsavel@email.com',
   gender: 'M',
   lattes: 'https://www.lattes.com/marczal',
-  professor_title_id: ProfessorTitle.pluck(:id).sample,
+  scholarity_id: Scholarity.pluck(:id).sample,
   professor_type_id: ProfessorType.pluck(:id).sample,
   working_area: 'Desenvolvimento web',
   is_active: true,

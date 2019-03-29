@@ -3,8 +3,9 @@ namespace :db do
 
   task populate: :environment do
     require 'faker'
+    require 'cpf_cnpj'
 
-    [Academic].each(&:delete_all)
+    [Academic, Institution, ExternalMember].each(&:delete_all)
     Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
@@ -29,9 +30,32 @@ namespace :db do
         available_advisor: Faker::Boolean.boolean,
         working_area: Faker::Markdown.headers,
         professor_type_id: ProfessorType.pluck(:id).sample,
-        professor_title_id: ProfessorTitle.pluck(:id).sample,
+        scholarity_id: Scholarity.pluck(:id).sample,
         password: '123456',
         password_confirmation: '123456'
+      )
+    end
+
+    100.times do |index|
+      ExternalMember.create(
+        name: Faker::Name.name,
+        email: Faker::Internet.email,
+        password: '123456',
+        password_confirmation: '123456',
+        is_active: Faker::Boolean.boolean,
+        working_area: Faker::Markdown.headers,
+        gender: Academic.genders.values.sample,
+        personal_page: "http://page.com.#{index}",
+        scholarity_id: Scholarity.pluck(:id).sample
+      )
+    end
+
+    100.times do
+      Institution.create(
+        name: Faker::Company.name,
+        trade_name: Faker::Company.buzzword,
+        cnpj: CNPJ.generate,
+        external_member_id: ExternalMember.pluck(:id).sample
       )
     end
   end

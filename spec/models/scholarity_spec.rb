@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProfessorTitle, type: :model do
+RSpec.describe Scholarity, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:abbr) }
@@ -9,5 +9,6 @@ RSpec.describe ProfessorTitle, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:professors).dependent(:destroy) }
+    it { is_expected.to have_many(:external_members).dependent(:destroy) }
   end
 end

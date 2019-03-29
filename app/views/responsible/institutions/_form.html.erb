@@ -1,0 +1,19 @@
+<%= simple_form_for [:responsible, @institution] do |f| %>
+  <div class="form-inputs">
+    <%= f.association :external_member,
+      collection: ExternalMember.order(:name),
+      prompt: t('prompt.select.m', name: Institution.human_attribute_name('external_member')) %>
+    <%= f.input :name %>
+    <%= f.input :trade_name %>
+    <%= f.input :cnpj, input_html: { 'data-mask': '00.000.000/0000-00'} %>
+    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
+ </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_institutions_path,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

@@ -10,20 +10,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(*)
-    if resource_name == :professor
-      responsible_root_path
-    else
-      academics_root_path
-    end
+    return responsible_root_path if resource_name == :professor
+    send("#{resource_name.to_s.pluralize}_root_path")
   end
 
   private
 
   def after_sign_out_path_for(*)
-    if resource_name == :professor
-      new_responsible_session_path
-    else
-      new_academics_session_path
-    end
+    return new_responsible_session_path if resource_name == :professor
+    send("new_#{resource_name}_session_path")
   end
 end

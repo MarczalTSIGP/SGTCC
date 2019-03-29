@@ -34,7 +34,7 @@ RSpec.describe Professor, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:professor_type) }
-    it { is_expected.to belong_to(:professor_title) }
+    it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
   end
 
@@ -103,7 +103,7 @@ RSpec.describe Professor, type: :model do
         create_list(:professor, 30)
         professors_ordered = Professor.order(:name)
         professor = professors_ordered.first
-        results_search = Professor.search
+        results_search = Professor.search.order(:name)
         expect(professor.name). to eq(results_search.first.name)
       end
     end

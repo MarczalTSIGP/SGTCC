@@ -1,0 +1,32 @@
+<% provide(:head_title, t('devise.passwords.edit.change_your_password')) %>
+<% provide(:page_title, t('devise.passwords.edit.change_your_password')) %>
+<% provide(:title, t('devise.passwords.edit.change_your_password')) %>
+
+<%= simple_form_for(resource,
+                    as: resource_name,
+                    url: password_path(resource_name),
+                    html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :reset_password_token, as: :hidden %>
+  <%= f.full_error :reset_password_token %>
+
+  <div class="form-inputs">
+    <%= f.input :password,
+                label: t('devise.passwords.edit.new_password'),
+                required: true,
+                autofocus: true,
+                hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
+                input_html: { autocomplete: "new-password" } %>
+
+    <%= f.input :password_confirmation,
+      label: t('devise.passwords.edit.confirm_new_password'),
+      required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit,
+      t('devise.passwords.edit.change_my_password'),
+      class: 'btn btn-primary float-right mt-3' %>
+  </div>
+<% end %>
