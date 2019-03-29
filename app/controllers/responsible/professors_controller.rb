@@ -1,7 +1,6 @@
 class Responsible::ProfessorsController < Responsible::BaseController
   before_action :set_professor, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
-  before_action :set_search_fields, only: [:index]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.index'),
                  :responsible_professors_path
@@ -19,7 +18,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @professors = Professor.page(params[:page]).search(params[:term], @search_fields)
+    @professors = Professor.page(params[:page]).search(params[:term]).order(:name)
   end
 
   def show; end
@@ -68,14 +67,6 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def set_resource_name
     @resource_name = Professor.model_name.human
-  end
-
-  def set_search_fields
-    @search_fields = {
-      name: { unaccent: true },
-      email: { unaccent: false },
-      username: { unaccent: false }
-    }
   end
 
   def professor_params

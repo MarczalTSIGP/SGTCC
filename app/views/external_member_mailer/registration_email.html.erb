@@ -6,4 +6,4 @@
   <%= t('mailer.external_member.registration.login') %>
 </p>
 
-<a href="<%= @url %>"> <%= t('mailer.login') %>.
+<%= link_to new_external_member_session_url, t('mailer.login')  %>

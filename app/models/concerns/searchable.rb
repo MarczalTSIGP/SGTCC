@@ -3,19 +3,35 @@ require 'active_support/concern'
 module Searchable
   extend ActiveSupport::Concern
 
-  included do
-    def self.search(term = nil, search_fields = [], order_by = 'name ASC')
-      return order(order_by) if term.blank?
+  module ClassMethods
+    attr_reader :search_fields
 
-      search = search_fields.map do |field, value|
-        get_query_string(field, value)
+    private
+
+    def searchable(*search_fields)
+      @search_fields = search_fields
+    end
+  end
+
+  included do
+    def self.search(term = nil)
+      return all if term.blank?
+
+      search = @search_fields.map do |field|
+        query_from_string(field)
       end.join(' OR ')
 
-      where(search, *["%#{term}%"] * search_fields.count).order(order_by)
+      where(search, *["%#{term}%"] * search.count('?'))
     end
 
-    def self.get_query_string(field, value)
-      value[:unaccent] ? "unaccent(#{field}) ILIKE unaccent(?)" : "#{field} ILIKE ?"
+    def self.query_from_string(field)
+      if field.is_a?(Hash)
+        search = field.map do |name, options|
+          options[:unaccent] ? "unaccent(#{name}) ILIKE unaccent(?)" : "#{name} ILIKE ?"
+        end.join(' OR ')
+        return search
+      end
+      "#{field} ILIKE ?"
     end
   end
 end

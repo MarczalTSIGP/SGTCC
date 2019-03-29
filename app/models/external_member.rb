@@ -7,6 +7,8 @@ class ExternalMember < ApplicationRecord
          :rememberable, :validatable,
          :recoverable, authentication_keys: [:email]
 
+  searchable :email, name: { unaccent: true }
+
   belongs_to :scholarity
 
   validates :name,

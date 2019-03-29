@@ -1,7 +1,6 @@
 class Responsible::InstitutionsController < Responsible::BaseController
   before_action :set_institution, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_name, only: [:create, :update, :destroy]
-  before_action :set_search_fields, only: [:index]
 
   add_breadcrumb I18n.t('breadcrumbs.institutions.index'),
                  :responsible_institutions_path
@@ -19,7 +18,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @institutions = Institution.page(params[:page]).search(params[:term], @search_fields)
+    @institutions = Institution.page(params[:page]).search(params[:term]).order(:name)
   end
 
   def show; end
@@ -67,14 +66,6 @@ class Responsible::InstitutionsController < Responsible::BaseController
 
   def set_resource_name
     @resource_name = Institution.model_name.human
-  end
-
-  def set_search_fields
-    @search_fields = {
-      name: { unaccent: true },
-      trade_name: { unaccent: true },
-      cnpj: { unaccent: false }
-    }
   end
 
   def institution_params

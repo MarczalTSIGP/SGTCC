@@ -15,7 +15,7 @@ describe 'Institution::pagination', type: :feature do
 
         expect(page).to have_contents([institution.name,
                                        institution.trade_name,
-                                       institution.cnpj_formatted,
+                                       institution.cnpj.formatted,
                                        institution.created_at.strftime('%d/%m/%Y')])
       end
     end

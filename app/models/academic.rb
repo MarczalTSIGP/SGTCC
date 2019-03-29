@@ -3,6 +3,8 @@ class Academic < ApplicationRecord
   include Searchable
   include ProfileImage
 
+  searchable :ra, :email, name: { unaccent: true }
+
   devise :database_authenticatable,
          :rememberable, :validatable,
          authentication_keys: [:ra]

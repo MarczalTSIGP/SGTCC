@@ -1,8 +1,10 @@
+Rails.application.config.action_mailer.default_url_options = { host: ENV['mailer.host'],
+                                                               port: ENV['mailer.host.port'] }
 ActionMailer::Base.smtp_settings = {
-  address: 'smtp.mailtrap.io',
-  port: 2525,
-  domain: 'smtp.mailtrap.io',
-  user_name: ENV['MAILTRAP_USERNAME'],
-  password: ENV['MAILTRAP_PASSWORD'],
-  authentication: :cram_md5
+  address: ENV['mailer.smtp'],
+  port: ENV['mailer.smtp.port'],
+  domain: ENV['mailer.smtp.domain'],
+  user_name: ENV['mailer.smtp.username'],
+  password: ENV['mailer.smtp.password'],
+  authentication: ENV['mailer.smtp.authentication']
 }
