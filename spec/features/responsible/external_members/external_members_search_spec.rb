@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ExternalMember::search', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:external_members) { create_list(:external_member, 25) }
 
   before do

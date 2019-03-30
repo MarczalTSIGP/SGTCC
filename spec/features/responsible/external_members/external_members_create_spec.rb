@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ExternalMember::create', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { ExternalMember.model_name.human }
 
   before do

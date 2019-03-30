@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Institution::update', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { Institution.model_name.human }
 
   before do

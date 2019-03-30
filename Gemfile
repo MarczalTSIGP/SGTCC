@@ -23,7 +23,6 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'pg', '0.18.4'
-gem 'pundit'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'

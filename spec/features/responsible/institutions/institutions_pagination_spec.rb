@@ -4,7 +4,7 @@ describe 'Institution::pagination', type: :feature do
   describe '#pagination' do
     context 'when finds the last institution on second page' do
       it 'finds the last institution', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         create_list(:institution, 30)

@@ -37,4 +37,8 @@ class Professor < ApplicationRecord
             length: { maximum: 255 },
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
+
+  def role?(role)
+    roles.where(name: role).any?
+  end
 end

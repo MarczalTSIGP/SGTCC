@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Institution::search', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:institutions) { create_list(:institution, 25) }
 
   before do

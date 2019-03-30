@@ -4,7 +4,7 @@ describe 'ExternalMember::index', type: :feature do
   describe '#index' do
     context 'when shows all external members' do
       it 'shows all external members with options', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         external_members = create_list(:external_member, 3)

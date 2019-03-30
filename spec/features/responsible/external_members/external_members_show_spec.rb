@@ -4,7 +4,7 @@ describe 'ExternalMember::show', type: :feature do
   describe '#show' do
     context 'when shows the external member' do
       it 'shows the external member' do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         external_member = create(:external_member)
