@@ -68,10 +68,4 @@ Rails.application.configure do
     Bullet.console = true
     Bullet.rails_logger = true
   end
-
-  config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: ENV['mailer.exception.prefix'],
-    sender_address: ENV['mailer.exception.sender'],
-    exception_recipients: ENV['mailer.exception.recipient']
-  }
 end
