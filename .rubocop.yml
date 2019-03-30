@@ -18,6 +18,7 @@ AllCops:
     - 'config/initializers/simple_form.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
+    - 'config/environments/production.rb'
     - 'lib/builders/bootstrap_breadcrumbs_builder.rb'
     - 'node_modules/**/*'
     - 'bin/webpack'
