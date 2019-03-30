@@ -20,7 +20,7 @@ describe 'Institution::search', type: :feature do
         expect(page).to have_contents([institution.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,
-                                       institution.created_at.strftime('%d/%m/%Y')])
+                                       short_date(institution.created_at)])
       end
     end
 

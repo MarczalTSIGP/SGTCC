@@ -2,7 +2,7 @@
   <td><%= institution.name %></td>
   <td><%= institution.trade_name %></td>
   <td><%= institution.cnpj.formatted %></td>
-  <td><%= institution.created_at.strftime("%d/%m/%Y") %></td>
+  <td><%= short_date(institution.created_at) %></td>
   <td>
     <%= link_to(responsible_institution_path(institution)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>

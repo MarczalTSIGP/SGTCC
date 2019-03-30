@@ -19,7 +19,7 @@ describe 'ExternalMember::search', type: :feature do
 
         expect(page).to have_contents([external_member.name,
                                        external_member.email,
-                                       external_member.created_at.strftime('%d/%m/%Y')])
+                                       short_date(external_member.created_at)])
       end
     end
 
