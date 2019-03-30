@@ -70,8 +70,8 @@ Rails.application.configure do
   end
 
   config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: '[SGTCC - Exception Notification] ',
-    sender_address: 'notifier@example.com>',
-    exception_recipients: %w[exceptions@example.com]
+    email_prefix: ENV['mailer.exception.prefix'],
+    sender_address: ENV['mailer.exception.sender'],
+    exception_recipients: ENV['mailer.exception.recipient']
   }
 end
