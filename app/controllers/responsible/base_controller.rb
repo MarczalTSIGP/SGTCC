@@ -7,9 +7,7 @@ class Responsible::BaseController < ActionController::Base
   layout 'layouts/professors/application'
 
   def authorized
-    user = current_professor || current_academic || current_external_member
-    return if user.role?(I18n.t('enums.roles.responsible'))
-
+    return if current_professor.role?('responsible')
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_root_path
   end

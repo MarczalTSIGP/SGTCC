@@ -15,7 +15,7 @@ FactoryBot.define do
 
     factory :responsible do
       after :create do |professor|
-        role = create(:role, name: I18n.t('enums.roles.responsible')) if Role.all.empty?
+        role = create(:role, name: 'Professor', identifier: 'responsible') if Role.all.empty?
         if role
           professor.roles << role
           professor.save
