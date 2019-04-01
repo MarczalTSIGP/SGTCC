@@ -15,7 +15,7 @@ describe 'Academic::index', type: :feature do
           expect(page).to have_contents([a.name,
                                          a.email,
                                          a.ra,
-                                         a.created_at.strftime('%d/%m/%Y')])
+                                         short_date(a.created_at)])
         end
       end
     end

@@ -1,4 +1,7 @@
 pt-BR:
+  time:
+    formats:
+      short: '%d/%m/%Y'
   views:
     pagination:
       first: "&laquo;"

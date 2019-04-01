@@ -14,7 +14,7 @@ describe 'ExternalMember::index', type: :feature do
         external_members.each do |e|
           expect(page).to have_contents([e.name,
                                          e.email,
-                                         e.created_at.strftime('%d/%m/%Y')])
+                                         short_date(e.created_at)])
         end
       end
     end

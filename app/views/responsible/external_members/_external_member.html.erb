@@ -1,7 +1,7 @@
 <tr>
   <td><%= external_member.name %></td>
   <td><%= external_member.email %></td>
-  <td><%= external_member.created_at.strftime("%d/%m/%Y") %></td>
+  <td><%= short_date(external_member.created_at) %></td>
   <td>
     <%= link_to(responsible_external_member_path(external_member)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
