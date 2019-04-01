@@ -23,7 +23,7 @@
           prompt: t('prompt.select.f', name: Professor.human_attribute_name('scholarity')) %>
       </div>
       <div class="col-sm-6">
-        <%= f.association :professor_title,
+        <%= f.association :professor_type,
           input_html: { data: 'selectize' },
           prompt: t('prompt.select.m', name: 'título') %>
       </div>
