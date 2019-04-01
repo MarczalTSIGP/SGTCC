@@ -3,7 +3,7 @@
 <% provide(:title, t("sessions.edit_profile")) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: send("academics_registration_path"),
+                    url: send("academic_registration_path"),
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>

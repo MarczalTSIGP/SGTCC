@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Professor::create', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { Professor.model_name.human }
 
   before do

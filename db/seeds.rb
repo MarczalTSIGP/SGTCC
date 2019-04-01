@@ -4,12 +4,12 @@ professor_types.each do |category|
 end
 
 professor_roles = [
-  'Professor responsável',
-  'Professor de TCC 1'
+  { name: 'Professor responsável', identifier: 'responsible' },
+  { name: 'Professor de tcc 1', identifier: 'tcc1' }
 ]
 
 professor_roles.each do |role|
-  Role.find_or_create_by!(name: role)
+  Role.find_or_create_by!(name: role[:name], identifier: role[:identifier])
 end
 
 scholarity = [

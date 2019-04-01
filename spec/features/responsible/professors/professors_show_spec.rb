@@ -4,7 +4,7 @@ describe 'Professors::show', type: :feature do
   describe '#show' do
     context 'when shows the professor' do
       it 'shows the professor' do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         professor = create(:professor)

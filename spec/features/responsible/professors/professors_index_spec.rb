@@ -4,7 +4,7 @@ describe 'Professor::index', type: :feature do
   describe '#index' do
     context 'when shows all professors' do
       it 'shows all professors with options', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         professors = create_list(:professor, 3)

@@ -4,7 +4,7 @@ describe 'ExternalMember::pagination', type: :feature do
   describe '#pagination' do
     context 'when finds the last external member on second page' do
       it 'finds the last external member', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         create_list(:external_member, 30)
