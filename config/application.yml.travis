@@ -8,6 +8,9 @@ mailer: &mailer
   mailer.smtp.username: ''
   mailer.smtp.password: ''
   mailer.smtp.authentication: 'cram_md5'
+  mailer.exception.prefix: '[SGTCC]'
+  mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
+  mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
 
 ldap: &ldap
   ldap.on: 'false'
