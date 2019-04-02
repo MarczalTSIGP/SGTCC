@@ -17,7 +17,10 @@ class Responsible::ActivitiesController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @activities = Activity.order(:name).page(params[:page]).includes(:activity_type)
+    @activities = Activity.page(params[:page])
+                          .search(params[:term])
+                          .order(:name)
+                          .includes(:activity_type)
   end
 
   def show; end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Activity::create', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
   let!(:activity_types) { create_list(:activity_type, 3) }
 

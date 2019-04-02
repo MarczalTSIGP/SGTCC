@@ -4,7 +4,7 @@ describe 'Activity::pagination', type: :feature do
   describe '#pagination' do
     context 'when finds the last activity on second page' do
       it 'finds the last activity', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         create_list(:activity, 30)

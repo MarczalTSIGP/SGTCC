@@ -55,6 +55,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'institutions#index',
           as: 'institutions_search'
+
+      get 'activities/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'activities#index',
+          as: 'activities_search'
     end
 
     namespace :professors do

@@ -4,7 +4,7 @@ describe 'Activities::show', type: :feature do
   describe '#show' do
     context 'when shows the activity' do
       it 'shows the activity' do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         activity = create(:activity)

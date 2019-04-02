@@ -98,7 +98,6 @@ pt-BR:
         available_advisor: "Disponível para orientação"
         professor_type: "Tipo"
         <<: *commons
-<<<<<<< HEAD
       external_member:
         personal_page: "Página pessoal (link)"
         external_member_type: "Tipo"
@@ -110,11 +109,9 @@ pt-BR:
         cnpj: "CNPJ"
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
-=======
       activity:
         activity_type: "Tipo"
         <<: *commons
->>>>>>> Add controller and views
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'

@@ -4,7 +4,7 @@ describe 'Activity::index', type: :feature do
   describe '#index' do
     context 'when shows all activities' do
       it 'shows all activities with options', js: true do
-        responsible = create(:professor)
+        responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
         activities = create_list(:activity, 3)

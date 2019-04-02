@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Activity::destroy', type: :feature do
-  let(:responsible) { create(:professor) }
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
 
   before do
