@@ -132,15 +132,15 @@ Rails.application.routes.draw do
 
     delete '/external_members/logout',
            to: 'devise/sessions#destroy',
-           as: 'destroy_external_members_session'
+           as: 'destroy_external_member_session'
 
     get '/external_members/edit',
         to: 'external_members/registrations#edit',
-        as: 'edit_external_members_registration'
+        as: 'edit_external_member_registration'
 
     put '/external_members',
         to: 'external_members/registrations#update',
-        as: 'external_members_registration'
+        as: 'external_member_registration'
   end
 
   authenticate :external_member do

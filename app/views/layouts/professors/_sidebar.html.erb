@@ -1,14 +1,9 @@
-<a href="#" class="header-toggler d-md-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse" aria-expanded="true">
-  <span class="header-toggler-icon"></span>
-</a>
-<div class="col-md-3" id="headerMenuCollapse">
-  <div class="sticky-top list-group list-group-transparent mb-0">
-    <% if current_professor.role?('responsible') %>
-      <%= render 'layouts/professors/responsible_menu' %>
-    <% end %>
-    <%= render 'layouts/professors/professor_menu' %>
-    <% if current_professor.role?('tcc1') %>
-      <%= render 'layouts/professors/professor_tcc1_menu' %>
-    <% end %>
-  </div>
-</div>
+<%= render 'layouts/shared/sidebar' do %>
+  <% if current_professor.role?(:responsible) %>
+    <%= render 'layouts/professors/responsible_menu' %>
+  <% end %>
+  <%= render 'layouts/professors/professor_menu' %>
+  <% if current_professor.role?(:tcc_one) %>
+    <%= render 'layouts/professors/professor_tcc1_menu' %>
+  <% end %>
+<% end %>

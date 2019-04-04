@@ -4,7 +4,7 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(*)
-    edit_external_members_registration_path
+    edit_external_member_registration_path
   end
 
   def account_update_params

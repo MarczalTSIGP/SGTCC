@@ -1,13 +1,14 @@
-<a href="#" class="header-toggler d-md-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse" aria-expanded="true">
-  <span class="header-toggler-icon"></span>
-</a>
-<div class="col-md-3" id="headerMenuCollapse">
-  <div class="sticky-top list-group list-group-transparent mb-0">
-    <%= active_link_to(external_members_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
-      <span class="icon mr-3">
-        <%= icon('fas', 'home') %>
-      </span>
-      <%= t('breadcrumbs.homepage') %>
-    <% end %>
-  </div>
-</div>
+<%= render 'layouts/shared/sidebar' do %>
+
+  <span class="sidebar-heading pl-0 pt-2 pb-2">
+    <%= icon('fas', 'compass', class: 'mr-1') %>
+    <%= t('views.sidebar.external_members') %>
+  </span>
+
+  <%= active_link_to(external_members_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('fas', 'home') %>
+    </span>
+    <%= t('breadcrumbs.homepage') %>
+  <% end %>
+<% end %>

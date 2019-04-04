@@ -4,8 +4,8 @@ professor_types.each do |category|
 end
 
 professor_roles = [
-  { name: 'Professor responsável', identifier: 'responsible' },
-  { name: 'Professor de tcc 1', identifier: 'tcc1' }
+  { name: 'Professor Responsável', identifier: 'responsible' },
+  { name: 'Professor de TCC 1', identifier: 'tcc_one' }
 ]
 
 professor_roles.each do |role|
