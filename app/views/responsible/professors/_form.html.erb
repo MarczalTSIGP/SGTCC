@@ -1,18 +1,18 @@
 <%= simple_form_for [:responsible, @professor] do |f| %>
   <div class="form-inputs">
     <div class="row">
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= f.input :name %>
       </div>
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= f.input :email %>
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= f.input :username %>
       </div>
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= f.input :lattes %>
       </div>
     </div>
@@ -22,21 +22,27 @@
         <%= f.association :scholarity,
           prompt: t('prompt.select.f', name: Professor.human_attribute_name('scholarity')) %>
       </div>
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= f.association :professor_type,
-          prompt: t('prompt.select.m', name: Professor.human_attribute_name('professor_type')) %>
+          input_html: { data: 'selectize' },
+          prompt: t('prompt.select.m', name: 'título') %>
       </div>
-    </div>
+   </div>
 
     <%= f.association :roles,
       prompt: t('prompt.select.m', name: Professor.human_attribute_name('role')) %>
-
-    <%= f.input :gender,
-                as: :radio_button_tabler,
-                collection: Professor.human_genders %>
-
-    <%= f.input :is_active, as: :checkbox_tabler %>
-    <%= f.input :available_advisor, as: :checkbox_tabler %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :gender,
+                    as: :radio_button_tabler,
+                    collection: Professor.human_genders,
+                    item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :is_active, as: :checkbox_tabler %>
+        <%= f.input :available_advisor, as: :checkbox_tabler %>
+      </div>
+    </div>
 
     <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
   </div>

@@ -21,9 +21,11 @@
 * Customizations
 **************************************************************/
 @import "customizations/simple_form_bootstrap";
+@import "customizations/icons";
 
 /*************************************************************
 * Apps stylesheets
 **************************************************************/
 @import "lib/image_preview";
 @import "errors/errors";
+@import "sidebar";

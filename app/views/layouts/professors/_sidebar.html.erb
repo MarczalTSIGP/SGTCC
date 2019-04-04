@@ -1,11 +1,9 @@
-<div class="col-lg-3 mb-4">
-  <div class="list-group list-group-transparent mb-0">
-    <% if current_professor.role?('responsible') %>
-      <%= render 'layouts/professors/responsible_menu' %>
-    <% end %>
-    <%= render 'layouts/professors/professor_menu' %>
-    <% if current_professor.role?('tcc1') %>
-      <%= render 'layouts/professors/professor_tcc1_menu' %>
-    <% end %>
-  </div>
-</div>
+<%= render 'layouts/shared/sidebar' do %>
+  <% if current_professor.role?(:responsible) %>
+    <%= render 'layouts/professors/responsible_menu' %>
+  <% end %>
+  <%= render 'layouts/professors/professor_menu' %>
+  <% if current_professor.role?(:tcc_one) %>
+    <%= render 'layouts/professors/professor_tcc1_menu' %>
+  <% end %>
+<% end %>

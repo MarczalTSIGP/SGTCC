@@ -1,4 +1,7 @@
-<h6 class="mb-3"><%= t('views.sidebar.responsible') %></h6>
+<span class="sidebar-heading pl-0 pt-2 pb-2">
+  <%= icon('fas', 'user-cog', class: 'mr-2') %>
+  <%= t('views.sidebar.responsible') %>
+</span>
 
 <%= active_link_to(responsible_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">

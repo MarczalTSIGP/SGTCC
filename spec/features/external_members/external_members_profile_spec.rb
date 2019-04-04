@@ -6,7 +6,7 @@ describe 'ExternalMember:profiles', type: :feature do
 
     before do
       login_as(external_member, scope: :external_member)
-      visit edit_external_members_registration_path
+      visit edit_external_member_registration_path
     end
 
     it 'updates with success when the data are valid', js: true do
@@ -21,7 +21,7 @@ describe 'ExternalMember:profiles', type: :feature do
 
       submit_form('input[name="commit"]')
 
-      expect(page).to have_current_path edit_external_members_registration_path
+      expect(page).to have_current_path edit_external_member_registration_path
       expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
       expect(page).to have_message(new_name, in: 'a.nav-link')
       expect(page).to have_field 'external_member_name', with: new_name

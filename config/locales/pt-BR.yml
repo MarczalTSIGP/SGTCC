@@ -12,7 +12,9 @@ pt-BR:
     sidebar:
       responsible: "Responsável"
       orientations: "Orientações"
-      tcc1: "TCC 1"
+      tcc_one: "TCC 1"
+      academics: "Acadêmico"
+      external_members: "Membro Externo"
   breadcrumbs:
     homepage: "Página inicial"
     academics:
