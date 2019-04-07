@@ -34,6 +34,7 @@ document.addEventListener('turbolinks:load', () => {
     mounted() {
       this.initMarkdownEditor();
       this.initSelectize();
+      this.initHeaderMenuCollapse();
     },
 
     methods: {
@@ -54,10 +55,17 @@ document.addEventListener('turbolinks:load', () => {
 
         if (selects.length > 0) {
           selects.selectize();
+          $('select[data="selectize"]').selectize();
+          $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
         }
+      },
 
-        $('select[data="selectize"]').selectize();
-        $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
+      initHeaderMenuCollapse() {
+        const $ = window.jQuery;
+
+        $('[data-toggle="collapse"]').click(function() {
+          $('html, body').animate({ scrollTop: 0 }, 'slow');
+        });
       },
     },
   });
