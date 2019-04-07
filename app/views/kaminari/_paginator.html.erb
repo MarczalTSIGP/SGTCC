@@ -1,6 +1,6 @@
 <%= paginator.render do %>
   <nav>
-    <ul class="pagination mt-5 float-right">
+    <ul class="pagination mt-5 float-right flex-wrap">
       <%= first_page_tag unless current_page.first? %>
       <%= prev_page_tag unless current_page.first? %>
       <% each_page do |page| %>
