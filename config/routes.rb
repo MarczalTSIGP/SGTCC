@@ -32,7 +32,7 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      resources :activities,
+      resources :base_activities,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -56,10 +56,10 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'activities/search/(:term)/(page/:page)',
+      get 'base_activities/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
-          to: 'activities#index',
-          as: 'activities_search'
+          to: 'base_activities#index',
+          as: 'base_activities_search'
     end
 
     namespace :professors do

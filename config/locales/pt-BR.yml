@@ -45,11 +45,11 @@ pt-BR:
       index: "Bancas"
     pages:
       index: "Páginas"
-    activities:
-      index: "Atividades"
-      new: "Nova Atividade"
-      edit: "Editar Atividade"
-      show: "Visualizar Atividade"
+    base_activities:
+      index: "Atividades base"
+      new: "Nova Atividade base"
+      edit: "Editar Atividade base"
+      show: "Visualizar Atividade base"
   activerecord:
     errors:
       models:
@@ -70,9 +70,9 @@ pt-BR:
       institution:
         one: "Instituição externa"
         other: "Instituições externas"
-      activity:
-        one: "Atividade"
-        other: "Atividades"
+      base_activity:
+        one: "Atividade base"
+        other: "Atividades base"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -109,8 +109,8 @@ pt-BR:
         cnpj: "CNPJ"
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
-      activity:
-        activity_type: "Tipo"
+      base_activity:
+        base_activity_type: "Tipo"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

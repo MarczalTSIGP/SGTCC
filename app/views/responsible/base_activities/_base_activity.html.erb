@@ -1,15 +1,15 @@
 <tr>
-  <td><%= activity.name %></td>
-  <td><%= activity.activity_type.name %></td>
-  <td><%= l(activity.created_at, format: :short) %></td>
+  <td><%= base_activity.name %></td>
+  <td><%= base_activity.base_activity_type.name %></td>
+  <td><%= l(base_activity.created_at, format: :short) %></td>
   <td>
-    <%= link_to(responsible_activity_path(activity)) do %>
+    <%= link_to(responsible_base_activity_path(base_activity)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
     <% end %>
-    <%= link_to(edit_responsible_activity_path(activity)) do %>
+    <%= link_to(edit_responsible_base_activity_path(base_activity)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
     <% end %>
-    <%= link_to responsible_activity_path(activity),
+    <%= link_to responsible_base_activity_path(base_activity),
       method: :delete,
       data: { confirm: t('prompt.confirm') },
       class: 'destroy' do %>
