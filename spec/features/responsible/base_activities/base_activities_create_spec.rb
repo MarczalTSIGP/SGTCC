@@ -15,16 +15,34 @@ describe 'BaseActivity::create', type: :feature do
     end
 
     context 'when base_activity is valid', js: true do
-      it 'create a base activity' do
+      it 'create a base activity with tcc 1' do
         attributes = attributes_for(:base_activity)
+        tcc_one_text = '1'
         fill_in 'base_activity_name', with: attributes[:name]
         find('#base_activity_base_activity_type_id-selectized').click
         find('div.selectize-dropdown-content', text: base_activity_types.first.name).click
-        find('span[class="custom-control-label"]', text: BaseActivity.human_tccs.first[0]).click
+        find('span[class="custom-control-label"]', text: tcc_one_text).click
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_base_activities_path
+        expect(page).to have_current_path responsible_base_activities_tcc_one_path
+
+        success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
+      end
+
+      it 'create a base activity with tcc 2' do
+        attributes = attributes_for(:base_activity)
+        tcc_two_text = '2'
+        fill_in 'base_activity_name', with: attributes[:name]
+        find('#base_activity_base_activity_type_id-selectized').click
+        find('div.selectize-dropdown-content', text: base_activity_types.first.name).click
+        find('span[class="custom-control-label"]', text: tcc_two_text).click
+
+        submit_form('input[name="commit"]')
+
+        expect(page).to have_current_path responsible_base_activities_tcc_two_path
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)

@@ -7,7 +7,7 @@ describe 'BaseActivities::show', type: :feature do
         responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
-        base_activity = create(:base_activity)
+        base_activity = create(:base_activity_tcc_one)
         visit responsible_base_activity_path(base_activity)
 
         expect(page).to have_contents([base_activity.name,

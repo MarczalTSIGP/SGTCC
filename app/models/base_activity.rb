@@ -15,4 +15,11 @@ class BaseActivity < ApplicationRecord
     tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
     hash
   end
+
+  def self.get_by_tcc(type, term)
+    BaseActivity.search(term)
+                .order(:name)
+                .includes(:base_activity_type)
+                .where(tcc: type)
+  end
 end
