@@ -3,6 +3,9 @@
     <%= f.input :name %>
     <%= f.association :base_activity_type,
       prompt: t('prompt.select.m', name: 'tipo') %>
+    <%= f.input :tcc,
+                as: :radio_button_tabler,
+                collection: BaseActivity.human_tccs %>
   </div>
 
   <div class="d-flex">

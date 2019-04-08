@@ -15,7 +15,7 @@ describe 'BaseActivity::pagination', type: :feature do
 
         expect(page).to have_contents([base_activity.name,
                                        base_activity.base_activity_type.name,
-                                       base_activity.created_at.strftime('%d/%m/%Y')])
+                                       short_date(base_activity.created_at)])
       end
     end
   end

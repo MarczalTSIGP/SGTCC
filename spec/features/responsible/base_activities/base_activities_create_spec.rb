@@ -20,6 +20,7 @@ describe 'BaseActivity::create', type: :feature do
         fill_in 'base_activity_name', with: attributes[:name]
         find('#base_activity_base_activity_type_id-selectized').click
         find('div.selectize-dropdown-content', text: base_activity_types.first.name).click
+        find('span[class="custom-control-label"]', text: BaseActivity.human_tccs.first[0]).click
 
         submit_form('input[name="commit"]')
 

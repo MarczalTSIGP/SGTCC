@@ -1,6 +1,7 @@
 <tr>
   <td><%= base_activity.name %></td>
   <td><%= base_activity.base_activity_type.name %></td>
+  <td><%= t("enums.tcc.#{base_activity.tcc}") %></td>
   <td><%= l(base_activity.created_at, format: :short) %></td>
   <td>
     <%= link_to(responsible_base_activity_path(base_activity)) do %>

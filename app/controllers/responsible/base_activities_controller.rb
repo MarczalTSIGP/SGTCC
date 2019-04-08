@@ -71,6 +71,6 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   end
 
   def activity_params
-    params.require(:base_activity).permit(:name, :base_activity_type_id)
+    params.require(:base_activity).permit(:name, :base_activity_type_id, :tcc)
   end
 end

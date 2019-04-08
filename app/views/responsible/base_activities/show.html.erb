@@ -17,6 +17,12 @@
     </p>
     <p>
       <strong>
+        <%= BaseActivity.human_attribute_name('tcc') %>:
+      </strong>
+      <%= t("enums.tcc.#{@base_activity.tcc}") %>
+    </p>
+    <p>
+      <strong>
         <%= BaseActivity.human_attribute_name('created_at') %>:
       </strong>
       <%= complete_date(@base_activity.created_at) %>

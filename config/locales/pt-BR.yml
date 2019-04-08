@@ -111,6 +111,7 @@ pt-BR:
         external_member: "Responsável da instituição"
       base_activity:
         base_activity_type: "Tipo"
+        tcc: "TCC"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -136,6 +137,9 @@ pt-BR:
     roles:
       responsible: 'Professor responsável'
       tcc1: 'Professor de TCC 1'
+    tcc:
+      one: '1'
+      two: '2'
   flash:
     actions:
       update:
