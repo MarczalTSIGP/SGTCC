@@ -68,12 +68,13 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   end
 
   def destroy
+    back_url = tcc_url
     @base_activity.destroy
 
     flash[:success] = I18n.t('flash.actions.destroy.m',
                              resource_name: BaseActivity.model_name.human)
 
-    redirect_to responsible_base_activities_path
+    redirect_to back_url
   end
 
   private
