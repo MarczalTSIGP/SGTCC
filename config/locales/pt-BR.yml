@@ -45,6 +45,11 @@ pt-BR:
       index: "Bancas"
     pages:
       index: "Páginas"
+    base_activities:
+      index: "Atividades base"
+      new: "Nova Atividade base"
+      edit: "Editar Atividade base"
+      show: "Visualizar Atividade base"
   activerecord:
     errors:
       models:
@@ -65,6 +70,9 @@ pt-BR:
       institution:
         one: "Instituição externa"
         other: "Instituições externas"
+      base_activity:
+        one: "Atividade base"
+        other: "Atividades base"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -101,6 +109,10 @@ pt-BR:
         cnpj: "CNPJ"
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
+      base_activity:
+        base_activity_type: "Tipo"
+        tcc: "TCC"
+        <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -125,6 +137,9 @@ pt-BR:
     roles:
       responsible: 'Professor responsável'
       tcc1: 'Professor de TCC 1'
+    tcc:
+      one: '1'
+      two: '2'
   flash:
     actions:
       update:

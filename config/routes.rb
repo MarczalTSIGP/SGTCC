@@ -32,6 +32,13 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :base_activities,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'base_activities/tcc/1', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
+      get 'base_activities/tcc/2', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
@@ -51,6 +58,16 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'institutions#index',
           as: 'institutions_search'
+
+      get 'base_activities/tcc/1/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'base_activities#tcc_one',
+          as: 'base_activities_search_tcc_one'
+
+      get 'base_activities/tcc/2/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'base_activities#tcc_two',
+          as: 'base_activities_search_tcc_two'
     end
 
     namespace :professors do
