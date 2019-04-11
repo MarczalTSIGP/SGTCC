@@ -39,6 +39,9 @@ pt-BR:
       show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
+      new: "Novo Calendário"
+      edit: "Editar Calendário"
+      show: "Visualizar Calendário"
     meetings:
       index: "Reuniões"
     examination_boards:
@@ -73,6 +76,9 @@ pt-BR:
       base_activity:
         one: "Atividade base"
         other: "Atividades base"
+      calendar:
+        one: "Calendário"
+        other: "Calendários"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -89,6 +95,7 @@ pt-BR:
         is_active: "Ativo no sistema"
         scholarity: "Escolaridade"
         role: "Papel"
+        tcc: "TCC"
       academic:
         ra: "RA"
         <<: *commons
@@ -111,7 +118,10 @@ pt-BR:
         external_member: "Responsável da instituição"
       base_activity:
         base_activity_type: "Tipo"
-        tcc: "TCC"
+        <<: *commons
+      calendar:
+        semester: "Semestre"
+        year: "Ano"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

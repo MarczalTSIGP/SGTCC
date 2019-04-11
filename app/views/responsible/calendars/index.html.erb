@@ -1,0 +1,32 @@
+<% provide(:page_title, t('breadcrumbs.calendars.index')) %>
+<% provide(:head_title, t('breadcrumbs.calendars.index')) %>
+
+<div class="row">
+  <div class="col-4">
+    <%= simple_form_for(:calendar, as: @resource_name, url: '#') do |f| %>
+      <div class="form-inputs">
+        <%= f.input :year,
+          prompt: t('prompt.select.m', name: Calendar.human_attribute_name('year')),
+          as: :select,
+          collection: Calendar.select(:year).pluck('year') %>
+      </div>
+    <% end %>
+  </div>
+
+  </div>
+  <div class="col-md-4 col-sm-12">
+    <%= link_to(new_responsible_calendar_path, class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.calendars.new') %>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+     </tr>
+    </thead>
+ </table>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_194740) do
+ActiveRecord::Schema.define(version: 2019_04_11_203006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 2019_04_11_194740) do
 
   create_table "base_activity_types", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.string "year"
+    t.integer "semester"
+    t.integer "tcc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
