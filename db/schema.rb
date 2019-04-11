@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_31_143156) do
+ActiveRecord::Schema.define(version: 2019_04_08_000610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,21 @@ ActiveRecord::Schema.define(version: 2019_03_31_143156) do
     t.datetime "updated_at", null: false
     t.index ["professor_id"], name: "index_assignments_on_professor_id"
     t.index ["role_id"], name: "index_assignments_on_role_id"
+  end
+
+  create_table "base_activities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "base_activity_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tcc"
+    t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
+  end
+
+  create_table "base_activity_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "external_members", force: :cascade do |t|
@@ -117,6 +132,7 @@ ActiveRecord::Schema.define(version: 2019_03_31_143156) do
 
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
+  add_foreign_key "base_activities", "base_activity_types"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "professors", "professor_types"
