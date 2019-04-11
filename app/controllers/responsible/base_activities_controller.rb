@@ -21,14 +21,14 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   end
 
   def tcc_one
-    @base_activities = BaseActivity.get_by_tcc('TCC 1', params[:term])
+    @base_activities = BaseActivity.get_by_tcc(BaseActivity.tccs[:one], params[:term])
     @search_url = responsible_base_activities_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @base_activities = BaseActivity.get_by_tcc('TCC 2', params[:term])
+    @base_activities = BaseActivity.get_by_tcc(BaseActivity.tccs[:two], params[:term])
     @search_url = responsible_base_activities_search_tcc_two_path
 
     render :index

@@ -5,7 +5,7 @@ class BaseActivity < ApplicationRecord
 
   belongs_to :base_activity_type
 
-  enum tcc: { one: 'TCC 1', two: 'TCC 2' }, _prefix: :tcc
+  enum tcc: { one: 1, two: 2 }, _prefix: :tcc
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :tcc, presence: true
