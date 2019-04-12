@@ -1,9 +1,9 @@
 .sidebar {
-  padding-top: 80px;
+  position: fixed;
   padding-left: 10px;
 
   @media (max-width: 767px) {
-    padding-top: 0;
+    position: sticky;
   }
 }
 
