@@ -1,11 +1,19 @@
 .sidebar {
   position: fixed;
   padding-left: 10px;
-  height: 100%;
-  overflow-y: scroll;
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
 
   @media (max-width: 767px) {
     position: sticky;
+  }
+
+  a.list-group-item {
+    padding-left: 0;
+  }
+
+  a.list-group-item.list-group-item-action.active {
+    width: 90%;
   }
 }
 
