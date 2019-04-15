@@ -2,10 +2,10 @@
 <% provide(:head_title, t('breadcrumbs.base_activities.index')) %>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-sm-12 col-lg-8 mb-2">
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
-  <div class="col-4">
+  <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_base_activity_path, class: 'btn btn-outline-primary d-block') do %>
       <i class="fe fe-plus"></i>
       <%= t('breadcrumbs.base_activities.new') %>
