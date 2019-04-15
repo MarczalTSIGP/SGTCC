@@ -7,7 +7,7 @@
 ----
 ## O que é o SGTCC?
 
-É um sistema de gestão de procesos de trabalho de conclusão de curso de Tecnologia em Sistemas para Internet (TSI) da UTFPR Câmpus Guarapuava.
+É um sistema de gestão de processos de trabalho de conclusão de curso de Tecnologia em Sistemas para Internet (TSI) da UTFPR Câmpus Guarapuava.
 
 ----
 
