@@ -17,7 +17,9 @@ class Responsible::CalendarsController < Responsible::BaseController
                  :edit_responsible_calendar_path,
                  only: [:edit]
 
-  def index; end
+  def index
+    @calendars = Calendar.order(year: :desc)
+  end
 
   def show; end
 

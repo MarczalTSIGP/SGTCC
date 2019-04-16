@@ -150,6 +150,9 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+    semester:
+      one: '1'
+      two: '2'
   flash:
     actions:
       update:
