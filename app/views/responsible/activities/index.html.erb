@@ -2,7 +2,7 @@
 <% provide(:head_title, t('breadcrumbs.tcc.one.index')) %>
 
 <div class="float-right col-4 mb-5">
-  <%= link_to('#', class: 'btn btn-outline-primary d-block') do %>
+  <%= link_to(new_responsible_activity_path, class: 'btn btn-outline-primary d-block') do %>
     <i class="fe fe-plus"></i>
     <%= t('breadcrumbs.tcc.one.new') %>
   <% end %>

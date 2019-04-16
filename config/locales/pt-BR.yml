@@ -53,6 +53,11 @@ pt-BR:
       new: "Nova Atividade base"
       edit: "Editar Atividade base"
       show: "Visualizar Atividade base"
+    activities:
+      index: "Atividades"
+      new: "Nova Atividade"
+      edit: "Editar Atividade"
+      show: "Visualizar Atividade"
     tcc:
       one:
         index: "Atividades de TCC 1"
