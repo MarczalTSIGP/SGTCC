@@ -20,36 +20,29 @@
     <div id="app" class="page">
       <div class="page-main">
 
-	<div class="my-3 my-md-3">
-	  <div class="container-fluid m-0">
-	    <div class="row">
+	<div class="container-fluid m-0">
+	  <div class="row">
+	    <%= render 'layouts/shared/header', current_user: current_external_member %>
+	    <%= render 'layouts/external_members/sidebar' %>
 
-	      <%= render 'layouts/external_members/sidebar' %>
+	    <div class="col-md-9 col-lg-10">
+	      <%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
 
-	      <div class="col-lg-9">
-		<%= render 'layouts/shared/header', current_user: current_external_member %>
-
-		<div class="mt-3">
-		  <%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
+	      <div class="card" id="main-card">
+		<div class="card-header">
+		  <h1 class="page-title mb-3">
+		    <%= yield(:page_title) %>
+		  </h1>
 		</div>
-
-		<h1 class="page-title mb-3">
-		  <%= yield(:page_title) %>
-		</h1>
-
-		<div class="card">
-		  <div class="card-body">
-		    <%= render 'shared/flash_messages'%>
-		    <%= yield %>
-		  </div>
+		<div class="card-body">
+		  <%= render 'shared/flash_messages'%>
+		  <%= yield %>
 		</div>
 	      </div>
 	    </div>
 	  </div>
 	</div>
       </div>
-
-      <%= render 'layouts/shared/footer' %>
     </div>
   </body>
 </html>
