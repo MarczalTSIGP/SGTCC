@@ -1,0 +1,30 @@
+<% provide(:page_title, t('breadcrumbs.tcc.one.index')) %>
+<% provide(:head_title, t('breadcrumbs.tcc.one.index')) %>
+
+<div class="float-right col-4 mb-5">
+  <%= link_to('#', class: 'btn btn-outline-primary d-block') do %>
+    <i class="fe fe-plus"></i>
+    <%= t('breadcrumbs.tcc.one.new') %>
+  <% end %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Activity.human_attribute_name('name') %></th>
+        <th><%= Activity.human_attribute_name('base_activity_type') %></th>
+        <th><%= Activity.human_attribute_name('tcc') %></th>
+        <th><%= Activity.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @activities.empty? %>
+      </tr>
+      <%= render @activities %>
+    </tbody>
+  </table>
+</div>

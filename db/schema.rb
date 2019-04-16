@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_203006) do
+ActiveRecord::Schema.define(version: 2019_04_16_182626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 2019_04_11_203006) do
     t.datetime "remember_created_at"
     t.string "profile_image"
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "base_activity_type_id"
+    t.integer "tcc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -138,6 +147,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_203006) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "activities", "base_activity_types"
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
   add_foreign_key "base_activities", "base_activity_types"

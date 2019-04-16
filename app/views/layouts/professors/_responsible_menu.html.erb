@@ -47,9 +47,21 @@
 
 <%= active_link_to(responsible_calendars_path, class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
-    <%= icon('far', 'calendar') %>
+    <%= icon('far', 'calendar-plus') %>
   </span>
   <%= t('breadcrumbs.calendars.index') %>
 <% end %>
 
+<%= active_link_to(responsible_activities_tcc_one_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'file-alt') %>
+  </span>
+  <%= t('breadcrumbs.tcc.one.index') %>
+<% end %>
 
+<%= active_link_to(responsible_activities_tcc_two_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'file-alt') %>
+  </span>
+  <%= t('breadcrumbs.tcc.two.index') %>
+<% end %>

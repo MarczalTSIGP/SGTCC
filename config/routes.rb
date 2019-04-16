@@ -33,12 +33,17 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :base_activities,
-                constraints: { id: /[0-9]+/ },
-                concerns: :paginatable
+                constraints: { id: /[0-9]+/ }
+
+      resources :activities,
+                constraints: { id: /[0-9]+/ }
 
       resources :calendars,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
+
+      get 'activities/tcc/1', to: 'activities#tcc_one', as: 'activities_tcc_one'
+      get 'activities/tcc/2', to: 'activities#tcc_two', as: 'activities_tcc_two'
 
       get 'base_activities/tcc/1', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc/2', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
