@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :calendar do
-    year "MyString"
-    semester 1
-    tcc 1
+    year { Faker::Number.number(4) }
+    semester { Calendar.semesters.values.sample }
+    tcc { Calendar.tccs.values.sample }
   end
 end
