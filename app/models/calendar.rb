@@ -1,7 +1,7 @@
 class Calendar < ApplicationRecord
   include Tcc
 
-  validates :year, presence: true, uniqueness: { case_sensitive: false }
+  validates :year, presence: true
   validates :semester, presence: true
   validates :tcc, presence: true
 
