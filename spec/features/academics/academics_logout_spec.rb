@@ -12,7 +12,7 @@ describe 'Academics:logout', type: :feature do
     click_link academic.name
     click_link(I18n.t('sessions.sign_out'))
 
-    expect(page).to have_current_path new_academics_session_path
+    expect(page).to have_current_path new_academic_session_path
 
     expect(page).to have_flash(
       :info,

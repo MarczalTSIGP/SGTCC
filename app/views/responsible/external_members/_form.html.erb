@@ -1,0 +1,52 @@
+<%= simple_form_for [:responsible, @external_member] do |f| %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :name %>
+      </div>
+      <div class="col-6">
+        <%= f.input :email %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.association :scholarity,
+          prompt: t('prompt.select.f', name: ExternalMember.human_attribute_name('scholarity')) %>
+      </div>
+      <div class="col-6">
+        <%= f.input :personal_page %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :password, autocomplete: "off" %>
+      </div>
+      <div class="col-6">
+        <%= f.input :password_confirmation %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :gender,
+                    as: :radio_button_tabler,
+                    collection: Academic.human_genders %>
+      </div>
+      <div class="col-6">
+        <%= f.input :is_active, as: :checkbox_tabler %>
+      </div>
+    </div>
+
+    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_external_members_path,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

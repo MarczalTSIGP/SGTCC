@@ -14,8 +14,10 @@ gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
+gem 'cpf_cnpj'
 gem 'devise'
 gem 'devise-i18n'
+gem 'exception_notification'
 gem 'font-awesome-sass'
 gem 'htmlbeautifier'
 gem 'jquery-rails'
@@ -26,6 +28,7 @@ gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
+gem 'validators'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 gem 'net-ldap'
 

@@ -3,23 +3,24 @@
 <% provide(:title, t("sessions.edit_profile")) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: send("academics_registration_path"),
+                    url: send("academic_registration_path"),
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>
 
   <%= f.input :name, required: true, autofocus: true %>
-  <%= f.input :email %>
 
   <div class="form-row">
     <div class="col-sm-8">
+      <%= f.input :email %>
+      <%= f.input :ra, readonly: true %>
 
       <%= f.input :current_password,
         hint: t('devise.registrations.edit.current_password_to_confirm'),
         required: true %>
     </div>
 
-    <div class="col-4">
+    <div class="col-sm-4">
       <profile-image-preview
         :resource="<%= resource_name.to_json %>"
         :profile-image-url="<%= resource.profile_image.url.to_json %>"

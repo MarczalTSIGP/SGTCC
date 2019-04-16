@@ -4,13 +4,14 @@
     <%= f.input :email %>
     <%= f.input :ra %>
     <%= f.input :gender,
-                as: :radio_buttons,
-                collection: Academic.human_genders,
-                item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+                as: :radio_button_tabler,
+                collection: Academic.human_genders %>
   </div>
 
   <div class="d-flex">
-    <%= link_to t('simple_form.buttons.back'), responsible_academics_path, class: 'btn btn-secondary' %>
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_academics_path,
+      class: 'btn btn-secondary' %>
 
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>

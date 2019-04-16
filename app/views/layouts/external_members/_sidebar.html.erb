@@ -1,0 +1,13 @@
+<%= render 'layouts/shared/sidebar' do %>
+  <span class="sidebar-heading">
+    <%= icon('fas', 'compass', class: 'mr-1') %>
+    <%= t('views.sidebar.external_members') %>
+  </span>
+
+  <%= active_link_to(external_members_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('fas', 'home') %>
+    </span>
+    <%= t('breadcrumbs.homepage') %>
+  <% end %>
+<% end %>

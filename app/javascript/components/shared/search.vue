@@ -6,12 +6,14 @@
         v-model="term"
         type="text"
         name="term"
-        placeholder="Procurar..."
+        :placeholder="$t('messages.search')"
         class="form-control"
         @keyup.enter="search()"
+        @keyup.capture="updateFieldSearchTerm"
       >
       <span class="input-group-append">
         <a
+          id="search"
           ref="link"
           href="#"
           class="btn btn-outline-primary"
@@ -23,7 +25,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 
@@ -48,6 +49,12 @@ export default {
     };
   },
 
+  computed: {
+    searchUrl() {
+      return `${this.url}/${this.term}`;
+    },
+  },
+
   mounted() {
     this.setFieldSearchTerm();
   },
@@ -55,13 +62,17 @@ export default {
   methods: {
     search() {
       const link = this.$refs.link;
-      link.href = `${this.url}/${this.term}`;
+      link.href = this.searchUrl;
       link.click();
     },
 
     setFieldSearchTerm() {
       this.term = this.searchTerm;
-    }
+    },
+
+    updateFieldSearchTerm() {
+      this.term = this.term.replace(/\\|\//g, '');
+    },
   },
 };
 

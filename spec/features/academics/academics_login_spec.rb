@@ -4,7 +4,7 @@ describe 'Academics:login', type: :feature do
   let(:academic) { create(:academic) }
 
   before do
-    visit new_academics_session_path
+    visit new_academic_session_path
   end
 
   it 'displays the academics perfil links on valid login', js: true do
@@ -23,7 +23,7 @@ describe 'Academics:login', type: :feature do
 
     submit_form('input[name="commit"]')
 
-    expect(page).to have_current_path new_academics_session_path
+    expect(page).to have_current_path new_academic_session_path
 
     resource_name = Academic.human_attribute_name(:ra)
     expect(page).to have_flash(:warning,
@@ -37,7 +37,7 @@ describe 'Academics:login', type: :feature do
     end
 
     it 'redirect to login page', js: true do
-      expect(page).to have_current_path new_academics_session_path
+      expect(page).to have_current_path new_academic_session_path
       expect(page).to have_flash(:warning, text: I18n.t('devise.failure.unauthenticated'))
     end
   end

@@ -1,4 +1,7 @@
 pt-BR:
+  time:
+    formats:
+      short: '%d/%m/%Y'
   views:
     pagination:
       first: "&laquo;"
@@ -6,6 +9,12 @@ pt-BR:
       previous: "&lsaquo; Anterior"
       next: "Seguinte &rsaquo;"
       truncate: "&hellip;"
+    sidebar:
+      responsible: "Responsável"
+      orientations: "Orientações"
+      tcc_one: "TCC 1"
+      academics: "Acadêmico"
+      external_members: "Membro Externo"
   breadcrumbs:
     homepage: "Página inicial"
     academics:
@@ -15,9 +24,19 @@ pt-BR:
       show: 'Visualizar Acadêmico'
     professors:
       index: 'Professores'
-      new: 'Cadastrar Professor'
+      new: 'Novo Professor'
       edit: 'Editar Professor'
       show: 'Visualizar Professor'
+    external_members:
+      index: 'Membros externos'
+      new: 'Novo Membro externo'
+      edit: 'Editar Membro externo'
+      show: 'Visualizar Membro externo'
+    institutions:
+      index: 'Instituições externas'
+      new: 'Nova Instituição externa'
+      edit: 'Editar Instituição externa'
+      show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
     meetings:
@@ -26,7 +45,18 @@ pt-BR:
       index: "Bancas"
     pages:
       index: "Páginas"
+    base_activities:
+      index: "Atividades base"
+      new: "Nova Atividade base"
+      edit: "Editar Atividade base"
+      show: "Visualizar Atividade base"
   activerecord:
+    errors:
+      models:
+        institution:
+          attributes:
+            cnpj:
+              invalid_cnpj: "inválido"
     models:
       professor:
         one: "Professor"
@@ -34,23 +64,54 @@ pt-BR:
       academic:
         one: "Acadêmico"
         other: "Acadêmicos"
+      external_member:
+        one: "Membro externo"
+        other: "Membros externos"
+      institution:
+        one: "Instituição externa"
+        other: "Instituições externas"
+      base_activity:
+        one: "Atividade base"
+        other: "Atividades base"
     attributes:
       attribute_commons: &commons
         name: "Nome"
         email: "Email"
+        gender: "Gênero"
         username: "Usuário institucional"
-        created_at: "Criado em"
-        updated_at: "Atualizado em"
         password: "Senha"
         current_password: "Senha atual"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
+        working_area: "Área de atuação"
+        is_active: "Ativo no sistema"
+        scholarity: "Escolaridade"
+        role: "Papel"
       academic:
         ra: "RA"
-        gender: "Gênero"
         <<: *commons
       professor:
+        roles: "Papéis"
         profile_image: "Imagem do perfil"
+        available_advisor: "Disponível para orientação"
+        professor_type: "Tipo"
+        <<: *commons
+      external_member:
+        personal_page: "Página pessoal (link)"
+        external_member_type: "Tipo"
+        company_responsible: "Responsável de empresa"
+        <<: *commons
+      institution:
+        <<: *commons
+        name: "Razão social"
+        cnpj: "CNPJ"
+        trade_name: "Nome fantasia"
+        external_member: "Responsável da instituição"
+      base_activity:
+        base_activity_type: "Tipo"
+        tcc: "TCC"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -73,6 +134,12 @@ pt-BR:
     semesters:
       first: '1º'
       second: '2º'
+    roles:
+      responsible: 'Professor responsável'
+      tcc1: 'Professor de TCC 1'
+    tcc:
+      one: '1'
+      two: '2'
   flash:
     actions:
       update:
@@ -86,6 +153,7 @@ pt-BR:
         f: '%{resource_name} removida com sucesso!'
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
+    not_authorized: 'Acesso não autorizado!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
@@ -108,3 +176,14 @@ pt-BR:
       details: "Talvez você tentou alterar algo que você não possui acesso."
   prompt:
     confirm: "Você tem certeza?"
+    select:
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'
+  mailer:
+    login: 'Acessar sistema'
+    external_member:
+      registration:
+        hello: 'Olá %{name}'
+        subject: 'Registrado com sucesso no SGTCC'
+        register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
+        login: 'Para realizar o login no sistema clique no link abaixo'

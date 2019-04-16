@@ -1,0 +1,100 @@
+<% provide(:page_title, t('breadcrumbs.professors.show')) %>
+<% provide(:head_title, t('breadcrumbs.professors.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body text-center">
+    <img class="card-profile-img" src="<%= @professor.profile_image %>">
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('name') %>:
+      </strong>
+      <%= @professor.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('email') %>:
+      </strong>
+      <%= @professor.email %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('username') %>:
+      </strong>
+      <%= @professor.username %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('lattes') %>:
+      </strong>
+      <%= @professor.lattes %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('is_active') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@professor.is_active}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('available_advisor') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@professor.available_advisor}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('gender') %>:
+      </strong>
+      <%= t("enums.genders.#{@professor.gender}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('scholarity') %>:
+      </strong>
+      <%= @professor.scholarity.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('professor_type') %>:
+      </strong>
+      <%= @professor.professor_type.name %>
+    </p>
+    <% unless @professor.roles.empty? %>
+      <p>
+        <strong>
+          <%= Professor.human_attribute_name('roles') %>:
+        </strong>
+        <% @professor.roles.each do |role| %>
+          <span class="badge badge-primary"><%= role.name %></span>
+        <% end %>
+      </p>
+    <% end %>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset w-50 mx-auto text-left">
+        <vue-markdown-preview><%= @professor.working_area %></vue-markdown-preview>
+      </div>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@professor.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@professor.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), responsible_professors_path, class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'), edit_responsible_professor_path(@professor), class: 'btn btn-primary ml-auto' %>
+</div>
+

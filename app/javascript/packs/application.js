@@ -10,6 +10,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
+import SimpleMDE from 'simplemde';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
@@ -30,5 +31,42 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
+    mounted() {
+      this.initMarkdownEditor();
+      this.initSelectize();
+      this.initHeaderMenuCollapse();
+    },
+
+    methods: {
+      initMarkdownEditor() {
+        const $ = window.jQuery;
+
+        $('.markdown-editor').each(function () {
+          const id = $(this).attr('id');
+          new SimpleMDE({
+            element: document.getElementById(id)
+          });
+        });
+      },
+
+      initSelectize() {
+        const $ = window.jQuery;
+        const selects = $('select');
+
+        if (selects.length > 0) {
+          selects.selectize();
+          $('select[data="selectize"]').selectize();
+          $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
+        }
+      },
+
+      initHeaderMenuCollapse() {
+        const $ = window.jQuery;
+
+        $('[data-toggle="collapse"]').click(function() {
+          $('html, body').animate({ scrollTop: 0 }, 'slow');
+        });
+      },
+    },
   });
 });
