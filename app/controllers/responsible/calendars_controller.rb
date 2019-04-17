@@ -53,8 +53,11 @@ class Responsible::CalendarsController < Responsible::BaseController
   end
 
   def destroy
-    @calendar.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+    if @calendar.destroy
+      flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+    else
+      flash[:alert] = I18n.t('flash.actions.destroy.bond', resource_name: @resource_name)
+    end
 
     redirect_to responsible_calendars_path
   end

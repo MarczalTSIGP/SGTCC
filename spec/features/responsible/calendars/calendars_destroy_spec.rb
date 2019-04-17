@@ -26,5 +26,23 @@ describe 'Calendar::destroy', type: :feature do
         expect(page).not_to have_content(calendar.year)
       end
     end
+
+    context 'when calendar has associations', js: true do
+      it 'show alert message' do
+        activity = create(:activity)
+        visit responsible_calendars_path
+
+        within first('.destroy').click
+
+        alert = page.driver.browser.switch_to.alert
+        alert.accept
+        sleep 2.seconds
+
+        alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
+        expect(page).to have_flash(:warning, text: alert_message)
+
+        expect(page).to have_content(activity.calendar.year)
+      end
+    end
   end
 end

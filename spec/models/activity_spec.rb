@@ -7,6 +7,7 @@ RSpec.describe Activity, type: :model do
   end
 
   describe 'associations' do
+    it { is_expected.to belong_to(:calendar) }
     it { is_expected.to belong_to(:base_activity_type) }
   end
 end
