@@ -7,15 +7,14 @@ describe 'Activity::index', type: :feature do
         responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
-        activities = create_list(:activity_tcc_one, 3)
+        calendar = create(:calendar_tcc_one)
+        activity = create(:activity_tcc_one, calendar: calendar)
 
         visit responsible_activities_tcc_one_path
 
-        activities.each do |activity|
-          expect(page).to have_contents([activity.name,
-                                         activity.base_activity_type.name,
-                                         short_date(activity.created_at)])
-        end
+        expect(page).to have_contents([activity.name,
+                                       activity.base_activity_type.name,
+                                       short_date(activity.created_at)])
       end
     end
 
@@ -24,15 +23,14 @@ describe 'Activity::index', type: :feature do
         responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
-        activities = create_list(:activity_tcc_two, 3)
+        calendar = create(:calendar_tcc_two)
+        activity = create(:activity_tcc_two, calendar: calendar)
 
         visit responsible_activities_tcc_two_path
 
-        activities.each do |activity|
-          expect(page).to have_contents([activity.name,
-                                         activity.base_activity_type.name,
-                                         short_date(activity.created_at)])
-        end
+        expect(page).to have_contents([activity.name,
+                                       activity.base_activity_type.name,
+                                       short_date(activity.created_at)])
       end
     end
   end
