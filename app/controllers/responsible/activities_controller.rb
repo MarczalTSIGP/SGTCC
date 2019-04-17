@@ -69,7 +69,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   def update
     if @activity.update(activity_params)
       flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: BaseActivity.model_name.human)
+                               resource_name: Activity.model_name.human)
       redirect_to responsible_activity_path(@activity)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
