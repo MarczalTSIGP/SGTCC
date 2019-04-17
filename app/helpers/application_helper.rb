@@ -14,8 +14,4 @@ module ApplicationHelper
   def short_date(date)
     I18n.localize(date, format: :short)
   end
-
-  def format_date(date, format)
-    I18n.localize(date, format: format)
-  end
 end
