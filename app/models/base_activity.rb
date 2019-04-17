@@ -9,7 +9,7 @@ class BaseActivity < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :tcc, presence: true
 
-  def self.get_by_tcc(type, term)
+  def self.by_tcc(type, term)
     BaseActivity.search(term)
                 .order(:name)
                 .includes(:base_activity_type)

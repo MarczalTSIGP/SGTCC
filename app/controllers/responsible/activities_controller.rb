@@ -22,24 +22,14 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
   def tcc_one
     @title = I18n.t('breadcrumbs.tcc.one.index')
-    current_calendar_id = Calendar.current_calendar_id_by_tcc
-
-    @activities = Activity.where(tcc: Activity.tccs[:one], calendar_id: current_calendar_id)
-                          .includes(:base_activity_type)
-                          .order(:name)
+    @activities = Activity.by_tcc
 
     render :index
   end
 
   def tcc_two
-    tcc_two = Activity.tccs[:two]
     @title = I18n.t('breadcrumbs.tcc.two.index')
-
-    current_calendar_id = Calendar.current_calendar_id_by_tcc(tcc_two)
-
-    @activities = Activity.where(tcc: tcc_two, calendar_id: current_calendar_id)
-                          .includes(:base_activity_type)
-                          .order(:name)
+    @activities = Activity.by_tcc(Activity.tccs[:two])
 
     render :index
   end

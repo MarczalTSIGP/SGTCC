@@ -8,7 +8,7 @@
                 collection: Activity.human_tccs %>
     <%= f.input :calendar_id,
                 as: :hidden,
-                input_html: { value: Calendar.current_calendar_id_by_tcc } %>
+                input_html: { value: Calendar.current_id_by_tcc } %>
   </div>
 
   <div class="d-flex">
