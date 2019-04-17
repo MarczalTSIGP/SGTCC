@@ -55,8 +55,11 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def destroy
-    @external_member.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+    if @external_member.destroy
+      flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+    else
+      flash[:alert] = I18n.t('flash.actions.destroy.bond', resource_name: @resource_name)
+    end
 
     redirect_to responsible_external_members_path
   end
