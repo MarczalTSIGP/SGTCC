@@ -3,6 +3,6 @@ class Activity < ApplicationRecord
 
   belongs_to :base_activity_type
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
   validates :tcc, presence: true
 end

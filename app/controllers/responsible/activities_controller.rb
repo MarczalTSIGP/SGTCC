@@ -21,7 +21,10 @@ class Responsible::ActivitiesController < Responsible::BaseController
   end
 
   def tcc_one
-    @activities = Activity.where(tcc: Activity.tccs[:one])
+    @title = I18n.t('breadcrumbs.tcc.one.index')
+    current_calendar_id = Calendar.current_calendar_id_by_tcc
+
+    @activities = Activity.where(tcc: Activity.tccs[:one], calendar_id: current_calendar_id)
                           .includes(:base_activity_type)
                           .order(:name)
 
@@ -29,7 +32,12 @@ class Responsible::ActivitiesController < Responsible::BaseController
   end
 
   def tcc_two
-    @activities = Activity.where(tcc: Activity.tccs[:two])
+    tcc_two = Activity.tccs[:two]
+    @title = I18n.t('breadcrumbs.tcc.two.index')
+
+    current_calendar_id = Calendar.current_calendar_id_by_tcc(tcc_two)
+
+    @activities = Activity.where(tcc: tcc_two, calendar_id: current_calendar_id)
                           .includes(:base_activity_type)
                           .order(:name)
 
@@ -86,7 +94,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   end
 
   def activity_params
-    params.require(:activity).permit(:name, :base_activity_type_id, :tcc)
+    params.require(:activity).permit(:name, :base_activity_type_id, :calendar_id, :tcc)
   end
 
   def activity_url
