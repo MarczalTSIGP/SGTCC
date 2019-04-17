@@ -30,36 +30,32 @@
   <div class="form-row">
     <div class="col-sm-8">
       <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6">
           <%= f.association :scholarity %>
         </div>
-        <div class="col-6">
+        <div class="col-sm-6">
           <%= f.association :professor_type,
             prompt: t('prompt.select.m', name: 'tipo') %>
         </div>
       </div>
 
+      <%= f.input :gender,
+        as: :radio_buttons,
+        collection: Professor.human_genders,
+        item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
+
       <%= f.association :roles,
         input_html: { data: 'selectize' },
         disabled: true %>
 
+      <%= f.input :available_advisor, as: :checkbox_tabler %>
+
+      <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
+
       <%= f.input :current_password,
         hint: t(".we_need_your_current_password_to_confirm_your_changes"),
         required: true %>
-
-     <div class="row">
-        <div class="col-sm-6">
-          <%= f.input :gender,
-                      as: :radio_buttons,
-                      collection: Professor.human_genders,
-                      item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
-        </div>
-        <div class="col-sm-6">
-          <%= f.input :is_active, as: :checkbox_tabler %>
-          <%= f.input :available_advisor, as: :checkbox_tabler %>
-        </div>
-      </div>
-   </div>
+    </div>
 
     <div class="col-sm-4">
       <profile-image-preview
