@@ -10,6 +10,7 @@ class ExternalMember < ApplicationRecord
   searchable :email, name: { unaccent: true }
 
   belongs_to :scholarity
+  has_many :institutions, dependent: :restrict_with_error
 
   validates :name,
             presence: true
