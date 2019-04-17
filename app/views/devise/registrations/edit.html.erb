@@ -48,17 +48,18 @@
         required: true %>
 
      <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <%= f.input :gender,
                       as: :radio_buttons,
                       collection: Professor.human_genders,
                       item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
         </div>
-        <div class="col-sm-6">
-          <%= f.input :is_active, as: :checkbox_tabler %>
+        <div class="col-sm-8">
           <%= f.input :available_advisor, as: :checkbox_tabler %>
         </div>
       </div>
+
+     <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
    </div>
 
     <div class="col-sm-4">
