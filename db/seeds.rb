@@ -9,7 +9,7 @@ professor_roles = [
 ]
 
 professor_roles.each do |role|
-  Role.find_or_create_by!(name: role[:name], identifier: role[:identifier]) if Role.all.empty?
+  Role.create_with(name: role[:name]).find_or_create_by!(identifier: role[:identifier])
 end
 
 scholarity = [
@@ -22,7 +22,7 @@ scholarity = [
 ]
 
 scholarity.each do |title|
-  Scholarity.find_or_create_by!(name: title[:name], abbr: title[:abbr]) if Scholarity.all.empty?
+  Scholarity.find_or_create_by!(name: title[:name], abbr: title[:abbr])
 end
 
 professor_responsible = Professor.create_with(
@@ -47,5 +47,5 @@ base_activity_types = [
 ]
 
 base_activity_types.each do |base_activity_type|
-  BaseActivityType.find_or_create_by!(name: base_activity_type) if BaseActivity.all.empty?
+  BaseActivityType.find_or_create_by!(name: base_activity_type)
 end
