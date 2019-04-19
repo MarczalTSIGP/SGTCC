@@ -48,6 +48,14 @@ Rails.application.routes.draw do
           to: 'activities#tcc_two',
           as: 'calendar_activities_tcc_two'
 
+      post 'calendars/(:calendar_id)/activities/tcc/2',
+           to: 'activities#tcc_one_update',
+           as: 'calendar_activities_tcc_one_update'
+
+      post 'calendars/(:calendar_id)/activities/tcc/2',
+           to: 'activities#tcc_two_update',
+           as: 'calendar_activities_tcc_two_update'
+
       get 'base_activities/tcc/1', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc/2', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 

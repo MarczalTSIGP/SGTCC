@@ -5,6 +5,13 @@ pt-BR:
       month: '%m'
       year: '%Y'
   views:
+    title:
+      calendar:
+        tcc:
+          one: "Calendário de Atividades do TCC 1 (%{calendar})"
+          two: "Calendário de Atividades do TCC 2 (%{calendar})"
+    buttons:
+      select: 'Selecionar'
     pagination:
       first: "&laquo;"
       last: "&raquo;"

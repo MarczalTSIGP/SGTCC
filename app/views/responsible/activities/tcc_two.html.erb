@@ -1,26 +1,9 @@
-<% provide(:page_title, I18n.t('breadcrumbs.tcc.two.index')) %>
-<% provide(:head_title, I18n.t('breadcrumbs.tcc.two.index')) %>
+<% provide(:page_title, t('views.title.calendar.tcc.two', calendar: @calendar.year_with_semester)) %>
+<% provide(:head_title, t('views.title.calendar.tcc.two', calendar: @calendar.year_with_semester)) %>
 
-<div class="row">
-  <div class="col-2">
-    <h2 class="page-title">
-      Calendário (2019/1)
-    </h2>
-  </div>
-  <div class="col-6">
-    <%= simple_form_for(Activity.model_name.human, url: responsible_calendar_activities_path) do |f| %>
-      <%= f.select :calendar,
-        Calendar.where(tcc: Activity.tccs[:two]).map { |c| [c.year_with_semester] },
-        selected: Calendar.current_by_tcc,
-        prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
-    <% end %>
-  </div>
-  <div class="col-4 mb-5">
-    <%= link_to(new_responsible_calendar_activity_path(@calendar), class: 'btn btn-outline-primary d-block') do %>
-      <i class="fe fe-plus"></i>
-      <%= t('breadcrumbs.activities.new') %>
-    <% end %>
-  </div>
-</div>
+<%= render 'header',
+  url: responsible_calendar_activities_tcc_two_update_path(@calendar),
+  tcc: Activity.tccs[:two]
+%>
 
 <%= render 'table' %>

@@ -9,13 +9,35 @@ class Responsible::ActivitiesController < Responsible::BaseController
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'), activity_url
 
-    @activities = Activity.by_tcc
+    @activities = Activity.by_tcc(tcc_one_enum, @calendar)
   end
 
   def tcc_two
     add_breadcrumb I18n.t('breadcrumbs.tcc.two.index'), activity_url
 
-    @activities = Activity.by_tcc(Activity.tccs[:two])
+    @activities = Activity.by_tcc(tcc_two_enum, @calendar)
+  end
+
+  def tcc_one_update
+    calendar_param = params[Activity.model_name.human]['calendar'] || nil
+    calendar = Calendar.search_by_param(tcc_one_enum, calendar_param)
+
+    if calendar.blank?
+      calendar = Calendar.current_by_tcc(tcc_one_enum)
+    end
+
+    redirect_to responsible_calendar_activities_tcc_one_path(calendar)
+  end
+
+  def tcc_two_update
+    calendar_param = params[Activity.model_name.human]['calendar'] || nil
+    calendar = Calendar.search_by_param(tcc_two_enum, calendar_param)
+
+    if calendar.blank?
+      calendar = Calendar.current_by_tcc(Activity.tccs[:two])
+    end
+
+    redirect_to responsible_calendar_activities_tcc_two_path(calendar)
   end
 
   def show
@@ -89,7 +111,15 @@ class Responsible::ActivitiesController < Responsible::BaseController
     form_params = params.require(:activity)
                         .permit(:name, :base_activity_type_id, :tcc)
 
-    form_params.merge(calendar_id: @calendar)
+    form_params.merge(calendar_id: params[:calendar_id])
+  end
+
+  def tcc_one_enum
+    Activity.tccs[:one]
+  end
+
+  def tcc_two_enum
+    Activity.tccs[:two]
   end
 
   def activity_url(tcc = nil)

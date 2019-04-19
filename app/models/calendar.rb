@@ -39,6 +39,13 @@ class Calendar < ApplicationRecord
     current_month.to_i <= 6 ? 1 : 2
   end
 
+  def self.search_by_param(tcc, param)
+    calendar = param.split('/')
+    year = calendar.first.to_i
+    semester = calendar.last.to_i
+    Calendar.find_by(year: year, semester: semester, tcc: tcc)
+  end
+
   def self.human_semesters
     hash = {}
     semesters.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
