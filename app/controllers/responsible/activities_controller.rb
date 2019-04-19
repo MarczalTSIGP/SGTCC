@@ -2,46 +2,44 @@ class Responsible::ActivitiesController < Responsible::BaseController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_calendar
 
-  add_breadcrumb I18n.t('breadcrumbs.activities.index'),
-                 :responsible_calendar_activities_path
-
-  add_breadcrumb I18n.t('breadcrumbs.activities.show'),
-                 :responsible_calendar_activity_path,
-                 only: [:show]
-
-  add_breadcrumb I18n.t('breadcrumbs.activities.new'),
-                 :new_responsible_calendar_activity_path,
-                 only: [:new]
-
-  add_breadcrumb I18n.t('breadcrumbs.activities.edit'),
-                 :edit_responsible_calendar_activity_path,
-                 only: [:edit]
-
   def index
     redirect_to action: 'tcc_one'
   end
 
   def tcc_one
-    @title = I18n.t('breadcrumbs.tcc.one.index')
-    @activities = Activity.by_tcc
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'), activity_url
 
-    render :index
+    @activities = Activity.by_tcc
   end
 
   def tcc_two
-    @title = I18n.t('breadcrumbs.tcc.two.index')
-    @activities = Activity.by_tcc(Activity.tccs[:two])
+    add_breadcrumb I18n.t('breadcrumbs.tcc.two.index'), activity_url
 
-    render :index
+    @activities = Activity.by_tcc(Activity.tccs[:two])
   end
 
-  def show; end
+  def show
+    @back_url = activity_url
+
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), @back_url
+    add_breadcrumb I18n.t('breadcrumbs.activities.show'), :responsible_calendar_activity_path
+  end
 
   def new
+    @back_url = activity_url
+
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), @back_url
+    add_breadcrumb I18n.t('breadcrumbs.activities.new'), :new_responsible_calendar_activity_path
+
     @activity = Activity.new
   end
 
-  def edit; end
+  def edit
+    @back_url = activity_url
+
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), @back_url
+    add_breadcrumb I18n.t('breadcrumbs.activities.edit'), :edit_responsible_calendar_activity_path
+  end
 
   def create
     @activity = Activity.new(activity_params)
@@ -50,7 +48,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Activity.model_name.human)
 
-      redirect_to activity_url
+      redirect_to activity_url(@activity.tcc)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
@@ -69,13 +67,12 @@ class Responsible::ActivitiesController < Responsible::BaseController
   end
 
   def destroy
-    back_url = activity_url
     @activity.destroy
 
     flash[:success] = I18n.t('flash.actions.destroy.m',
                              resource_name: Activity.model_name.human)
 
-    redirect_to back_url
+    redirect_to activity_url
   end
 
   private
@@ -95,8 +92,9 @@ class Responsible::ActivitiesController < Responsible::BaseController
     form_params.merge(calendar_id: @calendar)
   end
 
-  def activity_url
-    return responsible_calendar_activities_tcc_one_path(@calendar) if @activity.tcc == 'one'
+  def activity_url(tcc = nil)
+    tcc = @calendar.tcc if tcc.blank?
+    return responsible_calendar_activities_tcc_one_path(@calendar) if tcc == 'one'
     responsible_calendar_activities_tcc_two_path(@calendar)
   end
 end
