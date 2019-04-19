@@ -1,6 +1,6 @@
 class Responsible::ActivitiesController < Responsible::BaseController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
-  before_action :set_calendar_id
+  before_action :set_calendar
 
   add_breadcrumb I18n.t('breadcrumbs.activities.index'),
                  :responsible_calendar_activities_path
@@ -61,7 +61,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
     if @activity.update(activity_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: Activity.model_name.human)
-      redirect_to responsible_calendar_activity_path(@calendar_id, @activity)
+      redirect_to responsible_calendar_activity_path(@calendar, @activity)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -84,19 +84,19 @@ class Responsible::ActivitiesController < Responsible::BaseController
     @activity = Activity.find(params[:id])
   end
 
-  def set_calendar_id
-    @calendar_id = params[:calendar_id]
+  def set_calendar
+    @calendar = Calendar.find(params[:calendar_id])
   end
 
   def activity_params
     form_params = params.require(:activity)
                         .permit(:name, :base_activity_type_id, :tcc)
 
-    form_params.merge(calendar_id: @calendar_id)
+    form_params.merge(calendar_id: @calendar)
   end
 
   def activity_url
-    return responsible_calendar_activities_tcc_one_path(@calendar_id) if @activity.tcc == 'one'
-    responsible_calendar_activities_tcc_two_path(@calendar_id)
+    return responsible_calendar_activities_tcc_one_path(@calendar) if @activity.tcc == 'one'
+    responsible_calendar_activities_tcc_two_path(@calendar)
   end
 end

@@ -9,7 +9,7 @@ describe 'Activity::show', type: :feature do
 
         calendar = create(:calendar_tcc_one)
         activity = create(:activity_tcc_one, calendar: calendar)
-        visit responsible_calendar_activity_path(calendar.id, activity)
+        visit responsible_calendar_activity_path(calendar, activity)
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,

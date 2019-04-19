@@ -12,7 +12,7 @@ describe 'Activity::update', type: :feature do
     let(:activity) { create(:activity) }
 
     before do
-      visit edit_responsible_calendar_activity_path(activity.calendar.id, activity.id)
+      visit edit_responsible_calendar_activity_path(activity.calendar, activity.id)
     end
 
     context 'when data is valid', js: true do
@@ -22,7 +22,7 @@ describe 'Activity::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendar_activity_path(
-          activity.calendar.id, activity.id
+          activity.calendar, activity.id
         )
         success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)

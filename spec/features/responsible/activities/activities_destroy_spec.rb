@@ -13,7 +13,7 @@ describe 'Activity::destroy', type: :feature do
       it 'show success message' do
         calendar = create(:calendar_tcc_one)
         activity = create(:activity_tcc_one, calendar: calendar)
-        visit responsible_calendar_activities_tcc_one_path(calendar.id)
+        visit responsible_calendar_activities_tcc_one_path(calendar)
 
         within first('.destroy').click
 

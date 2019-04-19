@@ -38,11 +38,11 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_calendar_activities_path(@calendar_id),
+    responsible_calendar_activities_path(@calendar),
     class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),
-    edit_responsible_calendar_activity_path(@calendar_id, @activity),
+    edit_responsible_calendar_activity_path(@calendar, @activity),
     class: 'btn btn-primary ml-auto' %>
 </div>
 

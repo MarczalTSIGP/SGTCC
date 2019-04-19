@@ -141,6 +141,7 @@ pt-BR:
       base_activity:
         <<: *commons
       activity:
+        calendar: "Calendário"
         <<: *commons
       calendar:
         semester: "Semestre"

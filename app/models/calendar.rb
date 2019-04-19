@@ -9,6 +9,11 @@ class Calendar < ApplicationRecord
 
   enum semester: { one: 1, two: 2 }, _prefix: :semester
 
+  def year_with_semester
+    semester_t = I18n.t("enums.semester.#{semester}")
+    "#{year}/#{semester_t}"
+  end
+
   def self.current_by_tcc(tcc = Activity.tccs[:one])
     Calendar.find_by(
       year: current_year,

@@ -12,7 +12,7 @@ describe 'Activity::create', type: :feature do
 
   describe '#create' do
     before do
-      visit new_responsible_calendar_activity_path(calendar.id)
+      visit new_responsible_calendar_activity_path(calendar)
     end
 
     context 'when activity is valid', js: true do
@@ -26,7 +26,7 @@ describe 'Activity::create', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendar_activities_tcc_one_path(calendar.id)
+        expect(page).to have_current_path responsible_calendar_activities_tcc_one_path(calendar)
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
@@ -43,7 +43,7 @@ describe 'Activity::create', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendar_activities_tcc_two_path(calendar.id)
+        expect(page).to have_current_path responsible_calendar_activities_tcc_two_path(calendar)
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
