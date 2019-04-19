@@ -4,13 +4,13 @@
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= l(activity.created_at, format: :short) %></td>
   <td>
-    <%= link_to(responsible_activity_path(activity)) do %>
+    <%= link_to(responsible_calendar_activity_path(@calendar_id, activity)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
     <% end %>
-    <%= link_to(edit_responsible_activity_path(activity)) do %>
+    <%= link_to(edit_responsible_calendar_activity_path(@calendar_id, activity)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
     <% end %>
-    <%= link_to responsible_activity_path(activity),
+    <%= link_to responsible_calendar_activity_path(@calendar_id, activity),
       method: :delete,
       data: { confirm: t('prompt.confirm') },
       class: 'destroy' do %>

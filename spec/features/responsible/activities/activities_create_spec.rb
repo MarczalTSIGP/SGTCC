@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Activity::create', type: :feature do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
+  let(:calendar) { create(:calendar) }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }
 
   before do
@@ -11,7 +12,7 @@ describe 'Activity::create', type: :feature do
 
   describe '#create' do
     before do
-      visit new_responsible_activity_path
+      visit new_responsible_calendar_activity_path(calendar.id)
     end
 
     context 'when activity is valid', js: true do
@@ -25,7 +26,7 @@ describe 'Activity::create', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_activities_tcc_one_path
+        expect(page).to have_current_path responsible_calendar_activities_tcc_one_path(calendar.id)
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
@@ -42,7 +43,7 @@ describe 'Activity::create', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_activities_tcc_two_path
+        expect(page).to have_current_path responsible_calendar_activities_tcc_two_path(calendar.id)
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)

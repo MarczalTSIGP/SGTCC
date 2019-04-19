@@ -8,7 +8,7 @@
     </h2>
   </div>
   <div class="col-4 mb-5">
-    <%= link_to(new_responsible_activity_path, class: 'btn btn-outline-primary d-block') do %>
+    <%= link_to(new_responsible_calendar_activity_path(@calendar_id), class: 'btn btn-outline-primary d-block') do %>
       <i class="fe fe-plus"></i>
       <%= t('breadcrumbs.activities.new') %>
     <% end %>

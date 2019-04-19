@@ -10,7 +10,7 @@ describe 'Activity::index', type: :feature do
         calendar = create(:calendar_tcc_one)
         activity = create(:activity_tcc_one, calendar: calendar)
 
-        visit responsible_activities_tcc_one_path
+        visit responsible_calendar_activities_tcc_one_path(calendar.id)
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
@@ -26,7 +26,7 @@ describe 'Activity::index', type: :feature do
         calendar = create(:calendar_tcc_two)
         activity = create(:activity_tcc_two, calendar: calendar)
 
-        visit responsible_activities_tcc_two_path
+        visit responsible_calendar_activities_tcc_two_path(calendar.id)
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
