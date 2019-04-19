@@ -92,7 +92,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
     form_params = params.require(:activity)
                         .permit(:name, :base_activity_type_id, :tcc)
 
-    form_params.merge(calendar_id: Calendar.current_id_by_tcc(form_params[:tcc]))
+    form_params.merge(calendar_id: @calendar_id)
   end
 
   def activity_url
