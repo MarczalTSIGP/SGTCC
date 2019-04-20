@@ -1,6 +1,6 @@
 <div class="row">
   <div class="mb-2 col-12 col-sm-8">
-    <%= simple_form_for(Activity.model_name.human, url: url) do |f| %>
+    <%= simple_form_for(Activity.model_name.human, url: update_url) do |f| %>
       <div class="row">
         <div class="mb-2 col-7 col-lg-9 col-md-8 col-sm-10">
           <%= f.select :calendar,
@@ -14,7 +14,7 @@
     <% end %>
   </div>
   <div class="col-12 col-sm-4 mb-5">
-    <%= link_to(new_responsible_calendar_activity_path(@calendar), class: 'btn btn-outline-primary d-block') do %>
+    <%= link_to(new_url, class: 'btn btn-outline-primary d-block') do %>
       <i class="fe fe-plus"></i>
       <%= t('breadcrumbs.activities.new') %>
     <% end %>

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="mb-2 col-12 col-sm-8">
+    <%= simple_form_for(Activity.model_name.human, url: update_url) do |f| %>
+      <div class="row">
+        <div class="mb-2 col-7 col-lg-9 col-md-8 col-sm-10">
+          <%= f.select :calendar,
+            Calendar.where(tcc: tcc).map { |c| [c.year_with_semester] },
+            prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
+        </div>
+        <div clas="col-5 col-lg-3 col-md-4 col-sm-2">
+          <%= f.button :submit, t('views.buttons.select'), class: 'btn btn-primary btn-block' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-12 col-sm-4 mb-5">
+    <%= link_to(new_url, class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.activities.new') %>
+    <% end %>
+  </div>
+</div>
+

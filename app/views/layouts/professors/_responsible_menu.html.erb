@@ -53,7 +53,7 @@
 <% end %>
 
 <% if Calendar.current_by_tcc %>
-  <%= active_link_to(responsible_calendar_activities_tcc_one_path(Calendar.current_id_by_tcc),
+  <%= active_link_to(responsible_calendar_activities_tcc_one_index_path(Calendar.current_id_by_tcc),
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
@@ -63,7 +63,7 @@
 <% end %>
 
 <% if Calendar.current_by_tcc(Calendar.tccs[:two]) %>
-  <%= active_link_to(responsible_calendar_activities_tcc_two_path(Calendar.current_id_by_tcc(Calendar.tccs[:two])),
+  <%= active_link_to(responsible_calendar_activities_tcc_two_index_path(Calendar.current_id_by_tcc(Calendar.tccs[:two])),
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
