@@ -1,7 +1,7 @@
 <% provide(:page_title, t('views.title.calendar.tcc.one', calendar: @calendar.year_with_semester)) %>
 <% provide(:head_title, t('views.title.calendar.tcc.one', calendar: @calendar.year_with_semester)) %>
 
-<%= render 'header',
+<%= render 'responsible/activities/header',
   update_url: responsible_calendar_activities_tcc_one_index_by_calendar_path(@calendar),
   new_url: new_responsible_calendar_activities_tcc_one_path(@calendar),
   tcc: Activity.tccs[:one]

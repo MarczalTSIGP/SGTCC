@@ -3,5 +3,7 @@
 <% provide(:page_title, t('breadcrumbs.activities.new')) %>
 <% provide(:head_title, t('breadcrumbs.activities.new')) %>
 
-<%= render 'form', tcc: 'one' %>
+<%= render 'responsible/activities/form',
+  tcc: 'one',
+  back_url: responsible_calendar_activities_tcc_one_index_path(@calendar) %>
 

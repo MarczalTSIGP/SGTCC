@@ -4,7 +4,7 @@
       <div class="row">
         <div class="mb-2 col-7 col-lg-9 col-md-8 col-sm-10">
           <%= f.select :calendar,
-            Calendar.where(tcc: tcc).map { |c| [c.year_with_semester] },
+            Calendar.select_data(tcc),
             input_html: { data: 'selectize' },
             prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
         </div>

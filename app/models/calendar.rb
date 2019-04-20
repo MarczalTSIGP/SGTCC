@@ -46,6 +46,10 @@ class Calendar < ApplicationRecord
     Calendar.find_by(year: year, semester: semester, tcc: tcc)
   end
 
+  def self.select_data(tcc)
+    Calendar.where(tcc: tcc).map { |calendar| [calendar.year_with_semester] }
+  end
+
   def self.human_semesters
     hash = {}
     semesters.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }

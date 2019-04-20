@@ -3,4 +3,6 @@
 <% provide(:page_title, t('breadcrumbs.activities.edit')) %>
 <% provide(:head_title, t('breadcrumbs.activities.edit')) %>
 
-<%= render 'form', tcc: @activity.tcc %>
+<%= render 'responsible/activities/form',
+  tcc: @activity.tcc,
+  back_url: responsible_calendar_activities_tcc_one_index_path(@calendar) %>
