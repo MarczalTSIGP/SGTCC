@@ -68,7 +68,7 @@ class Responsible::ActivitiesTccTwoController < Responsible::BaseController
 
   def index_by_calendar
     tcc_two = Activity.tccs[:two]
-    calendar_param = params[Activity.model_name.human]['calendar'] || nil
+    calendar_param = params[:activity][:calendar] || nil
     calendar = Calendar.search_by_param(tcc_two, calendar_param)
     calendar = Calendar.current_by_tcc(tcc_two) if calendar.blank?
 

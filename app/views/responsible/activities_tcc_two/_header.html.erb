@@ -1,10 +1,11 @@
 <div class="row">
   <div class="mb-2 col-12 col-sm-8">
-    <%= simple_form_for(Activity.model_name.human, url: update_url) do |f| %>
+    <%= simple_form_for(Activity.model_name.param_key, url: update_url) do |f| %>
       <div class="row">
         <div class="mb-2 col-7 col-lg-9 col-md-8 col-sm-10">
           <%= f.select :calendar,
             Calendar.where(tcc: tcc).map { |c| [c.year_with_semester] },
+            input_html: { data: 'selectize' },
             prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
         </div>
         <div clas="col-5 col-lg-3 col-md-4 col-sm-2">

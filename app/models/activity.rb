@@ -10,7 +10,7 @@ class Activity < ApplicationRecord
   def self.create_activities(calendar)
     activities = BaseActivity.where(tcc: calendar.tcc)
     activities.each do |activity|
-      Activity.create(
+      create(
         name: activity.name,
         tcc: activity.tcc,
         calendar_id: calendar.id,
