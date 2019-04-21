@@ -1,12 +1,10 @@
 <% provide(:page_title, t('breadcrumbs.calendars.index')) %>
 <% provide(:head_title, t('breadcrumbs.calendars.index')) %>
 
-<div class="float-right col-4 mb-5">
-  <%= link_to(new_responsible_calendar_path, class: 'btn btn-outline-primary d-block') do %>
-    <i class="fe fe-plus"></i>
-    <%= t('breadcrumbs.calendars.new') %>
-  <% end %>
-</div>
+<%= link_to(new_responsible_calendar_path, class: 'btn btn-outline-primary d-block') do %>
+  <i class="fe fe-plus"></i>
+  <%= t('breadcrumbs.calendars.new') %>
+<% end %>
 
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
