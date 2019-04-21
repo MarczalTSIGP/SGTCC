@@ -29,9 +29,9 @@ describe 'Activity::index', type: :feature do
 
         visit responsible_calendar_activities_tcc_one_index_path(calendar)
         find('#activity_calendar-selectized').click
-        all('div.option').last.click
-
+        first('div.option').click
         submit_form('input[name="commit"]')
+
         expect(page).to have_contents([new_activity.name,
                                        new_activity.base_activity_type.name,
                                        short_date(new_activity.created_at)])

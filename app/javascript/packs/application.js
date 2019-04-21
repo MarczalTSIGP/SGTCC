@@ -55,7 +55,6 @@ document.addEventListener('turbolinks:load', () => {
 
         if (selects.length > 0) {
           selects.selectize();
-          $('select[data="selectize"]').selectize();
           $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
         }
       },

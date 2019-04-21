@@ -29,7 +29,7 @@ describe 'Activity::index', type: :feature do
 
         visit responsible_calendar_activities_tcc_two_index_path(calendar)
         find('#activity_calendar-selectized').click
-        all('div.option').last.click
+        first('div.option').click
 
         submit_form('input[name="commit"]')
         expect(page).to have_contents([new_activity.name,

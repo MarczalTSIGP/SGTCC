@@ -39,15 +39,10 @@ class Calendar < ApplicationRecord
     current_month.to_i <= 6 ? 1 : 2
   end
 
-  def self.search_by_param(tcc, param)
-    calendar = param.split('/')
-    year = calendar.first.to_i
-    semester = calendar.last.to_i
-    Calendar.find_by(year: year, semester: semester, tcc: tcc)
-  end
-
   def self.select_data(tcc)
-    Calendar.where(tcc: tcc).map { |calendar| [calendar.year_with_semester] }
+    Calendar.where(tcc: tcc).order(created_at: :desc).map do |calendar|
+      [calendar.id, calendar.year_with_semester]
+    end
   end
 
   def self.human_semesters
