@@ -142,7 +142,7 @@ pt-BR:
         roles: "Papéis"
         profile_image: "Imagem do perfil"
         available_advisor: "Disponível para orientação"
-        professor_type: "Tipo"
+        professor_type: "Vínculo"
         <<: *commons
       external_member:
         personal_page: "Página pessoal (link)"
