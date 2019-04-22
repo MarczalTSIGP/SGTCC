@@ -9,14 +9,14 @@ class Responsible::ActivitiesTccOneController < Responsible::ActivitiesControlle
     show_url = responsible_calendar_activities_tcc_one_path
 
     add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'), activity_url
-    add_breadcrumb I18n.t('breadcrumbs.activities.show'), show_url
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.show'), show_url
   end
 
   def new
     new_url = new_responsible_calendar_activities_tcc_one_path
 
     add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'), activity_url
-    add_breadcrumb I18n.t('breadcrumbs.activities.new'), new_url
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.new'), new_url
 
     @activity = Activity.new
   end
@@ -25,7 +25,7 @@ class Responsible::ActivitiesTccOneController < Responsible::ActivitiesControlle
     edit_url = edit_responsible_calendar_activities_tcc_one_path
 
     add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'), activity_url
-    add_breadcrumb I18n.t('breadcrumbs.activities.edit'), edit_url
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.edit'), edit_url
   end
 
   def create

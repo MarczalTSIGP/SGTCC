@@ -4,6 +4,7 @@
 <%= render 'responsible/activities/header',
   update_url: responsible_calendar_activities_tcc_two_index_by_calendar_path(@calendar),
   new_url: new_responsible_calendar_activities_tcc_two_path(@calendar),
+  label_new_url: t('breadcrumbs.tcc.two.new'),
   tcc: Activity.tccs[:two]
 %>
 
