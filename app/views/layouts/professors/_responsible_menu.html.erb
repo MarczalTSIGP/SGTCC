@@ -52,8 +52,8 @@
   <%= t('breadcrumbs.calendars.index') %>
 <% end %>
 
-<% if Calendar.current_by_tcc %>
-  <%= active_link_to(responsible_calendar_activities_tcc_one_index_path(Calendar.current_id_by_tcc),
+<% if Calendar.current_by_tcc_one %>
+  <%= active_link_to(responsible_calendar_activities_tcc_one_index_path(Calendar.current_by_tcc_one.id),
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
@@ -62,8 +62,8 @@
   <% end %>
 <% end %>
 
-<% if Calendar.current_by_tcc(Calendar.tccs[:two]) %>
-  <%= active_link_to(responsible_calendar_activities_tcc_two_index_path(Calendar.current_id_by_tcc(Calendar.tccs[:two])),
+<% if Calendar.current_by_tcc_two %>
+  <%= active_link_to(responsible_calendar_activities_tcc_two_index_path(Calendar.current_by_tcc_two.id),
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>

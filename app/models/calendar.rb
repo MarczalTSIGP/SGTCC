@@ -14,7 +14,7 @@ class Calendar < ApplicationRecord
     "#{year}/#{semester_t}"
   end
 
-  def self.current_by_tcc(tcc = Activity.tccs[:one])
+  def self.current_by_tcc(tcc)
     Calendar.find_by(
       year: current_year,
       semester: current_semester,
@@ -22,9 +22,12 @@ class Calendar < ApplicationRecord
     )
   end
 
-  def self.current_id_by_tcc(tcc = Activity.tccs[:one])
-    calendar = current_by_tcc(tcc)
-    calendar.present? ? calendar.id : nil
+  def self.current_by_tcc_one
+    Calendar.current_by_tcc(Activity.tccs[:one])
+  end
+
+  def self.current_by_tcc_two
+    Calendar.current_by_tcc(Activity.tccs[:two])
   end
 
   def self.current_year

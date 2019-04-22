@@ -19,9 +19,7 @@ class Activity < ApplicationRecord
     end
   end
 
-  def self.by_tcc(tcc = Activity.tccs[:one], calendar_id = nil)
-    calendar_id = Calendar.current_id_by_tcc(tcc) if calendar_id.blank?
-
+  def self.by_tcc(tcc = Activity.tccs[:one], calendar_id)
     Activity.where(tcc: tcc, calendar_id: calendar_id)
             .includes(:base_activity_type)
             .order(:name)
