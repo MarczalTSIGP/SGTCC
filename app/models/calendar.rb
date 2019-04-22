@@ -3,9 +3,11 @@ class Calendar < ApplicationRecord
 
   has_many :activities, dependent: :restrict_with_error
 
-  validates :year, presence: true
-  validates :semester, presence: true
   validates :tcc, presence: true
+  validates :semester, presence: true
+  validates :year,
+            presence: true,
+            format: { with: /\A\d{4}\z/ }
 
   enum semester: { one: 1, two: 2 }, _prefix: :semester
 
