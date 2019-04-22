@@ -2,6 +2,7 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.association :base_activity_type,
+      input_html: { data: 'selectize' },
       prompt: t('prompt.select.m', name: 'tipo') %>
     <%= f.input :tcc,
                 as: :radio_button_tabler,

@@ -51,7 +51,7 @@ document.addEventListener('turbolinks:load', () => {
 
       initSelectize() {
         const $ = window.jQuery;
-        const selects = $('select');
+        const selects = $('*[data="selectize"]');
 
         if (selects.length > 0) {
           selects.selectize();
