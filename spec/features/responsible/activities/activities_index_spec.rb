@@ -29,7 +29,6 @@ describe 'Activity::index', type: :feature do
         visit responsible_calendar_activities_path(calendar)
         find('#activity_calendar-selectized').click
         first('div.option').click
-        submit_form('input[name="commit"]')
 
         second_calendar.activities.each do |activity|
           expect(page).to have_contents([activity.name,

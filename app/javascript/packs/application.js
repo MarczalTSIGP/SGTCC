@@ -34,6 +34,7 @@ document.addEventListener('turbolinks:load', () => {
     mounted() {
       this.initMarkdownEditor();
       this.initSelectize();
+      this.initCalendarSelectize();
       this.initHeaderMenuCollapse();
     },
 
@@ -55,8 +56,27 @@ document.addEventListener('turbolinks:load', () => {
 
         if (selects.length > 0) {
           selects.selectize();
-          $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
+          this.fixSelectizePlaceholder();
         }
+      },
+
+      initCalendarSelectize() {
+        const $ = window.jQuery;
+        const select = $('*[data="calendar-selectize"]');
+
+        if (select.length > 0) {
+          select.selectize({
+            onChange: function() {
+              $('input[name="commit"]').click();
+            }
+          });
+        }
+        this.fixSelectizePlaceholder();
+      },
+
+      fixSelectizePlaceholder() {
+        const $ = window.jQuery;
+        $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
       },
 
       initHeaderMenuCollapse() {
