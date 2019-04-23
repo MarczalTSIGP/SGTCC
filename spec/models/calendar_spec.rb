@@ -34,4 +34,25 @@ RSpec.describe Calendar, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:activities).dependent(:restrict_with_error) }
   end
+
+  describe '#search' do
+    let(:calendar) { create(:calendar) }
+
+    context 'when finds calendar by attributes' do
+      it 'returns calendar by year' do
+        results_search = Calendar.search(calendar.year)
+        expect(calendar.year).to eq(results_search.first.year)
+      end
+    end
+
+    context 'when returns calendars ordered by year' do
+      it 'returns ordered' do
+        create_list(:calendar, 30)
+        calendars_ordered = Calendar.order(year: :desc)
+        calendar = calendars_ordered.first
+        results_search = Calendar.search.order(year: :desc)
+        expect(calendar.year).to eq(results_search.first.year)
+      end
+    end
+  end
 end

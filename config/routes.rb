@@ -36,7 +36,8 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :calendars,
-                constraints: { id: /[0-9]+/ } do
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable do
                   resources :activities
                 end
 
@@ -80,6 +81,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'base_activities#tcc_two',
           as: 'base_activities_search_tcc_two'
+
+      get 'calendars/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'calendars#index',
+          as: 'calendars_search'
     end
 
     namespace :professors do

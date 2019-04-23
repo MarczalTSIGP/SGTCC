@@ -1,5 +1,8 @@
 class Calendar < ApplicationRecord
+  include Searchable
   include Tcc
+
+  searchable :year
 
   has_many :activities, dependent: :restrict_with_error
 
