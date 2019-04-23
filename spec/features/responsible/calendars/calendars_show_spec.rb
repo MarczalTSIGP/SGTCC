@@ -10,14 +10,11 @@ describe 'Calendar::show', type: :feature do
         calendar = create(:calendar)
         visit responsible_calendar_path(calendar)
 
-        tcc = I18n.t("enums.tcc.#{calendar.tcc}")
-        semester = I18n.t("enums.semester.#{calendar.semester}")
-
-        expect(page).to have_contents([calendar.year,
-                                       tcc,
-                                       semester,
-                                       complete_date(calendar.created_at),
-                                       complete_date(calendar.updated_at)])
+        calendar.activities.each do |activity|
+          expect(page).to have_contents([activity.name,
+                                         activity.base_activity_type.name,
+                                         short_date(activity.created_at)])
+        end
       end
     end
   end

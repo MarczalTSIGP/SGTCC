@@ -22,8 +22,7 @@ describe 'Calendar::update', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendar_path(calendar)
-
+        expect(page).to have_current_path responsible_calendars_path
         success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_content(new_year)

@@ -11,9 +11,8 @@ describe 'Activity::destroy', type: :feature do
   describe '#destroy' do
     context 'when activity is destroyed', js: true do
       it 'show success message' do
-        calendar = create(:calendar_tcc_two)
-        activity = create(:activity_tcc_two, calendar: calendar)
-        visit responsible_calendar_activities_tcc_two_index_path(calendar)
+        activity = create(:activity)
+        visit responsible_calendar_activities_path(activity.calendar)
 
         within first('.destroy').click
 

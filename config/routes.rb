@@ -37,13 +37,12 @@ Rails.application.routes.draw do
 
       resources :calendars,
                 constraints: { id: /[0-9]+/ } do
-                  resources :activities_tcc_one, constraints: { id: /[0-9]+/ }
-                  resources :activities_tcc_two, constraints: { id: /[0-9]+/ }
+                  resources :activities
                 end
 
-      post 'calendars/(:calendar_id)/activities/tcc_one',
-           to: 'activities_tcc_one#index_by_calendar',
-           as: 'calendar_activities_tcc_one_index_by_calendar'
+      post 'calendars/activities/by-calendar',
+           to: 'activities#index_by_calendar',
+           as: 'calendar_activities_by_calendar'
 
       post 'calendars/(:calendar_id)/activities/tcc_two',
            to: 'activities_tcc_two#index_by_calendar',

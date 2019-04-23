@@ -21,7 +21,9 @@ class Responsible::CalendarsController < Responsible::BaseController
     @calendars = Calendar.order(year: :desc)
   end
 
-  def show; end
+  def show
+    redirect_to responsible_calendar_activities_path(@calendar)
+  end
 
   def new
     @calendar = Calendar.new
@@ -44,7 +46,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   def update
     if @calendar.update(calendar_params)
       flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
-      redirect_to responsible_calendar_path(@calendar)
+      redirect_to responsible_calendars_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit

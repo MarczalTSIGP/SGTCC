@@ -7,9 +7,8 @@ describe 'Activity::show', type: :feature do
         responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
-        calendar = create(:calendar_tcc_two)
-        activity = create(:activity_tcc_two, calendar: calendar)
-        visit responsible_calendar_activities_tcc_two_path(calendar, activity)
+        activity = create(:activity)
+        visit responsible_calendar_activity_path(activity.calendar, activity)
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,

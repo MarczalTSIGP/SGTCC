@@ -1,5 +1,5 @@
-<% provide(:page_title, t('breadcrumbs.tcc.two.show')) %>
-<% provide(:head_title, t('breadcrumbs.tcc.two.show')) %>
+<% provide(:page_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+<% provide(:head_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
 
 <div class="card card-profile">
   <div class="card-body text-center">
@@ -38,11 +38,11 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_calendar_activities_tcc_two_index_path(@calendar),
+    responsible_calendar_activities_path(@calendar),
     class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),
-    edit_responsible_calendar_activities_tcc_two_path(@calendar, @activity),
+    edit_responsible_calendar_activity_path(@calendar, @activity),
     class: 'btn btn-primary ml-auto' %>
 </div>
 

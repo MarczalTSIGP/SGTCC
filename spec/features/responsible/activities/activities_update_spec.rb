@@ -12,7 +12,7 @@ describe 'Activity::update', type: :feature do
     let(:activity) { create(:activity) }
 
     before do
-      visit edit_responsible_calendar_activities_tcc_one_path(activity.calendar, activity.id)
+      visit edit_responsible_calendar_activity_path(activity.calendar, activity)
     end
 
     context 'when data is valid', js: true do
@@ -21,9 +21,8 @@ describe 'Activity::update', type: :feature do
         fill_in 'activity_name', with: new_name
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendar_activities_tcc_one_path(
-          activity.calendar, activity.id
-        )
+        current_path = responsible_calendar_activity_path(activity.calendar, activity)
+        expect(page).to have_current_path current_path
         success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_content(new_name)
