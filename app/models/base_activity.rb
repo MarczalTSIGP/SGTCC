@@ -10,9 +10,16 @@ class BaseActivity < ApplicationRecord
   validates :tcc, presence: true
 
   def self.by_tcc(type, term)
-    BaseActivity.search(term)
-                .order(:name)
+    search(term).order(:name)
                 .includes(:base_activity_type)
                 .where(tcc: type)
+  end
+
+  def self.by_tcc_one(term)
+    by_tcc(tccs[:one], term)
+  end
+
+  def self.by_tcc_two(term)
+    by_tcc(tccs[:two], term)
   end
 end

@@ -16,25 +16,6 @@ class Calendar < ApplicationRecord
 
   after_create :clone_base_activities
 
-  def clone_base_activities
-    base_activities = BaseActivity.where(tcc: tcc)
-    base_activities.each do |base_activity|
-      create_activity(base_activity)
-    end
-  end
-
-  def create_activity(activity)
-    current_time = Time.current
-    activities.create(
-      name: activity.name,
-      tcc: activity.tcc,
-      calendar_id: id,
-      base_activity_type_id: activity.base_activity_type_id,
-      initial_date: current_time,
-      final_date: current_time
-    )
-  end
-
   def year_with_semester
     semester_t = I18n.t("enums.semester.#{semester}")
     "#{year}/#{semester_t}"
@@ -100,5 +81,26 @@ class Calendar < ApplicationRecord
     hash = {}
     semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
     hash
+  end
+
+  private
+
+  def clone_base_activities
+    base_activities = BaseActivity.where(tcc: tcc)
+    base_activities.each do |base_activity|
+      create_activity(base_activity)
+    end
+  end
+
+  def create_activity(activity)
+    current_time = Time.current
+    activities.create(
+      name: activity.name,
+      tcc: activity.tcc,
+      calendar_id: id,
+      base_activity_type_id: activity.base_activity_type_id,
+      initial_date: current_time,
+      final_date: current_time
+    )
   end
 end
