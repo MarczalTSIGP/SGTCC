@@ -45,10 +45,6 @@ Rails.application.routes.draw do
            to: 'activities#index_by_calendar',
            as: 'calendar_activities_by_calendar'
 
-      post 'calendars/(:calendar_id)/activities/tcc_two',
-           to: 'activities_tcc_two#index_by_calendar',
-           as: 'calendar_activities_tcc_two_index_by_calendar'
-
       get 'base_activities/tcc_one', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc_two', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 

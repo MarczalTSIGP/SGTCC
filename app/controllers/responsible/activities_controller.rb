@@ -71,9 +71,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   end
 
   def index_by_calendar
-    calendar_id = params[:activity][:calendar]
-
-    redirect_to responsible_calendar_activities_path(calendar_id)
+    redirect_to responsible_calendar_activities_path(params[:activity][:calendar])
   end
 
   private
@@ -88,6 +86,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
   def activity_params
     params.require(:activity)
-          .permit(:name, :base_activity_type_id, :tcc, :calendar_id, :initial_date, :final_date)
+          .permit(:name, :base_activity_type_id, :tcc,
+                  :calendar_id, :initial_date, :final_date)
   end
 end

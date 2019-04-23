@@ -71,24 +71,16 @@ namespace :db do
     end
 
     2.times do |index|
-      Calendar.create(
-        year: '2019',
-        semester: index + 1,
-        tcc: index + 1
-      )
+      create_calendar(index, Calendar.tccs[:one])
+      create_calendar(index, Calendar.tccs[:two])
     end
+  end
 
-    10.times do |index|
-      tcc = Activity.tccs.values.sample
-
-      Activity.create(
-        name: "Atividade #{index}",
-        tcc: tcc,
-        base_activity_type_id: BaseActivityType.pluck(:id).sample,
-        calendar_id: Calendar.where(tcc: tcc).pluck(:id).sample,
-        initial_date: Faker::Date.forward(1),
-        final_date: Faker::Date.forward(2)
-      )
-    end
+  def create_calendar(index, tcc)
+    Calendar.create(
+      year: '2019',
+      semester: index + 1,
+      tcc: tcc
+    )
   end
 end
