@@ -1,6 +1,6 @@
 class Responsible::ActivitiesController < Responsible::BaseController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_calendar, except: [:index_by_calendar]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
   def index
     index_url = responsible_calendar_activities_path
@@ -77,7 +77,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   private
 
   def set_activity
-    @activity = Activity.find(params[:id])
+    @activity = @calendar.activities.find(params[:id])
   end
 
   def set_calendar
