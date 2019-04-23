@@ -11,6 +11,20 @@ class Calendar < ApplicationRecord
 
   enum semester: { one: 1, two: 2 }, _prefix: :semester
 
+  after_create :clone_base_activities
+
+  def clone_base_activities
+    base_activities = BaseActivity.where(tcc: tcc)
+    base_activities.each do |base_activity|
+      activities.create(
+        name: base_activity.name,
+        tcc: base_activity.tcc,
+        calendar_id: id,
+        base_activity_type_id: base_activity.base_activity_type_id
+      )
+    end
+  end
+
   def year_with_semester
     semester_t = I18n.t("enums.semester.#{semester}")
     "#{year}/#{semester_t}"

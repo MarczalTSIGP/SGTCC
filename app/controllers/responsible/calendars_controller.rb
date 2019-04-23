@@ -33,7 +33,6 @@ class Responsible::CalendarsController < Responsible::BaseController
     @calendar = Calendar.new(calendar_params)
 
     if @calendar.save
-      Activity.create_activities(@calendar)
       flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
       redirect_to responsible_calendars_path
     else
