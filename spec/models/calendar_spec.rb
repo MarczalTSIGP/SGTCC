@@ -91,6 +91,40 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
+  describe '#next_semester' do
+    it 'returns the next semester' do
+      current_calendar = create(:calendar_tcc_one, semester: 1)
+      next_calendar = create(:calendar_tcc_one, semester: 2)
+
+      expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
+    end
+
+    it 'returns the next year' do
+      current_calendar = create(:calendar_tcc_one, semester: 2)
+      next_year = current_calendar.year.to_i + 1
+      next_calendar = create(:calendar_tcc_one, semester: 1, year: next_year)
+
+      expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
+    end
+  end
+
+  describe '#previous_semester' do
+    it 'returns the previous semester' do
+      current_calendar = create(:calendar_tcc_one, semester: 2)
+      previous_calendar = create(:calendar_tcc_one, semester: 1)
+
+      expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
+    end
+
+    it 'returns the previous year' do
+      current_calendar = create(:calendar_tcc_one, semester: 1)
+      previous_year = current_calendar.year.to_i - 1
+      previous_calendar = create(:calendar_tcc_one, semester: 2, year: previous_year)
+
+      expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
+    end
+  end
+
   describe '#human_semesters' do
     it 'returns the semesters' do
       semesters = Calendar.semesters

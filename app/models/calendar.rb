@@ -40,20 +40,42 @@ class Calendar < ApplicationRecord
     "#{year}/#{semester_t}"
   end
 
+  def self.previous_semester(calendar)
+    year = calendar.year
+
+    if semesters[calendar.semester] == 2
+      semester = 1
+    else
+      semester = 2
+      year = year.to_i - 1
+    end
+
+    find_by(semester: semester, year: year, tcc: tccs[calendar.tcc])
+  end
+
+  def self.next_semester(calendar)
+    year = calendar.year
+
+    if semesters[calendar.semester] == 1
+      semester = 2
+    else
+      semester = 1
+      year = year.to_i + 1
+    end
+
+    find_by(semester: semester, year: year, tcc: tccs[calendar.tcc])
+  end
+
   def self.current_by_tcc(tcc)
-    Calendar.find_by(
-      year: current_year,
-      semester: current_semester,
-      tcc: tcc
-    )
+    find_by(year: current_year, semester: current_semester, tcc: tcc)
   end
 
   def self.current_by_tcc_one
-    Calendar.current_by_tcc(Activity.tccs[:one])
+    current_by_tcc(Activity.tccs[:one])
   end
 
   def self.current_by_tcc_two
-    Calendar.current_by_tcc(Activity.tccs[:two])
+    current_by_tcc(Activity.tccs[:two])
   end
 
   def self.current_year
@@ -69,7 +91,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.select_data(tcc)
-    Calendar.where(tcc: tcc).order(created_at: :desc).map do |calendar|
+    where(tcc: tcc).order(created_at: :desc).map do |calendar|
       [calendar.id, calendar.year_with_semester]
     end
   end

@@ -1,23 +1,28 @@
 <div class="row">
   <div class="mb-2 col-12 col-sm-8">
-    <%= simple_form_for(Activity.model_name.param_key,
-                        url: responsible_calendar_activities_by_calendar_path) do |f| %>
-      <div class="mb-2">
-        <%= f.input :calendar,
-          as: :select,
-          collection: Calendar.select_data(@calendar.tcc),
-          class: 'form-control',
-          input_html: { data: 'calendar-selectize' },
-          label: false,
-          label_method: :second,
-          value_method: :first,
-          selected: @calendar.id,
-          prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
+    <div class="row">
+      <div class="col-12 col-md-2 col-sm-1">
+        <% if Calendar.previous_semester(@calendar) %>
+          <%= link_to(responsible_calendar_activities_path(Calendar.previous_semester(@calendar)),
+                      class: 'btn btn-outline-primary btn-block') do %>
+            <i class="fe fe-chevrons-left"></i>
+          <% end %>
+        <% end %>
       </div>
-      <%= f.button :submit,
-        t('views.buttons.select'),
-        class: 'd-none' %>
-    <% end %>
+
+      <div class="col-12 col-md-8 col-sm-10" id="select-activity-calendar">
+        <%= render 'activity_calendar_select' %>
+      </div>
+
+      <div class="col-12 col-md-2 col-sm-1">
+        <% if Calendar.next_semester(@calendar) %>
+          <%= link_to(responsible_calendar_activities_path(Calendar.next_semester(@calendar)),
+                      class: 'btn btn-outline-primary btn-block') do %>
+            <i class="fe fe-chevrons-right"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="col-12 col-sm-4 mb-5">
     <%= link_to(new_responsible_calendar_activity_path(@calendar), class: 'btn btn-outline-primary d-block') do %>
