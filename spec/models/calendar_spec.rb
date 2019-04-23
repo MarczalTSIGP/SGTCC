@@ -55,4 +55,49 @@ RSpec.describe Calendar, type: :model do
       end
     end
   end
+
+  describe '#current_by_tcc' do
+    it 'returns the current calendar by tcc one' do
+      calendar = create(:calendar_tcc_one)
+      current_calendar = Calendar.current_by_tcc_one
+      expect(calendar).to eq(current_calendar)
+    end
+
+    it 'returns the current calendar by tcc two' do
+      calendar = create(:calendar_tcc_two)
+      current_calendar = Calendar.current_by_tcc_two
+      expect(calendar).to eq(current_calendar)
+    end
+  end
+
+  describe '#year_with_semester' do
+    it 'returns the calendar with (year/semester)' do
+      calendar = create(:calendar)
+      semester = I18n.t("enums.semester.#{calendar.semester}")
+      year_with_semester = "#{calendar.year}/#{semester}"
+      expect(calendar.year_with_semester).to eq(year_with_semester)
+    end
+  end
+
+  describe '#select_data' do
+    it 'returns the calendar data for select' do
+      create_list(:calendar_tcc_one, 3)
+      tcc_one = Calendar.tccs[:one]
+      select_data = Calendar.select_data(tcc_one)
+      expect_data = Calendar.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
+        [calendar.id, calendar.year_with_semester]
+      end
+      expect(select_data).to eq(expect_data)
+    end
+  end
+
+  describe '#human_semesters' do
+    it 'returns the semesters' do
+      semesters = Calendar.semesters
+      hash = {}
+      semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
+
+      expect(Calendar.human_semesters).to eq(hash)
+    end
+  end
 end

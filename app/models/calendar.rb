@@ -69,7 +69,7 @@ class Calendar < ApplicationRecord
 
   def self.human_semesters
     hash = {}
-    semesters.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
+    semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
     hash
   end
 end
