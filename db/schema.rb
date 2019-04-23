@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_205026) do
+ActiveRecord::Schema.define(version: 2019_04_23_031128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2019_04_16_205026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "calendar_id"
+    t.datetime "initial_date"
+    t.datetime "final_date"
     t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
     t.index ["calendar_id"], name: "index_activities_on_calendar_id"
   end

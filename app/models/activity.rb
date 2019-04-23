@@ -6,4 +6,6 @@ class Activity < ApplicationRecord
 
   validates :name, presence: true
   validates :tcc, presence: true
+  validates :initial_date, presence: true
+  validates :final_date, presence: true
 end

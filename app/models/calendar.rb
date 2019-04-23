@@ -19,13 +19,20 @@ class Calendar < ApplicationRecord
   def clone_base_activities
     base_activities = BaseActivity.where(tcc: tcc)
     base_activities.each do |base_activity|
-      activities.create(
-        name: base_activity.name,
-        tcc: base_activity.tcc,
-        calendar_id: id,
-        base_activity_type_id: base_activity.base_activity_type_id
-      )
+      create_activity(base_activity)
     end
+  end
+
+  def create_activity(activity)
+    current_time = Time.current
+    activities.create(
+      name: activity.name,
+      tcc: activity.tcc,
+      calendar_id: id,
+      base_activity_type_id: activity.base_activity_type_id,
+      initial_date: current_time,
+      final_date: current_time
+    )
   end
 
   def year_with_semester

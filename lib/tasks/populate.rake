@@ -85,7 +85,9 @@ namespace :db do
         name: "Atividade #{index}",
         tcc: tcc,
         base_activity_type_id: BaseActivityType.pluck(:id).sample,
-        calendar_id: Calendar.where(tcc: tcc).pluck(:id).sample
+        calendar_id: Calendar.where(tcc: tcc).pluck(:id).sample,
+        initial_date: Faker::Date.forward(1),
+        final_date: Faker::Date.forward(2)
       )
     end
   end

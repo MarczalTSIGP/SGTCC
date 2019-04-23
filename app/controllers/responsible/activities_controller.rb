@@ -6,7 +6,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
     index_url = responsible_calendar_activities_path
     add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
 
-    @activities = @calendar.activities.includes(:base_activity_type)
+    @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
   end
 
   def show
@@ -88,6 +88,6 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
   def activity_params
     params.require(:activity)
-          .permit(:name, :base_activity_type_id, :tcc, :calendar_id)
+          .permit(:name, :base_activity_type_id, :tcc, :calendar_id, :initial_date, :final_date)
   end
 end

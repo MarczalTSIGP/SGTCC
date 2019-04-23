@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :activity do
     sequence(:name) { |n| "activity#{n}" }
     tcc { BaseActivity.tccs.values.sample }
+    initial_date { Faker::Date.forward(1) }
+    final_date { Faker::Date.forward(2) }
     base_activity_type
     calendar
 
