@@ -17,7 +17,10 @@ class Responsible::InstitutionsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @institutions = Institution.page(params[:page]).search(params[:term]).order(:name)
+    @institutions = Institution.page(params[:page])
+                               .search(params[:term])
+                               .order(:trade_name)
+                               .includes(:external_member)
   end
 
   def show; end
