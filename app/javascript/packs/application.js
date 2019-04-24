@@ -36,6 +36,7 @@ document.addEventListener('turbolinks:load', () => {
       this.initSelectize();
       this.initCalendarSelectize();
       this.initHeaderMenuCollapse();
+      this.initLinkedPicker();
     },
 
     methods: {
@@ -84,6 +85,25 @@ document.addEventListener('turbolinks:load', () => {
 
         $('[data-toggle="collapse"]').click(function() {
           $('html, body').animate({ scrollTop: 0 }, 'slow');
+        });
+      },
+
+      initLinkedPicker() {
+        const $ = window.jQuery;
+
+        const activity_initial_date = '#datetimepicker_activity_initial_date';
+        const activity_final_date = '#datetimepicker_activity_final_date';
+
+        $(activity_final_date).datetimepicker({
+          useCurrent: false
+        });
+
+        $(activity_initial_date).on('change.datetimepicker', (e) => {
+          $(activity_final_date).datetimepicker('minDate', e.date);
+        });
+
+        $(activity_final_date).on('change.datetimepicker', (e) => {
+          $(activity_initial_date).datetimepicker('maxDate', e.date);
         });
       },
     },
