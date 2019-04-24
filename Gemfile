@@ -10,6 +10,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
 gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
 gem 'carrierwave', '~> 1.0'
@@ -23,6 +24,7 @@ gem 'htmlbeautifier'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
+gem 'momentjs-rails'
 gem 'pg', '0.18.4'
 gem 'rails-i18n'
 gem 'reek', require: false
