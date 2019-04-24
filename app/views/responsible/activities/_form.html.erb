@@ -10,7 +10,7 @@
         <datetimepicker
           name="activity[initial_date]"
           id="activity_initial_date"
-          label="Data inicial de engrega"
+          label="<%= Activity.human_attribute_name('initial_date') %>"
           datetime="<%= @activity.initial_date %>" />
       </div>
 
@@ -18,7 +18,7 @@
         <datetimepicker
           name="activity[final_date]"
           id="activity_final_date"
-          label="Data final de engrega"
+          label="<%= Activity.human_attribute_name('final_date') %>"
           datetime="<%= @activity.final_date %>" />
       </div>
     </div>
