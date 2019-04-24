@@ -20,7 +20,7 @@ describe 'BaseActivity::destroy', type: :feature do
         alert.accept
         sleep 2.seconds
 
-        success_message = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
+        success_message = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
 
         expect(page).not_to have_content(base_activity.name)

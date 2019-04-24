@@ -39,33 +39,27 @@ class Responsible::ActivitiesController < Responsible::BaseController
     @activity = @calendar.activities.new(activity_params)
 
     if @activity.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Activity.model_name.human)
-
+      feminine_success_create_message
       redirect_to responsible_calendar_activities_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def update
     if @activity.update(activity_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Activity.model_name.human)
-
+      feminine_success_update_message
       redirect_to responsible_calendar_activity_path(@calendar, @activity)
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @activity.destroy
-
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Activity.model_name.human)
+    feminine_success_destroy_message
 
     redirect_to responsible_calendar_activities_path
   end

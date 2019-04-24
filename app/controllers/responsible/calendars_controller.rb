@@ -1,6 +1,5 @@
 class Responsible::CalendarsController < Responsible::BaseController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
-  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.calendars.index'),
                  :responsible_calendars_path
@@ -35,29 +34,29 @@ class Responsible::CalendarsController < Responsible::BaseController
     @calendar = Calendar.new(calendar_params)
 
     if @calendar.save
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
+      success_create_message
       redirect_to responsible_calendars_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def update
     if @calendar.update(calendar_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
+      success_update_message
       redirect_to responsible_calendars_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     if @calendar.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+      success_destroy_message
     else
-      flash[:alert] = I18n.t('flash.actions.destroy.bond', resource_name: @resource_name)
+      alert_destroy_bond_message
     end
 
     redirect_to responsible_calendars_path
@@ -67,10 +66,6 @@ class Responsible::CalendarsController < Responsible::BaseController
 
   def set_calendar
     @calendar = Calendar.find(params[:id])
-  end
-
-  def set_resource_name
-    @resource_name = Calendar.model_name.human
   end
 
   def calendar_params

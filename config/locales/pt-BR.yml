@@ -189,8 +189,8 @@ pt-BR:
   flash:
     actions:
       update:
-        m: '%{resource_name} Atualizado com sucesso!'
-        f: '%{resource_name} Atualizada com sucesso!'
+        m: '%{resource_name} atualizado com sucesso!'
+        f: '%{resource_name} atualizada com sucesso!'
       create:
         m: '%{resource_name} criado com sucesso!'
         f: '%{resource_name} criada com sucesso!'
