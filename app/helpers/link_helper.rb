@@ -1,20 +1,26 @@
 module LinkHelper
-  def active_calendars_link
-    edit_calendar_path = "/responsible/calendars/\d{1}/edit"
+  def calendars_link_active?
+    new_route = 'calendars/new'
+    edit_route = 'calendars/\\d+/edit'
+    tcc_routes = 'calendars/tcc_one)|(calendars/tcc_two'
 
-    tccs_routes = "#{responsible_calendars_tcc_one_path})$|^(#{responsible_calendars_tcc_two_path}"
-    new_and_edit_routes = "(#{new_responsible_calendar_path})|(#{edit_calendar_path})"
-
-    request.fullpath.match?("^(#{tccs_routes})$|#{new_and_edit_routes}")
+    request.fullpath.match?("(#{tcc_routes})|(#{new_route})|(#{edit_route})")
   end
 
-  def active_activities_tcc_one_link
-    is_tcc_one = @calendar && @calendar.tcc == 'one'
-    is_tcc_one && request.fullpath.match?('activities')
+  def base_activities_link_active?
+    request.fullpath.match?('base_activities')
   end
 
-  def active_activities_tcc_two_link
-    is_tcc_two = @calendar && @calendar.tcc == 'two'
-    is_tcc_two && request.fullpath.match?('activities')
+  def activities_tcc_link_active?(tcc)
+    is_equal_tcc = @calendar && @calendar.tcc == tcc
+    is_equal_tcc && request.fullpath.match?('activities')
+  end
+
+  def activities_tcc_one_link_active?
+    activities_tcc_link_active?('one')
+  end
+
+  def activities_tcc_two_link_active?
+    activities_tcc_link_active?('two')
   end
 end

@@ -2,7 +2,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   before_action :set_base_activity, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.base_activities.index'),
-                 :responsible_base_activities_path
+                 :responsible_base_activities_tcc_one_path
 
   add_breadcrumb I18n.t('breadcrumbs.base_activities.show'),
                  :responsible_base_activity_path,

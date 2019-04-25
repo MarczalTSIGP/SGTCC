@@ -2,7 +2,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.calendars.index'),
-                 :responsible_calendars_path
+                 :responsible_calendars_tcc_one_path
 
   add_breadcrumb I18n.t('breadcrumbs.calendars.show'),
                  :responsible_calendar_path,
