@@ -53,7 +53,7 @@ RSpec.describe Calendar, type: :model do
 
     context 'when returns calendars ordered by year' do
       it 'returns ordered' do
-        create_list(:calendar, 30)
+        create_list(:calendar, 3)
         calendars_ordered = Calendar.order(year: :desc)
         calendar = calendars_ordered.first
         results_search = Calendar.search.order(year: :desc)

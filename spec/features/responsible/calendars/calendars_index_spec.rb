@@ -9,7 +9,8 @@ describe 'Calendar::index', type: :feature do
 
         calendars = create_list(:calendar_tcc_one, 3)
 
-        visit responsible_calendars_tcc_one_path
+        index_url = responsible_calendars_tcc_one_path
+        visit index_url
 
         calendars.each do |calendar|
           expect(page).to have_contents([calendar.year,
@@ -17,6 +18,7 @@ describe 'Calendar::index', type: :feature do
                                          I18n.t("enums.semester.#{calendar.semester}"),
                                          short_date(calendar.created_at)])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
 
       it 'shows all tcc 2 calendars with options', js: true do
@@ -25,7 +27,8 @@ describe 'Calendar::index', type: :feature do
 
         calendars = create_list(:calendar_tcc_two, 3)
 
-        visit responsible_calendars_tcc_two_path
+        index_url = responsible_calendars_tcc_two_path
+        visit index_url
 
         calendars.each do |calendar|
           expect(page).to have_contents([calendar.year,
@@ -33,6 +36,7 @@ describe 'Calendar::index', type: :feature do
                                          I18n.t("enums.semester.#{calendar.semester}"),
                                          short_date(calendar.created_at)])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
   end

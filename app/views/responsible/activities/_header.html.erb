@@ -4,6 +4,7 @@
       <div class="col-12 col-md-2 col-sm-1">
         <% if Calendar.previous_semester(@calendar) %>
           <%= link_to(responsible_calendar_activities_path(Calendar.previous_semester(@calendar)),
+                      id: 'previous_calendar',
                       class: 'btn btn-outline-primary btn-block') do %>
             <i class="fe fe-chevrons-left"></i>
           <% end %>
@@ -17,6 +18,7 @@
       <div class="col-12 col-md-2 col-sm-1">
         <% if Calendar.next_semester(@calendar) %>
           <%= link_to(responsible_calendar_activities_path(Calendar.next_semester(@calendar)),
+                      id: 'next_calendar',
                       class: 'btn btn-outline-primary btn-block') do %>
             <i class="fe fe-chevrons-right"></i>
           <% end %>

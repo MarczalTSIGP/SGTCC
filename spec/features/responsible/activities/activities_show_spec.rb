@@ -8,7 +8,8 @@ describe 'Activity::show', type: :feature do
         login_as(responsible, scope: :professor)
 
         activity = create(:activity)
-        visit responsible_calendar_activity_path(activity.calendar, activity)
+        show_url = responsible_calendar_activity_path(activity.calendar, activity)
+        visit show_url
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,

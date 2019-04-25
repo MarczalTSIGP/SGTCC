@@ -9,13 +9,15 @@ describe 'BaseActivity::index', type: :feature do
 
         base_activities = create_list(:base_activity_tcc_one, 3)
 
-        visit responsible_base_activities_tcc_one_path
+        index_url = responsible_base_activities_tcc_one_path
+        visit index_url
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
 
@@ -26,13 +28,15 @@ describe 'BaseActivity::index', type: :feature do
 
         base_activities = create_list(:base_activity_tcc_two, 3)
 
-        visit responsible_base_activities_tcc_two_path
+        index_url = responsible_base_activities_tcc_two_path
+        visit index_url
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
   end
