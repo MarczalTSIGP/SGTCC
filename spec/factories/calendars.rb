@@ -1,15 +1,38 @@
 FactoryBot.define do
+  tccs = Calendar.tccs.values
+  current_year = Calendar.current_year
+  current_semester = Calendar.current_semester
+  tcc_one = tccs.first
+  tcc_two = tccs.last
+
   factory :calendar do
-    year { Calendar.current_year }
-    semester { Calendar.current_semester }
-    tcc { Calendar.tccs.values.sample }
+    sequence(:year) { |n| Faker::Number.number(4) || "20#{n}" }
+    sequence(:semester) { tccs.first || tccs.last }
+    tcc { tccs.sample }
+
+    factory :current_calendar do
+      year { current_year }
+      semester { current_semester }
+    end
+
+    factory :current_calendar_tcc_one do
+      year { current_year }
+      semester { current_semester }
+      tcc { tcc_one }
+    end
+
+    factory :current_calendar_tcc_two do
+      year { current_year }
+      semester { current_semester }
+      tcc { tcc_two }
+    end
 
     factory :calendar_tcc_one do
-      tcc { Activity.tccs.values.first }
+      tcc { tcc_one }
     end
 
     factory :calendar_tcc_two do
-      tcc { Activity.tccs.values.last }
+      tcc { tcc_two }
     end
   end
 end

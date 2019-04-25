@@ -2,9 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Calendar, type: :model do
   describe 'validates' do
+    subject { create(:calendar) }
+
     it { is_expected.to validate_presence_of(:year) }
     it { is_expected.to validate_presence_of(:tcc) }
     it { is_expected.to validate_presence_of(:semester) }
+
+    it 'validates uniqueness of year' do
+      is_expected.to validate_uniqueness_of(:year).scoped_to([:semester, :tcc]).case_insensitive
+    end
   end
 
   describe 'when year' do
@@ -36,7 +42,7 @@ RSpec.describe Calendar, type: :model do
   end
 
   describe '#search' do
-    let(:calendar) { create(:calendar) }
+    let(:calendar) { create(:current_calendar) }
 
     context 'when finds calendar by attributes' do
       it 'returns calendar by year' do
@@ -58,13 +64,13 @@ RSpec.describe Calendar, type: :model do
 
   describe '#current_by_tcc' do
     it 'returns the current calendar by tcc one' do
-      calendar = create(:calendar_tcc_one)
+      calendar = create(:current_calendar_tcc_one)
       current_calendar = Calendar.current_by_tcc_one
       expect(calendar).to eq(current_calendar)
     end
 
     it 'returns the current calendar by tcc two' do
-      calendar = create(:calendar_tcc_two)
+      calendar = create(:current_calendar_tcc_two)
       current_calendar = Calendar.current_by_tcc_two
       expect(calendar).to eq(current_calendar)
     end
@@ -72,7 +78,7 @@ RSpec.describe Calendar, type: :model do
 
   describe '#year_with_semester' do
     it 'returns the calendar with (year/semester)' do
-      calendar = create(:calendar)
+      calendar = create(:current_calendar)
       semester = I18n.t("enums.semester.#{calendar.semester}")
       year_with_semester = "#{calendar.year}/#{semester}"
       expect(calendar.year_with_semester).to eq(year_with_semester)
@@ -81,7 +87,7 @@ RSpec.describe Calendar, type: :model do
 
   describe '#select_data' do
     it 'returns the calendar data for select' do
-      create_list(:calendar_tcc_one, 3)
+      create(:current_calendar_tcc_one)
       tcc_one = Calendar.tccs[:one]
       select_data = Calendar.select_data(tcc_one)
       expect_data = Calendar.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
@@ -93,16 +99,16 @@ RSpec.describe Calendar, type: :model do
 
   describe '#next_semester' do
     it 'returns the next semester' do
-      current_calendar = create(:calendar_tcc_one, semester: 1)
-      next_calendar = create(:calendar_tcc_one, semester: 2)
+      current_calendar = create(:current_calendar_tcc_one, semester: 1)
+      next_calendar = create(:current_calendar_tcc_one, semester: 2)
 
       expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
     end
 
     it 'returns the next year' do
-      current_calendar = create(:calendar_tcc_one, semester: 2)
+      current_calendar = create(:current_calendar_tcc_one, semester: 2)
       next_year = current_calendar.year.to_i + 1
-      next_calendar = create(:calendar_tcc_one, semester: 1, year: next_year)
+      next_calendar = create(:current_calendar_tcc_one, semester: 1, year: next_year)
 
       expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
     end
@@ -110,16 +116,16 @@ RSpec.describe Calendar, type: :model do
 
   describe '#previous_semester' do
     it 'returns the previous semester' do
-      current_calendar = create(:calendar_tcc_one, semester: 2)
-      previous_calendar = create(:calendar_tcc_one, semester: 1)
+      current_calendar = create(:current_calendar_tcc_one, semester: 2)
+      previous_calendar = create(:current_calendar_tcc_one, semester: 1)
 
       expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
     end
 
     it 'returns the previous year' do
-      current_calendar = create(:calendar_tcc_one, semester: 1)
+      current_calendar = create(:current_calendar_tcc_one, semester: 1)
       previous_year = current_calendar.year.to_i - 1
-      previous_calendar = create(:calendar_tcc_one, semester: 2, year: previous_year)
+      previous_calendar = create(:current_calendar_tcc_one, semester: 2, year: previous_year)
 
       expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
     end

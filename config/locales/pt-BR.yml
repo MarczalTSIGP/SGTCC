@@ -10,6 +10,10 @@ pt-BR:
         tcc:
           one: "Calendário de Atividades do TCC 1 (%{calendar})"
           two: "Calendário de Atividades do TCC 2 (%{calendar})"
+    tabs:
+      tcc:
+        one: 'TCC 1'
+        two: 'TCC 2'
     buttons:
       select: 'Selecionar'
     pagination:

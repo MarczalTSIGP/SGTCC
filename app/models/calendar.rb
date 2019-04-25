@@ -10,7 +10,8 @@ class Calendar < ApplicationRecord
   validates :semester, presence: true
   validates :year,
             presence: true,
-            format: { with: /\A\d{4}\z/ }
+            format: { with: /\A\d{4}\z/ },
+            uniqueness: { scope: [:semester, :tcc], case_sensetive: false }
 
   enum semester: { one: 1, two: 2 }, _prefix: :semester
 
@@ -72,7 +73,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.select_data(tcc)
-    where(tcc: tcc).order(created_at: :desc).map do |calendar|
+    where(tcc: tcc).order(:year, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester]
     end
   end

@@ -17,7 +17,9 @@ class Responsible::CalendarsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @calendars = Calendar.page(params[:page]).search(params[:term]).order(year: :desc)
+    @calendars = Calendar.page(params[:page])
+                         .search(params[:term])
+                         .order(:year, :tcc, :semester)
   end
 
   def show

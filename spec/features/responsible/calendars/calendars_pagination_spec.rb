@@ -9,7 +9,7 @@ describe 'Calendar::pagination', type: :feature do
 
         create_list(:calendar, 30)
         visit responsible_calendars_path
-        calendar = Calendar.order(year: :desc).last
+        calendar = Calendar.order(:year, :tcc, :semester).last
 
         click_link(2)
 
