@@ -12,6 +12,7 @@ describe 'Activity::show', type: :feature do
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
+                                       activity.deadline,
                                        complete_date(activity.created_at),
                                        complete_date(activity.updated_at)])
       end

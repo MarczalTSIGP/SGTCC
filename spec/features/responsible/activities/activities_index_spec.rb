@@ -16,7 +16,7 @@ describe 'Activity::index', type: :feature do
         calendar.activities.each do |activity|
           expect(page).to have_contents([activity.name,
                                          activity.base_activity_type.name,
-                                         short_date(activity.created_at)])
+                                         activity.deadline])
         end
       end
     end
@@ -33,7 +33,7 @@ describe 'Activity::index', type: :feature do
         second_calendar.activities.each do |activity|
           expect(page).to have_contents([activity.name,
                                          activity.base_activity_type.name,
-                                         short_date(activity.created_at)])
+                                         activity.deadline])
         end
       end
     end

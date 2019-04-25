@@ -1,9 +1,11 @@
 pt-BR:
   time:
+    deadline: "De %{initial_date} à %{final_date}"
     formats:
       short: '%d/%m/%Y'
       month: '%m'
       year: '%Y'
+      datetime: '%d/%m/%Y %-H:%M'
   views:
     title:
       calendar:
@@ -129,6 +131,7 @@ pt-BR:
         base_activity_type: "Tipo"
         role: "Papel"
         tcc: "TCC"
+        deadline: "Prazo"
       academic:
         ra: "RA"
         <<: *commons

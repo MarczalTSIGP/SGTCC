@@ -23,15 +23,9 @@
     </p>
     <p>
       <strong>
-        <%= Activity.human_attribute_name('initial_date') %>:
+        <%= Activity.human_attribute_name('deadline') %>:
       </strong>
-      <%= complete_date(@activity.initial_date) %>
-    </p>
-    <p>
-      <strong>
-        <%= Activity.human_attribute_name('final_date') %>:
-      </strong>
-      <%= complete_date(@activity.final_date) %>
+      <%= @activity.deadline %>
     </p>
     <p>
       <strong>
