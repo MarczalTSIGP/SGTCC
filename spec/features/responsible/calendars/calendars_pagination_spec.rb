@@ -7,9 +7,9 @@ describe 'Calendar::pagination', type: :feature do
         responsible = create(:responsible)
         login_as(responsible, scope: :professor)
 
-        create_list(:calendar, 30)
-        visit responsible_calendars_path
-        calendar = Calendar.order(:year, :tcc, :semester).last
+        create_list(:calendar_tcc_one, 30)
+        visit responsible_calendars_tcc_one_path
+        calendar = Calendar.where(tcc: 1).order(:year, :tcc, :semester).last
 
         click_link(2)
 

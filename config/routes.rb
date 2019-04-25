@@ -45,6 +45,9 @@ Rails.application.routes.draw do
            to: 'activities#index_by_calendar',
            as: 'calendar_activities_by_calendar'
 
+      get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
+      get 'calendars/tcc_two', to: 'calendars#tcc_two', as: 'calendars_tcc_two'
+
       get 'base_activities/tcc_one', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc_two', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 
@@ -78,10 +81,15 @@ Rails.application.routes.draw do
           to: 'base_activities#tcc_two',
           as: 'base_activities_search_tcc_two'
 
-      get 'calendars/search/(:term)/(page/:page)',
+      get 'calendars/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
-          to: 'calendars#index',
-          as: 'calendars_search'
+          to: 'calendars#tcc_one',
+          as: 'calendars_search_tcc_one'
+
+      get 'calendars/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'calendars#tcc_two',
+          as: 'calendars_search_tcc_two'
     end
 
     namespace :professors do

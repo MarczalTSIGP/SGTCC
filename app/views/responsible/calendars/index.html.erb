@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
-    <search url="<%= responsible_calendars_search_path %>" search-term="<%= params[:term] %>" />
+    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_calendar_path, class: 'btn btn-outline-primary d-block') do %>
@@ -17,13 +17,15 @@
   <%= page_entries_info @calendars %>
 </div>
 
+<%= render('tabs') %>
+
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
         <th><%= Calendar.human_attribute_name('year') %></th>
-        <th><%= Calendar.human_attribute_name('tcc') %></th>
         <th><%= Calendar.human_attribute_name('semester') %></th>
+        <th><%= Calendar.human_attribute_name('tcc') %></th>
         <th><%= Calendar.human_attribute_name('created_at') %></th>
         <th colspan="3"></th>
       </tr>

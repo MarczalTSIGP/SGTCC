@@ -17,9 +17,21 @@ class Responsible::CalendarsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @calendars = Calendar.page(params[:page])
-                         .search(params[:term])
-                         .order(:year, :tcc, :semester)
+    redirect_to action: 'tcc_one'
+  end
+
+  def tcc_one
+    @calendars = Calendar.search_by_tcc_one(params[:page], params[:term])
+    @search_url = responsible_calendars_search_tcc_one_path
+
+    render :index
+  end
+
+  def tcc_two
+    @calendars = Calendar.search_by_tcc_two(params[:page], params[:term])
+    @search_url = responsible_calendars_search_tcc_two_path
+
+    render :index
   end
 
   def show
@@ -37,7 +49,7 @@ class Responsible::CalendarsController < Responsible::BaseController
 
     if @calendar.save
       success_create_message
-      redirect_to responsible_calendars_path
+      redirect_to calendar_tcc_url
     else
       error_message
       render :new
@@ -47,7 +59,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   def update
     if @calendar.update(calendar_params)
       success_update_message
-      redirect_to responsible_calendars_path
+      redirect_to calendar_tcc_url
     else
       error_message
       render :edit
@@ -55,13 +67,15 @@ class Responsible::CalendarsController < Responsible::BaseController
   end
 
   def destroy
+    back_url = calendar_tcc_url
+
     if @calendar.destroy
       success_destroy_message
     else
       alert_destroy_bond_message
     end
 
-    redirect_to responsible_calendars_path
+    redirect_to back_url
   end
 
   private
@@ -72,5 +86,10 @@ class Responsible::CalendarsController < Responsible::BaseController
 
   def calendar_params
     params.require(:calendar).permit(:tcc, :semester, :year)
+  end
+
+  def calendar_tcc_url
+    return responsible_calendars_tcc_one_path if @calendar.tcc == 'one'
+    responsible_calendars_tcc_two_path
   end
 end

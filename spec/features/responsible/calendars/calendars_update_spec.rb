@@ -9,7 +9,7 @@ describe 'Calendar::update', type: :feature do
   end
 
   describe '#update' do
-    let(:calendar) { create(:calendar) }
+    let(:calendar) { create(:calendar_tcc_two) }
 
     before do
       visit edit_responsible_calendar_path(calendar)
@@ -22,7 +22,7 @@ describe 'Calendar::update', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendars_path
+        expect(page).to have_current_path responsible_calendars_tcc_two_path
         success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_content(new_year)

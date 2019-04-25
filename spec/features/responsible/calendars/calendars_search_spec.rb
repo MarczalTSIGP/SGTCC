@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Calendar::search', type: :feature do
   let(:responsible) { create(:responsible) }
-  let(:calendars) { create_list(:calendar, 25) }
+  let(:calendars) { create_list(:calendar, 2) }
 
   before do
     login_as(responsible, scope: :professor)

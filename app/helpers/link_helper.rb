@@ -1,6 +1,11 @@
 module LinkHelper
   def active_calendars_link
-    request.fullpath.match?('^(/responsible/calendars)$|calendars/new|calendar/edit')
+    edit_calendar_path = "/responsible/calendars/\d{1}/edit"
+
+    tccs_routes = "#{responsible_calendars_tcc_one_path})$|^(#{responsible_calendars_tcc_two_path}"
+    new_and_edit_routes = "(#{new_responsible_calendar_path})|(#{edit_calendar_path})"
+
+    request.fullpath.match?("^(#{tccs_routes})$|#{new_and_edit_routes}")
   end
 
   def active_activities_tcc_one_link

@@ -22,7 +22,7 @@ describe 'Calendar::create', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendars_path
+        expect(page).to have_current_path responsible_calendars_tcc_one_path
 
         success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)

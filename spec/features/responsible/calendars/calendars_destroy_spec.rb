@@ -11,8 +11,8 @@ describe 'Calendar::destroy', type: :feature do
   describe '#destroy' do
     context 'when calendar is destroyed', js: true do
       it 'show success message' do
-        calendar = create(:calendar)
-        visit responsible_calendars_path
+        calendar = create(:calendar_tcc_one)
+        visit responsible_calendars_tcc_one_path
 
         within first('.destroy').click
 
@@ -29,8 +29,9 @@ describe 'Calendar::destroy', type: :feature do
 
     context 'when calendar has associations', js: true do
       it 'show alert message' do
-        activity = create(:activity)
-        visit responsible_calendars_path
+        calendar = create(:calendar_tcc_one)
+        create(:activity, calendar: calendar)
+        visit responsible_calendars_tcc_one_path
 
         within first('.destroy').click
 
@@ -41,7 +42,7 @@ describe 'Calendar::destroy', type: :feature do
         alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
         expect(page).to have_flash(:warning, text: alert_message)
 
-        expect(page).to have_content(activity.calendar.year)
+        expect(page).to have_content(calendar.year)
       end
     end
   end

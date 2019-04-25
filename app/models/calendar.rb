@@ -48,16 +48,28 @@ class Calendar < ApplicationRecord
     find_by(semester: semester, year: year, tcc: tccs[calendar.tcc])
   end
 
+  def self.search_by_tcc(tcc, page, term)
+    where(tcc: tcc).page(page).search(term).order(:year, :semester)
+  end
+
+  def self.search_by_tcc_one(page, term)
+    search_by_tcc(tccs[:one], page, term)
+  end
+
+  def self.search_by_tcc_two(page, term)
+    search_by_tcc(tccs[:two], page, term)
+  end
+
   def self.current_by_tcc(tcc)
     find_by(year: current_year, semester: current_semester, tcc: tcc)
   end
 
   def self.current_by_tcc_one
-    current_by_tcc(Activity.tccs[:one])
+    current_by_tcc(tccs[:one])
   end
 
   def self.current_by_tcc_two
-    current_by_tcc(Activity.tccs[:two])
+    current_by_tcc(tccs[:two])
   end
 
   def self.current_year
