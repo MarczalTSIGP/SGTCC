@@ -18,6 +18,10 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
 dist: trusty
 language: ruby
 rvm:
