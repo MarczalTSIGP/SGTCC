@@ -33,9 +33,11 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :base_activities,
+                except: :index,
                 constraints: { id: /[0-9]+/ }
 
       resources :calendars,
+                except: :index,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable do
                   resources :activities

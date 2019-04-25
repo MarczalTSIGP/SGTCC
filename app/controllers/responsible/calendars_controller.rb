@@ -16,10 +16,6 @@ class Responsible::CalendarsController < Responsible::BaseController
                  :edit_responsible_calendar_path,
                  only: [:edit]
 
-  def index
-    redirect_to action: 'tcc_one'
-  end
-
   def tcc_one
     @calendars = Calendar.search_by_tcc_one(params[:page], params[:term])
     @search_url = responsible_calendars_search_tcc_one_path

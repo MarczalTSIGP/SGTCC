@@ -38,14 +38,14 @@
   <%= t('breadcrumbs.institutions.index') %>
 <% end %>
 
-<%= active_link_to(responsible_base_activities_path, class: 'list-group-item list-group-item-action') do %>
+<%= active_link_to(responsible_base_activities_tcc_one_path, class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('fas', 'file-signature') %>
   </span>
   <%= t('breadcrumbs.base_activities.index') %>
 <% end %>
 
-<%= active_link_to(responsible_calendars_path,
+<%= active_link_to(responsible_calendars_tcc_one_path,
 		   active: active_calendars_link,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">

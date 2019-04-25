@@ -12,7 +12,7 @@ describe 'BaseActivity::destroy', type: :feature do
     context 'when base activity is destroyed', js: true do
       it 'show success message' do
         base_activity = create(:base_activity_tcc_one)
-        visit responsible_base_activities_path
+        visit responsible_base_activities_tcc_one_path
 
         within first('.destroy').click
 

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Calendar::search', type: :feature do
   let(:responsible) { create(:responsible) }
-  let(:calendars) { create_list(:calendar, 2) }
+  let(:calendars) { create_list(:calendar_tcc_one, 2) }
 
   before do
     login_as(responsible, scope: :professor)
-    visit responsible_calendars_path
+    visit responsible_calendars_tcc_one_path
   end
 
   describe '#search' do

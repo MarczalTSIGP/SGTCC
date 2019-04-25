@@ -16,10 +16,6 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
                  :edit_responsible_base_activity_path,
                  only: [:edit]
 
-  def index
-    redirect_to action: 'tcc_one'
-  end
-
   def tcc_one
     @base_activities = BaseActivity.by_tcc_one(params[:term])
     @search_url = responsible_base_activities_search_tcc_one_path
