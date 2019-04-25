@@ -11,6 +11,7 @@ before_script:
   - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   - sudo apt-get update
   - sudo apt-get install -y imagemagick
+  - sudo apt-get install yarn
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -25,6 +26,7 @@ install:
   - bundle install
   - nvm install node
   - node -v
+  - yarn -v
   - yarn
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
