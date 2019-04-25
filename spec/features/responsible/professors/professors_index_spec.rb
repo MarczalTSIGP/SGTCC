@@ -14,7 +14,7 @@ describe 'Professor::index', type: :feature do
         professors.each do |professor|
           expect(page).to have_contents([professor.name,
                                          professor.email,
-                                         professor.username,
+                                         professor.lattes,
                                          short_date(professor.created_at)])
         end
       end

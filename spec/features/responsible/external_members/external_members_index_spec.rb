@@ -14,6 +14,7 @@ describe 'ExternalMember::index', type: :feature do
         external_members.each do |e|
           expect(page).to have_contents([e.name,
                                          e.email,
+                                         e.personal_page,
                                          short_date(e.created_at)])
         end
       end

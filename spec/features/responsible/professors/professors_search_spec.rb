@@ -19,7 +19,7 @@ describe 'Professor::search', type: :feature do
 
         expect(page).to have_contents([professor.name,
                                        professor.email,
-                                       professor.username,
+                                       professor.lattes,
                                        professor.created_at.strftime('%d/%m/%Y')])
       end
     end

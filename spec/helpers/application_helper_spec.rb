@@ -24,4 +24,14 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe '#external_link_to' do
+    context 'when receives the link' do
+      it 'show the link tag' do
+        link = 'https://www.test.com.br'
+        link_tag = "<a href=\"#{link}\" target=\"_blank\">#{link}</a>"
+        expect(helper.external_link_to(link)).to eql(link_tag)
+      end
+    end
+  end
 end
