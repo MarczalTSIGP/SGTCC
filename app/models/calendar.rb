@@ -22,30 +22,30 @@ class Calendar < ApplicationRecord
     "#{year}/#{semester_t}"
   end
 
+  def self.search_by_second_semester(calendar)
+    find_by(semester: 2, year: calendar.year, tcc: tccs[calendar.tcc])
+  end
+
+  def self.search_by_first_semester(calendar)
+    find_by(semester: 1, year: calendar.year, tcc: tccs[calendar.tcc])
+  end
+
+  def self.search_by_first_semester_next_year(calendar)
+    find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[calendar.tcc])
+  end
+
+  def self.search_by_second_semester_previous_year(calendar)
+    find_by(semester: 2, year: calendar.year.to_i - 1, tcc: tccs[calendar.tcc])
+  end
+
   def self.previous_semester(calendar)
-    year = calendar.year
-
-    if semesters[calendar.semester] == 2
-      semester = 1
-    else
-      semester = 2
-      year = year.to_i - 1
-    end
-
-    find_by(semester: semester, year: year, tcc: tccs[calendar.tcc])
+    return search_by_first_semester(calendar) if calendar.semester == 'two'
+    search_by_second_semester_previous_year(calendar)
   end
 
   def self.next_semester(calendar)
-    year = calendar.year
-
-    if semesters[calendar.semester] == 1
-      semester = 2
-    else
-      semester = 1
-      year = year.to_i + 1
-    end
-
-    find_by(semester: semester, year: year, tcc: tccs[calendar.tcc])
+    return search_by_second_semester(calendar) if calendar.semester == 'one'
+    search_by_first_semester_next_year(calendar)
   end
 
   def self.search_by_tcc(tcc, page, term)
