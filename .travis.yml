@@ -31,6 +31,7 @@ install:
   - nvm install node
   - node -v
   - yarn -v
+  - yarn global add yarn
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rails webpacker:compile
