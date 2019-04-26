@@ -36,4 +36,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.include ApplicationHelper
+  config.include DateHelper
 end

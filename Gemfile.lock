@@ -81,6 +81,10 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap4-datetime-picker-rails (0.3.1)
+      jquery-rails (~> 4.2, >= 4.2.0)
+      moment-timezone-rails (~> 1.0)
+      momentjs-rails (>= 2.10.5, <= 3.0.0)
     brakeman (4.3.1)
     breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
@@ -210,6 +214,10 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    moment-timezone-rails (1.0.0)
+      momentjs-rails (>= 2.10.5, <= 3.0.0)
+    momentjs-rails (2.20.1)
+      railties (>= 3.1)
     msgpack (1.2.4)
     nenv (0.3.0)
     net-ldap (0.16.1)
@@ -395,6 +403,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.1.1)
+  bootstrap4-datetime-picker-rails
   brakeman
   breadcrumbs_on_rails
   bullet
@@ -418,6 +427,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   mini_magick
+  momentjs-rails
   net-ldap
   pg (= 0.18.4)
   puma (~> 3.7)

@@ -2,7 +2,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   before_action :set_base_activity, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.base_activities.index'),
-                 :responsible_base_activities_path
+                 :responsible_base_activities_tcc_one_path
 
   add_breadcrumb I18n.t('breadcrumbs.base_activities.show'),
                  :responsible_base_activity_path,
@@ -16,19 +16,15 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
                  :edit_responsible_base_activity_path,
                  only: [:edit]
 
-  def index
-    redirect_to action: 'tcc_one'
-  end
-
   def tcc_one
-    @base_activities = BaseActivity.get_by_tcc('TCC 1', params[:term])
+    @base_activities = BaseActivity.by_tcc_one(params[:term])
     @search_url = responsible_base_activities_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @base_activities = BaseActivity.get_by_tcc('TCC 2', params[:term])
+    @base_activities = BaseActivity.by_tcc_two(params[:term])
     @search_url = responsible_base_activities_search_tcc_two_path
 
     render :index
@@ -46,23 +42,20 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
     @base_activity = BaseActivity.new(activity_params)
 
     if @base_activity.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: BaseActivity.model_name.human)
-
+      feminine_success_create_message
       redirect_to tcc_url
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def update
     if @base_activity.update(activity_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: BaseActivity.model_name.human)
+      feminine_success_update_message
       redirect_to responsible_base_activity_path(@base_activity)
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
@@ -71,9 +64,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
     back_url = tcc_url
     @base_activity.destroy
 
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: BaseActivity.model_name.human)
-
+    feminine_success_destroy_message
     redirect_to back_url
   end
 

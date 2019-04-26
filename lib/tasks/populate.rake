@@ -5,7 +5,7 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    [Academic, Institution, ExternalMember, BaseActivity].each(&:delete_all)
+    [Academic, Institution, ExternalMember, BaseActivity, Activity, Calendar].each(&:delete_all)
     Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
@@ -65,9 +65,22 @@ namespace :db do
     10.times do |index|
       BaseActivity.create(
         name: "Atividade base #{index}",
-        base_activity_type_id: BaseActivityType.pluck(:id).sample,
-        tcc: BaseActivity.tccs.values.sample
+        tcc: BaseActivity.tccs.values.sample,
+        base_activity_type_id: BaseActivityType.pluck(:id).sample
       )
     end
+
+    2.times do |index|
+      create_calendar(index, Calendar.tccs[:one])
+      create_calendar(index, Calendar.tccs[:two])
+    end
+  end
+
+  def create_calendar(index, tcc)
+    Calendar.create(
+      year: '2019',
+      semester: index + 1,
+      tcc: tcc
+    )
   end
 end

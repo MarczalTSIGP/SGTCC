@@ -1,0 +1,6 @@
+<% provide(:path, responsible_calendar_activity_path(@calendar, @activity)) %>
+
+<% provide(:page_title, t("breadcrumbs.tcc.#{@calendar.tcc}.edit")) %>
+<% provide(:head_title, t("breadcrumbs.tcc.#{@calendar.tcc}.edit")) %>
+
+<%= render 'responsible/activities/form' %>

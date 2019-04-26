@@ -33,11 +33,25 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :base_activities,
-                constraints: { id: /[0-9]+/ },
-                concerns: :paginatable
+                except: :index,
+                constraints: { id: /[0-9]+/ }
 
-      get 'base_activities/tcc/1', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
-      get 'base_activities/tcc/2', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
+      resources :calendars,
+                except: :index,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable do
+                  resources :activities
+                end
+
+      post 'calendars/activities/by-calendar',
+           to: 'activities#index_by_calendar',
+           as: 'calendar_activities_by_calendar'
+
+      get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
+      get 'calendars/tcc_two', to: 'calendars#tcc_two', as: 'calendars_tcc_two'
+
+      get 'base_activities/tcc_one', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
+      get 'base_activities/tcc_two', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -59,15 +73,25 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'base_activities/tcc/1/search/(:term)/(page/:page)',
+      get 'base_activities/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'base_activities#tcc_one',
           as: 'base_activities_search_tcc_one'
 
-      get 'base_activities/tcc/2/search/(:term)/(page/:page)',
+      get 'base_activities/tcc_two/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'base_activities#tcc_two',
           as: 'base_activities_search_tcc_two'
+
+      get 'calendars/tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'calendars#tcc_one',
+          as: 'calendars_search_tcc_one'
+
+      get 'calendars/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'calendars#tcc_two',
+          as: 'calendars_search_tcc_two'
     end
 
     namespace :professors do
