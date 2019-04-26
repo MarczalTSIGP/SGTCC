@@ -10,7 +10,6 @@ before_script:
   - curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
   - sudo apt-get update
   - sudo apt-get install -y imagemagick
-  - sudo apt-get install yarn
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
   - psql -c 'create database travis_ci_test;' -U postgres
