@@ -8,8 +8,6 @@ addons:
     update: true
 before_script:
   - sudo apt-get update
-  - sudo apt-get remove yarn
-  - sudo apt-get purge yarn
   - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
   - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   - sudo apt-get update -qq
@@ -35,8 +33,9 @@ install:
   - node -v
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - yarn install --check-files
   - bundle exec rails webpacker:compile
-  - yarn lint
+  - yarn run eslint --ext .vue --ext .js app/javascript
   - bundle exec rubocop
   - bundle exec rspec
 after_script:
