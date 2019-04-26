@@ -14,8 +14,8 @@ describe 'Professor::index', type: :feature do
         professors.each do |professor|
           expect(page).to have_contents([professor.name,
                                          professor.email,
-                                         professor.lattes,
                                          short_date(professor.created_at)])
+          expect(page).to have_selector("a[href='#{professor.lattes}']")
         end
       end
     end

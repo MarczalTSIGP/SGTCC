@@ -1,7 +1,11 @@
 <tr>
   <td><%= professor.name %></td>
   <td><%= professor.email %></td>
-  <td><%= external_link_to(professor.lattes) %></td>
+  <td>
+    <%= link_to professor.lattes, target: '_blank' do %>
+      <%= icon('fas', 'external-link-alt', 'data-toggle' => 'tooltip', title: 'lattes') %>
+    <% end %>
+  </td>
   <td><%= short_date(professor.created_at) %></td>
   <td>
     <%= link_to(responsible_professor_path(professor)) do %>

@@ -19,8 +19,9 @@ describe 'Professor::search', type: :feature do
 
         expect(page).to have_contents([professor.name,
                                        professor.email,
-                                       professor.lattes,
-                                       professor.created_at.strftime('%d/%m/%Y')])
+                                       short_date(professor.created_at)])
+
+        expect(page).to have_selector("a[href='#{professor.lattes}']")
       end
     end
 

@@ -27,7 +27,7 @@
       <strong>
         <%= ExternalMember.human_attribute_name('personal_page') %>:
       </strong>
-      <%= external_link_to(@external_member.personal_page) %>
+      <%= link_to(@external_member.personal_page, @external_member.personal_page, target: '_blank').html_safe %>
     </p>
     <p>
       <strong>

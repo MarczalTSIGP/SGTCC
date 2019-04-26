@@ -145,7 +145,7 @@ pt-BR:
         professor_type: "Vínculo"
         <<: *commons
       external_member:
-        personal_page: "Página pessoal (link)"
+        personal_page: "Página pessoal"
         external_member_type: "Tipo"
         company_responsible: "Responsável de empresa"
         <<: *commons
