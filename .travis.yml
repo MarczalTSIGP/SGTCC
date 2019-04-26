@@ -33,6 +33,7 @@ install:
   - node -v
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - rm yarn.lock
   - yarn install --check-files
   - bundle exec rails webpacker:compile
   - yarn run lint
