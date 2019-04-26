@@ -7,7 +7,7 @@ addons:
   apt:
     update: true
 before_script:
-  - curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version [1.15.2]
   - sudo apt-get update
   - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
@@ -28,7 +28,6 @@ install:
   - bundle install
   - nvm install node
   - node -v
-  - yarn -v
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rails webpacker:compile
