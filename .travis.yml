@@ -7,10 +7,8 @@ addons:
   apt:
     update: true
 before_script:
-  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - curl -fsSL https://raw.githubusercontent.com/tophat/yvm/master/scripts/install.sh | bash
   - sudo apt-get update
-  - sudo apt-get install --no-install-recommends yarn
   - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
@@ -30,6 +28,7 @@ install:
   - bundle install
   - nvm install node
   - node -v
+  - yvm use 1.15.2
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rails webpacker:compile
