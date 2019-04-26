@@ -31,8 +31,9 @@ install:
   - node -v
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - yarn install
   - bundle exec rails webpacker:compile
-  - yarn run eslint --ext .vue --ext .js app/javascript
+  - yarn run lint
   - bundle exec rubocop
   - bundle exec rspec
 after_script:
