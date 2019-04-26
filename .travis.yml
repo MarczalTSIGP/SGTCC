@@ -7,8 +7,9 @@ addons:
   apt:
     update: true
 before_script:
-  - curl -fsSL https://raw.githubusercontent.com/tophat/yvm/master/scripts/install.sh | bash
   - sudo apt-get update
+  - curl -fsSL https://raw.githubusercontent.com/tophat/yvm/master/scripts/install.sh | bash
+  - yvm use 1.15.2
   - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
@@ -28,7 +29,6 @@ install:
   - bundle install
   - nvm install node
   - node -v
-  - yvm use 1.15.2
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rails webpacker:compile
