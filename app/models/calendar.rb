@@ -11,7 +11,8 @@ class Calendar < ApplicationRecord
   validates :year,
             presence: true,
             format: { with: /\A\d{4}\z/ },
-            uniqueness: { scope: [:semester, :tcc], case_sensetive: false }
+            uniqueness: { scope: [:semester, :tcc], case_sensetive: false,
+                          message: I18n.t('activerecord.errors.models.calendar.attributes.year') }
 
   enum semester: { one: 1, two: 2 }, _prefix: :semester
 
@@ -49,7 +50,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.search_by_tcc(tcc, page, term)
-    where(tcc: tcc).page(page).search(term).order(:year, :semester)
+    where(tcc: tcc).page(page).search(term).order({ year: :desc }, :semester)
   end
 
   def self.search_by_tcc_one(page, term)
@@ -85,7 +86,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.select_data(tcc)
-    where(tcc: tcc).order(:year, :semester).map do |calendar|
+    where(tcc: tcc).order({ year: :desc }, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester]
     end
   end

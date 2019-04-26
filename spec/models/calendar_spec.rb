@@ -9,7 +9,9 @@ RSpec.describe Calendar, type: :model do
     it { is_expected.to validate_presence_of(:semester) }
 
     it 'validates uniqueness of year' do
-      is_expected.to validate_uniqueness_of(:year).scoped_to([:semester, :tcc]).case_insensitive
+      msg = I18n.t('activerecord.errors.models.calendar.attributes.year')
+      scp = [:semester, :tcc]
+      is_expected.to validate_uniqueness_of(:year).with_message(msg).scoped_to(scp).case_insensitive
     end
   end
 

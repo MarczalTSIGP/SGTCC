@@ -91,6 +91,9 @@ pt-BR:
           attributes:
             cnpj:
               invalid_cnpj: "inválido"
+        calendar:
+          attributes:
+            year: 'já está em uso para o TCC e semestre selecionado'
     models:
       professor:
         one: "Professor"
