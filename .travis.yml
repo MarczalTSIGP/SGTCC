@@ -28,6 +28,7 @@ rvm:
 install:
   - bundle install
   - nvm install node
+  - npm install -g node-gyp
   - node -v
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
