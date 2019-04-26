@@ -9,6 +9,7 @@ addons:
 before_script:
   - sudo apt-get update
   - curl -fsSL https://raw.githubusercontent.com/tophat/yvm/master/scripts/install.sh | bash
+  - chmod a+x $HOME/.yvm/yvm.sh
   - sudo apt-get install -y imagemagick
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
@@ -20,7 +21,6 @@ before_script:
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
-  - chmod a+x $HOME/.yvm/yvm.sh
 dist: trusty
 language: ruby
 rvm:
@@ -32,7 +32,7 @@ install:
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - yvm use 1.15.2
-  - yarn install --check-files
+  - yvm set-default 1.15.2
   - bundle exec rails webpacker:compile
   - yarn run eslint --ext .vue --ext .js app/javascript
   - bundle exec rubocop
