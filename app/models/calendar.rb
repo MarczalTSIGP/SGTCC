@@ -91,6 +91,14 @@ class Calendar < ApplicationRecord
     end
   end
 
+  def self.select_for_orientation
+    all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+      tcc = I18n.t("enums.tcc.#{calendar.tcc}")
+      calendar_label = "#{calendar.year_with_semester} - TCC: #{tcc}"
+      [calendar.id, calendar_label]
+    end
+  end
+
   def self.human_semesters
     hash = {}
     semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }

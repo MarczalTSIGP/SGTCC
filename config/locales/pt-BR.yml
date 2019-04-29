@@ -121,6 +121,9 @@ pt-BR:
       calendar:
         one: "Calendário"
         other: "Calendários"
+      orientation:
+        one: "Orientação"
+        other: "Orientações"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -170,6 +173,13 @@ pt-BR:
       calendar:
         semester: "Semestre"
         year: "Ano"
+        <<: *commons
+      orientation:
+        title: "Título"
+        calendar: "Calendário"
+        academic: "Acadêmico"
+        advisor: "Orientador"
+        institution: "Instituição"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

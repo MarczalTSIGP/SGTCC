@@ -1,0 +1,39 @@
+<% provide(:page_title, t('breadcrumbs.orientations.index')) %>
+<% provide(:head_title, t('breadcrumbs.orientations.index')) %>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-8 mb-2">
+  </div>
+  <div class="col-sm-12 col-lg-4">
+    <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.orientations.new') %>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @orientations %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('academic') %></th>
+        <th><%= Orientation.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @orientations.empty? %>
+      </tr>
+      <%= render @orientations %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @orientations %>
