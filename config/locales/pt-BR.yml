@@ -84,6 +84,11 @@ pt-BR:
         new: "Nova Atividade de TCC 2"
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
+    orientations:
+      index: "Orientações"
+      new: "Nova Orientação"
+      edit: "Editar Orientação"
+      show: "Visualizar Orientação"
   activerecord:
     errors:
       models:

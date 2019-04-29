@@ -77,3 +77,10 @@
     <%= t('breadcrumbs.tcc.two.index') %>
   <% end %>
 <% end %>
+
+<%= active_link_to('#', class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'user-tag') %>
+  </span>
+  <%= t('breadcrumbs.orientations.index') %>
+<% end %>
