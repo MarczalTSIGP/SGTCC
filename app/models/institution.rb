@@ -3,8 +3,7 @@ class Institution < ApplicationRecord
   include CNPJFormatter
 
   searchable :cnpj,
-             trade_name: { unaccent: true },
-             name: { unaccent: true }
+             trade_name: { unaccent: true }
 
   belongs_to :external_member
 

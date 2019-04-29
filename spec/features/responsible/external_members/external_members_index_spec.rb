@@ -15,6 +15,7 @@ describe 'ExternalMember::index', type: :feature do
           expect(page).to have_contents([e.name,
                                          e.email,
                                          short_date(e.created_at)])
+          expect(page).to have_selector("a[href='#{e.personal_page}']")
         end
       end
     end

@@ -27,7 +27,7 @@
       <strong>
         <%= Professor.human_attribute_name('lattes') %>:
       </strong>
-      <%= @professor.lattes %>
+      <%= link_to(@professor.lattes, @professor.lattes, target: '_blank').html_safe %>
     </p>
     <p>
       <strong>
