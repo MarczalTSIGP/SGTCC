@@ -17,7 +17,10 @@ class Responsible::OrientationsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @orientations = Orientation.page(params[:page]).order(:title)
+    @orientations = Orientation.page(params[:page])
+                               .search(params[:term])
+                               .includes(:academic)
+                               .order(:title)
   end
 
   def show; end

@@ -5,7 +5,14 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    [Academic, Institution, ExternalMember, BaseActivity, Activity, Calendar].each(&:delete_all)
+    [Academic,
+     Institution,
+     ExternalMember,
+     BaseActivity,
+     Activity,
+     Calendar,
+     Orientation].each(&:delete_all)
+
     Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
@@ -59,6 +66,16 @@ namespace :db do
         trade_name: Faker::Company.buzzword,
         cnpj: CNPJ.generate,
         external_member_id: ExternalMember.pluck(:id).sample
+      )
+    end
+
+    50.times do
+      Orientation.create(
+        title: Faker::Lorem.sentence(3),
+        calendar_id: Calendar.pluck(:id).sample,
+        advisor_id: Professor.pluck(:id).sample,
+        academic_id: Academic.pluck(:id).sample,
+        institution_id: Institution.pluck(:id).sample
       )
     end
 

@@ -20,5 +20,18 @@ describe 'Professor::destroy', type: :feature, js: true do
         expect(page).not_to have_content(professor.name)
       end
     end
+
+    context 'when professor has associations', js: true do
+      it 'show alert message' do
+        create(:orientation, advisor: professor)
+
+        click_on_destroy_link(responsible_professor_path(professor))
+        accept_alert
+
+        alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
+        expect(page).to have_flash(:warning, text: alert_message)
+        expect(page).to have_content(professor.name)
+      end
+    end
   end
 end

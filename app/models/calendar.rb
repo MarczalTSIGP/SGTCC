@@ -20,8 +20,11 @@ class Calendar < ApplicationRecord
   after_create :clone_base_activities
 
   def year_with_semester
-    semester_t = I18n.t("enums.semester.#{semester}")
-    "#{year}/#{semester_t}"
+    "#{year}/#{I18n.t("enums.semester.#{semester}")}"
+  end
+
+  def year_with_semester_and_tcc
+    "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
   def self.search_by_second_semester(calendar)
@@ -94,9 +97,7 @@ class Calendar < ApplicationRecord
 
   def self.select_for_orientation
     all.order({ year: :desc }, :tcc, :semester).map do |calendar|
-      tcc = I18n.t("enums.tcc.#{calendar.tcc}")
-      calendar_label = "#{calendar.year_with_semester} - TCC: #{tcc}"
-      [calendar.id, calendar_label]
+      [calendar.id, calendar.year_with_semester_and_tcc]
     end
   end
 
