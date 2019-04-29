@@ -35,7 +35,9 @@ RSpec.describe Professor, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
+    it { is_expected.to have_many(:roles).through(:assignments) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
+    it { is_expected.to have_many(:orientation).dependent(:restrict_with_error) }
   end
 
   describe '#human_genders' do

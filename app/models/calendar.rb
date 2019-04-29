@@ -5,6 +5,7 @@ class Calendar < ApplicationRecord
   searchable :year
 
   has_many :activities, dependent: :restrict_with_error
+  has_many :orientations, dependent: :restrict_with_error
 
   validates :tcc, presence: true
   validates :semester, presence: true

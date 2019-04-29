@@ -10,6 +10,7 @@ RSpec.describe Institution, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:external_member) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
   end
 
   describe 'formatted cnpj' do

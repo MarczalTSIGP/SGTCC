@@ -18,6 +18,10 @@ RSpec.describe Academic, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { is_expected.to have_one(:orientation).dependent(:restrict_with_error) }
+  end
+
   describe '#human_genders' do
     it 'returns the genders' do
       genders = Academic.genders

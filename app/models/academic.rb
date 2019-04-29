@@ -9,6 +9,8 @@ class Academic < ApplicationRecord
          :rememberable, :validatable,
          authentication_keys: [:ra]
 
+  has_one :orientation, dependent: :restrict_with_error
+
   validates :name,
             presence: true
 

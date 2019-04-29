@@ -41,6 +41,7 @@ RSpec.describe Calendar, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:activities).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
   end
 
   describe '#search' do
