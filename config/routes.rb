@@ -24,6 +24,10 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :orientations,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       resources :external_members,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable

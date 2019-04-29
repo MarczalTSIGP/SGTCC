@@ -1,0 +1,28 @@
+<%= simple_form_for [:responsible, @orientation] do |f| %>
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.association :calendar,
+      input_html: { data: 'selectize' },
+      collection: Calendar.select_for_orientation,
+      label_method: :second,
+      value_method: :first,
+      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('calendar')) %>
+    <%= f.association :academic,
+      input_html: { data: 'selectize' },
+      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
+    <%= f.association :advisor,
+      input_html: { data: 'selectize' },
+      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('advisor')) %>
+    <%= f.association :institution,
+      input_html: { data: 'selectize' },
+      label_method: :trade_name,
+      prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_orientations_path,
+      class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
