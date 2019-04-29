@@ -14,7 +14,10 @@ class Professor < ApplicationRecord
 
   has_many :assignments, dependent: :destroy
   has_many :roles, through: :assignments
-  has_many :orientation, as: :advisor, dependent: :restrict_with_error
+  has_many :orientation,
+           foreign_key: :advisor_id,
+           inverse_of: :advisor,
+           dependent: :restrict_with_error
 
   validates :name,
             presence: true

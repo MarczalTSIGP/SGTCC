@@ -77,6 +77,11 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
+      get 'orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#index',
+          as: 'orientations_search'
+
       get 'base_activities/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'base_activities#tcc_one',

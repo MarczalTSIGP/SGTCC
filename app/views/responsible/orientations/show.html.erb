@@ -17,6 +17,12 @@
     </p>
     <p>
       <strong>
+        <%= Orientation.human_attribute_name('academic') %>:
+      </strong>
+      <%= @orientation.academic.name %>
+    </p>
+    <p>
+      <strong>
         <%= Orientation.human_attribute_name('advisor') %>:
       </strong>
       <%= @orientation.advisor.name %>
