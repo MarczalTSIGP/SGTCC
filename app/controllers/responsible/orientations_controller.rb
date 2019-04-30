@@ -19,7 +19,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def index
     @orientations = Orientation.page(params[:page])
                                .search(params[:term])
-                               .includes(:academic)
+                               .includes(:advisor, :academic)
                                .order(:title)
   end
 

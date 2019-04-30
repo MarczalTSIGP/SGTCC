@@ -5,13 +5,13 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    [Academic,
+    [Orientation,
+     Academic,
      Institution,
      ExternalMember,
      BaseActivity,
      Activity,
-     Calendar,
-     Orientation].each(&:delete_all)
+     Calendar].each(&:delete_all)
 
     Professor.where.not(username: 'marczal').destroy_all
 
@@ -69,16 +69,6 @@ namespace :db do
       )
     end
 
-    50.times do
-      Orientation.create(
-        title: Faker::Lorem.sentence(3),
-        calendar_id: Calendar.pluck(:id).sample,
-        advisor_id: Professor.pluck(:id).sample,
-        academic_id: Academic.pluck(:id).sample,
-        institution_id: Institution.pluck(:id).sample
-      )
-    end
-
     10.times do |index|
       BaseActivity.create(
         name: "Atividade base #{index}",
@@ -90,6 +80,16 @@ namespace :db do
     2.times do |index|
       create_calendar(index, Calendar.tccs[:one])
       create_calendar(index, Calendar.tccs[:two])
+    end
+
+    50.times do |index|
+      Orientation.create(
+        title: "Orientation #{index}",
+        calendar_id: Calendar.pluck(:id).sample,
+        advisor_id: Professor.pluck(:id).sample,
+        academic_id: Academic.pluck(:id).sample,
+        institution_id: Institution.pluck(:id).sample
+      )
     end
   end
 

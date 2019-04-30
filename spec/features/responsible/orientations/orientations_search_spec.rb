@@ -17,6 +17,7 @@ describe 'Orientation::search', type: :feature do
         first('#search').click
 
         expect(page).to have_contents([orientation.title,
+                                       orientation.advisor.name,
                                        orientation.academic.name,
                                        short_date(orientation.created_at)])
       end
