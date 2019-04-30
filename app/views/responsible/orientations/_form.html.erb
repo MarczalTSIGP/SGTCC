@@ -1,18 +1,30 @@
 <%= simple_form_for [:responsible, @orientation] do |f| %>
   <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.association :calendar,
-      input_html: { data: 'selectize' },
-      collection: Calendar.select_for_orientation,
-      label_method: :second,
-      value_method: :first,
-      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('calendar')) %>
-    <%= f.association :academic,
-      input_html: { data: 'selectize' },
-      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
-    <%= f.association :advisor,
-      input_html: { data: 'selectize' },
-      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('advisor')) %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :title %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :calendar,
+          input_html: { data: 'selectize' },
+          collection: Calendar.select_for_orientation,
+          label_method: :second,
+          value_method: :first,
+          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('calendar')) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :academic,
+          input_html: { data: 'selectize' },
+          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :advisor,
+          input_html: { data: 'selectize' },
+          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('advisor')) %>
+      </div>
+    </div>
     <%= f.association :institution,
       input_html: { data: 'selectize' },
       label_method: :trade_name,
