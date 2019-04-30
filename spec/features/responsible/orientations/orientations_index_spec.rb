@@ -15,6 +15,7 @@ describe 'Orientation::index', type: :feature do
 
         orientations.each do |orientation|
           expect(page).to have_contents([orientation.title,
+                                         orientation.advisor.name,
                                          orientation.academic.name,
                                          short_date(orientation.created_at)])
         end
