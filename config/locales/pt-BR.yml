@@ -1,8 +1,23 @@
 pt-BR:
   time:
+    deadline: "De %{initial_date} à %{final_date}"
     formats:
       short: '%d/%m/%Y'
+      month: '%m'
+      year: '%Y'
+      datetime: '%d/%m/%Y %-H:%M'
   views:
+    title:
+      calendar:
+        tcc:
+          one: "Calendário de Atividades do TCC 1 (%{calendar})"
+          two: "Calendário de Atividades do TCC 2 (%{calendar})"
+    tabs:
+      tcc:
+        one: 'TCC 1'
+        two: 'TCC 2'
+    buttons:
+      select: 'Selecionar'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -39,6 +54,9 @@ pt-BR:
       show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
+      new: "Novo Calendário"
+      edit: "Editar Calendário"
+      show: "Visualizar Calendário"
     meetings:
       index: "Reuniões"
     examination_boards:
@@ -50,6 +68,22 @@ pt-BR:
       new: "Nova Atividade base"
       edit: "Editar Atividade base"
       show: "Visualizar Atividade base"
+    activities:
+      index: "Atividades"
+      new: "Nova Atividade"
+      edit: "Editar Atividade"
+      show: "Visualizar Atividade"
+    tcc:
+      one:
+        index: "Atividades de TCC 1"
+        new: "Nova Atividade de TCC 1"
+        edit: "Editar Atividade de TCC 1"
+        show: "Visualizar Atividade de TCC 1"
+      two:
+        index: "Atividades de TCC 2"
+        new: "Nova Atividade de TCC 2"
+        edit: "Editar Atividade de TCC 2"
+        show: "Visualizar Atividade de TCC 2"
   activerecord:
     errors:
       models:
@@ -57,6 +91,9 @@ pt-BR:
           attributes:
             cnpj:
               invalid_cnpj: "inválido"
+        calendar:
+          attributes:
+            year: 'já está em uso para o TCC e semestre selecionado'
     models:
       professor:
         one: "Professor"
@@ -73,6 +110,12 @@ pt-BR:
       base_activity:
         one: "Atividade base"
         other: "Atividades base"
+      activity:
+        one: "Atividade"
+        other: "Atividades"
+      calendar:
+        one: "Calendário"
+        other: "Calendários"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -88,7 +131,10 @@ pt-BR:
         working_area: "Área de atuação"
         is_active: "Ativo no sistema"
         scholarity: "Escolaridade"
+        base_activity_type: "Tipo"
         role: "Papel"
+        tcc: "TCC"
+        deadline: "Prazo"
       academic:
         ra: "RA"
         <<: *commons
@@ -96,10 +142,10 @@ pt-BR:
         roles: "Papéis"
         profile_image: "Imagem do perfil"
         available_advisor: "Disponível para orientação"
-        professor_type: "Tipo"
+        professor_type: "Vínculo"
         <<: *commons
       external_member:
-        personal_page: "Página pessoal (link)"
+        personal_page: "Página pessoal"
         external_member_type: "Tipo"
         company_responsible: "Responsável de empresa"
         <<: *commons
@@ -110,8 +156,15 @@ pt-BR:
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
       base_activity:
-        base_activity_type: "Tipo"
-        tcc: "TCC"
+        <<: *commons
+      activity:
+        calendar: "Calendário"
+        initial_date: "Data inicial de entrega"
+        final_date: "Data final de entrega"
+        <<: *commons
+      calendar:
+        semester: "Semestre"
+        year: "Ano"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -140,11 +193,14 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+    semester:
+      one: '1'
+      two: '2'
   flash:
     actions:
       update:
-        m: '%{resource_name} Atualizado com sucesso!'
-        f: '%{resource_name} Atualizada com sucesso!'
+        m: '%{resource_name} atualizado com sucesso!'
+        f: '%{resource_name} atualizada com sucesso!'
       create:
         m: '%{resource_name} criado com sucesso!'
         f: '%{resource_name} criada com sucesso!'

@@ -12,7 +12,7 @@ describe 'Institution::index', type: :feature do
         visit responsible_institutions_path
 
         institutions.each do |institution|
-          expect(page).to have_contents([institution.name,
+          expect(page).to have_contents([institution.external_member.name,
                                          institution.trade_name,
                                          institution.cnpj.formatted,
                                          short_date(institution.created_at)])

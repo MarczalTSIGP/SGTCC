@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="mb-2 col-12 col-sm-8">
+    <div class="row">
+      <div class="col-12 col-md-2 col-sm-1">
+        <% if Calendar.previous_semester(@calendar) %>
+          <%= link_to(responsible_calendar_activities_path(Calendar.previous_semester(@calendar)),
+                      id: 'previous_calendar',
+                      class: 'btn btn-outline-primary btn-block') do %>
+            <i class="fe fe-chevrons-left"></i>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col-12 col-md-8 col-sm-10" id="select-activity-calendar">
+        <%= render 'activity_calendar_select' %>
+      </div>
+
+      <div class="col-12 col-md-2 col-sm-1">
+        <% if Calendar.next_semester(@calendar) %>
+          <%= link_to(responsible_calendar_activities_path(Calendar.next_semester(@calendar)),
+                      id: 'next_calendar',
+                      class: 'btn btn-outline-primary btn-block') do %>
+            <i class="fe fe-chevrons-right"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-4 mb-5">
+    <%= link_to(new_responsible_calendar_activity_path(@calendar), class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.activities.new') %>
+    <% end %>
+  </div>
+</div>
+

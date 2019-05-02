@@ -1,0 +1,17 @@
+<div class="mb-2">
+  <%= simple_form_for(Activity.model_name.param_key, url: responsible_calendar_activities_by_calendar_path) do |f| %>
+    <%= f.input :calendar,
+      as: :select,
+      collection: Calendar.select_data(@calendar.tcc),
+      class: 'form-control',
+      input_html: { data: 'calendar-selectize' },
+      label: false,
+      label_method: :second,
+      value_method: :first,
+      selected: @calendar.id,
+      prompt: t('prompt.select.f', name: Activity.human_attribute_name('calendar')) %>
+    <%= f.button :submit, '', class: 'd-none' %>
+  <% end %>
+</div>
+
+

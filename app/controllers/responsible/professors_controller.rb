@@ -1,6 +1,5 @@
 class Responsible::ProfessorsController < Responsible::BaseController
   before_action :set_professor, only: [:show, :edit, :update, :destroy]
-  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.index'),
                  :responsible_professors_path
@@ -34,27 +33,27 @@ class Responsible::ProfessorsController < Responsible::BaseController
     @professor.define_singleton_method(:password_required?) { false }
 
     if @professor.save
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
+      success_create_message
       redirect_to responsible_professors_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def update
     if @professor.update(professor_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
+      success_update_message
       redirect_to responsible_professor_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+    success_destroy_message
 
     redirect_to responsible_professors_url
   end
@@ -63,10 +62,6 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def set_professor
     @professor = Professor.find(params[:id])
-  end
-
-  def set_resource_name
-    @resource_name = Professor.model_name.human
   end
 
   def professor_params

@@ -38,10 +38,42 @@
   <%= t('breadcrumbs.institutions.index') %>
 <% end %>
 
-<%= active_link_to(responsible_base_activities_path, class: 'list-group-item list-group-item-action') do %>
+<%= active_link_to(responsible_base_activities_tcc_one_path,
+		   active: base_activities_link_active?,
+		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('fas', 'file-signature') %>
   </span>
   <%= t('breadcrumbs.base_activities.index') %>
 <% end %>
 
+<%= active_link_to(responsible_calendars_tcc_one_path,
+		   active: calendars_link_active?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'calendar-plus') %>
+  </span>
+  <%= t('breadcrumbs.calendars.index') %>
+<% end %>
+
+<% if Calendar.current_by_tcc_one %>
+  <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_one.id),
+		     active: activities_tcc_one_link_active?,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'file-alt') %>
+    </span>
+    <%= t('breadcrumbs.tcc.one.index') %>
+  <% end %>
+<% end %>
+
+<% if Calendar.current_by_tcc_two %>
+  <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_two.id),
+		     active: activities_tcc_two_link_active?,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'file-alt') %>
+    </span>
+    <%= t('breadcrumbs.tcc.two.index') %>
+  <% end %>
+<% end %>

@@ -11,13 +11,13 @@ describe 'Institution::search', type: :feature do
 
   describe '#search' do
     context 'when finds the institution' do
-      it 'finds the institution by the name', js: true do
+      it 'finds the institution by the trade name', js: true do
         institution = institutions.first
 
-        fill_in 'term', with: institution.name
+        fill_in 'term', with: institution.trade_name
         first('#search').click
 
-        expect(page).to have_contents([institution.name,
+        expect(page).to have_contents([institution.external_member.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,
                                        short_date(institution.created_at)])

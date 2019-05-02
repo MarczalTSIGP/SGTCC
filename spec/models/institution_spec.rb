@@ -16,11 +16,6 @@ RSpec.describe Institution, type: :model do
     let(:institution) { create(:institution) }
 
     context 'when finds institution by attributes' do
-      it 'returns institution by name' do
-        results_search = Institution.search(institution.name)
-        expect(institution.name).to eq(results_search.first.name)
-      end
-
       it 'returns institution by trade name' do
         results_search = Institution.search(institution.trade_name)
         expect(institution.trade_name).to eq(results_search.first.trade_name)
@@ -32,43 +27,43 @@ RSpec.describe Institution, type: :model do
       end
     end
 
-    context 'when finds institution by name with accents' do
+    context 'when finds institution by trade name with accents' do
       it 'returns institution' do
-        institution = create(:institution, name: 'Instituição')
+        institution = create(:institution, trade_name: 'Instituição')
         results_search = Institution.search('Instituicao')
-        expect(institution.name).to eq(results_search.first.name)
+        expect(institution.trade_name).to eq(results_search.first.trade_name)
       end
     end
 
-    context 'when finds institution by name on search term with accents' do
+    context 'when finds institution by trade name on search term with accents' do
       it 'returns institution' do
-        institution = create(:institution, name: 'Instituicao')
+        institution = create(:institution, trade_name: 'Instituicao')
         results_search = Institution.search('Instituição')
-        expect(institution.name).to eq(results_search.first.name)
+        expect(institution.trade_name).to eq(results_search.first.trade_name)
       end
     end
 
-    context 'when finds institution by name ignoring the case sensitive' do
+    context 'when finds institution by trade name ignoring the case sensitive' do
       it 'returns institution by attribute' do
-        institution = create(:institution, name: 'Ins')
+        institution = create(:institution, trade_name: 'Ins')
         results_search = Institution.search('ins')
-        expect(institution.name).to eq(results_search.first.name)
+        expect(institution.trade_name).to eq(results_search.first.trade_name)
       end
 
       it 'returns institution by search term' do
-        institution = create(:institution, name: 'ins')
+        institution = create(:institution, trade_name: 'ins')
         results_search = Institution.search('INS')
-        expect(institution.name).to eq(results_search.first.name)
+        expect(institution.trade_name).to eq(results_search.first.trade_name)
       end
     end
 
     context 'when returns institutions ordered by name' do
       it 'returns ordered' do
         create_list(:institution, 30)
-        institutions_ordered = Institution.order(:name)
+        institutions_ordered = Institution.order(:trade_name)
         institution = institutions_ordered.first
-        results_search = Institution.search.order(:name)
-        expect(institution.name). to eq(results_search.first.name)
+        results_search = Institution.search.order(:trade_name)
+        expect(institution.trade_name). to eq(results_search.first.trade_name)
       end
     end
 

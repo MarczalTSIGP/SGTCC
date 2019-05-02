@@ -27,7 +27,7 @@ describe 'BaseActivity::create', type: :feature do
 
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
 
-        success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
@@ -44,7 +44,7 @@ describe 'BaseActivity::create', type: :feature do
 
         expect(page).to have_current_path responsible_base_activities_tcc_two_path
 
-        success_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end

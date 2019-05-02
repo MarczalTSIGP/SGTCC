@@ -9,11 +9,11 @@ describe 'Institution::pagination', type: :feature do
 
         create_list(:institution, 30)
         visit responsible_institutions_path
-        institution = Institution.order(:name).last
+        institution = Institution.order(:trade_name).last
 
         click_link(2)
 
-        expect(page).to have_contents([institution.name,
+        expect(page).to have_contents([institution.external_member.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,
                                        short_date(institution.created_at)])
