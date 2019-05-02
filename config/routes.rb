@@ -105,6 +105,15 @@ Rails.application.routes.draw do
 
     namespace :professors do
       root to: 'dashboard#index'
+
+      resources :orientations,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#index',
+          as: 'orientations_search'
     end
   end
 
@@ -164,6 +173,14 @@ Rails.application.routes.draw do
   authenticate :academic do
     namespace :academics do
       root to: 'dashboard#index'
+
+      get '/calendars/(:calendar_id)/activities',
+          to: 'activities#index',
+          as: 'calendar_activities'
+
+      get '/calendars/(:calendar_id)/activities/(:id)',
+          to: 'activities#show',
+          as: 'calendar_activity'
     end
   end
 

@@ -15,7 +15,7 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*)
-    path = 'default/' + [version_name, 'default-user.png'].compact.join('_')
+    path = 'default/default-user.png'
     ActionController::Base.helpers.asset_path(path)
   end
 

@@ -1,0 +1,50 @@
+<% provide(:page_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+<% provide(:head_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+
+<div class="card card-profile">
+  <div class="card-body text-center">
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('name') %>:
+      </strong>
+      <%= @activity.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('base_activity_type') %>:
+      </strong>
+      <%= @activity.base_activity_type.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('tcc') %>:
+      </strong>
+      <%= t("enums.tcc.#{@activity.tcc}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('deadline') %>:
+      </strong>
+      <%= @activity.deadline %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@activity.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@activity.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    academics_calendar_activities_path(@calendar),
+    class: 'btn btn-secondary' %>
+</div>
+
