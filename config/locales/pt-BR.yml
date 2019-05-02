@@ -26,7 +26,7 @@ pt-BR:
       truncate: "&hellip;"
     sidebar:
       responsible: "Responsável"
-      orientations: "Orientações"
+      advisor: "Orientador"
       tcc_one: "TCC 1"
       academics: "Acadêmico"
       external_members: "Membro Externo"
@@ -180,6 +180,7 @@ pt-BR:
         academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição"
+        orientation_supervisors: "Coorientadores"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -252,6 +253,7 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+      multiple: 'Selecionar %{name}'
   mailer:
     login: 'Acessar sistema'
     external_member:

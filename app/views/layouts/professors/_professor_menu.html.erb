@@ -1,6 +1,6 @@
 <span class="sidebar-heading pl-0 pt-2 pb-2">
   <%= icon('fas', 'users', class: 'mr-2') %>
-  <%= t('views.sidebar.orientations') %>
+  <%= t('views.sidebar.advisor') %>
 </span>
 
 <%= active_link_to(professors_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
@@ -8,4 +8,11 @@
     <%= icon('fas', 'home') %>
   </span>
   <%= t('breadcrumbs.homepage') %>
+<% end %>
+
+<%= active_link_to(professors_orientations_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.index') %>
 <% end %>

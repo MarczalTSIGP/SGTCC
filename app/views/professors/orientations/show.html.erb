@@ -27,14 +27,12 @@
       </strong>
       <%= @orientation.advisor.name %>
     </p>
-    <% if @orientation.institution %>
-      <p>
-        <strong>
-          <%= Orientation.human_attribute_name('institution') %>:
-        </strong>
-        <%= @orientation.institution.trade_name %>
-    <  /p>
-    <% end %>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('institution') %>:
+      </strong>
+      <%= @orientation.institution.trade_name %>
+    </p>
     <p>
       <strong>
         <%= Orientation.human_attribute_name('created_at') %>:
@@ -52,11 +50,11 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_orientations_path,
+    professors_orientations_path,
     class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),
-    edit_responsible_orientation_path(@orientation),
+    edit_professors_orientation_path(@orientation),
     class: 'btn btn-primary ml-auto' %>
 </div>
 

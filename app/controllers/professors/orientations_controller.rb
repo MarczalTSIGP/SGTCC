@@ -1,26 +1,26 @@
-class Responsible::OrientationsController < Responsible::BaseController
+class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :responsible_orientations_path
+                 :professors_orientations_path
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.show'),
-                 :responsible_orientation_path,
+                 :professors_orientation_path,
                  only: [:show]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
-                 :new_responsible_orientation_path,
+                 :new_professors_orientation_path,
                  only: [:new]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.edit'),
-                 :edit_responsible_orientation_path,
+                 :edit_professors_orientation_path,
                  only: [:edit]
 
   def index
     @orientations = Orientation.page(params[:page])
                                .search(params[:term])
                                .includes(:advisor, :academic)
-                               .order(:title)
+                               .order(created_at: :desc)
   end
 
   def show; end
@@ -36,7 +36,7 @@ class Responsible::OrientationsController < Responsible::BaseController
 
     if @orientation.save
       feminine_success_create_message
-      redirect_to responsible_orientations_path
+      redirect_to professors_orientations_path
     else
       error_message
       render :new
@@ -46,7 +46,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def update
     if @orientation.update(orientation_params)
       feminine_success_update_message
-      redirect_to responsible_orientation_path(@orientation)
+      redirect_to professors_orientation_path(@orientation)
     else
       error_message
       render :edit
@@ -57,7 +57,7 @@ class Responsible::OrientationsController < Responsible::BaseController
     @orientation.destroy
     feminine_success_destroy_message
 
-    redirect_to responsible_orientations_path
+    redirect_to professors_orientations_path
   end
 
   private
