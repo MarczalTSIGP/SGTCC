@@ -1,9 +1,7 @@
 <%= simple_form_for [:responsible, @orientation] do |f| %>
   <div class="form-inputs">
+    <%= f.input :title %>
     <div class="row">
-      <div class="col-sm-6">
-        <%= f.input :title %>
-      </div>
       <div class="col-sm-6">
         <%= f.association :calendar,
           input_html: { data: 'selectize' },
@@ -12,31 +10,42 @@
           value_method: :first,
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('calendar')) %>
       </div>
-    </div>
-    <div class="row">
       <div class="col-sm-6">
         <%= f.association :academic,
           input_html: { data: 'selectize' },
+          collection: Academic.all.order(:name),
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm-6">
         <%= f.association :advisor,
           input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('advisor')) %>
       </div>
+      <div class="col-sm-6">
+        <%= f.association :institution,
+          input_html: { data: 'selectize' },
+          collection: Institution.all.order(:trade_name),
+          label_method: :trade_name,
+          prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
+      </div>
     </div>
-    <%= f.association :institution,
-      input_html: { data: 'selectize' },
-      label_method: :trade_name,
-      prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
-
-    <%= f.association :professor_supervisors,
-      input_html: { data: 'selectize' },
-      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('professor_supervisors')) %>
-
-    <%= f.association :external_member_supervisors,
-      input_html: { data: 'selectize' },
-      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('external_member_supervisors')) %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :professor_supervisors,
+          input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
+          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('professor_supervisors')) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :external_member_supervisors,
+          input_html: { data: 'selectize' },
+          collection: ExternalMember.all.order(:name),
+          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('external_member_supervisors')) %>
+      </div>
+    </div>
   </div>
 
   <div class="d-flex">

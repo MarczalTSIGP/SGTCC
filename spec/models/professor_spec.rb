@@ -39,7 +39,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:roles).through(:assignments) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:orientation_supervisors).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_fk) }
   end
 
   describe '#human_genders' do

@@ -20,7 +20,8 @@ class Professor < ApplicationRecord
            inverse_of: :advisor,
            dependent: :restrict_with_error
 
-  has_many :orientation_supervisors,
+  has_many :professor_supervisors,
+           class_name: 'OrientationSupervisor',
            foreign_key: :professor_supervisor_id,
            inverse_of: :professor_supervisor,
            dependent: :restrict_with_error
