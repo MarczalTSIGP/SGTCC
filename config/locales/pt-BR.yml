@@ -179,8 +179,8 @@ pt-BR:
         calendar: "Calendário"
         academic: "Acadêmico"
         advisor: "Orientador"
-        institution: "Instituição"
-        professor_supervisors: "Coorientadores da instituição"
+        institution: "Instituição externa"
+        professor_supervisors: "Coorientadores"
         external_member_supervisors: "Coorientadores externos"
         <<: *commons
   helpers:

@@ -28,10 +28,10 @@ RSpec.describe ExternalMember, type: :model do
   end
 
   describe 'associations' do
-    external_member_fk = 'external_member_supervisor_id'
+    em_fk = 'external_member_supervisor_id'
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:orientation_supervisors).with_foreign_key(external_member_fk) }
+    it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(em_fk) }
   end
 
   describe '#human_genders' do
