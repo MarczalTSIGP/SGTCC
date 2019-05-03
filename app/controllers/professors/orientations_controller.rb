@@ -69,7 +69,9 @@ class Professors::OrientationsController < Professors::BaseController
   def orientation_params
     params.require(:orientation).permit(
       :title, :calendar_id, :academic_id,
-      :advisor_id, :institution_id
+      :advisor_id, :institution_id,
+      professor_supervisor_ids: [],
+      external_member_supervisor_ids: []
     )
   end
 end
