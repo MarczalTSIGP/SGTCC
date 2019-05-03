@@ -12,12 +12,17 @@
     padding-left: 0;
   }
 
-  @media (max-width: 1060px) {
-    a.list-group-item.list-group-item-action {
-      width: 85%;
-    }
+  @media (min-width: 768px) {
+    flex: 0 0 25%;
+    max-width: 25%;
+    width: 24%;
   }
 
+  @media (min-width: 992px) {
+    flex: 0 0 16.66666667% !important;
+    max-width: 16.66666667% !important;
+    width: 16%;
+  }
 }
 
 .sidebar-heading {
