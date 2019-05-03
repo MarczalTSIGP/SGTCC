@@ -20,7 +20,7 @@ describe 'Orientation::destroy', type: :feature do
 
         success_message = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
-        expect(page).not_to have_content(orientation.title)
+        expect(page).not_to have_content(orientation.short_title)
       end
     end
   end

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Orientation::search', type: :feature do
   let(:responsible) { create(:responsible) }
-  let(:orientations) { create_list(:orientation, 2) }
+  let(:orientations) { create_list(:orientation_tcc_one, 2) }
 
   before do
     login_as(responsible, scope: :professor)
-    visit responsible_orientations_path
+    visit responsible_orientations_tcc_one_path
   end
 
   describe '#search', js: true do
@@ -16,10 +16,10 @@ describe 'Orientation::search', type: :feature do
         fill_in 'term', with: orientation.title
         first('#search').click
 
-        expect(page).to have_contents([orientation.title,
+        expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
                                        orientation.academic.name,
-                                       short_date(orientation.created_at)])
+                                       orientation.calendar.year_with_semester_and_tcc])
       end
     end
 

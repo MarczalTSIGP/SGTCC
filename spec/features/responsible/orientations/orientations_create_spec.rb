@@ -28,7 +28,7 @@ describe 'Orientation::create', type: :feature do
         find('div.selectize-dropdown-content', text: professor.name).click
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_orientations_path
+        expect(page).to have_current_path responsible_orientations_tcc_one_path
         success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: success_message)
         expect(page).to have_message(attributes[:name], in: 'table tbody')

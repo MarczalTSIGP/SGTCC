@@ -5,5 +5,13 @@ FactoryBot.define do
     calendar
     academic
     institution
+
+    factory :orientation_tcc_one do
+      calendar { create(:calendar_tcc_one) }
+    end
+
+    factory :orientation_tcc_two do
+      calendar { create(:calendar_tcc_two) }
+    end
   end
 end

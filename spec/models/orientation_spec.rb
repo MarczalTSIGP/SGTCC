@@ -15,6 +15,20 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors) }
   end
 
+  describe '#short_title' do
+    it 'returns the short title' do
+      title = 'title' * 40
+      orientation = create(:orientation, title: title)
+      expect(orientation.short_title).to eq("#{title[0..35]}...")
+    end
+
+    it 'returns the title' do
+      title = 'title'
+      orientation = create(:orientation, title: title)
+      expect(orientation.short_title).to eq(title)
+    end
+  end
+
   describe '#search' do
     let(:orientation) { create(:orientation) }
 

@@ -17,10 +17,21 @@ class Responsible::OrientationsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @orientations = Orientation.page(params[:page])
-                               .search(params[:term])
-                               .includes(:advisor, :academic)
-                               .order(:title)
+    redirect_to action: :tcc_one
+  end
+
+  def tcc_one
+    @orientations = Orientation.by_tcc_one(params[:page], params[:term])
+    @search_url = responsible_orientations_search_tcc_one_path
+
+    render :index
+  end
+
+  def tcc_two
+    @orientations = Orientation.by_tcc_two(params[:page], params[:term])
+    @search_url = responsible_orientations_search_tcc_two_path
+
+    render :index
   end
 
   def show; end
