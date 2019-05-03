@@ -26,6 +26,18 @@ class Orientation < ApplicationRecord
   scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
   scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
 
+  scope :current_tcc_one, lambda {
+    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one],
+                                        year: Calendar.current_year,
+                                        semester: Calendar.current_semester })
+  }
+
+  scope :current_tcc_two, lambda {
+    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two],
+                                        year: Calendar.current_year,
+                                        semester: Calendar.current_semester })
+  }
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
@@ -44,5 +56,21 @@ class Orientation < ApplicationRecord
                .search(term)
                .includes(:advisor, :academic, :calendar)
                .order(created_at: :desc)
+  end
+
+  def self.by_current_tcc_one(page, term)
+    Orientation.current_tcc_one
+               .page(page)
+               .search(term)
+               .includes(:advisor, :academic, :calendar)
+               .order('academics.name')
+  end
+
+  def self.by_current_tcc_two(page, term)
+    Orientation.current_tcc_two
+               .page(page)
+               .search(term)
+               .includes(:advisor, :academic, :calendar)
+               .order('academics.name')
   end
 end
