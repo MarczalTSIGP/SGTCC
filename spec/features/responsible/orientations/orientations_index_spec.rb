@@ -6,18 +6,33 @@ describe 'Orientation::index', type: :feature do
     login_as(responsible, scope: :professor)
   end
 
-  describe '#index' do
-    context 'when shows all the orientations' do
-      it 'shows all the orientations with options', js: true do
-        orientations = create_list(:orientation, 3)
+  describe '#index', js: true do
+    context 'when shows all the orientations of tcc one calendar' do
+      it 'shows all the orientations of tcc one with options' do
+        orientations = create_list(:orientation_tcc_one, 3)
 
-        visit responsible_orientations_path
+        visit responsible_orientations_tcc_one_path
 
         orientations.each do |orientation|
-          expect(page).to have_contents([orientation.title,
+          expect(page).to have_contents([orientation.short_title,
                                          orientation.advisor.name,
                                          orientation.academic.name,
-                                         short_date(orientation.created_at)])
+                                         orientation.calendar.year_with_semester_and_tcc])
+        end
+      end
+    end
+
+    context 'when shows all the orientations of tcc two calendar' do
+      it 'shows all the orientations of tcc two with options' do
+        orientations = create_list(:orientation_tcc_two, 3)
+
+        visit responsible_orientations_tcc_two_path
+
+        orientations.each do |orientation|
+          expect(page).to have_contents([orientation.short_title,
+                                         orientation.advisor.name,
+                                         orientation.academic.name,
+                                         orientation.calendar.year_with_semester_and_tcc])
         end
       end
     end

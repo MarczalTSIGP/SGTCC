@@ -13,10 +13,10 @@ describe 'Orientation::index', type: :feature do
     context 'when shows all the orientations' do
       it 'shows all the orientations with options', js: true do
         orientations.each do |orientation|
-          expect(page).to have_contents([orientation.title,
+          expect(page).to have_contents([orientation.short_title,
                                          orientation.advisor.name,
                                          orientation.academic.name,
-                                         short_date(orientation.created_at)])
+                                         orientation.calendar.year_with_semester_and_tcc])
         end
       end
     end

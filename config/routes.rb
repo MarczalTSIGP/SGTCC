@@ -57,6 +57,9 @@ Rails.application.routes.draw do
       get 'base_activities/tcc_one', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc_two', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 
+      get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
+      get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
@@ -77,10 +80,15 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'orientations/search/(:term)/(page/:page)',
+      get 'orientations/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
-          to: 'orientations#index',
-          as: 'orientations_search'
+          to: 'orientations#tcc_one',
+          as: 'orientations_search_tcc_one'
+
+      get 'orientations/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#tcc_two',
+          as: 'orientations_search_tcc_two'
 
       get 'base_activities/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },

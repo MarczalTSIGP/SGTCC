@@ -19,7 +19,7 @@ class Professors::OrientationsController < Professors::BaseController
   def index
     @orientations = Orientation.page(params[:page])
                                .search(params[:term])
-                               .includes(:advisor, :academic)
+                               .includes(:advisor, :academic, :calendar)
                                .order(created_at: :desc)
   end
 
