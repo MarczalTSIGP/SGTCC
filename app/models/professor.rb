@@ -21,8 +21,8 @@ class Professor < ApplicationRecord
            dependent: :restrict_with_error
 
   has_many :orientation_supervisors,
-           foreign_key: :supervisor_id,
-           inverse_of: :supervisor,
+           foreign_key: :professor_supervisor_id,
+           inverse_of: :professor_supervisor,
            dependent: :restrict_with_error
 
   validates :name,

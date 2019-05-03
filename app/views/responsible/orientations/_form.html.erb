@@ -29,6 +29,14 @@
       input_html: { data: 'selectize' },
       label_method: :trade_name,
       prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
+
+    <%= f.association :professor_supervisors,
+      input_html: { data: 'selectize' },
+      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('professor_supervisors')) %>
+
+    <%= f.association :external_member_supervisors,
+      input_html: { data: 'selectize' },
+      prompt: t('prompt.select.m', name: Orientation.human_attribute_name('external_member_supervisors')) %>
   </div>
 
   <div class="d-flex">

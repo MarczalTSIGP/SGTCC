@@ -180,7 +180,8 @@ pt-BR:
         academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição"
-        orientation_supervisors: "Coorientadores"
+        professor_supervisors: "Coorientadores da instituição"
+        external_member_supervisors: "Coorientadores externos"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

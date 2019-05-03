@@ -8,9 +8,11 @@ RSpec.describe Orientation, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:calendar) }
     it { is_expected.to belong_to(:academic) }
-    it { is_expected.to belong_to(:advisor).class_name(Professor.to_s) }
+    it { is_expected.to belong_to(:advisor).class_name('Professor') }
     it { is_expected.to belong_to(:institution) }
-    it { is_expected.to have_many(:orientation_supervisors) }
+    it { is_expected.to have_many(:orientation_supervisors).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:professor_supervisors).through(:orientation_supervisors) }
+    it { is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors) }
   end
 
   describe '#search' do

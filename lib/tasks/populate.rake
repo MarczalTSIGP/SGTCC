@@ -5,7 +5,8 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    [Orientation,
+    [OrientationSupervisor,
+     Orientation,
      Academic,
      Institution,
      ExternalMember,

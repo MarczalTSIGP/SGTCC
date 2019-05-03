@@ -11,6 +11,10 @@ class ExternalMember < ApplicationRecord
 
   belongs_to :scholarity
   has_many :institutions, dependent: :restrict_with_error
+  has_many :orientation_supervisors,
+           foreign_key: :external_member_supervisor_id,
+           inverse_of: :external_member_supervisor,
+           dependent: :restrict_with_error
 
   validates :name,
             presence: true
