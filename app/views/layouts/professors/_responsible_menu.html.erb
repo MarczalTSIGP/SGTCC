@@ -84,3 +84,17 @@
   </span>
   <%= t('breadcrumbs.orientations.index') %>
 <% end %>
+
+<%= active_link_to(responsible_orientations_current_tcc_one_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.tcc.one.index') %>
+<% end %>
+
+<%= active_link_to(responsible_orientations_current_tcc_two_path, class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.tcc.two.index') %>
+<% end %>

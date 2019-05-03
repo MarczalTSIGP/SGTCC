@@ -89,6 +89,11 @@ pt-BR:
       new: "Nova Orientação"
       edit: "Editar Orientação"
       show: "Visualizar Orientação"
+      tcc:
+        one:
+          index: 'Orientações de TCC 1'
+        two:
+          index: 'Orientações de TCC 2'
   activerecord:
     errors:
       models:
