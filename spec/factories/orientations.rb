@@ -13,5 +13,13 @@ FactoryBot.define do
     factory :orientation_tcc_two do
       calendar { create(:calendar_tcc_two) }
     end
+
+    factory :current_orientation_tcc_one do
+      calendar { create(:current_calendar_tcc_one) }
+    end
+
+    factory :current_orientation_tcc_two do
+      calendar { create(:current_calendar_tcc_two) }
+    end
   end
 end

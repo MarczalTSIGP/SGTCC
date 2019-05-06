@@ -11,6 +11,14 @@ module LinkHelper
     request.fullpath.match?('base_activities')
   end
 
+  def orientations_link_active?
+    new_route = 'orientations/new'
+    edit_route = 'orientations/\\d+/edit'
+    tcc_routes = 'orientations/tcc_one)|(orientations/tcc_two'
+
+    request.fullpath.match?("(#{tcc_routes})|(#{new_route})|(#{edit_route})")
+  end
+
   def activities_tcc_link_active?(tcc)
     is_equal_tcc = @calendar && @calendar.tcc == tcc
     is_equal_tcc && request.fullpath.match?('activities')
@@ -22,5 +30,13 @@ module LinkHelper
 
   def activities_tcc_two_link_active?
     activities_tcc_link_active?('two')
+  end
+
+  def orientations_tcc_one_link_active?
+    request.fullpath.match?('orientations/current_tcc_one')
+  end
+
+  def orientations_tcc_two_link_active?
+    request.fullpath.match?('orientations/current_tcc_two')
   end
 end
