@@ -15,7 +15,6 @@ describe 'Professor::destroy', type: :feature, js: true do
       it 'show success message' do
         click_on_destroy_link(responsible_professor_path(professor))
         accept_alert
-
         expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(professor.name)
       end
@@ -24,7 +23,6 @@ describe 'Professor::destroy', type: :feature, js: true do
     context 'when professor has associations', js: true do
       it 'show alert message' do
         create(:orientation, advisor: professor)
-
         click_on_destroy_link(responsible_professor_path(professor))
         accept_alert
 
