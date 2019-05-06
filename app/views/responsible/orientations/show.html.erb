@@ -27,6 +27,26 @@
       </strong>
       <%= @orientation.advisor.name %>
     </p>
+    <% unless @orientation.professor_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('professor_supervisors') %>:
+        </strong>
+        <% @orientation.professor_supervisors.each do |supervisor| %>
+          <span class="badge badge-primary"><%= supervisor.name %></span>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @orientation.external_member_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('external_member_supervisors') %>:
+        </strong>
+        <% @orientation.external_member_supervisors.each do |supervisor| %>
+          <span class="badge badge-primary"><%= supervisor.name %></span>
+        <% end %>
+      </p>
+    <% end %>
     <% if @orientation.institution %>
       <p>
         <strong>
