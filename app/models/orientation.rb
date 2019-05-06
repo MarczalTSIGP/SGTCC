@@ -5,7 +5,7 @@ class Orientation < ApplicationRecord
 
   belongs_to :calendar
   belongs_to :academic
-  belongs_to :advisor, class_name: 'Professor'
+  belongs_to :advisor, class_name: 'Professor', inverse_of: :orientations
   belongs_to :institution, optional: true
 
   has_many :orientation_supervisors,

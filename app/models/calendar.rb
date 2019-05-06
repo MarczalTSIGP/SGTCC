@@ -1,6 +1,7 @@
 class Calendar < ApplicationRecord
   include Searchable
   include Tcc
+  include Semester
 
   searchable :year
 
@@ -14,8 +15,6 @@ class Calendar < ApplicationRecord
             format: { with: /\A\d{4}\z/ },
             uniqueness: { scope: [:semester, :tcc], case_sensetive: false,
                           message: I18n.t('activerecord.errors.models.calendar.attributes.year') }
-
-  enum semester: { one: 1, two: 2 }, _prefix: :semester
 
   after_create :clone_base_activities
 
@@ -65,16 +64,12 @@ class Calendar < ApplicationRecord
     search_by_tcc(tccs[:two], page, term)
   end
 
-  def self.current_by_tcc(tcc)
-    find_by(year: current_year, semester: current_semester, tcc: tcc)
-  end
-
   def self.current_by_tcc_one
-    current_by_tcc(tccs[:one])
+    find_by(year: current_year, semester: current_semester, tcc: tccs[:one])
   end
 
   def self.current_by_tcc_two
-    current_by_tcc(tccs[:two])
+    find_by(year: current_year, semester: current_semester, tcc: tccs[:two])
   end
 
   def self.current_year
@@ -99,12 +94,6 @@ class Calendar < ApplicationRecord
     all.order({ year: :desc }, :tcc, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester_and_tcc]
     end
-  end
-
-  def self.human_semesters
-    hash = {}
-    semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
-    hash
   end
 
   private
