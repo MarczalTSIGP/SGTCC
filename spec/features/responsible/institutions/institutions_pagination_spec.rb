@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::pagination', type: :feature do
+describe 'Institution::pagination', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
 
   before do
@@ -11,7 +11,7 @@ describe 'Institution::pagination', type: :feature do
 
   describe '#pagination' do
     context 'when finds the last institution on second page' do
-      it 'finds the last institution', js: true do
+      it 'finds the last institution' do
         institution = Institution.order(:trade_name).last
         click_link(2)
         expect(page).to have_contents([institution.external_member.name,

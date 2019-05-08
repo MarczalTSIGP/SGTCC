@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::destroy', type: :feature do
+describe 'ExternalMember::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:external_member) { create(:external_member) }
   let!(:institution) { create(:institution) }
@@ -12,7 +12,7 @@ describe 'ExternalMember::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when external member is destroyed', js: true do
+    context 'when external member is destroyed' do
       it 'show success message' do
         url = responsible_external_member_path(external_member)
         destroy_link = "a[href='#{url}'][data-method='delete']"
@@ -24,7 +24,7 @@ describe 'ExternalMember::destroy', type: :feature do
       end
     end
 
-    context 'when external member has associations', js: true do
+    context 'when external member has associations' do
       it 'shows alert message' do
         url = responsible_external_member_path(institution.external_member)
         destroy_link = "a[href='#{url}'][data-method='delete']"

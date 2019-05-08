@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics::search', type: :feature do
+describe 'Academics::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:academics) { create_list(:academic, 25) }
 
@@ -11,7 +11,7 @@ describe 'Academics::search', type: :feature do
 
   describe '#search' do
     context 'when finds the academic' do
-      it 'finds the academic by the name', js: true do
+      it 'finds the academic by the name' do
         academic = academics.first
 
         fill_in 'term', with: academic.name
@@ -25,7 +25,7 @@ describe 'Academics::search', type: :feature do
     end
 
     context 'when the result is not found' do
-      it 'returns not found message', js: true do
+      it 'returns not found message' do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
 

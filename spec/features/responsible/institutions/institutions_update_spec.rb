@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::update', type: :feature do
+describe 'Institution::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Institution.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'Institution::update', type: :feature do
       visit edit_responsible_institution_path(institution)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the institution' do
         new_name = 'Teste'
         fill_in 'institution_name', with: new_name
@@ -28,7 +28,7 @@ describe 'Institution::update', type: :feature do
       end
     end
 
-    context 'when the institution is not valid', js: true do
+    context 'when the institution is not valid' do
       it 'show errors' do
         fill_in 'institution_name', with: ''
         fill_in 'institution_trade_name', with: ''

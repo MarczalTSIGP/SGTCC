@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::create', type: :feature do
+describe 'Calendar::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human }
 
@@ -10,7 +10,7 @@ describe 'Calendar::create', type: :feature do
   end
 
   describe '#create' do
-    context 'when calendar is valid', js: true do
+    context 'when calendar is valid' do
       it 'create a calendar' do
         attributes = attributes_for(:calendar)
         fill_in 'calendar_year', with: attributes[:year]
@@ -25,7 +25,7 @@ describe 'Calendar::create', type: :feature do
       end
     end
 
-    context 'when calendar is not valid', js: true do
+    context 'when calendar is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))

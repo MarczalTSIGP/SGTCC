@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::update', type: :feature do
+describe 'ExternalMember::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { ExternalMember.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'ExternalMember::update', type: :feature do
       visit edit_responsible_external_member_path(external_member)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the external_member' do
         new_name = 'Teste'
 
@@ -28,7 +28,7 @@ describe 'ExternalMember::update', type: :feature do
       end
     end
 
-    context 'when data is not valid', js: true do
+    context 'when data is not valid' do
       it 'show errors' do
         fill_in 'external_member_name', with: ''
         fill_in 'external_member_email', with: ''

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::index', type: :feature do
+describe 'Institution::index', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:institutions) { create_list(:institution, 3) }
 
@@ -11,7 +11,7 @@ describe 'Institution::index', type: :feature do
 
   describe '#index' do
     context 'when shows all institutions' do
-      it 'shows all institutions with options', js: true do
+      it 'shows all institutions with options' do
         institutions.each do |institution|
           expect(page).to have_contents([institution.external_member.name,
                                          institution.trade_name,

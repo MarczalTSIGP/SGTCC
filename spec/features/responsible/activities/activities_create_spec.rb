@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::create', type: :feature do
+describe 'Activity::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
   let(:calendar) { create(:calendar) }
@@ -12,7 +12,7 @@ describe 'Activity::create', type: :feature do
   end
 
   describe '#create' do
-    context 'when activity is valid', js: true do
+    context 'when activity is valid' do
       it 'create an activity' do
         attributes = attributes_for(:activity)
         fill_in 'activity_name', with: attributes[:name]
@@ -25,7 +25,7 @@ describe 'Activity::create', type: :feature do
       end
     end
 
-    context 'when activity is not valid', js: true do
+    context 'when activity is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))

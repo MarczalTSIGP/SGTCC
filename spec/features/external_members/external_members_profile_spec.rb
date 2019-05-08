@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember:profiles', type: :feature do
+describe 'ExternalMember:profiles', type: :feature, js: true do
   context 'when update a external_member' do
     let(:external_member) { create(:external_member) }
 
@@ -9,7 +9,7 @@ describe 'ExternalMember:profiles', type: :feature do
       visit edit_external_member_registration_path
     end
 
-    it 'updates with success when the data are valid', js: true do
+    it 'updates with success when the data are valid' do
       new_email = 'email@email.com'
       new_name = 'new name'
 
@@ -28,7 +28,7 @@ describe 'ExternalMember:profiles', type: :feature do
       expect(page).to have_field 'external_member_email', with: new_email
     end
 
-    it 'does not update with invalid date', js: true do
+    it 'does not update with invalid date' do
       fill_in 'external_member_name', with: ''
       fill_in 'external_member_email', with: 'email'
       fill_in 'external_member_current_password', with: external_member.password

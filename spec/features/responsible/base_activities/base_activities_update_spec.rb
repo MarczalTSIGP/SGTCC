@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Basebase_activity::update', type: :feature do
+describe 'Basebase_activity::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'Basebase_activity::update', type: :feature do
       visit edit_responsible_base_activity_path(base_activity)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the base activity' do
         new_name = 'Teste'
         fill_in 'base_activity_name', with: new_name
@@ -27,7 +27,7 @@ describe 'Basebase_activity::update', type: :feature do
       end
     end
 
-    context 'when the base activity is not valid', js: true do
+    context 'when the base activity is not valid' do
       it 'show errors' do
         fill_in 'base_activity_name', with: ''
         submit_form('input[name="commit"]')

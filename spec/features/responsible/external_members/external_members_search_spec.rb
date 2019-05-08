@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::search', type: :feature do
+describe 'ExternalMember::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:external_members) { create_list(:external_member, 25) }
 
@@ -11,7 +11,7 @@ describe 'ExternalMember::search', type: :feature do
 
   describe '#search' do
     context 'when finds the external member' do
-      it 'finds the external member by the name', js: true do
+      it 'finds the external member by the name' do
         external_member = external_members.first
 
         fill_in 'term', with: external_member.name
@@ -24,7 +24,7 @@ describe 'ExternalMember::search', type: :feature do
     end
 
     context 'when the result is not found' do
-      it 'returns not found message', js: true do
+      it 'returns not found message' do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
         expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::destroy', type: :feature do
+describe 'Calendar::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human }
   let!(:calendar) { create(:calendar_tcc_one) }
@@ -11,7 +11,7 @@ describe 'Calendar::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when calendar is destroyed', js: true do
+    context 'when calendar is destroyed' do
       it 'show success message' do
         within first('.destroy').click
         accept_alert
@@ -21,7 +21,7 @@ describe 'Calendar::destroy', type: :feature do
       end
     end
 
-    context 'when calendar has associations', js: true do
+    context 'when calendar has associations' do
       it 'show alert message' do
         create(:activity, calendar: calendar)
         within first('.destroy').click

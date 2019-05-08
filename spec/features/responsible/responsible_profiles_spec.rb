@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:profiles', type: :feature do
+describe 'Responsible:profiles', type: :feature, js: true do
   context 'when updates the responsible' do
     let(:professor) { create(:responsible) }
 
@@ -10,7 +10,7 @@ describe 'Responsible:profiles', type: :feature do
     end
 
     context 'when data is valid' do
-      it 'updates responsible', js: true do
+      it 'updates responsible' do
         new_email = 'email@email.com'
         new_name = 'new name'
 
@@ -36,7 +36,7 @@ describe 'Responsible:profiles', type: :feature do
     end
 
     context 'when data is not valid' do
-      it 'does not update', js: true do
+      it 'does not update' do
         fill_in 'professor_name', with: ''
         fill_in 'professor_email', with: 'email'
         fill_in 'professor_current_password', with: professor.password

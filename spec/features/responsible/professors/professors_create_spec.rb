@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::create', type: :feature do
+describe 'Professor::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Professor.model_name.human }
 
@@ -13,7 +13,7 @@ describe 'Professor::create', type: :feature do
       visit new_responsible_professor_path
     end
 
-    context 'when professor is valid', js: true do
+    context 'when professor is valid' do
       it 'create an professor' do
         attributes = attributes_for(:professor)
         fill_in 'professor_name', with: attributes[:name]
@@ -34,7 +34,7 @@ describe 'Professor::create', type: :feature do
       end
     end
 
-    context 'when professor is not valid', js: true do
+    context 'when professor is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
 

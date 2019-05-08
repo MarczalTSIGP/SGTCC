@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::index', type: :feature do
+describe 'Academic::index', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:academics) { create_list(:academic, 3) }
 
@@ -10,7 +10,7 @@ describe 'Academic::index', type: :feature do
 
   describe '#index' do
     context 'when shows all academics' do
-      it 'shows all academics with options', js: true do
+      it 'shows all academics with options' do
         visit responsible_academics_path
         academics.each do |a|
           expect(page).to have_contents([a.name,

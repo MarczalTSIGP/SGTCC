@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::destroy', type: :feature do
+describe 'BaseActivity::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:base_activity) { create(:base_activity_tcc_one) }
   let(:resource_name) { BaseActivity.model_name.human }
@@ -11,7 +11,7 @@ describe 'BaseActivity::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when base activity is destroyed', js: true do
+    context 'when base activity is destroyed' do
       it 'show success message' do
         within first('.destroy').click
         accept_alert

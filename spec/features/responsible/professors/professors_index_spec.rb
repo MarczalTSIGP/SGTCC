@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::index', type: :feature do
+describe 'Professor::index', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:professors) { create_list(:professor, 3) }
   let(:resource_name) { Professor.model_name.human }
@@ -12,7 +12,7 @@ describe 'Professor::index', type: :feature do
 
   describe '#index' do
     context 'when shows all professors' do
-      it 'shows all professors with options', js: true do
+      it 'shows all professors with options' do
         professors.each do |professor|
           expect(page).to have_contents([professor.name,
                                          professor.email,

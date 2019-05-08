@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::destroy', type: :feature do
+describe 'Academic::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:academic) { create(:academic) }
   let(:resource_name) { Academic.model_name.human }
@@ -11,7 +11,7 @@ describe 'Academic::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when academic is destroyed', js: true do
+    context 'when academic is destroyed' do
       it 'show success message' do
         within first('.destroy').click
         accept_alert

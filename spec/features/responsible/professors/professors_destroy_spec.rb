@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::destroy', type: :feature do
+describe 'Professor::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:professor) { create(:professor) }
   let(:resource_name) { Professor.model_name.human }
@@ -11,7 +11,7 @@ describe 'Professor::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when professor is destroyed', js: true do
+    context 'when professor is destroyed' do
       it 'show success message' do
         url = responsible_professor_path(professor)
         destroy_link = "a[href='#{url}'][data-method='delete']"

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::create', type: :feature do
+describe 'BaseActivity::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }
@@ -14,7 +14,7 @@ describe 'BaseActivity::create', type: :feature do
       visit new_responsible_base_activity_path
     end
 
-    context 'when base_activity is valid', js: true do
+    context 'when base_activity is valid' do
       it 'create a base activity with tcc 1' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
@@ -40,7 +40,7 @@ describe 'BaseActivity::create', type: :feature do
       end
     end
 
-    context 'when base activity is not valid', js: true do
+    context 'when base activity is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
 

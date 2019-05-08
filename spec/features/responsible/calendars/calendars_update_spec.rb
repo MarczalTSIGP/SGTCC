@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::update', type: :feature do
+describe 'Calendar::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'Calendar::update', type: :feature do
       visit edit_responsible_calendar_path(calendar)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the calendar' do
         new_year = '2018'
         fill_in 'calendar_year', with: new_year
@@ -28,7 +28,7 @@ describe 'Calendar::update', type: :feature do
       end
     end
 
-    context 'when the calendar is not valid', js: true do
+    context 'when the calendar is not valid' do
       it 'show errors' do
         fill_in 'calendar_year', with: ''
         submit_form('input[name="commit"]')

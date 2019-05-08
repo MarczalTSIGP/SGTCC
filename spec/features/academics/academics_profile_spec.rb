@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:profiles', type: :feature do
+describe 'Responsible:profiles', type: :feature, js: true do
   context 'when update a academic' do
     let(:academic) { create(:academic) }
 
@@ -9,7 +9,7 @@ describe 'Responsible:profiles', type: :feature do
       visit edit_academic_registration_path
     end
 
-    it 'updates with success when the data are valid', js: true do
+    it 'updates with success when the data are valid' do
       new_email = 'email@email.com'
       new_name = 'new name'
 
@@ -32,7 +32,7 @@ describe 'Responsible:profiles', type: :feature do
       expect(page).to have_field 'academic_email', with: new_email
     end
 
-    it 'does not update with invalid date', js: true do
+    it 'does not update with invalid date' do
       fill_in 'academic_name', with: ''
       fill_in 'academic_email', with: 'email'
       fill_in 'academic_current_password', with: academic.password

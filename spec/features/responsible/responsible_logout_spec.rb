@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:logout', type: :feature do
+describe 'Responsible:logout', type: :feature, js: true do
   let(:professor) { create(:responsible) }
 
   before do
@@ -9,7 +9,7 @@ describe 'Responsible:logout', type: :feature do
   end
 
   context 'when responsible logout' do
-    it 'show success message', js: true do
+    it 'show success message' do
       click_link professor.name
       click_link(I18n.t('sessions.sign_out'))
 

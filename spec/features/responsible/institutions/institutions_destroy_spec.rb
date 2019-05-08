@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::destroy', type: :feature do
+describe 'Institution::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let!(:institution) { create(:institution) }
   let(:resource_name) { Institution.model_name.human }
@@ -11,7 +11,7 @@ describe 'Institution::destroy', type: :feature do
   end
 
   describe '#destroy' do
-    context 'when institution is destroyed', js: true do
+    context 'when institution is destroyed' do
       it 'show success message' do
         within first('.destroy').click
         accept_alert

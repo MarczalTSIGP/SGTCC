@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::update', type: :feature do
+describe 'Academic::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Academic.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'Academic::update', type: :feature do
       visit edit_responsible_academic_path(academic)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the academic' do
         attributes = attributes_for(:academic)
         new_name = 'Teste'
@@ -30,7 +30,7 @@ describe 'Academic::update', type: :feature do
       end
     end
 
-    context 'when the academic is not valid', js: true do
+    context 'when the academic is not valid' do
       it 'show errors' do
         fill_in 'academic_name', with: ''
         fill_in 'academic_email', with: ''

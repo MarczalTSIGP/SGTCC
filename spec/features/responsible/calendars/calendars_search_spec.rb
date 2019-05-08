@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::search', type: :feature do
+describe 'Calendar::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:calendars) { create_list(:calendar_tcc_one, 2) }
 
@@ -11,7 +11,7 @@ describe 'Calendar::search', type: :feature do
 
   describe '#search' do
     context 'when finds the calendar' do
-      it 'finds the calendar by the year', js: true do
+      it 'finds the calendar by the year' do
         calendar = calendars.first
 
         fill_in 'term', with: calendar.year
@@ -24,7 +24,7 @@ describe 'Calendar::search', type: :feature do
     end
 
     context 'when the result is not found' do
-      it 'returns not found message', js: true do
+      it 'returns not found message' do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
         expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')

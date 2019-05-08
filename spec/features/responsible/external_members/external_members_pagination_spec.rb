@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::pagination', type: :feature do
+describe 'ExternalMember::pagination', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
 
   before do
@@ -11,7 +11,7 @@ describe 'ExternalMember::pagination', type: :feature do
 
   describe '#pagination' do
     context 'when finds the last external member on second page' do
-      it 'finds the last external member', js: true do
+      it 'finds the last external member' do
         external_member = ExternalMember.order(:name).last
         click_link(2)
         expect(page).to have_contents([external_member.name,

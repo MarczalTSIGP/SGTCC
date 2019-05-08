@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::create', type: :feature do
+describe 'Institution::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Institution.model_name.human }
   let!(:external_member) { create(:external_member) }
@@ -14,7 +14,7 @@ describe 'Institution::create', type: :feature do
       visit new_responsible_institution_path
     end
 
-    context 'when institution is valid', js: true do
+    context 'when institution is valid' do
       it 'create an institution' do
         attributes = attributes_for(:institution)
         selectize(external_member.name, from: 'institution_external_member_id')
@@ -30,7 +30,7 @@ describe 'Institution::create', type: :feature do
       end
     end
 
-    context 'when institution is not valid', js: true do
+    context 'when institution is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
 

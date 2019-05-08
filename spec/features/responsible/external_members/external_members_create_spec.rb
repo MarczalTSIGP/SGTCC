@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::create', type: :feature do
+describe 'ExternalMember::create', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { ExternalMember.model_name.human }
 
@@ -13,7 +13,7 @@ describe 'ExternalMember::create', type: :feature do
       visit new_responsible_external_member_path
     end
 
-    context 'when external member is valid', js: true do
+    context 'when external member is valid' do
       it 'create an external member' do
         attributes = attributes_for(:external_member)
         fill_in 'external_member_name', with: attributes[:name]
@@ -32,7 +32,7 @@ describe 'ExternalMember::create', type: :feature do
       end
     end
 
-    context 'when external member is not valid', js: true do
+    context 'when external member is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
 

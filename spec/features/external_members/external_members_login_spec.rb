@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'ExternalMember:login', type: :feature do
+describe 'ExternalMember:login', type: :feature, js: true do
   let(:external_member) { create(:external_member) }
 
   before do
     visit new_external_member_session_path
   end
 
-  it 'displays the external_members perfil links on valid login', js: true do
+  it 'displays the external_members perfil links on valid login' do
     fill_in 'external_member_email', with: external_member.email
     fill_in 'external_member_password', with: 'password'
 
@@ -17,7 +17,7 @@ describe 'ExternalMember:login', type: :feature do
     expect(page).to have_flash(:info, text: I18n.t('devise.sessions.signed_in'))
   end
 
-  it 'displays the external_members error', js: true do
+  it 'displays the external_members error' do
     fill_in 'external_member_email', with: external_member.email
     fill_in 'external_member_password', with: 'passworda'
 
@@ -36,7 +36,7 @@ describe 'ExternalMember:login', type: :feature do
       visit external_members_root_path
     end
 
-    it 'redirect to login page', js: true do
+    it 'redirect to login page' do
       expect(page).to have_current_path new_external_member_session_path
       expect(page).to have_flash(:warning, text: I18n.t('devise.failure.unauthenticated'))
     end

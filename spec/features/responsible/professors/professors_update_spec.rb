@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::update', type: :feature do
+describe 'Professor::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { professor.model_name.human }
 
@@ -15,7 +15,7 @@ describe 'Professor::update', type: :feature do
       visit edit_responsible_professor_path(professor)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the professor' do
         attributes = attributes_for(:professor)
         new_name = 'Teste'
@@ -30,7 +30,7 @@ describe 'Professor::update', type: :feature do
       end
     end
 
-    context 'when the professor is not valid', js: true do
+    context 'when the professor is not valid' do
       it 'show errors' do
         fill_in 'professor_name', with: ''
         fill_in 'professor_email', with: ''

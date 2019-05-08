@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::index', type: :feature do
+describe 'BaseActivity::index', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
 
   before do
@@ -9,7 +9,7 @@ describe 'BaseActivity::index', type: :feature do
 
   describe '#index' do
     context 'when shows all base activities with tcc 1' do
-      it 'shows all base activities with tcc 1 options', js: true do
+      it 'shows all base activities with tcc 1 options' do
         base_activities = create_list(:base_activity_tcc_one, 3)
 
         index_url = responsible_base_activities_tcc_one_path
@@ -25,7 +25,7 @@ describe 'BaseActivity::index', type: :feature do
     end
 
     context 'when shows all base activities with tcc 2' do
-      it 'shows all base activities with tcc 2 options', js: true do
+      it 'shows all base activities with tcc 2 options' do
         base_activities = create_list(:base_activity_tcc_two, 3)
 
         index_url = responsible_base_activities_tcc_two_path
