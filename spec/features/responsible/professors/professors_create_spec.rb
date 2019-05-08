@@ -29,9 +29,7 @@ describe 'Professor::create', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_professors_path
-        success_message = I18n.t('flash.actions.create.m',
-                                 resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
@@ -41,8 +39,6 @@ describe 'Professor::create', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
         expect(page).to have_message(message_blank_error, in: 'div.professor_name')
         expect(page).to have_message(message_blank_error, in: 'div.professor_email')
         expect(page).to have_message(message_blank_error, in: 'div.professor_username')
