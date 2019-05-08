@@ -23,7 +23,7 @@ describe 'Academic::create', type: :feature do
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_academics_path
-        expect(page).to have_flash(:success, text: success_message('create.m', resource_name))
+        expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end

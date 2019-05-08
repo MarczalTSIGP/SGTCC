@@ -15,7 +15,7 @@ describe 'Academic::destroy', type: :feature do
       it 'show success message' do
         within first('.destroy').click
         accept_alert
-        expect(page).to have_flash(:success, text: success_message('destroy.m', resource_name))
+        expect(page).to have_flash(:success, text: flash_message('destroy.m', resource_name))
         expect(page).not_to have_content(academic.name)
       end
     end

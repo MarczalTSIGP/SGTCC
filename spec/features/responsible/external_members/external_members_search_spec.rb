@@ -27,7 +27,6 @@ describe 'ExternalMember::search', type: :feature do
       it 'returns not found message', js: true do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
-
         expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
       end
     end

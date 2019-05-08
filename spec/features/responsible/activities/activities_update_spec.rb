@@ -23,7 +23,7 @@ describe 'Activity::update', type: :feature do
 
         current_path = responsible_calendar_activity_path(activity.calendar, activity)
         expect(page).to have_current_path current_path
-        expect(page).to have_flash(:success, text: success_message('update.f', resource_name))
+        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
         expect(page).to have_content(new_name)
       end
     end

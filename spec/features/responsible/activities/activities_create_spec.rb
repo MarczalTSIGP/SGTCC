@@ -20,7 +20,7 @@ describe 'Activity::create', type: :feature do
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_calendar_activities_path(calendar)
-        expect(page).to have_flash(:success, text: success_message('create.f', resource_name))
+        expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end

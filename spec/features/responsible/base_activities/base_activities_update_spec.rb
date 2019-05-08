@@ -22,7 +22,7 @@ describe 'Basebase_activity::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activity_path(base_activity)
-        expect(page).to have_flash(:success, text: success_message('update.f', resource_name))
+        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
         expect(page).to have_content(new_name)
       end
     end
