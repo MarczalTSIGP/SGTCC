@@ -23,9 +23,7 @@ describe 'Institution::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_institution_path(institution)
-
-        success_message = I18n.t('flash.actions.update.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
         expect(page).to have_content(new_name)
       end
     end
@@ -38,8 +36,6 @@ describe 'Institution::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
         expect(page).to have_message(message_blank_error, in: 'div.institution_name')
         expect(page).to have_message(message_blank_error, in: 'div.institution_trade_name')
         expect(page).to have_message(message_blank_error, in: 'div.institution_cnpj')
