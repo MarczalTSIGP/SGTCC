@@ -1,7 +1,7 @@
 RSpec::Matchers.define :have_message do |content, options|
   match do |page|
     within(options[:in]) do
-      expect(page).to have_content(content)
+      expect(page).to has_content?(content)
     end
   end
   failure_message do

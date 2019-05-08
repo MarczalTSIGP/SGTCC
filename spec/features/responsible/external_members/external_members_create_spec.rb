@@ -23,9 +23,7 @@ describe 'ExternalMember::create', type: :feature do
         fill_in 'external_member_personal_page', with: attributes[:personal_page]
         find('span', text: ExternalMember.human_genders.first[0]).click
         find('.fa-bold').click
-        find('#external_member_scholarity_id-selectized').click
-        find('div.selectize-dropdown-content', text: Scholarity.first.name).click
-
+        selectize(Scholarity.first.name, from: 'external_member_scholarity_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_external_members_path

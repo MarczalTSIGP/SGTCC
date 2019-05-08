@@ -16,8 +16,7 @@ describe 'Activity::create', type: :feature do
       it 'create an activity' do
         attributes = attributes_for(:activity)
         fill_in 'activity_name', with: attributes[:name]
-        find('#activity_base_activity_type_id-selectized').click
-        find('div.selectize-dropdown-content', text: base_activity_types.first.name).click
+        selectize(base_activity_types.first.name, from: 'activity_base_activity_type_id')
 
         submit_form('input[name="commit"]')
 
@@ -34,13 +33,8 @@ describe 'Activity::create', type: :feature do
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         message_blank_error = I18n.t('errors.messages.blank')
 
-        expect(page).to have_message(
-          message_blank_error, in: 'div.activity_name'
-        )
-
-        expect(page).to have_message(
-          message_blank_error, in: 'div.activity_base_activity_type'
-        )
+        expect(page).to have_message(message_blank_error, in: 'div.activity_name')
+        expect(page).to have_message(message_blank_error, in: 'div.activity_base_activity_type')
       end
     end
   end

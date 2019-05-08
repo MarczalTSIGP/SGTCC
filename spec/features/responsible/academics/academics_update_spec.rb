@@ -18,7 +18,6 @@ describe 'Academic::update', type: :feature do
     context 'when data is valid', js: true do
       it 'updates the academic' do
         attributes = attributes_for(:academic)
-
         new_name = 'Teste'
         fill_in 'academic_name', with: new_name
         fill_in 'academic_email', with: attributes[:email]
@@ -26,9 +25,7 @@ describe 'Academic::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_academic_path(academic)
-
-        success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: success_message('update.m', resource_name))
         expect(page).to have_content(new_name)
       end
     end
@@ -40,8 +37,6 @@ describe 'Academic::update', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
         expect(page).to have_message(message_blank_error, in: 'div.academic_name')
         expect(page).to have_message(message_blank_error, in: 'div.academic_email')
         expect(page).to have_message(message_blank_error, in: 'div.academic_gender')

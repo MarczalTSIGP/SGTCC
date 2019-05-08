@@ -23,11 +23,8 @@ describe 'Professor::create', type: :feature do
         find('span', text: Professor.human_genders.first[0]).click
         find('.fa-bold').click
 
-        find('#professor_scholarity_id-selectized').click
-        find('div.selectize-dropdown-content', text: Scholarity.first.name).click
-
-        find('#professor_professor_type_id-selectized').click
-        find('div.selectize-dropdown-content', text: ProfessorType.first.name).click
+        selectize(Scholarity.first.name, from: 'professor_scholarity_id')
+        selectize(ProfessorType.first.name, from: 'professor_professor_type_id')
 
         submit_form('input[name="commit"]')
 

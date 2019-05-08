@@ -17,9 +17,7 @@ describe 'Institution::create', type: :feature do
     context 'when institution is valid', js: true do
       it 'create an institution' do
         attributes = attributes_for(:institution)
-        find('#institution_external_member_id-selectized').click
-        find('div.selectize-dropdown-content', text: external_member.name).click
-
+        selectize(external_member.name, from: 'institution_external_member_id')
         fill_in 'institution_name', with: attributes[:name]
         fill_in 'institution_trade_name', with: attributes[:trade_name]
         fill_in 'institution_cnpj', with: attributes[:cnpj]
