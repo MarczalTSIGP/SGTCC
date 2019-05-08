@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 describe 'BaseActivity::index', type: :feature do
+  let(:responsible) { create(:responsible) }
+
+  before do
+    login_as(responsible, scope: :professor)
+  end
+
   describe '#index' do
     context 'when shows all base activities with tcc 1' do
       it 'shows all base activities with tcc 1 options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
         base_activities = create_list(:base_activity_tcc_one, 3)
 
         index_url = responsible_base_activities_tcc_one_path
@@ -23,9 +26,6 @@ describe 'BaseActivity::index', type: :feature do
 
     context 'when shows all base activities with tcc 2' do
       it 'shows all base activities with tcc 2 options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
         base_activities = create_list(:base_activity_tcc_two, 3)
 
         index_url = responsible_base_activities_tcc_two_path

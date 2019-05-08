@@ -17,29 +17,25 @@ describe 'BaseActivity::create', type: :feature do
     context 'when base_activity is valid', js: true do
       it 'create a base activity with tcc 1' do
         attributes = attributes_for(:base_activity)
-        tcc_one_text = '1'
         fill_in 'base_activity_name', with: attributes[:name]
-        find('span[class="custom-control-label"]', text: tcc_one_text).click
+        find('span[class="custom-control-label"]', text: '1').click
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
-        success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: success_message('create.f', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
 
       it 'create a base activity with tcc 2' do
         attributes = attributes_for(:base_activity)
-        tcc_two_text = '2'
         fill_in 'base_activity_name', with: attributes[:name]
-        find('span[class="custom-control-label"]', text: tcc_two_text).click
+        find('span[class="custom-control-label"]', text: '2').click
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
-        submit_form('input[name="commit"]')
 
+        submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_base_activities_tcc_two_path
-        success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: success_message('create.f', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
@@ -49,8 +45,6 @@ describe 'BaseActivity::create', type: :feature do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
         expect(page).to have_message(message_blank_error, in: 'div.base_activity_name')
         expect(page).to have_message(
           message_blank_error, in: 'div.base_activity_base_activity_type'
