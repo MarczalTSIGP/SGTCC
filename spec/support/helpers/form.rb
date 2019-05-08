@@ -13,7 +13,7 @@ module Helpers
       I18n.t('errors.messages.blank')
     end
 
-    def success_message(method, resource_name)
+    def flash_message(method, resource_name)
       I18n.t("flash.actions.#{method}", resource_name: resource_name)
     end
 

@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 describe 'Calendar::index', type: :feature do
+  let(:responsible) { create(:responsible) }
+
+  before do
+    login_as(responsible, scope: :professor)
+  end
+
   describe '#index' do
     context 'when shows all calendars' do
       it 'shows all tcc 1 calendars with options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
         calendars = create_list(:calendar_tcc_one, 3)
-
         index_url = responsible_calendars_tcc_one_path
         visit index_url
 
@@ -22,11 +24,7 @@ describe 'Calendar::index', type: :feature do
       end
 
       it 'shows all tcc 2 calendars with options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
         calendars = create_list(:calendar_tcc_two, 3)
-
         index_url = responsible_calendars_tcc_two_path
         visit index_url
 
