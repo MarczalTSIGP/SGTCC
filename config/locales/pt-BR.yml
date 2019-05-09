@@ -217,6 +217,9 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+    tcc_number:
+      one: 1
+      two: 2
     semester:
       one: '1'
       two: '2'
