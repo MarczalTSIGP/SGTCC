@@ -13,6 +13,10 @@ module Helpers
       I18n.t('errors.messages.blank')
     end
 
+    def message_required_error
+      I18n.t('errors.messages.required')
+    end
+
     def flash_message(method, resource_name)
       I18n.t("flash.actions.#{method}", resource_name: resource_name)
     end
@@ -24,6 +28,12 @@ module Helpers
 
     def radio(name)
       find('span', text: name[0]).click
+    end
+
+    def expect_page_has_content(content, options = {})
+      within(options[:in]) do
+        expect(page).to have_content(content)
+      end
     end
   end
 end

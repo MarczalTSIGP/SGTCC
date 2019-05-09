@@ -30,7 +30,7 @@ describe 'Professor::create', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_professors_path
         expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect_page_has_content(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -39,12 +39,12 @@ describe 'Professor::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_working_area')
+        expect_page_has_content(message_blank_error, in: 'div.professor_name')
+        expect_page_has_content(message_blank_error, in: 'div.professor_email')
+        expect_page_has_content(message_blank_error, in: 'div.professor_username')
+        expect_page_has_content(message_blank_error, in: 'div.professor_gender')
+        expect_page_has_content(message_blank_error, in: 'div.professor_lattes')
+        expect_page_has_content(message_blank_error, in: 'div.professor_working_area')
       end
     end
   end

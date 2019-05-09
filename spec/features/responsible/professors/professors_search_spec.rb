@@ -30,7 +30,7 @@ describe 'Professor::search', type: :feature, js: true do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
 
-        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
+        expect_page_has_content(I18n.t('helpers.no_results'), in: 'table tbody')
       end
     end
   end

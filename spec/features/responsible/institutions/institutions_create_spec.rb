@@ -26,7 +26,7 @@ describe 'Institution::create', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_institutions_path
         expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect_page_has_content(attributes[:trade_name], in: 'table tbody')
       end
     end
 
@@ -35,10 +35,10 @@ describe 'Institution::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.institution_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_trade_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_cnpj')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_external_member')
+        expect_page_has_content(message_blank_error, in: 'div.institution_name')
+        expect_page_has_content(message_blank_error, in: 'div.institution_trade_name')
+        expect_page_has_content(message_blank_error, in: 'div.institution_cnpj')
+        expect_page_has_content(message_required_error, in: 'div.institution_external_member')
       end
     end
   end

@@ -33,7 +33,7 @@ describe 'Activity::update', type: :feature, js: true do
         fill_in 'activity_name', with: ''
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.activity_name')
+        expect_page_has_content(message_blank_error, in: 'div.activity_name')
       end
     end
   end

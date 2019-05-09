@@ -21,7 +21,7 @@ describe 'Calendar::create', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_calendars_tcc_one_path
         expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect_page_has_content(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -29,9 +29,9 @@ describe 'Calendar::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_year')
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_tcc')
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_semester')
+        expect_page_has_content(message_blank_error, in: 'div.calendar_year')
+        expect_page_has_content(message_blank_error, in: 'div.calendar_tcc')
+        expect_page_has_content(message_blank_error, in: 'div.calendar_semester')
       end
     end
   end

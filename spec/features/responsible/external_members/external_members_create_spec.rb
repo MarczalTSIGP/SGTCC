@@ -28,7 +28,7 @@ describe 'ExternalMember::create', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_external_members_path
         expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect_page_has_content(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -37,11 +37,10 @@ describe 'ExternalMember::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.external_member_name')
-        expect(page).to have_message(message_blank_error, in: 'div.external_member_email')
-        expect(page).to have_message(message_blank_error, in: 'div.external_member_gender')
-        expect(page).to have_message(message_blank_error, in: 'div.external_member_personal_page')
-        expect(page).to have_message(message_blank_error, in: 'div.external_member_working_area')
+        expect_page_has_content(message_blank_error, in: 'div.external_member_name')
+        expect_page_has_content(message_blank_error, in: 'div.external_member_email')
+        expect_page_has_content(message_blank_error, in: 'div.external_member_gender')
+        expect_page_has_content(message_blank_error, in: 'div.external_member_working_area')
       end
     end
   end

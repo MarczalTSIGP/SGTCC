@@ -46,17 +46,17 @@ describe 'Responsible:profiles', type: :feature, js: true do
         notification_message = I18n.t('simple_form.error_notification.default_message')
         expect(page).to have_flash(:danger, text: notification_message)
 
-        expect(page).to have_message(I18n.t('errors.messages.blank'), in: 'div.professor_name')
-        expect(page).to have_message(I18n.t('errors.messages.invalid'), in: 'div.professor_email')
-        expect(page).to have_message(
+        expect_page_has_content(I18n.t('errors.messages.blank'), in: 'div.professor_name')
+        expect_page_has_content(I18n.t('errors.messages.invalid'), in: 'div.professor_email')
+        expect_page_has_content(
           I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes'),
           in: 'div.professor_current_password'
         )
 
-        expect(page).to have_message(I18n.t('errors.messages.extension_whitelist_error',
-                                            extension: '"pdf"',
-                                            allowed_types: 'jpg, jpeg, gif, png'),
-                                     in: 'div.professor_profile_image')
+        expect_page_has_content(I18n.t('errors.messages.extension_whitelist_error',
+                                       extension: '"pdf"',
+                                       allowed_types: 'jpg, jpeg, gif, png'),
+                                in: 'div.professor_profile_image')
       end
     end
   end
