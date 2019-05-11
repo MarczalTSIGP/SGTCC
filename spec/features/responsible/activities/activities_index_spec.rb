@@ -44,8 +44,7 @@ describe 'Activity::index', type: :feature, js: true do
         second_calendar = create(:calendar_tcc_one, semester: 2)
 
         visit responsible_calendar_activities_path(calendar)
-        find('#activity_calendar-selectized').click
-        first('div.option').click
+        selectize(second_calendar.year_with_semester, from: 'activity_calendar')
 
         second_calendar.activities.each do |activity|
           expect(page).to have_contents([activity.name,
