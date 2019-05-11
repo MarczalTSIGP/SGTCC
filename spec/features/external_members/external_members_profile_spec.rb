@@ -23,7 +23,7 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
 
       expect(page).to have_current_path edit_external_member_registration_path
       expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
-      expect_page_has_content(new_name, in: 'a.nav-link')
+      expect(page).to have_message(new_name, in: 'a.nav-link')
       expect(page).to have_field 'external_member_name', with: new_name
       expect(page).to have_field 'external_member_email', with: new_email
     end
@@ -38,16 +38,18 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
       error_message = I18n.t('simple_form.error_notification.default_message')
       expect(page).to have_flash(:danger, text: error_message)
 
-      expect_page_has_content(I18n.t('errors.messages.blank'), in: 'div.external_member_name')
-      expect_page_has_content(I18n.t('errors.messages.invalid'), in: 'div.external_member_email')
-      expect_page_has_content(
+      expect(page).to have_message(I18n.t('errors.messages.blank'), in: 'div.external_member_name')
+      expect(page).to have_message(
+        I18n.t('errors.messages.invalid'), in: 'div.external_member_email'
+      )
+      expect(page).to have_message(
         I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes'),
         in: 'div.external_member_current_password'
       )
-      expect_page_has_content(I18n.t('errors.messages.extension_whitelist_error',
-                                     extension: '"pdf"',
-                                     allowed_types: 'jpg, jpeg, gif, png'),
-                              in: 'div.external_member_profile_image')
+      expect(page).to have_message(I18n.t('errors.messages.extension_whitelist_error',
+                                          extension: '"pdf"',
+                                          allowed_types: 'jpg, jpeg, gif, png'),
+                                   in: 'div.external_member_profile_image')
     end
   end
 end

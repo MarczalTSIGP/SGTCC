@@ -40,10 +40,10 @@ describe 'Professor::update', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_has_content(message_blank_error, in: 'div.professor_name')
-        expect_page_has_content(message_blank_error, in: 'div.professor_email')
-        expect_page_has_content(message_blank_error, in: 'div.professor_username')
-        expect_page_has_content(message_blank_error, in: 'div.professor_lattes')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
+        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
       end
     end
   end

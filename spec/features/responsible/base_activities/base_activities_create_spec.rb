@@ -24,7 +24,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
         expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
-        expect_page_has_content(attributes[:name], in: 'table tbody')
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
 
       it 'create a base activity with tcc 2' do
@@ -36,7 +36,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_base_activities_tcc_two_path
         expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
-        expect_page_has_content(attributes[:name], in: 'table tbody')
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -45,11 +45,11 @@ describe 'BaseActivity::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_has_content(message_blank_error, in: 'div.base_activity_name')
-        expect_page_has_content(
+        expect(page).to have_message(message_blank_error, in: 'div.base_activity_name')
+        expect(page).to have_message(
           message_required_error, in: 'div.base_activity_base_activity_type'
         )
-        expect_page_has_content(
+        expect(page).to have_message(
           message_blank_error, in: 'div.base_activity_tcc'
         )
       end

@@ -29,11 +29,5 @@ module Helpers
     def radio(name)
       find('span', text: name[0]).click
     end
-
-    def expect_page_has_content(content, options = {})
-      within(options[:in]) do
-        expect(page).to have_content(content)
-      end
-    end
   end
 end

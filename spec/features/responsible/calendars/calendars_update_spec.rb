@@ -33,7 +33,7 @@ describe 'Calendar::update', type: :feature, js: true do
         fill_in 'calendar_year', with: ''
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_has_content(message_blank_error, in: 'div.calendar_year')
+        expect(page).to have_message(message_blank_error, in: 'div.calendar_year')
       end
     end
   end

@@ -24,7 +24,7 @@ describe 'Academic::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_academics_path
         expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
-        expect_page_has_content(attributes[:name], in: 'table tbody')
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
 
@@ -32,10 +32,10 @@ describe 'Academic::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_has_content(message_blank_error, in: 'div.academic_name')
-        expect_page_has_content(message_blank_error, in: 'div.academic_email')
-        expect_page_has_content(message_blank_error, in: 'div.academic_gender')
-        expect_page_has_content(message_blank_error, in: 'div.academic_ra')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_name')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_email')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_gender')
+        expect(page).to have_message(message_blank_error, in: 'div.academic_ra')
       end
     end
   end
