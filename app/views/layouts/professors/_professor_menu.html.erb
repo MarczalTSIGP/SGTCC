@@ -10,14 +10,6 @@
   <%= t('breadcrumbs.homepage') %>
 <% end %>
 
-<%= active_link_to(professors_orientations_path,
-		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
-    <%= icon('fas', 'file-code') %>
-  </span>
-  <%= t('breadcrumbs.orientations.index') %>
-<% end %>
-
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(professors_calendar_activities_path(Calendar.current_by_tcc_one.id),
 		     class: 'list-group-item list-group-item-action') do %>
@@ -36,4 +28,28 @@
     </span>
     <%= t('breadcrumbs.tcc.two.index') %>
   <% end %>
+<% end %>
+
+<%= active_link_to(professors_orientations_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.index') %>
+<% end %>
+
+<%= active_link_to(professors_supervisions_tcc_one_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.supervisions.index') %>
+<% end %>
+
+<%= active_link_to(professors_orientations_history_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'folder') %>
+  </span>
+  <%= t('breadcrumbs.orientations.history') %>
 <% end %>

@@ -138,6 +138,10 @@ Rails.application.routes.draw do
 
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
+      get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
+
+      get 'supervisions/tcc_one', to: 'supervisions#tcc_one', as: 'supervisions_tcc_one'
+      get 'supervisions/tcc_two', to: 'supervisions#tcc_two', as: 'supervisions_tcc_two'
 
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',

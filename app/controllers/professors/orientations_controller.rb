@@ -20,6 +20,14 @@ class Professors::OrientationsController < Professors::BaseController
     redirect_to action: :tcc_one
   end
 
+  def history
+    @orientations = current_professor.orientations
+                                     .page(params[:page])
+                                     .search(params[:term])
+                                     .includes(:academic, :calendar)
+    @search_url = professors_orientations_search_tcc_one_path
+  end
+
   def tcc_one
     @orientations = current_professor.orientations
                                      .current_tcc_one
