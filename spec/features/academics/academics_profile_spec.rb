@@ -10,26 +10,20 @@ describe 'Responsible:profiles', type: :feature, js: true do
     end
 
     it 'updates with success when the data are valid' do
-      new_email = 'email@email.com'
-      new_name = 'new name'
-
-      fill_in 'academic_email', with: new_email
-      fill_in 'academic_name', with: new_name
-
+      attributes = attributes_for(:academic)
+      fill_in 'academic_name', with: attributes[:name]
+      fill_in 'academic_email', with: attributes[:email]
       attach_file 'academic_profile_image', FileSpecHelper.image.path
       fill_in 'academic_current_password', with: academic.password
-
       submit_form('input[name="commit"]')
 
       expect(page).to have_current_path edit_academic_registration_path
       expect(page).to have_flash(:info, text: registrations_updated_message)
-
       within('a.nav-link') do
-        expect(page).to have_content(new_name)
+        expect(page).to have_content(attributes[:name])
       end
-
-      expect(page).to have_field 'academic_name', with: new_name
-      expect(page).to have_field 'academic_email', with: new_email
+      expect(page).to have_field 'academic_name', with: attributes[:name]
+      expect(page).to have_field 'academic_email', with: attributes[:email]
     end
 
     it 'does not update with invalid date' do

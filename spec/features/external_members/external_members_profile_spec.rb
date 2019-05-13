@@ -10,22 +10,20 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
     end
 
     it 'updates with success when the data are valid' do
-      new_email = 'email@email.com'
-      new_name = 'new name'
-
-      fill_in 'external_member_email', with: new_email
-      fill_in 'external_member_name', with: new_name
-
+      attributes = attributes_for(:external_member)
+      fill_in 'external_member_name', with: attributes[:name]
+      fill_in 'external_member_email', with: attributes[:email]
+      fill_in 'external_member_personal_page', with: attributes[:personal_page]
       attach_file 'external_member_profile_image', FileSpecHelper.image.path
       fill_in 'external_member_current_password', with: external_member.password
-
       submit_form('input[name="commit"]')
 
       expect(page).to have_current_path edit_external_member_registration_path
       expect(page).to have_flash(:info, text: registrations_updated_message)
-      expect(page).to have_message(new_name, in: 'a.nav-link')
-      expect(page).to have_field 'external_member_name', with: new_name
-      expect(page).to have_field 'external_member_email', with: new_email
+      expect(page).to have_message(attributes[:name], in: 'a.nav-link')
+      expect(page).to have_field 'external_member_name', with: attributes[:name]
+      expect(page).to have_field 'external_member_email', with: attributes[:email]
+      expect(page).to have_field 'external_member_personal_page', with: attributes[:personal_page]
     end
 
     it 'does not update with invalid date' do

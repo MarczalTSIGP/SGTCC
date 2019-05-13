@@ -24,9 +24,6 @@ describe 'Professor::update', type: :feature, js: true do
         fill_in 'professor_username', with: attributes[:username]
         gender = I18n.t("enums.genders.#{attributes[:gender]}")
         click_on_label(gender, in: 'professor_gender')
-        click_on_label(Professor.human_attribute_name('is_active'), in: 'professor_is_active')
-        click_on_label(Professor.human_attribute_name('available_advisor'),
-                       in: 'professor_available_advisor')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_professor_path(professor)
@@ -35,9 +32,7 @@ describe 'Professor::update', type: :feature, js: true do
                                        attributes[:email],
                                        attributes[:username],
                                        attributes[:lattes],
-                                       gender,
-                                       I18n.t('helpers.boolean.true'),
-                                       I18n.t('helpers.boolean.true')])
+                                       gender])
       end
     end
 
