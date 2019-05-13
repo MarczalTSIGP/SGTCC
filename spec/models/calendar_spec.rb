@@ -64,6 +64,25 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
+  describe '#search_by_tcc' do
+    let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
+    let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+
+    context 'when finds calendar by tcc one' do
+      it 'returns calendar by tcc one' do
+        results_search = Calendar.search_by_tcc_one(1, calendar_tcc_one.year)
+        expect(calendar_tcc_one.year).to eq(results_search.first.year)
+      end
+    end
+
+    context 'when finds calendar by tcc two' do
+      it 'returns calendar by tcc two' do
+        results_search = Calendar.search_by_tcc_two(1, calendar_tcc_two.year)
+        expect(calendar_tcc_two.year).to eq(results_search.first.year)
+      end
+    end
+  end
+
   describe '#current_by_tcc' do
     it 'returns the current calendar by tcc one' do
       calendar = create(:current_calendar_tcc_one)
@@ -138,8 +157,16 @@ RSpec.describe Calendar, type: :model do
       semesters = Calendar.semesters
       hash = {}
       semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
-
       expect(Calendar.human_semesters).to eq(hash)
+    end
+  end
+
+  describe '#human_tccs' do
+    it 'returns the tccs' do
+      tccs = Calendar.tccs
+      hash = {}
+      tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
+      expect(Calendar.human_tccs).to eq(hash)
     end
   end
 end
