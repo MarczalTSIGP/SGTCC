@@ -13,9 +13,7 @@ describe 'Professor::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when professor is destroyed' do
       it 'show success message' do
-        url = responsible_professor_path(professor)
-        destroy_link = "a[href='#{url}'][data-method='delete']"
-        find(destroy_link).click
+        click_on_destroy_link(responsible_professor_path(professor))
         accept_alert
 
         expect(page).to have_flash(:success, text: message('destroy.m'))

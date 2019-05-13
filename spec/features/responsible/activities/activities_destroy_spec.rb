@@ -13,7 +13,7 @@ describe 'Activity::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when activity is destroyed' do
       it 'show success message' do
-        within first('.destroy').click
+        click_on_destroy_link(responsible_calendar_activity_path(activity.calendar, activity))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
         expect(page).not_to have_content(activity.name)

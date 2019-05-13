@@ -11,6 +11,7 @@ require 'support/shoulda'
 require 'support/database_cleaner'
 require 'support/helpers/form'
 require 'support/helpers/button'
+require 'support/helpers/link'
 require 'support/helpers/flash_message'
 
 require 'support/file_spec_helper'
@@ -32,6 +33,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature
   config.include Helpers::Button, type: :feature
+  config.include Helpers::Link, type: :feature
   config.include Helpers::FlashMessage, type: :feature
 
   config.infer_spec_type_from_file_location!

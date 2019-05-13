@@ -14,11 +14,9 @@ describe 'ExternalMember::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when external member is destroyed' do
       it 'show success message' do
-        url = responsible_external_member_path(external_member)
-        destroy_link = "a[href='#{url}'][data-method='delete']"
-        find(destroy_link).click
-
+        click_on_destroy_link(responsible_external_member_path(external_member))
         accept_alert
+
         expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(external_member.name)
       end
@@ -26,11 +24,9 @@ describe 'ExternalMember::destroy', type: :feature, js: true do
 
     context 'when external member has associations' do
       it 'shows alert message' do
-        url = responsible_external_member_path(institution.external_member)
-        destroy_link = "a[href='#{url}'][data-method='delete']"
-        find(destroy_link).click
-
+        click_on_destroy_link(responsible_external_member_path(institution.external_member))
         accept_alert
+
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
         expect(page).to have_content(institution.external_member.name)
       end

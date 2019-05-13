@@ -13,7 +13,7 @@ describe 'Institution::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when institution is destroyed' do
       it 'show success message' do
-        within first('.destroy').click
+        click_on_destroy_link(responsible_institution_path(institution))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
         expect(page).not_to have_content(institution.name)

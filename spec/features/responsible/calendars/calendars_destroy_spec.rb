@@ -13,7 +13,7 @@ describe 'Calendar::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when calendar is destroyed' do
       it 'show success message' do
-        within first('.destroy').click
+        click_on_destroy_link(responsible_calendar_path(calendar))
         accept_alert
 
         expect(page).to have_flash(:success, text: message('destroy.m'))
@@ -24,7 +24,7 @@ describe 'Calendar::destroy', type: :feature, js: true do
     context 'when calendar has associations' do
       it 'show alert message' do
         create(:activity, calendar: calendar)
-        within first('.destroy').click
+        click_on_destroy_link(responsible_calendar_path(calendar))
         accept_alert
 
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
