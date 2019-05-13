@@ -17,16 +17,27 @@ describe 'Professor::update', type: :feature, js: true do
 
     context 'when data is valid' do
       it 'updates the professor' do
-        attributes = attributes_for(:professor)
-        new_name = 'Teste'
-
-        fill_in 'professor_name', with: new_name
+        attributes = attributes_for(:professor_inactive)
+        fill_in 'professor_name', with: attributes[:name]
         fill_in 'professor_email', with: attributes[:email]
+        fill_in 'professor_lattes', with: attributes[:lattes]
+        fill_in 'professor_username', with: attributes[:username]
+        gender = I18n.t("enums.genders.#{attributes[:gender]}")
+        click_on_label(gender, in: 'professor_gender')
+        click_on_label(Professor.human_attribute_name('is_active'), in: 'professor_is_active')
+        click_on_label(Professor.human_attribute_name('available_advisor'),
+                       in: 'professor_available_advisor')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_professor_path(professor)
         expect(page).to have_flash(:success, text: message('update.m'))
-        expect(page).to have_content(new_name)
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:email],
+                                       attributes[:username],
+                                       attributes[:lattes],
+                                       gender,
+                                       I18n.t('helpers.boolean.true'),
+                                       I18n.t('helpers.boolean.true')])
       end
     end
 

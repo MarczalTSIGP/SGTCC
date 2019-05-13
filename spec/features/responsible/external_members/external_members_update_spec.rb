@@ -17,14 +17,20 @@ describe 'ExternalMember::update', type: :feature, js: true do
 
     context 'when data is valid' do
       it 'updates the external_member' do
-        new_name = 'Teste'
-
-        fill_in 'external_member_name', with: new_name
+        attributes = attributes_for(:external_member_inactive)
+        fill_in 'external_member_name', with: attributes[:name]
+        fill_in 'external_member_email', with: attributes[:email]
+        fill_in 'external_member_personal_page', with: attributes[:personal_page]
+        gender = I18n.t("enums.genders.#{attributes[:gender]}")
+        click_on_label(gender, in: 'external_member_gender')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_external_member_path(external_member)
         expect(page).to have_flash(:success, text: message('update.m'))
-        expect(page).to have_content(new_name)
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:email],
+                                       attributes[:personal_page],
+                                       gender])
       end
     end
 

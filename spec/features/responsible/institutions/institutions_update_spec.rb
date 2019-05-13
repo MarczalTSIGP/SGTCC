@@ -17,14 +17,18 @@ describe 'Institution::update', type: :feature, js: true do
 
     context 'when data is valid' do
       it 'updates the institution' do
-        new_name = 'Teste'
-        fill_in 'institution_name', with: new_name
+        attributes = attributes_for(:institution)
+        fill_in 'institution_name', with: attributes[:name]
+        fill_in 'institution_trade_name', with: attributes[:trade_name]
+        fill_in 'institution_cnpj', with: attributes[:cnpj]
 
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_institution_path(institution)
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_content(new_name)
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:trade_name],
+                                       attributes[:cnpj]])
       end
     end
 

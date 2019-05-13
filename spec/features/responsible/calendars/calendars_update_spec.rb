@@ -17,14 +17,17 @@ describe 'Calendar::update', type: :feature, js: true do
 
     context 'when data is valid' do
       it 'updates the calendar' do
-        new_year = '2018'
-        fill_in 'calendar_year', with: new_year
-
+        attributes = attributes_for(:calendar, tcc: 2)
+        fill_in 'calendar_year', with: attributes[:year]
+        click_on_label(attributes[:tcc], in: 'calendar_tcc')
+        click_on_label(attributes[:semester], in: 'calendar_semester')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendars_tcc_two_path
         expect(page).to have_flash(:success, text: message('update.m'))
-        expect(page).to have_content(new_year)
+        expect(page).to have_contents([attributes[:year],
+                                       attributes[:tcc],
+                                       attributes[:semester]])
       end
     end
 

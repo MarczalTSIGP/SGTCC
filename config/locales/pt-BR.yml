@@ -184,6 +184,8 @@ pt-BR:
     genders:
       male: 'Masculino'
       female: 'Feminino'
+      M: 'Masculino'
+      F: 'Feminino'
     semesters:
       first: '1º'
       second: '2º'

@@ -19,7 +19,7 @@ describe 'Academic::create', type: :feature, js: true do
         fill_in 'academic_name',   with: attributes[:name]
         fill_in 'academic_email',  with: attributes[:email]
         fill_in 'academic_ra',     with: attributes[:ra]
-        radio(Professor.human_genders.first[0], in: 'academic_gender')
+        click_on_label(Professor.human_genders.first[0], in: 'academic_gender')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_academics_path

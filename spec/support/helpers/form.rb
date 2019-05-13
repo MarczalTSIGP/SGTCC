@@ -9,12 +9,6 @@ module Helpers
       find('div.selectize-dropdown-content .option', text: name).click
     end
 
-    def radio(name, options = {})
-      within(".#{options[:in]}") do
-        find("span[class='custom-control-label']", text: name).click
-      end
-    end
-
     def accept_alert
       alert = page.driver.browser.switch_to.alert
       alert.accept

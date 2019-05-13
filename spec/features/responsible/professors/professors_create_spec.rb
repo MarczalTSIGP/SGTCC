@@ -20,7 +20,10 @@ describe 'Professor::create', type: :feature, js: true do
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_username', with: attributes[:username]
         fill_in 'professor_lattes', with: attributes[:lattes]
-        radio(Professor.human_genders.first[0], in: 'professor_gender')
+        click_on_label(Professor.human_genders.first[0], in: 'professor_gender')
+        click_on_label(Professor.human_attribute_name('is_active'), in: 'professor_is_active')
+        click_on_label(Professor.human_attribute_name('available_advisor'),
+                       in: 'professor_available_advisor')
         find('.fa-bold').click
         selectize(Scholarity.first.name, from: 'professor_scholarity_id')
         selectize(ProfessorType.first.name, from: 'professor_professor_type_id')
