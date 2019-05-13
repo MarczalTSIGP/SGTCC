@@ -12,7 +12,11 @@ module Helpers
       I18n.t('errors.messages.invalid')
     end
 
-    def confirm_password_message
+    def default_error_message
+      I18n.t('simple_form.error_notification.default_message')
+    end
+
+    def confirm_password_error_message
       I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes')
     end
 
@@ -23,10 +27,6 @@ module Helpers
 
     def signed_in_message
       I18n.t('devise.sessions.signed_in')
-    end
-
-    def sign_out_message
-      I18n.t('sessions.sign_out')
     end
 
     def already_signed_out_message
@@ -41,12 +41,12 @@ module Helpers
       I18n.t('devise.registrations.updated')
     end
 
-    def default_error_message
-      I18n.t('simple_form.error_notification.default_message')
-    end
-
     def unauthenticated_message
       I18n.t('devise.failure.unauthenticated')
+    end
+
+    def not_authorized_message
+      I18n.t('flash.not_authorized')
     end
 
     def flash_message(method, resource_name)

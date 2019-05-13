@@ -10,13 +10,9 @@ describe 'ExternalMember:logout', type: :feature, js: true do
 
   it 'displays success logout message' do
     click_link external_member.name
-    click_link(I18n.t('sessions.sign_out'))
+    click_link(sign_out_button)
 
     expect(page).to have_current_path new_external_member_session_path
-
-    expect(page).to have_flash(
-      :info,
-      text: I18n.t('devise.sessions.already_signed_out')
-    )
+    expect(page).to have_flash(:info, text: already_signed_out_message)
   end
 end

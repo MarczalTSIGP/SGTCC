@@ -11,12 +11,10 @@ describe 'Responsible:logout', type: :feature, js: true do
   context 'when responsible logout' do
     it 'show success message' do
       click_link professor.name
-      click_link(I18n.t('sessions.sign_out'))
+      click_link(sign_out_button)
 
       expect(page).to have_current_path new_professor_session_path
-
-      info_message = I18n.t('devise.sessions.already_signed_out')
-      expect(page).to have_flash(:info, text: info_message)
+      expect(page).to have_flash(:info, text: already_signed_out_message)
     end
   end
 end
