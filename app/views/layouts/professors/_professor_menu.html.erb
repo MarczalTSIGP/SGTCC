@@ -18,3 +18,22 @@
   <%= t('breadcrumbs.orientations.index') %>
 <% end %>
 
+<% if Calendar.current_by_tcc_one %>
+  <%= active_link_to(professors_calendar_activities_path(Calendar.current_by_tcc_one.id),
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'file-alt') %>
+    </span>
+    <%= t('breadcrumbs.tcc.one.index') %>
+  <% end %>
+<% end %>
+
+<% if Calendar.current_by_tcc_two %>
+  <%= active_link_to(professors_calendar_activities_path(Calendar.current_by_tcc_two.id),
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'file-alt') %>
+    </span>
+    <%= t('breadcrumbs.tcc.two.index') %>
+  <% end %>
+<% end %>
