@@ -17,10 +17,29 @@ class Professors::OrientationsController < Professors::BaseController
                  only: [:edit]
 
   def index
-    @orientations = Orientation.page(params[:page])
-                               .search(params[:term])
-                               .includes(:advisor, :academic, :calendar)
-                               .order(created_at: :desc)
+    redirect_to action: :tcc_one
+  end
+
+  def tcc_one
+    @orientations = current_professor.orientations
+                                     .current_tcc_one
+                                     .page(params[:page])
+                                     .search(params[:term])
+                                     .includes(:academic, :calendar)
+    @search_url = professors_orientations_search_tcc_one_path
+
+    render :index
+  end
+
+  def tcc_two
+    @orientations = current_professor.orientations
+                                     .current_tcc_two
+                                     .page(params[:page])
+                                     .search(params[:term])
+                                     .includes(:academic, :calendar)
+    @search_url = professors_orientations_search_tcc_two_path
+
+    render :index
   end
 
   def show; end
