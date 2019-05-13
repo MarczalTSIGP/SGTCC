@@ -23,7 +23,7 @@ describe 'Activity::update', type: :feature, js: true do
 
         current_path = responsible_calendar_activity_path(activity.calendar, activity)
         expect(page).to have_current_path current_path
-        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
+        expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_content(new_name)
       end
     end
@@ -32,7 +32,7 @@ describe 'Activity::update', type: :feature, js: true do
       it 'show errors' do
         fill_in 'activity_name', with: ''
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.activity_name')
       end
     end

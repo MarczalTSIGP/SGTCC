@@ -22,7 +22,7 @@ describe 'Basebase_activity::update', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activity_path(base_activity)
-        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
+        expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_content(new_name)
       end
     end
@@ -31,7 +31,7 @@ describe 'Basebase_activity::update', type: :feature, js: true do
       it 'show errors' do
         fill_in 'base_activity_name', with: ''
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.base_activity_name')
       end
     end

@@ -25,7 +25,7 @@ describe 'Professor::update', type: :feature, js: true do
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_professor_path(professor)
-        expect(page).to have_flash(:success, text: flash_message('update.m', resource_name))
+        expect(page).to have_flash(:success, text: message('update.m'))
         expect(page).to have_content(new_name)
       end
     end
@@ -39,7 +39,7 @@ describe 'Professor::update', type: :feature, js: true do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.professor_name')
         expect(page).to have_message(blank_error_message, in: 'div.professor_email')
         expect(page).to have_message(blank_error_message, in: 'div.professor_username')

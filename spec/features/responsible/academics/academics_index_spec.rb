@@ -12,11 +12,11 @@ describe 'Academic::index', type: :feature, js: true do
     context 'when shows all academics' do
       it 'shows all academics with options' do
         visit responsible_academics_path
-        academics.each do |a|
-          expect(page).to have_contents([a.name,
-                                         a.email,
-                                         a.ra,
-                                         short_date(a.created_at)])
+        academics.each do |academic|
+          expect(page).to have_contents([academic.name,
+                                         academic.email,
+                                         academic.ra,
+                                         short_date(academic.created_at)])
         end
       end
     end

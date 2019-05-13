@@ -23,7 +23,7 @@ describe 'Institution::update', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_institution_path(institution)
-        expect(page).to have_flash(:success, text: flash_message('update.f', resource_name))
+        expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_content(new_name)
       end
     end
@@ -35,7 +35,7 @@ describe 'Institution::update', type: :feature, js: true do
         fill_in 'institution_cnpj', with: ''
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.institution_name')
         expect(page).to have_message(blank_error_message, in: 'div.institution_trade_name')
         expect(page).to have_message(blank_error_message, in: 'div.institution_cnpj')

@@ -19,7 +19,7 @@ describe 'ExternalMember::destroy', type: :feature, js: true do
         find(destroy_link).click
 
         accept_alert
-        expect(page).to have_flash(:success, text: flash_message('destroy.m', resource_name))
+        expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(external_member.name)
       end
     end
@@ -31,7 +31,7 @@ describe 'ExternalMember::destroy', type: :feature, js: true do
         find(destroy_link).click
 
         accept_alert
-        expect(page).to have_flash(:warning, text: flash_message('destroy.bond', resource_name))
+        expect(page).to have_flash(:warning, text: message('destroy.bond'))
         expect(page).to have_content(institution.external_member.name)
       end
     end

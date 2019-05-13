@@ -18,7 +18,7 @@ describe 'Professor::destroy', type: :feature, js: true do
         find(destroy_link).click
         accept_alert
 
-        expect(page).to have_flash(:success, text: flash_message('destroy.m', resource_name))
+        expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(professor.name)
       end
     end

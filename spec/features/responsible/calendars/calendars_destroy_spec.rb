@@ -16,7 +16,7 @@ describe 'Calendar::destroy', type: :feature, js: true do
         within first('.destroy').click
         accept_alert
 
-        expect(page).to have_flash(:success, text: flash_message('destroy.m', resource_name))
+        expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(calendar.year)
       end
     end
@@ -27,7 +27,7 @@ describe 'Calendar::destroy', type: :feature, js: true do
         within first('.destroy').click
         accept_alert
 
-        expect(page).to have_flash(:warning, text: flash_message('destroy.bond', resource_name))
+        expect(page).to have_flash(:warning, text: message('destroy.bond'))
         expect(page).to have_content(calendar.year)
       end
     end

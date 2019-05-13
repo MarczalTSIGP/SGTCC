@@ -1,5 +1,9 @@
 module Helpers
   module FlashMessage
+    def errors_message
+      I18n.t('flash.actions.errors')
+    end
+
     def blank_error_message
       I18n.t('errors.messages.blank')
     end
@@ -49,8 +53,12 @@ module Helpers
       I18n.t('flash.not_authorized')
     end
 
-    def flash_message(method, resource_name)
-      I18n.t("flash.actions.#{method}", resource_name: resource_name)
+    def no_results_message
+      I18n.t('helpers.no_results')
+    end
+
+    def message(key)
+      I18n.t("flash.actions.#{key}", resource_name: resource_name)
     end
   end
 end

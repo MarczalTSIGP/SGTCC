@@ -28,7 +28,7 @@ describe 'Professor::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_professors_path
-        expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
+        expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
@@ -37,7 +37,7 @@ describe 'Professor::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.professor_name')
         expect(page).to have_message(blank_error_message, in: 'div.professor_email')
         expect(page).to have_message(blank_error_message, in: 'div.professor_username')

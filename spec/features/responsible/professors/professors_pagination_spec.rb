@@ -17,7 +17,7 @@ describe 'Professor::pagination', type: :feature, js: true do
         expect(page).to have_contents([professor.name,
                                        professor.email,
                                        professor.username,
-                                       professor.created_at.strftime('%d/%m/%Y')])
+                                       short_date(professor.created_at)])
       end
     end
   end

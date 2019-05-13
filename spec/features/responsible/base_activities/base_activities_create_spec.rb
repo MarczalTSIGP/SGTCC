@@ -23,7 +23,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
-        expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
+        expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
 
@@ -35,7 +35,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_base_activities_tcc_two_path
-        expect(page).to have_flash(:success, text: flash_message('create.f', resource_name))
+        expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
@@ -44,7 +44,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.base_activity_name')
         expect(page).to have_message(
           required_error_message, in: 'div.base_activity_base_activity_type'

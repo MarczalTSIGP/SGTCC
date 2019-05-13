@@ -23,7 +23,7 @@ describe 'Calendar::update', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendars_tcc_two_path
-        expect(page).to have_flash(:success, text: flash_message('update.m', resource_name))
+        expect(page).to have_flash(:success, text: message('update.m'))
         expect(page).to have_content(new_year)
       end
     end
@@ -32,7 +32,7 @@ describe 'Calendar::update', type: :feature, js: true do
       it 'show errors' do
         fill_in 'calendar_year', with: ''
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.calendar_year')
       end
     end

@@ -17,7 +17,7 @@ describe 'Academics::pagination', type: :feature, js: true do
         expect(page).to have_contents([academic.name,
                                        academic.email,
                                        academic.ra,
-                                       academic.created_at.strftime('%d/%m/%Y')])
+                                       short_date(academic.created_at)])
       end
     end
   end
