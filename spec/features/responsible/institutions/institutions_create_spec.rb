@@ -21,7 +21,6 @@ describe 'Institution::create', type: :feature, js: true do
         fill_in 'institution_name', with: attributes[:name]
         fill_in 'institution_trade_name', with: attributes[:trade_name]
         fill_in 'institution_cnpj', with: attributes[:cnpj]
-
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_institutions_path

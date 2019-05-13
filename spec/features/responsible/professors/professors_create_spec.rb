@@ -20,9 +20,8 @@ describe 'Professor::create', type: :feature, js: true do
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_username', with: attributes[:username]
         fill_in 'professor_lattes', with: attributes[:lattes]
-        find('span', text: Professor.human_genders.first[0]).click
+        radio(Professor.human_genders.first[0], in: 'professor_gender')
         find('.fa-bold').click
-
         selectize(Scholarity.first.name, from: 'professor_scholarity_id')
         selectize(ProfessorType.first.name, from: 'professor_professor_type_id')
 

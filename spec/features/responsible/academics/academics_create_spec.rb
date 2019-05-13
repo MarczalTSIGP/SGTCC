@@ -19,9 +19,9 @@ describe 'Academic::create', type: :feature, js: true do
         fill_in 'academic_name',   with: attributes[:name]
         fill_in 'academic_email',  with: attributes[:email]
         fill_in 'academic_ra',     with: attributes[:ra]
-        radio(Professor.human_genders.first)
-
+        radio(Professor.human_genders.first[0], in: 'academic_gender')
         submit_form('input[name="commit"]')
+
         expect(page).to have_current_path responsible_academics_path
         expect(page).to have_flash(:success, text: flash_message('create.m', resource_name))
         expect(page).to have_message(attributes[:name], in: 'table tbody')

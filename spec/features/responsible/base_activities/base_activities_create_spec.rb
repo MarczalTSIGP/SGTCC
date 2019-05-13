@@ -18,7 +18,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
       it 'create a base activity with tcc 1' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
-        find('span[class="custom-control-label"]', text: '1').click
+        radio('1', in: 'base_activity_tcc')
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
         submit_form('input[name="commit"]')
 
@@ -30,7 +30,7 @@ describe 'BaseActivity::create', type: :feature, js: true do
       it 'create a base activity with tcc 2' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
-        find('span[class="custom-control-label"]', text: '2').click
+        radio('2', in: 'base_activity_tcc')
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
 
         submit_form('input[name="commit"]')

@@ -14,9 +14,8 @@ describe 'Calendar::create', type: :feature, js: true do
       it 'create a calendar' do
         attributes = attributes_for(:calendar)
         fill_in 'calendar_year', with: attributes[:year]
-        within first('span[class="custom-control-label"]').click
-        within all('span[class="custom-control-label"]').last.click
-
+        radio('1', in: 'calendar_tcc')
+        radio('1', in: 'calendar_semester')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendars_tcc_one_path

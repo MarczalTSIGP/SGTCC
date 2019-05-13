@@ -26,8 +26,10 @@ module Helpers
       alert.accept
     end
 
-    def radio(name)
-      find('span', text: name[0]).click
+    def radio(name, options = {})
+      within(".#{options[:in]}") do
+        find("span[class='custom-control-label']", text: name).click
+      end
     end
   end
 end
