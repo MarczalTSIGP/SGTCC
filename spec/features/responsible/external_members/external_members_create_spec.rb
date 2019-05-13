@@ -21,7 +21,7 @@ describe 'ExternalMember::create', type: :feature, js: true do
         fill_in 'external_member_password', with: attributes[:password]
         fill_in 'external_member_password_confirmation', with: attributes[:password_confirmation]
         fill_in 'external_member_personal_page', with: attributes[:personal_page]
-        find('span', text: ExternalMember.human_genders.first[0]).click
+        radio(ExternalMember.human_genders.first)
         find('.fa-bold').click
         selectize(Scholarity.first.name, from: 'external_member_scholarity_id')
         submit_form('input[name="commit"]')
