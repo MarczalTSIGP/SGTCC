@@ -136,6 +136,9 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
+      get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
+
       get 'orientations/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_one',
@@ -145,9 +148,6 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
-
-      get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
-      get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
     end
 
     namespace :tcc_one_professors do
