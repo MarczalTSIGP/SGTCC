@@ -13,8 +13,10 @@ describe 'Calendar::show', type: :feature do
     context 'when shows the calendar' do
       it 'shows the calendar' do
         calendar.activities.each do |activity|
+          tcc = I18n.t("enums.tcc.#{activity.tcc}")
           expect(page).to have_contents([activity.name,
                                          activity.base_activity_type.name,
+                                         tcc,
                                          short_date(activity.created_at)])
         end
       end

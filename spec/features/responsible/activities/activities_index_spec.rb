@@ -17,6 +17,7 @@ describe 'Activity::index', type: :feature, js: true do
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
+                                       I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
@@ -30,6 +31,7 @@ describe 'Activity::index', type: :feature, js: true do
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
+                                       I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
@@ -46,6 +48,7 @@ describe 'Activity::index', type: :feature, js: true do
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
+                                       I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
       end
     end
@@ -61,6 +64,7 @@ describe 'Activity::index', type: :feature, js: true do
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
+                                       I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
       end
     end

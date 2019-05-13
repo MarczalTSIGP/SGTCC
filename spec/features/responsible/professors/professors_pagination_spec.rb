@@ -18,6 +18,7 @@ describe 'Professor::pagination', type: :feature, js: true do
                                        professor.email,
                                        professor.username,
                                        short_date(professor.created_at)])
+        expect(page).to have_selector(link(professor.lattes))
       end
     end
   end

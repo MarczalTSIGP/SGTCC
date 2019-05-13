@@ -17,6 +17,7 @@ describe 'BaseActivity::index', type: :feature, js: true do
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
+                                         I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
@@ -33,6 +34,7 @@ describe 'BaseActivity::index', type: :feature, js: true do
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
+                                         I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end

@@ -17,6 +17,7 @@ describe 'ExternalMember::pagination', type: :feature, js: true do
         expect(page).to have_contents([external_member.name,
                                        external_member.email,
                                        short_date(external_member.created_at)])
+        expect(page).to have_selector(link(external_member.personal_page))
       end
     end
   end
