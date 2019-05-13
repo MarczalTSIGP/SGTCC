@@ -28,9 +28,9 @@ describe 'Calendar::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_year')
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_tcc')
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_semester')
+        expect(page).to have_message(blank_error_message, in: 'div.calendar_year')
+        expect(page).to have_message(blank_error_message, in: 'div.calendar_tcc')
+        expect(page).to have_message(blank_error_message, in: 'div.calendar_semester')
       end
     end
   end

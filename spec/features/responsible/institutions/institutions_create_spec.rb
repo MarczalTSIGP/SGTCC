@@ -34,10 +34,10 @@ describe 'Institution::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.institution_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_trade_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_cnpj')
-        expect(page).to have_message(message_required_error, in: 'div.institution_external_member')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_name')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_trade_name')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_cnpj')
+        expect(page).to have_message(required_error_message, in: 'div.institution_external_member')
       end
     end
   end

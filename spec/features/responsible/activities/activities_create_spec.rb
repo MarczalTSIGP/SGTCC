@@ -29,8 +29,8 @@ describe 'Activity::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.activity_name')
-        expect(page).to have_message(message_required_error, in: 'div.activity_base_activity_type')
+        expect(page).to have_message(blank_error_message, in: 'div.activity_name')
+        expect(page).to have_message(required_error_message, in: 'div.activity_base_activity_type')
       end
     end
   end

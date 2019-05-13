@@ -36,9 +36,9 @@ describe 'Institution::update', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.institution_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_trade_name')
-        expect(page).to have_message(message_blank_error, in: 'div.institution_cnpj')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_name')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_trade_name')
+        expect(page).to have_message(blank_error_message, in: 'div.institution_cnpj')
       end
     end
   end

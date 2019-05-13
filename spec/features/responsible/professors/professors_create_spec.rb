@@ -38,12 +38,12 @@ describe 'Professor::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_working_area')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_name')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_email')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_username')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_gender')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_lattes')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_working_area')
       end
     end
   end

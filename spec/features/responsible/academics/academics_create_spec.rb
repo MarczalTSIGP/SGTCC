@@ -32,10 +32,10 @@ describe 'Academic::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(message_blank_error, in: 'div.academic_name')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_email')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_gender')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_ra')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_name')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_email')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_gender')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_ra')
       end
     end
   end

@@ -22,7 +22,7 @@ describe 'Responsible:profiles', type: :feature, js: true do
       submit_form('input[name="commit"]')
 
       expect(page).to have_current_path edit_academic_registration_path
-      expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
+      expect(page).to have_flash(:info, text: registrations_updated_message)
 
       within('a.nav-link') do
         expect(page).to have_content(new_name)
@@ -39,20 +39,11 @@ describe 'Responsible:profiles', type: :feature, js: true do
       attach_file 'academic_profile_image', FileSpecHelper.pdf.path
       submit_form('input[name="commit"]')
 
-      expect(page).to have_flash(:danger,
-                                 text: I18n.t('simple_form.error_notification.default_message'))
-
-      expect(page).to have_message(I18n.t('errors.messages.blank'), in: 'div.academic_name')
-      expect(page).to have_message(I18n.t('errors.messages.invalid'), in: 'div.academic_email')
-      expect(page).to have_message(
-        I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes'),
-        in: 'div.academic_current_password'
-      )
-
-      expect(page).to have_message(I18n.t('errors.messages.extension_whitelist_error',
-                                          extension: '"pdf"',
-                                          allowed_types: 'jpg, jpeg, gif, png'),
-                                   in: 'div.academic_profile_image')
+      expect(page).to have_flash(:danger, text: default_error_message)
+      expect(page).to have_message(blank_error_message, in: 'div.academic_name')
+      expect(page).to have_message(invalid_error_message, in: 'div.academic_email')
+      expect(page).to have_message(confirm_password_message, in: 'div.academic_current_password')
+      expect(page).to have_message(profile_image_error_message, in: 'div.academic_profile_image')
     end
   end
 end
