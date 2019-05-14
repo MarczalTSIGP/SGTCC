@@ -37,13 +37,13 @@
         <%= f.association :professor_supervisors,
           input_html: { data: 'selectize' },
           collection: Professor.all.order(:name),
-          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('professor_supervisors')) %>
+          prompt: t('prompt.select.multiple', name: Orientation.human_attribute_name('professor_supervisors')) %>
       </div>
       <div class="col-sm-6">
         <%= f.association :external_member_supervisors,
           input_html: { data: 'selectize' },
           collection: ExternalMember.all.order(:name),
-          prompt: t('prompt.select.m', name: Orientation.human_attribute_name('external_member_supervisors')) %>
+          prompt: t('prompt.select.multiple', name: Orientation.human_attribute_name('external_member_supervisors')) %>
       </div>
     </div>
   </div>
