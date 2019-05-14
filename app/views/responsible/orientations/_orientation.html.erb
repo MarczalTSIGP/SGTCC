@@ -1,6 +1,9 @@
 <tr>
   <td><%= orientation.academic.name %></td>
-  <td><%= orientation.short_title %></td>
+  <td>
+    <%= orientation.short_title %>
+    <i class="fe fe-plus" data-toggle="tooltip" title="<%= orientation.title %>"></i>
+  </td>
   <td><%= orientation.advisor.name %></td>
   <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
   <td>
