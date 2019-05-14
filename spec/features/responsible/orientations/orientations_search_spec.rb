@@ -27,7 +27,7 @@ describe 'Orientation::search', type: :feature do
       it 'returns not found message' do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
-        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
+        expect(page).to have_message(no_results_message, in: 'table tbody')
       end
     end
   end
