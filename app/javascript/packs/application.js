@@ -94,6 +94,10 @@ document.addEventListener('turbolinks:load', () => {
         const activity_initial_date = '#datetimepicker_activity_initial_date';
         const activity_final_date = '#datetimepicker_activity_final_date';
 
+        if ($(activity_initial_date).length === 0) {
+          return false;
+        }
+
         $(activity_final_date).datetimepicker({
           useCurrent: false
         });

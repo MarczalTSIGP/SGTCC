@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::update', type: :feature do
+describe 'Professor::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { professor.model_name.human }
 
@@ -15,26 +15,28 @@ describe 'Professor::update', type: :feature do
       visit edit_responsible_professor_path(professor)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the professor' do
-        attributes = attributes_for(:professor)
-        new_name = 'Teste'
-
-        fill_in 'professor_name', with: new_name
+        attributes = attributes_for(:professor_inactive)
+        fill_in 'professor_name', with: attributes[:name]
         fill_in 'professor_email', with: attributes[:email]
+        fill_in 'professor_lattes', with: attributes[:lattes]
+        fill_in 'professor_username', with: attributes[:username]
+        gender = I18n.t("enums.genders.#{attributes[:gender]}")
+        click_on_label(gender, in: 'professor_gender')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_professor_path(professor)
-
-        success_message = I18n.t('flash.actions.update.m',
-                                 resource_name: resource_name)
-
-        expect(page).to have_flash(:success, text: success_message)
-        expect(page).to have_content(new_name)
+        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:email],
+                                       attributes[:username],
+                                       attributes[:lattes],
+                                       gender])
       end
     end
 
-    context 'when the professor is not valid', js: true do
+    context 'when the professor is not valid' do
       it 'show errors' do
         fill_in 'professor_name', with: ''
         fill_in 'professor_email', with: ''
@@ -43,14 +45,11 @@ describe 'Professor::update', type: :feature do
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_name')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_email')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_username')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_gender')
-        expect(page).to have_message(message_blank_error, in: 'div.professor_lattes')
+        expect(page).to have_flash(:danger, text: errors_message)
+        expect(page).to have_message(blank_error_message, in: 'div.professor_name')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_email')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_username')
+        expect(page).to have_message(blank_error_message, in: 'div.professor_lattes')
       end
     end
   end

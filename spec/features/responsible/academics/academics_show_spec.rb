@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 describe 'Academics::show', type: :feature do
+  let(:responsible) { create(:responsible) }
+  let!(:academic) { create(:academic) }
+
+  before do
+    login_as(responsible, scope: :professor)
+    visit responsible_academic_path(academic)
+  end
+
   describe '#show' do
     context 'when shows the academic' do
       it 'shows the academic' do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
-        academic = create(:academic)
-        visit responsible_academic_path(academic)
-
         gender = I18n.t("enums.genders.#{academic.gender}")
-
         expect(page).to have_contents([academic.name,
                                        academic.email,
                                        academic.ra,

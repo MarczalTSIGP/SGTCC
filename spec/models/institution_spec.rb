@@ -12,6 +12,15 @@ RSpec.describe Institution, type: :model do
     it { is_expected.to belong_to(:external_member) }
   end
 
+  describe 'formatted cnpj' do
+    let(:institution) { create(:institution) }
+
+    it 'returns the cnpj formatted' do
+      cnpj = institution.cnpj
+      expect(cnpj.formatted).to eq(CNPJ.new(cnpj).formatted)
+    end
+  end
+
   describe '#search' do
     let(:institution) { create(:institution) }
 

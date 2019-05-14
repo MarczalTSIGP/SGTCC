@@ -1,28 +1,21 @@
 require 'rails_helper'
 
-describe 'Academic::destroy', type: :feature do
+describe 'Academic::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
+  let!(:academic) { create(:academic) }
   let(:resource_name) { Academic.model_name.human }
 
   before do
     login_as(responsible, scope: :professor)
+    visit responsible_academics_path
   end
 
   describe '#destroy' do
-    context 'when academic is destroyed', js: true do
+    context 'when academic is destroyed' do
       it 'show success message' do
-        academic = create(:academic)
-        visit responsible_academics_path
-
-        within first('.destroy').click
-
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
-        sleep 2.seconds
-
-        success_message = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
-
+        click_on_destroy_link(responsible_academic_path(academic))
+        accept_alert
+        expect(page).to have_flash(:success, text: message('destroy.m'))
         expect(page).not_to have_content(academic.name)
       end
     end
