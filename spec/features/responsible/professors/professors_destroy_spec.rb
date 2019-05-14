@@ -21,8 +21,9 @@ describe 'Professor::destroy', type: :feature, js: true do
     end
 
     context 'when professor has associations', js: true do
+      let!(:orientation) { create(:orientation, advisor: professor) }
+
       it 'show alert message' do
-        orientation = create(:orientation, advisor: professor)
         click_on_destroy_link(responsible_professor_path(orientation.advisor))
         accept_alert
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
