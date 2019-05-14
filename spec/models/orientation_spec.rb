@@ -29,6 +29,67 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#by_tcc' do
+    before do
+      create_list(:orientation, 25)
+    end
+
+    it 'returns the orientations by tcc one' do
+      order_by = 'calendars.year DESC, calendars.semester ASC, title'
+      orientations_tcc_one = Orientation.joins(:calendar)
+                                        .where(calendars: { tcc: Calendar.tccs[:one] })
+                                        .page(1)
+                                        .search('')
+                                        .includes(:advisor, :academic, :calendar)
+                                        .order(order_by)
+      expect(Orientation.by_tcc_one(1, '')).to eq(orientations_tcc_one)
+    end
+
+    it 'returns the orientations by tcc two' do
+      order_by = 'calendars.year DESC, calendars.semester ASC, title'
+      orientations_tcc_two = Orientation.joins(:calendar)
+                                        .where(calendars: { tcc: Calendar.tccs[:two] })
+                                        .page(1)
+                                        .search('')
+                                        .includes(:advisor, :academic, :calendar)
+                                        .order(order_by)
+      expect(Orientation.by_tcc_two(1, '')).to eq(orientations_tcc_two)
+    end
+  end
+
+  describe '#by_current_tcc' do
+    before do
+      create(:current_orientation_tcc_one)
+      create(:current_orientation_tcc_two)
+    end
+
+    it 'returns the current orientations by tcc one' do
+      query = { tcc: Calendar.tccs[:one],
+                year: Calendar.current_year,
+                semester: Calendar.current_semester }
+      orientations_tcc_one = Orientation.joins(:calendar)
+                                        .where(calendars: query)
+                                        .page(1)
+                                        .search('')
+                                        .includes(:advisor, :academic, :calendar)
+                                        .order('academics.name')
+      expect(Orientation.by_current_tcc_one(1, '')).to eq(orientations_tcc_one)
+    end
+
+    it 'returns the current orientations by tcc two' do
+      query = { tcc: Calendar.tccs[:two],
+                year: Calendar.current_year,
+                semester: Calendar.current_semester }
+      orientations_tcc_two = Orientation.joins(:calendar)
+                                        .where(calendars: query)
+                                        .page(1)
+                                        .search('')
+                                        .includes(:advisor, :academic, :calendar)
+                                        .order('academics.name')
+      expect(Orientation.by_current_tcc_two(1, '')).to eq(orientations_tcc_two)
+    end
+  end
+
   describe '#search' do
     let(:orientation) { create(:orientation) }
 
