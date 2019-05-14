@@ -47,7 +47,7 @@ class Orientation < ApplicationRecord
                .page(page)
                .search(term)
                .includes(:advisor, :academic, :calendar)
-               .order(created_at: :desc)
+               .order('calendars.year DESC, calendars.semester ASC, title')
   end
 
   def self.by_tcc_two(page, term)
@@ -55,7 +55,7 @@ class Orientation < ApplicationRecord
                .page(page)
                .search(term)
                .includes(:advisor, :academic, :calendar)
-               .order(created_at: :desc)
+               .order('calendars.year DESC, calendars.semester ASC, title')
   end
 
   def self.by_current_tcc_one(page, term)
