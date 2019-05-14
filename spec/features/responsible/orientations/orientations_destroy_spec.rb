@@ -13,13 +13,10 @@ describe 'Orientation::destroy', type: :feature do
   describe '#destroy' do
     context 'when orientation is destroyed', js: true do
       it 'show the success message' do
-        within first('.destroy').click
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
-        sleep 2.seconds
+        click_on_destroy_link(responsible_orientation_path(orientation))
+        accept_alert
 
-        success_message = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: message('destroy.f'))
         expect(page).not_to have_content(orientation.short_title)
       end
     end
