@@ -185,7 +185,7 @@ pt-BR:
         academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição externa"
-        professor_supervisors: "Coorientadores"
+        professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         <<: *commons
   helpers:
