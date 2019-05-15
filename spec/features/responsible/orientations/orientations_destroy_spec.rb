@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Orientation::destroy', type: :feature do
   let(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:orientation_tcc_one) }
   let(:resource_name) { Orientation.model_name.human }
+  let!(:orientation) { create(:orientation_tcc_one) }
 
   before do
     login_as(responsible, scope: :professor)
