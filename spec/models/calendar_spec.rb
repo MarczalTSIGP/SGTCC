@@ -107,15 +107,35 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
+  describe '#year_with_semester_and_tcc' do
+    it 'returns the calendar with (year/semester - TCC: tcc)' do
+      calendar = create(:current_calendar)
+      semester = I18n.t("enums.semester.#{calendar.semester}")
+      tcc = I18n.t("enums.tcc.#{calendar.tcc}")
+      year_with_semester_and_tcc = "#{calendar.year}/#{semester} - TCC: #{tcc}"
+      expect(calendar.year_with_semester_and_tcc).to eq(year_with_semester_and_tcc)
+    end
+  end
+
   describe '#select_data' do
     it 'returns the calendar data for select' do
       create(:current_calendar_tcc_one)
       tcc_one = Calendar.tccs[:one]
-      select_data = Calendar.select_data(tcc_one)
-      expect_data = Calendar.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
+      expected_data = Calendar.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
         [calendar.id, calendar.year_with_semester]
       end
-      expect(select_data).to eq(expect_data)
+      expect(Calendar.select_data(tcc_one)).to eq(expected_data)
+    end
+  end
+
+  describe '#select_for_orientation' do
+    it 'returns the calendar data for orientation select' do
+      create(:current_calendar_tcc_one)
+      create(:current_calendar_tcc_two)
+      expected_data = Calendar.all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+        [calendar.id, calendar.year_with_semester_and_tcc]
+      end
+      expect(Calendar.select_for_orientation).to eq(expected_data)
     end
   end
 
