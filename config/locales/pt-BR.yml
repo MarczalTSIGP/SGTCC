@@ -91,9 +91,11 @@ pt-BR:
       show: "Visualizar Orientação"
       tcc:
         one:
-          index: 'Orientações de TCC 1'
+          sidebar: 'Orientações do TCC 1'
+          index: 'Orientações de TCC 1 (%{calendar})'
         two:
-          index: 'Orientações de TCC 2'
+          sidebar: 'Orientações do TCC 2'
+          index: 'Orientações de TCC 2 (%{calendar})'
   activerecord:
     errors:
       models:

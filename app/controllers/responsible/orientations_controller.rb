@@ -35,6 +35,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def current_tcc_one
+    calendar = Calendar.current_by_tcc_one.year_with_semester
+    @title = I18n.t('breadcrumbs.orientations.tcc.one.index', calendar: calendar)
     @orientations = Orientation.by_current_tcc_one(params[:page], params[:term])
     @search_url = responsible_orientations_search_current_tcc_one_path
 
@@ -42,6 +44,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def current_tcc_two
+    calendar = Calendar.current_by_tcc_two.year_with_semester
+    @title = I18n.t('breadcrumbs.orientations.tcc.two.index', calendar: calendar)
     @orientations = Orientation.by_current_tcc_two(params[:page], params[:term])
     @search_url = responsible_orientations_search_current_tcc_two_path
 
