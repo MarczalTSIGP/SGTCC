@@ -78,9 +78,8 @@ namespace :db do
       )
     end
 
-    2.times do |index|
-      create_calendar(index, Calendar.tccs[:one])
-      create_calendar(index, Calendar.tccs[:two])
+    50.times do |index|
+      create_calendar_for_year(Calendar.current_year.to_i + index)
     end
 
     50.times do |index|
@@ -94,11 +93,10 @@ namespace :db do
     end
   end
 
-  def create_calendar(index, tcc)
-    Calendar.create(
-      year: '2019',
-      semester: index + 1,
-      tcc: tcc
-    )
+  def create_calendar_for_year(year)
+    2.times do |index|
+      Calendar.create(year: year, semester: index + 1, tcc: 1)
+      Calendar.create(year: year, semester: index + 1, tcc: 2)
+    end
   end
 end
