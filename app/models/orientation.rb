@@ -9,17 +9,19 @@ class Orientation < ApplicationRecord
   belongs_to :institution, optional: true
 
   has_many :orientation_supervisors,
-           dependent: :restrict_with_error
+           dependent: :delete_all
 
   has_many :professor_supervisors,
            class_name: 'Professor',
            foreign_key: :professor_supervisor_id,
-           through: :orientation_supervisors
+           through: :orientation_supervisors,
+           dependent: :destroy
 
   has_many :external_member_supervisors,
            class_name: 'ExternalMember',
            foreign_key: :external_member_supervisor_id,
-           through: :orientation_supervisors
+           through: :orientation_supervisors,
+           dependent: :destroy
 
   validates :title, presence: true
 
