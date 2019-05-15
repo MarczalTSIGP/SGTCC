@@ -17,7 +17,7 @@ RSpec.describe Orientation, type: :model do
                                                       .dependent(:destroy)
     end
 
-    it 'is expected to have many orientation supervisors' do
+    it 'is expected to have many external member supervisors' do
       is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors)
                                                             .dependent(:destroy)
     end
