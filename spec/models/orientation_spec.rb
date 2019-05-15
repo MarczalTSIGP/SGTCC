@@ -10,9 +10,17 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to belong_to(:academic) }
     it { is_expected.to belong_to(:advisor).class_name('Professor') }
     it { is_expected.to belong_to(:institution) }
-    it { is_expected.to have_many(:orientation_supervisors).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:professor_supervisors).through(:orientation_supervisors) }
-    it { is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors) }
+    it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
+
+    it 'is expected to have many professor supervisors' do
+      is_expected.to have_many(:professor_supervisors).through(:orientation_supervisors)
+                                                      .dependent(:destroy)
+    end
+
+    it 'is expected to have many orientation supervisors' do
+      is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors)
+                                                            .dependent(:destroy)
+    end
   end
 
   describe '#short_title' do
