@@ -40,39 +40,31 @@ class Orientation < ApplicationRecord
                                         semester: Calendar.current_semester })
   }
 
+  scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title') }
+  scope :order_by_academic, -> { order('academics.name') }
+  scope :with_relationships, -> { includes(:advisor, :academic, :calendar) }
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
 
+  def self.by_tcc(data, page, term)
+    data.page(page).search(term).with_relationships
+  end
+
   def self.by_tcc_one(page, term)
-    Orientation.tcc_one
-               .page(page)
-               .search(term)
-               .includes(:advisor, :academic, :calendar)
-               .order('calendars.year DESC, calendars.semester ASC, title')
+    by_tcc(tcc_one, page, term).recent
   end
 
   def self.by_tcc_two(page, term)
-    Orientation.tcc_two
-               .page(page)
-               .search(term)
-               .includes(:advisor, :academic, :calendar)
-               .order('calendars.year DESC, calendars.semester ASC, title')
+    by_tcc(tcc_two, page, term).recent
   end
 
   def self.by_current_tcc_one(page, term)
-    Orientation.current_tcc_one
-               .page(page)
-               .search(term)
-               .includes(:advisor, :academic, :calendar)
-               .order('academics.name')
+    by_tcc(current_tcc_one, page, term).order_by_academic
   end
 
   def self.by_current_tcc_two(page, term)
-    Orientation.current_tcc_two
-               .page(page)
-               .search(term)
-               .includes(:advisor, :academic, :calendar)
-               .order('academics.name')
+    by_tcc(current_tcc_two, page, term).order_by_academic
   end
 end
