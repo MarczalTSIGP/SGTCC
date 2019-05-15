@@ -5,23 +5,14 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-<<<<<<< HEAD
     [OrientationSupervisor,
      Orientation,
      Academic,
-=======
-    [Academic,
->>>>>>> Add responsible/orientations feature tests
      Institution,
      ExternalMember,
      BaseActivity,
      Activity,
-<<<<<<< HEAD
      Calendar].each(&:delete_all)
-=======
-     Calendar,
-     Orientation].each(&:delete_all)
->>>>>>> Add responsible/orientations feature tests
 
     Professor.where.not(username: 'marczal').destroy_all
 

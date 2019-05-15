@@ -1,9 +1,9 @@
-<% provide(:page_title, t('breadcrumbs.orientations.history')) %>
-<% provide(:head_title, t('breadcrumbs.orientations.history')) %>
+<% provide(:page_title, t('breadcrumbs.orientations.index')) %>
+<% provide(:head_title, t('breadcrumbs.orientations.index')) %>
 
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
-    <search url="<%= professors_orientations_search_history_path %>" search-term="<%= params[:term] %>" />
+    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_professors_orientation_path, class: 'btn btn-outline-primary d-block') do %>
@@ -14,8 +14,10 @@
 </div>
 
 <div class="text-right mt-3">
-  <%= page_entries_info @orientations %>
+  <%= page_entries_info @supervisions if @supervisions.present? %>
 </div>
+
+<%= render('tabs') %>
 
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
@@ -31,11 +33,13 @@
 
     <tbody>
       <tr>
-        <%= render('shared/no_results') if @orientations.empty? %>
+        <%= render('shared/no_results') if @supervisions.empty? %>
       </tr>
-      <%= render @orientations %>
+      <% @supervisions.each do |supervision| %>
+        <%= render 'professors/orientations/orientation', orientation: supervision.orientation %>
+      <% end %>
     </tbody>
   </table>
 </div>
 
-<%= paginate @orientations %>
+<%= paginate @supervisions if @supervisions.present? %>

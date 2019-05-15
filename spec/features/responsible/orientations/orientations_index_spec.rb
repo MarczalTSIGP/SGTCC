@@ -9,7 +9,7 @@ describe 'Orientation::index', type: :feature do
   describe '#index', js: true do
     context 'when shows all the orientations of tcc one calendar' do
       it 'shows all the orientations of tcc one with options' do
-        orientations = create_list(:orientation_tcc_one, 3)
+        orientations = create_list(:orientation_tcc_one, 2)
 
         visit responsible_orientations_tcc_one_path
 
@@ -25,7 +25,7 @@ describe 'Orientation::index', type: :feature do
 
     context 'when shows all the orientations of tcc two calendar' do
       it 'shows all the orientations of tcc two with options' do
-        orientations = create_list(:orientation_tcc_two, 3)
+        orientations = create_list(:orientation_tcc_two, 2)
 
         visit responsible_orientations_tcc_two_path
 

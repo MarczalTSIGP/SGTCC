@@ -19,13 +19,11 @@ describe 'Orientation::create', type: :feature do
       it 'create an orientation' do
         attributes = attributes_for(:orientation)
         fill_in 'orientation_title', with: attributes[:title]
-        find('#orientation_academic_id-selectized').click
-        find('div.selectize-dropdown-content', text: academic.name).click
+        selectize(academic.name, from: 'orientation_academic_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_orientations_tcc_one_path
-        success_message = I18n.t('flash.actions.create.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
+        expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
@@ -33,12 +31,9 @@ describe 'Orientation::create', type: :feature do
     context 'when orientation is not valid', js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        message_blank_error = I18n.t('errors.messages.blank')
-        expect(page).to have_message(message_blank_error, in: 'div.orientation_title')
-        expect(page).to have_message(message_blank_error, in: 'div.orientation_calendar')
-        expect(page).to have_message(message_blank_error, in: 'div.orientation_academic')
-        expect(page).to have_message(message_blank_error, in: 'div.orientation_advisor')
+        expect(page).to have_flash(:danger, text: errors_message)
+        expect(page).to have_message(blank_error_message, in: 'div.orientation_title')
+        expect(page).to have_message(required_error_message, in: 'div.orientation_academic')
       end
     end
   end

@@ -46,6 +46,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   def current_tcc_two
     @orientations = Orientation.by_current_tcc_two(params[:page], params[:term])
     @search_url = responsible_orientations_search_current_tcc_two_path
+
+    render :current_index
   end
 
   def show; end
@@ -79,8 +81,11 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def destroy
-    @orientation.destroy
-    feminine_success_destroy_message
+    if @orientation.destroy
+      feminine_success_destroy_message
+    else
+      alert_destroy_bond_message
+    end
 
     redirect_to responsible_orientations_path
   end

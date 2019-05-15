@@ -25,7 +25,6 @@ class Professors::OrientationsController < Professors::BaseController
                                      .page(params[:page])
                                      .search(params[:term])
                                      .includes(:academic, :calendar)
-    @search_url = professors_orientations_search_tcc_one_path
   end
 
   def tcc_one
@@ -49,6 +48,19 @@ class Professors::OrientationsController < Professors::BaseController
 
     render :index
   end
+
+  def supervisions_tcc_one
+    supervisions = current_professor.professor_supervisors
+    @search_url = professors_orientations_search_tcc_one_path
+    @supervisions = []
+
+    unless supervisions.empty?
+      @supervisions = supervisions.page(params[:page]).includes(:orientation)
+    end
+    render :supervisor
+  end
+
+  def supervisions_tcc_two; end
 
   def show; end
 
