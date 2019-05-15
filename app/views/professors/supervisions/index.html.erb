@@ -1,5 +1,5 @@
-<% provide(:page_title, t('breadcrumbs.orientations.index')) %>
-<% provide(:head_title, t('breadcrumbs.orientations.index')) %>
+<% provide(:page_title, t('breadcrumbs.supervisions.index')) %>
+<% provide(:head_title, t('breadcrumbs.supervisions.index')) %>
 
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
@@ -13,11 +13,14 @@
   </div>
 </div>
 
-<div class="text-right mt-3">
-  <%= page_entries_info @supervisions if @supervisions.present? %>
-</div>
+<% if @supervisions.present? %>
+  <div class="text-right mt-3">
+    <%= page_entries_info @supervisions,
+      entry_name: Orientation.human_attribute_name('orientation_supervisors') %>
+  </div>
+<% end %>
 
-<%= render('tabs') %>
+<%= render('supervisor_tabs') %>
 
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">

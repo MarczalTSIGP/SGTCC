@@ -1,5 +1,5 @@
 class Professors::OrientationsController < Professors::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
+  before_action :set_orientation, only: [:show, :edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :professors_orientations_path
@@ -18,13 +18,6 @@ class Professors::OrientationsController < Professors::BaseController
 
   def index
     redirect_to action: :tcc_one
-  end
-
-  def history
-    @orientations = current_professor.orientations
-                                     .page(params[:page])
-                                     .search(params[:term])
-                                     .includes(:academic, :calendar)
   end
 
   def tcc_one
@@ -49,18 +42,13 @@ class Professors::OrientationsController < Professors::BaseController
     render :index
   end
 
-  def supervisions_tcc_one
+  def history
+    orientations = current_professor.orientations.includes(:academic, :calendar)
     supervisions = current_professor.professor_supervisors
-    @search_url = professors_orientations_search_tcc_one_path
-    @supervisions = []
-
-    unless supervisions.empty?
-      @supervisions = supervisions.page(params[:page]).includes(:orientation)
-    end
-    render :supervisor
+                                    .includes(:orientation)
+    supervisions = supervisions.map(&:orientation)
+    @orientations = (orientations + supervisions).uniq
   end
-
-  def supervisions_tcc_two; end
 
   def show; end
 
@@ -90,13 +78,6 @@ class Professors::OrientationsController < Professors::BaseController
       error_message
       render :edit
     end
-  end
-
-  def destroy
-    @orientation.destroy
-    feminine_success_destroy_message
-
-    redirect_to professors_orientations_path
   end
 
   private

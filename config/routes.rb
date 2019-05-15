@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :orientations,
+                except: :destroy,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -140,12 +141,12 @@ Rails.application.routes.draw do
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
 
-      get 'orientations/supervisions_tcc_one',
-          to: 'orientations#supervisions_tcc_one',
+      get 'supervisions/tcc_one',
+          to: 'supervisions#tcc_one',
           as: 'supervisions_tcc_one'
 
-      get 'orientations/supervisions_tcc_two',
-          to: 'orientations#supervisions_tcc_two',
+      get 'supervisions/tcc_two',
+          to: 'supervisions#tcc_two',
           as: 'supervisions_tcc_two'
 
       get 'calendars/:calendar_id/activities',
@@ -165,11 +166,6 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
-
-      get 'orientations/history/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'orientations#history',
-          as: 'orientations_search_history'
     end
 
     namespace :tcc_one_professors do

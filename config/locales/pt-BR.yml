@@ -193,6 +193,7 @@ pt-BR:
         academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição externa"
+        orientation_supervisors: "Coorientações"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         <<: *commons

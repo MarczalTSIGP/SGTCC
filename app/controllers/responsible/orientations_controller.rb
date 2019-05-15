@@ -81,11 +81,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def destroy
-    if @orientation.destroy
-      feminine_success_destroy_message
-    else
-      alert_destroy_bond_message
-    end
+    @orientation.destroy
+    feminine_success_destroy_message
 
     redirect_to responsible_orientations_path
   end
