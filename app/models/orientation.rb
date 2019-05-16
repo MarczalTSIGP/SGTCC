@@ -1,7 +1,6 @@
 class Orientation < ApplicationRecord
-  include Searchable
-
-  searchable title: { unaccent: true }
+  include StringHelper
+  include KaminariHelper
 
   belongs_to :calendar
   belongs_to :academic
@@ -40,31 +39,41 @@ class Orientation < ApplicationRecord
                                         semester: Calendar.current_semester })
   }
 
-  scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title') }
-  scope :order_by_academic, -> { order('academics.name') }
+  scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
   scope :with_relationships, -> { includes(:advisor, :academic, :calendar) }
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
 
-  def self.by_tcc(data, page, term)
-    data.page(page).search(term).with_relationships
+  def self.search(term, data = all)
+    return data if term.blank?
+    term = remove_accents(term)
+    data.select do |orientation|
+      regex_term = /#{term}/i
+      remove_accents(orientation.academic.name).match?(regex_term) ||
+        remove_accents(orientation.advisor.name).match?(regex_term) ||
+        remove_accents(orientation.title).match?(regex_term)
+    end
   end
 
   def self.by_tcc_one(page, term)
-    by_tcc(tcc_one, page, term).recent
+    data = with_relationships.tcc_one.recent
+    paginate_array(search(term, data), page)
   end
 
   def self.by_tcc_two(page, term)
-    by_tcc(tcc_two, page, term).recent
+    data = with_relationships.tcc_two.recent
+    paginate_array(search(term, data), page)
   end
 
   def self.by_current_tcc_one(page, term)
-    by_tcc(current_tcc_one, page, term).order_by_academic
+    data = with_relationships.current_tcc_one.recent
+    paginate_array(search(term, data), page)
   end
 
   def self.by_current_tcc_two(page, term)
-    by_tcc(current_tcc_two, page, term).order_by_academic
+    data = with_relationships.current_tcc_two.recent
+    paginate_array(search(term, data), page)
   end
 end
