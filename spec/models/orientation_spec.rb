@@ -106,45 +106,101 @@ RSpec.describe Orientation, type: :model do
         results_search = Orientation.search(orientation.title)
         expect(orientation.title).to eq(results_search.first.title)
       end
+
+      it 'returns orientation by academic name' do
+        results_search = Orientation.search(orientation.academic.name)
+        expect(orientation.academic.name).to eq(results_search.first.academic.name)
+      end
+
+      it 'returns orientation by advisor name' do
+        results_search = Orientation.search(orientation.advisor.name)
+        expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
+      end
     end
 
-    context 'when finds orientation by title with accents' do
-      it 'returns orientation' do
+    context 'when finds orientation with accents' do
+      it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema de Gestão')
         results_search = Orientation.search('Sistema de Gestao')
         expect(orientation.title).to eq(results_search.first.title)
       end
+
+      it 'returns orientation by academic name' do
+        academic = create(:academic, name: 'João')
+        orientation = create(:orientation, academic: academic)
+        results_search = Orientation.search(academic.name)
+        expect(orientation.academic.name).to eq(results_search.first.academic.name)
+      end
+
+      it 'returns orientation by advisor name' do
+        advisor = create(:professor, name: 'Júlio')
+        orientation = create(:orientation, advisor: advisor)
+        results_search = Orientation.search(advisor.name)
+        expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
+      end
     end
 
-    context 'when finds orientation by title on search term with accents' do
-      it 'returns orientation' do
+    context 'when finds orientation on search term with accents' do
+      it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema de Gestao')
         results_search = Orientation.search('Sistema de Gestão')
         expect(orientation.title).to eq(results_search.first.title)
       end
+
+      it 'returns orientation by academic name' do
+        academic = create(:academic, name: 'Joao')
+        orientation = create(:orientation, academic: academic)
+        results_search = Orientation.search('João')
+        expect(orientation.academic.name).to eq(results_search.first.academic.name)
+      end
+
+      it 'returns orientation by advisor name' do
+        advisor = create(:professor, name: 'Julio')
+        orientation = create(:orientation, advisor: advisor)
+        results_search = Orientation.search('Júlio')
+        expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
+      end
     end
 
-    context 'when finds orientation by title ignoring the case sensitive' do
-      it 'returns orientation by attribute' do
+    context 'when finds orientation ignoring the case sensitive' do
+      it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema')
         results_search = Orientation.search('sistema')
         expect(orientation.title).to eq(results_search.first.title)
       end
 
-      it 'returns orientation by search term' do
+      it 'returns orientation by title on search term' do
         orientation = create(:orientation, title: 'sistema')
         results_search = Orientation.search('SISTEMA')
         expect(orientation.title).to eq(results_search.first.title)
       end
-    end
 
-    context 'when returns orientations ordered by title' do
-      it 'returns ordered' do
-        create_list(:orientation, 30)
-        orientations_ordered = Orientation.order(:title)
-        orientation = orientations_ordered.first
-        results_search = Orientation.search.order(:title)
-        expect(orientation.title). to eq(results_search.first.title)
+      it 'returns orientation by academic name' do
+        academic = create(:academic, name: 'Joao')
+        orientation = create(:orientation, academic: academic)
+        results_search = Orientation.search('joao')
+        expect(orientation.academic.name).to eq(results_search.first.academic.name)
+      end
+
+      it 'returns orientation by academic name on search term' do
+        academic = create(:academic, name: 'joao')
+        orientation = create(:orientation, academic: academic)
+        results_search = Orientation.search('JOAO')
+        expect(orientation.academic.name).to eq(results_search.first.academic.name)
+      end
+
+      it 'returns orientation by advisor name' do
+        advisor = create(:professor, name: 'Julio')
+        orientation = create(:orientation, advisor: advisor)
+        results_search = Orientation.search('julio')
+        expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
+      end
+
+      it 'returns orientation by advisor name on search term' do
+        advisor = create(:professor, name: 'julio')
+        orientation = create(:orientation, advisor: advisor)
+        results_search = Orientation.search('JULIO')
+        expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
     end
   end
