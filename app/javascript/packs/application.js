@@ -32,6 +32,7 @@ document.addEventListener('turbolinks:load', () => {
     el: '#app',
     components,
     mounted() {
+      this.initTooltip();
       this.initMarkdownEditor();
       this.initSelectize();
       this.initCalendarSelectize();
@@ -40,6 +41,14 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     methods: {
+      initTooltip() {
+        const $ = window.jQuery;
+
+        $('[data-toggle="tooltip"]').tooltip({
+          container: '#main-card'
+        });
+      },
+
       initMarkdownEditor() {
         const $ = window.jQuery;
 
