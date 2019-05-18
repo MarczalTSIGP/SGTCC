@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe 'Activity::index', type: :feature, js: true do
+  let(:academic) { create(:academic) }
+
   describe '#index' do
     before do
-      academic = create(:academic)
       login_as(academic, scope: :academic)
     end
 
@@ -11,6 +12,7 @@ describe 'Activity::index', type: :feature, js: true do
       it 'shows all activities for tcc one with options' do
         calendar = create(:current_calendar_tcc_one)
         activity = create(:activity_tcc_one, calendar: calendar)
+        create(:orientation, calendar: calendar, academic: academic)
 
         index_url = academics_calendar_activities_path(calendar)
         visit index_url
@@ -25,6 +27,7 @@ describe 'Activity::index', type: :feature, js: true do
       it 'shows all activities for tcc two with options' do
         calendar = create(:current_calendar_tcc_two)
         activity = create(:activity_tcc_one, calendar: calendar)
+        create(:orientation, calendar: calendar, academic: academic)
 
         index_url = academics_calendar_activities_path(calendar)
         visit index_url

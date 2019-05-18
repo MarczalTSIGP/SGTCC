@@ -7,10 +7,4 @@ class Academics::CalendarsController < Academics::BaseController
 
     @calendars = Academic.paginate_array(calendars, params[:page])
   end
-
-  private
-
-  def set_calendar
-    @calendar = Calendar.find(params[:id])
-  end
 end
