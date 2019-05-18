@@ -136,6 +136,14 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      get 'calendars/(:calendar_id)/activities',
+          to: 'activities#index',
+          as: 'calendar_activities'
+
+      get 'calendars/(:calendar_id)/activities/:id',
+          to: 'activities#show',
+          as: 'calendar_activity'
+
       get 'orientations/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#index',

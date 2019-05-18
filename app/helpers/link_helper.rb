@@ -19,17 +19,25 @@ module LinkHelper
     request.fullpath.match?("(#{tcc_routes})|(#{new_route})|(#{edit_route})")
   end
 
-  def activities_tcc_link_active?(tcc)
+  def activities_tcc_link_active?(tcc, namespace)
     is_equal_tcc = @calendar && @calendar.tcc == tcc
-    is_equal_tcc && request.fullpath.match?('activities')
+    is_equal_tcc && request.fullpath.match?("/#{namespace}/calendars/\\d+/activities")
   end
 
-  def activities_tcc_one_link_active?
-    activities_tcc_link_active?('one')
+  def responsible_activities_tcc_one_link_active?
+    activities_tcc_link_active?('one', 'responsible')
   end
 
-  def activities_tcc_two_link_active?
-    activities_tcc_link_active?('two')
+  def responsible_activities_tcc_two_link_active?
+    activities_tcc_link_active?('two', 'responsible')
+  end
+
+  def professors_activities_tcc_one_link_active?
+    activities_tcc_link_active?('one', 'professors')
+  end
+
+  def professors_activities_tcc_two_link_active?
+    activities_tcc_link_active?('two', 'professors')
   end
 
   def orientations_tcc_one_link_active?

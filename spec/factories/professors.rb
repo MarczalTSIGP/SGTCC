@@ -27,5 +27,15 @@ FactoryBot.define do
         end
       end
     end
+
+    factory :professor_tcc_one do
+      after :create do |professor|
+        role = create(:role, name: 'Professor tcc one', identifier: 'tcc_one') if Role.all.empty?
+        if role
+          professor.roles << role
+          professor.save
+        end
+      end
+    end
   end
 end
