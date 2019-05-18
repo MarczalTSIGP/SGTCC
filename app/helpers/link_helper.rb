@@ -11,12 +11,13 @@ module LinkHelper
     request.fullpath.match?('base_activities')
   end
 
-  def orientations_link_active?
-    new_route = 'orientations/new'
-    edit_route = 'orientations/\\d+/edit'
-    tcc_routes = 'orientations/tcc_one)|(orientations/tcc_two'
+  def orientations_link_active?(namespace = 'responsible')
+    new_route = "/#{namespace}/orientations/new"
+    edit_route = "/#{namespace}/orientations/\\d+/edit"
+    show_route = "/#{namespace}/orientations/\\d+"
+    tcc_routes = "/#{namespace}/orientations/tcc_one)|(orientations/tcc_two"
 
-    request.fullpath.match?("(#{tcc_routes})|(#{new_route})|(#{edit_route})")
+    request.fullpath.match?("(#{tcc_routes})|(#{show_route})|(#{new_route})|(#{edit_route})")
   end
 
   def activities_tcc_link_active?(tcc, namespace)
@@ -40,11 +41,23 @@ module LinkHelper
     activities_tcc_link_active?('two', 'professors')
   end
 
-  def orientations_tcc_one_link_active?
-    request.fullpath.match?('orientations/current_tcc_one')
+  def orientations_tcc_one_link_active?(namespace)
+    request.fullpath.match?("#{namespace}/orientations/current_tcc_one")
   end
 
-  def orientations_tcc_two_link_active?
-    request.fullpath.match?('orientations/current_tcc_two')
+  def orientations_tcc_two_link_active?(namespace)
+    request.fullpath.match?("#{namespace}/orientations/current_tcc_two")
+  end
+
+  def responsible_orientations_tcc_one_link_active?
+    orientations_tcc_one_link_active?('responsible')
+  end
+
+  def responsible_orientations_tcc_two_link_active?
+    orientations_tcc_two_link_active?('responsible')
+  end
+
+  def professors_tcc_one_orientations_tcc_one_link_active?
+    request.fullpath.match?('professors/orientations')
   end
 end
