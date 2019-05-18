@@ -48,9 +48,8 @@ class Orientation < ApplicationRecord
 
   def self.search(term, data = all)
     return data if term.blank?
-    term = remove_accents(term)
+    regex_term = /#{remove_accents(term)}/i
     data.select do |orientation|
-      regex_term = /#{term}/i
       remove_accents(orientation.academic.name).match?(regex_term) ||
         remove_accents(orientation.advisor.name).match?(regex_term) ||
         remove_accents(orientation.title).match?(regex_term)
