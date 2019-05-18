@@ -19,7 +19,7 @@ RSpec.describe Academic, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_one(:orientation).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
   end
 
   describe '#human_genders' do

@@ -2,6 +2,7 @@ class Academic < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
+  include KaminariHelper
 
   searchable :ra, :email, name: { unaccent: true }
 
@@ -9,7 +10,7 @@ class Academic < ApplicationRecord
          :rememberable, :validatable,
          authentication_keys: [:ra]
 
-  has_one :orientation, dependent: :restrict_with_error
+  has_many :orientations, dependent: :restrict_with_error
 
   validates :name,
             presence: true

@@ -31,6 +31,15 @@
       <%= t('breadcrumbs.tcc.two.index') %>
     <% end %>
   <% end %>
+
+  <%= active_link_to(academics_calendars_path,
+		     active: :exact,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'calendar-plus') %>
+    </span>
+    <%= t('breadcrumbs.calendars.index') %>
+  <% end %>
 <% end %>
 
 

@@ -241,6 +241,8 @@ Rails.application.routes.draw do
     namespace :academics do
       root to: 'dashboard#index'
 
+      get 'calendars', to: 'calendars#index', as: 'calendars'
+
       get '/calendars/(:calendar_id)/activities',
           to: 'activities#index',
           as: 'calendar_activities'
