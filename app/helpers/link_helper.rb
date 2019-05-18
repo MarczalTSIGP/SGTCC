@@ -1,8 +1,8 @@
 module LinkHelper
-  def calendars_link_active?
-    new_route = 'calendars/new'
-    edit_route = 'calendars/\\d+/edit'
-    tcc_routes = 'calendars/tcc_one)|(calendars/tcc_two'
+  def calendars_link_active?(namespace = 'responsible')
+    new_route = "/#{namespace}/calendars/new"
+    edit_route = "/#{namespace}/calendars/\\d+/edit"
+    tcc_routes = "/#{namespace}/calendars/tcc_one)|(calendars/tcc_two"
 
     request.fullpath.match?("(#{tcc_routes})|(#{new_route})|(#{edit_route})")
   end
@@ -37,10 +37,6 @@ module LinkHelper
     activities_tcc_link_active?('one', 'professors')
   end
 
-  def professors_activities_tcc_two_link_active?
-    activities_tcc_link_active?('two', 'professors')
-  end
-
   def orientations_tcc_one_link_active?(namespace)
     request.fullpath.match?("#{namespace}/orientations/current_tcc_one")
   end
@@ -58,6 +54,8 @@ module LinkHelper
   end
 
   def professors_tcc_one_orientations_tcc_one_link_active?
-    request.fullpath.match?('professors/orientations')
+    orientations_path = 'professors/orientations'
+    calendar_orientations_path = 'professors/calendars/\\d+/orientations'
+    request.fullpath.match?("(#{orientations_path})|(#{calendar_orientations_path})")
   end
 end
