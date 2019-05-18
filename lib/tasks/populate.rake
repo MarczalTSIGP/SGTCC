@@ -82,14 +82,10 @@ namespace :db do
       create_calendar_for_year(Calendar.current_year.to_i + index)
     end
 
-    50.times do |index|
-      Orientation.create(
-        title: "Orientation #{index}",
-        calendar_id: Calendar.pluck(:id).sample,
-        advisor_id: Professor.pluck(:id).sample,
-        academic_id: Academic.pluck(:id).sample,
-        institution_id: Institution.pluck(:id).sample
-      )
+    50.times do
+      create_orientation_by_calendar(Calendar.current_by_tcc_one.id)
+      create_orientation_by_calendar(Calendar.current_by_tcc_two.id)
+      create_orientation_by_calendar(Calendar.pluck(:id).sample)
     end
   end
 
@@ -98,5 +94,15 @@ namespace :db do
       Calendar.create(year: year, semester: index + 1, tcc: 1)
       Calendar.create(year: year, semester: index + 1, tcc: 2)
     end
+  end
+
+  def create_orientation_by_calendar(calendar_id)
+    Orientation.create(
+      title: Faker::Lorem.sentence(3),
+      calendar_id: calendar_id,
+      advisor_id: Professor.pluck(:id).sample,
+      academic_id: Academic.pluck(:id).sample,
+      institution_id: Institution.pluck(:id).sample
+    )
   end
 end
