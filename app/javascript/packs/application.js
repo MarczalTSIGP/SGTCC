@@ -10,11 +10,16 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
-import SimpleMDE from 'simplemde';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
 import {components} from './components';
+
+import menu from '../initializers/menu';
+import markdown from '../initializers/markdown_editor';
+import selectize from '../initializers/selectize';
+import datetimepicker from '../initializers/datetimepicker';
+import tooltip from '../initializers/tooltip';
 
 Vue.prototype.$axios = axios;
 
@@ -31,94 +36,6 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
-    mounted() {
-      this.initTooltip();
-      this.initMarkdownEditor();
-      this.initSelectize();
-      this.initCalendarSelectize();
-      this.initHeaderMenuCollapse();
-      this.initLinkedPicker();
-    },
-
-    methods: {
-      initTooltip() {
-        const $ = window.jQuery;
-
-        $('[data-toggle="tooltip"]').tooltip({
-          container: '#main-card'
-        });
-      },
-
-      initMarkdownEditor() {
-        const $ = window.jQuery;
-
-        $('.markdown-editor').each(function () {
-          const id = $(this).attr('id');
-          new SimpleMDE({
-            element: document.getElementById(id)
-          });
-        });
-      },
-
-      initSelectize() {
-        const $ = window.jQuery;
-        const selects = $('*[data="selectize"]');
-
-        if (selects.length > 0) {
-          selects.selectize();
-          this.fixSelectizePlaceholder();
-        }
-      },
-
-      initCalendarSelectize() {
-        const $ = window.jQuery;
-        const select = $('*[data="calendar-selectize"]');
-
-        if (select.length > 0) {
-          select.selectize({
-            onChange: function() {
-              $('input[name="commit"]').click();
-            }
-          });
-        }
-        this.fixSelectizePlaceholder();
-      },
-
-      fixSelectizePlaceholder() {
-        const $ = window.jQuery;
-        $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
-      },
-
-      initHeaderMenuCollapse() {
-        const $ = window.jQuery;
-
-        $('[data-toggle="collapse"]').click(function() {
-          $('html, body').animate({ scrollTop: 0 }, 'slow');
-        });
-      },
-
-      initLinkedPicker() {
-        const $ = window.jQuery;
-
-        const activity_initial_date = '#datetimepicker_activity_initial_date';
-        const activity_final_date = '#datetimepicker_activity_final_date';
-
-        if ($(activity_initial_date).length === 0) {
-          return false;
-        }
-
-        $(activity_final_date).datetimepicker({
-          useCurrent: false
-        });
-
-        $(activity_initial_date).on('change.datetimepicker', (e) => {
-          $(activity_final_date).datetimepicker('minDate', e.date);
-        });
-
-        $(activity_final_date).on('change.datetimepicker', (e) => {
-          $(activity_initial_date).datetimepicker('maxDate', e.date);
-        });
-      },
-    },
+    mixins: [markdown, selectize, datetimepicker, menu, tooltip],
   });
 });
