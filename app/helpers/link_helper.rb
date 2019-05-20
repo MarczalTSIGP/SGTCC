@@ -58,4 +58,17 @@ module LinkHelper
     calendar_orientations_path = 'professors/calendars/\\d+/orientations'
     request.fullpath.match?("(#{orientations_path})|(#{calendar_orientations_path})")
   end
+
+  def professors_calendar_title(page_active)
+    return @calendar.year_with_semester if page_active && @calendar
+    Calendar.current_by_tcc_one.year_with_semester
+  end
+
+  def professors_activities_tcc_one_title
+    professors_calendar_title(professors_activities_tcc_one_link_active?)
+  end
+
+  def professors_orientations_title
+    professors_calendar_title(professors_tcc_one_orientations_tcc_one_link_active?)
+  end
 end

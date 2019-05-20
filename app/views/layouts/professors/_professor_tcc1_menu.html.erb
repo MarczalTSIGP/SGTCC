@@ -17,17 +17,17 @@
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.one.index') %>
+    <%= t('breadcrumbs.tcc.one.calendar_index', calendar: professors_activities_tcc_one_title) %>
   <% end %>
 <% end %>
 
-<%= active_link_to(professors_orientations_current_tcc_one_path,
+<%= active_link_to(professors_calendar_orientations_path(Calendar.current_by_tcc_one.id),
 		   active: professors_tcc_one_orientations_tcc_one_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('fas', 'file-code') %>
   </span>
-  <%= t('breadcrumbs.orientations.tcc.one.sidebar') %>
+  <%= t('breadcrumbs.orientations.tcc.one.calendar_index', calendar: professors_orientations_title) %>
 <% end %>
 
 <%= active_link_to(professors_calendars_tcc_one_path,

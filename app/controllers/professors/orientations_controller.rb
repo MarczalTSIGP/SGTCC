@@ -36,7 +36,7 @@ class Professors::OrientationsController < Professors::BaseController
   def set_title
     calendar = Calendar.current_by_tcc_one
     calendar = @calendar if @calendar.present?
-    @title = I18n.t('breadcrumbs.orientations.tcc.one.index',
+    @title = I18n.t('breadcrumbs.orientations.tcc.one.calendar_index',
                     calendar: calendar.year_with_semester)
   end
 end
