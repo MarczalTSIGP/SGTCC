@@ -1,0 +1,24 @@
+<tr>
+  <td><%= orientation.academic.name %></td>
+  <td>
+    <span data-toggle="tooltip" title="<%= orientation.title %>">
+      <%= orientation.short_title %>
+    </span>
+  </td>
+  <td><%= orientation.advisor.name %></td>
+  <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
+  <td>
+    <%= link_to(responsible_orientation_path(orientation)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_orientation_path(orientation)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_orientation_path(orientation),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>

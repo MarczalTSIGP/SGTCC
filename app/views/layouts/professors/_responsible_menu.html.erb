@@ -42,7 +42,7 @@
 		   active: base_activities_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
-    <%= icon('fas', 'file-signature') %>
+    <%= icon('fas', 'file-alt') %>
   </span>
   <%= t('breadcrumbs.base_activities.index') %>
 <% end %>
@@ -76,4 +76,31 @@
     </span>
     <%= t('breadcrumbs.tcc.two.index') %>
   <% end %>
+<% end %>
+
+<%= active_link_to(responsible_orientations_path,
+		   active: orientations_link_active?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.index') %>
+<% end %>
+
+<%= active_link_to(responsible_orientations_current_tcc_one_path,
+		   active: orientations_tcc_one_link_active?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.tcc.one.sidebar') %>
+<% end %>
+
+<%= active_link_to(responsible_orientations_current_tcc_two_path,
+		   active: orientations_tcc_two_link_active?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.tcc.two.sidebar') %>
 <% end %>

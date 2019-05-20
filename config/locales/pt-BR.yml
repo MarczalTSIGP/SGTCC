@@ -26,7 +26,7 @@ pt-BR:
       truncate: "&hellip;"
     sidebar:
       responsible: "Responsável"
-      orientations: "Orientações"
+      advisor: "Orientador"
       tcc_one: "TCC 1"
       academics: "Acadêmico"
       external_members: "Membro Externo"
@@ -84,6 +84,18 @@ pt-BR:
         new: "Nova Atividade de TCC 2"
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
+    orientations:
+      index: "Orientações"
+      new: "Nova Orientação"
+      edit: "Editar Orientação"
+      show: "Visualizar Orientação"
+      tcc:
+        one:
+          sidebar: 'Orientações do TCC 1'
+          index: 'Orientações de TCC 1 (%{calendar})'
+        two:
+          sidebar: 'Orientações do TCC 2'
+          index: 'Orientações de TCC 2 (%{calendar})'
   activerecord:
     errors:
       models:
@@ -116,6 +128,9 @@ pt-BR:
       calendar:
         one: "Calendário"
         other: "Calendários"
+      orientation:
+        one: "Orientação"
+        other: "Orientações"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -166,6 +181,15 @@ pt-BR:
         semester: "Semestre"
         year: "Ano"
         <<: *commons
+      orientation:
+        title: "Título"
+        calendar: "Calendário"
+        academic: "Acadêmico"
+        advisor: "Orientador"
+        institution: "Instituição externa"
+        professor_supervisors: "Coorientadores da UTFPR"
+        external_member_supervisors: "Coorientadores externos"
+        <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -195,6 +219,9 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+    tcc_number:
+      one: 1
+      two: 2
     semester:
       one: '1'
       two: '2'
@@ -210,7 +237,7 @@ pt-BR:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
         bond: 'Não é possível remover %{resource_name} com vínculos!'
-      errors: 'Existem dados incorretos!'
+      errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
   sessions:
     sign_in: "Login"
@@ -237,6 +264,7 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+      multiple: 'Selecionar %{name}'
   mailer:
     login: 'Acessar sistema'
     external_member:

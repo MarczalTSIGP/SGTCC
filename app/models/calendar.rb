@@ -1,10 +1,12 @@
 class Calendar < ApplicationRecord
   include Searchable
   include Tcc
+  include Semester
 
   searchable :year
 
   has_many :activities, dependent: :restrict_with_error
+  has_many :orientations, dependent: :restrict_with_error
 
   validates :tcc, presence: true
   validates :semester, presence: true
@@ -14,13 +16,14 @@ class Calendar < ApplicationRecord
             uniqueness: { scope: [:semester, :tcc], case_sensetive: false,
                           message: I18n.t('activerecord.errors.models.calendar.attributes.year') }
 
-  enum semester: { one: 1, two: 2 }, _prefix: :semester
-
   after_create :clone_base_activities
 
   def year_with_semester
-    semester_t = I18n.t("enums.semester.#{semester}")
-    "#{year}/#{semester_t}"
+    "#{year}/#{I18n.t("enums.semester.#{semester}")}"
+  end
+
+  def year_with_semester_and_tcc
+    "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
   def self.search_by_second_semester(calendar)
@@ -61,16 +64,12 @@ class Calendar < ApplicationRecord
     search_by_tcc(tccs[:two], page, term)
   end
 
-  def self.current_by_tcc(tcc)
-    find_by(year: current_year, semester: current_semester, tcc: tcc)
-  end
-
   def self.current_by_tcc_one
-    current_by_tcc(tccs[:one])
+    find_by(year: current_year, semester: current_semester, tcc: tccs[:one])
   end
 
   def self.current_by_tcc_two
-    current_by_tcc(tccs[:two])
+    find_by(year: current_year, semester: current_semester, tcc: tccs[:two])
   end
 
   def self.current_year
@@ -91,10 +90,10 @@ class Calendar < ApplicationRecord
     end
   end
 
-  def self.human_semesters
-    hash = {}
-    semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
-    hash
+  def self.select_for_orientation
+    all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+      [calendar.id, calendar.year_with_semester_and_tcc]
+    end
   end
 
   private

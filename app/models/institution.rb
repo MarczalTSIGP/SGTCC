@@ -6,6 +6,7 @@ class Institution < ApplicationRecord
              trade_name: { unaccent: true }
 
   belongs_to :external_member
+  has_many :orientations, dependent: :restrict_with_error
 
   validates :name,
             presence: true

@@ -10,7 +10,14 @@ class ExternalMember < ApplicationRecord
   searchable :email, name: { unaccent: true }
 
   belongs_to :scholarity
+
   has_many :institutions, dependent: :restrict_with_error
+
+  has_many :external_member_supervisors,
+           class_name: 'OrientationSupervisor',
+           foreign_key: :external_member_supervisor_id,
+           inverse_of: :external_member_supervisor,
+           dependent: :restrict_with_error
 
   validates :name,
             presence: true

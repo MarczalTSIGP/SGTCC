@@ -52,8 +52,11 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def destroy
-    @professor.destroy
-    success_destroy_message
+    if @professor.destroy
+      success_destroy_message
+    else
+      alert_destroy_bond_message
+    end
 
     redirect_to responsible_professors_url
   end

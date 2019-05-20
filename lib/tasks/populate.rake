@@ -5,7 +5,15 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    [Academic, Institution, ExternalMember, BaseActivity, Activity, Calendar].each(&:delete_all)
+    [OrientationSupervisor,
+     Orientation,
+     Academic,
+     Institution,
+     ExternalMember,
+     BaseActivity,
+     Activity,
+     Calendar].each(&:delete_all)
+
     Professor.where.not(username: 'marczal').destroy_all
 
     100.times do
@@ -70,17 +78,31 @@ namespace :db do
       )
     end
 
-    2.times do |index|
-      create_calendar(index, Calendar.tccs[:one])
-      create_calendar(index, Calendar.tccs[:two])
+    50.times do |index|
+      create_calendar_for_year(Calendar.current_year.to_i + index)
+    end
+
+    50.times do
+      create_orientation_by_calendar(Calendar.current_by_tcc_one.id)
+      create_orientation_by_calendar(Calendar.current_by_tcc_two.id)
+      create_orientation_by_calendar(Calendar.pluck(:id).sample)
     end
   end
 
-  def create_calendar(index, tcc)
-    Calendar.create(
-      year: '2019',
-      semester: index + 1,
-      tcc: tcc
+  def create_calendar_for_year(year)
+    2.times do |index|
+      Calendar.create(year: year, semester: index + 1, tcc: 1)
+      Calendar.create(year: year, semester: index + 1, tcc: 2)
+    end
+  end
+
+  def create_orientation_by_calendar(calendar_id)
+    Orientation.create(
+      title: Faker::Lorem.sentence(3),
+      calendar_id: calendar_id,
+      advisor_id: Professor.pluck(:id).sample,
+      academic_id: Academic.pluck(:id).sample,
+      institution_id: Institution.pluck(:id).sample
     )
   end
 end

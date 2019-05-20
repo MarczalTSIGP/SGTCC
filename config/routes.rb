@@ -24,6 +24,10 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :orientations,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       resources :external_members,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
@@ -53,6 +57,17 @@ Rails.application.routes.draw do
       get 'base_activities/tcc_one', to: 'base_activities#tcc_one', as: 'base_activities_tcc_one'
       get 'base_activities/tcc_two', to: 'base_activities#tcc_two', as: 'base_activities_tcc_two'
 
+      get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
+      get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
+
+      get 'orientations/current_tcc_one',
+          to: 'orientations#current_tcc_one',
+          as: 'orientations_current_tcc_one'
+
+      get 'orientations/current_tcc_two',
+          to: 'orientations#current_tcc_two',
+          as: 'orientations_current_tcc_two'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
@@ -72,6 +87,26 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'institutions#index',
           as: 'institutions_search'
+
+      get 'orientations/current_tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#current_tcc_one',
+          as: 'orientations_search_current_tcc_one'
+
+      get 'orientations/current_tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#current_tcc_two',
+          as: 'orientations_search_current_tcc_two'
+
+      get 'orientations/tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#tcc_one',
+          as: 'orientations_search_tcc_one'
+
+      get 'orientations/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#tcc_two',
+          as: 'orientations_search_tcc_two'
 
       get 'base_activities/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -96,6 +131,15 @@ Rails.application.routes.draw do
 
     namespace :professors do
       root to: 'dashboard#index'
+
+      resources :orientations,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#index',
+          as: 'orientations_search'
     end
   end
 
@@ -155,6 +199,14 @@ Rails.application.routes.draw do
   authenticate :academic do
     namespace :academics do
       root to: 'dashboard#index'
+
+      get '/calendars/(:calendar_id)/activities',
+          to: 'activities#index',
+          as: 'calendar_activities'
+
+      get '/calendars/(:calendar_id)/activities/(:id)',
+          to: 'activities#show',
+          as: 'calendar_activity'
     end
   end
 
