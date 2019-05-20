@@ -8,7 +8,7 @@
   <td><%= orientation.advisor.name %></td>
   <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
   <td>
-    <%= link_to(professors_orientation_path(orientation)) do %>
+    <%= link_to(professors_calendar_orientation_path(@calendar, orientation)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
     <% end %>
   </td>

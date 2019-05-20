@@ -3,7 +3,8 @@
 
 <div class="row">
   <div class="col-12">
-    <search url="<%= professors_orientations_search_path %>" search-term="<%= params[:term] %>" />
+    <search url="<%= professors_calendar_orientations_search_path(@calendar) %>"
+            search-term="<%= params[:term] %>" />
   </div>
 </div>
 

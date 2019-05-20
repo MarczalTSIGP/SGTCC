@@ -137,7 +137,14 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
-      get 'calendars/:id/orientations', to: 'orientations#by_calendar', as: 'calendar_orientations'
+
+      get 'calendars/(:calendar_id)/orientations',
+          to: 'orientations#by_calendar',
+          as: 'calendar_orientations'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)',
+          to: 'orientations#show',
+          as: 'calendar_orientation'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -151,15 +158,15 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      get 'calendars/(:calendar_id)/orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#by_calendar',
+          as: 'calendar_orientations_search'
+
       get 'calendars/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
-
-      get 'orientations/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'orientations#index',
-          as: 'orientations_search'
 
       get 'orientations/current_tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
