@@ -13,6 +13,11 @@ FactoryBot.define do
     professor_type
     scholarity
 
+    factory :professor_inactive do
+      is_active { false }
+      available_advisor { false }
+    end
+
     factory :responsible do
       after :create do |professor|
         role = create(:role, name: 'Professor', identifier: 'responsible') if Role.all.empty?

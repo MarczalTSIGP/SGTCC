@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::update', type: :feature do
+describe 'Calendar::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human }
 
@@ -15,29 +15,28 @@ describe 'Calendar::update', type: :feature do
       visit edit_responsible_calendar_path(calendar)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the calendar' do
-        new_year = '2018'
-        fill_in 'calendar_year', with: new_year
-
+        attributes = attributes_for(:calendar, tcc: 2)
+        fill_in 'calendar_year', with: attributes[:year]
+        click_on_label(attributes[:tcc], in: 'calendar_tcc')
+        click_on_label(attributes[:semester], in: 'calendar_semester')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendars_tcc_two_path
-        success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
-        expect(page).to have_content(new_year)
+        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_contents([attributes[:year],
+                                       attributes[:tcc],
+                                       attributes[:semester]])
       end
     end
 
-    context 'when the calendar is not valid', js: true do
+    context 'when the calendar is not valid' do
       it 'show errors' do
         fill_in 'calendar_year', with: ''
         submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
-        expect(page).to have_message(message_blank_error, in: 'div.calendar_year')
+        expect(page).to have_flash(:danger, text: errors_message)
+        expect(page).to have_message(blank_error_message, in: 'div.calendar_year')
       end
     end
   end

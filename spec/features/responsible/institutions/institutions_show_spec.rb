@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 describe 'Institution::show', type: :feature do
+  let(:responsible) { create(:responsible) }
+  let!(:institution) { create(:institution) }
+
+  before do
+    login_as(responsible, scope: :professor)
+    visit responsible_institution_path(institution)
+  end
+
   describe '#show' do
     context 'when shows the institution' do
       it 'shows the institution' do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
-        institution = create(:institution)
-        visit responsible_institution_path(institution)
-
         expect(page).to have_contents([institution.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,

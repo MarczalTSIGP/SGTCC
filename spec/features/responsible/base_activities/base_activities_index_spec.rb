@@ -1,12 +1,15 @@
 require 'rails_helper'
 
-describe 'BaseActivity::index', type: :feature do
+describe 'BaseActivity::index', type: :feature, js: true do
+  let(:responsible) { create(:responsible) }
+
+  before do
+    login_as(responsible, scope: :professor)
+  end
+
   describe '#index' do
     context 'when shows all base activities with tcc 1' do
-      it 'shows all base activities with tcc 1 options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
+      it 'shows all base activities with tcc 1 options' do
         base_activities = create_list(:base_activity_tcc_one, 3)
 
         index_url = responsible_base_activities_tcc_one_path
@@ -14,6 +17,7 @@ describe 'BaseActivity::index', type: :feature do
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
+                                         I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
@@ -22,10 +26,7 @@ describe 'BaseActivity::index', type: :feature do
     end
 
     context 'when shows all base activities with tcc 2' do
-      it 'shows all base activities with tcc 2 options', js: true do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
+      it 'shows all base activities with tcc 2 options' do
         base_activities = create_list(:base_activity_tcc_two, 3)
 
         index_url = responsible_base_activities_tcc_two_path
@@ -33,6 +34,7 @@ describe 'BaseActivity::index', type: :feature do
 
         base_activities.each do |base_activity|
           expect(page).to have_contents([base_activity.name,
+                                         I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end

@@ -9,5 +9,9 @@ FactoryBot.define do
     scholarity
     password { 'password' }
     password_confirmation { 'password' }
+
+    factory :external_member_inactive do
+      is_active { false }
+    end
   end
 end

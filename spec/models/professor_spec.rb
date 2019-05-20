@@ -48,6 +48,18 @@ RSpec.describe Professor, type: :model do
     end
   end
 
+  describe '#role?' do
+    let(:responsible) { create(:responsible) }
+
+    it 'returns true if the professor has role' do
+      expect(responsible.role?('responsible')).to eq(true)
+    end
+
+    it 'returns false if the professor has not role' do
+      expect(responsible.role?('tcc_one')).to eq(false)
+    end
+  end
+
   describe '#search' do
     let(:professor) { create(:professor) }
 
