@@ -3,6 +3,9 @@
   padding-left: 10px;
   max-height: calc(100vh - 5rem);
   overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
 
   @media (max-width: 767px) {
     position: sticky;
