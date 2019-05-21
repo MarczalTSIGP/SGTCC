@@ -1,0 +1,78 @@
+<% provide(:page_title, t('breadcrumbs.orientations.show')) %>
+<% provide(:head_title, t('breadcrumbs.orientations.show')) %>
+
+<div class="card">
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('title') %>:
+      </strong>
+      <%= @orientation.title %>
+    </p>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('calendar') %>:
+      </strong>
+      <%= @orientation.calendar.year_with_semester_and_tcc %>
+    </p>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('academic') %>:
+      </strong>
+      <%= @orientation.academic.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('advisor') %>:
+      </strong>
+      <%= @orientation.advisor.name %>
+    </p>
+    <% unless @orientation.professor_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('professor_supervisors') %>:
+        </strong>
+        <% @orientation.professor_supervisors.each do |supervisor| %>
+          <span class="badge badge-primary"><%= supervisor.name %></span>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @orientation.external_member_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('external_member_supervisors') %>:
+        </strong>
+        <% @orientation.external_member_supervisors.each do |supervisor| %>
+          <span class="badge badge-primary"><%= supervisor.name %></span>
+        <% end %>
+      </p>
+    <% end %>
+    <% if @orientation.institution %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('institution') %>:
+        </strong>
+        <%= @orientation.institution.trade_name %>
+      </p>
+    <% end %>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@orientation.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Orientation.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@orientation.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    tcc_one_professors_calendar_orientations_path(@calendar),
+    class: 'btn btn-secondary' %>
+</div>
+

@@ -141,6 +141,47 @@ Rails.application.routes.draw do
           to: 'orientations#index',
           as: 'orientations_search'
     end
+
+    namespace :tcc_one_professors do
+      root to: 'dashboard#index'
+
+      get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
+
+      get 'calendars/(:calendar_id)/orientations',
+          to: 'orientations#by_calendar',
+          as: 'calendar_orientations'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)',
+          to: 'orientations#show',
+          as: 'calendar_orientation'
+
+      get 'orientations/current_tcc_one',
+          to: 'orientations#current_tcc_one',
+          as: 'orientations_current_tcc_one'
+
+      get 'calendars/(:calendar_id)/activities',
+          to: 'activities#index',
+          as: 'calendar_activities'
+
+      get 'calendars/(:calendar_id)/activities/:id',
+          to: 'activities#show',
+          as: 'calendar_activity'
+
+      get 'calendars/(:calendar_id)/orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#by_calendar',
+          as: 'calendar_orientations_search'
+
+      get 'calendars/tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'calendars#tcc_one',
+          as: 'calendars_search_tcc_one'
+
+      get 'orientations/current_tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#current_tcc_one',
+          as: 'orientations_search_current_tcc_one'
+    end
   end
 
   #========================================

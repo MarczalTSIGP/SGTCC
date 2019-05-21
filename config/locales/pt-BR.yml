@@ -10,8 +10,8 @@ pt-BR:
     title:
       calendar:
         tcc:
-          one: "Calendário de Atividades do TCC 1 (%{calendar})"
-          two: "Calendário de Atividades do TCC 2 (%{calendar})"
+          one: "Calendário de Atividades de TCC 1 (%{calendar})"
+          two: "Calendário de Atividades de TCC 2 (%{calendar})"
     tabs:
       tcc:
         one: 'TCC 1'
@@ -79,6 +79,7 @@ pt-BR:
         new: "Nova Atividade de TCC 1"
         edit: "Editar Atividade de TCC 1"
         show: "Visualizar Atividade de TCC 1"
+        calendar_index: "Atividades de TCC (%{calendar})"
       two:
         index: "Atividades de TCC 2"
         new: "Nova Atividade de TCC 2"
@@ -90,12 +91,13 @@ pt-BR:
       edit: "Editar Orientação"
       show: "Visualizar Orientação"
       tcc:
+        calendar_index: 'Orientações de TCC (%{calendar})'
         one:
-          sidebar: 'Orientações do TCC 1'
-          index: 'Orientações de TCC 1 (%{calendar})'
+          index: 'Orientações de TCC 1'
+          calendar_index: 'Orientações de TCC 1 (%{calendar})'
         two:
-          sidebar: 'Orientações do TCC 2'
-          index: 'Orientações de TCC 2 (%{calendar})'
+          index: 'Orientações de TCC 2'
+          calendar_index: 'Orientações de TCC 2 (%{calendar})'
   activerecord:
     errors:
       models:
@@ -180,6 +182,7 @@ pt-BR:
       calendar:
         semester: "Semestre"
         year: "Ano"
+        year_semester: "Ano / Semestre"
         <<: *commons
       orientation:
         title: "Título"

@@ -2,14 +2,8 @@
 <% provide(:head_title, t('breadcrumbs.calendars.index')) %>
 
 <div class="row">
-  <div class="col-sm-12 col-lg-8 mb-2">
+  <div class="col-12">
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
-  </div>
-  <div class="col-sm-12 col-lg-4">
-    <%= link_to(new_responsible_calendar_path, class: 'btn btn-outline-primary d-block') do %>
-      <i class="fe fe-plus"></i>
-      <%= t('breadcrumbs.calendars.new') %>
-    <% end %>
   </div>
 </div>
 
@@ -17,14 +11,11 @@
   <%= page_entries_info @calendars %>
 </div>
 
-<%= render('tabs') %>
-
-<div class="table-striped mt-3 table-responsive w-100">
+<div class="table-striped mt-3 table-responsive table-sm w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
         <th><%= Calendar.human_attribute_name('year_semester') %></th>
-        <th><%= Calendar.human_attribute_name('tcc') %></th>
         <th><%= Calendar.human_attribute_name('created_at') %></th>
         <th colspan="3"></th>
       </tr>

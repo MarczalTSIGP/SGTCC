@@ -1,5 +1,6 @@
 <tr>
-  <td><%= t("enums.semester.#{calendar.year_with_semester}") %></td>
+  <td><%= calendar.year %></td>
+  <td><%= t("enums.semester.#{calendar.semester}") %></td>
   <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>

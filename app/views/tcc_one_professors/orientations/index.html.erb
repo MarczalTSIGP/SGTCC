@@ -1,0 +1,36 @@
+<% provide(:page_title, @title) %>
+<% provide(:head_title, @title) %>
+
+<div class="row">
+  <div class="col-12">
+    <search url="<%= tcc_one_professors_calendar_orientations_search_path(@calendar) %>"
+            search-term="<%= params[:term] %>" />
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @orientations %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Orientation.human_attribute_name('academic') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('calendar') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @orientations.empty? %>
+      </tr>
+      <%= render @orientations %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @orientations %>

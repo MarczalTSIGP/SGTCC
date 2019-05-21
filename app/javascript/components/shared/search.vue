@@ -61,6 +61,10 @@ export default {
 
   methods: {
     search() {
+      if (this.term === '') {
+        return;
+      }
+
       const link = this.$refs.link;
       link.href = this.searchUrl;
       link.click();
