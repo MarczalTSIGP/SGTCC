@@ -4,35 +4,35 @@
 </span>
 
 <%= active_link_to(responsible_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'home') %>
   </span>
   <%= t('breadcrumbs.homepage') %>
 <% end %>
 
 <%= active_link_to(responsible_academics_path, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'user-graduate') %>
   </span>
   <%= t('breadcrumbs.academics.index') %>
 <% end %>
 
 <%= active_link_to(responsible_professors_path, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'chalkboard-teacher') %>
   </span>
   <%= t('breadcrumbs.professors.index') %>
 <% end %>
 
 <%= active_link_to(responsible_external_members_path, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'users') %>
   </span>
   <%= t('breadcrumbs.external_members.index') %>
 <% end %>
 
 <%= active_link_to(responsible_institutions_path, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'university') %>
   </span>
   <%= t('breadcrumbs.institutions.index') %>
@@ -41,7 +41,7 @@
 <%= active_link_to(responsible_base_activities_tcc_one_path,
 		   active: base_activities_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'file-alt') %>
   </span>
   <%= t('breadcrumbs.base_activities.index') %>
@@ -50,7 +50,7 @@
 <%= active_link_to(responsible_calendars_tcc_one_path,
 		   active: calendars_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>
   </span>
   <%= t('breadcrumbs.calendars.index') %>
@@ -60,7 +60,7 @@
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_one.id),
 		     active: responsible_activities_tcc_one_link_active?,
 		     class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+    <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
     <%= t('breadcrumbs.tcc.one.index') %>
@@ -71,7 +71,7 @@
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_two.id),
 		     active: responsible_activities_tcc_two_link_active?,
 		     class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+    <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
     <%= t('breadcrumbs.tcc.two.index') %>
@@ -81,7 +81,7 @@
 <%= active_link_to(responsible_orientations_path,
 		   active: orientations_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
   <%= t('breadcrumbs.orientations.index') %>
@@ -90,7 +90,7 @@
 <%= active_link_to(responsible_orientations_current_tcc_one_path,
 		   active: responsible_orientations_tcc_one_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
   <%= t('breadcrumbs.orientations.tcc.one.calendar_index', calendar: calendar_tcc_one_title) %>
@@ -99,7 +99,7 @@
 <%= active_link_to(responsible_orientations_current_tcc_two_path,
 		   active: responsible_orientations_tcc_two_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
   <%= t('breadcrumbs.orientations.tcc.two.calendar_index', calendar: calendar_tcc_one_title) %>
