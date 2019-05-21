@@ -131,11 +131,19 @@ Rails.application.routes.draw do
 
     namespace :professors do
       root to: 'dashboard#index'
-      get 'tcc_one/dashboard', to: 'dashboard#tcc_one', as: 'dashboard_tcc_one'
 
       resources :orientations,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
+
+      get 'orientations/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#index',
+          as: 'orientations_search'
+    end
+
+    namespace :tcc_one_professors do
+      root to: 'dashboard#index'
 
       get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
 

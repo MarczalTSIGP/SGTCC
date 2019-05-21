@@ -2,11 +2,11 @@
   <td><%= t("enums.semester.#{calendar.year_with_semester}") %></td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>
-    <%= link_to(professors_calendar_activities_path(calendar)) do %>
+    <%= link_to(tcc_one_professors_calendar_activities_path(calendar)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
     <% if calendar.orientations.any? %>
-      <%= link_to(professors_calendar_orientations_path(calendar)) do %>
+      <%= link_to(tcc_one_professors_calendar_orientations_path(calendar)) do %>
         <i class="fas fa-file-alt" data-toggle="tooltip" title="Visualizar orientações"></i>
       <% end %>
     <% end %>

@@ -3,7 +3,7 @@
   <td><%= activity.base_activity_type.name %></td>
   <td><%= activity.deadline %></td>
   <td>
-    <%= link_to(professors_calendar_activity_path(@calendar, activity)) do %>
+    <%= link_to(tcc_one_professors_calendar_activity_path(@calendar, activity)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
     <% end %>
   </td>

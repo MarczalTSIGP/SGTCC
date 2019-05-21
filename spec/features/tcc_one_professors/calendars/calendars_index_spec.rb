@@ -11,7 +11,7 @@ describe 'Calendar::index', type: :feature, js: true do
 
   describe '#index' do
     it 'shows all the tcc one calendars' do
-      index_url = professors_calendars_tcc_one_path
+      index_url = tcc_one_professors_calendars_tcc_one_path
       visit index_url
 
       calendars.each do |calendar|
@@ -23,7 +23,7 @@ describe 'Calendar::index', type: :feature, js: true do
 
     it 'shows the orientations by calendar' do
       orientation = create(:orientation, calendar: current_calendar_tcc_one)
-      index_url = professors_calendar_orientations_path(current_calendar_tcc_one)
+      index_url = tcc_one_professors_calendar_orientations_path(current_calendar_tcc_one)
       visit index_url
 
       expect(page).to have_contents([orientation.short_title,

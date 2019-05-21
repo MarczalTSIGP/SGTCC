@@ -1,4 +1,4 @@
-class Professors::ActivitiesController < Professors::BaseController
+class TccOneProfessors::ActivitiesController < TccOneProfessors::BaseController
   before_action :set_calendar
   before_action :set_activity, only: [:show]
   before_action :set_index_breadcrumb
@@ -8,8 +8,8 @@ class Professors::ActivitiesController < Professors::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.show"),
-                   professors_calendar_activity_path(@calendar, @activity)
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.show'),
+                   tcc_one_professors_calendar_activity_path(@calendar, @activity)
   end
 
   private
@@ -23,7 +23,7 @@ class Professors::ActivitiesController < Professors::BaseController
   end
 
   def set_index_breadcrumb
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"),
-                   professors_calendar_activities_path(@calendar)
+    add_breadcrumb I18n.t('breadcrumbs.tcc.one.index'),
+                   tcc_one_professors_calendar_activities_path(@calendar)
   end
 end

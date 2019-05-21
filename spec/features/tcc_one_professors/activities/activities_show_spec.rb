@@ -7,7 +7,7 @@ describe 'Activity::show', type: :feature do
   before do
     create(:current_calendar_tcc_one)
     login_as(professor, scope: :professor)
-    visit professors_calendar_activity_path(activity.calendar, activity)
+    visit tcc_one_professors_calendar_activity_path(activity.calendar, activity)
   end
 
   describe '#show' do

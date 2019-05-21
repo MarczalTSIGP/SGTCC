@@ -33,8 +33,8 @@ module LinkHelper
     activities_tcc_link_active?('two', 'responsible')
   end
 
-  def professors_activities_tcc_one_link_active?
-    activities_tcc_link_active?('one', 'professors')
+  def tcc_one_professors_activities_tcc_one_link_active?
+    activities_tcc_link_active?('one', 'tcc_one_professors')
   end
 
   def orientations_tcc_one_link_active?(namespace)
@@ -54,8 +54,8 @@ module LinkHelper
   end
 
   def professors_tcc_one_orientations_tcc_one_link_active?
-    orientations_path = 'professors/orientations'
-    calendar_orientations_path = 'professors/calendars/\\d+/orientations'
+    orientations_path = '/tcc_one_professors/orientations'
+    calendar_orientations_path = '/tcc_one_professors/calendars/\\d+/orientations'
     request.fullpath.match?("(#{orientations_path})|(#{calendar_orientations_path})")
   end
 

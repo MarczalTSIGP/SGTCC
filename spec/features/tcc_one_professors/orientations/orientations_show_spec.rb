@@ -6,7 +6,7 @@ describe 'Orientation::show', type: :feature do
 
   before do
     login_as(professor, scope: :professor)
-    visit professors_calendar_orientation_path(orientation, orientation.calendar)
+    visit tcc_one_professors_calendar_orientation_path(orientation, orientation.calendar)
   end
 
   describe '#show' do

@@ -12,7 +12,7 @@ describe 'Activity::index', type: :feature, js: true do
 
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
-        index_url = professors_calendar_activities_path(calendar_tcc_one)
+        index_url = tcc_one_professors_calendar_activities_path(calendar_tcc_one)
         visit index_url
 
         expect(page).to have_contents([activity.name,

@@ -10,7 +10,7 @@ describe 'Orientation::index', type: :feature do
     context 'when shows all the orientations of the current tcc one calendar' do
       it 'shows the orientations' do
         orientation = create(:current_orientation_tcc_one)
-        visit professors_calendar_orientations_path(orientation.calendar)
+        visit tcc_one_professors_calendar_orientations_path(orientation.calendar)
 
         expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
