@@ -15,9 +15,8 @@ describe 'Calendar::index', type: :feature, js: true do
         index_url = academics_calendars_path
         visit index_url
 
-        expect(page).to have_contents([calendar.year,
+        expect(page).to have_contents([calendar.year_with_semester,
                                        I18n.t("enums.tcc.#{calendar.tcc}"),
-                                       I18n.t("enums.semester.#{calendar.semester}"),
                                        short_date(calendar.created_at)])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
