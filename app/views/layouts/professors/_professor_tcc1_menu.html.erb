@@ -3,7 +3,9 @@
   <%= t('views.sidebar.tcc_one') %>
 </span>
 
-<%= active_link_to('#', active: :exact, class: 'list-group-item list-group-item-action') do %>
+<%= active_link_to(professors_dashboard_tcc_one_path,
+		   active: :exact,
+		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('fas', 'home') %>
   </span>

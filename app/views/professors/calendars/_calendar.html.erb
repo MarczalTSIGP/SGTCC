@@ -1,7 +1,5 @@
 <tr>
-  <td><%= calendar.year %></td>
-  <td><%= t("enums.semester.#{calendar.semester}") %></td>
-  <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
+  <td><%= t("enums.semester.#{calendar.year_with_semester}") %></td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>
     <%= link_to(professors_calendar_activities_path(calendar)) do %>
@@ -9,7 +7,7 @@
     <% end %>
     <% if calendar.orientations.any? %>
       <%= link_to(professors_calendar_orientations_path(calendar)) do %>
-        <i class="fe fe-folder-plus" data-toggle="tooltip" title="Visualizar orientações"></i>
+        <i class="fas fa-file-alt" data-toggle="tooltip" title="Visualizar orientações"></i>
       <% end %>
     <% end %>
   </td>

@@ -131,6 +131,7 @@ Rails.application.routes.draw do
 
     namespace :professors do
       root to: 'dashboard#index'
+      get 'tcc_one/dashboard', to: 'dashboard#tcc_one', as: 'dashboard_tcc_one'
 
       resources :orientations,
                 constraints: { id: /[0-9]+/ },
