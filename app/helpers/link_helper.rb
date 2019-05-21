@@ -59,16 +59,7 @@ module LinkHelper
     request.fullpath.match?("(#{orientations_path})|(#{calendar_orientations_path})")
   end
 
-  def calendar_tcc_one_title(page_active = nil)
-    return @calendar.year_with_semester if page_active && @calendar
+  def calendar_tcc_one_title
     Calendar.current_by_tcc_one&.year_with_semester
-  end
-
-  def professors_activities_tcc_one_title
-    calendar_tcc_one_title(professors_activities_tcc_one_link_active?)
-  end
-
-  def professors_orientations_title
-    calendar_tcc_one_title(professors_tcc_one_orientations_tcc_one_link_active?)
   end
 end

@@ -1,11 +1,12 @@
 .sidebar {
   position: fixed;
   padding-left: 10px;
-  max-height: calc(100vh - 5rem);
+  max-height: calc(100vh - 6rem);
   overflow-y: auto;
   overflow-x: auto;
   display: block;
   white-space: nowrap;
+  font-size: 80%;
 
   @media (max-width: 767px) {
     position: sticky;
