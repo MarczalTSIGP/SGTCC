@@ -1,15 +1,23 @@
-namespace :populate do
-  desc 'Populate academics'
+class Populate::Academics
+  attr_reader :genders
 
-  task academics: :environment do
-    puts 'Populating academics...'
-    genders = Academic.genders.values
+  def initialize
+    @genders = Academic.genders.values
+  end
+
+  def populate
+    create_academics
+  end
+
+  private
+
+  def create_academics
     100.times do
       Academic.create(
         name: Faker::Name.name,
         email: Faker::Internet.email,
         ra: Faker::Number.number(7),
-        gender: genders.sample,
+        gender: @genders.sample,
         password: '123456',
         password_confirmation: '123456'
       )

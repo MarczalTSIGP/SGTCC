@@ -3,7 +3,6 @@ namespace :db do
 
   task populate: :environment do
     require 'faker'
-    require 'cpf_cnpj'
 
     populate_tasks = %w[academics professors
                         external_members institutions
