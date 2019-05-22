@@ -112,6 +112,11 @@ RSpec.describe Orientation, type: :model do
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
+      it 'returns orientation by academic ra' do
+        results_search = Orientation.search(orientation.academic.ra)
+        expect(orientation.academic.ra).to eq(results_search.first.academic.ra)
+      end
+
       it 'returns orientation by advisor name' do
         results_search = Orientation.search(orientation.advisor.name)
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)

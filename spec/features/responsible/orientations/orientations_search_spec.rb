@@ -19,6 +19,7 @@ describe 'Orientation::search', type: :feature do
         expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
                                        orientation.academic.name,
+                                       orientation.academic.ra,
                                        orientation.calendar.year_with_semester_and_tcc])
       end
     end
