@@ -93,6 +93,7 @@ pt-BR:
       show: "Visualizar Orientação"
       history: "Histórico"
       tcc:
+        calendar: 'Orientações de TCC (%{calendar})'
         one:
           index: 'Orientações de TCC 1'
           calendar: 'Orientações de TCC 1 (%{calendar})'
@@ -208,7 +209,7 @@ pt-BR:
         display_entries:
           zero: ''
           one: 'Total de <b>1</b> %{entry_name}'
-          other: 'Total de <b> %{count}</b> %{entry_name.pluralize}'
+          other: 'Total de <b> %{count}</b> %{entry_name}'
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
   enums:

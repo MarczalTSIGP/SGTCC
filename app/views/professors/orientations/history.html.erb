@@ -1,6 +1,16 @@
 <% provide(:page_title, t('breadcrumbs.orientations.history')) %>
 <% provide(:head_title, t('breadcrumbs.orientations.history')) %>
 
+<div class="row">
+  <div class="col-12">
+    <search url="<%= professors_orientations_search_history_path %>" search-term="<%= params[:term] %>" />
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @orientations %>
+</div>
+
 <div class="table-striped table-sm mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
@@ -21,3 +31,5 @@
     </tbody>
   </table>
 </div>
+
+<%= paginate @orientations %>

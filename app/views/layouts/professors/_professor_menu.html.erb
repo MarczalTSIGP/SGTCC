@@ -39,6 +39,14 @@
   <%= t('breadcrumbs.orientations.tcc.calendar', calendar: calendar_tcc_one_title) %>
 <% end %>
 
+<%= active_link_to(professors_orientations_history_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-3">
+    <%= icon('far', 'folder') %>
+  </span>
+  <%= t('breadcrumbs.orientations.history') %>
+<% end %>
+
 <%= active_link_to(professors_supervisions_tcc_one_path,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
@@ -47,10 +55,4 @@
   <%= t('breadcrumbs.supervisions.index') %>
 <% end %>
 
-<%= active_link_to(professors_orientations_history_path,
-		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
-    <%= icon('far', 'folder') %>
-  </span>
-  <%= t('breadcrumbs.orientations.history') %>
-<% end %>
+

@@ -157,6 +157,11 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      get 'orientations/history/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'orientations#history',
+          as: 'orientations_search_history'
+
       get 'orientations/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_one',

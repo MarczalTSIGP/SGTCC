@@ -23,6 +23,10 @@ class Professors::OrientationsController < Professors::BaseController
                  :edit_professors_orientation_path,
                  only: [:edit]
 
+  add_breadcrumb I18n.t('breadcrumbs.orientations.history'),
+                 :professors_orientations_history_path,
+                 only: [:history]
+
   def index
     redirect_to action: :tcc_one
   end
@@ -46,11 +50,9 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def history
-    orientations = current_professor.orientations.includes(:academic, :calendar)
-    supervisions = current_professor.professor_supervisors
-                                    .includes(:orientation)
-    supervisions = supervisions.map(&:orientation)
-    @orientations = (orientations + supervisions).uniq
+    data = current_professor.orientations.includes(:academic, :calendar).recent
+    orientations = Orientation.search(params[:term], data)
+    @orientations = Orientation.paginate_array(orientations, params[:page])
   end
 
   def show; end
