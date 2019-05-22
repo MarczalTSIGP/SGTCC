@@ -11,13 +11,21 @@ module LinkHelper
     request.fullpath.match?('base_activities')
   end
 
-  def orientations_link_active?(namespace = 'responsible')
+  def orientations_link_active?(namespace)
     new_route = "/#{namespace}/orientations/new"
     edit_route = "/#{namespace}/orientations/\\d+/edit"
     show_route = "/#{namespace}/orientations/\\d+"
     tcc_routes = "/#{namespace}/orientations/tcc_one)|(orientations/tcc_two"
 
     request.fullpath.match?("(#{tcc_routes})|(#{show_route})|(#{new_route})|(#{edit_route})")
+  end
+
+  def responsible_orientations_link_active?
+    orientations_link_active?('responsible')
+  end
+
+  def professors_orientations_link_active?
+    orientations_link_active?('professors')
   end
 
   def activities_tcc_link_active?(tcc, namespace)

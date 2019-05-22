@@ -21,22 +21,18 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def tcc_one
-    @orientations = current_professor.orientations
-                                     .current_tcc_one
-                                     .page(params[:page])
-                                     .search(params[:term])
-                                     .includes(:academic, :calendar)
+    data = current_professor.orientations.current_tcc_one.with_relationships.recent
+    orientations = Orientation.search(params[:term], data)
+    @orientations = Orientation.paginate_array(orientations, params[:page])
     @search_url = professors_orientations_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @orientations = current_professor.orientations
-                                     .current_tcc_two
-                                     .page(params[:page])
-                                     .search(params[:term])
-                                     .includes(:academic, :calendar)
+    data = current_professor.orientations.current_tcc_two.with_relationships.recent
+    orientations = Orientation.search(params[:term], data)
+    @orientations = Orientation.paginate_array(orientations, params[:page])
     @search_url = professors_orientations_search_tcc_two_path
 
     render :index
