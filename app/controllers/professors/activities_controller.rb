@@ -1,21 +1,15 @@
 class Professors::ActivitiesController < Professors::BaseController
   before_action :set_calendar
   before_action :set_activity, only: [:show]
+  before_action :set_index_breadcrumb, only: [:index, :show]
 
   def index
-    index_url = responsible_calendar_activities_path
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
-
     @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
   end
 
   def show
-    index_url = responsible_calendar_activities_path
-    show_url = responsible_calendar_activity_path
-    tcc = @calendar.tcc
-
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{tcc}.index"), index_url
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{tcc}.show"), show_url
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.show"),
+                   professors_calendar_activity_path
   end
 
   private
@@ -26,5 +20,11 @@ class Professors::ActivitiesController < Professors::BaseController
 
   def set_calendar
     @calendar = Calendar.find(params[:calendar_id])
+  end
+
+  def set_index_breadcrumb
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.calendar",
+                          calendar: @calendar.year_with_semester),
+                   professors_calendar_activities_path(@calendar)
   end
 end

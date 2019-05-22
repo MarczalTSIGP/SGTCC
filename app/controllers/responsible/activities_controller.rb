@@ -1,38 +1,27 @@
 class Responsible::ActivitiesController < Responsible::BaseController
   before_action :set_calendar, except: [:index_by_calendar]
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_index_breadcrumb, only: [:index, :show, :new, :edit]
 
   def index
-    index_url = responsible_calendar_activities_path
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
-
     @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
   end
 
   def show
-    index_url = responsible_calendar_activities_path
-    show_url = responsible_calendar_activity_path
-
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.show"), show_url
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.show"),
+                   responsible_calendar_activity_path(@calendar, @activity)
   end
 
   def new
-    index_url = responsible_calendar_activities_path
-    new_url = new_responsible_calendar_activity_path
-
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.new"), new_url
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.new"),
+                   new_responsible_calendar_activity_path
 
     @activity = @calendar.activities.new
   end
 
   def edit
-    index_url = responsible_calendar_activities_path
-    edit_url = edit_responsible_calendar_activity_path
-
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"), index_url
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.edit"), edit_url
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.edit"),
+                   edit_responsible_calendar_activity_path
   end
 
   def create
@@ -82,5 +71,12 @@ class Responsible::ActivitiesController < Responsible::BaseController
     params.require(:activity)
           .permit(:name, :base_activity_type_id, :tcc,
                   :calendar_id, :initial_date, :final_date)
+  end
+
+  def set_index_breadcrumb
+    index_url = responsible_calendar_activities_path
+    add_breadcrumb I18n.t('breadcrumbs.calendars.index'), responsible_calendars_tcc_one_path
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.calendar",
+                          calendar: @calendar.year_with_semester), index_url
   end
 end
