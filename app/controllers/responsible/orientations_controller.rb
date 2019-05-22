@@ -103,7 +103,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def title(calendar)
-    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar_index",
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar",
                     calendar: calendar.year_with_semester)
   end
 

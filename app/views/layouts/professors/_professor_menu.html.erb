@@ -16,7 +16,7 @@
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.one.index') %>
+    <%= t('breadcrumbs.tcc.one.calendar', calendar: calendar_tcc_one_title) %>
   <% end %>
 <% end %>
 
@@ -26,7 +26,7 @@
     <span class="icon mr-3">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.two.index') %>
+    <%= t('breadcrumbs.tcc.two.calendar', calendar: calendar_tcc_one_title) %>
   <% end %>
 <% end %>
 
@@ -36,7 +36,7 @@
   <span class="icon mr-3">
     <%= icon('fas', 'file-code') %>
   </span>
-  <%= t('breadcrumbs.orientations.index') %>
+  <%= t('breadcrumbs.orientations.tcc.calendar', calendar: calendar_tcc_one_title) %>
 <% end %>
 
 <%= active_link_to(professors_supervisions_tcc_one_path,

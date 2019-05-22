@@ -1,8 +1,15 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update]
+  before_action :set_tcc_one_title, only: [:tcc_one]
+  before_action :set_tcc_two_title, only: [:tcc_two]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :professors_orientations_path
+                 :professors_orientations_tcc_one_path,
+                 only: [:tcc_one, :show, :new, :edit]
+
+  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
+                 :professors_orientations_tcc_two_path,
+                 only: [:tcc_two]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.show'),
                  :professors_orientation_path,
@@ -89,5 +96,18 @@ class Professors::OrientationsController < Professors::BaseController
       professor_supervisor_ids: [],
       external_member_supervisor_ids: []
     )
+  end
+
+  def title(calendar)
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar",
+                    calendar: calendar.year_with_semester)
+  end
+
+  def set_tcc_one_title
+    title(Calendar.current_by_tcc_one)
+  end
+
+  def set_tcc_two_title
+    title(Calendar.current_by_tcc_two)
   end
 end

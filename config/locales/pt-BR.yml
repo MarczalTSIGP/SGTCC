@@ -79,12 +79,13 @@ pt-BR:
         new: "Nova Atividade de TCC 1"
         edit: "Editar Atividade de TCC 1"
         show: "Visualizar Atividade de TCC 1"
-        calendar_index: "Atividades de TCC (%{calendar})"
+        calendar: "Atividades de TCC 1 (%{calendar})"
       two:
         index: "Atividades de TCC 2"
         new: "Nova Atividade de TCC 2"
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
+        calendar: "Atividades de TCC 2 (%{calendar})"
     orientations:
       index: "Orientações"
       new: "Nova Orientação"
@@ -92,13 +93,12 @@ pt-BR:
       show: "Visualizar Orientação"
       history: "Histórico"
       tcc:
-        calendar_index: 'Orientações de TCC (%{calendar})'
         one:
           index: 'Orientações de TCC 1'
-          calendar_index: 'Orientações de TCC 1 (%{calendar})'
+          calendar: 'Orientações de TCC 1 (%{calendar})'
         two:
           index: 'Orientações de TCC 2'
-          calendar_index: 'Orientações de TCC 2 (%{calendar})'
+          calendar: 'Orientações de TCC 2 (%{calendar})'
     supervisions:
       index: "Coorientações"
   activerecord:
