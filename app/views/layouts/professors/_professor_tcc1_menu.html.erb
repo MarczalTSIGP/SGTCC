@@ -33,6 +33,7 @@
 <% end %>
 
 <%= active_link_to(tcc_one_professors_calendars_tcc_one_path,
+		   active: tcc_one_professors_calendars_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>

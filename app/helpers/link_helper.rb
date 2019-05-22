@@ -4,7 +4,7 @@ module LinkHelper
   end
 
   def history_calendars_link_active?(namespace)
-    return true if @calendar.blank?
+    return false if @calendar.blank?
     route = "(/#{namespace}/calendars/\\d+/activities)"
     calendar_id = @calendar.id
     history_calendar = (calendar_id != Calendar.current_by_tcc_one.id &&
@@ -70,13 +70,18 @@ module LinkHelper
   end
 
   def tcc_one_professors_activities_tcc_one_link_active?
-    activities_tcc_link_active?('one', 'tcc_one_professors')
+    current_calendar_id = Calendar.current_by_tcc_one.id
+    activities_tcc_link_active?('one', 'tcc_one_professors') && @calendar.id == current_calendar_id
   end
 
   def tcc_one_professors_orientations_tcc_one_link_active?
     orientations_path = '/tcc_one_professors/orientations'
     calendar_orientations_path = '/tcc_one_professors/calendars/\\d+/orientations'
     request.fullpath.match?("(#{orientations_path})|(#{calendar_orientations_path})")
+  end
+
+  def tcc_one_professors_calendars_link_active?
+    calendars_link_active?('tcc_one_professors')
   end
 
   def calendar_tcc_one_title
