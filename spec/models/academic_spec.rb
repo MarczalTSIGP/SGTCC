@@ -19,7 +19,7 @@ RSpec.describe Academic, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_one(:orientation).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
   end
 
   describe '#human_genders' do
@@ -29,6 +29,28 @@ RSpec.describe Academic, type: :model do
       genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
 
       expect(Academic.human_genders).to eq(hash)
+    end
+  end
+
+  describe '#current_orientation' do
+    it 'returns the current orientation by tcc one' do
+      academic = create(:academic)
+      calendar = create(:current_calendar_tcc_one)
+      create(:orientation, calendar: calendar, academic: academic)
+      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
+        orientation.calendar.id == Calendar.current_by_tcc_one.id
+      end
+      expect(academic.current_orientation_tcc_one).to eq(current_orientation)
+    end
+
+    it 'returns the current orientation by tcc two' do
+      academic = create(:academic)
+      calendar = create(:current_calendar_tcc_two)
+      create(:orientation, calendar: calendar, academic: academic)
+      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
+        orientation.calendar.id == Calendar.current_by_tcc_two.id
+      end
+      expect(academic.current_orientation_tcc_two).to eq(current_orientation)
     end
   end
 

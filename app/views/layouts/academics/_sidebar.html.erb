@@ -11,4 +11,35 @@
     </span>
     <%= t('breadcrumbs.homepage') %>
   <% end %>
+
+  <% if Calendar.current_by_tcc_one && current_academic.current_orientation_tcc_one.any? %>
+    <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_one.id),
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-3">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.one.index') %>
+    <% end %>
+  <% end %>
+
+  <% if Calendar.current_by_tcc_two && current_academic.current_orientation_tcc_two.any? %>
+    <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_two.id),
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-3">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.two.index') %>
+    <% end %>
+  <% end %>
+
+  <%= active_link_to(academics_calendars_path,
+		     active: :exact,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-3">
+      <%= icon('far', 'calendar-plus') %>
+    </span>
+    <%= t('breadcrumbs.calendars.index') %>
+  <% end %>
 <% end %>
+
+
