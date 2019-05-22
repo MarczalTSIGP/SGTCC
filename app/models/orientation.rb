@@ -50,9 +50,11 @@ class Orientation < ApplicationRecord
     return data if term.blank?
     regex_term = /#{remove_accents(term)}/i
     data.select do |orientation|
-      remove_accents(orientation.academic.name).match?(regex_term) ||
-        remove_accents(orientation.advisor.name).match?(regex_term) ||
-        remove_accents(orientation.title).match?(regex_term)
+      academic = orientation.academic
+      "(#{remove_accents(orientation.advisor.name)})|
+       (#{remove_accents(orientation.title)})|
+       (#{remove_accents(academic.name)})|
+       (#{academic.ra})".match?(regex_term)
     end
   end
 
