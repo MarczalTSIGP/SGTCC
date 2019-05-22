@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'Orientation::search', type: :feature do
   let(:professor) { create(:professor) }
   let(:first_orientation) { create(:current_orientation_tcc_one, advisor: professor) }
-  let(:second_orientation) { create(:current_orientation_tcc_one, advisor: professor) }
 
   before do
     login_as(professor, scope: :professor)

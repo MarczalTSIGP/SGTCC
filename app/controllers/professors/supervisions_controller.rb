@@ -32,13 +32,13 @@ class Professors::SupervisionsController < Professors::BaseController
     current_professor.professor_supervisors.with_orientation.map(&:orientation)
   end
 
-  def calendar_title(tcc)
+  def calendar_title(tcc = 'one')
     I18n.t("breadcrumbs.supervisions.tcc.#{tcc}.calendar",
            calendar: "#{Calendar.current_year}/#{Calendar.current_semester}")
   end
 
   def set_tcc_one_title
-    @title = calendar_title('one')
+    @title = calendar_title
   end
 
   def set_tcc_two_title

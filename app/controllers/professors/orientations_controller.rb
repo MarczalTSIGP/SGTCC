@@ -101,8 +101,8 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def title(calendar)
-    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar",
-                    calendar: calendar.year_with_semester)
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar&.tcc}.calendar",
+                    calendar: calendar&.year_with_semester)
   end
 
   def set_tcc_one_title
