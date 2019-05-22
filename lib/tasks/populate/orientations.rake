@@ -4,20 +4,28 @@ namespace :populate do
   task orientations: :environment do
     puts 'Populating orientations...'
 
+    calendar_ids = Calendar.pluck(:id)
+    current_tcc_one_id = Calendar.current_by_tcc_one.id
+    current_tcc_two_id = Calendar.current_by_tcc_two.id
+
     50.times do
-      create_orientation_by_calendar(Calendar.current_by_tcc_one.id)
-      create_orientation_by_calendar(Calendar.current_by_tcc_two.id)
-      create_orientation_by_calendar(Calendar.pluck(:id).sample)
+      create_orientation_by_calendar(current_tcc_one_id)
+      create_orientation_by_calendar(current_tcc_two_id)
+      create_orientation_by_calendar(calendar_ids.sample)
     end
   end
 
   def create_orientation_by_calendar(calendar_id)
+    professor_ids = Professor.pluck(:id)
+    academic_ids = Academic.pluck(:id)
+    institution_ids = Institution.pluck(:id)
+
     Orientation.create(
       title: Faker::Lorem.sentence(3),
       calendar_id: calendar_id,
-      advisor_id: Professor.pluck(:id).sample,
-      academic_id: Academic.pluck(:id).sample,
-      institution_id: Institution.pluck(:id).sample
+      advisor_id: professor_ids.sample,
+      academic_id: academic_ids.sample,
+      institution_id: institution_ids.sample
     )
   end
 end

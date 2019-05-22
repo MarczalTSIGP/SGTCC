@@ -1,4 +1,4 @@
-namespace :populate do
+namespace :db do
   desc 'Clean data'
 
   task clean: :environment do

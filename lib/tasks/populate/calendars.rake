@@ -4,8 +4,10 @@ namespace :populate do
   task calendars: :environment do
     puts 'Populating calendars...'
 
+    current_year = Calendar.current_year.to_i
+
     50.times do |index|
-      create_calendar_for_year(Calendar.current_year.to_i + index)
+      create_calendar_for_year(current_year + index)
     end
   end
 

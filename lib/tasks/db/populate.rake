@@ -5,12 +5,13 @@ namespace :db do
     require 'faker'
     require 'cpf_cnpj'
 
-    tasks = %w[clean academics professors
-               external_members institutions
-               base_activities calendars orientations]
+    populate_tasks = %w[academics professors
+                        external_members institutions
+                        base_activities calendars orientations]
 
-    tasks.each do |task|
-      Rake::Task["populate:#{task}"].invoke
+    Rake::Task['db:clean'].invoke
+    populate_tasks.each do |populate_task|
+      Rake::Task["populate:#{populate_task}"].invoke
     end
   end
 end

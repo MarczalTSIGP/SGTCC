@@ -5,6 +5,7 @@ namespace :populate do
     puts 'Populating external members...'
 
     genders = ExternalMember.genders.values
+    scholarity_ids = Scholarity.pluck(:id)
 
     100.times do |index|
       ExternalMember.create(
@@ -16,7 +17,7 @@ namespace :populate do
         working_area: Faker::Markdown.headers,
         gender: genders.sample,
         personal_page: "http://page.com.#{index}",
-        scholarity_id: Scholarity.pluck(:id).sample
+        scholarity_id: scholarity_ids.sample
       )
     end
   end
