@@ -30,8 +30,10 @@ pt-BR:
       tcc_one: "TCC 1"
       academics: "Acadêmico"
       external_members: "Membro Externo"
+      supervisor: "Coorientador"
   breadcrumbs:
     homepage: "Página inicial"
+    history: "Histórico"
     academics:
       index: 'Acadêmicos'
       new: 'Novo Acadêmico'
@@ -91,7 +93,7 @@ pt-BR:
       new: "Nova Orientação"
       edit: "Editar Orientação"
       show: "Visualizar Orientação"
-      history: "Histórico"
+      history: "Histórico de orientações"
       tcc:
         calendar: 'Orientações de TCC (%{calendar})'
         one:
@@ -102,6 +104,13 @@ pt-BR:
           calendar: 'Orientações de TCC 2 (%{calendar})'
     supervisions:
       index: "Coorientações"
+      calendar: "Coorientações de TCC (%{calendar})"
+      history: "Histórico de coorientações"
+      tcc:
+        one:
+          calendar: "Coorientações de TCC 1 (%{calendar})"
+        two:
+          calendar: "Coorientações de TCC 2 (%{calendar})"
   activerecord:
     errors:
       models:
