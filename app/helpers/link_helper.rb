@@ -84,6 +84,21 @@ module LinkHelper
     calendars_link_active?('tcc_one_professors')
   end
 
+  def academics_calendars_link_active?
+    index_route = '/academics/calendars'
+    history_calendars_link_active?('academics') || request.fullpath.match?("^(#{index_route})$")
+  end
+
+  def academics_activities_tcc_one_link_active?
+    current_calendar_id = Calendar.current_by_tcc_one.id
+    activities_tcc_link_active?('one', 'academics') && @calendar.id == current_calendar_id
+  end
+
+  def academics_activities_tcc_two_link_active?
+    current_calendar_id = Calendar.current_by_tcc_two.id
+    activities_tcc_link_active?('two', 'academics') && @calendar.id == current_calendar_id
+  end
+
   def calendar_tcc_one_title
     Calendar.current_by_tcc_one&.year_with_semester
   end
