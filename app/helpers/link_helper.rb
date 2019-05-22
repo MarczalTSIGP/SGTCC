@@ -56,13 +56,11 @@ module LinkHelper
   end
 
   def responsible_current_activities_tcc_one_link_active?
-    current_calendar_id = Calendar.current_by_tcc_one&.id
-    activities_tcc_link_active?('one', 'responsible') && @calendar.id == current_calendar_id
+    activities_tcc_link_active?('one', 'responsible') && calendar_equal_current_calendar_tcc_one?
   end
 
   def responsible_current_activities_tcc_two_link_active?
-    current_calendar_id = Calendar.current_by_tcc_two&.id
-    activities_tcc_link_active?('two', 'responsible') && @calendar.id == current_calendar_id
+    activities_tcc_link_active?('two', 'responsible') && calendar_equal_current_calendar_tcc_two?
   end
 
   def professors_orientations_link_active?
@@ -70,8 +68,8 @@ module LinkHelper
   end
 
   def tcc_one_professors_activities_tcc_one_link_active?
-    current_calendar_id = Calendar.current_by_tcc_one&.id
-    activities_tcc_link_active?('one', 'tcc_one_professors') && @calendar.id == current_calendar_id
+    activities_tcc_link_active?('one', 'tcc_one_professors') &&
+      calendar_equal_current_calendar_tcc_one?
   end
 
   def tcc_one_professors_orientations_tcc_one_link_active?
@@ -90,16 +88,18 @@ module LinkHelper
   end
 
   def academics_activities_tcc_one_link_active?
-    current_calendar_id = Calendar.current_by_tcc_one&.id
-    activities_tcc_link_active?('one', 'academics') && @calendar.id == current_calendar_id
+    activities_tcc_link_active?('one', 'academics') && calendar_equal_current_calendar_tcc_one?
   end
 
   def academics_activities_tcc_two_link_active?
-    current_calendar_id = Calendar.current_by_tcc_two&.id
-    activities_tcc_link_active?('two', 'academics') && @calendar.id == current_calendar_id
+    activities_tcc_link_active?('two', 'academics') && calendar_equal_current_calendar_tcc_two?
   end
 
-  def calendar_tcc_one_title
-    Calendar.current_by_tcc_one&.year_with_semester
+  def calendar_equal_current_calendar_tcc_one?
+    @calendar.id == Calendar.current_by_tcc_one&.id
+  end
+
+  def calendar_equal_current_calendar_tcc_two?
+    @calendar.id == Calendar.current_by_tcc_two&.id
   end
 end
