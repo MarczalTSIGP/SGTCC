@@ -11,7 +11,7 @@ module LinkHelper
   end
 
   def supervisions_history_link_active?
-    request.fullpath.match?("/supervisions/history")
+    request.fullpath.match?('/supervisions/history')
   end
 
   def history_calendars_link_active?(namespace)
