@@ -32,18 +32,16 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def tcc_one
-    data = current_professor.orientations.current_tcc_one.with_relationships.recent
-    orientations = Orientation.search(params[:term], data)
-    @orientations = Orientation.paginate_array(orientations, params[:page])
+    tcc_one_orientations = current_professor.orientations.current_tcc_one.with_relationships.recent
+    @orientations = paginate_orientations(tcc_one_orientations)
     @search_url = professors_orientations_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    data = current_professor.orientations.current_tcc_two.with_relationships.recent
-    orientations = Orientation.search(params[:term], data)
-    @orientations = Orientation.paginate_array(orientations, params[:page])
+    tcc_two_orientations = current_professor.orientations.current_tcc_two.with_relationships.recent
+    @orientations = paginate_orientations(tcc_two_orientations)
     @search_url = professors_orientations_search_tcc_two_path
 
     render :index
@@ -111,5 +109,10 @@ class Professors::OrientationsController < Professors::BaseController
 
   def set_tcc_two_title
     title(Calendar.current_by_tcc_two)
+  end
+
+  def paginate_orientations(data)
+    orientations = Orientation.search(params[:term], data)
+    @orientations = Orientation.paginate_array(orientations, params[:page])
   end
 end
