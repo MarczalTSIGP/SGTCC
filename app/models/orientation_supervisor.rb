@@ -12,6 +12,4 @@ class OrientationSupervisor < ApplicationRecord
              foreign_key: 'external_member_supervisor_id',
              inverse_of: :external_member_supervisors,
              optional: true
-
-  scope :with_orientation, -> { includes(orientation: [:academic, :advisor, :calendar]) }
 end
