@@ -137,6 +137,11 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :supervisions,
+                only: [:show, :edit],
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'

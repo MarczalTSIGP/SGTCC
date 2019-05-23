@@ -30,7 +30,7 @@
         <%= render('shared/no_results') if @orientations.empty? %>
       </tr>
       <% @orientations.each do |orientation| %>
-        <%= render 'professors/orientations/orientation', orientation: orientation %>
+        <%= render 'professors/supervisions/orientation', orientation: orientation %>
       <% end %>
     </tbody>
   </table>

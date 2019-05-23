@@ -3,6 +3,17 @@ module LinkHelper
     request.fullpath.match?('base_activities')
   end
 
+  def supervisions_link_active?
+    tcc_routes = '/supervisions/tcc_one|/supervisions/tcc_two'
+    show_route = '/supervisions/\\d+'
+
+    request.fullpath.match?("(#{tcc_routes})|(#{show_route})")
+  end
+
+  def supervisions_history_link_active?
+    request.fullpath.match?("/supervisions/history")
+  end
+
   def history_calendars_link_active?(namespace)
     return false if @calendar.blank?
     route = "(/#{namespace}/calendars/\\d+/activities)"
