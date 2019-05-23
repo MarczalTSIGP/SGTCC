@@ -11,18 +11,6 @@ class Professors::OrientationsController < Professors::BaseController
                  :professors_orientations_tcc_two_path,
                  only: [:tcc_two]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.show'),
-                 :professors_orientation_path,
-                 only: [:show]
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
-                 :new_professors_orientation_path,
-                 only: [:new]
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.edit'),
-                 :edit_professors_orientation_path,
-                 only: [:edit]
-
   add_breadcrumb I18n.t('breadcrumbs.orientations.history'),
                  :professors_orientations_history_path,
                  only: [:history]
@@ -53,13 +41,24 @@ class Professors::OrientationsController < Professors::BaseController
     @orientations = Orientation.paginate_array(orientations, params[:page])
   end
 
-  def show; end
+  def show
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
+                    calendar: Calendar.current_by_tcc_one.year_with_semester)
+    add_breadcrumb @title, professors_orientation_path
+  end
 
   def new
+    @title = I18n.t('breadcrumbs.orientations.tcc.one.new',
+                    calendar: Calendar.current_by_tcc_one.year_with_semester)
+    add_breadcrumb @title, new_professors_orientation_path
     @orientation = Orientation.new
   end
 
-  def edit; end
+  def edit
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.edit",
+                    calendar: Calendar.current_by_tcc_one.year_with_semester)
+    add_breadcrumb @title, edit_professors_orientation_path
+  end
 
   def create
     @orientation = Orientation.new(orientation_params)

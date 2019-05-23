@@ -98,9 +98,14 @@ pt-BR:
         calendar: 'Orientações de TCC (%{calendar})'
         one:
           index: 'Orientações de TCC 1'
+          edit: 'Editar Orientação de TCC 1 (%{calendar})'
+          new: 'Nova Orientação de TCC 1 (%{calendar})'
+          show: "Visualizar Orientação de TCC 1 (%{calendar})"
           calendar: 'Orientações de TCC 1 (%{calendar})'
         two:
           index: 'Orientações de TCC 2'
+          edit: 'Editar Orientação de TCC 2 (%{calendar})'
+          show: 'Visualizar Orientação de TCC 2 (%{calendar})'
           calendar: 'Orientações de TCC 2 (%{calendar})'
     supervisions:
       index: "Coorientações"
