@@ -42,6 +42,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
+  gem 'parallel_tests'
 end
 
 group :development do

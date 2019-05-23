@@ -229,6 +229,8 @@ GEM
       shellany (~> 0.0)
     orm_adapter (0.5.0)
     parallel (1.12.1)
+    parallel_tests (2.29.0)
+      parallel
     parser (2.5.1.2)
       ast (~> 2.4.0)
     pg (0.18.4)
@@ -429,6 +431,7 @@ DEPENDENCIES
   mini_magick
   momentjs-rails
   net-ldap
+  parallel_tests
   pg (= 0.18.4)
   puma (~> 3.7)
   rails (~> 5.2.0)
