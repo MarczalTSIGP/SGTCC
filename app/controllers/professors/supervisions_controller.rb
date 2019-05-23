@@ -1,6 +1,6 @@
 class Professors::SupervisionsController < Professors::BaseController
-  before_action :set_tcc_one_title, only: [:tcc_one]
-  before_action :set_tcc_two_title, only: [:tcc_two]
+  before_action :set_tcc_one_title, only: :tcc_one
+  before_action :set_tcc_two_title, only: :tcc_two
 
   add_breadcrumb I18n.t('breadcrumbs.supervisions.index'),
                  :professors_supervisions_tcc_one_path

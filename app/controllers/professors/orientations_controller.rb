@@ -1,7 +1,7 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update]
-  before_action :set_tcc_one_title, only: [:tcc_one]
-  before_action :set_tcc_two_title, only: [:tcc_two]
+  before_action :set_tcc_one_title, only: :tcc_one
+  before_action :set_tcc_two_title, only: :tcc_two
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :professors_orientations_tcc_one_path,

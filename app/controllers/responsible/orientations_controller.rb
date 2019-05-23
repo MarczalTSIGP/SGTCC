@@ -1,7 +1,7 @@
 class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
-  before_action :set_tcc_one_title, only: [:current_tcc_one]
-  before_action :set_tcc_two_title, only: [:current_tcc_two]
+  before_action :set_tcc_one_title, only: :current_tcc_one
+  before_action :set_tcc_two_title, only: :current_tcc_two
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :responsible_orientations_path

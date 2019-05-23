@@ -1,6 +1,6 @@
 class TccOneProfessors::ActivitiesController < TccOneProfessors::BaseController
   before_action :set_calendar
-  before_action :set_activity, only: [:show]
+  before_action :set_activity, only: :show
   before_action :set_index_breadcrumb
 
   def index

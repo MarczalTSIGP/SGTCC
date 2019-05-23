@@ -1,7 +1,7 @@
 class TccOneProfessors::OrientationsController < TccOneProfessors::BaseController
   before_action :set_calendar
-  before_action :set_orientation, only: [:show]
-  before_action :set_title, only: [:by_calendar]
+  before_action :set_orientation, only: :show
+  before_action :set_title, only: :by_calendar
   before_action :set_index_breadcrumb
 
   def by_calendar
