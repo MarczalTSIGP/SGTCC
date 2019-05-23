@@ -30,6 +30,17 @@ RSpec.describe Professor, type: :model do
     context 'when lattes is not valid' do
       it { is_expected.not_to allow_value('lattes.com').for(:lattes) }
     end
+
+    context 'when professor supervisors is not valid' do
+      let(:advisor) { build(:professor) }
+      let(:orientation) { build(:orientation, advisor: advisor) }
+
+      it 'validation should reject invalid orientation' do
+        orientation.professor_supervisors << advisor
+        orientation.save
+        expect(orientation.errors[:professor_supervisors]).not_to be_empty
+      end
+    end
   end
 
   describe 'associations' do
