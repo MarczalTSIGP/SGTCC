@@ -40,8 +40,11 @@ class Orientation < ApplicationRecord
                                         semester: Calendar.current_semester })
   }
 
+  scope :with_relationships, lambda {
+    includes(:advisor, :academic, :calendar, :professor_supervisors, :orientation_supervisors)
+  }
+
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
-  scope :with_relationships, -> { includes(:advisor, :academic, :calendar) }
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title

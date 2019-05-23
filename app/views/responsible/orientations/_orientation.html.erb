@@ -1,13 +1,5 @@
 <tr>
-  <td><%= orientation.academic.name %></td>
-  <td><%= orientation.academic.ra %></td>
-  <td>
-    <span data-toggle="tooltip" title="<%= orientation.title %>">
-      <%= orientation.short_title %>
-    </span>
-  </td>
-  <td><%= orientation.advisor.name %></td>
-  <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
+  <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(responsible_orientation_path(orientation)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>

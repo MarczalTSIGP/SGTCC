@@ -36,7 +36,7 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def history
-    data = current_professor.orientations.includes(:academic, :calendar).recent
+    data = current_professor.orientations.with_relationships.recent
     orientations = Orientation.search(params[:term], data)
     @orientations = Orientation.paginate_array(orientations, params[:page])
   end
