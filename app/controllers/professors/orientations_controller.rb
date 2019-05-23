@@ -42,21 +42,21 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def show
-    @title = I18n.t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
-                    calendar: Calendar.current_by_tcc_one.year_with_semester)
-    add_breadcrumb @title, professors_orientation_path
+    title = I18n.t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
+                   calendar: Calendar.current_by_tcc_one&.year_with_semester)
+    add_breadcrumb title, professors_orientation_path
   end
 
   def new
     @title = I18n.t('breadcrumbs.orientations.tcc.one.new',
-                    calendar: Calendar.current_by_tcc_one.year_with_semester)
+                    calendar: Calendar.current_by_tcc_one&.year_with_semester)
     add_breadcrumb @title, new_professors_orientation_path
     @orientation = Orientation.new
   end
 
   def edit
     @title = I18n.t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.edit",
-                    calendar: Calendar.current_by_tcc_one.year_with_semester)
+                    calendar: Calendar.current_by_tcc_one&.year_with_semester)
     add_breadcrumb @title, edit_professors_orientation_path
   end
 
