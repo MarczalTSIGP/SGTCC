@@ -23,6 +23,7 @@ class Orientation < ApplicationRecord
            dependent: :destroy
 
   validates :title, presence: true
+  validate :validates_supervisor_ids
 
   scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
   scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
@@ -44,6 +45,15 @@ class Orientation < ApplicationRecord
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
+  end
+
+  def validates_supervisor_ids
+    advisor_is_supervisor = professor_supervisor_ids.include?(advisor_id)
+    return true unless advisor_is_supervisor
+    message = I18n.t('activerecord.errors.models.orientation.attributes.supervisors.advisor',
+                     advisor: advisor.name)
+    errors.add(:professor_supervisors, message)
+    false
   end
 
   def self.search(term, data = all)

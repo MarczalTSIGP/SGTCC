@@ -126,6 +126,10 @@ pt-BR:
         calendar:
           attributes:
             year: 'já está em uso para o TCC e semestre selecionado'
+        orientation:
+          attributes:
+            supervisors:
+              advisor: '- %{advisor} já está em uso para orientação'
     models:
       professor:
         one: "Professor"
