@@ -65,6 +65,19 @@ module ActiveLinkHelper
     match_link?('/responsible/base_activities')
   end
 
+  def academics_calendars_link_active?
+    index_route = '/academics/calendars'
+    calendars_history_active_link?('academics') || match_link?("^(#{index_route})$")
+  end
+
+  def academics_activities_tcc_one_link_active?
+    activities_tcc_link_active?('one', 'academics') && calendar_equal_current_calendar_tcc_one?
+  end
+
+  def academics_activities_tcc_two_link_active?
+    activities_tcc_link_active?('two', 'academics') && calendar_equal_current_calendar_tcc_two?
+  end
+
   def supervisions_tcc_one_or_two_link_active?
     tcc_routes = '/supervisions/tcc_one|/supervisions/tcc_two'
     request.fullpath.match?("(#{tcc_routes})")
@@ -106,18 +119,5 @@ module ActiveLinkHelper
 
   def tcc_one_professors_calendars_link_active?
     calendars_link_active?('tcc_one_professors')
-  end
-
-  def academics_calendars_link_active?
-    index_route = '/academics/calendars'
-    calendars_history_active_link?('academics') || request.fullpath.match?("^(#{index_route})$")
-  end
-
-  def academics_activities_tcc_one_link_active?
-    activities_tcc_link_active?('one', 'academics') && calendar_equal_current_calendar_tcc_one?
-  end
-
-  def academics_activities_tcc_two_link_active?
-    activities_tcc_link_active?('two', 'academics') && calendar_equal_current_calendar_tcc_two?
   end
 end
