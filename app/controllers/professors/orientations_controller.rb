@@ -2,6 +2,7 @@ class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update]
   before_action :set_tcc_one_title, only: :tcc_one
   before_action :set_tcc_two_title, only: :tcc_two
+  before_action :set_calendar, only: [:show, :edit]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :professors_orientations_tcc_one_path,
@@ -85,7 +86,11 @@ class Professors::OrientationsController < Professors::BaseController
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = current_professor.orientations.find(params[:id])
+  end
+
+  def set_calendar
+    @calendar = @orientation.calendar
   end
 
   def orientation_params

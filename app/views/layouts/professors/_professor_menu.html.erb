@@ -40,6 +40,7 @@
 <% end %>
 
 <%= active_link_to(professors_orientations_history_path,
+		   active: professors_orientations_history_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('far', 'folder') %>

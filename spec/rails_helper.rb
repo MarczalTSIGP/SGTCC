@@ -33,7 +33,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature
   config.include Helpers::Button, type: :feature
-  config.include Helpers::Link, type: :feature
+  config.include Helpers::ActiveLink, type: :feature
   config.include Helpers::FlashMessage, type: :feature
 
   config.infer_spec_type_from_file_location!

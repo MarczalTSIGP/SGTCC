@@ -2,21 +2,15 @@ class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
   before_action :set_tcc_one_title, only: :current_tcc_one
   before_action :set_tcc_two_title, only: :current_tcc_two
+  before_action :set_calendar, only: [:show, :edit]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :responsible_orientations_path
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.show'),
-                 :responsible_orientation_path,
-                 only: [:show]
+                 :responsible_orientations_tcc_one_path,
+                 only: [:tcc_one, :tcc_two, :show, :edit, :new]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
                  :new_responsible_orientation_path,
                  only: [:new]
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.edit'),
-                 :edit_responsible_orientation_path,
-                 only: [:edit]
 
   def index
     redirect_to action: :tcc_one
@@ -50,13 +44,21 @@ class Responsible::OrientationsController < Responsible::BaseController
     render :current_index
   end
 
-  def show; end
+  def show
+    add_breadcrumb I18n.t("breadcrumbs.orientations.tcc.#{@calendar.tcc}.show",
+                          calendar: @calendar.year_with_semester),
+                   responsible_orientation_path
+  end
 
   def new
     @orientation = Orientation.new
   end
 
-  def edit; end
+  def edit
+    @title = I18n.t("breadcrumbs.orientations.tcc.#{@calendar.tcc}.edit",
+                    calendar: @calendar.year_with_semester)
+    add_breadcrumb @title, edit_responsible_orientation_path
+  end
 
   def create
     @orientation = Orientation.new(orientation_params)
@@ -93,6 +95,10 @@ class Responsible::OrientationsController < Responsible::BaseController
     @orientation = Orientation.find(params[:id])
   end
 
+  def set_calendar
+    @calendar = @orientation.calendar
+  end
+
   def orientation_params
     params.require(:orientation).permit(
       :title, :calendar_id, :academic_id,
@@ -103,15 +109,17 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def title(calendar)
-    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar",
-                    calendar: calendar.year_with_semester)
+    I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar",
+           calendar: calendar.year_with_semester)
   end
 
   def set_tcc_one_title
-    title(Calendar.current_by_tcc_one)
+    @title = title(Calendar.current_by_tcc_one)
+    add_breadcrumb @title, responsible_orientations_current_tcc_one_path
   end
 
   def set_tcc_two_title
-    title(Calendar.current_by_tcc_two)
+    @title = title(Calendar.current_by_tcc_two)
+    add_breadcrumb @title, responsible_orientations_current_tcc_two_path
   end
 end

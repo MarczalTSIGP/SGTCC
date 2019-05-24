@@ -39,7 +39,7 @@
 <% end %>
 
 <%= active_link_to(responsible_base_activities_tcc_one_path,
-		   active: base_activities_link_active?,
+		   active: responsible_base_activities_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-alt') %>
@@ -79,7 +79,7 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_path,
-		   active: responsible_orientations_link_active?,
+		   active: orientations_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -88,7 +88,7 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_one_path,
-		   active: responsible_orientations_tcc_one_link_active?,
+		   active: orientations_tcc_one_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -97,7 +97,7 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_two_path,
-		   active: responsible_orientations_tcc_two_link_active?,
+		   active: orientations_tcc_two_link_active?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>

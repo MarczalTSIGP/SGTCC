@@ -114,8 +114,10 @@ pt-BR:
       tcc:
         one:
           calendar: "Coorientações de TCC 1 (%{calendar})"
+          edit: "Editar Coorientação de TCC 1 (%{calendar})"
         two:
           calendar: "Coorientações de TCC 2 (%{calendar})"
+          edit: "Editar Coorientação de TCC 2 (%{calendar})"
   activerecord:
     errors:
       models:
