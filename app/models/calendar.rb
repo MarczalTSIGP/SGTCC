@@ -72,6 +72,14 @@ class Calendar < ApplicationRecord
     find_by(year: current_year, semester: current_semester, tcc: tccs[:two])
   end
 
+  def self.current_by_tcc_one?(calendar)
+    calendar&.id == current_by_tcc_one&.id
+  end
+
+  def self.current_by_tcc_two?(calendar)
+    calendar&.id == current_by_tcc_two&.id
+  end
+
   def self.current_year
     I18n.l(Time.current, format: :year)
   end

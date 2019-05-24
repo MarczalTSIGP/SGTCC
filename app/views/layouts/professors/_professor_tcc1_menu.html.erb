@@ -14,7 +14,7 @@
 
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(tcc_one_professors_calendar_activities_path(Calendar.current_by_tcc_one&.id),
-		     active: tcc_one_professors_activities_tcc_one_link_active?,
+		     active: tcc_one_professors_activities_tcc_one_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
@@ -24,7 +24,7 @@
 <% end %>
 
 <%= active_link_to(tcc_one_professors_calendar_orientations_path(Calendar.current_by_tcc_one&.id),
-		   active: tcc_one_professors_orientations_tcc_one_link_active?,
+		   active: tcc_one_professors_orientations_tcc_one_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -33,7 +33,7 @@
 <% end %>
 
 <%= active_link_to(tcc_one_professors_calendars_tcc_one_path,
-		   active: tcc_one_professors_calendars_link_active?,
+		   active: tcc_one_professors_calendars_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>

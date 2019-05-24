@@ -31,7 +31,7 @@
 <% end %>
 
 <%= active_link_to(professors_orientations_path,
-		   active: professors_orientations_link_active?,
+		   active: professors_orientations_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('fas', 'file-code') %>
@@ -40,7 +40,7 @@
 <% end %>
 
 <%= active_link_to(professors_orientations_history_path,
-		   active: professors_orientations_history_link_active?,
+		   active: professors_orientations_history_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-3">
     <%= icon('far', 'folder') %>

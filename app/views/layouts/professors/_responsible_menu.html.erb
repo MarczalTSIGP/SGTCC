@@ -39,7 +39,7 @@
 <% end %>
 
 <%= active_link_to(responsible_base_activities_tcc_one_path,
-		   active: responsible_base_activities_link_active?,
+		   active: responsible_base_activities_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-alt') %>
@@ -48,7 +48,7 @@
 <% end %>
 
 <%= active_link_to(responsible_calendars_tcc_one_path,
-		   active: calendars_link_active?,
+		   active: responsible_calendars_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>
@@ -58,7 +58,7 @@
 
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_one.id),
-		     active: responsible_current_activities_tcc_one_link_active?,
+		     active: responsible_current_activities_tcc_one_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
@@ -69,7 +69,7 @@
 
 <% if Calendar.current_by_tcc_two %>
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_two.id),
-		     active: responsible_current_activities_tcc_two_link_active?,
+		     active: responsible_current_activities_tcc_two_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
@@ -78,8 +78,8 @@
   <% end %>
 <% end %>
 
-<%= active_link_to(responsible_orientations_path,
-		   active: orientations_link_active?,
+<%= active_link_to(responsible_orientations_tcc_one_path,
+		   active: responsible_orientations_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -88,7 +88,7 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_one_path,
-		   active: orientations_tcc_one_link_active?,
+		   active: responsible_orientations_tcc_one_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -97,7 +97,7 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_two_path,
-		   active: orientations_tcc_two_link_active?,
+		   active: responsible_orientations_tcc_two_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>

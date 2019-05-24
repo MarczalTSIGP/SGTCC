@@ -35,6 +35,8 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   end
 
   def set_index_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.calendars.index'),
+                   tcc_one_professors_calendars_tcc_one_path
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                    tcc_one_professors_calendar_orientations_path(@calendar)
   end
