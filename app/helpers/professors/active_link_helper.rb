@@ -15,17 +15,25 @@ module Professors::ActiveLinkHelper
   end
 
   def supervisions_tcc_one_or_two_active_link?
-    tcc_routes = '^\/professors\/supervisions(\/(tcc_one|tcc_two))?$'
-    match_link?("(#{tcc_routes})")
+    match_link?('^\/professors\/supervisions(\/(tcc_one|tcc_two))?$')
+  end
+
+  def supervisions_show_link?
+    match_link?('^\/professors\/supervisions\/\\d+$')
+  end
+
+  def supervisions_current_calendar_link?
+    calendar = @orientation&.calendar
+    Calendar.current_by_tcc_one?(calendar) || Calendar.current_by_tcc_two?(calendar)
   end
 
   def supervisions_active_link?
     return true if supervisions_tcc_one_or_two_active_link?
-    show_route = '^\/professors\/supervisions\/\\d+$'
-    match_link?("(#{show_route})")
+    supervisions_show_link? && supervisions_current_calendar_link?
   end
 
   def supervisions_history_active_link?
-    match_link?('^\/professors\/supervisions\/history$')
+    match_link?('^\/professors\/supervisions\/history$') ||
+      (supervisions_show_link? && !supervisions_current_calendar_link?)
   end
 end
