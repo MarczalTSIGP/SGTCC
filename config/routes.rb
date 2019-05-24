@@ -138,7 +138,7 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :supervisions,
-                only: [:show, :edit],
+                only: [:show],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 

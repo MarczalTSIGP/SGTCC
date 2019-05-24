@@ -19,7 +19,7 @@ module ActiveLinkHelper
   end
 
   def orientations_active_link?(namespace)
-    regex = "^\/#{namespace}\/orientations(\/(tcc_one|tcc_two|new|edit|\\d+))?$"
+    regex = "^\/#{namespace}\/orientations(\/(tcc_one|tcc_two|new|\\d+|\\d+/edit))?$"
     match_link?(regex)
   end
 
