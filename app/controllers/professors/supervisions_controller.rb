@@ -27,13 +27,6 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def show; end
 
-  def edit
-    calendar = @orientation.calendar
-    @title = I18n.t("breadcrumbs.supervisions.tcc.#{calendar.tcc}.edit",
-                    calendar: calendar.year_with_semester)
-    add_breadcrumb @title, edit_professors_supervision_path(@orientation)
-  end
-
   private
 
   def calendar_title(tcc = 'one')
