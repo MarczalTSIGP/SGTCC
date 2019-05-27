@@ -13,7 +13,7 @@
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(professors_calendar_activities_path(Calendar.current_by_tcc_one.id),
 		     class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+    <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
     <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
@@ -23,7 +23,7 @@
 <% if Calendar.current_by_tcc_two %>
   <%= active_link_to(professors_calendar_activities_path(Calendar.current_by_tcc_two.id),
 		     class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+    <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
     <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
@@ -33,7 +33,7 @@
 <%= active_link_to(professors_orientations_path,
 		   active: professors_orientations_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
   <%= t('breadcrumbs.orientations.tcc.calendar', calendar: current_calendar_title) %>
@@ -42,7 +42,7 @@
 <%= active_link_to(professors_orientations_history_path,
 		   active: professors_orientations_history_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+  <span class="icon mr-2">
     <%= icon('far', 'folder') %>
   </span>
   <%= t('breadcrumbs.history') %>
