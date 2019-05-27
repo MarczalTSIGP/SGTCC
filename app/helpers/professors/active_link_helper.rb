@@ -15,7 +15,7 @@ module Professors::ActiveLinkHelper
   end
 
   def supervisions_tcc_one_or_two_active_link?
-    match_link?('^\/professors\/supervisions(\/(tcc_one|tcc_two))?$')
+    match_link?('^\/professors\/supervisions(\/((tcc_one|tcc_two)(\/search/page/\\d+)?))?$')
   end
 
   def supervisions_show_link?
@@ -33,7 +33,7 @@ module Professors::ActiveLinkHelper
   end
 
   def supervisions_history_active_link?
-    match_link?('^\/professors\/supervisions\/history$') ||
+    match_link?('\/professors\/supervisions\/history') ||
       (supervisions_show_link? && !supervisions_current_calendar_link?)
   end
 end
