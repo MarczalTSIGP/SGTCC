@@ -37,14 +37,16 @@ module ActiveLinkHelper
   end
 
   def calendar_equal_current_calendar_tcc_one?
+    calendar = @calendar || @orientation&.calendar
     current_calendar_tcc_one = Calendar.current_by_tcc_one
-    return true if @calendar.blank? || current_calendar_tcc_one.blank?
-    @calendar.id == current_calendar_tcc_one.id
+    return true if calendar.blank? || current_calendar_tcc_one.blank?
+    calendar.id == current_calendar_tcc_one.id
   end
 
   def calendar_equal_current_calendar_tcc_two?
+    calendar = @calendar || @orientation&.calendar
     current_calendar_tcc_two = Calendar.current_by_tcc_two
-    return true if @calendar.blank? || current_calendar_tcc_two.blank?
-    @calendar.id == current_calendar_tcc_two.id
+    return true if calendar.blank? || current_calendar_tcc_two.blank?
+    calendar.id == current_calendar_tcc_two.id
   end
 end
