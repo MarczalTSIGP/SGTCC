@@ -8,7 +8,7 @@
 <td><%= orientation.advisor.name %></td>
 <td>
   <% orientation.professor_supervisors.each do |supervisor| %>
-    <span class="badge badge-primary d-block mt-2"><%= supervisor.name %></span>
+    <p class="m-0"><%= supervisor.name %></p>
   <% end %>
 </td>
 <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
