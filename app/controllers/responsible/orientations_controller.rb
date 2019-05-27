@@ -5,7 +5,11 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :responsible_orientations_tcc_one_path,
-                 only: [:new]
+                 only: [:tcc_one, :new]
+
+  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
+                 :responsible_orientations_tcc_two_path,
+                 only: [:tcc_two]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
                  :new_responsible_orientation_path,
