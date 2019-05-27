@@ -111,11 +111,16 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def set_index_breadcrumb
-    title = I18n.t("breadcrumbs.orientations.tcc.#{@calendar.tcc}.calendar",
-                   calendar: @calendar.year_with_semester)
+    calendar_title = I18n.t("breadcrumbs.orientations.tcc.#{@calendar.tcc}.calendar",
+                            calendar: @calendar.year_with_semester)
     current_calendar = (Calendar.current_by_tcc_one?(@calendar) ||
       Calendar.current_by_tcc_two?(@calendar))
-    return add_breadcrumb title, responsible_orientations_current_tcc_one_path if current_calendar
+    return add_breadcrumb calendar_title, current_tcc_index_link if current_calendar
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
+  end
+
+  def current_tcc_index_link
+    return responsible_orientations_current_tcc_one_path if @calendar.tcc == 'one'
+    responsible_orientations_current_tcc_two_path
   end
 end
