@@ -3,11 +3,7 @@ class Academics::CalendarsController < Academics::BaseController
                  :academics_calendars_path
 
   def index
-    calendars = current_academic.orientations
-                                .includes(:calendar)
-                                .order('calendars.year DESC, calendars.semester ASC')
-                                .map(&:calendar)
-
-    @calendars = Academic.paginate_array(calendars, params[:page])
+    orientations = current_academic.orientations.with_relationships.recent
+    @orientations = Academic.paginate_array(orientations, params[:page])
   end
 end
