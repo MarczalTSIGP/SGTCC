@@ -12,7 +12,7 @@
     <%= t('breadcrumbs.homepage') %>
   <% end %>
 
-  <% if Calendar.current_by_tcc_one && current_academic.current_orientation_tcc_one.any? %>
+  <% if current_academic.current_orientation_tcc_one.any? %>
     <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_one.id),
 		       active: academics_activities_tcc_one_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
@@ -23,7 +23,7 @@
     <% end %>
   <% end %>
 
-  <% if Calendar.current_by_tcc_two && current_academic.current_orientation_tcc_two.any? %>
+  <% if current_academic.current_orientation_tcc_two.any? %>
     <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_two.id),
 		       active: academics_activities_tcc_two_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>

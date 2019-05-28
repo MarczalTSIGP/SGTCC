@@ -334,6 +334,26 @@ Rails.application.routes.draw do
   authenticate :external_member do
     namespace :external_members do
       root to: 'dashboard#index'
+
+      get 'calendars', to: 'calendars#index', as: 'calendars'
+
+      get '/calendars/(:calendar_id)/activities',
+          to: 'activities#index',
+          as: 'calendar_activities'
+
+      get '/calendars/(:calendar_id)/activities/(:id)',
+          to: 'activities#show',
+          as: 'calendar_activity'
+
+      get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
+
+      get 'supervisions/tcc_one',
+          to: 'supervisions#tcc_one',
+          as: 'supervisions_tcc_one'
+
+      get 'supervisions/tcc_two',
+          to: 'supervisions#tcc_two',
+          as: 'supervisions_tcc_two'
     end
   end
 end
