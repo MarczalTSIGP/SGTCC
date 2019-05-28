@@ -57,9 +57,11 @@ class Professors::SupervisionsController < Professors::BaseController
     calendar = @orientation.calendar
     calendar_title = I18n.t("breadcrumbs.supervisions.tcc.#{calendar.tcc}.calendar",
                             calendar: calendar.year_with_semester)
-    current_calendar = (Calendar.current_by_tcc_one?(calendar) ||
-      Calendar.current_by_tcc_two?(calendar))
-    return add_breadcrumb calendar_title, current_tcc_index_link if current_calendar
+    @back_url = professors_supervisions_history_path
+    if Calendar.current_calendar?(calendar)
+      @back_url = current_tcc_index_link
+      return add_breadcrumb calendar_title, @back_url
+    end
     add_breadcrumb I18n.t('breadcrumbs.supervisions.history'), professors_supervisions_history_path
   end
 
