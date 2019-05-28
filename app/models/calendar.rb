@@ -80,6 +80,10 @@ class Calendar < ApplicationRecord
     calendar&.id == current_by_tcc_two&.id
   end
 
+  def self.current_calendar?(calendar)
+    current_by_tcc_one?(calendar) || current_by_tcc_two?(calendar)
+  end
+
   def self.current_year
     I18n.l(Time.current, format: :year)
   end
