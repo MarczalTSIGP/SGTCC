@@ -41,7 +41,8 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:advisor, :academic, :calendar, :professor_supervisors, :orientation_supervisors)
+    includes(:advisor, :academic, :calendar,
+             :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
@@ -57,6 +58,10 @@ class Orientation < ApplicationRecord
                      advisor: advisor.name)
     errors.add(:professor_supervisors, message)
     false
+  end
+
+  def supervisors
+    professor_supervisors + external_member_supervisors
   end
 
   def self.search(term, data = all)
