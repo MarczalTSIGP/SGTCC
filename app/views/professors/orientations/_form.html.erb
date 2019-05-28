@@ -47,9 +47,7 @@
   </div>
 
   <div class="d-flex">
-    <%= link_to t('simple_form.buttons.back'),
-      professors_orientations_path,
-      class: 'btn btn-secondary' %>
+    <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
 <% end %>
