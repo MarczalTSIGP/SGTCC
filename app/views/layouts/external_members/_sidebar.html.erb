@@ -45,5 +45,8 @@
   <% end %>
 
   <% if current_external_member.supervisions.any? %>
+    <div class="pt-2">
+      <%= render 'layouts/external_members/supervisor_menu' %>
+    </div>
   <% end %>
 <% end %>

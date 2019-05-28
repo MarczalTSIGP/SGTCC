@@ -49,4 +49,27 @@ module ActiveLinkHelper
     return true if calendar.blank? || current_calendar_tcc_two.blank?
     calendar.id == current_calendar_tcc_two.id
   end
+
+  def supervisions_tcc_one_or_two_active_link?(namespace)
+    match_link?("^\/#{namespace}\/supervisions(\/((tcc_one|tcc_two)(\/search/page/\\d+)?))?$")
+  end
+
+  def supervisions_show_link?(namespace)
+    match_link?("^\/#{namespace}\/supervisions\/\\d+$")
+  end
+
+  def supervisions_current_calendar_link?
+    calendar = @orientation&.calendar
+    Calendar.current_by_tcc_one?(calendar) || Calendar.current_by_tcc_two?(calendar)
+  end
+
+  def supervisions_active_link?(namespace)
+    return true if supervisions_tcc_one_or_two_active_link?(namespace)
+    supervisions_show_link?(namespace) && supervisions_current_calendar_link?
+  end
+
+  def supervisions_history_active_link?(namespace)
+    match_link?("\/#{namespace}\/supervisions\/history") ||
+      (supervisions_show_link?(namespace) && !supervisions_current_calendar_link?)
+  end
 end

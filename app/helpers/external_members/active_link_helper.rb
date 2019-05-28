@@ -13,4 +13,12 @@ module ExternalMembers::ActiveLinkHelper
     activities_tcc_active_link?('two', 'external_members') &&
       calendar_equal_current_calendar_tcc_two?
   end
+
+  def external_members_supervisions_active_link?
+    supervisions_active_link?('external_members')
+  end
+
+  def external_members_supervisions_history_active_link?
+    supervisions_history_active_link?('external_members')
+  end
 end
