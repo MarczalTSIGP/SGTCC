@@ -14,14 +14,13 @@ module ActiveLinkHelper
   end
 
   def calendar_from_history?
-    return false if @calendar.blank?
-    !(Calendar.current_by_tcc_one?(@calendar) || Calendar.current_by_tcc_two?(@calendar))
+    !Calendar.current_calendar?(@calendar)
   end
 
   def orientations_active_link?(namespace)
     namespace = "\/#{namespace}\/orientations"
     regex = "^#{namespace}(\/((tcc_one|tcc_two)(/search/page/\\d+)?|new|\\d+|\\d+/edit))?$"
-    match_link?(regex)
+    match_link?(regex) && !Calendar.current_calendar?(@calendar)
   end
 
   def orientations_tcc_one_active_link?(namespace)

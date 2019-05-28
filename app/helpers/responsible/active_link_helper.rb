@@ -4,11 +4,13 @@ module Responsible::ActiveLinkHelper
   end
 
   def responsible_orientations_tcc_one_active_link?
-    orientations_tcc_one_active_link?('responsible')
+    orientations_tcc_one_active_link?('responsible') ||
+      Calendar.current_by_tcc_one?(@calendar)
   end
 
   def responsible_orientations_tcc_two_active_link?
-    orientations_tcc_two_active_link?('responsible')
+    orientations_tcc_two_active_link?('responsible') ||
+      Calendar.current_by_tcc_two?(@calendar)
   end
 
   def responsible_calendars_active_link?

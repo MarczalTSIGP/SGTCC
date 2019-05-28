@@ -11,7 +11,8 @@ describe 'Orientation::index', type: :feature do
       it 'shows all the orientations of tcc one with options' do
         orientations = create_list(:orientation_tcc_one, 2)
 
-        visit responsible_orientations_tcc_one_path
+        index_url = responsible_orientations_tcc_one_path
+        visit index_url
 
         orientations.each do |orientation|
           expect(page).to have_contents([orientation.short_title,
@@ -20,6 +21,7 @@ describe 'Orientation::index', type: :feature do
                                          orientation.academic.ra,
                                          orientation.calendar.year_with_semester_and_tcc])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
 
@@ -27,7 +29,8 @@ describe 'Orientation::index', type: :feature do
       it 'shows all the orientations of tcc two with options' do
         orientations = create_list(:orientation_tcc_two, 2)
 
-        visit responsible_orientations_tcc_two_path
+        index_url = responsible_orientations_tcc_two_path
+        visit index_url
 
         orientations.each do |orientation|
           expect(page).to have_contents([orientation.short_title,
@@ -36,6 +39,7 @@ describe 'Orientation::index', type: :feature do
                                          orientation.academic.ra,
                                          orientation.calendar.year_with_semester_and_tcc])
         end
+        expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
   end

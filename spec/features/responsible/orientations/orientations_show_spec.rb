@@ -23,6 +23,7 @@ describe 'Orientation::show', type: :feature do
                                        orientation_tcc_one.calendar.year_with_semester,
                                        complete_date(orientation_tcc_one.created_at),
                                        complete_date(orientation_tcc_one.updated_at)])
+        expect(page).to have_selector("a[href='#{responsible_orientations_tcc_one_path}'].active")
         breadcrumb_text = I18n.t('breadcrumbs.orientations.index')
         first("a[href='#{responsible_orientations_tcc_one_path}']", text: breadcrumb_text).click
         expect(page).to have_current_path responsible_orientations_tcc_one_path
@@ -41,6 +42,7 @@ describe 'Orientation::show', type: :feature do
         breadcrumb_text = I18n.t('breadcrumbs.orientations.tcc.one.calendar',
                                  calendar: current_calendar_tcc_one.year_with_semester)
         back_link = responsible_orientations_current_tcc_one_path
+        expect(page).to have_selector("a[href='#{back_link}'].active")
         first("a[href='#{back_link}']", text: breadcrumb_text).click
         expect(page).to have_current_path back_link
       end
@@ -58,6 +60,7 @@ describe 'Orientation::show', type: :feature do
         breadcrumb_text = I18n.t('breadcrumbs.orientations.tcc.two.calendar',
                                  calendar: current_calendar_tcc_two.year_with_semester)
         back_link = responsible_orientations_current_tcc_two_path
+        expect(page).to have_selector("a[href='#{back_link}'].active")
         first("a[href='#{back_link}']", text: breadcrumb_text).click
         expect(page).to have_current_path back_link
       end
