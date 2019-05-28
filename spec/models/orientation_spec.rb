@@ -39,7 +39,7 @@ RSpec.describe Orientation, type: :model do
 
   describe '#by_tcc' do
     before do
-      create_list(:orientation, 25)
+      create_list(:orientation, 5)
     end
 
     it 'returns the orientations by tcc one' do

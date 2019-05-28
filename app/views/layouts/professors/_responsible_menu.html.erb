@@ -1,5 +1,5 @@
 <span class="sidebar-heading pl-0 pt-2 pb-2">
-  <%= icon('fas', 'user-cog', class: 'mr-1') %>
+  <%= icon('fas', 'user-cog', class: 'mr-2') %>
   <%= t('views.sidebar.responsible') %>
 </span>
 
@@ -39,7 +39,7 @@
 <% end %>
 
 <%= active_link_to(responsible_base_activities_tcc_one_path,
-		   active: base_activities_link_active?,
+		   active: responsible_base_activities_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-alt') %>
@@ -48,7 +48,7 @@
 <% end %>
 
 <%= active_link_to(responsible_calendars_tcc_one_path,
-		   active: calendars_link_active?,
+		   active: responsible_calendars_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>
@@ -58,28 +58,28 @@
 
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_one.id),
-		     active: responsible_activities_tcc_one_link_active?,
+		     active: responsible_current_activities_tcc_one_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.one.index') %>
+    <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
   <% end %>
 <% end %>
 
 <% if Calendar.current_by_tcc_two %>
   <%= active_link_to(responsible_calendar_activities_path(Calendar.current_by_tcc_two.id),
-		     active: responsible_activities_tcc_two_link_active?,
+		     active: responsible_current_activities_tcc_two_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.two.index') %>
+    <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
   <% end %>
 <% end %>
 
-<%= active_link_to(responsible_orientations_path,
-		   active: orientations_link_active?,
+<%= active_link_to(responsible_orientations_tcc_one_path,
+		   active: responsible_orientations_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
@@ -88,19 +88,19 @@
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_one_path,
-		   active: responsible_orientations_tcc_one_link_active?,
+		   active: responsible_orientations_tcc_one_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
-  <%= t('breadcrumbs.orientations.tcc.one.calendar_index', calendar: calendar_tcc_one_title) %>
+  <%= t('breadcrumbs.orientations.tcc.one.calendar', calendar: current_calendar_title) %>
 <% end %>
 
 <%= active_link_to(responsible_orientations_current_tcc_two_path,
-		   active: responsible_orientations_tcc_two_link_active?,
+		   active: responsible_orientations_tcc_two_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
-  <%= t('breadcrumbs.orientations.tcc.two.calendar_index', calendar: calendar_tcc_one_title) %>
+  <%= t('breadcrumbs.orientations.tcc.two.calendar', calendar: current_calendar_title) %>
 <% end %>

@@ -2,6 +2,7 @@ class Responsible::BaseController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authorized
   include FlashMessage
+  include BreadcrumbTitle
 
   add_breadcrumb I18n.t('breadcrumbs.homepage'), :responsible_root_path
 

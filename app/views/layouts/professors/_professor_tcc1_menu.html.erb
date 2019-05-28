@@ -1,5 +1,5 @@
 <span class="sidebar-heading pl-0 pt-2 pb-2">
-  <%= icon('fas', 'users-cog', class: 'mr-1') %>
+  <%= icon('fas', 'users-cog', class: 'mr-2') %>
   <%= t('views.sidebar.tcc_one') %>
 </span>
 
@@ -14,25 +14,26 @@
 
 <% if Calendar.current_by_tcc_one %>
   <%= active_link_to(tcc_one_professors_calendar_activities_path(Calendar.current_by_tcc_one&.id),
-		     active: tcc_one_professors_activities_tcc_one_link_active?,
+		     active: tcc_one_professors_activities_tcc_one_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('far', 'file-alt') %>
     </span>
-    <%= t('breadcrumbs.tcc.one.calendar_index', calendar: calendar_tcc_one_title) %>
+    <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
   <% end %>
 <% end %>
 
 <%= active_link_to(tcc_one_professors_calendar_orientations_path(Calendar.current_by_tcc_one&.id),
-		   active: professors_tcc_one_orientations_tcc_one_link_active?,
+		   active: tcc_one_professors_orientations_tcc_one_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'file-code') %>
   </span>
-  <%= t('breadcrumbs.orientations.tcc.calendar_index', calendar: calendar_tcc_one_title) %>
+  <%= t('breadcrumbs.orientations.tcc.one.calendar', calendar: current_calendar_title) %>
 <% end %>
 
 <%= active_link_to(tcc_one_professors_calendars_tcc_one_path,
+		   active: tcc_one_professors_calendars_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'calendar-plus') %>

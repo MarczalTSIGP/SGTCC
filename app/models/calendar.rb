@@ -26,30 +26,18 @@ class Calendar < ApplicationRecord
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
-  def self.search_by_second_semester(calendar)
-    find_by(semester: 2, year: calendar.year, tcc: tccs[calendar.tcc])
-  end
-
-  def self.search_by_first_semester(calendar)
-    find_by(semester: 1, year: calendar.year, tcc: tccs[calendar.tcc])
-  end
-
-  def self.search_by_first_semester_next_year(calendar)
-    find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[calendar.tcc])
-  end
-
-  def self.search_by_second_semester_previous_year(calendar)
-    find_by(semester: 2, year: calendar.year.to_i - 1, tcc: tccs[calendar.tcc])
-  end
-
   def self.previous_semester(calendar)
-    return search_by_first_semester(calendar) if calendar.semester == 'two'
-    search_by_second_semester_previous_year(calendar)
+    tcc = tccs[calendar.tcc]
+    year = calendar.year
+    return find_by(semester: 1, year: year, tcc: tcc) if calendar.semester == 'two'
+    find_by(semester: 2, year: year.to_i - 1, tcc: tcc)
   end
 
   def self.next_semester(calendar)
-    return search_by_second_semester(calendar) if calendar.semester == 'one'
-    search_by_first_semester_next_year(calendar)
+    tcc = tccs[calendar.tcc]
+    year = calendar.year
+    return find_by(semester: 2, year: year, tcc: tcc) if calendar.semester == 'one'
+    find_by(semester: 1, year: year.to_i + 1, tcc: tcc)
   end
 
   def self.search_by_tcc(tcc, page, term)
@@ -70,6 +58,18 @@ class Calendar < ApplicationRecord
 
   def self.current_by_tcc_two
     find_by(year: current_year, semester: current_semester, tcc: tccs[:two])
+  end
+
+  def self.current_by_tcc_one?(calendar)
+    calendar&.id == current_by_tcc_one&.id
+  end
+
+  def self.current_by_tcc_two?(calendar)
+    calendar&.id == current_by_tcc_two&.id
+  end
+
+  def self.current_calendar?(calendar)
+    current_by_tcc_one?(calendar) || current_by_tcc_two?(calendar)
   end
 
   def self.current_year

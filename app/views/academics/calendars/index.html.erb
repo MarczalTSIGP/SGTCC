@@ -2,7 +2,7 @@
 <% provide(:head_title, t('breadcrumbs.calendars.index')) %>
 
 <div class="text-right mt-3">
-  <%= page_entries_info @calendars, entry_name: t('activerecord.models.calendar.one') %>
+  <%= page_entries_info @orientations %>
 </div>
 
 <div class="table-striped mt-5 table-responsive w-100">
@@ -11,6 +11,9 @@
       <tr>
         <th><%= Calendar.human_attribute_name('year_semester') %></th>
         <th><%= Calendar.human_attribute_name('tcc') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('orientation_supervisors') %></th>
         <th><%= Calendar.human_attribute_name('created_at') %></th>
         <th colspan="3"></th>
       </tr>
@@ -18,11 +21,13 @@
 
     <tbody>
       <tr>
-        <%= render('shared/no_results') if @calendars.empty? %>
+        <%= render('shared/no_results') if @orientations.empty? %>
       </tr>
-      <%= render @calendars %>
+      <% @orientations.each do |orientation| %>
+        <%= render('academics/calendars/calendar', orientation: orientation) %>
+      <% end %>
     </tbody>
   </table>
 </div>
 
-<%= paginate @calendars %>
+<%= paginate @orientations %>

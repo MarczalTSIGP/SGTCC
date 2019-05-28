@@ -1,10 +1,22 @@
 <tr>
-  <td><%= calendar.year_with_semester %></td>
-  <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
-  <td><%= short_date(calendar.created_at) %></td>
+  <td><%= orientation.calendar.year_with_semester %></td>
+  <td><%= t("enums.tcc.#{orientation.calendar.tcc}") %></td>
   <td>
-    <%= link_to(academics_calendar_activities_path(calendar)) do %>
+    <span data-toggle="tooltip" title="<%= orientation.title %>">
+      <%= orientation.short_title %>
+    </span>
+  </td>
+  <td><%= orientation.advisor.name %></td>
+  <td>
+    <% orientation.supervisors.each do |supervisor| %>
+      <p class="m-0"><%= supervisor.name %></p>
+    <% end %>
+  </td>
+  <td><%= short_date(orientation.calendar.created_at) %></td>
+  <td>
+    <%= link_to(academics_calendar_activities_path(orientation.calendar)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
   </td>
 </tr>
+

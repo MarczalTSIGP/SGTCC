@@ -35,7 +35,6 @@ RSpec.configure do |config|
   config.include Helpers::Button, type: :feature
   config.include Helpers::Link, type: :feature
   config.include Helpers::FlashMessage, type: :feature
-
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!

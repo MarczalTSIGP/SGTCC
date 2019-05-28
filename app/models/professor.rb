@@ -26,6 +26,10 @@ class Professor < ApplicationRecord
            inverse_of: :professor_supervisor,
            dependent: :restrict_with_error
 
+  has_many :supervisions,
+           through: :professor_supervisors,
+           source: :orientation
+
   validates :name,
             presence: true
 

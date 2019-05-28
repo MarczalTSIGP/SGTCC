@@ -1,6 +1,6 @@
 class Academics::ActivitiesController < Academics::BaseController
   before_action :set_calendar
-  before_action :set_activity, only: [:show]
+  before_action :set_activity, only: :show
   before_action :set_index_breadcrumb
 
   def index
@@ -23,7 +23,9 @@ class Academics::ActivitiesController < Academics::BaseController
   end
 
   def set_index_breadcrumb
-    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.index"),
+    add_breadcrumb I18n.t('breadcrumbs.calendars.index'), academics_calendars_path
+    add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.calendar",
+                          calendar: @calendar.year_with_semester),
                    academics_calendar_activities_path(@calendar)
   end
 end

@@ -2,8 +2,17 @@
   <% if current_professor.role?(:responsible) %>
     <%= render 'layouts/professors/responsible_menu' %>
   <% end %>
-  <%= render 'layouts/professors/professor_menu' %>
-  <% if current_professor.role?(:tcc_one) %>
-    <%= render 'layouts/professors/professor_tcc1_menu' %>
+  <div class="pt-2">
+    <%= render 'layouts/professors/professor_menu' %>
+  </div>
+  <% if current_professor.professor_supervisors.present? %>
+    <div class="pt-2">
+      <%= render 'layouts/professors/supervisor_menu' %>
+    </div>
   <% end %>
+  <div class="pt-2">
+    <% if current_professor.role?(:tcc_one) %>
+      <%= render 'layouts/professors/professor_tcc1_menu' %>
+    <% end %>
+  </div>
 <% end %>

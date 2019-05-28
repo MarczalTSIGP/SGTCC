@@ -30,8 +30,10 @@ pt-BR:
       tcc_one: "TCC 1"
       academics: "Acadêmico"
       external_members: "Membro Externo"
+      supervisor: "Coorientador"
   breadcrumbs:
     homepage: "Página inicial"
+    history: "Histórico"
     academics:
       index: 'Acadêmicos'
       new: 'Novo Acadêmico'
@@ -79,25 +81,45 @@ pt-BR:
         new: "Nova Atividade de TCC 1"
         edit: "Editar Atividade de TCC 1"
         show: "Visualizar Atividade de TCC 1"
-        calendar_index: "Atividades de TCC (%{calendar})"
+        calendar: "Atividades de TCC 1 (%{calendar})"
       two:
         index: "Atividades de TCC 2"
         new: "Nova Atividade de TCC 2"
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
+        calendar: "Atividades de TCC 2 (%{calendar})"
     orientations:
       index: "Orientações"
       new: "Nova Orientação"
       edit: "Editar Orientação"
       show: "Visualizar Orientação"
+      history: "Histórico de orientações"
       tcc:
-        calendar_index: 'Orientações de TCC (%{calendar})'
+        calendar: 'Orientações de TCC (%{calendar})'
         one:
           index: 'Orientações de TCC 1'
-          calendar_index: 'Orientações de TCC 1 (%{calendar})'
+          edit: 'Editar Orientação de TCC 1 (%{calendar})'
+          new: 'Nova Orientação de TCC 1 (%{calendar})'
+          show: "Visualizar Orientação de TCC 1 (%{calendar})"
+          calendar: 'Orientações de TCC 1 (%{calendar})'
         two:
           index: 'Orientações de TCC 2'
-          calendar_index: 'Orientações de TCC 2 (%{calendar})'
+          edit: 'Editar Orientação de TCC 2 (%{calendar})'
+          show: 'Visualizar Orientação de TCC 2 (%{calendar})'
+          calendar: 'Orientações de TCC 2 (%{calendar})'
+    supervisions:
+      index: "Coorientações"
+      calendar: "Coorientações de TCC (%{calendar})"
+      history: "Histórico de coorientações"
+      tcc:
+        one:
+          calendar: "Coorientações de TCC 1 (%{calendar})"
+          edit: "Editar Coorientação de TCC 1 (%{calendar})"
+          show: "Visualizar Coorientação de TCC 1 (%{calendar})"
+        two:
+          calendar: "Coorientações de TCC 2 (%{calendar})"
+          edit: "Editar Coorientação de TCC 2 (%{calendar})"
+          show: "Visualizar Coorientação de TCC 2 (%{calendar})"
   activerecord:
     errors:
       models:
@@ -108,6 +130,10 @@ pt-BR:
         calendar:
           attributes:
             year: 'já está em uso para o TCC e semestre selecionado'
+        orientation:
+          attributes:
+            supervisors:
+              advisor: '- %{advisor} já está em uso para orientação'
     models:
       professor:
         one: "Professor"
@@ -190,6 +216,7 @@ pt-BR:
         academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição externa"
+        orientation_supervisors: "Coorientadores"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         <<: *commons
@@ -204,7 +231,7 @@ pt-BR:
         display_entries:
           zero: ''
           one: 'Total de <b>1</b> %{entry_name}'
-          other: 'Total de <b> %{count}</b> %{entry_name.pluralize}'
+          other: 'Total de <b> %{count}</b> %{entry_name}'
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
   enums:

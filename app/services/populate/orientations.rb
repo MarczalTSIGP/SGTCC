@@ -1,10 +1,10 @@
 class Populate::Orientations
-  attr_reader :professor_ids, :academic_ids, :institution_ids
+  attr_reader :academic_ids, :institution_ids, :advisor
 
   def initialize
     @academic_ids = Academic.pluck(:id)
-    @professor_ids = Professor.pluck(:id)
     @institution_ids = Institution.pluck(:id)
+    @advisor = Professor.find_by(username: 'marczal')
   end
 
   def populate(
@@ -22,12 +22,13 @@ class Populate::Orientations
   private
 
   def create_orientation_by_calendar(calendar_id)
-    Orientation.create(
+    orientation = Orientation.create(
       title: Faker::Lorem.sentence(3),
       calendar_id: calendar_id,
-      advisor_id: @professor_ids.sample,
+      advisor_id: @advisor.id,
       academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample
     )
+    orientation.professor_supervisors << @advisor
   end
 end

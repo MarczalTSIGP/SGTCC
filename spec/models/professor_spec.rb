@@ -30,6 +30,17 @@ RSpec.describe Professor, type: :model do
     context 'when lattes is not valid' do
       it { is_expected.not_to allow_value('lattes.com').for(:lattes) }
     end
+
+    context 'when professor supervisors is not valid' do
+      let(:advisor) { build(:professor) }
+      let(:orientation) { build(:orientation, advisor: advisor) }
+
+      it 'validation should reject invalid orientation' do
+        orientation.professor_supervisors << advisor
+        orientation.save
+        expect(orientation.errors[:professor_supervisors]).not_to be_empty
+      end
+    end
   end
 
   describe 'associations' do
@@ -40,6 +51,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
   end
 
   describe '#human_genders' do

@@ -1,69 +1,70 @@
 class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
-  before_action :set_tcc_one_title, only: [:current_tcc_one]
-  before_action :set_tcc_two_title, only: [:current_tcc_two]
+  before_action :set_calendar, only: [:show, :edit]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :responsible_orientations_path
+                 :responsible_orientations_tcc_one_path,
+                 only: [:tcc_one, :new]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.show'),
-                 :responsible_orientation_path,
-                 only: [:show]
+  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
+                 :responsible_orientations_tcc_two_path,
+                 only: [:tcc_two]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
                  :new_responsible_orientation_path,
                  only: [:new]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.edit'),
-                 :edit_responsible_orientation_path,
-                 only: [:edit]
-
-  def index
-    redirect_to action: :tcc_one
-  end
-
   def tcc_one
     @orientations = Orientation.by_tcc_one(params[:page], params[:term])
     @search_url = responsible_orientations_search_tcc_one_path
-
     render :index
   end
 
   def tcc_two
     @orientations = Orientation.by_tcc_two(params[:page], params[:term])
     @search_url = responsible_orientations_search_tcc_two_path
-
     render :index
   end
 
-  def current_tcc_one
+  def current_tcc_one(calendar = Calendar.current_by_tcc_one)
+    @title = orientation_calendar_title(calendar)
+    add_breadcrumb @title, responsible_orientations_current_tcc_one_path
     @orientations = Orientation.by_current_tcc_one(params[:page], params[:term])
     @search_url = responsible_orientations_search_current_tcc_one_path
 
     render :current_index
   end
 
-  def current_tcc_two
+  def current_tcc_two(calendar = Calendar.current_by_tcc_two)
+    @title = orientation_calendar_title(calendar)
+    add_breadcrumb @title, responsible_orientations_current_tcc_two_path
     @orientations = Orientation.by_current_tcc_two(params[:page], params[:term])
     @search_url = responsible_orientations_search_current_tcc_two_path
 
     render :current_index
   end
 
-  def show; end
+  def show
+    add_index_breadcrumb
+    add_breadcrumb show_orientation_calendar_title, responsible_orientation_path
+  end
 
   def new
     @orientation = Orientation.new
   end
 
-  def edit; end
+  def edit
+    add_index_breadcrumb
+    @title = edit_orientation_calendar_title
+    add_breadcrumb @title, edit_responsible_orientation_path
+  end
 
   def create
     @orientation = Orientation.new(orientation_params)
 
     if @orientation.save
       feminine_success_create_message
-      redirect_to responsible_orientations_path
+      redirect_to responsible_orientations_tcc_one_path
     else
       error_message
       render :new
@@ -84,13 +85,17 @@ class Responsible::OrientationsController < Responsible::BaseController
     @orientation.destroy
     feminine_success_destroy_message
 
-    redirect_to responsible_orientations_path
+    redirect_to responsible_orientations_tcc_one_path
   end
 
   private
 
   def set_orientation
     @orientation = Orientation.find(params[:id])
+  end
+
+  def set_calendar
+    @calendar = @orientation.calendar
   end
 
   def orientation_params
@@ -102,16 +107,17 @@ class Responsible::OrientationsController < Responsible::BaseController
     )
   end
 
-  def title(calendar)
-    @title = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.calendar_index",
-                    calendar: calendar.year_with_semester)
+  def add_index_breadcrumb
+    @back_url = responsible_orientations_tcc_one_path
+    if Calendar.current_calendar?(@calendar)
+      @back_url = current_tcc_index_path
+      return orientation_calendar_title, @back_url
+    end
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), @back_url
   end
 
-  def set_tcc_one_title
-    title(Calendar.current_by_tcc_one)
-  end
-
-  def set_tcc_two_title
-    title(Calendar.current_by_tcc_two)
+  def current_tcc_index_path
+    return responsible_orientations_current_tcc_one_path if @calendar.tcc == 'one'
+    responsible_orientations_current_tcc_two_path
   end
 end

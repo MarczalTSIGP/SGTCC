@@ -1,7 +1,7 @@
 class TccOneProfessors::OrientationsController < TccOneProfessors::BaseController
   before_action :set_calendar
-  before_action :set_orientation, only: [:show]
-  before_action :set_title, only: [:by_calendar]
+  before_action :set_orientation, only: :show
+  before_action :set_title, only: :by_calendar
   before_action :set_index_breadcrumb
 
   def by_calendar
@@ -30,11 +30,13 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   def set_title
     calendar = Calendar.current_by_tcc_one
     calendar = @calendar if @calendar.present?
-    @title = I18n.t('breadcrumbs.orientations.tcc.one.calendar_index',
+    @title = I18n.t('breadcrumbs.orientations.tcc.one.calendar',
                     calendar: calendar.year_with_semester)
   end
 
   def set_index_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.calendars.index'),
+                   tcc_one_professors_calendars_tcc_one_path
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                    tcc_one_professors_calendar_orientations_path(@calendar)
   end
