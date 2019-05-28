@@ -45,7 +45,7 @@ class ExternalMember < ApplicationRecord
 
   def current_supervision_by_calendar(calendar)
     supervisions.includes(:calendar).select do |supervision|
-      supervision.calendar.id == calendar.id
+      supervision.calendar&.id == calendar&.id
     end
   end
 
