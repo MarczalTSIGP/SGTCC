@@ -29,7 +29,7 @@ class Academic < ApplicationRecord
 
   def current_orientation_by_calendar(calendar)
     orientations.includes(:calendar).select do |orientation|
-      orientation.calendar.id == calendar.id
+      orientation.calendar&.id == calendar&.id
     end
   end
 

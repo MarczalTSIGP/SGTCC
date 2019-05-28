@@ -57,7 +57,8 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
       @back_url = current_tcc_index_link
       return add_breadcrumb supervision_calendar_title(calendar), @back_url
     end
-    add_breadcrumb I18n.t('breadcrumbs.supervisions.history'), external_members_supervisions_history_path
+    add_breadcrumb I18n.t('breadcrumbs.supervisions.history'),
+                   external_members_supervisions_history_path
   end
 
   def current_tcc_index_link
