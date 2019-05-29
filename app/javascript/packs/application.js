@@ -13,7 +13,6 @@ import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 
 Vue.prototype.$axios = axios;
-
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 
@@ -27,6 +26,12 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
-    mixins: [markdown, selectize, datetimepicker, menu, tooltip],
+    mixins: [
+      datetimepicker,
+      markdown,
+      menu,
+      selectize,
+      tooltip
+    ],
   });
 });
