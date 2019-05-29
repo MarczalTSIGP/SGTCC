@@ -2,15 +2,13 @@ class Professors::SupervisionsController < Professors::BaseController
   before_action :set_orientations
   before_action :set_orientation, only: :show
 
-  add_breadcrumb I18n.t('breadcrumbs.supervisions.index'),
-                 :professors_supervisions_tcc_one_path,
-                 only: [:tcc_one, :tcc_two]
-
   add_breadcrumb I18n.t('breadcrumbs.supervisions.history'),
                  :professors_supervisions_history_path,
                  only: [:history]
 
   def tcc_one
+    add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
+                   professors_supervisions_tcc_one_path
     @title = supervision_tcc_calendar_title
     @search_url = professors_supervisions_search_tcc_one_path
     @orientations = paginate_orientations(@orientations.current_tcc_one)
@@ -19,6 +17,8 @@ class Professors::SupervisionsController < Professors::BaseController
   end
 
   def tcc_two
+    add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
+                   professors_supervisions_tcc_two_path
     @title = supervision_tcc_calendar_title('two')
     @search_url = professors_supervisions_search_tcc_two_path
     @orientations = paginate_orientations(@orientations.current_tcc_two)
