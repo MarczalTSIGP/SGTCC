@@ -1,6 +1,6 @@
 class Responsible::OrientationsController < Responsible::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
-  before_action :set_calendar, only: [:show, :edit]
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew]
+  before_action :set_justification, only: [:renew]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :responsible_orientations_tcc_one_path,
@@ -89,24 +89,14 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def renew
-    next_calendar = Calendar.next_semester(@orientation.calendar)
-    if next_calendar.blank?
-      error = I18n.t('activerecord.errors.models.orientation.attributes.calendar.empty_next_semester')
-      render json: { message: error, status: :not_found }
-      return
-    end
-    statuses = Orientation.statuses
-    if @orientation.status == 'IN_PROGRESS'
-      @orientation.renewal_justification = params['orientation']['renewal_justification']
-      @orientation.status = statuses['RENEWED']
-      @orientation.save
-      new_orientation = @orientation.dup
-      new_orientation.calendar = next_calendar
-      render json: {
-        status: :ok,
-        message: 'Renovação salva com sucesso!',
-        orientation: { status: Orientation.statuses[new_orientation.status] }
-      } if new_orientation.save
+    calendar = Calendar.next_semester(@orientation.calendar)
+    if calendar.blank?
+      msg = I18n.t('activerecord.errors.models.orientation.attributes.calendar.empty_next_semester')
+      render json: { message: msg, status: :not_found }
+    elsif @orientation.status == 'IN_PROGRESS'
+      new_orientation = @orientation.renew(@justification, calendar)
+      status = Orientation.statuses[new_orientation.status]
+      render json: { message: feminine_success_update_message, orientation: { status: status } }
     end
   end
 
@@ -118,6 +108,10 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.calendar
+  end
+
+  def set_justification
+    @justification = params['orientation']['renewal_justification']
   end
 
   def orientation_params

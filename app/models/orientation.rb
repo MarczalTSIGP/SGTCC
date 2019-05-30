@@ -71,6 +71,16 @@ class Orientation < ApplicationRecord
     professor_supervisors + external_member_supervisors
   end
 
+  def renew(justification, calendar)
+    self.renewal_justification = justification
+    self.status = Orientation.statuses['RENEWED']
+    save
+    new_orientation = dup
+    new_orientation.calendar = calendar
+    new_orientation.save
+    new_orientation
+  end
+
   def self.search(term, data = all)
     return data if term.blank?
     regex_term = /#{remove_accents(term)}/i
