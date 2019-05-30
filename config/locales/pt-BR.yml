@@ -256,6 +256,12 @@ pt-BR:
     semester:
       one: '1'
       two: '2'
+    orientation:
+      status:
+        renewed: 'renovada',
+        approved: 'aprovada',
+        canceled: 'cancelada',
+        in_progress: 'em andamento'
   flash:
     actions:
       update:

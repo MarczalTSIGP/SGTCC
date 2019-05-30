@@ -25,6 +25,13 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
+  enum status: {
+    RENEWED: I18n.t('enums.orientation.status.renewd'),
+    APPROVED: I18n.t('enums.orientation.status.approved'),
+    CANCELED: I18n.t('enums.orientation.status.canceled'),
+    IN_PROGRESS: I18n.t('enums.orientation.status.in_progress')
+  }, _prefix: :status
+
   scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
   scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
 
