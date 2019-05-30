@@ -230,7 +230,9 @@ RSpec.describe Orientation, type: :model do
       end
 
       it 'is equal justification' do
-        expect(renewed_orientation.renewal_justification).to eq(new_orientation.renewal_justification)
+        expect(renewed_orientation.renewal_justification).to eq(
+          new_orientation.renewal_justification
+        )
       end
 
       it 'is equal academic' do

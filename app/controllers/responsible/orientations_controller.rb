@@ -3,11 +3,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_calendar, only: [:show, :edit]
   before_action :set_justification, only: [:renew]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :responsible_orientations_tcc_one_path,
-                 only: [:tcc_one, :new]
-
   def tcc_one
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
     @orientations = Orientation.by_tcc_one(params[:page], params[:term])
     @search_url = responsible_orientations_search_tcc_one_path
     render :index
@@ -44,6 +41,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def new
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
     add_breadcrumb I18n.t('breadcrumbs.orientations.new'), new_responsible_orientation_path
     @orientation = Orientation.new
   end
