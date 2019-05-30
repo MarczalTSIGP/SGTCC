@@ -1,5 +1,6 @@
 class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew]
+  before_action :set_calendar, only: [:show, :edit]
   before_action :set_justification, only: [:renew]
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
