@@ -18,6 +18,10 @@ pt-BR:
         two: 'TCC 2'
     buttons:
       select: 'Selecionar'
+      save: 'Salvar'
+      cancel: 'Cancelar'
+      orientation:
+        renew: 'Renovar orientação'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
