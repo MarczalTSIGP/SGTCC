@@ -89,10 +89,25 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def renew
-    new_orientation = @orientation.dup
     next_calendar = Calendar.next_semester(@orientation.calendar)
-    new_orientation.calendar = next_calendar
-    new_orientation.save
+    if next_calendar.blank?
+      error = I18n.t('activerecord.errors.models.orientation.attributes.calendar.empty_next_semester')
+      render json: { message: error, status: :not_found }
+      return
+    end
+    statuses = Orientation.statuses
+    if @orientation.status == 'IN_PROGRESS'
+      @orientation.renewal_justification = params['orientation']['renewal_justification']
+      @orientation.status = statuses['RENEWED']
+      @orientation.save
+      new_orientation = @orientation.dup
+      new_orientation.calendar = next_calendar
+      render json: {
+        status: :ok,
+        message: 'Renovação salva com sucesso!',
+        orientation: { status: Orientation.statuses[new_orientation.status] }
+      } if new_orientation.save
+    end
   end
 
   private

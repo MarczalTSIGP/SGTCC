@@ -123,6 +123,10 @@ pt-BR:
   activerecord:
     errors:
       models:
+        orientation:
+          attributes:
+            calendar:
+              empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         institution:
           attributes:
             cnpj:

@@ -3,7 +3,7 @@
     <p>
       <strong>Status:</strong>
       <span class="badge badge-warning">
-        {{ status }}
+        {{ labelStatus }}
       </span>
       <button
         v-if="show.renewButton && hasPermission"
@@ -33,7 +33,14 @@
         v-show="show.invalidFeedback"
         class="invalid-feedback"
       >
-        {{ errors.renewalJustification[0] }}
+        <ul>
+          <li
+            v-for="(error, index) in errors.renewalJustification"
+            :key="index"
+          >
+            {{ error }}
+          </li>
+        </ul>
       </div>
       <div class="mt-2">
         <button
@@ -52,6 +59,7 @@
         </button>
       </div>
     </div>
+    <div class="clearfix" />
   </div>
 </template>
 
@@ -89,6 +97,7 @@ export default {
   data() {
     return {
       renewalJustification: '',
+      labelStatus: '',
       show: {
         textArea: false,
         invalidFeedback: false,
@@ -111,32 +120,64 @@ export default {
     },
   },
 
+  mounted() {
+    this.labelStatus = this.status;
+  },
+
   methods: {
     showJustifictionTextArea() {
       this.show.textArea = true;
       this.show.renewButton = false;
     },
 
+    getData() {
+      return {
+        orientation: {
+          renewal_justification: this.renewalJustification
+        }
+      };
+    },
+
     async renewOrientation() {
       if (this.formIsInvalid()) {
         return false;
       }
-      const response = await this.$axios.get(this.url);
-      console.log(response);
+
+      const response = await this.$axios.post(this.url, this.getData());
+
+      if (response.data.status == 'not_found') {
+        return this.addInvalidFeedback(response.data.message);
+      }
+
+      this.showSuccessFlashMessage(response.data.message);
+      this.update(response.data.orientation.status);
     },
 
     formIsInvalid() {
-      if (this.renewalJustification === '') {
-        this.errors.renewalJustification.push(this.invalidFeedbackMessage);
-        this.errors.status = 'is-invalid';
-        this.show.invalidFeedback = true;
+      if (this.formIsEmpty() && this.hasNotErrors()) {
+        this.addInvalidFeedback(this.invalidFeedbackMessage);
         return true;
       }
+      this.cleanErrors();
       return false;
     },
 
+    addInvalidFeedback(message) {
+      this.errors.renewalJustification.push(message);
+      this.errors.status = 'is-invalid';
+      this.show.invalidFeedback = true;
+    },
+
+    formIsEmpty() {
+      return this.renewalJustification === '';
+    },
+
     hasErrors() {
-      this.errors.renewal_justification.length > 0;
+      return this.errors.renewal_justification.length > 0;
+    },
+
+    hasNotErrors() {
+      return this.errors.renewalJustification.length == 0;
     },
 
     cleanErrors() {
@@ -144,10 +185,25 @@ export default {
       this.errors.renewalJustification = [];
     },
 
-    close() {
+    closeTextArea() {
       this.show.textArea = false;
-      this.show.renewButton = true;
       this.cleanErrors();
+    },
+
+    close() {
+      this.closeTextArea();
+      this.show.renewButton = true;
+    },
+
+    update(labelStatus) {
+      this.closeTextArea();
+      this.show.renewButton = false;
+      this.labelStatus = labelStatus;
+    },
+
+    showSuccessFlashMessage(message) {
+      const data = ['success', message];
+      this.$root.$emit('add-flash-message', data);
     },
   },
 };
