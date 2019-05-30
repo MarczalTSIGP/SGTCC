@@ -26,7 +26,7 @@ class Orientation < ApplicationRecord
   validate :validates_supervisor_ids
 
   enum status: {
-    RENEWED: I18n.t('enums.orientation.status.renewd'),
+    RENEWED: I18n.t('enums.orientation.status.renewed'),
     APPROVED: I18n.t('enums.orientation.status.approved'),
     CANCELED: I18n.t('enums.orientation.status.canceled'),
     IN_PROGRESS: I18n.t('enums.orientation.status.in_progress')
