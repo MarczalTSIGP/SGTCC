@@ -6,6 +6,7 @@
   <%= t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
         calendar: @orientation.calendar.year_with_semester) %>
 <% end %>
+
 <%= provide(:edit_button) do %>
   <%= link_to t('simple_form.buttons.edit'),
     edit_responsible_orientation_path(@orientation),

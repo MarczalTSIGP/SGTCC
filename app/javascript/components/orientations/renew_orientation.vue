@@ -1,16 +1,21 @@
 <template>
   <div>
-    <button
-      v-show="show.renewButton"
-      type="button"
-      class="mb-2 float-right btn btn-outline-primary"
-      @click="showJustifictionTextArea()"
-    >
-      <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
-    </button>
-
+    <p>
+      <strong>Status:</strong>
+      <span class="badge badge-warning">
+        {{ status }}
+      </span>
+      <button
+        v-if="show.renewButton && hasPermission"
+        type="button"
+        class="mb-2 btn btn-outline-primary btn-sm"
+        @click="showJustifictionTextArea()"
+      >
+        <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
+      </button>
+    </p>
     <div
-      v-show="show.textArea"
+      v-if="show.textArea"
       class="form-group mb-2"
     >
       <label class="form-label">
@@ -65,10 +70,20 @@ export default {
       required: true
     },
 
+    status: {
+      type: String,
+      required: true
+    },
+
     errorMessage: {
       type: String,
       required: true
     },
+
+    hasPermission: {
+      type: Boolean,
+      required: true
+    }
   },
 
   data() {
