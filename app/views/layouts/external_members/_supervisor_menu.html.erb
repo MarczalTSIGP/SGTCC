@@ -3,8 +3,8 @@
   <%= t('views.sidebar.supervisor') %>
 </span>
 
-<%= active_link_to(professors_supervisions_tcc_one_path,
-		   active: professors_supervisions_active_link?,
+<%= active_link_to(external_members_supervisions_tcc_one_path,
+		   active: external_members_supervisions_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'file-code') %>
@@ -12,8 +12,8 @@
   <%= t('breadcrumbs.supervisions.calendar', calendar: current_calendar_title) %>
 <% end %>
 
-<%= active_link_to(professors_supervisions_history_path,
-		   active: professors_supervisions_history_active_link?,
+<%= active_link_to(external_members_supervisions_history_path,
+		   active: external_members_supervisions_history_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('far', 'folder') %>

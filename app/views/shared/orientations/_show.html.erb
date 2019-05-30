@@ -30,7 +30,7 @@
           <%= Orientation.human_attribute_name('professor_supervisors') %>:
         </strong>
         <% @orientation.professor_supervisors.each do |supervisor| %>
-          - <%= supervisor.name %>
+          <%= supervisor.name %>
         <% end %>
       </p>
     <% end %>
@@ -40,7 +40,7 @@
           <%= Orientation.human_attribute_name('external_member_supervisors') %>:
         </strong>
         <% @orientation.external_member_supervisors.each do |supervisor| %>
-          - <%= supervisor.name %>
+          <%= supervisor.name %>
         <% end %>
       </p>
     <% end %>

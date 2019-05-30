@@ -32,6 +32,7 @@ RSpec.describe ExternalMember, type: :model do
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(em_fk) }
+    it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
   end
 
   describe '#human_genders' do

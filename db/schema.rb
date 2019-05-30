@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_114105) do
+ActiveRecord::Schema.define(version: 2019_05_28_170108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,9 +109,9 @@ ActiveRecord::Schema.define(version: 2019_04_30_114105) do
   create_table "orientation_supervisors", force: :cascade do |t|
     t.bigint "orientation_id"
     t.bigint "professor_supervisor_id"
-    t.bigint "external_member_supervisor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "external_member_supervisor_id"
     t.index ["external_member_supervisor_id"], name: "index_orientation_supervisors_on_external_member_supervisor_id"
     t.index ["orientation_id"], name: "index_orientation_supervisors_on_orientation_id"
     t.index ["professor_supervisor_id"], name: "index_orientation_supervisors_on_professor_supervisor_id"
@@ -183,8 +183,8 @@ ActiveRecord::Schema.define(version: 2019_04_30_114105) do
   add_foreign_key "base_activities", "base_activity_types"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
+  add_foreign_key "orientation_supervisors", "external_members", column: "external_member_supervisor_id"
   add_foreign_key "orientation_supervisors", "orientations"
-  add_foreign_key "orientation_supervisors", "professors", column: "external_member_supervisor_id"
   add_foreign_key "orientation_supervisors", "professors", column: "professor_supervisor_id"
   add_foreign_key "orientations", "academics"
   add_foreign_key "orientations", "calendars"

@@ -14,26 +14,11 @@ module Professors::ActiveLinkHelper
     match_history_link || match_calendar_from_history
   end
 
-  def supervisions_tcc_one_or_two_active_link?
-    match_link?('^\/professors\/supervisions(\/((tcc_one|tcc_two)(\/search/page/\\d+)?))?$')
+  def professors_supervisions_active_link?
+    supervisions_active_link?('professors')
   end
 
-  def supervisions_show_link?
-    match_link?('^\/professors\/supervisions\/\\d+$')
-  end
-
-  def supervisions_current_calendar_link?
-    calendar = @orientation&.calendar
-    Calendar.current_by_tcc_one?(calendar) || Calendar.current_by_tcc_two?(calendar)
-  end
-
-  def supervisions_active_link?
-    return true if supervisions_tcc_one_or_two_active_link?
-    supervisions_show_link? && supervisions_current_calendar_link?
-  end
-
-  def supervisions_history_active_link?
-    match_link?('\/professors\/supervisions\/history') ||
-      (supervisions_show_link? && !supervisions_current_calendar_link?)
+  def professors_supervisions_history_active_link?
+    supervisions_history_active_link?('professors')
   end
 end

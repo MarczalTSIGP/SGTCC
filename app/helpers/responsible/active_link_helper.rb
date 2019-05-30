@@ -3,18 +3,18 @@ module Responsible::ActiveLinkHelper
     orientations_active_link?('responsible')
   end
 
-  def responsible_orientations_active_show_link?
-    match_link?('^\/responsible/orientations\/\\d+$')
+  def responsible_orientations_show_or_edit_link?
+    match_link?('^\/responsible/orientations\/\\d+(\/edit)?$')
   end
 
   def responsible_orientations_tcc_one_active_link?
     return orientations_tcc_one_active_link?('responsible') if @calendar.blank?
-    responsible_orientations_active_show_link? && Calendar.current_by_tcc_one?(@calendar)
+    responsible_orientations_show_or_edit_link? && Calendar.current_by_tcc_one?(@calendar)
   end
 
   def responsible_orientations_tcc_two_active_link?
     return orientations_tcc_two_active_link?('responsible') if @calendar.blank?
-    responsible_orientations_active_show_link? && Calendar.current_by_tcc_two?(@calendar)
+    responsible_orientations_show_or_edit_link? && Calendar.current_by_tcc_two?(@calendar)
   end
 
   def responsible_calendars_active_link?

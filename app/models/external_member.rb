@@ -2,6 +2,7 @@ class ExternalMember < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
+  include KaminariHelper
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -18,6 +19,10 @@ class ExternalMember < ApplicationRecord
            foreign_key: :external_member_supervisor_id,
            inverse_of: :external_member_supervisor,
            dependent: :restrict_with_error
+
+  has_many :supervisions,
+           through: :external_member_supervisors,
+           source: :orientation
 
   validates :name,
             presence: true
@@ -37,4 +42,18 @@ class ExternalMember < ApplicationRecord
             length: { maximum: 255 },
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
+
+  def current_supervision_by_calendar(calendar)
+    supervisions.includes(:calendar).select do |supervision|
+      supervision.calendar&.id == calendar&.id
+    end
+  end
+
+  def current_supervision_tcc_one
+    current_supervision_by_calendar(Calendar.current_by_tcc_one)
+  end
+
+  def current_supervision_tcc_two
+    current_supervision_by_calendar(Calendar.current_by_tcc_two)
+  end
 end

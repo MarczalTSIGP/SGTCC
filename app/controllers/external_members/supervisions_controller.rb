@@ -1,16 +1,16 @@
-class Professors::SupervisionsController < Professors::BaseController
+class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   before_action :set_orientations
   before_action :set_orientation, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.supervisions.history'),
-                 :professors_supervisions_history_path,
+                 :external_members_supervisions_history_path,
                  only: [:history]
 
   def tcc_one
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
-                   professors_supervisions_tcc_one_path
+                   external_members_supervisions_tcc_one_path
     @title = supervision_tcc_calendar_title
-    @search_url = professors_supervisions_search_tcc_one_path
+    @search_url = external_members_supervisions_search_tcc_one_path
     @orientations = paginate_orientations(@orientations.current_tcc_one)
 
     render :index
@@ -18,9 +18,9 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def tcc_two
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
-                   professors_supervisions_tcc_two_path
+                   external_members_supervisions_tcc_two_path
     @title = supervision_tcc_calendar_title('two')
-    @search_url = professors_supervisions_search_tcc_two_path
+    @search_url = external_members_supervisions_search_tcc_two_path
     @orientations = paginate_orientations(@orientations.current_tcc_two)
 
     render :index
@@ -33,17 +33,17 @@ class Professors::SupervisionsController < Professors::BaseController
   def show
     add_index_breadcrumb
     add_breadcrumb show_supervision_calendar_title(@orientation.calendar),
-                   professors_supervision_path(@orientation)
+                   external_members_supervision_path(@orientation)
   end
 
   private
 
   def set_orientations
-    @orientations = current_professor.supervisions.with_relationships.recent
+    @orientations = current_external_member.supervisions.with_relationships.recent
   end
 
   def set_orientation
-    @orientation = current_professor.supervisions.find(params[:id])
+    @orientation = current_external_member.supervisions.find(params[:id])
   end
 
   def paginate_orientations(data)
@@ -52,16 +52,17 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def add_index_breadcrumb
     calendar = @orientation.calendar
-    @back_url = professors_supervisions_history_path
+    @back_url = external_members_supervisions_history_path
     if Calendar.current_calendar?(calendar)
       @back_url = current_tcc_index_link
       return add_breadcrumb supervision_calendar_title(calendar), @back_url
     end
-    add_breadcrumb I18n.t('breadcrumbs.supervisions.history'), professors_supervisions_history_path
+    add_breadcrumb I18n.t('breadcrumbs.supervisions.history'),
+                   external_members_supervisions_history_path
   end
 
   def current_tcc_index_link
-    return professors_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
-    professors_supervisions_tcc_two_path
+    return external_members_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
+    external_members_supervisions_tcc_two_path
   end
 end
