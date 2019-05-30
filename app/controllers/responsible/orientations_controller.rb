@@ -88,6 +88,13 @@ class Responsible::OrientationsController < Responsible::BaseController
     redirect_to responsible_orientations_tcc_one_path
   end
 
+  def renew
+    new_orientation = @orientation.dup
+    next_calendar = Calendar.next_semester(@orientation.calendar)
+    new_orientation.calendar = next_calendar
+    new_orientation.save
+  end
+
   private
 
   def set_orientation

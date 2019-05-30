@@ -219,6 +219,7 @@ pt-BR:
         orientation_supervisors: "Coorientadores"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
+        renewal_justification: "Justificativa da renovação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

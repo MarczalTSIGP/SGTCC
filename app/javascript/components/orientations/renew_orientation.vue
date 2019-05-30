@@ -1,26 +1,51 @@
 <template>
   <div>
     <button
+      v-show="show.renewButton"
       type="button"
       class="mb-2 float-right btn btn-outline-primary"
+      @click="showJustifictionTextArea()"
     >
-      <i class="fe fe-plus mr-2" />Renovar orientação
+      <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
     </button>
 
-    <div class="form-group mb-2">
+    <div
+      v-show="show.textArea"
+      class="form-group mb-2"
+    >
       <label class="form-label">
-        Adicionar justificativa
+        {{ label }}
+        <abbr title="$t('labels.required')">
+          *
+        </abbr>
       </label>
       <textarea
+        v-model="renewalJustification"
         rows="5"
-        class="form-control"
-        placeholder="Here can be your description"
+        :class="`form-control ${errors.status}`"
+      />
+      <div
+        v-show="show.invalidFeedback"
+        class="invalid-feedback"
       >
-  Oh so, your weak rhyme
-You doubt I'll bother, reading into it
-I'll probably won't, left to my own devices
-But that's the difference in our opinions.
-</textarea>
+        {{ errors.renewalJustification[0] }}
+      </div>
+      <div class="mt-2">
+        <button
+          type="button"
+          class="float-right btn btn-primary"
+          @click="renewOrientation()"
+        >
+          {{ $t('buttons.save') }}
+        </button>
+        <button
+          type="button"
+          class="mr-2 float-right btn btn-outline-danger"
+          @click="close()"
+        >
+          {{ $t('buttons.cancel') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +53,88 @@ But that's the difference in our opinions.
 <script>
 export default {
   name: 'RenewOrientation',
+
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+
+    label: {
+      type: String,
+      required: true
+    },
+
+    errorMessage: {
+      type: String,
+      required: true
+    },
+  },
+
+  data() {
+    return {
+      renewalJustification: '',
+      show: {
+        textArea: false,
+        invalidFeedback: false,
+        renewButton: true
+      },
+      errors: {
+        status: '',
+        renewalJustification: [],
+      }
+    };
+  },
+
+  computed: {
+    url() {
+      return `/responsible/orientations/${this.id}/renew`;
+    },
+
+    invalidFeedbackMessage() {
+      return `${this.label} ${this.errorMessage}`;
+    },
+  },
+
+  methods: {
+    showJustifictionTextArea() {
+      this.show.textArea = true;
+      this.show.renewButton = false;
+    },
+
+    async renewOrientation() {
+      if (this.formIsInvalid()) {
+        return false;
+      }
+      const response = await this.$axios.get(this.url);
+      console.log(response);
+    },
+
+    formIsInvalid() {
+      if (this.renewalJustification === '') {
+        this.errors.renewalJustification.push(this.invalidFeedbackMessage);
+        this.errors.status = 'is-invalid';
+        this.show.invalidFeedback = true;
+        return true;
+      }
+      return false;
+    },
+
+    hasErrors() {
+      this.errors.renewal_justification.length > 0;
+    },
+
+    cleanErrors() {
+      this.errors.status = '';
+      this.errors.renewalJustification = [];
+    },
+
+    close() {
+      this.show.textArea = false;
+      this.show.renewButton = true;
+      this.cleanErrors();
+    },
+  },
 };
 
 </script>

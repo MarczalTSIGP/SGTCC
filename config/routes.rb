@@ -68,6 +68,10 @@ Rails.application.routes.draw do
           to: 'orientations#current_tcc_two',
           as: 'orientations_current_tcc_two'
 
+      get 'orientations/(:id)/renew',
+          to: 'orientations#renew',
+          as: 'orientations_renew'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',

@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
+import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
