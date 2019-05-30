@@ -7,6 +7,7 @@
       </span>
       <button
         v-if="show.renewButton && hasPermission"
+        id="renew_justification"
         type="button"
         class="mb-2 btn btn-outline-primary btn-sm"
         @click="showJustifictionTextArea()"
@@ -16,7 +17,7 @@
     </p>
     <div
       v-if="show.textArea"
-      class="form-group mb-2"
+      class="form-group orientation_renewal_justification mb-2"
     >
       <label class="form-label">
         {{ label }}
@@ -25,6 +26,7 @@
         </abbr>
       </label>
       <textarea
+        id="orientation_renewal_justification"
         v-model="renewalJustification"
         rows="5"
         :class="`form-control ${errors.status}`"
@@ -44,6 +46,7 @@
       </div>
       <div class="mt-2">
         <button
+          id="save_justification"
           type="button"
           class="float-right btn btn-primary"
           @click="renewOrientation()"
@@ -51,6 +54,7 @@
           {{ $t('buttons.save') }}
         </button>
         <button
+          id="cancel_justification"
           type="button"
           class="mr-2 float-right btn btn-outline-danger"
           @click="close()"

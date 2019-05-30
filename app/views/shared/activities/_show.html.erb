@@ -3,14 +3,6 @@
 
 <div class="card">
   <div class="card-body">
-    <div>
-      <renew-orientation
-        :id="<%= @orientation.id %>"
-        status="<%= Orientation.statuses[@orientation.status] %>"
-        label="<%= Orientation.human_attribute_name('renewal_justification') %>"
-        :has-permission="<%= current_professor.role?(:responsible) && @orientation.calendar.tcc == 'two' %>"
-        error-message="<%= t('errors.messages.blank') %>" />
-    </div>
     <p>
       <strong>
         <%= Activity.human_attribute_name('name') %>:

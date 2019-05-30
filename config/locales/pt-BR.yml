@@ -123,10 +123,6 @@ pt-BR:
   activerecord:
     errors:
       models:
-        orientation:
-          attributes:
-            calendar:
-              empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         institution:
           attributes:
             cnpj:
@@ -283,6 +279,9 @@ pt-BR:
   json:
     messages:
       orientation:
+        calendar:
+          errors:
+            empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         renew:
           save: 'Renovação salva com sucesso!'
   sessions:

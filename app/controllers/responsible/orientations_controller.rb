@@ -7,14 +7,6 @@ class Responsible::OrientationsController < Responsible::BaseController
                  :responsible_orientations_tcc_one_path,
                  only: [:tcc_one, :new]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :responsible_orientations_tcc_two_path,
-                 only: [:tcc_two]
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.new'),
-                 :new_responsible_orientation_path,
-                 only: [:new]
-
   def tcc_one
     @orientations = Orientation.by_tcc_one(params[:page], params[:term])
     @search_url = responsible_orientations_search_tcc_one_path
@@ -22,6 +14,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def tcc_two
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_two_path
     @orientations = Orientation.by_tcc_two(params[:page], params[:term])
     @search_url = responsible_orientations_search_tcc_two_path
     render :index
@@ -51,6 +44,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def new
+    add_breadcrumb I18n.t('breadcrumbs.orientations.new'), new_responsible_orientation_path
     @orientation = Orientation.new
   end
 
@@ -91,7 +85,7 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def renew
     if @next_calendar.blank?
-      msg = I18n.t('activerecord.errors.models.orientation.attributes.calendar.empty_next_semester')
+      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
       render json: { message: msg, status: :not_found }
     elsif @orientation.status == 'IN_PROGRESS'
       new_orientation = @orientation.renew(@justification, @next_calendar)
@@ -119,8 +113,7 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def orientation_params
     params.require(:orientation).permit(
-      :title, :calendar_id, :academic_id,
-      :advisor_id, :institution_id,
+      :title, :calendar_id, :academic_id, :advisor_id, :institution_id,
       professor_supervisor_ids: [],
       external_member_supervisor_ids: []
     )
