@@ -283,7 +283,7 @@ pt-BR:
           errors:
             empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         renew:
-          save: 'Renovação salva com sucesso!'
+          save: 'Orientação atualizada com sucesso!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
