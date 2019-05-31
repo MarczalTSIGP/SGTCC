@@ -39,6 +39,7 @@
         v-model="renewalJustification"
         rows="5"
         :class="`form-control ${errors.status}`"
+        @keyup="errors.renewalJustification = []"
       />
       <div
         v-show="show.invalidFeedback"
@@ -58,6 +59,7 @@
           id="save_justification"
           type="button"
           class="float-right btn btn-primary"
+          :disabled="hasErrors"
           @click="renewOrientation()"
         >
           {{ $t('buttons.save') }}
@@ -140,6 +142,10 @@ export default {
     invalidFeedbackMessage() {
       return `${this.label} ${this.errorMessage}`;
     },
+
+    hasErrors() {
+      return this.errors.renewalJustification.length > 0;
+    },
   },
 
   methods: {
@@ -188,10 +194,6 @@ export default {
 
     formIsEmpty() {
       return this.renewalJustification === '';
-    },
-
-    hasErrors() {
-      return this.errors.renewal_justification.length > 0;
     },
 
     hasNotErrors() {
