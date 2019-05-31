@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <div>
-      <renew-orientation
+      <orientation-renew
         :id="<%= @orientation.id %>"
         status="<%= Orientation.statuses[@orientation.status] %>"
         label="<%= Orientation.human_attribute_name('renewal_justification') %>"

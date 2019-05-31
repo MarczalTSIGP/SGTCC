@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  name: 'RenewOrientation',
+  name: 'OrientationRenew',
 
   props: {
     id: {
