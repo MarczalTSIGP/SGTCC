@@ -89,7 +89,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       new_orientation = @orientation.renew(@justification, @next_calendar)
       render json: {
         message: I18n.t('json.messages.orientation.renew.save'),
-        orientation: { status: Orientation.statuses[new_orientation.status] }
+        status: { label: Orientation.statuses[new_orientation.status], enum: new_orientation.status }
       }
     end
   end
@@ -112,8 +112,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def orientation_params
     params.require(:orientation).permit(
       :title, :calendar_id, :academic_id, :advisor_id, :institution_id,
-      professor_supervisor_ids: [],
-      external_member_supervisor_ids: []
+      professor_supervisor_ids: [], external_member_supervisor_ids: []
     )
   end
 

@@ -4,6 +4,7 @@
       <orientation-renew
         :id="<%= @orientation.id %>"
         status="<%= Orientation.statuses[@orientation.status] %>"
+        status-enum="<%= @orientation.status %>"
         label="<%= Orientation.human_attribute_name('renewal_justification') %>"
         :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == "IN_PROGRESS" %>"
         error-message="<%= t('errors.messages.blank') %>" />

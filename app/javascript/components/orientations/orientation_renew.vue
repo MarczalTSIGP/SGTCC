@@ -1,20 +1,29 @@
 <template>
   <div>
-    <p>
-      <strong>Status:</strong>
-      <span class="badge badge-warning">
-        {{ labelStatus }}
-      </span>
-      <button
-        v-if="show.renewButton && hasPermission"
-        id="renew_justification"
-        type="button"
-        class="mb-2 btn btn-outline-primary btn-sm"
-        @click="showJustifictionTextArea()"
-      >
-        <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
-      </button>
-    </p>
+    <div class="row">
+      <div class="rol-6">
+        <strong class="ml-3 mr-2 d-block">
+          Status:
+        </strong>
+      </div>
+      <div class="rol-3">
+        <orientation-status
+          :status="statusEnum"
+          :label="status"
+        />
+      </div>
+      <div class="rol-6">
+        <button
+          v-if="show.renewButton && hasPermission"
+          id="renew_justification"
+          type="button"
+          class="ml-3 mb-2 btn btn-outline-primary btn-sm"
+          @click="showJustifictionTextArea()"
+        >
+          <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
+        </button>
+      </div>
+    </div>
     <div
       v-if="show.textArea"
       class="form-group orientation_renewal_justification mb-2"
@@ -68,8 +77,13 @@
 </template>
 
 <script>
+
+import OrientationStatus from './orientation_status';
+
 export default {
   name: 'OrientationRenew',
+
+  components: { OrientationStatus },
 
   props: {
     id: {
@@ -83,6 +97,11 @@ export default {
     },
 
     status: {
+      type: String,
+      required: true
+    },
+
+    statusEnum: {
       type: String,
       required: true
     },
@@ -101,7 +120,6 @@ export default {
   data() {
     return {
       renewalJustification: '',
-      labelStatus: '',
       show: {
         textArea: false,
         invalidFeedback: false,
@@ -122,10 +140,6 @@ export default {
     invalidFeedbackMessage() {
       return `${this.label} ${this.errorMessage}`;
     },
-  },
-
-  mounted() {
-    this.labelStatus = this.status;
   },
 
   methods: {
@@ -154,7 +168,7 @@ export default {
       }
 
       this.showSuccessFlashMessage(response.data.message);
-      this.update(response.data.orientation.status);
+      this.update(response.data.status);
     },
 
     formIsInvalid() {
@@ -199,10 +213,10 @@ export default {
       this.show.renewButton = true;
     },
 
-    update(labelStatus) {
+    update(status) {
       this.closeTextArea();
       this.show.renewButton = false;
-      this.labelStatus = labelStatus;
+      this.$root.$emit('update-status', status);
     },
 
     showSuccessFlashMessage(message) {

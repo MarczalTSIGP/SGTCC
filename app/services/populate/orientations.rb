@@ -29,6 +29,5 @@ class Populate::Orientations
       academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample
     )
-    orientation.professor_supervisors << @advisor
   end
 end
