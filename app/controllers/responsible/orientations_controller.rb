@@ -2,6 +2,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew]
   before_action :set_calendar, only: [:show, :edit]
   before_action :set_justification, only: [:renew]
+  include Breadcrumb
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -36,7 +37,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def show
-    add_index_breadcrumb
+    add_responsible_index_breadcrumb
     add_breadcrumb show_orientation_calendar_title, responsible_orientation_path
   end
 
@@ -47,7 +48,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def edit
-    add_index_breadcrumb
+    add_responsible_index_breadcrumb
     @title = edit_orientation_calendar_title
     add_breadcrumb @title, edit_responsible_orientation_path
   end
@@ -82,14 +83,14 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def renew
-    if @next_calendar.blank?
+    if next_calendar.blank?
       msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
       render json: { message: msg, status: :not_found }
     elsif @orientation.status == 'IN_PROGRESS'
-      new_orientation = @orientation.renew(@justification, @next_calendar)
+      orientation = @orientation.renew(@justification, next_calendar)
       render json: {
         message: I18n.t('json.messages.orientation.renew.save'),
-        status: { label: Orientation.statuses[new_orientation.status], enum: new_orientation.status }
+        status: { label: Orientation.statuses[orientation.status], enum: orientation.status }
       }
     end
   end
@@ -106,7 +107,10 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_justification
     @justification = params['orientation']['renewal_justification']
-    @next_calendar = Calendar.next_semester(@orientation.calendar)
+  end
+
+  def next_calendar
+    Calendar.next_semester(@orientation.calendar)
   end
 
   def orientation_params
@@ -114,19 +118,5 @@ class Responsible::OrientationsController < Responsible::BaseController
       :title, :calendar_id, :academic_id, :advisor_id, :institution_id,
       professor_supervisor_ids: [], external_member_supervisor_ids: []
     )
-  end
-
-  def add_index_breadcrumb
-    @back_url = responsible_orientations_tcc_one_path
-    if Calendar.current_calendar?(@calendar)
-      @back_url = current_tcc_index_path
-      return orientation_calendar_title, @back_url
-    end
-    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), @back_url
-  end
-
-  def current_tcc_index_path
-    return responsible_orientations_current_tcc_one_path if @calendar.tcc == 'one'
-    responsible_orientations_current_tcc_two_path
   end
 end
