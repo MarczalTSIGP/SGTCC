@@ -69,6 +69,7 @@ Rails.application.routes.draw do
           as: 'orientations_current_tcc_two'
 
       post 'orientations/(:id)/renew', to: 'orientations#renew', as: 'orientations_renew'
+      post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'
 
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },

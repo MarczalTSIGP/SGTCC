@@ -83,6 +83,11 @@ class Orientation < ApplicationRecord
     new_orientation
   end
 
+  def cancel
+    self.status = Orientation.statuses['CANCELED']
+    save
+  end
+
   def self.search(term, data = all)
     return data if term.blank?
     regex_term = /#{remove_accents(term)}/i

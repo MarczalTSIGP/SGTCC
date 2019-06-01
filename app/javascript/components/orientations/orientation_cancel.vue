@@ -1,10 +1,11 @@
 <template>
   <div>
     <button
-      v-if="hasPermission"
+      v-if="showCancelButton && hasPermission"
       id="cancel_justification"
       type="button"
       class="btn btn-outline-danger btn-sm"
+      @click="confirmCancellation()"
     >
       {{ $t('buttons.models.orientation.cancel') }}
     </button>
@@ -29,7 +30,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      showCancelButton: true,
+    };
   },
 
   computed: {
@@ -40,19 +43,33 @@ export default {
 
   methods: {
     async cancelOrientation() {
-      const response = await this.$axios.delete(this.url);
+      const response = await this.$axios.post(this.url);
 
-      if (response.data.status == 'not_found') {
-        return this.addInvalidFeedback(response.data.message);
+      if (response.data.status == 'internal_server_error') {
+        return this.showFlashMessage(response.data.message, 'error');
       }
 
-      this.showSuccessFlashMessage(response.data.message);
-      this.update(response.data.status);
+      this.showFlashMessage(response.data.message);
+      this.updateStatus(response.data.orientation.status);
+      this.showCancelButton = false;
     },
 
-    showSuccessFlashMessage(message) {
-      const data = ['success', message];
+    showFlashMessage(message, type = 'success') {
+      const data = [type, message];
       this.$root.$emit('add-flash-message', data);
+    },
+
+    confirmCancellation() {
+      const cancel = confirm('Você tem certeza que deseja cancelar essa orientação?');
+
+      if (cancel) {
+        this.cancelOrientation();
+      }
+    },
+
+    updateStatus(status) {
+      this.$root.$emit('update-status', status);
+      this.$root.$emit('show-renew-button', false);
     },
   },
 };

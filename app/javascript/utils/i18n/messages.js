@@ -19,6 +19,9 @@ export const messages = {
     labels: {
       required: 'obrigatório',
     },
+    prompt: {
+      confirm: 'Você tem certeza?',
+    },
   },
   'en': {
     messages: {}

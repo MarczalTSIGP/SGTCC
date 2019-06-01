@@ -118,7 +118,15 @@ export default {
     },
   },
 
+  mounted() {
+    this.listenRenewButtonEvent();
+  },
+
   methods: {
+    listenRenewButtonEvent() {
+      this.$root.$on('show-renew-button', value => this.show.renewButton = value);
+    },
+
     showJustifictionTextArea() {
       this.show.textArea = true;
       this.show.renewButton = false;

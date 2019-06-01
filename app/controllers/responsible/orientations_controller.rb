@@ -1,5 +1,5 @@
 class Responsible::OrientationsController < Responsible::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew]
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew, :cancel]
   before_action :set_calendar, only: [:show, :edit]
   before_action :set_justification, only: [:renew]
   include Breadcrumb
@@ -92,6 +92,21 @@ class Responsible::OrientationsController < Responsible::BaseController
     else
       msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
       render json: { message: msg, status: :not_found }
+    end
+  end
+
+  def cancel
+    if @orientation.cancel
+      render json: {
+        message: I18n.t('json.messages.orientation.cancel.success'),
+        orientation: {
+          status: { label: Orientation.statuses[@orientation.status],
+                    enum: @orientation.status }
+        }
+      }
+    else
+      error_message = I18n.t('json.messages.orientation.cancel.error')
+      render json: { message: error_message, status: :internal_server_error }
     end
   end
 

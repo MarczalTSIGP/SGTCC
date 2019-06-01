@@ -288,6 +288,8 @@ pt-BR:
             empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         renew:
           save: 'Orientação atualizada com sucesso!'
+        cancel:
+          success: 'Orientação cancelada com sucesso!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
