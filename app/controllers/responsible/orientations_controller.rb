@@ -1,8 +1,10 @@
 class Responsible::OrientationsController < Responsible::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew, :cancel]
-  before_action :set_calendar, only: [:show, :edit]
-  before_action :set_justification, only: [:renew]
   include Breadcrumb
+  include OrientationRenew
+  include OrientationCancel
+
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
+  before_action :set_calendar, only: [:show, :edit]
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -114,10 +116,6 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.calendar
-  end
-
-  def set_justification
-    @justification = params['orientation']['renewal_justification']
   end
 
   def orientation_params
