@@ -84,7 +84,7 @@ class Orientation < ApplicationRecord
   end
 
   def cancel
-    self.status = Orientation.statuses['CANCELED']
+    self.status = 'CANCELED'
     save
   end
 

@@ -84,30 +84,6 @@ class Responsible::OrientationsController < Responsible::BaseController
     redirect_to responsible_orientations_tcc_one_path
   end
 
-  def renew
-    orientation_renewed = @orientation.renew(@justification)
-    if orientation_renewed
-      render json: {
-        message: I18n.t('json.messages.orientation.renew.save'),
-        status: { enum: 'RENEWED', label: orientation_renewed.status }
-      }
-    else
-      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
-      render json: { message: msg, status: :not_found }
-    end
-  end
-
-  def cancel
-    @orientation.cancel
-    render json: {
-      message: I18n.t('json.messages.orientation.cancel.success'),
-      orientation: {
-        status: { label: Orientation.statuses[@orientation.status],
-                  enum: @orientation.status }
-      }
-    }
-  end
-
   private
 
   def set_orientation

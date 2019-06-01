@@ -9,7 +9,7 @@ module OrientationCancel
     render json: {
       message: I18n.t('json.messages.orientation.cancel.success'),
       orientation: {
-        status: { label: Orientation.statuses[status], enum: status }
+        status: { enum: Orientation.statuses[status], label: status }
       }
     }
   end

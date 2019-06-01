@@ -212,9 +212,9 @@ RSpec.describe Orientation, type: :model do
 
   describe '#renew' do
     context 'when the orientation is renewed' do
-      let(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
-      let(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
-      let(:orientation) { create(:orientation_renewed, calendar: calendar) }
+      let!(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
+      let!(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
+      let!(:orientation) { create(:orientation_renewed, calendar: calendar) }
       let(:new_orientation) { orientation.dup }
       let(:renewed_orientation) do
         orientation.renew(orientation.renewal_justification)
@@ -252,7 +252,7 @@ RSpec.describe Orientation, type: :model do
       it 'is status equal cancelled' do
         orientation.cancel
         orientation.reload
-        expect(orientation.status).to eq('CANCELED')
+        expect(orientation.status).to eq('cancelada')
       end
     end
   end
