@@ -262,10 +262,10 @@ pt-BR:
       two: '2'
     orientation:
       status:
-        renewed: 'renovada'
-        approved: 'aprovada'
-        canceled: 'cancelada'
-        in_progress: 'em andamento'
+        RENEWED: 'renovada'
+        APPROVED: 'aprovada'
+        CANCELED: 'cancelada'
+        IN_PROGRESS: 'em andamento'
   flash:
     actions:
       update:

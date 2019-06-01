@@ -26,10 +26,10 @@ class Orientation < ApplicationRecord
   validate :validates_supervisor_ids
 
   enum status: {
-    RENEWED: I18n.t('enums.orientation.status.renewed'),
-    APPROVED: I18n.t('enums.orientation.status.approved'),
-    CANCELED: I18n.t('enums.orientation.status.canceled'),
-    IN_PROGRESS: I18n.t('enums.orientation.status.in_progress')
+    "#{I18n.t('enums.orientation.status.RENEWED')}": 'RENEWED',
+    "#{I18n.t('enums.orientation.status.APPROVED')}": 'APPROVED',
+    "#{I18n.t('enums.orientation.status.CANCELED')}": 'CANCELED',
+    "#{I18n.t('enums.orientation.status.IN_PROGRESS')}": 'IN_PROGRESS'
   }, _prefix: :status
 
   scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
@@ -71,12 +71,14 @@ class Orientation < ApplicationRecord
     professor_supervisors + external_member_supervisors
   end
 
-  def renew(justification, calendar)
+  def renew(justification)
+    next_calendar = Calendar.next_semester(calendar)
+    return false if next_calendar.blank?
     self.renewal_justification = justification
-    self.status = Orientation.statuses['RENEWED']
+    self.status = 'RENEWED'
     save
     new_orientation = dup
-    new_orientation.calendar = calendar
+    new_orientation.calendar = next_calendar
     new_orientation.save
     new_orientation
   end

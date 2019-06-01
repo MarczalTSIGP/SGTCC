@@ -83,15 +83,15 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def renew
-    if next_calendar.blank?
-      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
-      render json: { message: msg, status: :not_found }
-    elsif @orientation.status == 'IN_PROGRESS'
-      orientation = @orientation.renew(@justification, next_calendar)
+    orientation_renewed = @orientation.renew(@justification)
+    if orientation_renewed
       render json: {
         message: I18n.t('json.messages.orientation.renew.save'),
-        status: { label: Orientation.statuses[orientation.status], enum: orientation.status }
+        status: { enum: 'RENEWED', label: orientation_renewed.status }
       }
+    else
+      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
+      render json: { message: msg, status: :not_found }
     end
   end
 
@@ -107,10 +107,6 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_justification
     @justification = params['orientation']['renewal_justification']
-  end
-
-  def next_calendar
-    Calendar.next_semester(@orientation.calendar)
   end
 
   def orientation_params

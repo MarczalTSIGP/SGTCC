@@ -212,12 +212,12 @@ RSpec.describe Orientation, type: :model do
 
   describe '#renew' do
     context 'when renew the orientation' do
-      let(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
-      let(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
-      let(:orientation) { create(:orientation_renewed, calendar: calendar) }
+      let!(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
+      let!(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
+      let!(:orientation) { create(:orientation_renewed, calendar: calendar) }
       let(:new_orientation) { orientation.dup }
       let(:renewed_orientation) do
-        orientation.renew(orientation.renewal_justification, next_calendar)
+        orientation.renew(orientation.renewal_justification)
       end
 
       it 'is equal calendar' do

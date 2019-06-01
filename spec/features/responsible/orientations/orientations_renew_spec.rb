@@ -23,8 +23,7 @@ describe 'Orientation::renew', type: :feature do
         find('button[id="save_justification"]', text: save_button).click
         expect(page).to have_flash(:success, text: message('update.f'))
         current_orientation_tcc_two.reload
-        status = Orientation.statuses[current_orientation_tcc_two.status]
-        expect(page).to have_content(status)
+        expect(page).to have_content(current_orientation_tcc_two.status)
       end
     end
 
