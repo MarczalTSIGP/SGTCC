@@ -96,18 +96,14 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def cancel
-    if @orientation.cancel
-      render json: {
-        message: I18n.t('json.messages.orientation.cancel.success'),
-        orientation: {
-          status: { label: Orientation.statuses[@orientation.status],
-                    enum: @orientation.status }
-        }
+    @orientation.cancel
+    render json: {
+      message: I18n.t('json.messages.orientation.cancel.success'),
+      orientation: {
+        status: { label: Orientation.statuses[@orientation.status],
+                  enum: @orientation.status }
       }
-    else
-      error_message = I18n.t('json.messages.orientation.cancel.error')
-      render json: { message: error_message, status: :internal_server_error }
-    end
+    }
   end
 
   private

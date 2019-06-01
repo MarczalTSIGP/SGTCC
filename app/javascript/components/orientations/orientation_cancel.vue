@@ -2,7 +2,7 @@
   <div>
     <button
       v-if="showCancelButton && hasPermission"
-      id="cancel_justification"
+      id="orientation_cancel"
       type="button"
       class="btn btn-outline-danger btn-sm"
       @click="confirmCancellation()"
@@ -44,11 +44,6 @@ export default {
   methods: {
     async cancelOrientation() {
       const response = await this.$axios.post(this.url);
-
-      if (response.data.status == 'internal_server_error') {
-        return this.showFlashMessage(response.data.message, 'error');
-      }
-
       this.showFlashMessage(response.data.message);
       this.updateStatus(response.data.orientation.status);
       this.showCancelButton = false;

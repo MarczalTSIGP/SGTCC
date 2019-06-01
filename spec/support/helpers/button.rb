@@ -8,6 +8,10 @@ module Helpers
       I18n.t('views.buttons.orientation.renew')
     end
 
+    def orientation_cancel_button
+      I18n.t('views.buttons.orientation.cancel')
+    end
+
     def save_button
       I18n.t('views.buttons.save')
     end
