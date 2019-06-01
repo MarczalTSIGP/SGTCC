@@ -1,29 +1,14 @@
 <template>
   <div>
-    <div class="row">
-      <div class="rol-6">
-        <strong class="ml-3 mr-2 d-block">
-          Status:
-        </strong>
-      </div>
-      <div class="rol-3">
-        <orientation-status
-          :status="statusEnum"
-          :label="status"
-        />
-      </div>
-      <div class="rol-6">
-        <button
-          v-if="show.renewButton && hasPermission"
-          id="renew_justification"
-          type="button"
-          class="ml-3 mb-2 btn btn-outline-primary btn-sm"
-          @click="showJustifictionTextArea()"
-        >
-          <i class="fe fe-plus mr-2" />{{ $t('buttons.models.orientation.renew') }}
-        </button>
-      </div>
-    </div>
+    <button
+      v-if="show.renewButton && hasPermission"
+      id="renew_justification"
+      type="button"
+      class="btn btn-outline-primary btn-sm"
+      @click="showJustifictionTextArea()"
+    >
+      {{ $t('buttons.models.orientation.renew') }}
+    </button>
     <div
       v-if="show.textArea"
       class="form-group orientation_renewal_justification mb-2"
@@ -74,18 +59,13 @@
         </button>
       </div>
     </div>
-    <div class="clearfix" />
   </div>
 </template>
 
 <script>
 
-import OrientationStatus from './orientation_status';
-
 export default {
   name: 'OrientationRenew',
-
-  components: { OrientationStatus },
 
   props: {
     id: {
@@ -94,16 +74,6 @@ export default {
     },
 
     label: {
-      type: String,
-      required: true
-    },
-
-    status: {
-      type: String,
-      required: true
-    },
-
-    statusEnum: {
       type: String,
       required: true
     },

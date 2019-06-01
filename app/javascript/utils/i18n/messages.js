@@ -9,7 +9,8 @@ export const messages = {
     buttons: {
       models: {
         orientation: {
-          renew: 'Renovar orientação'
+          renew: 'Renovar orientação',
+          cancel: 'Cancelar orientação'
         },
       },
       cancel: 'Cancelar',
