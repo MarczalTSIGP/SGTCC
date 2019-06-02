@@ -1,6 +1,8 @@
 <div class="float-right">
   <orientation-cancel
     :id="<%= @orientation.id %>"
+    label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
+    error-message="<%= t('errors.messages.blank') %>"
     :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != 'cancelada' %>" />
 </div>
 <div>

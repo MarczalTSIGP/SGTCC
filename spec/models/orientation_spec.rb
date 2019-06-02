@@ -250,7 +250,7 @@ RSpec.describe Orientation, type: :model do
       let(:orientation) { create(:orientation) }
 
       it 'is status equal cancelled' do
-        orientation.cancel
+        orientation.cancel('Justification')
         orientation.reload
         expect(orientation.status).to eq('cancelada')
       end

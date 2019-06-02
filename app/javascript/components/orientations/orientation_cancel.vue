@@ -1,11 +1,11 @@
 <template>
   <div>
     <button
-      v-if="show.cancelButton && hasPermission"
+      v-if="show.button && hasPermission"
       id="orientation_cancel"
       type="button"
       class="btn btn-outline-danger btn-sm"
-      @click="confirmCancellation()"
+      @click="showTextAreaAndHiddenButton()"
     >
       {{ $t('buttons.models.orientation.cancel') }}
     </button>
@@ -21,10 +21,10 @@
       </label>
       <textarea
         id="orientation_cancel_justification"
-        v-model="cancelJustification"
+        v-model="justification"
         rows="5"
         :class="`form-control ${errors.status}`"
-        @keyup="errors.cancelJustification = []"
+        @keyup="cleanJustificationErrors()"
       />
       <div
         v-show="show.invalidFeedback"
@@ -32,7 +32,7 @@
       >
         <ul>
           <li
-            v-for="(error, index) in errors.cancelJustification"
+            v-for="(error, index) in errors.justification"
             :key="index"
           >
             {{ error }}
@@ -64,72 +64,47 @@
 
 <script>
 
+import orientation_justification from './helpers/justification';
+import flash_message from '../shared/helpers/flash_message';
+
 export default {
   name: 'OrientationCancel',
 
-  props: {
-    id: {
-      type: Number,
-      required: true
-    },
-
-    hasPermission: {
-      type: Boolean,
-      required: true
-    }
-  },
-
-  data() {
-    return {
-      cancelJustification: '',
-      show: {
-        textArea: false,
-        invalidFeedback: false,
-        cancelButton: true
-      },
-      errors: {
-        status: '',
-        cancelJustification: [],
-      }
-    };
-  },
+  mixins: [orientation_justification, flash_message],
 
   computed: {
     url() {
       return `/responsible/orientations/${this.id}/cancel`;
     },
-
-    invalidFeedbackMessage() {
-      return `${this.label} ${this.errorMessage}`;
-    },
-
-    hasErrors() {
-      return this.errors.cancelJustification.length > 0;
-    },
   },
 
   methods: {
+    getData() {
+      return {
+        orientation: {
+          cancellation_justification: this.justification
+        }
+      };
+    },
+
     async cancelOrientation() {
-      const response = await this.$axios.post(this.url);
+      if (this.formIsInvalid()) {
+        return false;
+      }
+
+      const response = await this.$axios.post(this.url, this.getData());
+
+      if (response.data.status == 'internal_server_error') {
+        return this.addInvalidFeedback(response.data.message);
+      }
+
       this.showFlashMessage(response.data.message);
       this.updateStatus(response.data.orientation.status);
-      this.show.cancelButton = false;
-    },
-
-    showFlashMessage(message, type = 'success') {
-      const data = [type, message];
-      this.$root.$emit('add-flash-message', data);
-    },
-
-    confirmCancellation() {
-      const cancel = confirm('Você tem certeza que deseja cancelar essa orientação?');
-
-      if (cancel) {
-        this.cancelOrientation();
-      }
     },
 
     updateStatus(status) {
+      this.closeTextArea();
+      this.show.button = false;
       this.$root.$emit('update-status', status);
       this.$root.$emit('show-renew-button', false);
     },

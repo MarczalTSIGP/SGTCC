@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      v-if="showButton && hasPermission"
+      v-if="show.button && hasPermission"
       id="renew_justification"
       type="button"
       class="btn btn-outline-primary btn-sm"
@@ -9,52 +9,70 @@
     >
       {{ $t('buttons.models.orientation.renew') }}
     </button>
-    <orientation-justification
-      :label="label"
-      :error-message="errorMessage"
-      button-event="show-renew-button"
-      save-justification-event="save-renewal-justification"
-      name="orientation_renewal_justification"
-    />
+    <div class="mt-2">
+      <div
+        v-if="show.textArea"
+        class="form-group orientation_renewal_justification mb-2"
+      >
+        <label class="form-label">
+          {{ label }}
+          <abbr title="$t('labels.required')">
+            *
+          </abbr>
+        </label>
+        <textarea
+          id="orientation_renewal_justification"
+          v-model="justification"
+          rows="5"
+          :class="`form-control ${errors.status}`"
+          @keyup="cleanJustificationErrors()"
+        />
+        <div
+          v-show="show.invalidFeedback"
+          class="invalid-feedback"
+        >
+          <ul>
+            <li
+              v-for="(error, index) in errors.justification"
+              :key="index"
+            >
+              {{ error }}
+            </li>
+          </ul>
+        </div>
+        <div class="mt-2">
+          <button
+            id="save_justification"
+            type="button"
+            class="float-right btn btn-primary"
+            :disabled="hasErrors"
+            @click="renewOrientation()"
+          >
+            {{ $t('buttons.save') }}
+          </button>
+          <button
+            id="cancel_justification"
+            type="button"
+            class="mr-2 float-right btn btn-outline-danger"
+            @click="close()"
+          >
+            {{ $t('buttons.cancel') }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 
-import OrientationJustification from './orientation_justification';
+import orientation_justification from './helpers/justification';
+import flash_message from '../shared/helpers/flash_message';
 
 export default {
   name: 'OrientationRenew',
 
-  components: { OrientationJustification },
-
-  props: {
-    id: {
-      type: Number,
-      required: true
-    },
-
-    label: {
-      type: String,
-      required: true
-    },
-
-    errorMessage: {
-      type: String,
-      required: true
-    },
-
-    hasPermission: {
-      type: Boolean,
-      required: true
-    }
-  },
-
-  data() {
-    return {
-      showButton: true,
-    };
-  },
+  mixins: [orientation_justification, flash_message],
 
   computed: {
     url() {
@@ -63,64 +81,43 @@ export default {
   },
 
   mounted() {
-    this.listenRenewButtonEvent();
-    this.listenRenewalEvent();
+    this.listenRenewButtonEvents();
   },
 
   methods: {
-    showTextArea() {
-      this.$root.$emit('show-justification-textarea', true);
-    },
-
-    closeTextArea() {
-      this.$root.$emit('show-justification-textarea', false);
-    },
-
-    showTextAreaAndHiddenButton() {
-      this.showButton = false;
-      this.showTextArea();
-    },
-
-    listenRenewalEvent() {
-      this.$root.$on('save-renewal-justification', (data) => {
-        this.renewOrientation(data);
+    listenRenewButtonEvents() {
+      this.$root.$on('show-renew-button', (data) => {
+        this.show.button = data;
       });
     },
 
-    listenRenewButtonEvent() {
-      this.$root.$on('show-renew-button', (value) => {
-        this.showButton = value;
-      });
-    },
-
-    getData(justification) {
+    getData() {
       return {
         orientation: {
-          renewal_justification: justification
+          renewal_justification: this.justification
         }
       };
     },
 
-    async renewOrientation(data) {
-      const response = await this.$axios.post(this.url, this.getData(data));
-
-      if (response.data.status == 'not_found') {
-        return this.$root.$emit('add-justification-invalid-feedback', response.data.message);
+    async renewOrientation() {
+      if (this.formIsInvalid()) {
+        return false;
       }
 
-      this.showSuccessFlashMessage(response.data.message);
-      this.update(response.data.status);
+      const response = await this.$axios.post(this.url, this.getData());
+
+      if (response.data.status == 'not_found') {
+        return this.addInvalidFeedback(response.data.message);
+      }
+
+      this.showFlashMessage(response.data.message);
+      this.update(response.data.orientation.status);
     },
 
     update(status) {
       this.closeTextArea();
-      this.showButton = false;
+      this.show.button = false;
       this.$root.$emit('update-status', status);
-    },
-
-    showSuccessFlashMessage(message) {
-      const data = ['success', message];
-      this.$root.$emit('add-flash-message', data);
     },
   },
 };
