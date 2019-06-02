@@ -225,6 +225,7 @@ pt-BR:
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
+        cancellation_justification: "Justificativa do cancelamento"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -291,6 +292,7 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
+          error: 'Erro no cancelamento da orientação!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
