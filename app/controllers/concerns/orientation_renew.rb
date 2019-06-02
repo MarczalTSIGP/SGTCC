@@ -3,18 +3,27 @@ module OrientationRenew
 
   def renew
     orientation_renewed = orientation.renew(justification)
+
     if orientation_renewed
-      render json: {
-        message: I18n.t('json.messages.orientation.renew.save'),
-        status: { enum: 'RENEWED', label: orientation_renewed.status }
-      }
+      success_json_message(orientation_renewed)
     else
-      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
-      render json: { message: msg, status: :not_found }
+      error_json_message
     end
   end
 
   private
+
+  def success_json_message(orientation)
+    render json: {
+      message: I18n.t('json.messages.orientation.renew.save'),
+      status: { enum: 'RENEWED', label: orientation.status }
+    }
+  end
+
+  def error_json_message
+    message = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
+    render json: { message: message, status: :not_found }
+  end
 
   def justification
     params['orientation']['renewal_justification']
