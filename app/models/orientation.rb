@@ -83,7 +83,8 @@ class Orientation < ApplicationRecord
     new_orientation
   end
 
-  def cancel
+  def cancel(justification)
+    self.cancellation_justification = justification
     self.status = 'CANCELED'
     save
   end
