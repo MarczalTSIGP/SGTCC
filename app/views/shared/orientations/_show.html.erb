@@ -3,13 +3,13 @@
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
     error-message="<%= t('errors.messages.blank') %>"
-    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != 'cancelada' %>" />
+    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != Orientation.statuses.key('CANCELLED') %>" />
 </div>
 <div class="mt-2">
   <orientation-renew
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('renewal_justification') %>"
-    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == 'em andamento' %>"
+    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == Orientation.statuses.key('IN_PROGRESS') %>"
     error-message="<%= t('errors.messages.blank') %>" />
 </div>
 <div class="clearfix"></div>

@@ -292,7 +292,6 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
-          error: 'Erro no cancelamento da orientação!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"

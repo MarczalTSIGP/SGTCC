@@ -16,7 +16,7 @@
       >
         <label class="form-label">
           {{ label }}
-          <abbr title="$t('labels.required')">
+          <abbr :title="$t('labels.required')">
             *
           </abbr>
         </label>

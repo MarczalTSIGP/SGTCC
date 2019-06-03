@@ -15,7 +15,7 @@
     >
       <label class="form-label">
         {{ label }}
-        <abbr title="$t('labels.required')">
+        <abbr :title="$t('labels.required')">
           *
         </abbr>
       </label>
@@ -103,11 +103,6 @@ export default {
       }
 
       const response = await this.$axios.post(this.url, this.getData());
-
-      if (response.data.status == 'internal_server_error') {
-        return this.addInvalidFeedback(response.data.message);
-      }
-
       this.showFlashMessage(response.data.message);
       this.updateStatus(response.data.orientation.status);
     },
