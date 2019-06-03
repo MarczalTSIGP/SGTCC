@@ -5,7 +5,7 @@
       id="renew_justification"
       type="button"
       class="btn btn-outline-primary btn-sm"
-      @click="showTextAreaAndHiddenButton()"
+      @click="showTextAreaAndHiddenButton('cancel')"
     >
       {{ $t('buttons.models.orientation.renew') }}
     </button>
@@ -54,7 +54,7 @@
             id="cancel_justification"
             type="button"
             class="mr-2 float-right btn btn-outline-danger"
-            @click="close()"
+            @click="close('cancel')"
           >
             {{ $t('buttons.cancel') }}
           </button>

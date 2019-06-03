@@ -5,7 +5,7 @@
       id="orientation_cancel"
       type="button"
       class="btn btn-outline-danger btn-sm"
-      @click="showTextAreaAndHiddenButton()"
+      @click="showTextAreaAndHiddenButton('renew')"
     >
       {{ $t('buttons.models.orientation.cancel') }}
     </button>
@@ -53,7 +53,7 @@
           id="cancel_justification"
           type="button"
           class="mr-2 float-right btn btn-outline-danger"
-          @click="close()"
+          @click="close('renew')"
         >
           {{ $t('buttons.cancel') }}
         </button>
@@ -78,7 +78,17 @@ export default {
     },
   },
 
+  mounted() {
+    this.listenCancelButtonEvents();
+  },
+
   methods: {
+    listenCancelButtonEvents() {
+      this.$root.$on('show-cancel-button', (data) => {
+        this.show.button = data;
+      });
+    },
+
     getData() {
       return {
         orientation: {
@@ -104,9 +114,9 @@ export default {
 
     updateStatus(status) {
       this.closeTextArea();
-      this.show.button = false;
+      this.closeButton();
       this.$root.$emit('update-status', status);
-      this.$root.$emit('show-renew-button', false);
+      this.closeRenewButton();
     },
   },
 };
