@@ -118,6 +118,10 @@ export default {
       this.$root.$emit('update-status', status);
       this.closeRenewButton();
     },
+
+    closeRenewButton() {
+      this.$root.$emit('show-renew-button', false);
+    },
   },
 };
 
