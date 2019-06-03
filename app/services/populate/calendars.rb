@@ -2,7 +2,7 @@ class Populate::Calendars
   attr_reader :current_year
 
   def initialize
-    @current_year = Calendar.current_year.to_i
+    @start_year = Calendar.current_year.to_i - 1
   end
 
   def populate
@@ -12,8 +12,8 @@ class Populate::Calendars
   private
 
   def create_calendars
-    50.times do |index|
-      create_calendar_for_year(@current_year + index)
+    3.times do |index|
+      create_calendar_for_year(@start_year + index)
     end
   end
 
