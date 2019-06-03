@@ -3,7 +3,7 @@
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
     error-message="<%= t('errors.messages.blank') %>"
-    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != Orientation.statuses.key('CANCELLED') %>" />
+    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != Orientation.statuses.key('CANCELED') %>" />
 </div>
 <div class="mt-2">
   <orientation-renew
