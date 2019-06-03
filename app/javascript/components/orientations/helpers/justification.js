@@ -55,6 +55,10 @@ export default {
       this.show.button = false;
     },
 
+    showButton() {
+      this.show.button = true;
+    },
+
     showTextAreaAndHiddenButton(button) {
       this.closeButton();
       this.showTextArea();
@@ -86,21 +90,17 @@ export default {
 
     cleanErrors() {
       this.errors.status = '';
-      this.cleanJustificationErrors();
-    },
-
-    cleanJustificationErrors() {
       this.errors.justification = [];
     },
 
     closeTextArea() {
       this.show.textArea = false;
-      this.cleanErrors();
     },
 
     close(button) {
       this.closeTextArea();
-      this.show.button = true;
+      this.cleanErrors();
+      this.showButton();
       this.$root.$emit(`show-${button}-button`, true);
     },
   },
