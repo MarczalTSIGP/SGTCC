@@ -2,7 +2,7 @@
   <div>
     <transition name="fade">
       <div
-        v-for="(message, index) in messages"
+        v-for="(message, index) in flashMessages"
         v-show="show"
         :key="index"
         :class="getAlertClass(message, index)"
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       show: true,
+      flashMessages: [],
       types: {
         'error': 'danger',
         'alert': 'warning',
@@ -46,10 +47,16 @@ export default {
   },
 
   mounted() {
+    this.setFlashMessages();
     this.fadeOutMessage();
+    this.listenMessages();
   },
 
   methods: {
+    setFlashMessages() {
+      this.flashMessages = this.messages;
+    },
+
     getAlertClass(message, index) {
       const type = this.types[message[index]];
 
@@ -62,6 +69,12 @@ export default {
       setTimeout(() => {
         this.show = false;
       }, tenSeconds);
+    },
+
+    listenMessages() {
+      this.$root.$on('add-flash-message', (data) => {
+        this.flashMessages.push(data);
+      });
     },
   },
 };

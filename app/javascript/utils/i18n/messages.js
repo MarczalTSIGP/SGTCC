@@ -6,6 +6,18 @@ export const messages = {
       },
       search: 'Procurar...',
     },
+    buttons: {
+      models: {
+        orientation: {
+          renew: 'Renovar orientação'
+        },
+      },
+      cancel: 'Cancelar',
+      save: 'Salvar'
+    },
+    labels: {
+      required: 'obrigatório',
+    },
   },
   'en': {
     messages: {}

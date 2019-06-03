@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
+import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
@@ -13,7 +14,6 @@ import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 
 Vue.prototype.$axios = axios;
-
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 
@@ -27,6 +27,12 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
-    mixins: [markdown, selectize, datetimepicker, menu, tooltip],
+    mixins: [
+      datetimepicker,
+      markdown,
+      menu,
+      selectize,
+      tooltip
+    ],
   });
 });

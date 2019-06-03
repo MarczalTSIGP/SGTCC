@@ -1,10 +1,11 @@
 class Populate::Orientations
-  attr_reader :academic_ids, :institution_ids, :advisor
+  attr_reader :academic_ids, :institution_ids, :advisor, :professors
 
   def initialize
     @academic_ids = Academic.pluck(:id)
     @institution_ids = Institution.pluck(:id)
     @advisor = Professor.find_by(username: 'marczal')
+    @professors = Professor.where.not(username: 'marczal')
   end
 
   def populate(
@@ -29,6 +30,6 @@ class Populate::Orientations
       academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample
     )
-    orientation.professor_supervisors << @advisor
+    orientation.professor_supervisors << @professors.sample
   end
 end

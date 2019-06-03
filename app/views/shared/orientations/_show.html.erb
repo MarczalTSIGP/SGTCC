@@ -1,5 +1,14 @@
 <div class="card">
   <div class="card-body">
+    <div>
+      <orientation-renew
+        :id="<%= @orientation.id %>"
+        status="<%= @orientation.status %>"
+        status-enum="<%= Orientation.statuses[@orientation.status] %>"
+        label="<%= Orientation.human_attribute_name('renewal_justification') %>"
+        :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == Orientation.statuses.key('IN_PROGRESS') %>"
+        error-message="<%= t('errors.messages.blank') %>" />
+    </div>
     <p>
       <strong>
         <%= Orientation.human_attribute_name('title') %>:

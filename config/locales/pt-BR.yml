@@ -18,6 +18,10 @@ pt-BR:
         two: 'TCC 2'
     buttons:
       select: 'Selecionar'
+      save: 'Salvar'
+      cancel: 'Cancelar'
+      orientation:
+        renew: 'Renovar orientação'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -219,6 +223,7 @@ pt-BR:
         orientation_supervisors: "Coorientadores"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
+        renewal_justification: "Justificativa da renovação"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -255,6 +260,12 @@ pt-BR:
     semester:
       one: '1'
       two: '2'
+    orientation:
+      status:
+        RENEWED: 'renovada'
+        APPROVED: 'aprovada'
+        CANCELED: 'cancelada'
+        IN_PROGRESS: 'em andamento'
   flash:
     actions:
       update:
@@ -269,6 +280,14 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+  json:
+    messages:
+      orientation:
+        calendar:
+          errors:
+            empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
+        renew:
+          save: 'Orientação atualizada com sucesso!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"

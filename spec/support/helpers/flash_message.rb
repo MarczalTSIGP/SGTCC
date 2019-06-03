@@ -60,5 +60,9 @@ module Helpers
     def message(key)
       I18n.t("flash.actions.#{key}", resource_name: resource_name)
     end
+
+    def orientation_renew_calendar_error_message
+      I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
+    end
   end
 end

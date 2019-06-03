@@ -209,4 +209,39 @@ RSpec.describe Orientation, type: :model do
       end
     end
   end
+
+  describe '#renew' do
+    context 'when renew the orientation' do
+      let!(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
+      let!(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
+      let!(:orientation) { create(:orientation_renewed, calendar: calendar) }
+      let(:new_orientation) { orientation.dup }
+      let(:renewed_orientation) do
+        orientation.renew(orientation.renewal_justification)
+      end
+
+      it 'is equal calendar' do
+        new_orientation.calendar = next_calendar
+        expect(renewed_orientation.calendar).to eq(new_orientation.calendar)
+      end
+
+      it 'is equal title' do
+        expect(renewed_orientation.title).to eq(new_orientation.title)
+      end
+
+      it 'is equal justification' do
+        expect(renewed_orientation.renewal_justification).to eq(
+          new_orientation.renewal_justification
+        )
+      end
+
+      it 'is equal academic' do
+        expect(renewed_orientation.academic).to eq(new_orientation.academic)
+      end
+
+      it 'is equal advisor' do
+        expect(renewed_orientation.advisor).to eq(new_orientation.advisor)
+      end
+    end
+  end
 end
