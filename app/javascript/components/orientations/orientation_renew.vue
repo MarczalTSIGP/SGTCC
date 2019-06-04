@@ -1,65 +1,74 @@
 <template>
-  <div>
-    <button
-      v-if="show.button && hasPermission"
-      id="renew_justification"
-      type="button"
-      class="btn btn-outline-primary btn-sm"
-      @click="showTextAreaAndHiddenButton('cancel')"
-    >
-      {{ $t('buttons.models.orientation.renew') }}
-    </button>
-    <div class="mt-2">
-      <div
-        v-if="show.textArea"
-        class="form-group orientation_renewal_justification mb-2"
-      >
-        <label class="form-label">
-          {{ label }}
-          <abbr :title="$t('labels.required')">
-            *
-          </abbr>
-        </label>
-        <textarea
-          id="orientation_renewal_justification"
-          v-model="justification"
-          rows="5"
-          :class="`form-control ${errors.status}`"
-          @keyup="cleanJustificationErrors()"
-        />
-        <div
-          v-show="show.invalidFeedback"
-          class="invalid-feedback"
-        >
-          <ul>
-            <li
-              v-for="(error, index) in errors.justification"
-              :key="index"
-            >
-              {{ error }}
-            </li>
-          </ul>
-        </div>
-        <div class="mt-2">
-          <button
-            id="save_justification"
-            type="button"
-            class="float-right btn btn-primary"
-            :disabled="hasErrors"
-            @click="renewOrientation()"
-          >
-            {{ $t('buttons.save') }}
-          </button>
-          <button
-            id="cancel_justification"
-            type="button"
-            class="mr-2 float-right btn btn-outline-danger"
-            @click="close('cancel')"
-          >
-            {{ $t('buttons.cancel') }}
-          </button>
-        </div>
+  <div class="border border-primary rounded p-4">
+    <div class="m-3">
+      <div class="float-left">
+        <strong>
+          {{ $t('buttons.models.orientation.renew.label') }}
+        </strong>
+        <p> {{ $t('buttons.models.orientation.renew.details') }} </p>
       </div>
+      <button
+        v-if="show.button && hasPermission"
+        id="renew_justification"
+        type="button"
+        class="float-right btn btn-outline-primary btn-sm"
+        @click="showTextAreaAndHiddenButton('cancel')"
+      >
+        {{ $t('buttons.models.orientation.renew.label') }}
+      </button>
+    </div>
+    <div class="clearfix" />
+    <hr class="m-0">
+    <div
+      v-if="show.textArea"
+      class="form-group orientation_renewal_justification m-3"
+    >
+      <label class="form-label">
+        {{ label }}
+        <abbr :title="$t('labels.required')">
+          *
+        </abbr>
+      </label>
+      <textarea
+        id="orientation_renewal_justification"
+        v-model="justification"
+        rows="5"
+        :class="`form-control ${errors.status}`"
+        @keyup="cleanJustificationErrors()"
+      />
+      <div
+        v-show="show.invalidFeedback"
+        class="invalid-feedback"
+      >
+        <ul>
+          <li
+            v-for="(error, index) in errors.justification"
+            :key="index"
+          >
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+      <div class="float-right mt-2">
+        <button
+          id="save_justification"
+          type="button"
+          class="btn btn-primary"
+          :disabled="hasErrors"
+          @click="renewOrientation()"
+        >
+          {{ $t('buttons.save') }}
+        </button>
+        <button
+          id="cancel_justification"
+          type="button"
+          class="mr-2 btn btn-outline-danger"
+          @click="close('cancel')"
+        >
+          {{ $t('buttons.cancel') }}
+        </button>
+      </div>
+      <div class="clearfix" />
     </div>
   </div>
 </template>

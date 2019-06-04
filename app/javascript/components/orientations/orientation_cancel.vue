@@ -1,17 +1,27 @@
 <template>
-  <div>
-    <button
-      v-if="show.button && hasPermission"
-      id="orientation_cancel"
-      type="button"
-      class="btn btn-outline-danger btn-sm"
-      @click="showTextAreaAndHiddenButton('renew')"
-    >
-      {{ $t('buttons.models.orientation.cancel') }}
-    </button>
+  <div class="border border-danger rounded p-4">
+    <div class="m-3">
+      <div class="float-left">
+        <strong>
+          {{ $t('buttons.models.orientation.cancel.label') }}
+        </strong>
+        <p> {{ $t('buttons.models.orientation.cancel.details') }} </p>
+      </div>
+      <button
+        v-if="show.button && hasPermission"
+        id="orientation_cancel"
+        type="button"
+        class="float-right btn btn-outline-danger btn-sm"
+        @click="showTextAreaAndHiddenButton('renew')"
+      >
+        {{ $t('buttons.models.orientation.cancel.label') }}
+      </button>
+    </div>
+    <div class="clearfix" />
+    <hr class="m-0">
     <div
       v-if="show.textArea"
-      class="form-group orientation_cancel_justification mb-2"
+      class="form-group orientation_cancel_justification m-3"
     >
       <label class="form-label">
         {{ label }}
@@ -39,11 +49,11 @@
           </li>
         </ul>
       </div>
-      <div class="mt-2">
+      <div class="mt-4 float-right">
         <button
           id="save_justification"
           type="button"
-          class="float-right btn btn-primary"
+          class="btn btn-primary"
           :disabled="hasErrors"
           @click="cancelOrientation()"
         >
@@ -52,12 +62,13 @@
         <button
           id="cancel_justification"
           type="button"
-          class="mr-2 float-right btn btn-outline-danger"
+          class="mr-2 btn btn-outline-danger"
           @click="close('renew')"
         >
           {{ $t('buttons.cancel') }}
         </button>
       </div>
+      <div class="clearfix" />
     </div>
   </div>
 </template>
