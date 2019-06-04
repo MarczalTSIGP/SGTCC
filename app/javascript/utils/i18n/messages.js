@@ -9,8 +9,14 @@ export const messages = {
     buttons: {
       models: {
         orientation: {
-          renew: 'Renovar orientação',
-          cancel: 'Cancelar orientação'
+          renew: {
+            label: 'Renovar orientação',
+            details: 'Renovar orientação para o próximo semestre.',
+          },
+          cancel: {
+            label: 'Cancelar orientação',
+            details: 'Cancelar a seguinte orientação.'
+          }
         },
       },
       cancel: 'Cancelar',
