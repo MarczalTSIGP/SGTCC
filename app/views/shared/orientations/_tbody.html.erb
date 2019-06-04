@@ -12,9 +12,11 @@
   <% end %>
 </td>
 <td class="text-center">
-  <orientation-status
-    label="<%= orientation.status %>"
-    :index="true"
-    status="<%= Orientation.statuses[orientation.status] %>" />
+  <span data-toggle="tooltip" title="<%= orientation.status %>">
+    <orientation-status
+      :index="true"
+      label="<%= orientation.status %>"
+      status="<%= Orientation.statuses[orientation.status] %>" />
+  </span>
 </td>
 <td><%= orientation.calendar.year_with_semester_and_tcc %></td>

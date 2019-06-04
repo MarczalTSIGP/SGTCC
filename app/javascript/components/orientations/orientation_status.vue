@@ -4,11 +4,7 @@
       v-if="index"
       :class="`badge badge-pill badge-${badgeStatus}`"
     >
-      <span
-        :class="`text-${badgeStatus}`"
-        data-toggle="tooltip"
-        :title="statusLabel"
-      >
+      <span :class="`text-${badgeStatus}`">
         -
       </span>
     </span>
