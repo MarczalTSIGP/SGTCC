@@ -1,5 +1,8 @@
 <template>
-  <div class="border border-danger rounded p-4">
+  <div
+    v-if="show.box && hasPermission"
+    class="border border-danger rounded p-4"
+  >
     <div class="m-3">
       <div class="float-left">
         <strong>
@@ -8,11 +11,11 @@
         <p> {{ $t('buttons.models.orientation.cancel.details') }} </p>
       </div>
       <button
-        v-if="show.button && hasPermission"
+        v-if="show.button"
         id="orientation_cancel"
         type="button"
         class="float-right btn btn-outline-danger btn-sm"
-        @click="showTextAreaAndHiddenButton('renew')"
+        @click="confirmCancellation()"
       >
         {{ $t('buttons.models.orientation.cancel.label') }}
       </button>
@@ -34,7 +37,7 @@
         v-model="justification"
         rows="5"
         :class="`form-control ${errors.status}`"
-        @keyup="cleanJustificationErrors()"
+        @keyup="cleanErrors()"
       />
       <div
         v-show="show.invalidFeedback"
@@ -121,12 +124,21 @@ export default {
     updateStatus(status) {
       this.closeTextArea();
       this.closeButton();
+      this.closeBox();
       this.$root.$emit('update-status', status);
-      this.closeRenewButton();
+      this.closeRenewBox();
     },
 
-    closeRenewButton() {
-      this.$root.$emit('show-renew-button', false);
+    closeRenewBox() {
+      this.$root.$emit('show-renew-box', false);
+    },
+
+    confirmCancellation() {
+      const cancel = confirm('Você tem certeza que deseja cancelar essa orientação?');
+
+      if (cancel) {
+        this.showTextAreaAndHiddenButton('renew');
+      }
     },
   },
 };

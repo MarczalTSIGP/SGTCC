@@ -26,6 +26,7 @@ export default {
       justification: '',
       show: {
         button: true,
+        box: true,
         textArea: false,
         invalidFeedback: false
       },
@@ -51,12 +52,16 @@ export default {
       this.show.textArea = true;
     },
 
+    showButton() {
+      this.show.button = true;
+    },
+
     closeButton() {
       this.show.button = false;
     },
 
-    showButton() {
-      this.show.button = true;
+    closeBox() {
+      this.show.box = false;
     },
 
     showTextAreaAndHiddenButton(button) {

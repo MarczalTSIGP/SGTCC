@@ -1,5 +1,8 @@
 <template>
-  <div class="border border-primary rounded p-4">
+  <div
+    v-if="show.box && hasPermission"
+    class="border border-primary rounded p-4"
+  >
     <div class="m-3">
       <div class="float-left">
         <strong>
@@ -8,7 +11,7 @@
         <p> {{ $t('buttons.models.orientation.renew.details') }} </p>
       </div>
       <button
-        v-if="show.button && hasPermission"
+        v-if="show.button"
         id="renew_justification"
         type="button"
         class="float-right btn btn-outline-primary btn-sm"
@@ -34,7 +37,7 @@
         v-model="justification"
         rows="5"
         :class="`form-control ${errors.status}`"
-        @keyup="cleanJustificationErrors()"
+        @keyup="cleanErrors()"
       />
       <div
         v-show="show.invalidFeedback"
@@ -91,12 +94,19 @@ export default {
 
   mounted() {
     this.listenRenewButtonEvents();
+    this.listenRenewBoxEvents();
   },
 
   methods: {
     listenRenewButtonEvents() {
       this.$root.$on('show-renew-button', (data) => {
         this.show.button = data;
+      });
+    },
+
+    listenRenewBoxEvents() {
+      this.$root.$on('show-renew-box', (data) => {
+        this.show.box = data;
       });
     },
 
@@ -124,9 +134,15 @@ export default {
     },
 
     update(status) {
-      this.closeTextArea();
-      this.show.button = false;
       this.$root.$emit('update-status', status);
+      this.closeTextArea();
+      this.closeButton();
+      this.closeBox();
+      this.showCancelButton();
+    },
+
+    showCancelButton() {
+      this.$root.$emit('show-cancel-button', true);
     },
   },
 };

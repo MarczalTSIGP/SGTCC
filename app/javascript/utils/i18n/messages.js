@@ -15,7 +15,7 @@ export const messages = {
           },
           cancel: {
             label: 'Cancelar orientação',
-            details: 'Cancelar a seguinte orientação'
+            details: 'Cancelar a seguinte orientação.'
           }
         },
       },
