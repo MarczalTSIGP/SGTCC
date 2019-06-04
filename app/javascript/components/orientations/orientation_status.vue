@@ -1,6 +1,21 @@
 <template>
   <div>
-    <span :class="badgeClass">
+    <span
+      v-if="index"
+      :class="`badge badge-pill badge-${badgeStatus}`"
+    >
+      <span
+        :class="`text-${badgeStatus}`"
+        data-toggle="tooltip"
+        :title="statusLabel"
+      >
+        -
+      </span>
+    </span>
+    <span
+      v-else
+      :class="badgeClass"
+    >
       {{ statusLabel }}
     </span>
   </div>
@@ -20,6 +35,8 @@ export default {
       type: String,
       required: true
     },
+
+    index: Boolean,
   },
 
   data() {

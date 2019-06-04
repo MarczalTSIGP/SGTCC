@@ -11,9 +11,10 @@
     <p class="m-0"><%= supervisor.name %></p>
   <% end %>
 </td>
-<td>
+<td class="text-center">
   <orientation-status
     label="<%= orientation.status %>"
+    :index="true"
     status="<%= Orientation.statuses[orientation.status] %>" />
 </td>
 <td><%= orientation.calendar.year_with_semester_and_tcc %></td>
