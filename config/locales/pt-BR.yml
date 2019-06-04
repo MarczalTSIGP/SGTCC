@@ -22,6 +22,7 @@ pt-BR:
       cancel: 'Cancelar'
       orientation:
         renew: 'Renovar orientação'
+        cancel: 'Cancelar orientação'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -224,6 +225,7 @@ pt-BR:
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
+        cancellation_justification: "Justificativa do cancelamento"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -287,7 +289,9 @@ pt-BR:
           errors:
             empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
         renew:
-          save: 'Orientação atualizada com sucesso!'
+          save: 'Orientação renovada com sucesso!'
+        cancel:
+          success: 'Orientação cancelada com sucesso!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"

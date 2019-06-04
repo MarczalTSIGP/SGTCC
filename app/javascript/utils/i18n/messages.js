@@ -9,7 +9,8 @@ export const messages = {
     buttons: {
       models: {
         orientation: {
-          renew: 'Renovar orientação'
+          renew: 'Renovar orientação',
+          cancel: 'Cancelar orientação'
         },
       },
       cancel: 'Cancelar',
@@ -17,6 +18,9 @@ export const messages = {
     },
     labels: {
       required: 'obrigatório',
+    },
+    prompt: {
+      confirm: 'Você tem certeza?',
     },
   },
   'en': {

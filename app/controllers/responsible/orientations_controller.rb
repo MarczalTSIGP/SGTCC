@@ -1,8 +1,10 @@
 class Responsible::OrientationsController < Responsible::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :renew]
-  before_action :set_calendar, only: [:show, :edit]
-  before_action :set_justification, only: [:renew]
   include Breadcrumb
+  include OrientationRenew
+  include OrientationCancel
+
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
+  before_action :set_calendar, only: [:show, :edit]
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -82,19 +84,6 @@ class Responsible::OrientationsController < Responsible::BaseController
     redirect_to responsible_orientations_tcc_one_path
   end
 
-  def renew
-    orientation_renewed = @orientation.renew(@justification)
-    if orientation_renewed
-      render json: {
-        message: I18n.t('json.messages.orientation.renew.save'),
-        status: { enum: 'RENEWED', label: orientation_renewed.status }
-      }
-    else
-      msg = I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
-      render json: { message: msg, status: :not_found }
-    end
-  end
-
   private
 
   def set_orientation
@@ -103,10 +92,6 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.calendar
-  end
-
-  def set_justification
-    @justification = params['orientation']['renewal_justification']
   end
 
   def orientation_params

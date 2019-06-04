@@ -21,7 +21,8 @@ describe 'Orientation::renew', type: :feature do
         find('button[id="renew_justification"]', text: orientation_renew_button).click
         fill_in 'orientation_renewal_justification', with: 'Justification'
         find('button[id="save_justification"]', text: save_button).click
-        expect(page).to have_flash(:success, text: message('update.f'))
+        flash_message = I18n.t('json.messages.orientation.renew.save')
+        expect(page).to have_flash(:success, text: flash_message)
         current_orientation_tcc_two.reload
         expect(page).to have_content(current_orientation_tcc_two.status)
       end

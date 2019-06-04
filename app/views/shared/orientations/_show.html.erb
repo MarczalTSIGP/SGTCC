@@ -1,13 +1,35 @@
-<div class="card">
+<div>
+  <orientation-cancel
+    :id="<%= @orientation.id %>"
+    label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
+    error-message="<%= t('errors.messages.blank') %>"
+    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != Orientation.statuses.key('CANCELED') %>" />
+</div>
+<div class="mt-2">
+  <orientation-renew
+    :id="<%= @orientation.id %>"
+    label="<%= Orientation.human_attribute_name('renewal_justification') %>"
+    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == Orientation.statuses.key('IN_PROGRESS') %>"
+    error-message="<%= t('errors.messages.blank') %>" />
+</div>
+<div class="clearfix"></div>
+
+<div class="card mt-3">
   <div class="card-body">
-    <div>
-      <orientation-renew
-        :id="<%= @orientation.id %>"
-        status="<%= @orientation.status %>"
-        status-enum="<%= Orientation.statuses[@orientation.status] %>"
-        label="<%= Orientation.human_attribute_name('renewal_justification') %>"
-        :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == Orientation.statuses.key('IN_PROGRESS') %>"
-        error-message="<%= t('errors.messages.blank') %>" />
+   <div class="clearfix"></div>
+    <div class="row mb-3">
+      <div class="rol-6">
+        <strong class="ml-3 mr-2">
+          <%= Orientation.human_attribute_name('status') %>:
+        </strong>
+      </div>
+      <div class="rol-6">
+        <div>
+          <orientation-status
+            status="<%= Orientation.statuses[@orientation.status] %>"
+            label="<%= @orientation.status %>" />
+        </div>
+      </div>
     </div>
     <p>
       <strong>

@@ -24,7 +24,7 @@ FactoryBot.define do
     end
 
     factory :orientation_renewed do
-      status { Orientation.statuses['RENEWED'] }
+      status { 'RENEWED' }
     end
   end
 end
