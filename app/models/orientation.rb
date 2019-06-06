@@ -5,6 +5,7 @@ class Orientation < ApplicationRecord
 
   searchable title: { unaccent: true }, joins: {
     advisor: { table_name: 'professors', fields: [name: { unaccent: true }] },
+    calendar: { table_name: 'calendars', fields: [:year] },
     academic: { table_name: 'academics', fields:
                 [name: { unaccent: true }, ra: { unaccent: false }] },
     institution: { table_name: 'institutions', fields:

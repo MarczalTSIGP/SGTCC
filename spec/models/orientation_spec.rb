@@ -108,6 +108,11 @@ RSpec.describe Orientation, type: :model do
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
 
+      it 'returns orientation by calendar year' do
+        results_search = Orientation.search(orientation.calendar.year)
+        expect(orientation.calendar.year).to eq(results_search.first.calendar.year)
+      end
+
       it 'returns orientation by institution name' do
         results_search = Orientation.search(orientation.institution.name)
         expect(orientation.institution.name).to eq(results_search.first.institution.name)
