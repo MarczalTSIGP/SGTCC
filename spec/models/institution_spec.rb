@@ -26,6 +26,11 @@ RSpec.describe Institution, type: :model do
     let(:institution) { create(:institution) }
 
     context 'when finds institution by attributes' do
+      it 'returns institution by name' do
+        results_search = Institution.search(institution.name)
+        expect(institution.name).to eq(results_search.first.name)
+      end
+
       it 'returns institution by trade name' do
         results_search = Institution.search(institution.trade_name)
         expect(institution.trade_name).to eq(results_search.first.trade_name)
@@ -34,6 +39,16 @@ RSpec.describe Institution, type: :model do
       it 'returns institution by cnpj' do
         results_search = Institution.search(institution.cnpj)
         expect(institution.cnpj).to eq(results_search.first.cnpj)
+      end
+
+      it 'returns institution by external member name' do
+        results_search = Institution.search(institution.external_member.name)
+        expect(institution.external_member.name).to eq(results_search.first.external_member.name)
+      end
+
+      it 'returns institution by external member email' do
+        results_search = Institution.search(institution.external_member.email)
+        expect(institution.external_member.email).to eq(results_search.first.external_member.email)
       end
     end
 
