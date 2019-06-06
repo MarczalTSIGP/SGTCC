@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Professor::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
-  let(:professors) { create_list(:professor, 25) }
+  let(:professors) { create_list(:professor_tcc_one, 25) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -12,15 +12,13 @@ describe 'Professor::search', type: :feature, js: true do
   describe '#search' do
     context 'when finds the professor' do
       it 'finds the professor by the name' do
-        professor = professors.first
-
-        fill_in 'term', with: professor.name
+        fill_in 'term', with: responsible.name
         first('#search').click
 
-        expect(page).to have_contents([professor.name,
-                                       professor.email,
-                                       short_date(professor.created_at)])
-        expect(page).to have_selector(link(professor.lattes))
+        expect(page).to have_contents([responsible.name,
+                                       responsible.email,
+                                       short_date(responsible.created_at)])
+        expect(page).to have_selector(link(responsible.lattes))
       end
     end
 
@@ -28,7 +26,6 @@ describe 'Professor::search', type: :feature, js: true do
       it 'returns not found message' do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
-
         expect(page).to have_message(no_results_message, in: 'table tbody')
       end
     end

@@ -77,6 +77,7 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#search' do
+    let(:responsible) { create(:responsible) }
     let(:professor) { create(:professor_tcc_one) }
 
     context 'when finds professor by attributes' do
@@ -93,6 +94,16 @@ RSpec.describe Professor, type: :model do
       it 'returns professor by username' do
         results_search = Professor.search(professor.username)
         expect(professor.username).to eq(results_search.first.username)
+      end
+
+      it 'returns professor by role name' do
+        results_search = Professor.search(responsible.roles.first.name)
+        expect(responsible.name).to eq(results_search.first.name)
+      end
+
+      it 'returns professor by role identifier' do
+        results_search = Professor.search(responsible.roles.first.identifier)
+        expect(responsible.name).to eq(results_search.first.name)
       end
     end
 
