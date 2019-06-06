@@ -41,7 +41,7 @@ module Searchable
 
     def self.hash_joins
       hash = @search_fields.last
-      hash[:joins] if hash.key?(:joins)
+      hash[:joins] if hash.is_a?(Hash) && hash.key?(:joins)
     end
 
     def self.join_keys
