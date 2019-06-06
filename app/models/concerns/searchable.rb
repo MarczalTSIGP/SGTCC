@@ -49,11 +49,10 @@ module Searchable
     end
 
     def query_from_options(field, table)
-      search = field.map do |name, options|
+      field.map do |name, options|
         next if name.eql?(:relationships)
         options[:unaccent] ? query_unnacent_ilike(name, table) : query_ilike(name, table)
       end.join(' OR ')
-      search
     end
 
     def query_from_string(field, table = nil)
