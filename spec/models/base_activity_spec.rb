@@ -15,9 +15,14 @@ RSpec.describe BaseActivity, type: :model do
     let(:base_activity) { create(:base_activity) }
 
     context 'when finds base_activity by attributes' do
-      it 'returns base_activity by name' do
+      it 'returns base activity by name' do
         results_search = BaseActivity.search(base_activity.name)
         expect(base_activity.name).to eq(results_search.first.name)
+      end
+
+      it 'returns base activity by base activity type name' do
+        results_search = BaseActivity.search(base_activity.base_activity_type.name)
+        expect(base_activity.base_activity_type.name).to eq(results_search.first.base_activity_type.name)
       end
     end
 
