@@ -2,7 +2,7 @@ class Institution < ApplicationRecord
   include Searchable
   include CNPJFormatter
 
-  searchable :cnpj, name: { unaccent: true }, trade_name: { unaccent: true }, joins: {
+  searchable :cnpj, name: { unaccent: true }, trade_name: { unaccent: true }, relationships: {
     external_member: { fields: [:email, name: { unaccent: true }] }
   }
 

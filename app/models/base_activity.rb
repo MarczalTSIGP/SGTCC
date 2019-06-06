@@ -2,7 +2,7 @@ class BaseActivity < ApplicationRecord
   include Searchable
   include Tcc
 
-  searchable name: { unaccent: true }, joins: {
+  searchable name: { unaccent: true }, relationships: {
     base_activity_type: { fields: [name: { unaccent: true }] }
   }
 

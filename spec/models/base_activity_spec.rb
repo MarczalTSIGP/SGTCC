@@ -21,8 +21,9 @@ RSpec.describe BaseActivity, type: :model do
       end
 
       it 'returns base activity by base activity type name' do
-        results_search = BaseActivity.search(base_activity.base_activity_type.name)
-        expect(base_activity.base_activity_type.name).to eq(results_search.first.base_activity_type.name)
+        base_activity_type_name = base_activity.base_activity_type.name
+        results_search = BaseActivity.search(base_activity_type_name)
+        expect(base_activity_type_name).to eq(results_search.first.base_activity_type.name)
       end
     end
 

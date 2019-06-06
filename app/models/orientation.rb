@@ -3,7 +3,7 @@ class Orientation < ApplicationRecord
   include KaminariHelper
   include Searchable
 
-  searchable title: { unaccent: true }, joins: {
+  searchable title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
     academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
     institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
