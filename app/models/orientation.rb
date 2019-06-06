@@ -4,9 +4,11 @@ class Orientation < ApplicationRecord
   include Searchable
 
   searchable title: { unaccent: true }, joins: {
+    advisor: { table_name: 'professors', fields: [name: { unaccent: true }] },
     academic: { table_name: 'academics', fields:
                 [name: { unaccent: true }, ra: { unaccent: false }] },
-    advisor: { table_name: 'professors', fields: [name: { unaccent: true }] }
+    institution: { table_name: 'institutions', fields:
+                   [name: { unaccent: true }, trade_name: { unaccent: true }] }
   }
 
   belongs_to :calendar

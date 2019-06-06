@@ -107,6 +107,17 @@ RSpec.describe Orientation, type: :model do
         results_search = Orientation.search(orientation.advisor.name)
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
+
+      it 'returns orientation by institution name' do
+        results_search = Orientation.search(orientation.institution.name)
+        expect(orientation.institution.name).to eq(results_search.first.institution.name)
+      end
+
+      it 'returns orientation by institution trade name' do
+        trade_name = orientation.institution.trade_name
+        results_search = Orientation.search(trade_name)
+        expect(trade_name).to eq(results_search.first.institution.trade_name)
+      end
     end
 
     context 'when finds orientation with accents' do
