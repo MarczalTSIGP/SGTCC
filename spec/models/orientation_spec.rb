@@ -43,25 +43,17 @@ RSpec.describe Orientation, type: :model do
     end
 
     it 'returns the orientations by tcc one' do
-      order_by = 'calendars.year DESC, calendars.semester ASC, title'
       orientations_tcc_one = Orientation.joins(:calendar)
                                         .where(calendars: { tcc: Calendar.tccs[:one] })
                                         .page(1)
-                                        .search('')
-                                        .includes(:advisor, :academic, :calendar)
-                                        .order(order_by)
-      expect(Orientation.by_tcc_one(1, '')).to eq(orientations_tcc_one)
+      expect(Orientation.by_tcc_one(1, '')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the orientations by tcc two' do
-      order_by = 'calendars.year DESC, calendars.semester ASC, title'
       orientations_tcc_two = Orientation.joins(:calendar)
                                         .where(calendars: { tcc: Calendar.tccs[:two] })
                                         .page(1)
-                                        .search('')
-                                        .includes(:advisor, :academic, :calendar)
-                                        .order(order_by)
-      expect(Orientation.by_tcc_two(1, '')).to eq(orientations_tcc_two)
+      expect(Orientation.by_tcc_two(1, '')).to match_array(orientations_tcc_two)
     end
   end
 
@@ -78,10 +70,7 @@ RSpec.describe Orientation, type: :model do
       orientations_tcc_one = Orientation.joins(:calendar)
                                         .where(calendars: query)
                                         .page(1)
-                                        .search('')
-                                        .includes(:advisor, :academic, :calendar)
-                                        .order('academics.name')
-      expect(Orientation.by_current_tcc_one(1, '')).to eq(orientations_tcc_one)
+      expect(Orientation.by_current_tcc_one(1, '')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the current orientations by tcc two' do
@@ -91,10 +80,7 @@ RSpec.describe Orientation, type: :model do
       orientations_tcc_two = Orientation.joins(:calendar)
                                         .where(calendars: query)
                                         .page(1)
-                                        .search('')
-                                        .includes(:advisor, :academic, :calendar)
-                                        .order('academics.name')
-      expect(Orientation.by_current_tcc_two(1, '')).to eq(orientations_tcc_two)
+      expect(Orientation.by_current_tcc_two(1, '')).to match_array(orientations_tcc_two)
     end
   end
 

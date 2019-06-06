@@ -77,7 +77,7 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#search' do
-    let(:professor) { create(:professor) }
+    let(:professor) { create(:professor_tcc_one) }
 
     context 'when finds professor by attributes' do
       it 'returns professor by name' do
@@ -98,7 +98,7 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by name with accents' do
       it 'returns professor' do
-        professor = create(:professor, name: 'João')
+        professor = create(:responsible, name: 'João')
         results_search = Professor.search('Joao')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -106,7 +106,7 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by name on search term with accents' do
       it 'returns professor' do
-        professor = create(:professor, name: 'Joao')
+        professor = create(:responsible, name: 'Joao')
         results_search = Professor.search('João')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -114,13 +114,13 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by name ignoring the case sensitive' do
       it 'returns professor by attribute' do
-        professor = create(:professor, name: 'Ana')
+        professor = create(:professor_tcc_one, name: 'Ana')
         results_search = Professor.search('an')
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by search term' do
-        professor = create(:professor, name: 'ana')
+        professor = create(:professor_tcc_one, name: 'ana')
         results_search = Professor.search('AN')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -128,7 +128,7 @@ RSpec.describe Professor, type: :model do
 
     context 'when returns professors ordered by name' do
       it 'returns ordered' do
-        create_list(:professor, 30)
+        create_list(:professor_tcc_one, 30)
         professors_ordered = Professor.order(:name)
         professor = professors_ordered.first
         results_search = Professor.search.order(:name)
