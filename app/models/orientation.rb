@@ -1,6 +1,4 @@
 class Orientation < ApplicationRecord
-  include StringHelper
-  include KaminariHelper
   include Searchable
 
   searchable title: { unaccent: true }, relationships: {

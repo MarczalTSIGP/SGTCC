@@ -10,8 +10,8 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
                    professors_supervisions_tcc_one_path
     @title = supervision_tcc_calendar_title
+    @orientations = @orientations.current_tcc_one.search(params[:term]).page(params[:page])
     @search_url = professors_supervisions_search_tcc_one_path
-    @orientations = paginate_orientations(@orientations.current_tcc_one)
 
     render :index
   end
@@ -20,14 +20,14 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
                    professors_supervisions_tcc_two_path
     @title = supervision_tcc_calendar_title('two')
+    @orientations = @orientations.current_tcc_two.search(params[:term]).page(params[:page])
     @search_url = professors_supervisions_search_tcc_two_path
-    @orientations = paginate_orientations(@orientations.current_tcc_two)
 
     render :index
   end
 
   def history
-    @orientations = paginate_orientations(@orientations)
+    @orientations = @orientations.search(params[:term]).page(params[:page])
   end
 
   def show
@@ -44,10 +44,6 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def set_orientation
     @orientation = current_professor.supervisions.find(params[:id])
-  end
-
-  def paginate_orientations(data)
-    Orientation.paginate_array(Orientation.search(params[:term], data), params[:page])
   end
 
   def add_index_breadcrumb

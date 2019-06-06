@@ -4,6 +4,6 @@ class Academics::CalendarsController < Academics::BaseController
 
   def index
     orientations = current_academic.orientations.with_relationships.recent
-    @orientations = Academic.paginate_array(orientations, params[:page])
+    @orientations = orientations.page(params[:page])
   end
 end

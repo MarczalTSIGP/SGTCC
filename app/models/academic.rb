@@ -2,7 +2,6 @@ class Academic < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include KaminariHelper
 
   searchable :ra, :email, name: { unaccent: true }
 

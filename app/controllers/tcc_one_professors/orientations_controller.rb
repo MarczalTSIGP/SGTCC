@@ -6,8 +6,7 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
 
   def by_calendar
     data = @calendar.orientations.with_relationships.recent
-    orientations = Orientation.search(params[:term], data)
-    @orientations = Orientation.paginate_array(orientations, params[:page])
+    @orientations = data.search(params[:term]).page(params[:page])
 
     render :index
   end
