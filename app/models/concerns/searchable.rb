@@ -31,9 +31,10 @@ module Searchable
     end
 
     def self.query_search_joins(search)
-      hash_joins&.each do |_, field|
+      hash_joins&.each do |table, field|
+        table = field.key?(:table_name) ? field[:table_name] : table
         field[:fields].each do |f|
-          search += "#{query_from_string(f, field[:table_name])} OR "
+          search += "#{query_from_string(f, table)} OR "
         end
       end
       search[0..search.length - 5]
