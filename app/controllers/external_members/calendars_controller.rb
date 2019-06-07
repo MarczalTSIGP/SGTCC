@@ -4,6 +4,6 @@ class ExternalMembers::CalendarsController < ExternalMembers::BaseController
 
   def index
     orientations = current_external_member.supervisions.with_relationships.recent
-    @orientations = ExternalMember.paginate_array(orientations, params[:page])
+    @orientations = orientations.page(params[:page])
   end
 end

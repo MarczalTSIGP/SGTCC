@@ -6,9 +6,9 @@ module BreadcrumbTitle
            calendar: calendar&.year_with_semester)
   end
 
-  def edit_orientation_calendar_title
-    I18n.t("breadcrumbs.orientations.tcc.#{@calendar&.tcc}.edit",
-           calendar: @calendar&.year_with_semester)
+  def edit_orientation_calendar_title(calendar = @calendar)
+    I18n.t("breadcrumbs.orientations.tcc.#{calendar&.tcc}.edit",
+           calendar: calendar&.year_with_semester)
   end
 
   def show_orientation_calendar_title(calendar = @calendar)

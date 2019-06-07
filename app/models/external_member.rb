@@ -2,7 +2,6 @@ class ExternalMember < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include KaminariHelper
 
   devise :database_authenticatable,
          :rememberable, :validatable,

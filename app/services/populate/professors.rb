@@ -1,11 +1,11 @@
 class Populate::Professors
-  attr_reader :genders, :professor_type_ids, :scholarity_ids, :role_ids
+  attr_reader :genders, :professor_type_ids, :scholarity_ids, :roles
 
   def initialize
     @genders = Professor.genders.values
     @professor_type_ids = ProfessorType.pluck(:id)
     @scholarity_ids = Scholarity.pluck(:id)
-    @role_ids = Role.pluck(:id)
+    @roles = Role.all
   end
 
   def populate
@@ -36,6 +36,7 @@ class Populate::Professors
   end
 
   def add_role_to_professor(professor)
-    professor.role_ids << @role_ids.sample
+    professor.roles << @roles.sample
+    professor.save
   end
 end

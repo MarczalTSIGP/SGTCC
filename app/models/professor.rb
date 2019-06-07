@@ -7,7 +7,9 @@ class Professor < ApplicationRecord
          :rememberable, :validatable,
          authentication_keys: [:username]
 
-  searchable :email, :username, name: { unaccent: true }
+  searchable :username, :email, name: { unaccent: true }, relationships: {
+    roles: { fields: [identifier: { unaccent: true }, name: { unaccent: true }] }
+  }
 
   belongs_to :professor_type
   belongs_to :scholarity

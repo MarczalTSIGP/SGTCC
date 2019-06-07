@@ -1,6 +1,12 @@
 class Orientation < ApplicationRecord
-  include StringHelper
-  include KaminariHelper
+  include Searchable
+
+  searchable title: { unaccent: true }, relationships: {
+    calendar: { fields: [:year] },
+    academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
+    institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
+    advisor: { table_name: 'professors', fields: [name: { unaccent: true }] }
+  }
 
   belongs_to :calendar
   belongs_to :academic
@@ -89,35 +95,23 @@ class Orientation < ApplicationRecord
     save
   end
 
-  def self.search(term, data = all)
-    return data if term.blank?
-    regex_term = /#{remove_accents(term)}/i
-    data.select do |orientation|
-      academic = orientation.academic
-      "(#{remove_accents(orientation.advisor.name)})|
-       (#{remove_accents(orientation.title)})|
-       (#{remove_accents(academic.name)})|
-       (#{academic.ra})".match?(regex_term)
-    end
+  def self.by_tcc(data, page, term)
+    data.search(term).page(page).with_relationships
   end
 
   def self.by_tcc_one(page, term)
-    data = with_relationships.tcc_one.recent
-    paginate_array(search(term, data), page)
+    by_tcc(tcc_one, page, term).recent
   end
 
   def self.by_tcc_two(page, term)
-    data = with_relationships.tcc_two.recent
-    paginate_array(search(term, data), page)
+    by_tcc(tcc_two, page, term).recent
   end
 
   def self.by_current_tcc_one(page, term)
-    data = with_relationships.current_tcc_one.recent
-    paginate_array(search(term, data), page)
+    by_tcc(current_tcc_one, page, term).recent
   end
 
   def self.by_current_tcc_two(page, term)
-    data = with_relationships.current_tcc_two.recent
-    paginate_array(search(term, data), page)
+    by_tcc(current_tcc_two, page, term).recent
   end
 end
