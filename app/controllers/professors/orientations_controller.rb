@@ -1,7 +1,8 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update]
   before_action :set_orientations, only: [:tcc_one, :tcc_two]
-  before_action :set_tcc_one_calendar_title, only: [:tcc_one]
+  before_action :set_tcc_one_title, only: :tcc_one
+  before_action :set_tcc_two_title, only: :tcc_two
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :professors_orientations_tcc_one_path,
@@ -11,35 +12,27 @@ class Professors::OrientationsController < Professors::BaseController
                  :professors_orientations_tcc_two_path,
                  only: [:tcc_two]
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.history'),
-                 :professors_orientations_history_path,
-                 only: [:history]
-
   def index
     redirect_to action: :tcc_one
   end
 
   def tcc_one
-    @title = orientation_calendar_title(Calendar.current_by_tcc_one)
-    tcc_one_orientations = @orientations.current_tcc_one.with_relationships.recent
-    @orientations = tcc_one_orientations.search(params[:search]).page(params[:page])
+    @orientations = search_and_paginate(@orientations.current_tcc_one)
     @search_url = professors_orientations_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @title = orientation_calendar_title(Calendar.current_by_tcc_two)
-    tcc_two_orientations = @orientations.current_tcc_two.with_relationships.recent
-    @orientations = tcc_two_orientations.search(params[:search]).page(params[:page])
+    @orientations = search_and_paginate(@orientations.current_tcc_two)
     @search_url = professors_orientations_search_tcc_two_path
 
     render :index
   end
 
   def history
-    data = current_professor.orientations.with_relationships.recent
-    @orientations = data.search(params[:term]).page(params[:page])
+    add_breadcrumb I18n.t('breadcrumbs.orientations.history'), professors_orientations_history_path
+    @orientations = search_and_paginate(current_professor.orientations)
   end
 
   def show
@@ -91,6 +84,18 @@ class Professors::OrientationsController < Professors::BaseController
 
   def set_orientations
     @orientations = current_professor.orientations
+  end
+
+  def set_tcc_one_title
+    @title = orientation_calendar_title(Calendar.current_by_tcc_one)
+  end
+
+  def set_tcc_two_title
+    @title = orientation_calendar_title(Calendar.current_by_tcc_two)
+  end
+
+  def search_and_paginate(data)
+    data.with_relationships.recent.search(params[:term]).page(params[:page])
   end
 
   def orientation_params

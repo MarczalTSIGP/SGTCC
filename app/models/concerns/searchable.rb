@@ -51,8 +51,12 @@ module Searchable
     def query_from_options(field, table)
       field.map do |name, options|
         next if name.eql?(:relationships)
-        options[:unaccent] ? query_unnacent_ilike(name, table) : query_ilike(name, table)
+        query_from_unaccent(options, name, table)
       end.join(' OR ')
+    end
+
+    def query_from_unaccent(options, name, table)
+      options[:unaccent] ? query_unnacent_ilike(name, table) : query_ilike(name, table)
     end
 
     def query_from_string(field, table = nil)
