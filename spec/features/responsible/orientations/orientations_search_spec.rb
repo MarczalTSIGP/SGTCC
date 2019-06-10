@@ -22,6 +22,18 @@ describe 'Orientation::search', type: :feature do
                                        orientation.academic.ra,
                                        orientation.calendar.year_with_semester_and_tcc])
       end
+
+      it 'finds the orientation by status' do
+        visit responsible_orientations_tcc_two_path
+        calendar = create(:current_calendar_tcc_two)
+        orientation = create(:orientation_renewed, calendar: calendar)
+        find('option[value="RENEWED"]', text: orientation_renewed_option).click
+        expect(page).to have_contents([orientation.short_title,
+                                       orientation.advisor.name,
+                                       orientation.academic.name,
+                                       orientation.academic.ra,
+                                       orientation.calendar.year_with_semester_and_tcc])
+      end
     end
 
     context 'when the result is not found' do

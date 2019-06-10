@@ -6,6 +6,7 @@ FactoryBot.define do
     academic
     institution
     renewal_justification { Faker::Lorem.sentence(3) }
+    status { 'IN_PROGRESS' }
 
     factory :orientation_tcc_one do
       calendar { create(:calendar_tcc_one) }
