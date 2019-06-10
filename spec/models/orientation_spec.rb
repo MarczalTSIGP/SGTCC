@@ -62,6 +62,83 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#equal_status?' do
+    it 'returns if the orientation is equal status?' do
+      orientation = create(:orientation)
+      expect(orientation.equal_status?('IN_PROGRESS')).to eq(true)
+    end
+  end
+
+  describe '#renewed?' do
+    it 'returns if the orientation is renewed?' do
+      orientation = create(:orientation_renewed)
+      expect(orientation.renewed?).to eq(true)
+    end
+  end
+
+  describe '#approved?' do
+    it 'returns if the orientation is approved?' do
+      orientation = create(:orientation_approved)
+      expect(orientation.approved?).to eq(true)
+    end
+  end
+
+  describe '#canceled?' do
+    it 'returns if the orientation is canceled?' do
+      orientation = create(:orientation_canceled)
+      expect(orientation.canceled?).to eq(true)
+    end
+  end
+
+  describe '#in_progress?' do
+    it 'returns if the orientation is in progress?' do
+      orientation = create(:orientation)
+      expect(orientation.in_progress?).to eq(true)
+    end
+  end
+
+  describe '#calendar_tcc_one?' do
+    it 'returns if the calendar orientation is the tcc one?' do
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.calendar_tcc_one?).to eq(true)
+    end
+  end
+
+  describe '#calendar_tcc_two?' do
+    it 'returns if the calendar orientation is the tcc two?' do
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.calendar_tcc_two?).to eq(true)
+    end
+  end
+
+  describe '#can_be_renewed?' do
+    it 'returns true for the orientation be renewed' do
+      professor = create(:responsible)
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.can_be_renewed?(professor)).to eq(true)
+    end
+
+    it 'returns false for the orientation be renewed' do
+      professor = create(:professor)
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
+  describe '#can_be_canceled?' do
+    it 'returns true for the orientation be canceled' do
+      professor = create(:responsible)
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.can_be_canceled?(professor)).to eq(true)
+    end
+
+    it 'returns false for the orientation be canceled' do
+      professor = create(:responsible)
+      orientation = create(:orientation_canceled)
+      expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
   describe '#by_tcc' do
     before do
       create_list(:orientation, 5)

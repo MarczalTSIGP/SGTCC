@@ -1,5 +1,6 @@
 class Orientation < ApplicationRecord
   include Searchable
+  include Status
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -30,13 +31,6 @@ class Orientation < ApplicationRecord
 
   validates :title, presence: true
   validate :validates_supervisor_ids
-
-  enum status: {
-    "#{I18n.t('enums.orientation.status.RENEWED')}": 'RENEWED',
-    "#{I18n.t('enums.orientation.status.APPROVED')}": 'APPROVED',
-    "#{I18n.t('enums.orientation.status.CANCELED')}": 'CANCELED',
-    "#{I18n.t('enums.orientation.status.IN_PROGRESS')}": 'IN_PROGRESS'
-  }, _prefix: :status
 
   scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
   scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
@@ -95,6 +89,22 @@ class Orientation < ApplicationRecord
     save
   end
 
+  def can_be_renewed?(professor)
+    professor&.role?(:responsible) && calendar_tcc_two? && in_progress?
+  end
+
+  def can_be_canceled?(professor)
+    professor&.role?(:responsible) && !canceled?
+  end
+
+  def calendar_tcc_one?
+    calendar.tcc == 'one'
+  end
+
+  def calendar_tcc_two?
+    calendar.tcc == 'two'
+  end
+
   def self.by_tcc(data, page, term)
     data.search(term).page(page).with_relationships
   end
@@ -113,9 +123,5 @@ class Orientation < ApplicationRecord
 
   def self.by_current_tcc_two(page, term)
     by_tcc(current_tcc_two, page, term).recent
-  end
-
-  def self.select_status_data
-    statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 end
