@@ -56,6 +56,7 @@ export default {
   },
 
   mounted() {
+    this.listenSearchEvents();
     this.setFieldSearchTerm();
   },
 
@@ -72,6 +73,13 @@ export default {
 
     updateFieldSearchTerm() {
       this.term = this.term.replace(/\\|\//g, '');
+    },
+
+    listenSearchEvents() {
+      this.$root.$on('search-term', (term) => {
+        this.term = term;
+        this.search();
+      });
     },
   },
 };

@@ -1,7 +1,7 @@
 class Orientation < ApplicationRecord
   include Searchable
 
-  searchable title: { unaccent: true }, relationships: {
+  searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
     academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
     institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
@@ -113,5 +113,9 @@ class Orientation < ApplicationRecord
 
   def self.by_current_tcc_two(page, term)
     by_tcc(current_tcc_two, page, term).recent
+  end
+
+  def self.select_status_data
+    statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 end
