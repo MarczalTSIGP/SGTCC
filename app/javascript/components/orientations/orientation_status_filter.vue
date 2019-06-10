@@ -8,7 +8,7 @@
       @change="filterByStatus($event.target.value)"
     >
       <option value="">
-        Selecione um Status
+        {{ $t('select.all.f') }}
       </option>
       <option
         v-for="(option, index) in options"
