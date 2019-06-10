@@ -37,6 +37,15 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#select_status_data' do
+    it 'returns the select status data' do
+      status_data = Orientation.statuses.map do |index, field|
+        [field, index.capitalize]
+      end.sort!
+      expect(Orientation.select_status_data).to eq(status_data)
+    end
+  end
+
   describe '#by_tcc' do
     before do
       create_list(:orientation, 5)
