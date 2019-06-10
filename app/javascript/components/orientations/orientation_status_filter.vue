@@ -14,6 +14,7 @@
         v-for="(option, index) in options"
         :key="index"
         :value="option[0]"
+        :selected="matchUrl(option[0])"
       >
         {{ option[1] }}
       </option>
@@ -32,9 +33,27 @@ export default {
     },
   },
 
+  mounted() {
+    this.cleanFilter();
+  },
+
   methods: {
     filterByStatus(status) {
       this.$root.$emit('search-term', status);
+    },
+
+    matchUrl(status) {
+      return window.location.href.match(status);
+    },
+
+    cleanFilter() {
+      const filter = this.options.filter((option) => {
+        return this.matchUrl(option[0]);
+      });
+
+      if (filter.length > 0) {
+        this.$root.$emit('clean-search-term');
+      }
     },
   },
 };

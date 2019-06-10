@@ -56,7 +56,8 @@ export default {
   },
 
   mounted() {
-    this.listenSearchEvents();
+    this.listenSearchEvent();
+    this.listenCleanSearchTermEvent();
     this.setFieldSearchTerm();
   },
 
@@ -75,10 +76,16 @@ export default {
       this.term = this.term.replace(/\\|\//g, '');
     },
 
-    listenSearchEvents() {
+    listenSearchEvent() {
       this.$root.$on('search-term', (term) => {
         this.term = term;
         this.search();
+      });
+    },
+
+    listenCleanSearchTermEvent() {
+      this.$root.$on('clean-search-term', () => {
+        this.term = '';
       });
     },
   },

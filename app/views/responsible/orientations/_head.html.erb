@@ -3,10 +3,7 @@
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-3">
-    <div class="mb-2">
-      <orientation-status-filter
-        :options="<%= Orientation.select_status_data %>" />
-    </div>
+    <%= render 'shared/orientations/status_filter' %>
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>

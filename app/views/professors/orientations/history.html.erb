@@ -2,8 +2,11 @@
 <% provide(:head_title, t('breadcrumbs.orientations.history')) %>
 
 <div class="row">
-  <div class="col-12">
+  <div class="col-sm-12 col-lg-8">
     <search url="<%= professors_orientations_search_history_path %>" search-term="<%= params[:term] %>" />
+  </div>
+  <div class="col-sm-12 col-lg-4">
+    <%= render 'shared/orientations/status_filter' %>
   </div>
 </div>
 
