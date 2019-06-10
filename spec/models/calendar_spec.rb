@@ -190,4 +190,30 @@ RSpec.describe Calendar, type: :model do
       expect(Calendar.human_tccs).to eq(hash)
     end
   end
+
+  describe 'current_by_tcc_one?' do
+    it 'returns the value if the calendar is the current by tcc one' do
+      calendar = create(:current_calendar_tcc_one)
+      expect(Calendar.current_by_tcc_one?(calendar)).to eq(true)
+    end
+  end
+
+  describe 'current_by_tcc_two?' do
+    it 'returns the value if the calendar is the current by tcc two' do
+      calendar = create(:current_calendar_tcc_two)
+      expect(Calendar.current_by_tcc_two?(calendar)).to eq(true)
+    end
+  end
+
+  describe 'current_calendar?' do
+    it 'returns true for the current calendar' do
+      calendar = create(:current_calendar_tcc_two)
+      expect(Calendar.current_calendar?(calendar)).to eq(true)
+    end
+
+    it 'returns false for the current calendar' do
+      calendar = create(:calendar)
+      expect(Calendar.current_calendar?(calendar)).to eq(false)
+    end
+  end
 end

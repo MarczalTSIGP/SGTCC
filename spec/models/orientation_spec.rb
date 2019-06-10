@@ -46,6 +46,22 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#supervisors' do
+    let!(:orientation) { create(:orientation) }
+    let!(:professor) { create(:professor) }
+    let!(:external_member) { create(:external_member) }
+
+    before do
+      professor.supervisions << orientation
+      external_member.supervisions << orientation
+    end
+
+    it 'returns the supervisors' do
+      supervisors = orientation.professor_supervisors + orientation.external_member_supervisors
+      expect(orientation.supervisors).to eq(supervisors)
+    end
+  end
+
   describe '#by_tcc' do
     before do
       create_list(:orientation, 5)
