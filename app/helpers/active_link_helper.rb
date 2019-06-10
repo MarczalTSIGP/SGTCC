@@ -53,7 +53,8 @@ module ActiveLinkHelper
   end
 
   def supervisions_tcc_one_or_two_active_link?(namespace)
-    match_link?("^\/#{namespace}\/supervisions(\/((tcc_one|tcc_two)(\/search/page/\\d+)?))?$")
+    namespace = "\/#{namespace}\/supervisions"
+    match_link?("^#{namespace}(\/((tcc_one|tcc_two)(/search(/\\w+)?|(\/search/page/\\d+))?))?$")
   end
 
   def supervisions_show_link?(namespace)
