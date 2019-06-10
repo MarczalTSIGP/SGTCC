@@ -4,7 +4,8 @@ module ActiveLinkHelper
   end
 
   def calendars_active_link?(namespace)
-    regex = "^\/#{namespace}\/calendars(\/((tcc_one|tcc_two)(/search/page/\\d+)?|new|edit))?$"
+    namespace = "\/#{namespace}\/calendars"
+    regex = "^#{namespace}(\/((tcc_one|tcc_two)(/search/\\w+)?|(/search/page/\\d+)?|new|edit))?$"
     match_link?(regex) || calendars_history_active_link?(namespace)
   end
 
@@ -19,7 +20,8 @@ module ActiveLinkHelper
 
   def orientations_active_link?(namespace)
     namespace = "\/#{namespace}\/orientations"
-    regex = "^#{namespace}(\/((tcc_one|tcc_two)(/search/page/\\d+)?|new|\\d+|\\d+/edit))?$"
+    tccs = '(tcc_one|tcc_two)'
+    regex = "^#{namespace}(\/(#{tccs}(/search(/\\w+)?|(/search/page/\\d+))?|new|\\d+|\\d+/edit))?$"
     match_link?(regex) && !Calendar.current_calendar?(@calendar)
   end
 
