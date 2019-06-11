@@ -27,7 +27,7 @@ describe 'Orientation::search', type: :feature do
         visit responsible_orientations_tcc_two_path
         calendar = create(:current_calendar_tcc_two)
         orientation = create(:orientation_renewed, calendar: calendar)
-        find('option[value="RENEWED"]', text: orientation_renewed_option).click
+        selectize(orientation_renewed_option, from: 'orientation_status')
         expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
                                        orientation.academic.name,

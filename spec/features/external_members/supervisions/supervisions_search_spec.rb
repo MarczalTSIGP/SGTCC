@@ -13,7 +13,7 @@ describe 'Supervision::search', type: :feature do
   describe '#search', js: true do
     context 'when finds the supervision' do
       it 'finds the supervision by status' do
-        find('option[value="CANCELED"]', text: orientation_canceled_option).click
+        selectize(orientation_canceled_option, from: 'orientation_status')
         expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
                                        orientation.academic.name,

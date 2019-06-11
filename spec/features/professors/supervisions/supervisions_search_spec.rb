@@ -13,7 +13,7 @@ describe 'Supervision::search', type: :feature do
   describe '#search', js: true do
     context 'when finds the supervision' do
       it 'finds the supervision by status' do
-        find('option[value="APPROVED"]', text: orientation_approved_option).click
+        selectize(orientation_approved_option, from: 'orientation_status')
         expect(page).to have_contents([orientation.short_title,
                                        orientation.advisor.name,
                                        orientation.academic.name,

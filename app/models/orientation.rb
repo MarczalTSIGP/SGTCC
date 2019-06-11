@@ -2,6 +2,7 @@ class Orientation < ApplicationRecord
   include Searchable
   include OrientationStatus
   include OrientationFilter
+  include OrientationJoin
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },

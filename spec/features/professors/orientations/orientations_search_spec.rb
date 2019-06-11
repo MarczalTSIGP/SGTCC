@@ -23,7 +23,7 @@ describe 'Orientation::search', type: :feature do
       end
 
       it 'finds the orientation by status' do
-        find('option[value="IN_PROGRESS"]', text: orientation_in_progress_option).click
+        selectize(orientation_in_progress_option, from: 'orientation_status')
         expect(page).to have_contents([first_orientation.short_title,
                                        first_orientation.advisor.name,
                                        first_orientation.academic.name,
