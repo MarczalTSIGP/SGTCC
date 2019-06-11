@@ -2,12 +2,11 @@
   <div class="form-group select orientation_status_filter">
     <select
       id="orientation_status"
-      data="status-selectize"
+      data="selectize"
       name="orientation[status]"
       class="form-control select required"
-      @change="filterByStatus($event.target.value)"
     >
-      <option value="">
+      <option value="ALL">
         {{ $t('select.all.f') }}
       </option>
       <option
@@ -34,10 +33,22 @@ export default {
   },
 
   mounted() {
+    this.listenOnChange();
     this.updateFilter();
   },
 
   methods: {
+    listenOnChange() {
+      const $ = window.jQuery;
+      $('#orientation_status').on('change', (event) => {
+        let status = event.target.value;
+        if (status === 'ALL') {
+          status = '';
+        }
+        this.filterByStatus(status);
+      });
+    },
+
     filterByStatus(filter) {
       this.$root.$emit('search-with-filter', filter);
     },
