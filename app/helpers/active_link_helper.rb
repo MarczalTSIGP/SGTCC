@@ -21,7 +21,8 @@ module ActiveLinkHelper
   def orientations_active_link?(namespace)
     namespace = "\/#{namespace}\/orientations"
     tccs = '(tcc_one|tcc_two)'
-    regex = "^#{namespace}(\/(#{tccs}(/search(/\\w+)?|(/search/page/\\d+))?|new|\\d+|\\d+/edit))?$"
+    search = '((\/\\w+)?/search(/\\w+)?|((\/\\w+)?/search/page/\\d+))?'
+    regex = "^#{namespace}(\/(#{tccs}#{search}|new|\\d+|\\d+/edit))?$"
     match_link?(regex) && !Calendar.current_calendar?(@calendar)
   end
 
@@ -54,7 +55,8 @@ module ActiveLinkHelper
 
   def supervisions_tcc_one_or_two_active_link?(namespace)
     namespace = "\/#{namespace}\/supervisions"
-    match_link?("^#{namespace}(\/((tcc_one|tcc_two)(/search(/\\w+)?|(\/search/page/\\d+))?))?$")
+    search = '((\/\\w+)?/search(/\\w+)?|((\/\\w+)?\/search/page/\\d+))?))?'
+    match_link?("^#{namespace}(\/((tcc_one|tcc_two)#{search}$")
   end
 
   def supervisions_show_link?(namespace)
