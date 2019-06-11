@@ -34,25 +34,25 @@ export default {
   },
 
   mounted() {
-    this.cleanFilter();
+    this.updateFilter();
   },
 
   methods: {
-    filterByStatus(status) {
-      this.$root.$emit('search-term', status);
+    filterByStatus(filter) {
+      this.$root.$emit('search-with-filter', filter);
     },
 
     matchUrl(status) {
       return window.location.href.match(status);
     },
 
-    cleanFilter() {
+    updateFilter() {
       const filter = this.options.filter((option) => {
         return this.matchUrl(option[0]);
       });
 
       if (filter.length > 0) {
-        this.$root.$emit('clean-search-term');
+        this.$root.$emit('update-search-url', filter[0]);
       }
     },
   },

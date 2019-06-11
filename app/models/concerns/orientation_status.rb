@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Status
+module OrientationStatus
   extend ActiveSupport::Concern
 
   included do

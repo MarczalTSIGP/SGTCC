@@ -1,6 +1,7 @@
 class Orientation < ApplicationRecord
   include Searchable
-  include Status
+  include OrientationStatus
+  include OrientationFilter
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -32,19 +33,26 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
-  scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
-  scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
-
-  scope :current_tcc_one, lambda {
-    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one],
-                                        year: Calendar.current_year,
-                                        semester: Calendar.current_semester })
+  scope :tcc_one, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }), status)
   }
 
-  scope :current_tcc_two, lambda {
-    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two],
-                                        year: Calendar.current_year,
-                                        semester: Calendar.current_semester })
+  scope :tcc_two, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }), status)
+  }
+
+  scope :current_tcc_one, lambda { |status|
+    calendar_join = joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one],
+                                                        year: Calendar.current_year,
+                                                        semester: Calendar.current_semester })
+    join_with_status(calendar_join, status)
+  }
+
+  scope :current_tcc_two, lambda { |status|
+    calendar_join = joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two],
+                                                        year: Calendar.current_year,
+                                                        semester: Calendar.current_semester })
+    join_with_status(calendar_join, status)
   }
 
   scope :with_relationships, lambda {
@@ -105,23 +113,8 @@ class Orientation < ApplicationRecord
     calendar.tcc == 'two'
   end
 
-  def self.by_tcc(data, page, term)
-    data.search(term).page(page).with_relationships
-  end
-
-  def self.by_tcc_one(page, term)
-    by_tcc(tcc_one, page, term).recent
-  end
-
-  def self.by_tcc_two(page, term)
-    by_tcc(tcc_two, page, term).recent
-  end
-
-  def self.by_current_tcc_one(page, term)
-    by_tcc(current_tcc_one, page, term).recent
-  end
-
-  def self.by_current_tcc_two(page, term)
-    by_tcc(current_tcc_two, page, term).recent
+  def self.join_with_status(join, status)
+    return join if status.blank?
+    join.where(status: status)
   end
 end

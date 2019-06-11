@@ -8,14 +8,14 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
-    @orientations = Orientation.by_tcc_one(params[:page], params[:term])
-    @search_url = responsible_orientations_search_tcc_one_path
+    @orientations = Orientation.by_tcc_one(params[:page], params[:term], params[:status])
+    @search_url = responsible_orientations_search_tcc_one_path(status: '')
     render :index
   end
 
   def tcc_two
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_two_path
-    @orientations = Orientation.by_tcc_two(params[:page], params[:term])
+    @orientations = Orientation.by_tcc_two(params[:page], params[:term], params[:status])
     @search_url = responsible_orientations_search_tcc_two_path
     render :index
   end
@@ -23,7 +23,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def current_tcc_one(calendar = Calendar.current_by_tcc_one)
     @title = orientation_calendar_title(calendar)
     add_breadcrumb @title, responsible_orientations_current_tcc_one_path
-    @orientations = Orientation.by_current_tcc_one(params[:page], params[:term])
+    @orientations = Orientation.by_current_tcc_one(params[:page], params[:term], params[:status])
     @search_url = responsible_orientations_search_current_tcc_one_path
 
     render :current_index
@@ -32,7 +32,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def current_tcc_two(calendar = Calendar.current_by_tcc_two)
     @title = orientation_calendar_title(calendar)
     add_breadcrumb @title, responsible_orientations_current_tcc_two_path
-    @orientations = Orientation.by_current_tcc_two(params[:page], params[:term])
+    @orientations = Orientation.by_current_tcc_two(params[:page], params[:term], params[:status])
     @search_url = responsible_orientations_search_current_tcc_two_path
 
     render :current_index

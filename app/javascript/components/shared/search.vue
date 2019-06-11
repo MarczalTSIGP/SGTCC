@@ -46,18 +46,25 @@ export default {
   data() {
     return {
       term: '',
+      updatedUrl: '',
     };
   },
 
   computed: {
     searchUrl() {
-      return `${this.url}/${this.term}`;
+      let url = this.url;
+
+      if (this.updatedUrl !== '') {
+        url = this.updatedUrl;
+      }
+
+      return `${url}/${this.term}`;
     },
   },
 
   mounted() {
-    this.listenSearchEvent();
-    this.listenCleanSearchTermEvent();
+    this.listenSearchFilterEvent();
+    this.listenUpdateSearchUrlEvent();
     this.setFieldSearchTerm();
   },
 
@@ -76,16 +83,24 @@ export default {
       this.term = this.term.replace(/\\|\//g, '');
     },
 
-    listenSearchEvent() {
-      this.$root.$on('search-term', (term) => {
-        this.term = term;
+    updateUrlWithFilter(filter) {
+      if (filter === '') {
+        this.updatedUrl = this.url;
+        return;
+      }
+      this.updatedUrl = this.url.replace(/search/, `${filter}/search`);
+    },
+
+    listenSearchFilterEvent() {
+      this.$root.$on('search-with-filter', (filter) => {
+        this.updateUrlWithFilter(filter);
         this.search();
       });
     },
 
-    listenCleanSearchTermEvent() {
-      this.$root.$on('clean-search-term', () => {
-        this.term = '';
+    listenUpdateSearchUrlEvent() {
+      this.$root.$on('update-search-url', (filter) => {
+        this.updateUrlWithFilter(filter[0]);
       });
     },
   },
