@@ -148,7 +148,7 @@ RSpec.describe Orientation, type: :model do
       orientations_tcc_one = Orientation.joins(:calendar)
                                         .where(calendars: { tcc: Calendar.tccs[:one] })
                                         .page(1)
-      expect(Orientation.by_tcc_one(1, '')).to match_array(orientations_tcc_one)
+      expect(Orientation.by_tcc_one(1, '', 'IN_PROGRESS')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the orientations by tcc two' do

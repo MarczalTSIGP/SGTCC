@@ -42,17 +42,11 @@ class Orientation < ApplicationRecord
   }
 
   scope :current_tcc_one, lambda { |status|
-    calendar_join = joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one],
-                                                        year: Calendar.current_year,
-                                                        semester: Calendar.current_semester })
-    join_with_status(calendar_join, status)
+    join_with_status(join_current_calendar_tcc_one, status)
   }
 
   scope :current_tcc_two, lambda { |status|
-    calendar_join = joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two],
-                                                        year: Calendar.current_year,
-                                                        semester: Calendar.current_semester })
-    join_with_status(calendar_join, status)
+    join_with_status(join_current_calendar_tcc_two, status)
   }
 
   scope :with_relationships, lambda {
@@ -111,10 +105,5 @@ class Orientation < ApplicationRecord
 
   def calendar_tcc_two?
     calendar.tcc == 'two'
-  end
-
-  def self.join_with_status(join, status)
-    return join if status.blank?
-    join.where(status: status)
   end
 end
