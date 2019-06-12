@@ -46,16 +46,25 @@ export default {
   data() {
     return {
       term: '',
+      updatedUrl: '',
     };
   },
 
   computed: {
     searchUrl() {
-      return `${this.url}/${this.term}`;
+      let url = this.url;
+
+      if (this.updatedUrl !== '') {
+        url = this.updatedUrl;
+      }
+
+      return `${url}/${this.term}`;
     },
   },
 
   mounted() {
+    this.listenSearchFilterEvent();
+    this.listenUpdateSearchUrlEvent();
     this.setFieldSearchTerm();
   },
 
@@ -72,6 +81,27 @@ export default {
 
     updateFieldSearchTerm() {
       this.term = this.term.replace(/\\|\//g, '');
+    },
+
+    updateUrlWithFilter(filter) {
+      if (filter === '') {
+        this.updatedUrl = this.url;
+        return;
+      }
+      this.updatedUrl = this.url.replace(/search/, `${filter}/search`);
+    },
+
+    listenSearchFilterEvent() {
+      this.$root.$on('search-with-filter', (filter) => {
+        this.updateUrlWithFilter(filter);
+        this.search();
+      });
+    },
+
+    listenUpdateSearchUrlEvent() {
+      this.$root.$on('update-search-url', (filter) => {
+        this.updateUrlWithFilter(filter[0]);
+      });
     },
   },
 };

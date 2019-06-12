@@ -1,6 +1,6 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update]
-  before_action :set_orientations, only: [:tcc_one, :tcc_two]
+  before_action :set_orientations, only: [:tcc_one, :tcc_two, :history]
   before_action :set_tcc_one_title, only: :tcc_one
   before_action :set_tcc_two_title, only: :tcc_two
 
@@ -12,19 +12,15 @@ class Professors::OrientationsController < Professors::BaseController
                  :professors_orientations_tcc_two_path,
                  only: [:tcc_two]
 
-  def index
-    redirect_to action: :tcc_one
-  end
-
   def tcc_one
-    @orientations = search_and_paginate(@orientations.current_tcc_one)
+    @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
     @search_url = professors_orientations_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @orientations = search_and_paginate(@orientations.current_tcc_two)
+    @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
     @search_url = professors_orientations_search_tcc_two_path
 
     render :index
@@ -32,7 +28,7 @@ class Professors::OrientationsController < Professors::BaseController
 
   def history
     add_breadcrumb I18n.t('breadcrumbs.orientations.history'), professors_orientations_history_path
-    @orientations = search_and_paginate(current_professor.orientations)
+    @orientations = search_and_paginate(@orientations)
   end
 
   def show
@@ -59,7 +55,7 @@ class Professors::OrientationsController < Professors::BaseController
 
     if @orientation.save
       feminine_success_create_message
-      redirect_to professors_orientations_path
+      redirect_to professors_orientations_tcc_one_path
     else
       error_message
       render :new
@@ -83,7 +79,9 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def set_orientations
-    @orientations = current_professor.orientations
+    status = params[:status]
+    condition = status.present? ? { status: status } : {}
+    @orientations = current_professor.orientations.where(condition)
   end
 
   def set_tcc_one_title

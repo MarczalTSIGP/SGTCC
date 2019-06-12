@@ -6,6 +6,7 @@ FactoryBot.define do
     academic
     institution
     renewal_justification { Faker::Lorem.sentence(3) }
+    status { Orientation.statuses.key('IN_PROGRESS') }
 
     factory :orientation_tcc_one do
       calendar { create(:calendar_tcc_one) }
@@ -24,7 +25,15 @@ FactoryBot.define do
     end
 
     factory :orientation_renewed do
-      status { 'RENEWED' }
+      status { Orientation.statuses.key('RENEWED') }
+    end
+
+    factory :orientation_approved do
+      status { Orientation.statuses.key('APPROVED') }
+    end
+
+    factory :orientation_canceled do
+      status { Orientation.statuses.key('CANCELED') }
     end
   end
 end

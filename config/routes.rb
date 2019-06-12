@@ -91,22 +91,22 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'orientations/current_tcc_one/search/(:term)/(page/:page)',
+      get 'orientations/current_tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#current_tcc_one',
           as: 'orientations_search_current_tcc_one'
 
-      get 'orientations/current_tcc_two/search/(:term)/(page/:page)',
+      get 'orientations/current_tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#current_tcc_two',
           as: 'orientations_search_current_tcc_two'
 
-      get 'orientations/tcc_one/search/(:term)/(page/:page)',
+      get 'orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_one',
           as: 'orientations_search_tcc_one'
 
-      get 'orientations/tcc_two/search/(:term)/(page/:page)',
+      get 'orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
@@ -136,7 +136,7 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :orientations,
-                except: :destroy,
+                except: [:index, :destroy],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -165,32 +165,32 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
-      get 'orientations/history/search/(:term)/(page/:page)',
+      get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#history',
           as: 'orientations_search_history'
 
-      get 'orientations/tcc_one/search/(:term)/(page/:page)',
+      get 'orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_one',
           as: 'orientations_search_tcc_one'
 
-      get 'orientations/tcc_two/search/(:term)/(page/:page)',
+      get 'orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
 
-      get 'supervisions/history/search/(:term)/(page/:page)',
+      get 'supervisions/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#history',
           as: 'supervisions_search_history'
 
-      get 'supervisions/tcc_one/search/(:term)/(page/:page)',
+      get 'supervisions/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_one',
           as: 'supervisions_search_tcc_one'
 
-      get 'supervisions/tcc_two/search/(:term)/(page/:page)',
+      get 'supervisions/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
@@ -205,10 +205,6 @@ Rails.application.routes.draw do
           to: 'orientations#by_calendar',
           as: 'calendar_orientations'
 
-      get 'calendars/(:calendar_id)/orientations/(:id)',
-          to: 'orientations#show',
-          as: 'calendar_orientation'
-
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'
@@ -221,7 +217,7 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
-      get 'calendars/(:calendar_id)/orientations/search/(:term)/(page/:page)',
+      get 'calendars/(:calendar_id)/orientations/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#by_calendar',
           as: 'calendar_orientations_search'
@@ -231,10 +227,9 @@ Rails.application.routes.draw do
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
 
-      get 'orientations/current_tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'orientations#current_tcc_one',
-          as: 'orientations_search_current_tcc_one'
+      get 'calendars/(:calendar_id)/orientations/(:id)',
+          to: 'orientations#show',
+          as: 'calendar_orientation'
     end
   end
 
@@ -359,17 +354,17 @@ Rails.application.routes.draw do
           to: 'supervisions#tcc_two',
           as: 'supervisions_tcc_two'
 
-      get 'supervisions/history/search/(:term)/(page/:page)',
+      get 'supervisions/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#history',
           as: 'supervisions_search_history'
 
-      get 'supervisions/tcc_one/search/(:term)/(page/:page)',
+      get 'supervisions/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_one',
           as: 'supervisions_search_tcc_one'
 
-      get 'supervisions/tcc_two/search/(:term)/(page/:page)',
+      get 'supervisions/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'

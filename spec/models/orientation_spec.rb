@@ -37,6 +37,108 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#select_status_data' do
+    it 'returns the select status data' do
+      status_data = Orientation.statuses.map do |index, field|
+        [field, index.capitalize]
+      end.sort!
+      expect(Orientation.select_status_data).to eq(status_data)
+    end
+  end
+
+  describe '#supervisors' do
+    let!(:orientation) { create(:orientation) }
+    let!(:professor) { create(:professor) }
+    let!(:external_member) { create(:external_member) }
+
+    before do
+      professor.supervisions << orientation
+      external_member.supervisions << orientation
+    end
+
+    it 'returns the supervisors' do
+      supervisors = orientation.professor_supervisors + orientation.external_member_supervisors
+      expect(orientation.supervisors).to eq(supervisors)
+    end
+  end
+
+  describe '#equal_status?' do
+    it 'returns if the orientation is equal status?' do
+      orientation = create(:orientation)
+      expect(orientation.equal_status?('IN_PROGRESS')).to eq(true)
+    end
+  end
+
+  describe '#renewed?' do
+    it 'returns if the orientation is renewed?' do
+      orientation = create(:orientation_renewed)
+      expect(orientation.renewed?).to eq(true)
+    end
+  end
+
+  describe '#approved?' do
+    it 'returns if the orientation is approved?' do
+      orientation = create(:orientation_approved)
+      expect(orientation.approved?).to eq(true)
+    end
+  end
+
+  describe '#canceled?' do
+    it 'returns if the orientation is canceled?' do
+      orientation = create(:orientation_canceled)
+      expect(orientation.canceled?).to eq(true)
+    end
+  end
+
+  describe '#in_progress?' do
+    it 'returns if the orientation is in progress?' do
+      orientation = create(:orientation)
+      expect(orientation.in_progress?).to eq(true)
+    end
+  end
+
+  describe '#calendar_tcc_one?' do
+    it 'returns if the calendar orientation is the tcc one?' do
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.calendar_tcc_one?).to eq(true)
+    end
+  end
+
+  describe '#calendar_tcc_two?' do
+    it 'returns if the calendar orientation is the tcc two?' do
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.calendar_tcc_two?).to eq(true)
+    end
+  end
+
+  describe '#can_be_renewed?' do
+    it 'returns true for the orientation be renewed' do
+      professor = create(:responsible)
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.can_be_renewed?(professor)).to eq(true)
+    end
+
+    it 'returns false for the orientation be renewed' do
+      professor = create(:professor)
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
+  describe '#can_be_canceled?' do
+    it 'returns true for the orientation be canceled' do
+      professor = create(:responsible)
+      orientation = create(:orientation_tcc_two)
+      expect(orientation.can_be_canceled?(professor)).to eq(true)
+    end
+
+    it 'returns false for the orientation be canceled' do
+      professor = create(:responsible)
+      orientation = create(:orientation_canceled)
+      expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
   describe '#by_tcc' do
     before do
       create_list(:orientation, 5)
@@ -46,7 +148,7 @@ RSpec.describe Orientation, type: :model do
       orientations_tcc_one = Orientation.joins(:calendar)
                                         .where(calendars: { tcc: Calendar.tccs[:one] })
                                         .page(1)
-      expect(Orientation.by_tcc_one(1, '')).to match_array(orientations_tcc_one)
+      expect(Orientation.by_tcc_one(1, '', 'IN_PROGRESS')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the orientations by tcc two' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::search', type: :feature do
   let(:professor) { create(:professor) }
-  let(:first_orientation) { create(:current_orientation_tcc_one, advisor: professor) }
+  let!(:first_orientation) { create(:current_orientation_tcc_one, advisor: professor) }
 
   before do
     login_as(professor, scope: :professor)
@@ -18,6 +18,16 @@ describe 'Orientation::search', type: :feature do
         expect(page).to have_contents([first_orientation.short_title,
                                        first_orientation.advisor.name,
                                        first_orientation.academic.name,
+                                       first_orientation.academic.ra,
+                                       first_orientation.calendar.year_with_semester_and_tcc])
+      end
+
+      it 'finds the orientation by status' do
+        selectize(orientation_in_progress_option, from: 'orientation_status')
+        expect(page).to have_contents([first_orientation.short_title,
+                                       first_orientation.advisor.name,
+                                       first_orientation.academic.name,
+                                       first_orientation.academic.ra,
                                        first_orientation.calendar.year_with_semester_and_tcc])
       end
     end

@@ -1,7 +1,10 @@
 class Orientation < ApplicationRecord
   include Searchable
+  include OrientationStatus
+  include OrientationFilter
+  include OrientationJoin
 
-  searchable title: { unaccent: true }, relationships: {
+  searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
     academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
     institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
@@ -31,26 +34,20 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
-  enum status: {
-    "#{I18n.t('enums.orientation.status.RENEWED')}": 'RENEWED',
-    "#{I18n.t('enums.orientation.status.APPROVED')}": 'APPROVED',
-    "#{I18n.t('enums.orientation.status.CANCELED')}": 'CANCELED',
-    "#{I18n.t('enums.orientation.status.IN_PROGRESS')}": 'IN_PROGRESS'
-  }, _prefix: :status
-
-  scope :tcc_one, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }) }
-  scope :tcc_two, -> { joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }) }
-
-  scope :current_tcc_one, lambda {
-    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one],
-                                        year: Calendar.current_year,
-                                        semester: Calendar.current_semester })
+  scope :tcc_one, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }), status)
   }
 
-  scope :current_tcc_two, lambda {
-    joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two],
-                                        year: Calendar.current_year,
-                                        semester: Calendar.current_semester })
+  scope :tcc_two, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }), status)
+  }
+
+  scope :current_tcc_one, lambda { |status|
+    join_with_status(join_current_calendar_tcc_one, status)
+  }
+
+  scope :current_tcc_two, lambda { |status|
+    join_with_status(join_current_calendar_tcc_two, status)
   }
 
   scope :with_relationships, lambda {
@@ -95,23 +92,19 @@ class Orientation < ApplicationRecord
     save
   end
 
-  def self.by_tcc(data, page, term)
-    data.search(term).page(page).with_relationships
+  def can_be_renewed?(professor)
+    professor&.role?(:responsible) && calendar_tcc_two? && in_progress?
   end
 
-  def self.by_tcc_one(page, term)
-    by_tcc(tcc_one, page, term).recent
+  def can_be_canceled?(professor)
+    professor&.role?(:responsible) && !canceled?
   end
 
-  def self.by_tcc_two(page, term)
-    by_tcc(tcc_two, page, term).recent
+  def calendar_tcc_one?
+    calendar.tcc == 'one'
   end
 
-  def self.by_current_tcc_one(page, term)
-    by_tcc(current_tcc_one, page, term).recent
-  end
-
-  def self.by_current_tcc_two(page, term)
-    by_tcc(current_tcc_two, page, term).recent
+  def calendar_tcc_two?
+    calendar.tcc == 'two'
   end
 end

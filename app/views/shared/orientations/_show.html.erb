@@ -86,7 +86,7 @@
   <orientation-renew
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('renewal_justification') %>"
-    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.calendar.tcc == 'two' && @orientation.status == Orientation.statuses.key('IN_PROGRESS') %>"
+    :has-permission="<%= @orientation.can_be_renewed?(current_professor) %>"
     error-message="<%= t('errors.messages.blank') %>" />
 </div>
 
@@ -95,7 +95,7 @@
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
     error-message="<%= t('errors.messages.blank') %>"
-    :has-permission="<%= current_professor&.role?(:responsible) && @orientation.status != Orientation.statuses.key('CANCELED') %>" />
+    :has-permission="<%= @orientation.can_be_canceled?(current_professor) %>" />
 </div>
 <div class="clearfix"></div>
 
@@ -103,4 +103,3 @@
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
-

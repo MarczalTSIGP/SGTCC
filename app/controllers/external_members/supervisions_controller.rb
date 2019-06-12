@@ -11,7 +11,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   def tcc_one
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
                    external_members_supervisions_tcc_one_path
-    @orientations = search_and_paginate(@orientations.current_tcc_one)
+    @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
     @search_url = external_members_supervisions_search_tcc_one_path
 
     render :index
@@ -20,7 +20,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   def tcc_two
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
                    external_members_supervisions_tcc_two_path
-    @orientations = search_and_paginate(@orientations.current_tcc_two)
+    @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
     @search_url = external_members_supervisions_search_tcc_two_path
 
     render :index
@@ -39,7 +39,9 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   private
 
   def set_orientations
-    @orientations = current_external_member.supervisions.with_relationships.recent
+    status = params[:status]
+    condition = status.present? ? { status: status } : {}
+    @orientations = current_external_member.supervisions.where(condition).with_relationships.recent
   end
 
   def set_orientation

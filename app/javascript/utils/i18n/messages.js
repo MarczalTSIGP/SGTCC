@@ -28,6 +28,12 @@ export const messages = {
     prompt: {
       confirm: 'Você tem certeza?',
     },
+    select: {
+      all: {
+        f: 'Todas',
+        m: 'Todos'
+      }
+    },
   },
   'en': {
     messages: {}

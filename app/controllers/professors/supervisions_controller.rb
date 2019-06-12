@@ -10,7 +10,7 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
                    professors_supervisions_tcc_one_path
     @title = supervision_tcc_calendar_title
-    @orientations = @orientations.current_tcc_one.search(params[:term]).page(params[:page])
+    @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
     @search_url = professors_supervisions_search_tcc_one_path
 
     render :index
@@ -20,14 +20,14 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
                    professors_supervisions_tcc_two_path
     @title = supervision_tcc_calendar_title('two')
-    @orientations = @orientations.current_tcc_two.search(params[:term]).page(params[:page])
+    @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
     @search_url = professors_supervisions_search_tcc_two_path
 
     render :index
   end
 
   def history
-    @orientations = @orientations.search(params[:term]).page(params[:page])
+    @orientations = search_and_paginate(@orientations)
   end
 
   def show
@@ -38,8 +38,14 @@ class Professors::SupervisionsController < Professors::BaseController
 
   private
 
+  def search_and_paginate(data)
+    data.search(params[:term]).page(params[:page])
+  end
+
   def set_orientations
-    @orientations = current_professor.supervisions.with_relationships.recent
+    status = params[:status]
+    condition = status.present? ? { status: status } : {}
+    @orientations = current_professor.supervisions.where(condition).with_relationships.recent
   end
 
   def set_orientation

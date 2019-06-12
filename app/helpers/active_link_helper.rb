@@ -4,7 +4,8 @@ module ActiveLinkHelper
   end
 
   def calendars_active_link?(namespace)
-    regex = "^\/#{namespace}\/calendars(\/((tcc_one|tcc_two)(/search/page/\\d+)?|new|edit))?$"
+    namespace = "\/#{namespace}\/calendars"
+    regex = "^#{namespace}(\/((tcc_one|tcc_two)(/search/\\w+)?|(/search/page/\\d+)?|new|edit))?$"
     match_link?(regex) || calendars_history_active_link?(namespace)
   end
 
@@ -19,7 +20,9 @@ module ActiveLinkHelper
 
   def orientations_active_link?(namespace)
     namespace = "\/#{namespace}\/orientations"
-    regex = "^#{namespace}(\/((tcc_one|tcc_two)(/search/page/\\d+)?|new|\\d+|\\d+/edit))?$"
+    tccs = '(tcc_one|tcc_two)'
+    search = '((\/\\w+)?/search(/\\w+)?|((\/\\w+)?/search/page/\\d+))?'
+    regex = "^#{namespace}(\/(#{tccs}#{search}|new|\\d+|\\d+/edit))?$"
     match_link?(regex) && !Calendar.current_calendar?(@calendar)
   end
 
@@ -51,7 +54,9 @@ module ActiveLinkHelper
   end
 
   def supervisions_tcc_one_or_two_active_link?(namespace)
-    match_link?("^\/#{namespace}\/supervisions(\/((tcc_one|tcc_two)(\/search/page/\\d+)?))?$")
+    namespace = "\/#{namespace}\/supervisions"
+    search = '((\/\\w+)?/search(/\\w+)?|((\/\\w+)?\/search/page/\\d+))?))?'
+    match_link?("^#{namespace}(\/((tcc_one|tcc_two)#{search}$")
   end
 
   def supervisions_show_link?(namespace)
