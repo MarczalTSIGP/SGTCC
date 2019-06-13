@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_175702) do
+ActiveRecord::Schema.define(version: 2019_06_13_182041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,18 @@ ActiveRecord::Schema.define(version: 2019_06_13_175702) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "signatures", force: :cascade do |t|
+    t.bigint "orientation_id"
+    t.bigint "document_id"
+    t.integer "user_id"
+    t.string "user_type", limit: 1
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_signatures_on_document_id"
+    t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
+  end
+
   add_foreign_key "activities", "base_activity_types"
   add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"
@@ -210,4 +222,6 @@ ActiveRecord::Schema.define(version: 2019_06_13_175702) do
   add_foreign_key "orientations", "professors", column: "advisor_id"
   add_foreign_key "professors", "professor_types"
   add_foreign_key "professors", "scholarities"
+  add_foreign_key "signatures", "documents"
+  add_foreign_key "signatures", "orientations"
 end

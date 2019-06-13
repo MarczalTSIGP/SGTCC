@@ -19,6 +19,8 @@ class Orientation < ApplicationRecord
   has_many :orientation_supervisors,
            dependent: :delete_all
 
+  has_many :signatures, dependent: :destroy
+
   has_many :professor_supervisors,
            class_name: 'Professor',
            foreign_key: :professor_supervisor_id,
