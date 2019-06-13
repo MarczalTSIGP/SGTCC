@@ -36,6 +36,7 @@ pt-BR:
       academics: "Acadêmico"
       external_members: "Membro Externo"
       supervisor: "Coorientador"
+      signatures: "Assinaturas"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -80,6 +81,10 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+    signatures:
+      index: "Assinaturas"
+      pendings: "Pendentes"
+      signeds: "Assinadas"
     tcc:
       one:
         index: "Atividades de TCC 1"

@@ -1,0 +1,22 @@
+<span class="sidebar-heading">
+  <%= icon('fas', 'file-signature', class: 'mr-2') %>
+  <%= t('views.sidebar.signatures') %>
+</span>
+
+<%= active_link_to('#',
+		   active: :exact,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2 mt-2">
+    <%= icon('fas', 'file-signature') %>
+  </span>
+  <%= t('breadcrumbs.signatures.pendings') %>
+<% end %>
+
+<%= active_link_to('#',
+		   active: :exact,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2 mt-2">
+    <%= icon('fas', 'file-contract') %>
+  </span>
+  <%= t('breadcrumbs.signatures.signeds') %>
+<% end %>
