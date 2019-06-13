@@ -59,6 +59,10 @@ class Orientation < ApplicationRecord
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
 
+  after_save do
+    Documents::SaveTermOfCommitmentSignature.new(self).save
+  end
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
