@@ -49,3 +49,12 @@ base_activity_types = [
 base_activity_types.each do |base_activity_type|
   BaseActivityType.find_or_create_by!(name: base_activity_type)
 end
+
+document_types = [
+  'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso',
+  'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
+]
+
+document_types.each do |document_type|
+  DocumentType.find_or_create_by!(name: document_type)
+end
