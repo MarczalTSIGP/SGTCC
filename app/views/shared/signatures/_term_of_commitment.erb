@@ -1,0 +1,31 @@
+<div class="d-block w-80">
+<h2 class="text-center"><%= @signature.document.document_type.name %></h2>
+</div>
+
+<p>Eu, <%= @signature.orientation.advisor.name %> professor(a) desta instituição,
+declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
+de conclusão de curso do acadêmico:</p>
+
+<p> RA: <%= @signature.orientation.academic.ra %></p>
+<p> Nome: <%= @signature.orientation.academic.name %></p>
+<p> E-mail: <%= @signature.orientation.academic.email %></p>
+
+<p> Tema: <%= @signature.orientation.title %></p>
+
+<% unless @signature.orientation.professor_supervisors.empty? %>
+  <p> Coorientadores da UTFPR: </p>
+
+  <% @signature.orientation.professor_supervisors.each do |professor_supervisor| %>
+    <p> Nome: <%= professor_supervisor.name %></p>
+  <% end %>
+<% end %>
+
+<% unless @signature.orientation.professor_supervisors.empty? %>
+  <p> Coorientadores externos: </p>
+
+  <% @signature.orientation.external_member_supervisors.each do |external_member_supervisor| %>
+    <p> Nome: <%= external_member_supervisor.name %></p>
+  <% end %>
+<% end %>
+
+

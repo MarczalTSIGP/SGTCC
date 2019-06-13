@@ -1,4 +1,6 @@
 class Signature < ApplicationRecord
+  include KaminariHelper
+
   belongs_to :orientation
   belongs_to :document
 

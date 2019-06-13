@@ -1,0 +1,10 @@
+<tr>
+  <td><%= signature.orientation.title %></td>
+  <td><%= signature.document.document_type.name %></td>
+  <td><%= short_date(signature.created_at) %></td>
+  <td>
+    <%= link_to(professors_signature_path(signature)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
+    <% end %>
+  </td>
+</tr>

@@ -36,7 +36,10 @@ pt-BR:
       academics: "Acadêmico"
       external_members: "Membro Externo"
       supervisor: "Coorientador"
-      signatures: "Assinaturas"
+      signatures:
+        index: "Assinaturas"
+        pendings: "Pendentes"
+        signeds: "Assinadas"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -83,8 +86,9 @@ pt-BR:
       show: "Visualizar Atividade"
     signatures:
       index: "Assinaturas"
-      pendings: "Pendentes"
-      signeds: "Assinadas"
+      show: "Visualizar documento"
+      pendings: "Assinaturas Pendentes"
+      signeds: "Assinaturas Assinadas"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -169,6 +173,12 @@ pt-BR:
       orientation:
         one: "Orientação"
         other: "Orientações"
+      document:
+        one: "Documento"
+        other: "Documentos"
+      signatures:
+        one: "Assinatura"
+        other: "Assinaturas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -231,6 +241,9 @@ pt-BR:
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
         cancellation_justification: "Justificativa do cancelamento"
+        <<: *commons
+      signature:
+        document_type: "Tipo do documento"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
