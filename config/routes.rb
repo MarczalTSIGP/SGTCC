@@ -150,7 +150,7 @@ Rails.application.routes.draw do
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
-      get 'signatures/signeds', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
       get 'supervisions/tcc_one',

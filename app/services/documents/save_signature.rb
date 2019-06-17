@@ -1,4 +1,4 @@
-class Documents::SaveTermOfCommitmentSignature
+class Documents::SaveSignature
   attr_reader :orientation, :document_type_id, :document_id, :signature_users
 
   def initialize(orientation)

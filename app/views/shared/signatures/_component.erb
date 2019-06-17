@@ -1,0 +1,7 @@
+<term-of-commitment
+  orientation-title="<%= @signature.orientation.title %>"
+  document-title="<%= @signature.document.document_type.name %>"
+  :academic="<%= @signature.orientation.academic.to_json %>"
+  :advisor="<%= @signature.orientation.advisor.to_json %>"
+  :professor-supervisors="<%= @signature.orientation.professor_supervisors.to_json %>"
+  :external-member-supervisors="<%= @signature.orientation.external_member_supervisors.to_json %>" />
