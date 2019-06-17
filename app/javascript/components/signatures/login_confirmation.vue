@@ -98,6 +98,10 @@ export default {
       this.$root.$emit('close-signature-button');
     },
 
+    showSignatureMark() {
+      this.$root.$emit('show-signature-mark');
+    },
+
     async confirmLogin() {
       if (this.isEmpty(this.username) || this.isEmpty(this.password)) {
         swal('', 'Usuário institucional ou senha inválidos!', 'warning');
@@ -115,6 +119,7 @@ export default {
       swal('', response.data.message, 'success');
       this.close();
       this.closeSignatureButton();
+      this.showSignatureMark();
     },
 
     isEmpty(field) {

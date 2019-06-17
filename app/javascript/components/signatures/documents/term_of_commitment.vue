@@ -43,14 +43,25 @@
           Nome: {{ externalMemberSupervisor.name }}
         </p>
       </div>
+      <div v-if="signedDocument">
+        <signature-mark
+          :name="advisor.name"
+          :date="date"
+          :time="time"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 
+import SignatureMark from '../signature_mark';
+
 export default {
   name: 'TermOfCommitment',
+
+  components: { SignatureMark },
 
   props: {
     orientationTitle: {
@@ -60,6 +71,21 @@ export default {
 
     documentTitle: {
       type: String,
+      required: true
+    },
+
+    date: {
+      type: String,
+      required: true
+    },
+
+    time: {
+      type: String,
+      required: true
+    },
+
+    signed: {
+      type: Boolean,
       required: true
     },
 
@@ -81,17 +107,20 @@ export default {
     externalMemberSupervisors: {
       type: Array,
       required: true
-    }
+    },
   },
 
   data() {
     return {
       open: true,
+      signedDocument: false,
     };
   },
 
   mounted() {
     this.onTermOfCommitmentEvent();
+    this.onSignatureMarkEvent();
+    this.signedDocument = this.signed;
   },
 
   methods: {
@@ -110,6 +139,12 @@ export default {
 
       this.$root.$on('open-term-of-commitment', () => {
         this.open = true;
+      });
+    },
+
+    onSignatureMarkEvent() {
+      this.$root.$on('show-signature-mark', () => {
+        this.signedDocument = true;
       });
     },
   },

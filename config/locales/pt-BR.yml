@@ -5,6 +5,7 @@ pt-BR:
       short: '%d/%m/%Y'
       month: '%m'
       year: '%Y'
+      time: '%-H:%M'
       datetime: '%d/%m/%Y %-H:%M'
   views:
     title:
