@@ -306,6 +306,9 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    orientation:
+      edit:
+        signed: 'Não é possível editar orientação com assinaturas!'
   json:
     messages:
       orientation:

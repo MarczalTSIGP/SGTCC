@@ -106,6 +106,10 @@ class Orientation < ApplicationRecord
     professor&.role?(:responsible) && !canceled?
   end
 
+  def can_be_edited?
+    signatures.where(status: true).empty?
+  end
+
   def calendar_tcc_one?
     calendar.tcc == 'one'
   end
