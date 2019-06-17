@@ -149,6 +149,7 @@ Rails.application.routes.draw do
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'

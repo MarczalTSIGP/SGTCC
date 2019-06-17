@@ -1,5 +1,6 @@
 <template>
   <button
+    v-if="show"
     class="btn btn-outline-primary float-right mb-2"
     @click="openLoginConfirmation()"
   >
@@ -17,9 +18,25 @@
 export default {
   name: 'SignatureButton',
 
+  data() {
+    return {
+      show: true,
+    };
+  },
+
+  mounted() {
+    this.onSignatureButtonEvent();
+  },
+
   methods: {
     openLoginConfirmation() {
       this.$root.$emit('open-login-confirmation');
+    },
+
+    onSignatureButtonEvent() {
+      this.$root.$on('close-signature-button', () => {
+        this.show = false;
+      });
     },
   },
 };

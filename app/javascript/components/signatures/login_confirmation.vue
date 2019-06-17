@@ -32,7 +32,7 @@
       <div class="form-footer">
         <button
           class="btn btn-primary btn-block"
-          @click.prevent="confirmLogin()"
+          @click="confirmLogin()"
         >
           Confirmar
         </button>
@@ -49,12 +49,17 @@
 
 <script>
 
-import flash_messages from '../shared/helpers/flash_message';
+import swal from 'sweetalert';
 
 export default {
   name: 'LoginConfirmation',
 
-  mixins: [flash_messages],
+  props: {
+    url: {
+      type: String,
+      required: true
+    }
+  },
 
   data() {
     return {
@@ -72,19 +77,44 @@ export default {
     listenOpenLoginConfirmationEvent() {
       this.$root.$on('open-login-confirmation', () => {
         this.open = true;
-        this.$root.$emit('close-term-of-commitment');
+        this.closeDocumentBox();
       });
     },
 
     close() {
       this.open = false;
+      this.openDocumentBox();
+    },
+
+    openDocumentBox() {
       this.$root.$emit('open-term-of-commitment');
     },
 
-    confirmLogin() {
+    closeDocumentBox() {
+      this.$root.$emit('close-term-of-commitment');
+    },
+
+    closeSignatureButton() {
+      this.$root.$emit('close-signature-button');
+    },
+
+    async confirmLogin() {
       if (this.isEmpty(this.username) || this.isEmpty(this.password)) {
-        this.showFlashMessage('Usuário institucional ou senha inválidos.', 'alert');
+        swal('', 'Usuário institucional ou senha inválidos!', 'warning');
+        return;
       }
+
+      const data = { username: this.username, password: this.password };
+      const response = await this.$axios.post(this.url, data);
+
+      if (response.data.status === 'internal_server_error') {
+        swal('', response.data.message, 'warning');
+        return;
+      }
+
+      swal('', response.data.message, 'success');
+      this.close();
+      this.closeSignatureButton();
     },
 
     isEmpty(field) {

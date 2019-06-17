@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
+import VueSwal from 'vue-swal';
 import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
@@ -17,6 +18,7 @@ import sidebarScroll from '../initializers/sidebar_scroll';
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
+Vue.use(VueSwal);
 
 const i18n = new VueI18n({
   locale: 'pt-BR',

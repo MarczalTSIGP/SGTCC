@@ -315,6 +315,10 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
+        signatures:
+          confirm:
+            success: 'Assinatura realizada com sucesso!'
+            error: 'Usuário institucional ou senha inválidos!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"

@@ -1,5 +1,5 @@
 class Professors::SignaturesController < Professors::BaseController
-  before_action :set_signature, only: :show
+  before_action :set_signature, only: [:show, :confirm]
 
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
                  :professors_signatures_pending_path,
@@ -19,6 +19,19 @@ class Professors::SignaturesController < Professors::BaseController
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'), professors_signature_path(@signature)
+  end
+
+  def confirm
+    valid_password = Professor.find_by(username: params[:username])
+                             &.valid_password?(params[:password])
+
+    if valid_password && @signature.sign
+      message = I18n.t('json.messages.orientation.signatures.confirm.success')
+      render json: { message: message }
+    else
+      message = I18n.t('json.messages.orientation.signatures.confirm.error')
+      render json: { message: message, status: :internal_server_error }
+    end
   end
 
   private

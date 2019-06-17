@@ -1,13 +1,16 @@
 <% provide(:page_title, t('breadcrumbs.signatures.show')) %>
 <% provide(:head_title, t('breadcrumbs.signatures.show')) %>
 
-<div>
-  <signature-button />
-</div>
+<% unless @signature.status %>
+  <div>
+    <signature-button />
+  </div>
 
-<div>
-  <login-confirmation />
-</div>
+  <div>
+    <login-confirmation
+      url="<%= professors_signature_confirm_path(@signature) %>" />
+  </div>
+<% end %>
 
 <div>
   <%= render 'shared/signatures/component', signature: @signature %>
