@@ -1,0 +1,25 @@
+<% provide(:page_title, t('breadcrumbs.signatures.show')) %>
+<% provide(:head_title, t('breadcrumbs.signatures.show')) %>
+
+<% unless @signature.status %>
+  <div>
+    <signature-button />
+  </div>
+
+  <div>
+    <login-confirmation
+      label="<%= ExternalMember.human_attribute_name('email') %>"
+      url="<%= external_members_signature_confirm_path(@signature) %>" />
+  </div>
+<% end %>
+
+<div>
+  <%= render 'shared/signatures/component', signature: @signature %>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    external_members_signatures_pending_path,
+    class: 'btn btn-secondary' %>
+</div>
+

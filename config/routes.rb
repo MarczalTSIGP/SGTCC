@@ -152,7 +152,6 @@ Rails.application.routes.draw do
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
-
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
@@ -346,6 +345,11 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :supervisions, only: [:show], constraints: { id: /[0-9]+/ }
+
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 

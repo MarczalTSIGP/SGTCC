@@ -60,7 +60,11 @@ class Orientation < ApplicationRecord
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
 
   after_save do
-    Documents::SaveSignature.new(self, DocumentType.first&.id).save
+    Documents::SaveSignatures.new(self, DocumentType.first&.id).save
+  end
+
+  after_update do
+    signatures.destroy_all
   end
 
   def short_title

@@ -1,5 +1,5 @@
-class Documents::SaveSignature
-  attr_reader :orientation, :document_type_id, :document_id, :signature_users
+class Documents::DeleteSignatures
+  attr_reader :orientation
 
   def initialize(orientation, document_type_id)
     @orientation = orientation

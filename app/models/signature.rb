@@ -15,11 +15,19 @@ class Signature < ApplicationRecord
     save
   end
 
+  def self.by_user_and_status(user, type, status)
+    where(user_id: user.id, user_type: type, status: status).with_relationships
+  end
+
   def self.by_professor_and_status(professor, status)
-    where(user_id: professor.id, user_type: 'P', status: status).with_relationships
+    by_user_and_status(professor, 'P', status)
   end
 
   def self.by_academic_and_status(academic, status)
-    where(user_id: academic.id, user_type: 'A', status: status).with_relationships
+    by_user_and_status(academic, 'A', status)
+  end
+
+  def self.by_external_member_and_status(external_member, status)
+    by_user_and_status(external_member, 'E', status)
   end
 end
