@@ -120,7 +120,7 @@ export default {
       this.showSuccessMessage(message);
       this.close();
       this.$root.$emit('close-signature-button');
-      this.$root.$emit('show-signature-mark');
+      this.$root.$emit('show-signatures-mark');
     },
 
     isEmpty(field) {

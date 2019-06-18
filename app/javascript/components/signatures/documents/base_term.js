@@ -9,17 +9,12 @@ export default {
       required: true
     },
 
+    urlSignaturesMark: {
+      type: String,
+      required: true
+    },
+
     documentTitle: {
-      type: String,
-      required: true
-    },
-
-    date: {
-      type: String,
-      required: true
-    },
-
-    time: {
       type: String,
       required: true
     },

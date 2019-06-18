@@ -117,4 +117,35 @@ class Orientation < ApplicationRecord
   def calendar_tcc_two?
     calendar.tcc == 'two'
   end
+
+  def signed_signatures
+    signatures.where(status: true)
+  end
+
+  def signatures_mark
+    signatures = []
+    signed_signatures.each do |signature|
+      case signature.user_type
+      when 'academic'
+        signatures << {
+          name: signature.orientation.academic.name,
+          date: I18n.l(signature.updated_at, format: :short),
+          time: I18n.l(signature.updated_at, format: :time)
+        }
+      when 'professor'
+        signatures << {
+          name: Professor.find(signature.user_id).name,
+          date: I18n.l(signature.updated_at, format: :short),
+          time: I18n.l(signature.updated_at, format: :time)
+        }
+      when 'external_member'
+        signatures << {
+          name: ExternalMember.find(signature.user_id).name,
+          date: I18n.l(signature.updated_at, format: :short),
+          time: I18n.l(signature.updated_at, format: :time)
+        }
+      end
+    end
+    signatures
+  end
 end

@@ -2,8 +2,7 @@
   <term-of-commitment
     orientation-title="<%= @signature.orientation.title %>"
     document-title="<%= @signature.document.document_type.name %>"
-    date="<%= short_date(@signature.updated_at) %>"
-    time="<%= l(@signature.updated_at, format: :time) %>"
+    url-signatures-mark="<%= signatures_mark_path(@signature) %>"
     :signed="<%= @signature.status %>"
     :academic="<%= @signature.orientation.academic.to_json %>"
     :advisor="<%= @signature.orientation.advisor.to_json %>"

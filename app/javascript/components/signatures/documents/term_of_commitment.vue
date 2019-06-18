@@ -43,13 +43,9 @@
           Nome: {{ externalMemberSupervisor.name }}
         </p>
       </div>
-      <div v-if="signedDocument">
-        <signature-mark
-          :name="advisor.name"
-          :date="date"
-          :time="time"
-        />
-      </div>
+      <signature-mark
+        :url="urlSignaturesMark"
+      />
     </div>
   </div>
 </template>
@@ -73,7 +69,6 @@ export default {
   mounted() {
     this.onCloseTermOfCommitment();
     this.onOpenTermOfCommitment();
-    this.onSignatureMark();
     this.setSignedDocument();
   },
 
@@ -88,12 +83,6 @@ export default {
 
     hasExternalMemberSupervisors() {
       return this.externalMemberSupervisors.length > 0;
-    },
-
-    onSignatureMark() {
-      this.$root.$on('show-signature-mark', () => {
-        this.signedDocument = true;
-      });
     },
 
     onCloseTermOfCommitment() {
