@@ -63,6 +63,44 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#signed_signatures?' do
+    it 'returns the signed signatures' do
+      orientation = create(:orientation)
+      create(:signature_signed, orientation_id: orientation.id)
+      signed_signatures = orientation.signatures.where(status: true)
+      expect(orientation.signed_signatures).to eq(signed_signatures)
+    end
+  end
+
+  describe '#signatures_mark' do
+    let(:orientation) { create(:orientation) }
+
+    before do
+      professor = create(:professor)
+      academic = create(:academic)
+      external_member = create(:external_member)
+      create(:signature_signed, orientation_id: orientation.id, user_id: professor.id)
+      create(:signature_signed, orientation_id: orientation.id,
+                                user_id: academic.id,
+                                user_type: 'A')
+      create(:signature_signed, orientation_id: orientation.id,
+                                user_id: external_member.id,
+                                user_type: 'E')
+    end
+
+    it 'returns the signatures mark' do
+      signatures_mark = orientation.signed_signatures.map do |signature|
+        class_name = signature.user_type.camelcase.constantize
+        name = class_name.send('find', signature.user_id)&.name
+        datetime = signature.updated_at
+        { name: name,
+          date: I18n.l(datetime, format: :short),
+          time: I18n.l(datetime, format: :time) }
+      end
+      expect(orientation.signatures_mark).to eq(signatures_mark)
+    end
+  end
+
   describe '#equal_status?' do
     it 'returns if the orientation is equal status?' do
       orientation = create(:orientation)
