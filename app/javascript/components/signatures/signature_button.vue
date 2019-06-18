@@ -2,7 +2,7 @@
   <button
     v-if="show"
     class="btn btn-outline-primary float-right mb-2"
-    @click="openLoginConfirmation()"
+    @click="emitOpenLoginConfirmation()"
   >
     <i
       data-toggle="tooltip"
@@ -25,17 +25,33 @@ export default {
   },
 
   mounted() {
-    this.onSignatureButtonEvent();
+    this.onCloseSignatureButton();
+    this.onOpenSignatureButton();
   },
 
   methods: {
-    openLoginConfirmation() {
-      this.$root.$emit('open-login-confirmation');
+    openSignatureButton() {
+      this.show = true;
     },
 
-    onSignatureButtonEvent() {
+    closeSignatureButton() {
+      this.show = false;
+    },
+
+    emitOpenLoginConfirmation() {
+      this.$root.$emit('open-login-confirmation');
+      this.closeSignatureButton();
+    },
+
+    onCloseSignatureButton() {
       this.$root.$on('close-signature-button', () => {
-        this.show = false;
+        this.closeSignatureButton();
+      });
+    },
+
+    onOpenSignatureButton() {
+      this.$root.$on('open-signature-button', () => {
+        this.openSignatureButton();
       });
     },
   },

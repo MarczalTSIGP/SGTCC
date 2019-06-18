@@ -10,4 +10,9 @@ class Signature < ApplicationRecord
     self.status = true
     save
   end
+
+  def self.by_professor_and_status(professor, status)
+    where(user_id: professor.id, user_type: 'P', status: status)
+      .includes(:orientation, document: [:document_type])
+  end
 end

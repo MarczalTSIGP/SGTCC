@@ -56,59 +56,12 @@
 
 <script>
 
-import SignatureMark from '../signature_mark';
+import baseTerm from './base_term';
 
 export default {
   name: 'TermOfCommitment',
 
-  components: { SignatureMark },
-
-  props: {
-    orientationTitle: {
-      type: String,
-      required: true
-    },
-
-    documentTitle: {
-      type: String,
-      required: true
-    },
-
-    date: {
-      type: String,
-      required: true
-    },
-
-    time: {
-      type: String,
-      required: true
-    },
-
-    signed: {
-      type: Boolean,
-      required: true
-    },
-
-    academic: {
-      type: Object,
-      required: true
-    },
-
-    advisor: {
-      type: Object,
-      required: true
-    },
-
-    professorSupervisors: {
-      type: Array,
-      required: true
-    },
-
-    externalMemberSupervisors: {
-      type: Array,
-      required: true
-    },
-  },
+  mixins: [baseTerm],
 
   data() {
     return {
@@ -118,12 +71,17 @@ export default {
   },
 
   mounted() {
-    this.onTermOfCommitmentEvent();
-    this.onSignatureMarkEvent();
-    this.signedDocument = this.signed;
+    this.onCloseTermOfCommitment();
+    this.onOpenTermOfCommitment();
+    this.onSignatureMark();
+    this.setSignedDocument();
   },
 
   methods: {
+    setSignedDocument() {
+      this.signedDocument = this.signed;
+    },
+
     hasProfessorSupervisors() {
       return this.professorSupervisors.length > 0;
     },
@@ -132,19 +90,21 @@ export default {
       return this.externalMemberSupervisors.length > 0;
     },
 
-    onTermOfCommitmentEvent() {
-      this.$root.$on('close-term-of-commitment', () => {
-        this.open = false;
-      });
-
-      this.$root.$on('open-term-of-commitment', () => {
-        this.open = true;
+    onSignatureMark() {
+      this.$root.$on('show-signature-mark', () => {
+        this.signedDocument = true;
       });
     },
 
-    onSignatureMarkEvent() {
-      this.$root.$on('show-signature-mark', () => {
-        this.signedDocument = true;
+    onCloseTermOfCommitment() {
+      this.$root.$on('close-term-of-commitment', () => {
+        this.open = false;
+      });
+    },
+
+    onOpenTermOfCommitment() {
+      this.$root.$on('open-term-of-commitment', () => {
+        this.open = true;
       });
     },
   },

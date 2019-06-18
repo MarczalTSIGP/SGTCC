@@ -73,7 +73,6 @@ export default {
 
     listenMessages() {
       this.$root.$on('add-flash-message', (data) => {
-        this.flashMessages = [];
         this.flashMessages.push(data);
       });
     },

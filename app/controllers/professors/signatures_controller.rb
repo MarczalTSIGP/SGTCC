@@ -41,11 +41,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def signatures_by_status(status)
-    signatures = Signature.where(
-      user_id: current_professor.id,
-      user_type: 'P',
-      status: status
-    ).includes(:orientation, document: [:document_type])
+    signatures = Signature.by_professor_and_status(current_professor, status)
     @signatures = Signature.paginate_array(signatures, params[:page])
   end
 end

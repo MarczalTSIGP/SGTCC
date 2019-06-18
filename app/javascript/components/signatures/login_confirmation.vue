@@ -49,10 +49,12 @@
 
 <script>
 
-import swal from 'sweetalert';
+import sweetAlert from '../shared/helpers/sweet_alert';
 
 export default {
   name: 'LoginConfirmation',
+
+  mixins: [sweetAlert],
 
   props: {
     url: {
@@ -70,56 +72,44 @@ export default {
   },
 
   mounted() {
-    this.listenOpenLoginConfirmationEvent();
+    this.onOpenLoginConfirmation();
   },
 
   methods: {
-    listenOpenLoginConfirmationEvent() {
+    onOpenLoginConfirmation() {
       this.$root.$on('open-login-confirmation', () => {
         this.open = true;
-        this.closeDocumentBox();
+        this.$root.$emit('close-term-of-commitment');
       });
     },
 
     close() {
       this.open = false;
-      this.openDocumentBox();
-    },
-
-    openDocumentBox() {
       this.$root.$emit('open-term-of-commitment');
-    },
-
-    closeDocumentBox() {
-      this.$root.$emit('close-term-of-commitment');
-    },
-
-    closeSignatureButton() {
-      this.$root.$emit('close-signature-button');
-    },
-
-    showSignatureMark() {
-      this.$root.$emit('show-signature-mark');
+      this.$root.$emit('open-signature-button');
     },
 
     async confirmLogin() {
       if (this.isEmpty(this.username) || this.isEmpty(this.password)) {
-        swal('', 'Usuário institucional ou senha inválidos!', 'warning');
-        return;
+        return this.showWarningMessage('Usuário institucional ou senha inválidos!');
       }
 
       const data = { username: this.username, password: this.password };
       const response = await this.$axios.post(this.url, data);
+      const message = response.data.message;
 
       if (response.data.status === 'internal_server_error') {
-        swal('', response.data.message, 'warning');
-        return;
+        return this.showWarningMessage(message);
       }
 
-      swal('', response.data.message, 'success');
+      this.afterSaveSignature(message);
+    },
+
+    afterSaveSignature(message) {
+      this.showSuccessMessage(message);
       this.close();
-      this.closeSignatureButton();
-      this.showSignatureMark();
+      this.$root.$emit('close-signature-button');
+      this.$root.$emit('show-signature-mark');
     },
 
     isEmpty(field) {
