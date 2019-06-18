@@ -8,6 +8,7 @@
 
   <div>
     <login-confirmation
+      label="<%= Professor.human_attribute_name('username') %>"
       url="<%= professors_signature_confirm_path(@signature) %>" />
   </div>
 <% end %>

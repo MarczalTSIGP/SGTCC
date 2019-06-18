@@ -22,7 +22,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def confirm
-    valid_password = Professor.find_by(username: params[:username])
+    valid_password = Professor.find_by(username: params[:login])
                              &.valid_password?(params[:password])
 
     if valid_password && @signature.sign

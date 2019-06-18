@@ -11,10 +11,10 @@
       </div>
       <div class="form-group">
         <label class="form-label">
-          Usuário institucional
+          {{ label }}
         </label>
         <input
-          v-model="username"
+          v-model="login"
           type="text"
           class="form-control"
         >
@@ -57,6 +57,11 @@ export default {
   mixins: [sweetAlert],
 
   props: {
+    label: {
+      type: String,
+      required: true
+    },
+
     url: {
       type: String,
       required: true
@@ -65,10 +70,16 @@ export default {
 
   data() {
     return {
-      username: '',
+      login: '',
       password: '',
       open: false,
     };
+  },
+
+  watch: {
+    errorMessage() {
+      return `${this.label} ou senha inválidos!`;
+    },
   },
 
   mounted() {
@@ -90,11 +101,11 @@ export default {
     },
 
     async confirmLogin() {
-      if (this.isEmpty(this.username) || this.isEmpty(this.password)) {
-        return this.showWarningMessage('Usuário institucional ou senha inválidos!');
+      if (this.isEmpty(this.login) || this.isEmpty(this.password)) {
+        return this.showWarningMessage(this.errorMessage);
       }
 
-      const data = { username: this.username, password: this.password };
+      const data = { login: this.login, password: this.password };
       const response = await this.$axios.post(this.url, data);
       const message = response.data.message;
 
