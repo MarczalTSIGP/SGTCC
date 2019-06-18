@@ -113,13 +113,13 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_renewed?' do
-    it 'returns true for the orientation be renewed' do
+    it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
       expect(orientation.can_be_renewed?(professor)).to eq(true)
     end
 
-    it 'returns false for the orientation be renewed' do
+    it 'returns false' do
       professor = create(:professor)
       orientation = create(:orientation_tcc_one)
       expect(orientation.can_be_renewed?(professor)).to eq(false)
@@ -127,16 +127,30 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_canceled?' do
-    it 'returns true for the orientation be canceled' do
+    it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
       expect(orientation.can_be_canceled?(professor)).to eq(true)
     end
 
-    it 'returns false for the orientation be canceled' do
+    it 'returns false' do
       professor = create(:responsible)
       orientation = create(:orientation_canceled)
       expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
+  describe '#can_be_edited?' do
+    it 'returns true' do
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.can_be_edited?).to eq(true)
+    end
+
+    it 'returns false' do
+      signature = create(:signature, status: true)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_edited?).to eq(false)
     end
   end
 
