@@ -244,6 +244,7 @@ pt-BR:
         cancellation_justification: "Justificativa do cancelamento"
         <<: *commons
       signature:
+        orientation: "Orientação"
         document_type: "Tipo do documento"
         <<: *commons
   helpers:

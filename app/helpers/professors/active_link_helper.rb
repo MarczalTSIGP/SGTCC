@@ -21,4 +21,12 @@ module Professors::ActiveLinkHelper
   def professors_supervisions_history_active_link?
     supervisions_history_active_link?('professors')
   end
+
+  def professors_signatures_pending_active_link?
+    signatures_pending_active_link?('professors')
+  end
+
+  def professors_signatures_signed_active_link?
+    signatures_signed_active_link?('professors')
+  end
 end
