@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::update', type: :feature do
   let(:responsible) { create(:responsible) }
-  let(:orientation) { create(:orientation) }
+  let!(:orientation) { create(:orientation) }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }
   let!(:calendar) { create(:calendar) }
@@ -48,6 +48,18 @@ describe 'Orientation::update', type: :feature do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.orientation_title')
+      end
+    end
+
+    context 'when the orientation cant be edited' do
+      before do
+        create(:signature_signed, orientation_id: orientation.id)
+        visit edit_responsible_orientation_path(orientation)
+      end
+
+      it 'redirect to the orientations page' do
+        expect(page).to have_current_path responsible_orientations_tcc_one_path
+        expect(page).to have_flash(:warning, text: orientation_edit_signed_warning_message)
       end
     end
   end
