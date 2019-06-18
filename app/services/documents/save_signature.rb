@@ -1,9 +1,9 @@
 class Documents::SaveSignature
   attr_reader :orientation, :document_type_id, :document_id, :signature_users
 
-  def initialize(orientation)
+  def initialize(orientation, document_type_id)
     @orientation = orientation
-    @document_type_id = DocumentType.first&.id
+    @document_type_id = document_type_id
     @signature_users = []
   end
 

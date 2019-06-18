@@ -295,6 +295,11 @@ Rails.application.routes.draw do
     namespace :academics do
       root to: 'dashboard#index'
 
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
+
       get 'calendars', to: 'calendars#index', as: 'calendars'
 
       get '/calendars/(:calendar_id)/activities',

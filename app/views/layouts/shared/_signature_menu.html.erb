@@ -1,9 +1,9 @@
 <span class="sidebar-heading">
-  <%= icon('fas', 'file-signature', class: 'mr-2') %>
+  <%= icon('fas', 'file-signature', class: 'mt-2 mr-2') %>
   <%= t('views.sidebar.signatures.index') %>
 </span>
 
-<%= active_link_to(professors_signatures_pending_path,
+<%= active_link_to(pending_path,
 		   active: :exact,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2 mt-2">
@@ -12,7 +12,7 @@
   <%= t('views.sidebar.signatures.pendings') %>
 <% end %>
 
-<%= active_link_to(professors_signatures_signed_path,
+<%= active_link_to(signed_path,
 		   active: :exact,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2 mt-2">
