@@ -18,7 +18,8 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.signatures.show'), external_members_signature_path(@signature)
+    add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
+                   external_members_signature_path(@signature)
   end
 
   def confirm
