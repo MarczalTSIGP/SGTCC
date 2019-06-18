@@ -24,4 +24,24 @@ RSpec.describe Signature, type: :model do
       expect(Signature.by_professor_and_status(professor, false)).to eq(signatures)
     end
   end
+
+  describe '#by_external_member_and_status' do
+    let(:external_member) { create(:external_member) }
+    let(:signature) { create(:signature, user_id: external_member.id) }
+
+    it 'returns the signature by external_member and status' do
+      signatures = Signature.where(user_id: external_member.id, user_type: 'E', status: false)
+      expect(Signature.by_external_member_and_status(external_member, false)).to eq(signatures)
+    end
+  end
+
+  describe '#by_academic_and_status' do
+    let(:academic) { create(:academic) }
+    let(:signature) { create(:signature, user_id: academic.id) }
+
+    it 'returns the signature by academic and status' do
+      signatures = Signature.where(user_id: academic.id, user_type: 'A', status: false)
+      expect(Signature.by_academic_and_status(academic, false)).to eq(signatures)
+    end
+  end
 end
