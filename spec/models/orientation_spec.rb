@@ -80,12 +80,9 @@ RSpec.describe Orientation, type: :model do
       academic = create(:academic)
       external_member = create(:external_member)
       create(:signature_signed, orientation_id: orientation.id, user_id: professor.id)
-      create(:signature_signed, orientation_id: orientation.id,
-                                user_id: academic.id,
-                                user_type: 'A')
-      create(:signature_signed, orientation_id: orientation.id,
-                                user_id: external_member.id,
-                                user_type: 'E')
+      create(:academic_signature_signed, orientation_id: orientation.id, user_id: academic.id)
+      create(:external_member_signature_signed, orientation_id: orientation.id,
+                                                user_id: external_member.id)
     end
 
     it 'returns the signatures mark' do
