@@ -76,7 +76,7 @@ export default {
     };
   },
 
-  watch: {
+  computed: {
     errorMessage() {
       return `${this.label} ou senha inválidos!`;
     },
