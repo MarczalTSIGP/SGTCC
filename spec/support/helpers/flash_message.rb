@@ -72,5 +72,13 @@ module Helpers
     def signature_signed_success_message
       I18n.t('json.messages.orientation.signatures.confirm.success')
     end
+
+    def signature_login_alert_message
+      I18n.t('json.messages.orientation.signatures.confirm.error')
+    end
+
+    def signature_register(name, date, time)
+      I18n.t('signatures.register', name: name, date: date, time: time)
+    end
   end
 end

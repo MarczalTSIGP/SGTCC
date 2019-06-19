@@ -8,6 +8,12 @@ FactoryBot.define do
     renewal_justification { Faker::Lorem.sentence(3) }
     status { Orientation.statuses.key('IN_PROGRESS') }
 
+    after :create do |orientation|
+      external_member = create(:external_member)
+      orientation.external_member_supervisors << external_member
+      orientation.save
+    end
+
     factory :orientation_tcc_one do
       calendar { create(:calendar_tcc_one) }
     end

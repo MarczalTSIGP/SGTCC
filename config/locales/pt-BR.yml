@@ -361,3 +361,7 @@ pt-BR:
         subject: 'Registrado com sucesso no SGTCC'
         register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
         login: 'Para realizar o login no sistema clique no link abaixo'
+  signatures:
+    register: 'Documento assinado eletronicamente por %{name}, em %{date}, às %{time}, conforme
+      horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
+      8 de outubro de 2015.'
