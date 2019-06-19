@@ -14,6 +14,7 @@
           {{ label }}
         </label>
         <input
+          id="login_confirmation"
           v-model="login"
           type="text"
           class="form-control"
@@ -24,6 +25,7 @@
           Senha
         </label>
         <input
+          id="password_confirmation"
           v-model="password"
           type="password"
           class="form-control"
@@ -31,6 +33,7 @@
       </div>
       <div class="form-footer">
         <button
+          id="login_confirmation_button"
           class="btn btn-primary btn-block"
           @click="confirmLogin()"
         >

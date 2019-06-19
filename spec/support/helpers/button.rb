@@ -12,12 +12,20 @@ module Helpers
       I18n.t('views.buttons.orientation.cancel')
     end
 
+    def signature_button
+      I18n.t('views.buttons.signature.sign')
+    end
+
     def save_button
       I18n.t('views.buttons.save')
     end
 
     def cancel_button
       I18n.t('views.buttons.cancel')
+    end
+
+    def confirm_button
+      I18n.t('views.buttons.confirm')
     end
 
     def click_on_label(name, options = {})

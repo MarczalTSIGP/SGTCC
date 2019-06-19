@@ -21,9 +21,12 @@ pt-BR:
       select: 'Selecionar'
       save: 'Salvar'
       cancel: 'Cancelar'
+      confirm: 'Confirmar'
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
+      signature:
+        sign: 'Assinar documento'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
