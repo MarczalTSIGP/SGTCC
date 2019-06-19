@@ -1,25 +1,4 @@
-<% provide(:page_title, t('breadcrumbs.signatures.show')) %>
-<% provide(:head_title, t('breadcrumbs.signatures.show')) %>
-
-<% unless @signature.status %>
-  <div>
-    <signature-button />
-  </div>
-
-  <div>
-    <login-confirmation
-      label="<%= Professor.human_attribute_name('username') %>"
-      url="<%= professors_signature_confirm_path(@signature) %>" />
-  </div>
-<% end %>
-
-<div>
-  <%= render 'shared/signatures/component', signature: @signature %>
-</div>
-
-<div class="d-flex">
-  <%= link_to t('simple_form.buttons.back'),
-    professors_signatures_pending_path,
-    class: 'btn btn-secondary' %>
-</div>
-
+<%= render 'shared/signatures/show',
+  label: Professor.human_attribute_name('username'),
+  confirm_url: professors_signature_confirm_path(@signature),
+  back_url: professors_signatures_pending_path %>
