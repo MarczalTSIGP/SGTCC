@@ -4,7 +4,7 @@ describe 'Signature::sign', type: :feature, js: true do
   let!(:professor) { create(:professor) }
   let!(:advisor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor: advisor) }
-  let!(:signature) { create(:signature, orientation_id: orientation.id) }
+  let!(:signature) { create(:signature, orientation_id: orientation.id, user_id: advisor.id) }
 
   before do
     login_as(professor, scope: :professor)

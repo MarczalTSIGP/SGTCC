@@ -73,27 +73,48 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#signatures_mark' do
-    let(:orientation) { create(:orientation) }
-
-    before do
-      professor = create(:professor)
-      academic = create(:academic)
-      external_member = create(:external_member)
+    let!(:professor) { create(:professor) }
+    let!(:supervisor) { create(:professor) }
+    let!(:academic) { create(:academic) }
+    let!(:external_member) { create(:external_member) }
+    let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
+    let!(:signature_signed) do
       create(:signature_signed, orientation_id: orientation.id, user_id: professor.id)
+    end
+
+    let!(:academic_signature_signed) do
       create(:academic_signature_signed, orientation_id: orientation.id, user_id: academic.id)
+    end
+
+    let!(:external_member_signature_signed) do
       create(:external_member_signature_signed, orientation_id: orientation.id,
                                                 user_id: external_member.id)
     end
 
+    let!(:professor_signature_signed) do
+      create(:signature_signed, orientation_id: orientation.id, user_id: supervisor.id)
+    end
+
+    before do
+      orientation.external_member_supervisors << external_member
+      orientation.professor_supervisors << supervisor
+    end
+
     it 'returns the signatures mark' do
-      signatures_mark = orientation.signed_signatures.map do |signature|
-        class_name = signature.user_type.camelcase.constantize
-        name = class_name.send('find', signature.user_id)&.name
-        datetime = signature.updated_at
-        { name: name,
-          date: I18n.l(datetime, format: :short),
-          time: I18n.l(datetime, format: :time) }
-      end
+      signatures_mark = [
+        { name: supervisor.name,
+          date: I18n.l(professor_signature_signed.updated_at, format: :short),
+          time: I18n.l(professor_signature_signed.updated_at, format: :time) },
+        { name: external_member.name,
+          date: I18n.l(external_member_signature_signed.updated_at, format: :short),
+          time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
+        { name: academic.name,
+          date: I18n.l(academic_signature_signed.updated_at, format: :short),
+          time: I18n.l(academic_signature_signed.updated_at, format: :time) },
+        { name: professor.name,
+          date: I18n.l(signature_signed.updated_at, format: :short),
+          time: I18n.l(signature_signed.updated_at, format: :time) }
+      ]
       expect(orientation.signatures_mark).to eq(signatures_mark)
     end
   end

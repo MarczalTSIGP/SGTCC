@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Signature::sign', type: :feature, js: true do
   let!(:orientation) { create(:orientation) }
   let(:external_member) { orientation.external_member_supervisors.first }
-  let!(:signature) { create(:external_member_signature, orientation_id: orientation.id) }
+  let!(:signature) do
+    create(:external_member_signature, orientation_id: orientation.id, user_id: external_member.id)
+  end
 
   before do
     login_as(external_member, scope: :external_member)
