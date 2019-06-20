@@ -13,7 +13,7 @@ describe 'Signature::show', type: :feature, js: true do
   describe '#show' do
     context 'when shows the signature of the term of commitment' do
       let!(:signature) do
-        create(:signature, orientation_id: orientation.id)
+        create(:academic_signature, orientation_id: orientation.id, user_id: academic.id)
       end
 
       it 'shows the document of the term of commitment' do
@@ -29,18 +29,20 @@ describe 'Signature::show', type: :feature, js: true do
     end
 
     context 'when shows the signed signature of the term of commitment' do
+      let!(:signature) do
+        create(:academic_signature_signed,
+               orientation_id: orientation.id,
+               user_id: academic.id)
+      end
+
       before do
-        signature = create(:signature_signed,
-                           orientation_id: orientation.id,
-                           user_id: professor.id)
+        create(:signature_signed,
+               orientation_id: orientation.id,
+               user_id: professor.id)
 
         create(:external_member_signature_signed,
                orientation_id: orientation.id,
                user_id: external_member.id)
-
-        create(:academic_signature_signed,
-               orientation_id: orientation.id,
-               user_id: academic.id)
 
         orientation.external_member_supervisors << external_member
         visit academics_signature_path(signature)
@@ -60,6 +62,18 @@ describe 'Signature::show', type: :feature, js: true do
         end
         active_link = academics_signatures_signed_path
         expect(page).to have_selector("a[href='#{active_link}'].active")
+      end
+    end
+
+    context 'when the document signature cant be viewed' do
+      before do
+        signature = create(:signature)
+        visit academics_signature_path(signature)
+      end
+
+      it 'redirect to the signature pending page' do
+        expect(page).to have_current_path academics_signatures_pending_path
+        expect(page).to have_flash(:warning, text: not_authorized_message)
       end
     end
   end

@@ -1,5 +1,6 @@
 class Professors::SignaturesController < Professors::BaseController
   before_action :set_signature, only: [:show, :confirm]
+  before_action :can_view, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
                  :professors_signatures_pending_path,
@@ -43,5 +44,11 @@ class Professors::SignaturesController < Professors::BaseController
   def signatures_by_status(status)
     signatures = Signature.by_professor_and_status(current_professor, status)
     @signatures = Signature.paginate_array(signatures, params[:page])
+  end
+
+  def can_view
+    return if @signature.can_view(current_professor, 'professor')
+    flash[:alert] = I18n.t('flash.not_authorized')
+    redirect_to professors_signatures_pending_path
   end
 end

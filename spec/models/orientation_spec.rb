@@ -115,7 +115,7 @@ RSpec.describe Orientation, type: :model do
           date: I18n.l(signature_signed.updated_at, format: :short),
           time: I18n.l(signature_signed.updated_at, format: :time) }
       ]
-      expect(orientation.signatures_mark).to eq(signatures_mark)
+      expect(orientation.signatures_mark).to eql(signatures_mark)
     end
   end
 

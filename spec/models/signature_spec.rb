@@ -15,6 +15,21 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#can_view' do
+    let(:professor) { create(:professor) }
+    let(:academic) { create(:academic) }
+    let(:orientation) { create(:orientation, advisor: professor) }
+    let(:signature) { create(:signature, orientation_id: orientation.id, user_id: professor.id) }
+
+    it 'returns true' do
+      expect(signature.can_view(professor, 'professor')).to eq(true)
+    end
+
+    it 'returns false' do
+      expect(signature.can_view(academic, 'academic')).to eq(false)
+    end
+  end
+
   describe '#by_professor_and_status' do
     let(:professor) { create(:professor) }
     let(:signature) { create(:signature, user_id: professor.id) }

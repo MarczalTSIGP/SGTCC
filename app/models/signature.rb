@@ -15,6 +15,10 @@ class Signature < ApplicationRecord
     save
   end
 
+  def can_view(user, type)
+    user.id == user_id && type == user_type
+  end
+
   def self.by_user_and_status(user, type, status)
     where(user_id: user.id, user_type: type, status: status).with_relationships
   end

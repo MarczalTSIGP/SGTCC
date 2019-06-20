@@ -13,7 +13,7 @@ describe 'Signature::show', type: :feature, js: true do
   describe '#show' do
     context 'when shows the pending signature of the term of commitment' do
       let!(:signature) do
-        create(:signature, orientation_id: orientation.id)
+        create(:signature, orientation_id: orientation.id, user_id: professor.id)
       end
 
       it 'shows the document of the term of commitment' do
@@ -61,6 +61,18 @@ describe 'Signature::show', type: :feature, js: true do
         end
         active_link = professors_signatures_signed_path
         expect(page).to have_selector("a[href='#{active_link}'].active")
+      end
+    end
+
+    context 'when the document signature cant be viewed' do
+      before do
+        academic_signature = create(:academic_signature)
+        visit professors_signature_path(academic_signature)
+      end
+
+      it 'redirect to the signature pending page' do
+        expect(page).to have_current_path professors_signatures_pending_path
+        expect(page).to have_flash(:warning, text: not_authorized_message)
       end
     end
   end
