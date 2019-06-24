@@ -23,7 +23,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def confirm
-    if @signature.confirm(Professor, 'username', params) && @signature.sign
+    if @signature.confirm_and_sign(Professor, 'username', params)
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
       render json: { message: message }
     else

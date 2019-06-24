@@ -24,7 +24,7 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   end
 
   def confirm
-    if @signature.confirm(ExternalMember, 'email', params) && @signature.sign
+    if @signature.confirm_and_sign(ExternalMember, 'email', params)
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
       render json: { message: message }
     else

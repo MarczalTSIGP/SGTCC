@@ -1,5 +1,6 @@
 class Signature < ApplicationRecord
   include KaminariHelper
+  include Confirmable
 
   belongs_to :orientation
   belongs_to :document
@@ -15,8 +16,8 @@ class Signature < ApplicationRecord
     save
   end
 
-  def confirm(class_name, login, params)
-    class_name.find_by("#{login}": params[:login])&.valid_password?(params[:password])
+  def confirm_and_sign(class_name, login, params)
+    confirm(class_name, login, params) && sign
   end
 
   def can_view(user, type)

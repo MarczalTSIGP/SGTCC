@@ -62,6 +62,23 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#confirm_and_sign' do
+    let!(:signature) { create(:signature) }
+    let!(:professor) { create(:professor) }
+    let(:params) { { login: professor.username, password: professor.password } }
+
+    it 'returns true for the confirm and sign' do
+      expect(signature.confirm_and_sign(Professor, 'username', params)). to eq(true)
+      expect(signature.status). to eq(true)
+    end
+
+    it 'returns false if the confirm and sign' do
+      params = { login: professor.username, password: '231' }
+      expect(signature.confirm_and_sign(Professor, 'username', params)). to eq(false)
+      expect(signature.status). to eq(false)
+    end
+  end
+
   describe '#can_view' do
     let(:professor) { create(:professor) }
     let(:academic) { create(:academic) }
