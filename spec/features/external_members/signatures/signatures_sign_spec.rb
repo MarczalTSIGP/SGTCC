@@ -3,8 +3,13 @@ require 'rails_helper'
 describe 'Signature::sign', type: :feature, js: true do
   let!(:orientation) { create(:orientation) }
   let(:external_member) { orientation.external_member_supervisors.first }
+  let(:document_type) { create(:document_type_tco) }
+  let(:document) { create(:document, document_type: document_type) }
   let!(:signature) do
-    create(:external_member_signature, orientation_id: orientation.id, user_id: external_member.id)
+    create(:external_member_signature,
+           document: document,
+           orientation_id: orientation.id,
+           user_id: external_member.id)
   end
 
   before do

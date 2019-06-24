@@ -5,6 +5,8 @@ describe 'Signature::show', type: :feature, js: true do
   let!(:external_member) { create(:external_member) }
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
+  let(:document_type) { create(:document_type_tco) }
+  let(:document) { create(:document, document_type: document_type) }
 
   before do
     login_as(academic, scope: :academic)
@@ -13,7 +15,10 @@ describe 'Signature::show', type: :feature, js: true do
   describe '#show' do
     context 'when shows the signature of the term of commitment' do
       let!(:signature) do
-        create(:academic_signature, orientation_id: orientation.id, user_id: academic.id)
+        create(:academic_signature,
+               document: document,
+               orientation_id: orientation.id,
+               user_id: academic.id)
       end
 
       it 'shows the document of the term of commitment' do
@@ -31,6 +36,7 @@ describe 'Signature::show', type: :feature, js: true do
     context 'when shows the signed signature of the term of commitment' do
       let!(:signature) do
         create(:academic_signature_signed,
+               document: document,
                orientation_id: orientation.id,
                user_id: academic.id)
       end

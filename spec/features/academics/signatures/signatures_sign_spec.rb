@@ -3,8 +3,13 @@ require 'rails_helper'
 describe 'Signature::sign', type: :feature, js: true do
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:orientation, academic: academic) }
+  let(:document_type) { create(:document_type_tco) }
+  let(:document) { create(:document, document_type: document_type) }
   let!(:signature) do
-    create(:academic_signature, orientation_id: orientation.id, user_id: academic.id)
+    create(:academic_signature,
+           document: document,
+           orientation_id: orientation.id,
+           user_id: academic.id)
   end
 
   before do

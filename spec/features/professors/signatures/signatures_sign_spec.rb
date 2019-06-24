@@ -3,7 +3,11 @@ require 'rails_helper'
 describe 'Signature::sign', type: :feature, js: true do
   let!(:advisor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor: advisor) }
-  let!(:signature) { create(:signature, orientation_id: orientation.id, user_id: advisor.id) }
+  let(:document_type) { create(:document_type_tco) }
+  let(:document) { create(:document, document_type: document_type) }
+  let!(:signature) do
+    create(:signature, orientation_id: orientation.id, user_id: advisor.id, document: document)
+  end
 
   before do
     login_as(advisor, scope: :professor)
