@@ -61,7 +61,8 @@ class Orientation < ApplicationRecord
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
 
   after_save do
-    Documents::SaveSignatures.new(self, DocumentType.first&.id).save
+    document_type = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
+    Documents::SaveSignatures.new(self, document_type&.id).save
   end
 
   after_update do

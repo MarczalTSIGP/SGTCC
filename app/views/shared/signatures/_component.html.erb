@@ -1,4 +1,4 @@
-<% if @signature.document.document_type.id == DocumentType.first&.id %>
+<% if @signature.term_of_commitment? %>
   <term-of-commitment
     orientation-title="<%= @signature.orientation.title %>"
     document-title="<%= @signature.document.document_type.name %>"
@@ -6,6 +6,7 @@
     :signed="<%= @signature.status %>"
     :academic="<%= @signature.orientation.academic.to_json %>"
     :advisor="<%= @signature.orientation.advisor.to_json %>"
+    :institution="<%= @signature.orientation.institution.to_json %>"
     :professor-supervisors="<%= @signature.orientation.professor_supervisors.to_json %>"
     :external-member-supervisors="<%= @signature.orientation.external_member_supervisors.to_json %>" />
 <% end %>

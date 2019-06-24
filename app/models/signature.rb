@@ -20,6 +20,10 @@ class Signature < ApplicationRecord
     confirm(class_name, login, params) && sign
   end
 
+  def term_of_commitment?
+    document.document_type.id == DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))&.id
+  end
+
   def can_view(user, type)
     user.id == user_id && type == user_type
   end

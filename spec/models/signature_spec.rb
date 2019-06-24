@@ -15,6 +15,21 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#term_of_commitement?' do
+    let(:document_type) { create(:document_type, name: I18n.t('signatures.documents.TCO')) }
+    let(:document) { create(:document, document_type: document_type) }
+    let(:signature_tco) { create(:signature, document: document) }
+    let(:signature) { create(:signature) }
+
+    it 'returns true' do
+      expect(signature_tco.term_of_commitment?).to eq(true)
+    end
+
+    it 'returns false' do
+      expect(signature.term_of_commitment?).to eq(false)
+    end
+  end
+
   describe '#confirm' do
     context 'when professor confirm' do
       let!(:signature) { create(:signature) }

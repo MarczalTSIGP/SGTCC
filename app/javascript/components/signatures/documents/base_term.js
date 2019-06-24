@@ -34,6 +34,11 @@ export default {
       required: true
     },
 
+    institution: {
+      type: Object,
+      required: false
+    },
+
     professorSupervisors: {
       type: Array,
       required: true

@@ -1,9 +1,32 @@
 <template>
   <div
     v-show="open"
-    class="card"
+    class="container card"
   >
-    <div class="card-body">
+    <div class="card-body w-80">
+      <div class="row mb-6">
+        <div class="col-3">
+          <img
+            src="../../../../assets/images/utfpr_logo.png"
+            :style="{ width: logoWidth + 'px', height: logoHeight + 'px' }"
+          >
+        </div>
+        <div class="col-9">
+          <p class="m-0">
+            Ministério da Educação
+          </p>
+          <p class="m-0">
+            Universidade Tecnológica Federal do Paraná
+          </p>
+          <p class="m-0">
+            Câmpus Guarapuava
+          </p>
+          <p class="m-0">
+            Curso Superior de Tecnologia em Sistemas para a Internet
+          </p>
+        </div>
+      </div>
+
       <div class="d-block w-80">
         <h2 class="text-center">
           {{ documentTitle }}
@@ -19,7 +42,6 @@
       <p> RA: {{ academic.ra }}</p>
       <p> Nome: {{ academic.name }}</p>
       <p> E-mail: {{ academic.email }}</p>
-
       <p> Tema: {{ orientationTitle }}</p>
 
       <div v-if="hasProfessorSupervisors()">
@@ -43,6 +65,11 @@
           Nome: {{ externalMemberSupervisor.name }}
         </p>
       </div>
+      <div v-if="hasInstitution()">
+        <p>
+          Instituição externa: {{ institution.trade_name }}
+        </p>
+      </div>
       <signature-mark
         :url="urlSignaturesMark"
       />
@@ -63,6 +90,8 @@ export default {
     return {
       open: true,
       signedDocument: false,
+      logoWidth: 260,
+      logoHeight: 120,
     };
   },
 
@@ -83,6 +112,10 @@ export default {
 
     hasExternalMemberSupervisors() {
       return this.externalMemberSupervisors.length > 0;
+    },
+
+    hasInstitution() {
+      return this.institution !== null;
     },
 
     onCloseTermOfCommitment() {

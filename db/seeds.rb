@@ -51,8 +51,8 @@ base_activity_types.each do |base_activity_type|
 end
 
 document_types = [
-  'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso',
-  'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
+  I18n.t('signatures.documents.TCO'),
+  I18n.t('signatures.documents.TCAE')
 ]
 
 document_types.each do |document_type|
