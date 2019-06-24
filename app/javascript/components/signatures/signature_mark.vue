@@ -1,17 +1,24 @@
 <template>
   <div>
+    <hr class="m-0">
     <div
       v-for="signature in signaturesMark"
       :key="signature.name"
       class="signature_mark"
     >
-      <hr>
-      <p>
-        Documento assinado eletronicamente por <strong>{{ signature.name }}</strong>,
-        em {{ signature.date }}, às {{ signature.time }}, conforme horário oficial de Brasília, com
-        fundamento no art. 6º, § 1º, do <u>Decreto nº 8.539, de 8 de outubro de 2015</u>.
-      </p>
-      <hr>
+      <div class="py-2">
+        <img
+          class="float-left mr-2"
+          src="../../../assets/images/sgtcc_signature.png"
+        >
+        <p>
+          Documento assinado eletronicamente por <strong>{{ signature.name }}</strong>,
+          em {{ signature.date }}, às {{ signature.time }}, conforme horário oficial de Brasília, com
+          fundamento no art. 6º, § 1º, do <u>Decreto nº 8.539, de 8 de outubro de 2015</u>.
+        </p>
+      </div>
+      <hr class="m-0">
+      <div class="clearfix" />
     </div>
   </div>
 </template>
