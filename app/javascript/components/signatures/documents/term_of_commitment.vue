@@ -70,6 +70,12 @@
           Instituição externa: {{ institution.trade_name }}
         </p>
       </div>
+      <div class="float-right">
+        <p>
+          Guarapuava, {{ orientationDate }}.
+        </p>
+      </div>
+      <div class="clearfix" />
       <signature-mark
         :url="urlSignaturesMark"
       />

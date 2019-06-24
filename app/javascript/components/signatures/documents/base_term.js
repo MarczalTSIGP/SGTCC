@@ -9,6 +9,11 @@ export default {
       required: true
     },
 
+    orientationDate: {
+      type: String,
+      required: true
+    },
+
     urlSignaturesMark: {
       type: String,
       required: true
