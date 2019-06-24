@@ -24,10 +24,7 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   end
 
   def confirm
-    valid_password = ExternalMember.find_by(email: params[:login])
-                                  &.valid_password?(params[:password])
-
-    if valid_password && @signature.sign
+    if @signature.confirm(ExternalMember, 'email', params) && @signature.sign
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
       render json: { message: message }
     else

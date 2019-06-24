@@ -15,6 +15,53 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#confirm' do
+    context 'when professor confirm' do
+      let!(:signature) { create(:signature) }
+      let!(:professor) { create(:professor) }
+      let(:params) { { login: professor.username, password: professor.password } }
+
+      it 'returns true if the professors login is correct' do
+        expect(signature.confirm(Professor, 'username', params)). to eq(true)
+      end
+
+      it 'returns false if the professors login is not correct' do
+        params = { login: professor.username, password: '231' }
+        expect(signature.confirm(Professor, 'username', params)). to eq(false)
+      end
+    end
+
+    context 'when academic confirm' do
+      let!(:signature) { create(:signature) }
+      let!(:academic) { create(:academic) }
+      let(:params) { { login: academic.ra, password: academic.password } }
+
+      it 'returns true if the academics login is correct' do
+        expect(signature.confirm(Academic, 'ra', params)). to eq(true)
+      end
+
+      it 'returns false if the academics login is not correct' do
+        params = { login: academic.ra, password: '231' }
+        expect(signature.confirm(Academic, 'ra', params)). to eq(false)
+      end
+    end
+
+    context 'when external member confirm' do
+      let!(:signature) { create(:signature) }
+      let!(:external_member) { create(:external_member) }
+      let(:params) { { login: external_member.email, password: external_member.password } }
+
+      it 'returns true if the external member login is correct' do
+        expect(signature.confirm(ExternalMember, 'email', params)). to eq(true)
+      end
+
+      it 'returns false if the external member login is not correct' do
+        params = { login: external_member.email, password: '231' }
+        expect(signature.confirm(ExternalMember, 'email', params)). to eq(false)
+      end
+    end
+  end
+
   describe '#can_view' do
     let(:professor) { create(:professor) }
     let(:academic) { create(:academic) }

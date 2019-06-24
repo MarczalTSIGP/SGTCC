@@ -15,6 +15,10 @@ class Signature < ApplicationRecord
     save
   end
 
+  def confirm(class_name, login, params)
+    class_name.find_by("#{login}": params[:login])&.valid_password?(params[:password])
+  end
+
   def can_view(user, type)
     user.id == user_id && type == user_type
   end

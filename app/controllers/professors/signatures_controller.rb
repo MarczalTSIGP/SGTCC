@@ -23,10 +23,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def confirm
-    valid_password = Professor.find_by(username: params[:login])
-                             &.valid_password?(params[:password])
-
-    if valid_password && @signature.sign
+    if @signature.confirm(Professor, 'username', params) && @signature.sign
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
       render json: { message: message }
     else
