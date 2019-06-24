@@ -1,4 +1,5 @@
 class Academics::SignaturesController < Academics::BaseController
+  include SignatureConfirm
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
@@ -23,13 +24,7 @@ class Academics::SignaturesController < Academics::BaseController
   end
 
   def confirm
-    if @signature.confirm_and_sign(Academic, 'ra', params)
-      message = I18n.t('json.messages.orientation.signatures.confirm.success')
-      render json: { message: message }
-    else
-      message = I18n.t('json.messages.orientation.signatures.confirm.error')
-      render json: { message: message, status: :internal_server_error }
-    end
+    confirm_and_sign(Academic, 'ra')
   end
 
   private
