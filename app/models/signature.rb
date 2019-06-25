@@ -33,14 +33,14 @@ class Signature < ApplicationRecord
   end
 
   def self.by_professor_and_status(professor, status)
-    by_user_and_status(professor, 'P', status)
+    by_user_and_status(professor, user_types[:professor], status)
   end
 
   def self.by_academic_and_status(academic, status)
-    by_user_and_status(academic, 'A', status)
+    by_user_and_status(academic, user_types[:academic], status)
   end
 
   def self.by_external_member_and_status(external_member, status)
-    by_user_and_status(external_member, 'E', status)
+    by_user_and_status(external_member, user_types[:external_member], status)
   end
 end

@@ -1,7 +1,7 @@
 <% if @signature.term_of_commitment? %>
   <term-of-commitment
     orientation-title="<%= @signature.orientation.title %>"
-    orientation-date="<%= l(@signature.orientation.created_at, format: :document) %>"
+    orientation-date="<%= document_date(@signature.orientation.created_at) %>"
     document-title="<%= @signature.document.document_type.name %>"
     url-signatures-mark="<%= signatures_mark_path(@signature) %>"
     :signed="<%= @signature.status %>"
