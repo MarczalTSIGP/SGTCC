@@ -17,13 +17,12 @@ class Documents::SaveSignatures
 
   def create_signatures
     @signature_users.each do |user_id, user_type|
-      term_of_commitment = Signature.new(
+      Signature.new(
         orientation_id: @orientation.id,
         document_id: @document_id,
         user_id: user_id,
         user_type: user_type
-      )
-      term_of_commitment.save
+      ).save
     end
   end
 
