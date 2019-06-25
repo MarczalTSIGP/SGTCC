@@ -39,6 +39,11 @@ export default {
       required: true
     },
 
+    advisorLabel: {
+      type: String,
+      required: true
+    },
+
     institution: {
       type: Object,
       required: false

@@ -34,7 +34,7 @@
       </div>
 
       <p>
-        Eu, {{ advisor.name }} professor(a) desta instituição,
+        Eu, <b>{{ advisor.name }}</b>, {{ advisorLabel }} desta instituição,
         declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
         de conclusão de curso do acadêmico:
       </p>

@@ -4,6 +4,7 @@
     orientation-date="<%= document_date(@signature.orientation.created_at) %>"
     document-title="<%= @signature.document.document_type.name %>"
     url-signatures-mark="<%= signatures_mark_path(@signature) %>"
+    advisor-label="<%= t("signatures.advisor.labels.#{@signature.orientation.advisor.gender}") %>"
     :signed="<%= @signature.status %>"
     :academic="<%= @signature.orientation.academic.to_json %>"
     :advisor="<%= @signature.orientation.advisor.to_json %>"

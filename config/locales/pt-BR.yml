@@ -363,6 +363,10 @@ pt-BR:
         register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
         login: 'Para realizar o login no sistema clique no link abaixo'
   signatures:
+    advisor:
+      labels:
+        male: 'professor'
+        female: 'professora'
     users:
       roles:
         academic: 'Acadêmico(a)'
