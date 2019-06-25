@@ -39,7 +39,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def can_view
-    return if @signature.can_view(current_professor, 'professor')
+    return if @signature.professor_can_view(current_professor)
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_signatures_pending_path
   end

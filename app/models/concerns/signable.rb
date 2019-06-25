@@ -4,28 +4,29 @@ module Signable
   extend ActiveSupport::Concern
 
   included do
-    def signed_signatures
-      signatures.where(status: true)
-    end
-
     def signatures_mark
       signed_signatures.map do |signature|
-        user = select_user(signature)
-        add_signature(user.name, signature.updated_at)
+        add_signature(select_user(signature).name, signature.updated_at, signature.user_type)
       end
     end
 
     private
 
-    def add_signature(name, datetime)
-      { name: name, date: I18n.l(datetime, format: :short), time: I18n.l(datetime, format: :time) }
+    def add_signature(name, datetime, user_type)
+      { name: name,
+        role: I18n.t("signatures.users.roles.#{user_type}"),
+        date: I18n.l(datetime, format: :short),
+        time: I18n.l(datetime, format: :time) }
     end
 
     def select_user(signature)
-      user_id = signature.user_id
       return signature.orientation.academic if signature.user_type == 'academic'
-      return select_professor(signature) if signature.user_type == 'professor'
-      signature.orientation.external_member_supervisors.find_by(id: user_id)
+      return select_professor(signature) if professor_user?(signature.user_type)
+      signature.orientation.external_member_supervisors.find_by(id: signature.user_id)
+    end
+
+    def professor_user?(user_type)
+      user_type.include?('professor_supervisor') || user_type.include?('advisor')
     end
 
     def select_professor(signature)

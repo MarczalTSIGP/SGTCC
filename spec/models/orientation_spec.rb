@@ -103,15 +103,19 @@ RSpec.describe Orientation, type: :model do
     it 'returns the signatures mark' do
       signatures_mark = [
         { name: supervisor.name,
+          role: I18n.t("signatures.users.roles.#{professor_signature_signed.user_type}"),
           date: I18n.l(professor_signature_signed.updated_at, format: :short),
           time: I18n.l(professor_signature_signed.updated_at, format: :time) },
         { name: external_member.name,
+          role: I18n.t("signatures.users.roles.#{external_member_signature_signed.user_type}"),
           date: I18n.l(external_member_signature_signed.updated_at, format: :short),
           time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
         { name: academic.name,
+          role: I18n.t("signatures.users.roles.#{academic_signature_signed.user_type}"),
           date: I18n.l(academic_signature_signed.updated_at, format: :short),
           time: I18n.l(academic_signature_signed.updated_at, format: :time) },
         { name: professor.name,
+          role: I18n.t("signatures.users.roles.#{signature_signed.user_type}"),
           date: I18n.l(signature_signed.updated_at, format: :short),
           time: I18n.l(signature_signed.updated_at, format: :time) }
       ]

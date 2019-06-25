@@ -77,8 +77,12 @@ module Helpers
       I18n.t('json.messages.orientation.signatures.confirm.error')
     end
 
-    def signature_register(name, date, time)
-      I18n.t('signatures.register', name: name, date: date, time: time)
+    def signature_register(name, role, date, time)
+      I18n.t('signatures.register', name: name, role: role, date: date, time: time)
+    end
+
+    def signature_role(user_type)
+      I18n.t("signatures.users.roles.#{user_type}")
     end
   end
 end

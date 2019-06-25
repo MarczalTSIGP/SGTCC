@@ -17,8 +17,7 @@ class Orientation < ApplicationRecord
   belongs_to :advisor, class_name: 'Professor', inverse_of: :orientations
   belongs_to :institution, optional: true
 
-  has_many :orientation_supervisors,
-           dependent: :delete_all
+  has_many :orientation_supervisors, dependent: :delete_all
 
   has_many :signatures, dependent: :destroy
 
@@ -74,8 +73,7 @@ class Orientation < ApplicationRecord
   end
 
   def validates_supervisor_ids
-    advisor_is_supervisor = professor_supervisor_ids.include?(advisor_id)
-    return true unless advisor_is_supervisor
+    return true unless professor_supervisor_ids.include?(advisor_id)
     message = I18n.t('activerecord.errors.models.orientation.attributes.supervisors.advisor',
                      advisor: advisor.name)
     errors.add(:professor_supervisors, message)
@@ -122,5 +120,9 @@ class Orientation < ApplicationRecord
 
   def calendar_tcc_two?
     calendar.tcc == 'two'
+  end
+
+  def signed_signatures
+    signatures.where(status: true)
   end
 end

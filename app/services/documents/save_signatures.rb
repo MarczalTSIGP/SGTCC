@@ -41,22 +41,22 @@ class Documents::SaveSignatures
   end
 
   def add_academic
-    @signature_users.push([@orientation.academic.id, 'A'])
+    @signature_users.push([@orientation.academic.id, 'AC'])
   end
 
   def add_advisor
-    @signature_users.push([@orientation.advisor.id, 'P'])
+    @signature_users.push([@orientation.advisor.id, 'AD'])
   end
 
   def add_professor_supervisors
     @orientation.professor_supervisors.each do |professor_supervisor|
-      @signature_users.push([professor_supervisor.id, 'P'])
+      @signature_users.push([professor_supervisor.id, 'PS'])
     end
   end
 
   def add_external_member_supervisors
     @orientation.external_member_supervisors.each do |external_member_supervisor|
-      @signature_users.push([external_member_supervisor.id, 'E'])
+      @signature_users.push([external_member_supervisor.id, 'ES'])
     end
   end
 end

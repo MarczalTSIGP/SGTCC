@@ -363,9 +363,15 @@ pt-BR:
         register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
         login: 'Para realizar o login no sistema clique no link abaixo'
   signatures:
+    users:
+      roles:
+        academic: 'Acadêmico(a)'
+        advisor: 'Orientador(a)'
+        professor_supervisor: 'Coorientador(a) da UTFPR'
+        external_member_supervisor: 'Coorientador(a) externo(a)'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAE: 'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
-    register: 'Documento assinado eletronicamente por %{name}, em %{date}, às %{time}, conforme
+    register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015.'

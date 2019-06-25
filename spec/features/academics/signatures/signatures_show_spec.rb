@@ -59,13 +59,15 @@ describe 'Signature::show', type: :feature, js: true do
         academic = orientation.academic
         expect(page).to have_contents([orientation.title,
                                        orientation.advisor.name,
+                                       signature_role(signature.user_type),
                                        document_date(orientation.created_at),
                                        academic.name,
                                        academic.email,
                                        academic.ra])
         orientation.signatures_mark.each do |signature|
           expect(page).to have_content(
-            signature_register(signature[:name], signature[:date], signature[:time])
+            signature_register(signature[:name], signature[:role],
+                               signature[:date], signature[:time])
           )
         end
         active_link = academics_signatures_signed_path

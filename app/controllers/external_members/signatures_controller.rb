@@ -35,7 +35,7 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   end
 
   def can_view
-    return if @signature.can_view(current_external_member, 'external_member')
+    return if @signature.can_view(current_external_member, 'external_member_supervisor')
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to external_members_signatures_pending_path
   end

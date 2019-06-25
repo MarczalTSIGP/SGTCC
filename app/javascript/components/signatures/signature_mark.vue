@@ -12,7 +12,7 @@
           src="../../../assets/images/sgtcc_signature.png"
         >
         <p>
-          Documento assinado eletronicamente por <strong>{{ signature.name }}</strong>,
+          Documento assinado eletronicamente por <strong>{{ signature.name }}, {{ signature.role }},</strong>
           em {{ signature.date }}, às {{ signature.time }}, conforme horário oficial de Brasília, com
           fundamento no art. 6º, § 1º, do <u>Decreto nº 8.539, de 8 de outubro de 2015</u>.
         </p>

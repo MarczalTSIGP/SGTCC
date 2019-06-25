@@ -28,7 +28,8 @@ describe 'Signature::sign', type: :feature, js: true do
         signature.reload
         date = I18n.l(signature.updated_at, format: :short)
         time = I18n.l(signature.updated_at, format: :time)
-        expect(page).to have_content(signature_register(external_member.name, date, time))
+        role = signature_role(signature.user_type)
+        expect(page).to have_content(signature_register(external_member.name, role, date, time))
       end
     end
 

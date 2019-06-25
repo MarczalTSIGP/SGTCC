@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_182041) do
     t.bigint "orientation_id"
     t.bigint "document_id"
     t.integer "user_id"
-    t.string "user_type", limit: 1
+    t.string "user_type", limit: 2
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
