@@ -9,6 +9,7 @@
     :academic="<%= @signature.orientation.academic.to_json %>"
     :advisor="<%= @signature.orientation.advisor.to_json %>"
     :institution="<%= @signature.orientation.institution.to_json %>"
+    :institution-responsible="<%= @signature.orientation.institution&.external_member.to_json %>"
     :professor-supervisors="<%= @signature.orientation.professor_supervisors.to_json %>"
     :external-member-supervisors="<%= @signature.orientation.external_member_supervisors.to_json %>" />
 <% end %>
