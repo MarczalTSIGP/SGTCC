@@ -114,6 +114,10 @@ class Orientation < ApplicationRecord
     signatures.where(status: true).empty?
   end
 
+  def can_be_destroyed?
+    signatures.where(status: true).count < signatures.count
+  end
+
   def calendar_tcc_one?
     calendar.tcc == 'one'
   end

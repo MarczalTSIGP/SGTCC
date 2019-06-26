@@ -312,6 +312,8 @@ pt-BR:
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
     orientation:
+      destroy:
+        signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
   json:

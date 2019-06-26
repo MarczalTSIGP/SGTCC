@@ -9,11 +9,13 @@
         <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
       <% end %>
     <% end %>
-    <%= link_to responsible_orientation_path(orientation),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% if orientation.can_be_destroyed? %>
+      <%= link_to responsible_orientation_path(orientation),
+        method: :delete,
+        data: { confirm: t('prompt.confirm') },
+        class: 'destroy' do %>
+        <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+      <% end %>
     <% end %>
   </td>
 </tr>

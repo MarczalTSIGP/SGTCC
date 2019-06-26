@@ -95,6 +95,26 @@ RSpec.describe Orientation, type: :model do
       create(:signature_signed, orientation_id: orientation.id, user_id: supervisor.id)
     end
 
+    let(:roles) do
+      'signatures.users.roles'
+    end
+
+    let(:supervisor_role) do
+      I18n.t("#{roles}.#{supervisor.gender}.#{professor_signature_signed.user_type}")
+    end
+
+    let(:external_member_role) do
+      I18n.t("#{roles}.#{external_member.gender}.#{external_member_signature_signed.user_type}")
+    end
+
+    let(:academic_role) do
+      I18n.t("#{roles}.#{academic.gender}.#{academic_signature_signed.user_type}")
+    end
+
+    let(:professor_role) do
+      I18n.t("#{roles}.#{professor.gender}.#{signature_signed.user_type}")
+    end
+
     before do
       orientation.external_member_supervisors << external_member
       orientation.professor_supervisors << supervisor
@@ -103,19 +123,19 @@ RSpec.describe Orientation, type: :model do
     it 'returns the signatures mark' do
       signatures_mark = [
         { name: supervisor.name,
-          role: I18n.t("signatures.users.roles.#{professor_signature_signed.user_type}"),
+          role: supervisor_role,
           date: I18n.l(professor_signature_signed.updated_at, format: :short),
           time: I18n.l(professor_signature_signed.updated_at, format: :time) },
         { name: external_member.name,
-          role: I18n.t("signatures.users.roles.#{external_member_signature_signed.user_type}"),
+          role: external_member_role,
           date: I18n.l(external_member_signature_signed.updated_at, format: :short),
           time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
         { name: academic.name,
-          role: I18n.t("signatures.users.roles.#{academic_signature_signed.user_type}"),
+          role: academic_role,
           date: I18n.l(academic_signature_signed.updated_at, format: :short),
           time: I18n.l(academic_signature_signed.updated_at, format: :time) },
         { name: professor.name,
-          role: I18n.t("signatures.users.roles.#{signature_signed.user_type}"),
+          role: professor_role,
           date: I18n.l(signature_signed.updated_at, format: :short),
           time: I18n.l(signature_signed.updated_at, format: :time) }
       ]
@@ -211,6 +231,22 @@ RSpec.describe Orientation, type: :model do
       orientation = create(:orientation_tcc_one)
       orientation.signatures << signature
       expect(orientation.can_be_edited?).to eq(false)
+    end
+  end
+
+  describe '#can_be_destroyed?' do
+    it 'returns true' do
+      signature = create(:signature, status: false)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_destroyed?).to eq(true)
+    end
+
+    it 'returns false' do
+      signature = create(:signature, status: true)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_destroyed?).to eq(false)
     end
   end
 
