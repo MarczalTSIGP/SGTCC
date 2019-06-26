@@ -6,17 +6,16 @@ module Signable
   included do
     def signatures_mark
       signed_signatures.map do |signature|
-        add_signature(select_user(signature).name, signature.updated_at, signature.user_type)
+        user = select_user(signature)
+        add_signature(user.name, signature.updated_at, user.gender, signature.user_type)
       end
     end
 
     private
 
-    def add_signature(name, datetime, user_type)
-      { name: name,
-        role: I18n.t("signatures.users.roles.#{user_type}"),
-        date: I18n.l(datetime, format: :short),
-        time: I18n.l(datetime, format: :time) }
+    def add_signature(name, datetime, user_gender, user_type)
+      { name: name, role: I18n.t("signatures.users.roles.#{user_gender}.#{user_type}"),
+        date: I18n.l(datetime, format: :short), time: I18n.l(datetime, format: :time) }
     end
 
     def select_user(signature)

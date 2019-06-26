@@ -369,10 +369,16 @@ pt-BR:
         female: 'professora'
     users:
       roles:
-        academic: 'Acadêmico(a)'
-        advisor: 'Orientador(a)'
-        professor_supervisor: 'Coorientador(a) da UTFPR'
-        external_member_supervisor: 'Coorientador(a) externo(a)'
+        male:
+          academic: 'Acadêmico'
+          advisor: 'Orientador'
+          professor_supervisor: 'Coorientador da UTFPR'
+          external_member_supervisor: 'Coorientador externo'
+        female:
+          academic: 'Acadêmica'
+          advisor: 'Orientadora'
+          professor_supervisor: 'Coorientadora da UTFPR'
+          external_member_supervisor: 'Coorientadora externa'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAE: 'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
