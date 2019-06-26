@@ -32,9 +32,9 @@
         class="d-block w-80"
         :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }"
       >
-        <h2 class="text-center">
-          {{ documentTitle }}
-        </h2>
+        <h4 class="text-center">
+          {{ documentTitle.toUpperCase() }}
+        </h4>
       </div>
 
       <p>
