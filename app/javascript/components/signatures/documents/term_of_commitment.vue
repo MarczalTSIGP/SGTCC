@@ -3,7 +3,7 @@
     v-show="open"
     class="container card"
   >
-    <div class="card-body w-80">
+    <div class="card-body signature-document w-80">
       <div class="row mb-6">
         <div class="col-md-4 col-sm-12">
           <img
