@@ -55,7 +55,7 @@
 import sweetAlert from '../shared/helpers/sweet_alert';
 
 export default {
-  name: 'LoginConfirmation',
+  name: 'SignatuerConfirm',
 
   mixins: [sweetAlert],
 

@@ -9,7 +9,7 @@
       <div class="py-4">
         <img
           class="float-left mr-2"
-          src="../../../assets/images/sgtcc_signature.png"
+          src="./documents/assets/images/sgtcc_signature.png"
           :style="{ width: imageWidth + 'px' }"
         >
         <p>
