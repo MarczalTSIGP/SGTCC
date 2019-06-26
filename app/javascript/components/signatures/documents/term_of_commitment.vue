@@ -24,7 +24,7 @@
               Câmpus Guarapuava
             </p>
             <p class="m-0">
-              Curso Superior de Tecnologia em Sistemas para a Internet
+              Curso Superior de Tecnologia em Sistemas para Internet
             </p>
           </div>
         </div>
@@ -39,15 +39,9 @@
         </div>
 
         <p>
-          Eu, <b>{{ advisor.name }}</b>, {{ advisorLabel }} desta instituição,
+          Eu, <b>{{ advisorScholarity.abbr }} {{ advisor.name }}</b>, {{ advisorLabel }} desta instituição,
           declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
-          de conclusão de curso do acadêmico:
-        </p>
-
-        <p>
-          Nome: <b>{{ academic.name }}</b><br>
-          RA: {{ academic.ra }}<br>
-          E-mail: {{ academic.email }}
+          de conclusão de curso do acadêmico <b>{{ academic.name }}</b>, RA {{ academic.ra }}.
         </p>
 
         <p>
@@ -56,38 +50,43 @@
 
         <div v-if="hasProfessorSupervisors()">
           <p>
-            <b>{{ professorSupervisorLabel }}:</b> <br><br>
+            <b>{{ professorSupervisorLabel }}:</b> <br>
             <span
               v-for="professorSupervisor in professorSupervisors"
               :key="professorSupervisor.id"
+              class="ml-4"
             >
-              Nome: {{ professorSupervisor.name }} <br>
+              {{ professorSupervisor.name }} <br>
             </span>
           </p>
         </div>
 
-        <br>
         <div v-if="hasExternalMemberSupervisors()">
           <p>
-            <b>{{ externalMemberSupervisorLabel }}:</b> <br><br>
+            <b>{{ externalMemberSupervisorLabel }}:</b> <br>
             <span
               v-for="externalMemberSupervisor in externalMemberSupervisors"
               :key="externalMemberSupervisor.id"
+              class="ml-4"
             >
-              Nome: {{ externalMemberSupervisor.name }} <br>
+              {{ externalMemberSupervisor.name }} <br>
             </span>
           </p>
         </div>
-        <br>
+
         <div v-if="hasInstitution()">
           <p>
-            <b>Instituição externa:</b> <br><br>
-            Nome fantasia: {{ institution.trade_name }}<br>
-            Nome do responsável: {{ institutionResponsible.name }}
+            <b>TCC Desenvolvido em Parceria com a Instituição:</b> <br>
+            <span class="ml-4">
+              Nome fantasia: {{ institution.trade_name }}
+            </span><br>
+            <span class="ml-4">
+              Responsável: {{ institutionResponsible.name }}
+            </span><br>
           </p>
         </div>
         <div class="float-right">
-          <p>
+          <p :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }">
             Guarapuava, {{ orientationDate }}.
           </p>
         </div>

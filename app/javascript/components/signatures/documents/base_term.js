@@ -44,6 +44,11 @@ export default {
       required: true
     },
 
+    advisorScholarity: {
+      type: Object,
+      required: true
+    },
+
     institution: {
       type: Object,
       required: false
