@@ -43,35 +43,43 @@
         de conclusão de curso do acadêmico:
       </p>
 
-      <p> RA: {{ academic.ra }}</p>
-      <p> Nome: {{ academic.name }}</p>
-      <p> E-mail: {{ academic.email }}</p>
-      <p> Tema: {{ orientationTitle }}</p>
+      <p>
+        Nome: {{ academic.name }}<br>
+        RA: {{ academic.ra }}<br>
+        E-mail: {{ academic.email }}
+      </p>
+
+      <p>
+        Tema: <b>{{ orientationTitle }}</b>
+      </p>
 
       <div v-if="hasProfessorSupervisors()">
-        <p> Coorientadores da UTFPR: </p>
-
-        <p
-          v-for="professorSupervisor in professorSupervisors"
-          :key="professorSupervisor.id"
-        >
-          Nome: {{ professorSupervisor.name }}
+        <p>
+          <b>{{ professorSupervisorLabel }}:</b> <br>
+          <span
+            v-for="professorSupervisor in professorSupervisors"
+            :key="professorSupervisor.id"
+          >
+            Nome: {{ professorSupervisor.name }} <br>
+          </span>
         </p>
       </div>
 
       <div v-if="hasExternalMemberSupervisors()">
-        <p> Coorientadores externos: </p>
-
-        <p
-          v-for="externalMemberSupervisor in externalMemberSupervisors"
-          :key="externalMemberSupervisor.id"
-        >
-          Nome: {{ externalMemberSupervisor.name }}
+        <p>
+          <b>{{ externalMemberSupervisorLabel }}:</b> <br>
+          <span
+            v-for="externalMemberSupervisor in externalMemberSupervisors"
+            :key="externalMemberSupervisor.id"
+          >
+            Nome: {{ externalMemberSupervisor.name }} <br>
+          </span>
         </p>
       </div>
       <div v-if="hasInstitution()">
         <p>
-          Instituição externa: {{ institution.trade_name }}
+          <b>Instituição externa:</b> <br>
+          {{ institution.trade_name }}
         </p>
       </div>
       <div class="float-right">
@@ -102,6 +110,20 @@ export default {
       signedDocument: false,
       marginTitle: 50,
     };
+  },
+
+  computed: {
+    externalMemberSupervisorLabel() {
+      return this.externalMemberSupervisors.length === 1
+        ? 'Coorientador externo'
+        : 'Coorientadores externos';
+    },
+
+    professorSupervisorLabel() {
+      return this.professorSupervisors.length === 1
+        ? 'Coorientador da UTFPR'
+        : 'Coorientadores da UTFPR';
+    },
   },
 
   mounted() {
