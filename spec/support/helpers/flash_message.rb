@@ -85,8 +85,8 @@ module Helpers
       I18n.t('signatures.register', name: name, role: role, date: date, time: time)
     end
 
-    def signature_role(user_type)
-      I18n.t("signatures.users.roles.#{user_type}")
+    def signature_role(user_gender, user_type)
+      I18n.t("signatures.users.roles.#{user_gender}.#{user_type}")
     end
   end
 end

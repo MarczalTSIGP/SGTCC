@@ -39,4 +39,12 @@ class Academic < ApplicationRecord
   def current_orientation_tcc_two
     current_orientation_by_calendar(Calendar.current_by_tcc_two)
   end
+
+  def signatures_pending
+    Signature.by_academic_and_status(self, false)
+  end
+
+  def signatures_signed
+    Signature.by_academic_and_status(self, true)
+  end
 end

@@ -12,11 +12,11 @@ class Academics::SignaturesController < Academics::BaseController
                  only: :signed
 
   def pending
-    signatures_by_status(false)
+    paginate_signatures(current_academic.signatures_pending)
   end
 
   def signed
-    signatures_by_status(true)
+    paginate_signatures(current_academic.signatures_signed)
   end
 
   def show
@@ -39,8 +39,7 @@ class Academics::SignaturesController < Academics::BaseController
     redirect_to academics_signatures_pending_path
   end
 
-  def signatures_by_status(status)
-    signatures = Signature.by_academic_and_status(current_academic, status)
+  def paginate_signatures(signatures)
     @signatures = Signature.paginate_array(signatures, params[:page])
   end
 end

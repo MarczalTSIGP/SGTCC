@@ -55,4 +55,12 @@ class ExternalMember < ApplicationRecord
   def current_supervision_tcc_two
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
   end
+
+  def signatures_pending
+    Signature.by_external_member_and_status(self, false)
+  end
+
+  def signatures_signed
+    Signature.by_external_member_and_status(self, true)
+  end
 end

@@ -58,4 +58,12 @@ class Professor < ApplicationRecord
   def role?(identifier)
     roles.where(identifier: identifier).any?
   end
+
+  def signatures_pending
+    Signature.by_professor_and_status(self, false)
+  end
+
+  def signatures_signed
+    Signature.by_professor_and_status(self, true)
+  end
 end

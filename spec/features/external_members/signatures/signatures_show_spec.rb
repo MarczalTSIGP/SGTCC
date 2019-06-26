@@ -61,7 +61,7 @@ describe 'Signature::show', type: :feature, js: true do
         academic = orientation.academic
         expect(page).to have_contents([orientation.title,
                                        orientation.advisor.name,
-                                       signature_role(signature.user_type),
+                                       signature_role(external_member.gender, signature.user_type),
                                        document_date(orientation.created_at),
                                        academic.name,
                                        academic.email,
