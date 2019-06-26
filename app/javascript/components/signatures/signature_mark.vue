@@ -6,10 +6,11 @@
       :key="signature.name"
       class="signature_mark"
     >
-      <div class="py-2">
+      <div class="py-4">
         <img
           class="float-left mr-2"
           src="../../../assets/images/sgtcc_signature.png"
+          :style="{ width: imageWidth + 'px' }"
         >
         <p>
           Documento assinado eletronicamente por <strong>{{ signature.name }}, {{ signature.role }},</strong>
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       signaturesMark: [],
+      imageWidth: 100,
     };
   },
 
