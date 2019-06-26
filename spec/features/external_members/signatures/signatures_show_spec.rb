@@ -29,7 +29,6 @@ describe 'Signature::show', type: :feature, js: true do
                                        orientation.advisor.name,
                                        document_date(orientation.created_at),
                                        academic.name,
-                                       academic.email,
                                        academic.ra])
         active_link = external_members_signatures_pending_path
         expect(page).to have_selector("a[href='#{active_link}'].active")
@@ -64,7 +63,6 @@ describe 'Signature::show', type: :feature, js: true do
                                        signature_role(external_member.gender, signature.user_type),
                                        document_date(orientation.created_at),
                                        academic.name,
-                                       academic.email,
                                        academic.ra])
         orientation.signatures_mark.each do |signature|
           expect(page).to have_content(

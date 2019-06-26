@@ -5,7 +5,7 @@ module Signable
 
   included do
     def signatures_mark
-      signed_signatures.map do |signature|
+      signatures.where(status: true).map do |signature|
         user = select_user(signature)
         add_signature(user.name, signature.updated_at, user.gender, signature.user_type)
       end

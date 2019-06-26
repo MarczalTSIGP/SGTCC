@@ -125,8 +125,4 @@ class Orientation < ApplicationRecord
   def calendar_tcc_two?
     calendar.tcc == 'two'
   end
-
-  def signed_signatures
-    signatures.where(status: true)
-  end
 end

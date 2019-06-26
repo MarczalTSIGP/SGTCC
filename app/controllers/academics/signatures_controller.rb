@@ -1,5 +1,5 @@
 class Academics::SignaturesController < Academics::BaseController
-  include SignatureConfirm
+  include SignatureHelper
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
@@ -37,9 +37,5 @@ class Academics::SignaturesController < Academics::BaseController
     return if @signature.can_view(current_academic, 'academic')
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to academics_signatures_pending_path
-  end
-
-  def paginate_signatures(signatures)
-    @signatures = Signature.paginate_array(signatures, params[:page])
   end
 end

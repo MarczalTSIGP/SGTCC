@@ -1,5 +1,5 @@
 class Professors::SignaturesController < Professors::BaseController
-  include SignatureConfirm
+  include SignatureHelper
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
@@ -31,10 +31,6 @@ class Professors::SignaturesController < Professors::BaseController
 
   def set_signature
     @signature = Signature.find(params[:id])
-  end
-
-  def paginate_signatures(signatures)
-    @signatures = Signature.paginate_array(signatures, params[:page])
   end
 
   def can_view

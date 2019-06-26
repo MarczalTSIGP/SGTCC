@@ -127,4 +127,24 @@ RSpec.describe ExternalMember, type: :model do
       expect(external_member.current_supervision_tcc_two).to eq(current_supervision)
     end
   end
+
+  describe '#signatures_signed' do
+    let(:external_member) { create(:external_member) }
+    let(:signature) { create(:signature_signed, user_id: external_member.id) }
+
+    it 'returns the signed signatures' do
+      signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: true)
+      expect(external_member.signatures_signed).to eq(signatures)
+    end
+  end
+
+  describe '#signatures_pending' do
+    let(:external_member) { create(:external_member) }
+    let(:signature) { create(:signature, user_id: external_member.id) }
+
+    it 'returns the pending signatures' do
+      signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: false)
+      expect(external_member.signatures_pending).to eq(signatures)
+    end
+  end
 end

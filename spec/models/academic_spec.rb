@@ -114,4 +114,24 @@ RSpec.describe Academic, type: :model do
       end
     end
   end
+
+  describe '#signatures_signed' do
+    let(:academic) { create(:academic) }
+    let(:signature) { create(:signature_signed, user_id: academic.id) }
+
+    it 'returns the signed signatures' do
+      signatures = Signature.where(user_id: academic.id, user_type: 'AC', status: true)
+      expect(academic.signatures_signed).to eq(signatures)
+    end
+  end
+
+  describe '#signatures_pending' do
+    let(:academic) { create(:academic) }
+    let(:signature) { create(:signature, user_id: academic.id) }
+
+    it 'returns the pending signatures' do
+      signatures = Signature.where(user_id: academic.id, user_type: 'AC', status: false)
+      expect(academic.signatures_pending).to eq(signatures)
+    end
+  end
 end

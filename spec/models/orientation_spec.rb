@@ -63,15 +63,6 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '#signed_signatures?' do
-    it 'returns the signed signatures' do
-      orientation = create(:orientation)
-      create(:signature_signed, orientation_id: orientation.id)
-      signed_signatures = orientation.signatures.where(status: true)
-      expect(orientation.signed_signatures).to eq(signed_signatures)
-    end
-  end
-
   describe '#signatures_mark' do
     let!(:professor) { create(:professor) }
     let!(:supervisor) { create(:professor) }
