@@ -22,7 +22,7 @@ pt-BR:
       select: 'Selecionar'
       save: 'Salvar'
       cancel: 'Cancelar'
-      confirm: 'Confirmar'
+      sign: 'Assinar'
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
@@ -378,4 +378,4 @@ pt-BR:
       TCAE: 'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
-      8 de outubro de 2015.'
+      8 de outubro de 2015 .'

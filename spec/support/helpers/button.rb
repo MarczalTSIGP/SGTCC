@@ -24,8 +24,8 @@ module Helpers
       I18n.t('views.buttons.cancel')
     end
 
-    def confirm_button
-      I18n.t('views.buttons.confirm')
+    def sign_button
+      I18n.t('views.buttons.sign')
     end
 
     def click_on_label(name, options = {})

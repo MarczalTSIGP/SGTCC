@@ -5,9 +5,9 @@
   >
     <div class="card-body p-6 border border-secondary rounded">
       <div class="card-title">
-        <h4 class="text-center">
-          Confirmar login
-        </h4>
+        <h5 class="text-center">
+          Entre com seu {{ label }} e senha para assinar o documento.
+        </h5>
       </div>
       <div class="form-group">
         <label class="form-label">
@@ -37,7 +37,7 @@
           class="btn btn-primary btn-block"
           @click="confirmLogin()"
         >
-          Confirmar
+          Assinar
         </button>
         <button
           class="btn btn-outline-danger btn-block"

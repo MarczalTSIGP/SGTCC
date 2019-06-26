@@ -35,7 +35,7 @@ describe 'Signature::show', type: :feature, js: true do
     end
 
     context 'when shows the signed signature of the term of commitment' do
-      let!(:signature) do
+      let(:signature) do
         create(:academic_signature_signed,
                document: document,
                orientation_id: orientation.id,

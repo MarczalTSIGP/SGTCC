@@ -23,7 +23,7 @@ describe 'Signature::sign', type: :feature, js: true do
         find('button[id="signature_button"]', text: signature_button).click
         fill_in 'login_confirmation', with: external_member.email
         fill_in 'password_confirmation', with: external_member.password
-        find('button[id="login_confirmation_button"]', text: confirm_button).click
+        find('button[id="login_confirmation_button"]', text: sign_button).click
         expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
         signature.reload
         date = I18n.l(signature.updated_at, format: :short)
@@ -39,7 +39,7 @@ describe 'Signature::sign', type: :feature, js: true do
         find('button[id="signature_button"]', text: signature_button).click
         fill_in 'login_confirmation', with: 'email'
         fill_in 'password_confirmation', with: '123'
-        find('button[id="login_confirmation_button"]', text: confirm_button).click
+        find('button[id="login_confirmation_button"]', text: sign_button).click
         expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
       end
     end
