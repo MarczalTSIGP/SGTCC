@@ -5,13 +5,14 @@
   >
     <div class="card-body w-80">
       <div class="row mb-6">
-        <div class="col-3">
+        <div class="col-md-4 col-sm-12">
           <img
+            class="img-fluid mb-2"
+            alt="logo_utfpr"
             src="../../../../assets/images/utfpr_logo.png"
-            :style="{ width: logoWidth + 'px', height: logoHeight + 'px' }"
           >
         </div>
-        <div class="col-9">
+        <div class="col-md-8 col-sm-12">
           <p class="m-0">
             Ministério da Educação
           </p>
@@ -27,7 +28,10 @@
         </div>
       </div>
 
-      <div class="d-block w-80">
+      <div
+        class="d-block w-80"
+        :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }"
+      >
         <h2 class="text-center">
           {{ documentTitle }}
         </h2>
@@ -96,8 +100,7 @@ export default {
     return {
       open: true,
       signedDocument: false,
-      logoWidth: 260,
-      logoHeight: 120,
+      marginTitle: 50,
     };
   },
 
