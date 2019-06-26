@@ -18,3 +18,9 @@
     </table>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'SignatureStatus',
+};
+</script>

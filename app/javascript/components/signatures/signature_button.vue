@@ -21,6 +21,13 @@
 export default {
   name: 'SignatureButton',
 
+  props: {
+    showTitle: {
+      type: String,
+      required: true
+    },
+  },
+
   data() {
     return {
       show: true,
@@ -43,6 +50,7 @@ export default {
 
     emitOpenLoginConfirmation() {
       this.$root.$emit('open-login-confirmation');
+      this.$root.$emit('change-signature-show-title', this.showTitle);
       this.closeSignatureButton();
     },
 

@@ -94,6 +94,8 @@ pt-BR:
       show: "Visualizar documento"
       pendings: "Assinaturas Pendentes"
       signeds: "Assinaturas Assinadas"
+      TCO:
+        show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     tcc:
       one:
         index: "Atividades de TCC 1"

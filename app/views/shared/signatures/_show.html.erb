@@ -1,9 +1,12 @@
-<% provide(:page_title, t('breadcrumbs.signatures.show')) %>
 <% provide(:head_title, t('breadcrumbs.signatures.show')) %>
+<% provide(:page_title) do %>
+  <signature-show-title />
+<% end %>
 
 <% unless @signature.status %>
   <div>
-    <signature-button />
+    <signature-button
+      show-title="<%= t('breadcrumbs.signatures.TCO.show', academic: @signature.orientation.academic.name) %>" />
   </div>
 
   <div>

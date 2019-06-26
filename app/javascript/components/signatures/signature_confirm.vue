@@ -101,6 +101,7 @@ export default {
       this.open = false;
       this.$root.$emit('open-term-of-commitment');
       this.$root.$emit('open-signature-button');
+      this.$root.$emit('change-signature-show-title', 'Visualizar documento');
     },
 
     async confirmLogin() {
