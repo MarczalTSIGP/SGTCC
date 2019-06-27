@@ -23,17 +23,15 @@ class Orientation < ApplicationRecord
 
   has_many :signatures, dependent: :destroy
 
-  has_many :professor_supervisors,
-           class_name: 'Professor',
-           foreign_key: :professor_supervisor_id,
-           through: :orientation_supervisors,
-           dependent: :destroy
+  has_many :professor_supervisors, class_name: 'Professor',
+                                   foreign_key: :professor_supervisor_id,
+                                   through: :orientation_supervisors,
+                                   dependent: :destroy
 
-  has_many :external_member_supervisors,
-           class_name: 'ExternalMember',
-           foreign_key: :external_member_supervisor_id,
-           through: :orientation_supervisors,
-           dependent: :destroy
+  has_many :external_member_supervisors, class_name: 'ExternalMember',
+                                         foreign_key: :external_member_supervisor_id,
+                                         through: :orientation_supervisors,
+                                         dependent: :destroy
 
   validates :title, presence: true
   validate :validates_supervisor_ids
