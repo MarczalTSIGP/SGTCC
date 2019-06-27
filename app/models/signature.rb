@@ -35,4 +35,10 @@ class Signature < ApplicationRecord
   def professor_can_view(professor)
     can_view(professor, 'professor_supervisor') || can_view(professor, 'advisor')
   end
+
+  def user_table
+    return Academic if user_type == 'AC'
+    return ExternalMember if user_type == 'ES'
+    Professor
+  end
 end

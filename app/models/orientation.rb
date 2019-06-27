@@ -3,6 +3,7 @@ class Orientation < ApplicationRecord
   include OrientationStatus
   include OrientationFilter
   include SignatureMark
+  include SignatureStatus
   include OrientationJoin
   include OrientationOption
 
@@ -86,8 +87,7 @@ class Orientation < ApplicationRecord
   end
 
   def renew(justification)
-    next_calendar = Calendar.next_semester(calendar)
-    return false if next_calendar.blank?
+    return false if Calendar.next_semester(calendar).blank?
     self.renewal_justification = justification
     self.status = 'RENEWED'
     save
