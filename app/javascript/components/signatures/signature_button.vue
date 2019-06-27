@@ -6,12 +6,6 @@
       class="btn btn-outline-primary float-right mb-2"
       @click="emitOpenLoginConfirmation()"
     >
-      <i
-        data-toggle="tooltip"
-        title=""
-        class="fas fa-file-signature"
-        data-original-title="Assinar documento"
-      />
       Assinar documento
     </button>
   </div>
