@@ -37,8 +37,8 @@ class Signature < ApplicationRecord
   end
 
   def user_table
-    return Academic if user_type == 'AC'
-    return ExternalMember if user_type == 'ES'
+    return Academic if user_type == 'academic'
+    return ExternalMember if user_type == 'external_member_supervisor'
     Professor
   end
 end

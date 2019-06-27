@@ -128,4 +128,28 @@ RSpec.describe Signature, type: :model do
       expect(professor_supervisor_signature.professor_can_view(professor)).to eq(true)
     end
   end
+
+  describe '#user_table' do
+    it 'returns the Academic table' do
+      academic_signature = create(:academic_signature)
+      expect(academic_signature.user_table).to eq(Academic)
+    end
+
+    it 'returns the ExternalMember table' do
+      external_member_signature = create(:external_member_signature)
+      expect(external_member_signature.user_table).to eq(ExternalMember)
+    end
+
+    context 'when returns the Professor table' do
+      it 'returns the Professor table when the user is advisor' do
+        signature = create(:signature)
+        expect(signature.user_table).to eq(Professor)
+      end
+
+      it 'returns the Professor table when the user is professor supervisor' do
+        signature = create(:professor_supervisor_signature)
+        expect(signature.user_table).to eq(Professor)
+      end
+    end
+  end
 end

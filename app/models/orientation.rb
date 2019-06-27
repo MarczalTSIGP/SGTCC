@@ -87,7 +87,8 @@ class Orientation < ApplicationRecord
   end
 
   def renew(justification)
-    return false if Calendar.next_semester(calendar).blank?
+    next_calendar = Calendar.next_semester(calendar)
+    return false if next_calendar.blank?
     self.renewal_justification = justification
     self.status = 'RENEWED'
     save

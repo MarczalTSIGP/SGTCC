@@ -482,4 +482,23 @@ RSpec.describe Orientation, type: :model do
       expect(orientation.external_member_supervisors_to_document).to match_array(formatted)
     end
   end
+
+  describe '#signature_status' do
+    let!(:orientation) { create(:orientation) }
+    let!(:professor) { create(:professor) }
+    let!(:signature) do
+      create(:signature, orientation_id: orientation.id, user_id: professor.id)
+    end
+
+    before do
+      orientation.signatures << signature
+    end
+
+    it 'returns the signature status' do
+      signature_status = [
+        { name: signature.user_table.find(signature.user_id).name, status: signature.status }
+      ]
+      expect(orientation.signatures_status).to match_array(signature_status)
+    end
+  end
 end
