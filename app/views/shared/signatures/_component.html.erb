@@ -1,5 +1,6 @@
 <% if @signature.term_of_commitment? %>
   <term-of-commitment
+    :orientation-id="<%= @signature.orientation.id %>"
     orientation-title="<%= @signature.orientation.title %>"
     orientation-date="<%= document_date(@signature.orientation.created_at) %>"
     document-title="<%= @signature.document.document_type.name %>"
@@ -11,6 +12,6 @@
     :advisor-scholarity="<%= @signature.orientation.advisor.scholarity.to_json %>"
     :institution="<%= @signature.orientation.institution.to_json %>"
     :institution-responsible="<%= @signature.orientation.institution&.external_member.to_json %>"
-    :professor-supervisors="<%= @signature.orientation.professor_supervisors.to_json %>"
-    :external-member-supervisors="<%= @signature.orientation.external_member_supervisors.to_json %>" />
+    :professor-supervisors="<%= @signature.orientation.professor_supervisors_to_document.to_json %>"
+    :external-member-supervisors="<%= @signature.orientation.external_member_supervisors_to_document.to_json %>" />
 <% end %>

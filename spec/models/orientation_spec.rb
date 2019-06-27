@@ -462,4 +462,28 @@ RSpec.describe Orientation, type: :model do
       end
     end
   end
+
+  describe '#professor_supervisors_to_document' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation) }
+
+    before do
+      orientation.professor_supervisors << professor
+    end
+
+    it 'returns the array with professor supervisors name formatted' do
+      formatted = [{ name: "#{professor.scholarity.abbr} #{professor.name}" }]
+      expect(orientation.professor_supervisors_to_document).to match_array(formatted)
+    end
+  end
+
+  describe '#external_member_supervisors_to_document' do
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
+
+    it 'returns the array with professor supervisors name formatted' do
+      formatted = [{ name: "#{external_member.scholarity.abbr} #{external_member.name}" }]
+      expect(orientation.external_member_supervisors_to_document).to match_array(formatted)
+    end
+  end
 end

@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Signable
+module SignatureMark
   extend ActiveSupport::Concern
 
   included do

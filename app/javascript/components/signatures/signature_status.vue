@@ -22,5 +22,18 @@
 <script>
 export default {
   name: 'SignatureStatus',
+
+  props: {
+    orientationId: {
+      type: Number,
+      required: true
+    },
+  },
+
+  computed: {
+    url() {
+      return `/signatures/orientations/${this.orientationId}/status`;
+    },
+  },
 };
 </script>

@@ -2,8 +2,9 @@ class Orientation < ApplicationRecord
   include Searchable
   include OrientationStatus
   include OrientationFilter
-  include Signable
+  include SignatureMark
   include OrientationJoin
+  include OrientationOption
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -102,27 +103,25 @@ class Orientation < ApplicationRecord
     save
   end
 
-  def can_be_renewed?(professor)
-    professor&.role?(:responsible) && calendar_tcc_two? && in_progress?
-  end
-
-  def can_be_canceled?(professor)
-    professor&.role?(:responsible) && !canceled?
-  end
-
-  def can_be_edited?
-    signatures.where(status: true).empty?
-  end
-
-  def can_be_destroyed?
-    signatures.where(status: true).count < signatures.count
-  end
-
   def calendar_tcc_one?
     calendar.tcc == 'one'
   end
 
   def calendar_tcc_two?
     calendar.tcc == 'two'
+  end
+
+  def supervisors_to_document(supervisors)
+    supervisors.map do |supervisor|
+      { name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
+    end
+  end
+
+  def professor_supervisors_to_document
+    supervisors_to_document(professor_supervisors)
+  end
+
+  def external_member_supervisors_to_document
+    supervisors_to_document(external_member_supervisors)
   end
 end

@@ -149,22 +149,28 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_signed' do
-    let(:professor) { create(:professor) }
-    let(:signature) { create(:signature_signed, user_id: professor.id) }
+    let!(:professor) { create(:professor) }
+
+    before do
+      create(:signature_signed, user_id: professor.id)
+    end
 
     it 'returns the signed signatures' do
       signatures = Signature.where(user_id: professor.id, user_type: 'AD', status: true)
-      expect(professor.signatures_signed).to eq(signatures)
+      expect(professor.signatures_signed).to match_array(signatures)
     end
   end
 
   describe '#signatures_pending' do
-    let(:professor) { create(:professor) }
-    let(:signature) { create(:signature, user_id: professor.id) }
+    let!(:professor) { create(:professor) }
+
+    before do
+      create(:signature, user_id: professor.id)
+    end
 
     it 'returns the pending signatures' do
       signatures = Signature.where(user_id: professor.id, user_type: 'AD', status: false)
-      expect(professor.signatures_pending).to eq(signatures)
+      expect(professor.signatures_pending).to match_array(signatures)
     end
   end
 end

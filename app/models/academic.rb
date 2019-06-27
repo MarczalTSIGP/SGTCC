@@ -2,6 +2,7 @@ class Academic < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
+  include SignatureFilter
 
   searchable :ra, :email, name: { unaccent: true }
 
@@ -40,11 +41,7 @@ class Academic < ApplicationRecord
     current_orientation_by_calendar(Calendar.current_by_tcc_two)
   end
 
-  def signatures_pending
-    Signature.by_academic_and_status(self, false)
-  end
-
-  def signatures_signed
-    Signature.by_academic_and_status(self, true)
+  def signatures
+    Signature.where(user_id: id, user_type: Signature.user_types[:academic])
   end
 end

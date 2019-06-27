@@ -4,6 +4,11 @@ export default {
   components: { SignatureMark },
 
   props: {
+    orientationId: {
+      type: Number,
+      required: true
+    },
+
     orientationTitle: {
       type: String,
       required: true

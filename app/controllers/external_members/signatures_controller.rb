@@ -1,5 +1,5 @@
 class ExternalMembers::SignaturesController < ExternalMembers::BaseController
-  include SignatureHelper
+  include SignatureConfirm
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
@@ -12,11 +12,11 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
                  only: :signed
 
   def pending
-    paginate_signatures(current_external_member.signatures_pending)
+    @signatures = current_external_member.signatures_pending(params[:page])
   end
 
   def signed
-    paginate_signatures(current_external_member.signatures_signed)
+    @signatures = current_external_member.signatures_signed(params[:page])
   end
 
   def show

@@ -1,5 +1,5 @@
 class Professors::SignaturesController < Professors::BaseController
-  include SignatureHelper
+  include SignatureConfirm
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
@@ -12,11 +12,11 @@ class Professors::SignaturesController < Professors::BaseController
                  only: :signed
 
   def pending
-    paginate_signatures(current_professor.signatures_pending)
+    @signatures = current_professor.signatures_pending(params[:page])
   end
 
   def signed
-    paginate_signatures(current_professor.signatures_signed)
+    @signatures = current_professor.signatures_signed(params[:page])
   end
 
   def show

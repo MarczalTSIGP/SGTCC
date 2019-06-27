@@ -1,5 +1,4 @@
 class Signature < ApplicationRecord
-  include KaminariHelper
   include Confirmable
 
   belongs_to :orientation
@@ -35,22 +34,5 @@ class Signature < ApplicationRecord
 
   def professor_can_view(professor)
     can_view(professor, 'professor_supervisor') || can_view(professor, 'advisor')
-  end
-
-  def self.by_user_and_status(user, type, status)
-    where(user_id: user.id, user_type: type, status: status).with_relationships
-  end
-
-  def self.by_professor_and_status(professor, status)
-    by_user_and_status(professor, user_types[:professor_supervisor], status) +
-      by_user_and_status(professor, user_types[:advisor], status)
-  end
-
-  def self.by_academic_and_status(academic, status)
-    by_user_and_status(academic, user_types[:academic], status)
-  end
-
-  def self.by_external_member_and_status(external_member, status)
-    by_user_and_status(external_member, user_types[:external_member_supervisor], status)
   end
 end

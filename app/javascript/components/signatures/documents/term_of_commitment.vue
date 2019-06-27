@@ -73,6 +73,9 @@
         />
       </div>
     </div>
+    <signature-status
+      :orientation-id="orientationId"
+    />
   </div>
 </template>
 
@@ -80,11 +83,12 @@
 
 import baseTerm from './base_term';
 import TermHeader from './partials/term_header';
+import SignatureStatus from '../signature_status';
 
 export default {
   name: 'TermOfCommitment',
 
-  components: { TermHeader },
+  components: { TermHeader, SignatureStatus },
 
   mixins: [baseTerm],
 
