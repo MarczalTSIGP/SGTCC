@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   post 'signatures/(:id)/mark', to: 'signatures#mark', as: 'signatures_mark'
 
+  post 'signatures/orientations/(:orientation_id)/status',
+       to: 'signatures#status',
+       as: 'signatures_status'
+
   #========================================
   # Responsible
   #========================================

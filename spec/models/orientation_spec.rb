@@ -464,12 +464,8 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#professor_supervisors_to_document' do
-    let(:professor) { create(:professor) }
     let(:orientation) { create(:orientation) }
-
-    before do
-      orientation.professor_supervisors << professor
-    end
+    let(:professor) { orientation.professor_supervisors.first }
 
     it 'returns the array with professor supervisors name formatted' do
       formatted = [{ name: "#{professor.scholarity.abbr} #{professor.name}" }]

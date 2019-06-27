@@ -183,7 +183,7 @@ pt-BR:
       document:
         one: "Documento"
         other: "Documentos"
-      signatures:
+      signature:
         one: "Assinatura"
         other: "Assinaturas"
     attributes:

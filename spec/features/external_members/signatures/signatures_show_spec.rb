@@ -22,15 +22,24 @@ describe 'Signature::show', type: :feature, js: true do
                user_id: external_member.id)
       end
 
-      it 'shows the document of the term of commitment' do
+      let(:active_link) { external_members_signatures_pending_path }
+
+      before do
         visit external_members_signature_path(signature)
-        academic = signature.orientation.academic
+      end
+
+      it 'shows the document of the term of commitment' do
         expect(page).to have_contents([orientation.title,
-                                       orientation.advisor.name,
-                                       document_date(orientation.created_at),
-                                       academic.name,
-                                       academic.ra])
-        active_link = external_members_signatures_pending_path
+                                       orientation.academic.name,
+                                       orientation.academic.ra,
+                                       orientation.institution.trade_name,
+                                       orientation.institution.external_member.name,
+                                       scholarity_with_name(orientation.advisor),
+                                       document_date(orientation.created_at)])
+
+        orientation.supervisors do |supervisor|
+          expect(page).to have_content(scholarity_with_name(supervisor))
+        end
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end
@@ -42,6 +51,8 @@ describe 'Signature::show', type: :feature, js: true do
                orientation_id: orientation.id,
                user_id: external_member.id)
       end
+
+      let(:active_link) { external_members_signatures_signed_path }
 
       before do
         create(:signature_signed,
@@ -57,20 +68,25 @@ describe 'Signature::show', type: :feature, js: true do
       end
 
       it 'shows the document of the term of commitment' do
-        academic = orientation.academic
         expect(page).to have_contents([orientation.title,
-                                       orientation.advisor.name,
+                                       orientation.academic.name,
+                                       orientation.academic.ra,
+                                       orientation.institution.trade_name,
+                                       orientation.institution.external_member.name,
+                                       scholarity_with_name(orientation.advisor),
                                        signature_role(external_member.gender, signature.user_type),
-                                       document_date(orientation.created_at),
-                                       academic.name,
-                                       academic.ra])
+                                       document_date(orientation.created_at)])
+
+        orientation.supervisors do |supervisor|
+          expect(page).to have_content(scholarity_with_name(supervisor))
+        end
+
         orientation.signatures_mark.each do |signature|
           expect(page).to have_content(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])
           )
         end
-        active_link = external_members_signatures_signed_path
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end

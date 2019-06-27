@@ -9,7 +9,9 @@ FactoryBot.define do
     status { Orientation.statuses.key('IN_PROGRESS') }
 
     after :create do |orientation|
+      professor = create(:professor)
       external_member = create(:external_member)
+      orientation.professor_supervisors << professor
       orientation.external_member_supervisors << external_member
       orientation.save
     end

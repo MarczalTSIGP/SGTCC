@@ -1,5 +1,5 @@
 class SignaturesController < ApplicationController
-  before_action :set_signature, only: [:mark]
+  before_action :set_signature, only: :mark
 
   def mark
     render json: @signature.orientation.signatures_mark
