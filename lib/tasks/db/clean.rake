@@ -5,6 +5,9 @@ namespace :db do
     puts 'Cleaning data...'
 
     [OrientationSupervisor,
+     Signature,
+     Document,
+     DocumentType,
      Orientation,
      Academic,
      Institution,

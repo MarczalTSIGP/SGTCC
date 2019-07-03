@@ -39,6 +39,9 @@ plugins:
       file: ".rubocop.yml"
   brakeman:
     enabled: true
+    checks:
+      dynamic_render_path:
+        enabled: false
 
 exclude_patterns:
   - ".rubocop*.yml"

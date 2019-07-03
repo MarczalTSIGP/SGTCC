@@ -1,0 +1,5 @@
+<%= render 'shared/signatures/show',
+  label: ExternalMember.human_attribute_name('email'),
+  confirm_url: external_members_signature_confirm_path(@signature),
+  back_url: external_members_signatures_pending_path %>
+

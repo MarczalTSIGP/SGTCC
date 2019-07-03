@@ -8,9 +8,9 @@ namespace :db do
                         external_members institutions
                         base_activities calendars orientations]
 
-    puts 'DB seeds...'
-    Rake::Task['db:seed'].invoke
     Rake::Task['db:clean'].invoke
+    puts 'DB seed...'
+    Rake::Task['db:seed'].invoke
     populate_tasks.each do |populate_task|
       Rake::Task["populate:#{populate_task}"].invoke
     end

@@ -13,6 +13,7 @@ require 'support/helpers/form'
 require 'support/helpers/button'
 require 'support/helpers/select'
 require 'support/helpers/link'
+require 'support/helpers/string'
 require 'support/helpers/flash_message'
 
 require 'support/file_spec_helper'
@@ -36,6 +37,7 @@ RSpec.configure do |config|
   config.include Helpers::Button, type: :feature
   config.include Helpers::Select, type: :feature
   config.include Helpers::Link, type: :feature
+  config.include Helpers::String, type: :feature
   config.include Helpers::FlashMessage, type: :feature
   config.infer_spec_type_from_file_location!
 

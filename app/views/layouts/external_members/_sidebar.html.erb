@@ -49,4 +49,8 @@
       <%= render 'layouts/external_members/supervisor_menu' %>
     </div>
   <% end %>
+
+  <%= render 'layouts/shared/signature_menu', resource: 'external_members',
+                                              pending_path: external_members_signatures_pending_path,
+                                              signed_path: external_members_signatures_signed_path %>
 <% end %>

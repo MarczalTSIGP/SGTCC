@@ -64,5 +64,29 @@ module Helpers
     def orientation_renew_calendar_error_message
       I18n.t('json.messages.orientation.calendar.errors.empty_next_semester')
     end
+
+    def orientation_edit_signed_warning_message
+      I18n.t('flash.orientation.edit.signed')
+    end
+
+    def orientation_destroy_signed_warning_message
+      I18n.t('flash.orientation.destroy.signed')
+    end
+
+    def signature_signed_success_message
+      I18n.t('json.messages.orientation.signatures.confirm.success')
+    end
+
+    def signature_login_alert_message
+      I18n.t('json.messages.orientation.signatures.confirm.error')
+    end
+
+    def signature_register(name, role, date, time)
+      I18n.t('signatures.register', name: name, role: role, date: date, time: time)
+    end
+
+    def signature_role(user_gender, user_type)
+      I18n.t("signatures.users.roles.#{user_gender}.#{user_type}")
+    end
   end
 end

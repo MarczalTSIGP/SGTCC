@@ -2,6 +2,7 @@ class Professor < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
+  include SignatureFilter
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -57,5 +58,11 @@ class Professor < ApplicationRecord
 
   def role?(identifier)
     roles.where(identifier: identifier).any?
+  end
+
+  def signatures
+    types = Signature.user_types
+    user_types = [types[:advisor], types[:professor_supervisor]]
+    Signature.where(user_id: id, user_type: user_types)
   end
 end

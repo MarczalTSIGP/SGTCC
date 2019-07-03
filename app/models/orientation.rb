@@ -2,7 +2,10 @@ class Orientation < ApplicationRecord
   include Searchable
   include OrientationStatus
   include OrientationFilter
+  include SignatureMark
+  include SignatureStatus
   include OrientationJoin
+  include OrientationOption
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -16,20 +19,19 @@ class Orientation < ApplicationRecord
   belongs_to :advisor, class_name: 'Professor', inverse_of: :orientations
   belongs_to :institution, optional: true
 
-  has_many :orientation_supervisors,
-           dependent: :delete_all
+  has_many :orientation_supervisors, dependent: :delete_all
 
-  has_many :professor_supervisors,
-           class_name: 'Professor',
-           foreign_key: :professor_supervisor_id,
-           through: :orientation_supervisors,
-           dependent: :destroy
+  has_many :signatures, dependent: :destroy
 
-  has_many :external_member_supervisors,
-           class_name: 'ExternalMember',
-           foreign_key: :external_member_supervisor_id,
-           through: :orientation_supervisors,
-           dependent: :destroy
+  has_many :professor_supervisors, class_name: 'Professor',
+                                   foreign_key: :professor_supervisor_id,
+                                   through: :orientation_supervisors,
+                                   dependent: :destroy
+
+  has_many :external_member_supervisors, class_name: 'ExternalMember',
+                                         foreign_key: :external_member_supervisor_id,
+                                         through: :orientation_supervisors,
+                                         dependent: :destroy
 
   validates :title, presence: true
   validate :validates_supervisor_ids
@@ -57,13 +59,21 @@ class Orientation < ApplicationRecord
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
 
+  after_save do
+    document_type = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
+    Documents::SaveSignatures.new(self, document_type&.id).save
+  end
+
+  after_update do
+    signatures.destroy_all
+  end
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
 
   def validates_supervisor_ids
-    advisor_is_supervisor = professor_supervisor_ids.include?(advisor_id)
-    return true unless advisor_is_supervisor
+    return true unless professor_supervisor_ids.include?(advisor_id)
     message = I18n.t('activerecord.errors.models.orientation.attributes.supervisors.advisor',
                      advisor: advisor.name)
     errors.add(:professor_supervisors, message)
@@ -92,19 +102,25 @@ class Orientation < ApplicationRecord
     save
   end
 
-  def can_be_renewed?(professor)
-    professor&.role?(:responsible) && calendar_tcc_two? && in_progress?
-  end
-
-  def can_be_canceled?(professor)
-    professor&.role?(:responsible) && !canceled?
-  end
-
   def calendar_tcc_one?
     calendar.tcc == 'one'
   end
 
   def calendar_tcc_two?
     calendar.tcc == 'two'
+  end
+
+  def supervisors_to_document(supervisors)
+    supervisors.map do |supervisor|
+      { name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
+    end
+  end
+
+  def professor_supervisors_to_document
+    supervisors_to_document(professor_supervisors)
+  end
+
+  def external_member_supervisors_to_document
+    supervisors_to_document(external_member_supervisors)
   end
 end

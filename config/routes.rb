@@ -9,6 +9,12 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  post 'signatures/(:id)/mark', to: 'signatures#mark', as: 'signatures_mark'
+
+  post 'signatures/orientations/(:orientation_id)/status',
+       to: 'signatures#status',
+       as: 'signatures_status'
+
   #========================================
   # Responsible
   #========================================
@@ -148,6 +154,11 @@ Rails.application.routes.draw do
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
+
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
@@ -290,6 +301,11 @@ Rails.application.routes.draw do
     namespace :academics do
       root to: 'dashboard#index'
 
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
+
       get 'calendars', to: 'calendars#index', as: 'calendars'
 
       get '/calendars/(:calendar_id)/activities',
@@ -333,6 +349,11 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :supervisions, only: [:show], constraints: { id: /[0-9]+/ }
+
+      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
+      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
+      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 

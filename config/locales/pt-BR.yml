@@ -5,7 +5,9 @@ pt-BR:
       short: '%d/%m/%Y'
       month: '%m'
       year: '%Y'
+      time: '%-H:%M'
       datetime: '%d/%m/%Y %-H:%M'
+      document: '%d de %B de %Y'
   views:
     title:
       calendar:
@@ -20,9 +22,12 @@ pt-BR:
       select: 'Selecionar'
       save: 'Salvar'
       cancel: 'Cancelar'
+      sign: 'Assinar'
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
+      signature:
+        sign: 'Assinar documento'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -36,6 +41,10 @@ pt-BR:
       academics: "Acadêmico"
       external_members: "Membro Externo"
       supervisor: "Coorientador"
+      signatures:
+        index: "Assinaturas"
+        pendings: "Pendentes"
+        signeds: "Assinadas"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -80,6 +89,13 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+    signatures:
+      index: "Assinaturas"
+      show: "Visualizar documento"
+      pendings: "Assinaturas Pendentes"
+      signeds: "Assinaturas Assinadas"
+      TCO:
+        show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -164,6 +180,12 @@ pt-BR:
       orientation:
         one: "Orientação"
         other: "Orientações"
+      document:
+        one: "Documento"
+        other: "Documentos"
+      signature:
+        one: "Assinatura"
+        other: "Assinaturas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -227,6 +249,10 @@ pt-BR:
         renewal_justification: "Justificativa da renovação"
         cancellation_justification: "Justificativa do cancelamento"
         <<: *commons
+      signature:
+        orientation: "Orientação"
+        document_type: "Tipo do documento"
+        <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -287,6 +313,11 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    orientation:
+      destroy:
+        signed: 'Não é possível excluir orientação com todas as assinaturas!'
+      edit:
+        signed: 'Não é possível editar orientação com assinaturas!'
   json:
     messages:
       orientation:
@@ -297,6 +328,10 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
+        signatures:
+          confirm:
+            success: 'Assinatura realizada com sucesso!'
+            error: 'Usuário institucional ou senha inválidos!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
@@ -331,3 +366,26 @@ pt-BR:
         subject: 'Registrado com sucesso no SGTCC'
         register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
         login: 'Para realizar o login no sistema clique no link abaixo'
+  signatures:
+    advisor:
+      labels:
+        male: 'professor'
+        female: 'professora'
+    users:
+      roles:
+        male:
+          academic: 'Acadêmico'
+          advisor: 'Orientador'
+          professor_supervisor: 'Coorientador da UTFPR'
+          external_member_supervisor: 'Coorientador externo'
+        female:
+          academic: 'Acadêmica'
+          advisor: 'Orientadora'
+          professor_supervisor: 'Coorientadora da UTFPR'
+          external_member_supervisor: 'Coorientadora externa'
+    documents:
+      TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
+      TCAE: 'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
+    register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
+      horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
+      8 de outubro de 2015 .'
