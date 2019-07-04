@@ -15,7 +15,6 @@ describe 'Signature::index', type: :feature do
         index_url = academics_signatures_pending_path
         visit index_url
 
-
         expect(page).to have_contents([signature.orientation.title,
                                        signature.orientation.academic.name,
                                        signature.document.document_type.name])
