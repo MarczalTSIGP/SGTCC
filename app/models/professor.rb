@@ -60,9 +60,9 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
-  def signatures(condition = {})
+  def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
-    Signature.where(condition).where(user_id: id, user_type: user_types)
+    Signature.where(user_id: id, user_type: user_types)
   end
 end

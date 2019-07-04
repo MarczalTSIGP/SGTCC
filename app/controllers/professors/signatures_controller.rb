@@ -30,7 +30,7 @@ class Professors::SignaturesController < Professors::BaseController
   private
 
   def set_signature
-    @signature = current_professor.signatures(id: params[:id]).first
+    @signature = current_professor.signatures.find_by(id: params[:id])
   end
 
   def can_view

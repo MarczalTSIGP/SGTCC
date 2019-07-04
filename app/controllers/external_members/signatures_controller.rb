@@ -31,7 +31,7 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   private
 
   def set_signature
-    @signature = current_external_member.signatures(id: params[:id]).first
+    @signature = current_external_member.signatures.find_by(id: params[:id])
   end
 
   def can_view
