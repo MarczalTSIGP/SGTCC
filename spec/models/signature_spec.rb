@@ -30,6 +30,21 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#term_of_accept_institution?' do
+    let(:document_type) { create(:document_type, name: I18n.t('signatures.documents.TCAI')) }
+    let(:document) { create(:document, document_type: document_type) }
+    let(:signature_tcai) { create(:signature, document: document) }
+    let(:signature) { create(:signature) }
+
+    it 'returns true' do
+      expect(signature_tcai.term_of_accept_institution?).to eq(true)
+    end
+
+    it 'returns false' do
+      expect(signature.term_of_accept_institution?).to eq(false)
+    end
+  end
+
   describe '#confirm' do
     context 'when professor confirm' do
       let!(:signature) { create(:signature) }
@@ -129,6 +144,29 @@ RSpec.describe Signature, type: :model do
     end
   end
 
+  describe '#user' do
+    let!(:academic) { create(:academic) }
+    let!(:professor) { create(:professor) }
+    let!(:external_member) { create(:external_member) }
+    let!(:academic_signature) { create(:academic_signature, user_id: academic.id) }
+    let!(:professor_signature) { create(:signature, user_id: professor.id) }
+    let!(:external_member_signature) do
+      create(:external_member_signature, user_id: external_member.id)
+    end
+
+    it 'returns the Professor user' do
+      expect(professor_signature.user).to eq(Professor.find(professor.id))
+    end
+
+    it 'returns the Academic user' do
+      expect(academic_signature.user).to eq(Academic.find(academic.id))
+    end
+
+    it 'returns the External Member user' do
+      expect(external_member_signature.user).to eq(ExternalMember.find(external_member.id))
+    end
+  end
+
   describe '#user_table' do
     it 'returns the Academic table' do
       academic_signature = create(:academic_signature)
@@ -150,6 +188,126 @@ RSpec.describe Signature, type: :model do
         signature = create(:professor_supervisor_signature)
         expect(signature.user_table).to eq(Professor)
       end
+    end
+  end
+
+  describe '#by_condition_and_document_t' do
+    let(:document_type) { create(:document_type_tco) }
+    let(:document) { create(:document, document_type: document_type) }
+    let(:signature_tco) { create(:signature, document: document) }
+    let(:signature) { create(:signature) }
+
+    it 'returns the result by condition and document type' do
+      condition = { orientation_id: signature.orientation.id }
+      result = Signature.where(condition).includes(document: [:document_type]).select do |signature|
+        signature.document.document_type.id == document_type.id
+      end
+      signature_by_condition = Signature.by_condition_and_document_t(condition, document_type.id)
+      expect(signature_by_condition).to match_array(result)
+    end
+  end
+
+  describe '#status_table' do
+    let!(:document_type) { create(:document_type_tco) }
+    let!(:document) { create(:document, document_type: document_type) }
+    let!(:professor) { create(:professor) }
+    let!(:signature) { create(:signature, document: document, user_id: professor.id) }
+
+    it 'returns the status table' do
+      condition = { orientation_id: signature.orientation.id }
+      signatures = Signature.where(condition)
+                            .includes(document: [:document_type])
+                            .select do |signature|
+                              signature.document.document_type.id == document_type.id
+                            end
+      result = signatures.map do |signature|
+        { name: signature.user.name, status: signature.status }
+      end
+      signature_status_table = Signature.status_table(signature.orientation.id, document_type.id)
+      expect(signature_status_table.first[:name]).to eq(result.first[:name])
+      expect(signature_status_table.first[:status]).to eq(result.first[:status])
+    end
+  end
+
+  describe '#mark' do
+    let!(:professor) { create(:professor) }
+    let!(:supervisor) { create(:professor) }
+    let!(:academic) { create(:academic) }
+    let!(:external_member) { create(:external_member) }
+    let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
+    let!(:document_type) { create(:document_type_tco) }
+    let!(:document) { create(:document, document_type: document_type) }
+
+    let!(:signature_signed) do
+      create(:signature_signed, document: document,
+                                orientation_id: orientation.id,
+                                user_id: professor.id)
+    end
+
+    let!(:professor_signature_signed) do
+      create(:signature_signed, orientation_id: orientation.id,
+                                document: document,
+                                user_id: supervisor.id)
+    end
+
+    let!(:academic_signature_signed) do
+      create(:academic_signature_signed, document: document,
+                                         orientation_id: orientation.id,
+                                         user_id: academic.id)
+    end
+
+    let!(:external_member_signature_signed) do
+      create(:external_member_signature_signed, orientation_id: orientation.id,
+                                                document: document,
+                                                user_id: external_member.id)
+    end
+
+    let(:roles) do
+      'signatures.users.roles'
+    end
+
+    let(:supervisor_role) do
+      I18n.t("#{roles}.#{supervisor.gender}.#{professor_signature_signed.user_type}")
+    end
+
+    let(:external_member_role) do
+      I18n.t("#{roles}.#{external_member.gender}.#{external_member_signature_signed.user_type}")
+    end
+
+    let(:academic_role) do
+      I18n.t("#{roles}.#{academic.gender}.#{academic_signature_signed.user_type}")
+    end
+
+    let(:professor_role) do
+      I18n.t("#{roles}.#{professor.gender}.#{signature_signed.user_type}")
+    end
+
+    before do
+      orientation.external_member_supervisors << external_member
+      orientation.professor_supervisors << supervisor
+    end
+
+    it 'returns the signatures mark' do
+      signatures_mark = [
+        { name: supervisor.name,
+          role: supervisor_role,
+          date: I18n.l(professor_signature_signed.updated_at, format: :short),
+          time: I18n.l(professor_signature_signed.updated_at, format: :time) },
+        { name: external_member.name,
+          role: external_member_role,
+          date: I18n.l(external_member_signature_signed.updated_at, format: :short),
+          time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
+        { name: academic.name,
+          role: academic_role,
+          date: I18n.l(academic_signature_signed.updated_at, format: :short),
+          time: I18n.l(academic_signature_signed.updated_at, format: :time) },
+        { name: professor.name,
+          role: professor_role,
+          date: I18n.l(signature_signed.updated_at, format: :short),
+          time: I18n.l(signature_signed.updated_at, format: :time) }
+      ]
+      signature_mark = Signature.mark(signature_signed.orientation.id, document_type.id)
+      expect(signature_mark).to match_array(signatures_mark)
     end
   end
 end

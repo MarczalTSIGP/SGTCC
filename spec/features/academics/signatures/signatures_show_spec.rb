@@ -51,9 +51,11 @@ describe 'Signature::show', type: :feature, js: true do
       before do
         create(:signature_signed,
                orientation_id: orientation.id,
+               document: document,
                user_id: professor.id)
 
         create(:external_member_signature_signed,
+               document: document,
                orientation_id: orientation.id,
                user_id: external_member.id)
 
@@ -75,7 +77,7 @@ describe 'Signature::show', type: :feature, js: true do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        orientation.signatures_mark.each do |signature|
+        Signature.mark(orientation.id, document_type.id).each do |signature|
           expect(page).to have_content(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])

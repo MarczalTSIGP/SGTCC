@@ -32,8 +32,8 @@ export default {
   name: 'SignatureStatus',
 
   props: {
-    orientationId: {
-      type: Number,
+    url: {
+      type: String,
       required: true
     },
   },
@@ -43,12 +43,6 @@ export default {
       show: true,
       signatureStatus: [],
     };
-  },
-
-  computed: {
-    url() {
-      return `/signatures/orientations/${this.orientationId}/status`;
-    },
   },
 
   mounted() {

@@ -2,8 +2,6 @@ class Orientation < ApplicationRecord
   include Searchable
   include OrientationStatus
   include OrientationFilter
-  include SignatureMark
-  include SignatureStatus
   include OrientationJoin
   include OrientationOption
   include OrientationDocuments

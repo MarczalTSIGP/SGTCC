@@ -24,6 +24,11 @@ export default {
       required: true
     },
 
+    urlSignaturesStatus: {
+      type: String,
+      required: true
+    },
+
     documentTitle: {
       type: String,
       required: true

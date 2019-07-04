@@ -74,7 +74,7 @@
       </div>
     </div>
     <signature-status
-      :orientation-id="orientationId"
+      :url="urlSignaturesStatus"
     />
   </div>
 </template>

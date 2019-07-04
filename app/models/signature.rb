@@ -1,5 +1,6 @@
 class Signature < ApplicationRecord
   include Confirmable
+  include SignatureMark
 
   belongs_to :orientation
   belongs_to :document
@@ -24,14 +25,16 @@ class Signature < ApplicationRecord
     confirm(class_name, login, params) && sign
   end
 
-  def term_of_commitment?
-    term = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
+  def equal_term?(term)
     document.document_type.id == term&.id
   end
 
+  def term_of_commitment?
+    equal_term?(DocumentType.find_by(name: I18n.t('signatures.documents.TCO')))
+  end
+
   def term_of_accept_institution?
-    term = DocumentType.find_by(name: I18n.t('signatures.documents.TCAI'))
-    document.document_type.id == term&.id
+    equal_term?(DocumentType.find_by(name: I18n.t('signatures.documents.TCAI')))
   end
 
   def can_view(user, type)
@@ -46,5 +49,22 @@ class Signature < ApplicationRecord
     return Academic if user_type == 'academic'
     return ExternalMember if user_type == 'external_member_supervisor'
     Professor
+  end
+
+  def user
+    user_table.find(user_id)
+  end
+
+  def self.by_condition_and_document_t(condition, document_type_id)
+    where(condition).includes(document: [:document_type]).select do |signature|
+      signature.document.document_type.id == document_type_id.to_i
+    end
+  end
+
+  def self.status_table(orientation_id, document_type_id)
+    signatures = by_condition_and_document_t({ orientation_id: orientation_id }, document_type_id)
+    signatures.map do |signature|
+      { name: signature.user.name, status: signature.status }
+    end
   end
 end
