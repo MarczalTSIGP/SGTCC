@@ -25,7 +25,13 @@ class Signature < ApplicationRecord
   end
 
   def term_of_commitment?
-    document.document_type.id == DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))&.id
+    term = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
+    document.document_type.id == term&.id
+  end
+
+  def term_of_accept_institution?
+    term = DocumentType.find_by(name: I18n.t('signatures.documents.TCAI'))
+    document.document_type.id == term&.id
   end
 
   def can_view(user, type)

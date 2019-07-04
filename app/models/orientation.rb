@@ -6,6 +6,7 @@ class Orientation < ApplicationRecord
   include SignatureStatus
   include OrientationJoin
   include OrientationOption
+  include OrientationDocuments
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -58,15 +59,6 @@ class Orientation < ApplicationRecord
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
-
-  after_save do
-    document_type = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
-    Documents::SaveSignatures.new(self, document_type&.id).save
-  end
-
-  after_update do
-    signatures.destroy_all
-  end
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title

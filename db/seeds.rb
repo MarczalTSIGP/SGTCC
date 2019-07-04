@@ -52,7 +52,7 @@ end
 
 document_types = [
   I18n.t('signatures.documents.TCO'),
-  I18n.t('signatures.documents.TCAE')
+  I18n.t('signatures.documents.TCAI')
 ]
 
 document_types.each do |document_type|
