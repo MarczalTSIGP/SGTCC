@@ -94,14 +94,14 @@ export default {
     onOpenLoginConfirmation() {
       this.$root.$on('open-login-confirmation', () => {
         this.open = true;
-        this.$root.$emit('close-term-of-commitment');
+        this.$root.$emit('close-term');
         this.$root.$emit('close-signature-status');
       });
     },
 
     close() {
       this.open = false;
-      this.$root.$emit('open-term-of-commitment');
+      this.$root.$emit('open-term');
       this.$root.$emit('open-signature-status');
       this.$root.$emit('open-signature-button');
       this.$root.$emit('change-signature-show-title', 'Visualizar documento');
