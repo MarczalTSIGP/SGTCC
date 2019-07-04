@@ -5,5 +5,9 @@ FactoryBot.define do
     factory :document_type_tco do
       name { I18n.t('signatures.documents.TCO') }
     end
+
+    factory :document_type_tcai do
+      name { I18n.t('signatures.documents.TCAI') }
+    end
   end
 end
