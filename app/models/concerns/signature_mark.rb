@@ -14,8 +14,10 @@ module SignatureMark
 
   included do
     def self.mark(orientation_id, document_type_id)
-      signatures = by_condition_and_document_t({ orientation_id: orientation_id,
-                                                 status: true }, document_type_id)
+      signatures = by_orientation_and_document_t(
+        orientation_id, document_type_id
+      ).where(status: true)
+
       signatures.map do |signature|
         add_signature(signature.updated_at, signature.user_type, signature.user)
       end

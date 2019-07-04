@@ -47,14 +47,13 @@ class Signature < ApplicationRecord
     user_table.find(user_id)
   end
 
-  def self.by_condition_and_document_t(condition, document_type_id)
-    where(condition).includes(document: [:document_type]).select do |signature|
-      signature.document.document_type.id == document_type_id.to_i
-    end
+  def self.by_orientation_and_document_t(orientation_id, document_type_id)
+    joins(:document).where(orientation_id: orientation_id,
+                           documents: { document_type_id: document_type_id })
   end
 
   def self.status_table(orientation_id, document_type_id)
-    signatures = by_condition_and_document_t({ orientation_id: orientation_id }, document_type_id)
+    signatures = by_orientation_and_document_t(orientation_id, document_type_id)
     signatures.map do |signature|
       { name: signature.user.name, status: signature.status }
     end

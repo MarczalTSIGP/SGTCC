@@ -156,18 +156,20 @@ RSpec.describe Signature, type: :model do
     end
   end
 
-  describe '#by_condition_and_document_t' do
+  describe '#by_orientation_and_document_t' do
     let(:document_type) { create(:document_type_tco) }
     let(:document) { create(:document, document_type: document_type) }
     let(:signature_tco) { create(:signature, document: document) }
     let(:signature) { create(:signature) }
 
     it 'returns the result by condition and document type' do
-      condition = { orientation_id: signature.orientation.id }
-      result = Signature.where(condition).includes(document: [:document_type]).select do |signature|
-        signature.document.document_type.id == document_type.id
-      end
-      signature_by_condition = Signature.by_condition_and_document_t(condition, document_type.id)
+      orientation_id = signature.orientation.id
+      result = Signature.joins(:document).where(orientation_id: orientation_id,
+                                                documents: { document_type_id: document_type.id })
+
+      signature_by_condition = Signature.by_orientation_and_document_t(
+        orientation_id, document_type.id
+      )
       expect(signature_by_condition).to match_array(result)
     end
   end
@@ -179,12 +181,9 @@ RSpec.describe Signature, type: :model do
     let!(:signature) { create(:signature, document: document, user_id: professor.id) }
 
     it 'returns the status table' do
-      condition = { orientation_id: signature.orientation.id }
-      signatures = Signature.where(condition)
-                            .includes(document: [:document_type])
-                            .select do |signature|
-                              signature.document.document_type.id == document_type.id
-                            end
+      signatures = Signature.joins(:document)
+                            .where(orientation_id: signature.orientation.id,
+                                   documents: { document_type_id: document_type.id })
       result = signatures.map do |signature|
         { name: signature.user.name, status: signature.status }
       end
