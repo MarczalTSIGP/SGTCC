@@ -12,7 +12,7 @@ class Signature < ApplicationRecord
   }, _prefix: :user_type
 
   scope :with_relationships, lambda {
-    includes(:orientation, document: [:document_type])
+    includes(orientation: [:academic], document: [:document_type])
   }
 
   def sign
