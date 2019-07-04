@@ -30,11 +30,11 @@ class Signature < ApplicationRecord
   end
 
   def term_of_commitment?
-    equal_term?(DocumentType.find_by(name: I18n.t('signatures.documents.TCO')))
+    equal_term?(DocumentType.find_by(identifier: 'tco'))
   end
 
   def term_of_accept_institution?
-    equal_term?(DocumentType.find_by(name: I18n.t('signatures.documents.TCAI')))
+    equal_term?(DocumentType.find_by(identifier: 'tcai'))
   end
 
   def user_table

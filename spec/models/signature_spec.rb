@@ -16,7 +16,7 @@ RSpec.describe Signature, type: :model do
   end
 
   describe '#term_of_commitement?' do
-    let(:document_type) { create(:document_type, name: I18n.t('signatures.documents.TCO')) }
+    let(:document_type) { create(:document_type_tco) }
     let(:document) { create(:document, document_type: document_type) }
     let(:signature_tco) { create(:signature, document: document) }
     let(:signature) { create(:signature) }
@@ -31,7 +31,7 @@ RSpec.describe Signature, type: :model do
   end
 
   describe '#term_of_accept_institution?' do
-    let(:document_type) { create(:document_type, name: I18n.t('signatures.documents.TCAI')) }
+    let(:document_type) { create(:document_type_tcai) }
     let(:document) { create(:document, document_type: document_type) }
     let(:signature_tcai) { create(:signature, document: document) }
     let(:signature) { create(:signature) }
