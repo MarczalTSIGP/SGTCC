@@ -21,4 +21,12 @@ module ExternalMembers::ActiveLinkHelper
   def external_members_supervisions_history_active_link?
     supervisions_history_active_link?('external_members')
   end
+
+  def external_members_signatures_pending_active_link?
+    signatures_pending_active_link?('external_members')
+  end
+
+  def external_members_signatures_signed_active_link?
+    signatures_signed_active_link?('external_members')
+  end
 end

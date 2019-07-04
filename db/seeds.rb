@@ -49,3 +49,12 @@ base_activity_types = [
 base_activity_types.each do |base_activity_type|
   BaseActivityType.find_or_create_by!(name: base_activity_type)
 end
+
+document_types = [
+  I18n.t('signatures.documents.TCO'),
+  I18n.t('signatures.documents.TCAE')
+]
+
+document_types.each do |document_type|
+  DocumentType.find_or_create_by!(name: document_type)
+end

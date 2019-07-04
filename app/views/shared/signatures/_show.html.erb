@@ -1,0 +1,26 @@
+<% provide(:head_title, t('breadcrumbs.signatures.show')) %>
+<% provide(:page_title) do %>
+  <signature-show-title />
+<% end %>
+
+<% unless @signature.status %>
+  <div>
+    <signature-button
+      show-title="<%= t('breadcrumbs.signatures.TCO.show', academic: @signature.orientation.academic.name) %>" />
+  </div>
+
+  <div>
+    <signature-confirm
+      label="<%= label %>"
+      url="<%= confirm_url %>" />
+  </div>
+<% end %>
+
+<div>
+  <%= render 'shared/signatures/component', signature: @signature %>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
+</div>
+

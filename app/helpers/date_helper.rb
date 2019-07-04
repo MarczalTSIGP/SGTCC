@@ -6,4 +6,8 @@ module DateHelper
   def short_date(date)
     I18n.localize(date, format: :short)
   end
+
+  def document_date(date)
+    I18n.localize(date, format: :document)
+  end
 end

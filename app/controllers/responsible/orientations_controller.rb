@@ -5,6 +5,8 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
   before_action :set_calendar, only: [:show, :edit]
+  before_action :can_edit, only: :edit
+  before_action :can_destroy, only: :destroy
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -90,6 +92,18 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.calendar
+  end
+
+  def can_edit
+    return if @orientation.can_be_edited?
+    flash[:alert] = I18n.t('flash.orientation.edit.signed')
+    redirect_to responsible_orientations_tcc_one_path
+  end
+
+  def can_destroy
+    return if @orientation.can_be_destroyed?
+    flash[:alert] = I18n.t('flash.orientation.destroy.signed')
+    redirect_to responsible_orientations_tcc_one_path
   end
 
   def orientation_params

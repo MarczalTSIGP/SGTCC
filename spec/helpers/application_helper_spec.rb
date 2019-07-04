@@ -14,14 +14,4 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
-
-  describe '#complete_date' do
-    context 'when not receives param' do
-      it 'show complete date' do
-        date = Time.zone.now
-        converted_date = I18n.localize(date, format: :long)
-        expect(helper.complete_date(date)).to eql(converted_date)
-      end
-    end
-  end
 end

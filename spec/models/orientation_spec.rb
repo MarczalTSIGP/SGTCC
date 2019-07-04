@@ -10,6 +10,7 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to belong_to(:academic) }
     it { is_expected.to belong_to(:advisor).class_name('Professor') }
     it { is_expected.to belong_to(:institution) }
+    it { is_expected.to have_many(:signatures).dependent(:destroy) }
     it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
 
     it 'is expected to have many professor supervisors' do
@@ -59,6 +60,77 @@ RSpec.describe Orientation, type: :model do
     it 'returns the supervisors' do
       supervisors = orientation.professor_supervisors + orientation.external_member_supervisors
       expect(orientation.supervisors).to eq(supervisors)
+    end
+  end
+
+  describe '#signatures_mark' do
+    let!(:professor) { create(:professor) }
+    let!(:supervisor) { create(:professor) }
+    let!(:academic) { create(:academic) }
+    let!(:external_member) { create(:external_member) }
+    let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
+    let!(:signature_signed) do
+      create(:signature_signed, orientation_id: orientation.id, user_id: professor.id)
+    end
+
+    let!(:academic_signature_signed) do
+      create(:academic_signature_signed, orientation_id: orientation.id, user_id: academic.id)
+    end
+
+    let!(:external_member_signature_signed) do
+      create(:external_member_signature_signed, orientation_id: orientation.id,
+                                                user_id: external_member.id)
+    end
+
+    let!(:professor_signature_signed) do
+      create(:signature_signed, orientation_id: orientation.id, user_id: supervisor.id)
+    end
+
+    let(:roles) do
+      'signatures.users.roles'
+    end
+
+    let(:supervisor_role) do
+      I18n.t("#{roles}.#{supervisor.gender}.#{professor_signature_signed.user_type}")
+    end
+
+    let(:external_member_role) do
+      I18n.t("#{roles}.#{external_member.gender}.#{external_member_signature_signed.user_type}")
+    end
+
+    let(:academic_role) do
+      I18n.t("#{roles}.#{academic.gender}.#{academic_signature_signed.user_type}")
+    end
+
+    let(:professor_role) do
+      I18n.t("#{roles}.#{professor.gender}.#{signature_signed.user_type}")
+    end
+
+    before do
+      orientation.external_member_supervisors << external_member
+      orientation.professor_supervisors << supervisor
+    end
+
+    it 'returns the signatures mark' do
+      signatures_mark = [
+        { name: supervisor.name,
+          role: supervisor_role,
+          date: I18n.l(professor_signature_signed.updated_at, format: :short),
+          time: I18n.l(professor_signature_signed.updated_at, format: :time) },
+        { name: external_member.name,
+          role: external_member_role,
+          date: I18n.l(external_member_signature_signed.updated_at, format: :short),
+          time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
+        { name: academic.name,
+          role: academic_role,
+          date: I18n.l(academic_signature_signed.updated_at, format: :short),
+          time: I18n.l(academic_signature_signed.updated_at, format: :time) },
+        { name: professor.name,
+          role: professor_role,
+          date: I18n.l(signature_signed.updated_at, format: :short),
+          time: I18n.l(signature_signed.updated_at, format: :time) }
+      ]
+      expect(orientation.signatures_mark).to match_array(signatures_mark)
     end
   end
 
@@ -112,13 +184,13 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_renewed?' do
-    it 'returns true for the orientation be renewed' do
+    it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
       expect(orientation.can_be_renewed?(professor)).to eq(true)
     end
 
-    it 'returns false for the orientation be renewed' do
+    it 'returns false' do
       professor = create(:professor)
       orientation = create(:orientation_tcc_one)
       expect(orientation.can_be_renewed?(professor)).to eq(false)
@@ -126,16 +198,46 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_canceled?' do
-    it 'returns true for the orientation be canceled' do
+    it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
       expect(orientation.can_be_canceled?(professor)).to eq(true)
     end
 
-    it 'returns false for the orientation be canceled' do
+    it 'returns false' do
       professor = create(:responsible)
       orientation = create(:orientation_canceled)
       expect(orientation.can_be_renewed?(professor)).to eq(false)
+    end
+  end
+
+  describe '#can_be_edited?' do
+    it 'returns true' do
+      orientation = create(:orientation_tcc_one)
+      expect(orientation.can_be_edited?).to eq(true)
+    end
+
+    it 'returns false' do
+      signature = create(:signature, status: true)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_edited?).to eq(false)
+    end
+  end
+
+  describe '#can_be_destroyed?' do
+    it 'returns true' do
+      signature = create(:signature, status: false)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_destroyed?).to eq(true)
+    end
+
+    it 'returns false' do
+      signature = create(:signature, status: true)
+      orientation = create(:orientation_tcc_one)
+      orientation.signatures << signature
+      expect(orientation.can_be_destroyed?).to eq(false)
     end
   end
 
@@ -358,6 +460,45 @@ RSpec.describe Orientation, type: :model do
         orientation.reload
         expect(orientation.status).to eq('cancelada')
       end
+    end
+  end
+
+  describe '#professor_supervisors_to_document' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.professor_supervisors.first }
+
+    it 'returns the array with professor supervisors name formatted' do
+      formatted = [{ name: "#{professor.scholarity.abbr} #{professor.name}" }]
+      expect(orientation.professor_supervisors_to_document).to match_array(formatted)
+    end
+  end
+
+  describe '#external_member_supervisors_to_document' do
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
+
+    it 'returns the array with professor supervisors name formatted' do
+      formatted = [{ name: "#{external_member.scholarity.abbr} #{external_member.name}" }]
+      expect(orientation.external_member_supervisors_to_document).to match_array(formatted)
+    end
+  end
+
+  describe '#signature_status' do
+    let!(:orientation) { create(:orientation) }
+    let!(:professor) { create(:professor) }
+    let!(:signature) do
+      create(:signature, orientation_id: orientation.id, user_id: professor.id)
+    end
+
+    before do
+      orientation.signatures << signature
+    end
+
+    it 'returns the signature status' do
+      signature_status = [
+        { name: signature.user_table.find(signature.user_id).name, status: signature.status }
+      ]
+      expect(orientation.signatures_status).to match_array(signature_status)
     end
   end
 end

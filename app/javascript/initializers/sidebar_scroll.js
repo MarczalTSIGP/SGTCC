@@ -7,10 +7,13 @@ export default {
     initScroll() {
       const $ = window.jQuery;
       const linkActive = $('a.list-group-item.list-group-item-action.active');
-      const top = linkActive.offset().top;
 
-      if (top >= 474) {
-        this.moveScrollToActiveLinkPosition(top);
+      if (linkActive.length > 0) {
+        const top = linkActive.offset().top;
+
+        if (top >= 474) {
+          this.moveScrollToActiveLinkPosition(top);
+        }
       }
     },
 

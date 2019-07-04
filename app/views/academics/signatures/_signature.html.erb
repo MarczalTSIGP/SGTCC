@@ -1,0 +1,8 @@
+<tr>
+  <%= render 'shared/signatures/tbody', signature: signature %>
+  <td>
+    <%= link_to(academics_signature_path(signature)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
+    <% end %>
+  </td>
+</tr>

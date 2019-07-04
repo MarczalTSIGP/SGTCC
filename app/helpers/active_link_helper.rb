@@ -77,4 +77,14 @@ module ActiveLinkHelper
     match_link?("\/#{namespace}\/supervisions\/history") ||
       (supervisions_show_link?(namespace) && !supervisions_current_calendar_link?)
   end
+
+  def signatures_pending_active_link?(namespace)
+    match_link?("/#{namespace}/signatures/pending") ||
+      match_link?("/#{namespace}/signatures/(\\d+)") && @signature&.status == false
+  end
+
+  def signatures_signed_active_link?(namespace)
+    match_link?("/#{namespace}/signatures/signed") ||
+      match_link?("/#{namespace}/signatures/(\\d+)") && @signature&.status == true
+  end
 end

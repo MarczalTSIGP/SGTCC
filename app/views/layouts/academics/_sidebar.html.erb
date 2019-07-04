@@ -42,6 +42,10 @@
     </span>
     <%= t('breadcrumbs.calendars.index') %>
   <% end %>
+
+  <%= render 'layouts/shared/signature_menu', resource: 'academics',
+                                              pending_path: academics_signatures_pending_path,
+                                              signed_path: academics_signatures_signed_path %>
 <% end %>
 
 

@@ -2,6 +2,7 @@ class ExternalMember < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
+  include SignatureFilter
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -54,5 +55,9 @@ class ExternalMember < ApplicationRecord
 
   def current_supervision_tcc_two
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
+  end
+
+  def signatures
+    Signature.where(user_id: id, user_type: Signature.user_types[:external_member_supervisor])
   end
 end

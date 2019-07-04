@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_223851) do
+ActiveRecord::Schema.define(version: 2019_06_13_182041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,20 @@ ActiveRecord::Schema.define(version: 2019_06_01_223851) do
     t.integer "tcc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "document_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.text "content"
+    t.bigint "document_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_type_id"], name: "index_documents_on_document_type_id"
   end
 
   create_table "external_members", force: :cascade do |t|
@@ -179,11 +193,24 @@ ActiveRecord::Schema.define(version: 2019_06_01_223851) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "signatures", force: :cascade do |t|
+    t.bigint "orientation_id"
+    t.bigint "document_id"
+    t.integer "user_id"
+    t.string "user_type", limit: 2
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_signatures_on_document_id"
+    t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
+  end
+
   add_foreign_key "activities", "base_activity_types"
   add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
   add_foreign_key "base_activities", "base_activity_types"
+  add_foreign_key "documents", "document_types"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "orientation_supervisors", "external_members", column: "external_member_supervisor_id"
@@ -195,4 +222,6 @@ ActiveRecord::Schema.define(version: 2019_06_01_223851) do
   add_foreign_key "orientations", "professors", column: "advisor_id"
   add_foreign_key "professors", "professor_types"
   add_foreign_key "professors", "scholarities"
+  add_foreign_key "signatures", "documents"
+  add_foreign_key "signatures", "orientations"
 end
