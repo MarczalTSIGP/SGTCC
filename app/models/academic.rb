@@ -41,7 +41,7 @@ class Academic < ApplicationRecord
     current_orientation_by_calendar(Calendar.current_by_tcc_two)
   end
 
-  def signatures
-    Signature.where(user_id: id, user_type: Signature.user_types[:academic])
+  def signatures(condition = {})
+    Signature.where(condition).where(user_id: id, user_type: Signature.user_types[:academic])
   end
 end

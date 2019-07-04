@@ -109,41 +109,6 @@ RSpec.describe Signature, type: :model do
     end
   end
 
-  describe '#can_view' do
-    let(:professor) { create(:professor) }
-    let(:academic) { create(:academic) }
-    let(:orientation) { create(:orientation, advisor: professor) }
-    let(:signature) { create(:signature, orientation_id: orientation.id, user_id: professor.id) }
-
-    it 'returns true' do
-      expect(signature.can_view(professor, 'advisor')).to eq(true)
-    end
-
-    it 'returns false' do
-      expect(signature.can_view(academic, 'academic')).to eq(false)
-    end
-  end
-
-  describe '#professor_can_view' do
-    let(:professor) { create(:professor) }
-    let(:academic) { create(:academic) }
-    let(:orientation) { create(:orientation, advisor: professor) }
-    let(:advisor_signature) do
-      create(:signature, orientation_id: orientation.id, user_id: professor.id)
-    end
-    let(:professor_supervisor_signature) do
-      create(:professor_supervisor_signature, orientation_id: orientation.id, user_id: professor.id)
-    end
-
-    it 'returns true for the advisor' do
-      expect(advisor_signature.professor_can_view(professor)).to eq(true)
-    end
-
-    it 'returns true for the professor supervisor' do
-      expect(professor_supervisor_signature.professor_can_view(professor)).to eq(true)
-    end
-  end
-
   describe '#user' do
     let!(:academic) { create(:academic) }
     let!(:professor) { create(:professor) }

@@ -57,7 +57,9 @@ class ExternalMember < ApplicationRecord
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
   end
 
-  def signatures
-    Signature.where(user_id: id, user_type: Signature.user_types[:external_member_supervisor])
+  def signatures(condition = {})
+    Signature.where(condition).where(
+      user_id: id, user_type: Signature.user_types[:external_member_supervisor]
+    )
   end
 end

@@ -37,14 +37,6 @@ class Signature < ApplicationRecord
     equal_term?(DocumentType.find_by(name: I18n.t('signatures.documents.TCAI')))
   end
 
-  def can_view(user, type)
-    user.id == user_id && type == user_type
-  end
-
-  def professor_can_view(professor)
-    can_view(professor, 'professor_supervisor') || can_view(professor, 'advisor')
-  end
-
   def user_table
     return Academic if user_type == 'academic'
     return ExternalMember if user_type == 'external_member_supervisor'
