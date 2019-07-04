@@ -18,7 +18,8 @@
         <p>
           Eu, <b>{{ institutionResponsible.name }}</b>, como representante da instituição
           <b>{{ institution.trade_name }}</b>, afirmo que o acadêmico <b>{{ academic.name }}</b>,
-          RA {{ academic.ra }}, do curso de TSI da UTFPR-GP, orientado pelo professor
+          RA {{ academic.ra }}, do curso de Tecnolgia em Sistemas para Internet da Universidade
+          Tecnológica Federal do Paraná do Câmpus Guarapuava, orientado pelo professor
           <b>{{ advisorScholarity.abbr }} {{ advisor.name }}</b>, possa realizar as atividades de seu trabalho
           de conclusão de curso nesta instituição, sem prejuízo desde que ambas as partes preservem a ética
           necessária.
