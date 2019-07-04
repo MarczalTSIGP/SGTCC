@@ -5,13 +5,29 @@ module OrientationDocuments
 
   included do
     after_save do
-      term_of_commitment = DocumentType.find_by(name: I18n.t('signatures.documents.TCO'))
-      term_of_accept_institution = DocumentType.find_by(name: I18n.t('signatures.documents.TCAI'))
-      Documents::SaveSignatures.new(self, term_of_commitment&.id).save
-      Documents::SaveSignatures.new(self, term_of_accept_institution&.id).save
+      create_term_of_commitment_signatures
+      create_term_of_accept_institution_signatures
     end
 
     after_update do
+      destroy_signatures
+    end
+
+    private
+
+    def create_term_signatures(term)
+      Documents::SaveSignatures.new(self, term&.id).save
+    end
+
+    def create_term_of_commitment_signatures
+      create_term_signatures(DocumentType.find_by(name: I18n.t('signatures.documents.TCO')))
+    end
+
+    def create_term_of_accept_institution_signatures
+      create_term_signatures(DocumentType.find_by(name: I18n.t('signatures.documents.TCAI')))
+    end
+
+    def destroy_signatures
       signatures.destroy_all
     end
   end
