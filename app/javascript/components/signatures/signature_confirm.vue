@@ -29,6 +29,7 @@
           v-model="password"
           type="password"
           class="form-control"
+          @keyup.enter="confirmLogin()"
         >
       </div>
       <div class="form-footer">
