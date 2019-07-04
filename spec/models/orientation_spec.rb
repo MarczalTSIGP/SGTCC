@@ -155,18 +155,35 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_destroyed?' do
+    let(:document_type_tcai) { create(:document_type_tcai) }
+    let(:document_tcai) { create(:document, document_type: document_type_tcai) }
+    let(:document_type_tco) { create(:document_type_tco) }
+    let(:document_tco) { create(:document, document_type: document_type_tco) }
+    let(:signature_tco) { create(:signature, document: document_tco) }
+    let(:signature_tcai) { create(:signature, document: document_tcai) }
+
     it 'returns true' do
-      signature = create(:signature, status: false)
       orientation = create(:orientation_tcc_one)
-      orientation.signatures << signature
+      orientation.signatures << signature_tco
+      orientation.signatures << signature_tcai
       expect(orientation.can_be_destroyed?).to eq(true)
     end
 
-    it 'returns false' do
-      signature = create(:signature, status: true)
-      orientation = create(:orientation_tcc_one)
-      orientation.signatures << signature
-      expect(orientation.can_be_destroyed?).to eq(false)
+    context 'when returns false' do
+      let!(:orientation) { create(:orientation_tcc_one) }
+
+      before do
+        orientation.signatures << signature_tco
+        orientation.signatures << signature_tcai
+        orientation.signatures.each do |signature|
+          signature.status = true
+          signature.save
+        end
+      end
+
+      it 'returns false' do
+        expect(orientation.can_be_destroyed?).to eq(false)
+      end
     end
   end
 

@@ -17,9 +17,11 @@ RSpec.describe Signature, type: :model do
 
   describe '#term_of_commitement?' do
     let(:document_type) { create(:document_type_tco) }
+    let(:document_type_tcai) { create(:document_type_tcai) }
+    let(:document_tcai) { create(:document, document_type: document_type_tcai) }
     let(:document) { create(:document, document_type: document_type) }
     let(:signature_tco) { create(:signature, document: document) }
-    let(:signature) { create(:signature) }
+    let(:signature) { create(:signature, document: document_tcai) }
 
     it 'returns true' do
       expect(signature_tco.term_of_commitment?).to eq(true)
@@ -32,9 +34,11 @@ RSpec.describe Signature, type: :model do
 
   describe '#term_of_accept_institution?' do
     let(:document_type) { create(:document_type_tcai) }
+    let(:document_type_tco) { create(:document_type_tco) }
+    let(:document_tco) { create(:document, document_type: document_type_tco) }
     let(:document) { create(:document, document_type: document_type) }
     let(:signature_tcai) { create(:signature, document: document) }
-    let(:signature) { create(:signature) }
+    let(:signature) { create(:signature, document: document_tco) }
 
     it 'returns true' do
       expect(signature_tcai.term_of_accept_institution?).to eq(true)

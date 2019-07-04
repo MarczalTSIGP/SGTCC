@@ -51,8 +51,8 @@ base_activity_types.each do |base_activity_type|
 end
 
 document_types = [
-  { name: I18n.t('signatures.documents.TCO'), identifier: 'tco' },
-  { name: I18n.t('signatures.documents.TCAI'), identifier: 'tcai' }
+  { name: I18n.t('signatures.documents.TCO'), identifier: DocumentType.identifiers[:tco] },
+  { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] }
 ]
 
 document_types.each do |document_type|

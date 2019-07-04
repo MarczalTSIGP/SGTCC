@@ -1,16 +1,16 @@
 FactoryBot.define do
   factory :document_type do
     sequence(:name) { |n| "document_type#{n}" }
-    identifier { |n| "identifier#{n}" }
+    identifier { DocumentType.identifiers.values.sample }
 
     factory :document_type_tco do
       name { I18n.t('signatures.documents.TCO') }
-      identifier { 'tco' }
+      identifier { DocumentType.identifiers[:tco] }
     end
 
     factory :document_type_tcai do
       name { I18n.t('signatures.documents.TCAI') }
-      identifier { 'tcai' }
+      identifier { DocumentType.identifiers[:tcai] }
     end
   end
 end

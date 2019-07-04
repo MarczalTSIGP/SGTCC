@@ -20,11 +20,11 @@ module OrientationDocuments
     end
 
     def create_term_of_commitment_signatures
-      create_term_signatures(DocumentType.find_by(identifier: 'tco'))
+      create_term_signatures(DocumentType.find_by(identifier: DocumentType.identifiers[:tco]))
     end
 
     def create_term_of_accept_institution_signatures
-      create_term_signatures(DocumentType.find_by(identifier: 'tcai'))
+      create_term_signatures(DocumentType.find_by(identifier: DocumentType.identifiers[:tcai]))
     end
 
     def destroy_signatures

@@ -16,6 +16,10 @@ class Signature < ApplicationRecord
     includes(orientation: [:academic], document: [:document_type])
   }
 
+  scope :by_document_type, lambda { |document_type_id|
+    joins(:document).where(documents: { document_type_id: document_type_id })
+  }
+
   def sign
     self.status = true
     save
@@ -25,16 +29,12 @@ class Signature < ApplicationRecord
     confirm(class_name, login, params) && sign
   end
 
-  def equal_term?(term)
-    document.document_type.id == term&.id
-  end
-
   def term_of_commitment?
-    equal_term?(DocumentType.find_by(identifier: 'tco'))
+    document.document_type.tco?
   end
 
   def term_of_accept_institution?
-    equal_term?(DocumentType.find_by(identifier: 'tcai'))
+    document.document_type.tcai?
   end
 
   def user_table
@@ -48,8 +48,7 @@ class Signature < ApplicationRecord
   end
 
   def self.by_orientation_and_document_t(orientation_id, document_type_id)
-    joins(:document).where(orientation_id: orientation_id,
-                           documents: { document_type_id: document_type_id })
+    by_document_type(document_type_id).where(orientation_id: orientation_id)
   end
 
   def self.status_table(orientation_id, document_type_id)
