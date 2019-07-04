@@ -6,7 +6,7 @@ module OrientationDocuments
   included do
     after_save do
       create_term_of_commitment_signatures
-      create_term_of_accept_institution_signatures
+      create_term_of_accept_institution_signatures if institution.present?
     end
 
     after_update do
