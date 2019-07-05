@@ -4,9 +4,14 @@
 <% end %>
 
 <% unless @signature.status %>
-  <div>
-    <signature-button
-      show-title="<%= t('breadcrumbs.signatures.TCO.show', academic: @signature.orientation.academic.name) %>" />
+  <div class="row mb-4 float-right">
+    <div class="rol-6 mr-2">
+      <signature-button
+        show-title="<%= t('breadcrumbs.signatures.TCO.show', academic: @signature.orientation.academic.name) %>" />
+    </div>
+    <div class="rol-6">
+      <signature-download-button />
+    </div>
   </div>
 
   <div>
