@@ -25,8 +25,8 @@ const options = {
   name: '_blank',
   specs: [
     'fullscreen=yes',
-    'titlebar=yes',
-    'scrollbars=yes'
+    'titlebar=no',
+    'scrollbars=yes',
   ],
   styles: [
     'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
