@@ -69,21 +69,20 @@ export default {
   methods: {
     async confirmCode() {
       if (this.isEmpty(this.code)) {
-        return this.showWarningMessage(this.errorMessage);
+        this.showWarningMessage(this.errorMessage);
+        return;
       }
 
-      const response = await this.$axios.get(this.urlComplete);
+      const response = await this.$axios.post(this.urlComplete);
       const message = response.data.message;
 
-      if (response.data.status === 'internal_server_error') {
-        return this.showWarningMessage(message);
+      console.log('response', response);
+      if (response.data.status === 'not_found') {
+        return this.showErrorMessage(message);
       }
 
       this.showSuccessMessage(message);
-      this.showDocument(message);
     },
-
-    showDocument() {},
 
     isEmpty(field) {
       return field === '';

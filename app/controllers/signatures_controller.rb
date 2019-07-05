@@ -1,7 +1,9 @@
 class SignaturesController < ApplicationController
   before_action :set_signature, only: :mark
   before_action :set_signature_code, only: :show
+  before_action :set_signature_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
+  include JsonMessage
 
   def mark
     render json: Signature.mark(params[:orientation_id], params[:document_type_id])
@@ -17,6 +19,16 @@ class SignaturesController < ApplicationController
     @signature = @signature_code.signatures.first
   end
 
+  def confirm_document
+    if @signature_code&.all_signed?
+      content = { data: @signature, message: document_authenticated_message }
+    else
+      content = { message: document_not_found_message, status: :not_found }
+    end
+
+    render json: content
+  end
+
   private
 
   def set_signature_code
@@ -25,7 +37,7 @@ class SignaturesController < ApplicationController
 
   def can_show
     return if @signature_code.present? && @signature_code.all_signed?
-    flash[:alert] = I18n.t('flash.documents.not_found')
+    error_document_not_found_message
     redirect_to signature_document_path
   end
 
