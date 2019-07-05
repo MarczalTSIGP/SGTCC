@@ -6,7 +6,7 @@
       class="btn btn-outline-danger"
       @click="downloadPdf()"
     >
-      Download PDF
+      Salvar em PDF
     </button>
   </div>
 </template>
