@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :signature do
     orientation
     document
+    signature_code
     user_id { Faker::Number.non_zero_digit }
     user_type { 'AD' }
     status { false }
