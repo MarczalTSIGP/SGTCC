@@ -2,12 +2,20 @@ import swal from 'sweetalert';
 
 export default {
   methods: {
+    showMessage(message, type) {
+      swal('', message, type);
+    },
+
     showWarningMessage(message) {
-      swal('', message, 'warning');
+      this.showMessage(message, 'warning');
     },
 
     showSuccessMessage(message) {
-      swal('', message, 'success');
+      this.showMessage(message, 'success');
+    },
+
+    showErrorMessage(message) {
+      this.showMessage(message, 'error');
     },
   },
 };

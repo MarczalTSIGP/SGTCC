@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       to: 'signatures#show',
       as: 'signature'
 
+  post 'autenticidade/documentos/(:code)',
+       to: 'signatures#confirm_document',
+       as: 'signature_confirm_document'
+
   post 'signatures/(:id)/mark', to: 'signatures#mark', as: 'signatures_mark'
 
   post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
