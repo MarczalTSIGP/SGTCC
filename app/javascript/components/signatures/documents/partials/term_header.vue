@@ -1,13 +1,14 @@
 <template>
-  <div class="row mb-6">
-    <div class="col-md-4 col-sm-12">
+  <div class="clearfix mb-6">
+    <div class="float-left">
       <img
         class="img-fluid mb-2"
         alt="logo_utfpr"
         src="../assets/images/utfpr_logo.png"
+        :style="{ width: 350 + 'px' }"
       >
     </div>
-    <div class="col-md-8 col-sm-12">
+    <div class="ml-5 float-left">
       <p class="m-0">
         Ministério da Educação
       </p>

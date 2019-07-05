@@ -13,12 +13,8 @@
 
 <script>
 
-import baseButton from './documents/base_button';
-
 export default {
   name: 'SignatureButton',
-
-  mixins: [baseButton],
 
   props: {
     showTitle: {
@@ -27,9 +23,33 @@ export default {
     },
   },
 
+  data() {
+    return {
+      show: true,
+    };
+  },
+
+  mounted() {
+    this.onCloseSignatureButton();
+    this.onOpenSignatureButton();
+  },
+
   methods: {
+    onCloseSignatureButton() {
+      this.$root.$on('close-signature-button', () => {
+        this.show = false;
+      });
+    },
+
+    onOpenSignatureButton() {
+      this.$root.$on('open-signature-button', () => {
+        this.show = true;
+      });
+    },
+
     emitOpenLoginConfirmation() {
       this.$root.$emit('open-login-confirmation');
+      this.$root.$emit('close-signature-download-button');
       this.$root.$emit('close-signature-button');
       this.$root.$emit('change-signature-show-title', this.showTitle);
     },
