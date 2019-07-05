@@ -2,6 +2,7 @@ class Signature < ApplicationRecord
   include Confirmable
   include SignatureMark
 
+  belongs_to :signature_code
   belongs_to :orientation
   belongs_to :document
 

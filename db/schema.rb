@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_05_172221) do
+ActiveRecord::Schema.define(version: 2019_07_05_172813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,8 +204,10 @@ ActiveRecord::Schema.define(version: 2019_07_05_172221) do
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "signature_code_id"
     t.index ["document_id"], name: "index_signatures_on_document_id"
     t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
+    t.index ["signature_code_id"], name: "index_signatures_on_signature_code_id"
   end
 
   add_foreign_key "activities", "base_activity_types"
@@ -227,4 +229,5 @@ ActiveRecord::Schema.define(version: 2019_07_05_172221) do
   add_foreign_key "professors", "scholarities"
   add_foreign_key "signatures", "documents"
   add_foreign_key "signatures", "orientations"
+  add_foreign_key "signatures", "signature_codes"
 end

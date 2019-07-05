@@ -1,14 +1,16 @@
 class Documents::SaveSignatures
-  attr_reader :orientation, :document_type_id, :document_id, :signature_users
+  attr_reader :orientation, :document_type_id, :document_id, :signature_users, :signature_code
 
   def initialize(orientation, document_type_id)
     @orientation = orientation
     @document_type_id = document_type_id
     @signature_users = []
+    @signature_code = nil
   end
 
   def save
     create_document
+    create_signature_code
     add_signature_users
     create_signatures
   end
@@ -16,14 +18,23 @@ class Documents::SaveSignatures
   private
 
   def create_signatures
+    signature_code = SignatureCode.create(code: @signature_code)
     @signature_users.each do |user_id, user_type|
-      Signature.new(
+      Signature.create(
         orientation_id: @orientation.id,
         document_id: @document_id,
         user_id: user_id,
-        user_type: user_type
-      ).save
+        user_type: user_type,
+        signature_code_id: signature_code.id
+      )
     end
+  end
+
+  def create_signature_code
+    timestamps = Time.now.to_i
+    timestamps += @orientation.id
+    timestamps += @document_id.to_i
+    @signature_code = timestamps
   end
 
   def create_document
