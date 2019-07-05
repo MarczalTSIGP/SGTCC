@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div
       v-show="open"
       id="term"
@@ -80,9 +80,6 @@
         />
       </div>
     </div>
-    <signature-status
-      :url="urlSignaturesStatus"
-    />
   </div>
 </template>
 
@@ -90,12 +87,11 @@
 
 import baseTerm from './base_term';
 import TermHeader from './partials/term_header';
-import SignatureStatus from '../signature_status';
 
 export default {
   name: 'TermOfCommitment',
 
-  components: { TermHeader, SignatureStatus },
+  components: { TermHeader },
 
   mixins: [baseTerm],
 };

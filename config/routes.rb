@@ -13,6 +13,16 @@ Rails.application.routes.draw do
        to: 'signatures#mark',
        as: 'signatures_mark'
 
+  get 'autenticidade/documentos',
+      to: 'signatures#document',
+      as: 'signature_document'
+
+  get 'autenticidade/documentos/(:code)',
+      to: 'signatures#show',
+      as: 'signature'
+
+  post 'signatures/(:id)/mark', to: 'signatures#mark', as: 'signatures_mark'
+
   post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
        to: 'signatures#status',
        as: 'signatures_status'

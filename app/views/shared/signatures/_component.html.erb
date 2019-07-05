@@ -1,4 +1,4 @@
-<% if @signature.term_of_commitment? %>
+<% if @signature&.term_of_commitment? %>
   <term-of-commitment
     :orientation-id="<%= @signature.orientation.id %>"
     orientation-title="<%= @signature.orientation.title %>"

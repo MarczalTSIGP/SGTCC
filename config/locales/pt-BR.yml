@@ -319,6 +319,8 @@ pt-BR:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
+    documents:
+      not_found: 'Documento não encontrado!'
   json:
     messages:
       orientation:
