@@ -82,6 +82,10 @@ export default {
       }
 
       this.showSuccessMessage(message);
+      this.showDocument();
+    },
+
+    showDocument() {
     },
 
     isEmpty(field) {

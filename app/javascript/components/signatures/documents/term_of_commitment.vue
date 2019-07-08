@@ -76,7 +76,8 @@
         </div>
         <div class="clearfix" />
         <signature-mark
-          :url="urlSignaturesMark"
+          :url="urlSignatureMark"
+          :url-signature-code="urlSignatureCode"
         />
       </div>
     </div>
