@@ -20,6 +20,7 @@ require 'support/file_spec_helper'
 require 'support/capybara'
 
 require 'support/matchers/have_flash'
+require 'support/matchers/have_alert'
 require 'support/matchers/have_message'
 require 'support/matchers/have_contents'
 

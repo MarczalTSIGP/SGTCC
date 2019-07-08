@@ -93,5 +93,9 @@ module Helpers
       url = "#{current_host}:#{URI.parse(current_url).port}#{signature_path}"
       I18n.t('signatures.code', url: url, code: signature_code.code)
     end
+
+    def document_not_found_message
+      I18n.t('json.messages.documents.errors.not_found')
+    end
   end
 end
