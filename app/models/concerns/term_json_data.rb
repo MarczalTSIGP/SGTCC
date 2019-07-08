@@ -9,8 +9,7 @@ module TermJsonData
         title: document.document_type.name.upcase,
         academic: orientation.academic, institution: institution_data,
         professorSupervisors: orientation.professor_supervisors_to_document,
-        externalMemberSupervisors: orientation.external_member_supervisors_to_document
-      }
+        externalMemberSupervisors: orientation.external_member_supervisors_to_document }
     end
 
     private

@@ -14,19 +14,20 @@
           Código
         </label>
         <input
-          id="code_confirmation"
+          id="signature_code"
           v-model="code"
           type="text"
           class="form-control"
+          @keyup.enter="confirmCode()"
         >
       </div>
       <div class="form-footer">
         <button
-          id="code_confirmation_button"
+          id="signature_authenticate_button"
           class="btn btn-primary btn-block"
           @click="confirmCode()"
         >
-          Confirmar
+          Autenticar
         </button>
         <a
           ref="redirect"

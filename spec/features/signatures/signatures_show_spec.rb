@@ -33,6 +33,9 @@ describe 'Signature::show', type: :feature, js: true do
 
     context 'when shows the signed signature of the term of commitment' do
       it 'shows the document of the term of commitment' do
+        expect(page).to have_alert(text: document_authenticated_message)
+        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
