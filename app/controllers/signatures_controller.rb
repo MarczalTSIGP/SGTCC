@@ -32,11 +32,8 @@ class SignaturesController < ApplicationController
   end
 
   def confirm_document
-    if @signature_code&.all_signed?
-      content = { message: document_authenticated_message }
-    else
-      content = { message: document_not_found_message, status: :not_found }
-    end
+    content = { message: document_not_found_message, status: :not_found }
+    content = { message: document_authenticated_message } if @signature_code&.all_signed?
 
     render json: content
   end

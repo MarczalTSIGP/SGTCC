@@ -23,6 +23,7 @@ pt-BR:
       save: 'Salvar'
       cancel: 'Cancelar'
       sign: 'Assinar'
+      authenticate: 'Autenticar'
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
@@ -321,6 +322,7 @@ pt-BR:
         signed: 'Não é possível editar orientação com assinaturas!'
   json:
     messages:
+      invalid_code: 'Código inválido!'
       documents:
         success:
           authenticated: 'Documento autenticado com sucesso!'
