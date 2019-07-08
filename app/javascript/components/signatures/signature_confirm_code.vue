@@ -28,6 +28,10 @@
         >
           Confirmar
         </button>
+        <a
+          ref="redirect"
+          href="#"
+        />
       </div>
     </div>
   </div>
@@ -76,16 +80,17 @@ export default {
       const response = await this.$axios.post(this.urlComplete);
       const message = response.data.message;
 
-      console.log('response', response);
       if (response.data.status === 'not_found') {
         return this.showErrorMessage(message);
       }
 
-      this.showSuccessMessage(message);
       this.showDocument();
     },
 
     showDocument() {
+      const link = this.$refs.redirect;
+      link.href = this.urlComplete;
+      link.click();
     },
 
     isEmpty(field) {

@@ -1,6 +1,5 @@
 class SignaturesController < ApplicationController
-  before_action :set_signature_code, only: :show
-  before_action :set_signature, only: :code
+  before_action :set_signature, only: [:code, :data]
   before_action :set_signature_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
@@ -25,11 +24,16 @@ class SignaturesController < ApplicationController
 
   def show
     @signature = @signature_code.signatures.first
+    success_document_authenticated_message
+  end
+
+  def data
+    render json: @signature.term_json_data
   end
 
   def confirm_document
     if @signature_code&.all_signed?
-      content = { data: @signature, message: document_authenticated_message }
+      content = { message: document_authenticated_message }
     else
       content = { message: document_not_found_message, status: :not_found }
     end

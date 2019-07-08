@@ -24,11 +24,13 @@ describe 'Signature::show', type: :feature, js: true do
            user_id: external_member.id)
 
     orientation.external_member_supervisors << external_member
-
-    visit signature_path(signature.signature_code.code)
   end
 
   describe '#show' do
+    before do
+      visit signature_path(signature.signature_code.code)
+    end
+
     context 'when shows the signed signature of the term of commitment' do
       it 'shows the document of the term of commitment' do
         expect(page).to have_contents([orientation.title,
