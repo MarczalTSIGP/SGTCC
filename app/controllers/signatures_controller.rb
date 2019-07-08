@@ -1,12 +1,20 @@
 class SignaturesController < ApplicationController
-  before_action :set_signature, only: :mark
   before_action :set_signature_code, only: :show
+  before_action :set_signature, only: :code
   before_action :set_signature_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
 
   def mark
     render json: Signature.mark(params[:orientation_id], params[:document_type_id])
+  end
+
+  def code
+    signature_code = @signature.signature_code
+
+    render json: {
+      all_signed: signature_code.all_signed?, code: signature_code.code, link: signature_url
+    }
   end
 
   def status

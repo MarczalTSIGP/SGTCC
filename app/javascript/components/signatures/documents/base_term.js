@@ -19,7 +19,12 @@ export default {
       required: true
     },
 
-    urlSignaturesMark: {
+    urlSignatureMark: {
+      type: String,
+      required: true
+    },
+
+    urlSignatureCode: {
       type: String,
       required: true
     },
