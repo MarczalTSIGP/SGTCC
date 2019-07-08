@@ -15,20 +15,20 @@
           :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }"
         >
           <h4 class="text-center">
-            {{ documentTitle.toUpperCase() }}
+            {{ term.title }}
           </h4>
         </div>
 
         <p>
-          Eu, <b>{{ advisorScholarity.abbr }} {{ advisor.name }}</b>, {{ advisorLabel }} desta instituição,
+          Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,
           declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
-          de conclusão de curso do acadêmico <b>{{ academic.name }}</b>, RA {{ academic.ra }}.
+          de conclusão de curso do acadêmico <b>{{ term.academic.name }}</b>, RA {{ term.academic.ra }}.
         </p>
 
         <p>
           <b>Tema</b>: <br>
           <span class="ml-4">
-            {{ orientationTitle }}
+            {{ term.orientation.title }}
           </span>
         </p>
 
@@ -36,7 +36,7 @@
           <p>
             <b>{{ professorSupervisorLabel }}:</b> <br>
             <span
-              v-for="professorSupervisor in professorSupervisors"
+              v-for="professorSupervisor in term.professorSupervisors"
               :key="professorSupervisor.id"
               class="ml-4"
             >
@@ -49,7 +49,7 @@
           <p>
             <b>{{ externalMemberSupervisorLabel }}:</b> <br>
             <span
-              v-for="externalMemberSupervisor in externalMemberSupervisors"
+              v-for="externalMemberSupervisor in term.externalMemberSupervisors"
               :key="externalMemberSupervisor.id"
               class="ml-4"
             >
@@ -62,16 +62,16 @@
           <p>
             <b>TCC desenvolvido em parceria com a instituição:</b> <br>
             <span class="ml-4">
-              Nome fantasia: {{ institution.trade_name }}
+              Nome fantasia: {{ term.institution.trade_name }}
             </span><br>
             <span class="ml-4">
-              Responsável: {{ institutionResponsible.name }}
+              Responsável: {{ term.institution.responsible }}
             </span><br>
           </p>
         </div>
         <div class="float-right">
           <p :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }">
-            Guarapuava, {{ orientationDate }}.
+            Guarapuava, {{ term.orientation.date }}.
           </p>
         </div>
         <div class="clearfix" />
