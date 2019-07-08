@@ -2,6 +2,7 @@
   "name": "sistema-gestao-tcc",
   "private": true,
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^1.0.1",
     "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
     "jquery-mask-plugin": "^1.14.15",

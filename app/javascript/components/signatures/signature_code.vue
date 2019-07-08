@@ -4,11 +4,12 @@
       <hr class="m-0">
       <div class="signature_code">
         <div class="py-4">
-          <img
-            class="float-left mr-2"
-            src="./documents/assets/images/sgtcc_signature.png"
-            :style="{ width: imageWidth + 'px' }"
-          >
+          <div class="float-left mr-2">
+            <vue-qrcode
+              :value="urlSignatureShow"
+              :options="{ width: 100 }"
+            />
+          </div>
           <p>
             A autenticidade deste documento pode ser conferida no site
             <u>
@@ -22,16 +23,21 @@
             </u>, informando o código verificador <b>{{ signatureCode.code }}</b>.
           </p>
         </div>
-        <hr class="m-0">
         <div class="clearfix" />
       </div>
+      <hr class="m-0">
     </div>
   </div>
 </template>
 
 <script>
+
+import VueQrcode from '@chenfengyuan/vue-qrcode';
+
 export default {
   name: 'SignatureCode',
+
+  components: { VueQrcode },
 
   props: {
     urlSignatureCode: {
@@ -45,6 +51,12 @@ export default {
       signatureCode: [],
       imageWidth: 100,
     };
+  },
+
+  computed: {
+    urlSignatureShow() {
+      return `${this.signatureCode.link}/${this.signatureCode.code}`;
+    },
   },
 
   mounted() {
