@@ -71,6 +71,7 @@ describe 'Signature::show', type: :feature, js: true do
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
                                        signature_role(academic.gender, signature.user_type),
+                                       signature_code(signature.signature_code),
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
@@ -83,7 +84,6 @@ describe 'Signature::show', type: :feature, js: true do
                                signature[:date], signature[:time])
           )
         end
-
         expect(page).to have_selector("a[href='#{academics_signatures_signed_path}'].active")
       end
     end
