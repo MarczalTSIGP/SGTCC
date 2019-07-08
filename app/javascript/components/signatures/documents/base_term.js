@@ -41,7 +41,7 @@ export default {
         professorSupervisors: [],
         externalMemberSupervisors: [],
       },
-      open: true,
+      open: false,
       marginTitle: 50,
     };
   },
@@ -72,6 +72,7 @@ export default {
 
       if (response.data.status !== 'not_found') {
         this.term = response.data;
+        this.open = true;
       }
     },
 
