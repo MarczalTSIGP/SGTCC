@@ -59,5 +59,6 @@ class ExternalMember < ApplicationRecord
 
   def signatures
     Signature.where(user_id: id, user_type: Signature.user_types[:external_member_supervisor])
+             .recent
   end
 end

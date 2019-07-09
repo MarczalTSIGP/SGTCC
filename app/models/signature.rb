@@ -20,6 +20,8 @@ class Signature < ApplicationRecord
     joins(:document).where(documents: { document_type_id: document_type_id })
   }
 
+  scope :recent, -> { order(created_at: :desc) }
+
   def sign
     self.status = true
     save
