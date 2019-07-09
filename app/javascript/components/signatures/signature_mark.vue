@@ -10,7 +10,7 @@
         <div class="py-4">
           <img
             class="float-left mr-2"
-            src="./documents/assets/images/sgtcc_signature.png"
+            :src="urlSignatureImage"
             :style="{ width: imageWidth + 'px' }"
           >
           <p>
@@ -55,7 +55,12 @@ export default {
 
     urlSignatureCode: {
       type: String,
-      required:true
+      required: true
+    },
+
+    urlSignatureImage: {
+      type: String,
+      required: true
     }
   },
 

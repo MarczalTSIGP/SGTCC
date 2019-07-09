@@ -1,7 +1,8 @@
+import TermHeader from './partials/term_header';
 import SignatureMark from '../signature_mark';
 
 export default {
-  components: { SignatureMark },
+  components: { SignatureMark, TermHeader },
 
   props: {
     urlSignatureMark: {
@@ -18,6 +19,16 @@ export default {
       type: String,
       required: true
     },
+
+    urlHeaderImage: {
+      type: String,
+      required: true
+    },
+
+    urlSignatureImage: {
+      type: String,
+      required: true
+    }
   },
 
   data() {

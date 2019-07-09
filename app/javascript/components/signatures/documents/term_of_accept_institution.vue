@@ -9,7 +9,7 @@
         ref="term"
         class="card-body signature-document w-80"
       >
-        <term-header />
+        <term-header :url-image="urlHeaderImage" />
         <div
           class="d-block w-80"
           :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }"
@@ -77,6 +77,7 @@
         <signature-mark
           :url="urlSignatureMark"
           :url-signature-code="urlSignatureCode"
+          :url-signature-image="urlSignatureImage"
         />
       </div>
     </div>
@@ -86,12 +87,9 @@
 <script>
 
 import baseTerm from './base_term';
-import TermHeader from './partials/term_header';
 
 export default {
   name: 'TermOfAcceptInstitution',
-
-  components: { TermHeader },
 
   mixins: [baseTerm],
 };
