@@ -1,7 +1,7 @@
 <% provide(:head_title) do %>
   <%= t('breadcrumbs.signatures.title',
         type: @signature.document.document_type.identifier.upcase,
-        academic: @signature.orientation.academic.name.upcase,
+        academic: I18n.transliterate(@signature.orientation.academic.name.upcase),
         calendar: @signature.orientation.calendar.year_with_semester) %>
 <% end %>
 <% provide(:page_title) do %>
