@@ -15,7 +15,8 @@ describe 'Signature::index', type: :feature do
         index_url = professors_signatures_pending_path
         visit index_url
 
-        expect(page).to have_contents([signature.orientation.title,
+        expect(page).to have_contents([signature.orientation.short_title,
+                                       signature.orientation.academic.name,
                                        signature.document.document_type.name])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
@@ -28,7 +29,8 @@ describe 'Signature::index', type: :feature do
         index_url = professors_signatures_signed_path
         visit index_url
 
-        expect(page).to have_contents([signature.orientation.title,
+        expect(page).to have_contents([signature.orientation.short_title,
+                                       signature.orientation.academic.name,
                                        signature.document.document_type.name])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end

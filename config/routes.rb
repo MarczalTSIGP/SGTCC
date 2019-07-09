@@ -9,9 +9,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  post 'signatures/(:id)/mark', to: 'signatures#mark', as: 'signatures_mark'
+  post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/mark',
+       to: 'signatures#mark',
+       as: 'signatures_mark'
 
-  post 'signatures/orientations/(:orientation_id)/status',
+  post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
        to: 'signatures#status',
        as: 'signatures_status'
 

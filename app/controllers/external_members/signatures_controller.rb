@@ -31,11 +31,11 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   private
 
   def set_signature
-    @signature = Signature.find(params[:id])
+    @signature = current_external_member.signatures.find_by(id: params[:id])
   end
 
   def can_view
-    return if @signature.can_view(current_external_member, 'external_member_supervisor')
+    return if @signature.present?
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to external_members_signatures_pending_path
   end

@@ -10,6 +10,7 @@ import SignatureButton from '../components/signatures/signature_button';
 import SignatureConfirm from '../components/signatures/signature_confirm';
 import SignatureShowTitle from '../components/signatures/signature_show_title';
 import TermOfCommitment from '../components/signatures/documents/term_of_commitment';
+import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
 import VueMarkdownPreview from 'vue-markdown';
 
 const components = {
@@ -25,6 +26,7 @@ const components = {
   SignatureConfirm,
   SignatureShowTitle,
   TermOfCommitment,
+  TermOfAcceptInstitution,
   VueMarkdownPreview
 };
 

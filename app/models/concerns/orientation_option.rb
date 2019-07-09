@@ -17,7 +17,11 @@ module OrientationOption
     end
 
     def can_be_destroyed?
-      signatures.where(status: true).count < signatures.count
+      tcos = signatures.by_document_type(DocumentType.tco)
+      tcais = signatures.by_document_type(DocumentType.tcai)
+
+      tcos.where(status: true).count < tcos.count &&
+        tcais.where(status: true).count < tcais.count
     end
   end
 end

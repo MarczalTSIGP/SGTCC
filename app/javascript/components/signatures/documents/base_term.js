@@ -24,6 +24,11 @@ export default {
       required: true
     },
 
+    urlSignaturesStatus: {
+      type: String,
+      required: true
+    },
+
     documentTitle: {
       type: String,
       required: true
@@ -75,5 +80,61 @@ export default {
     },
   },
 
-  methods: {},
+  computed: {
+    externalMemberSupervisorLabel() {
+      return this.externalMemberSupervisors.length === 1
+        ? 'Coorientador externo'
+        : 'Coorientadores externos';
+    },
+
+    professorSupervisorLabel() {
+      return this.professorSupervisors.length === 1
+        ? 'Coorientador da UTFPR'
+        : 'Coorientadores da UTFPR';
+    },
+  },
+
+  data() {
+    return {
+      open: true,
+      signedDocument: false,
+      marginTitle: 50,
+    };
+  },
+
+  mounted() {
+    this.onCloseTerm();
+    this.onOpenTerm();
+    this.setSignedDocument();
+  },
+
+  methods: {
+    setSignedDocument() {
+      this.signedDocument = this.signed;
+    },
+
+    hasProfessorSupervisors() {
+      return this.professorSupervisors.length > 0;
+    },
+
+    hasExternalMemberSupervisors() {
+      return this.externalMemberSupervisors.length > 0;
+    },
+
+    hasInstitution() {
+      return this.institution !== null;
+    },
+
+    onCloseTerm() {
+      this.$root.$on('close-term', () => {
+        this.open = false;
+      });
+    },
+
+    onOpenTerm() {
+      this.$root.$on('open-term', () => {
+        this.open = true;
+      });
+    },
+  },
 };

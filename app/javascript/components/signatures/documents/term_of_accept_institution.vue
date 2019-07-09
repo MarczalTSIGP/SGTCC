@@ -16,9 +16,19 @@
         </div>
 
         <p>
-          Eu, <b>{{ advisorScholarity.abbr }} {{ advisor.name }}</b>, {{ advisorLabel }} desta instituição,
-          declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
-          de conclusão de curso do acadêmico <b>{{ academic.name }}</b>, RA {{ academic.ra }}.
+          Eu, <b>{{ institutionResponsible.name }}</b>, como representante da instituição
+          <b>{{ institution.trade_name }}</b>, afirmo que o acadêmico <b>{{ academic.name }}</b>,
+          RA {{ academic.ra }}, do curso de Tecnolgia em Sistemas para Internet da Universidade
+          Tecnológica Federal do Paraná do Câmpus Guarapuava, orientado pelo professor
+          <b>{{ advisorScholarity.abbr }} {{ advisor.name }}</b>, possa realizar as atividades de seu trabalho
+          de conclusão de curso nesta instituição, sem prejuízo desde que ambas as partes preservem a ética
+          necessária.
+        </p>
+
+        <p>
+          Por meio deste Termo a empresa autoriza a divulgação do seu nome para fins da realização do TCC.
+          Além disso, o aluno se compromete em não divulgar dados sigilosos da empresa que foram necessários para
+          a realização do TCC.
         </p>
 
         <p>
@@ -51,17 +61,6 @@
           </p>
         </div>
 
-        <div v-if="hasInstitution()">
-          <p>
-            <b>TCC Desenvolvido em Parceria com a Instituição:</b> <br>
-            <span class="ml-4">
-              Nome fantasia: {{ institution.trade_name }}
-            </span><br>
-            <span class="ml-4">
-              Responsável: {{ institutionResponsible.name }}
-            </span><br>
-          </p>
-        </div>
         <div class="float-right">
           <p :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }">
             Guarapuava, {{ orientationDate }}.
@@ -86,7 +85,7 @@ import TermHeader from './partials/term_header';
 import SignatureStatus from '../signature_status';
 
 export default {
-  name: 'TermOfCommitment',
+  name: 'TermOfAcceptInstitution',
 
   components: { TermHeader, SignatureStatus },
 
