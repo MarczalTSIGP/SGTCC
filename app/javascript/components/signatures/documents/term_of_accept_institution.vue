@@ -2,9 +2,13 @@
   <div class="container">
     <div
       v-show="open"
+      id="term"
       class="card"
     >
-      <div class="card-body signature-document w-80">
+      <div
+        ref="term"
+        class="card-body signature-document w-80"
+      >
         <term-header />
         <div
           class="d-block w-80"
