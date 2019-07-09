@@ -1,4 +1,9 @@
-<td><%= signature.orientation.title %></td>
+<td>
+  <span data-toggle="tooltip" title="<%= signature.orientation.title %>">
+    <%= signature.orientation.short_title %>
+  </span>
+</td>
+<td><%= signature.orientation.academic.name %></td>
 <td><%= signature.document.document_type.name %></td>
 <td><%= short_date(signature.created_at) %></td>
 

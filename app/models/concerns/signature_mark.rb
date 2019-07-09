@@ -3,35 +3,24 @@ require 'active_support/concern'
 module SignatureMark
   extend ActiveSupport::Concern
 
-  included do
-    def signatures_mark
-      signatures.where(status: true).map do |signature|
-        user = select_user(signature)
-        add_signature(user.name, signature.updated_at, user.gender, signature.user_type)
-      end
-    end
-
+  module ClassMethods
     private
 
-    def add_signature(name, datetime, user_gender, user_type)
-      { name: name, role: I18n.t("signatures.users.roles.#{user_gender}.#{user_type}"),
+    def add_signature(datetime, user_type, user)
+      { name: user.name, role: I18n.t("signatures.users.roles.#{user.gender}.#{user_type}"),
         date: I18n.l(datetime, format: :short), time: I18n.l(datetime, format: :time) }
     end
+  end
 
-    def select_user(signature)
-      return signature.orientation.academic if signature.user_type == 'academic'
-      return select_professor(signature) if professor_user?(signature.user_type)
-      signature.orientation.external_member_supervisors.find_by(id: signature.user_id)
-    end
+  included do
+    def self.mark(orientation_id, document_type_id)
+      signatures = by_orientation_and_document_t(
+        orientation_id, document_type_id
+      ).where(status: true)
 
-    def professor_user?(user_type)
-      user_type.include?('professor_supervisor') || user_type.include?('advisor')
-    end
-
-    def select_professor(signature)
-      advisor = signature.orientation.advisor
-      return advisor if advisor.id == signature.user_id
-      signature.orientation.professor_supervisors.find_by(id: signature.user_id)
+      signatures.map do |signature|
+        add_signature(signature.updated_at, signature.user_type, signature.user)
+      end
     end
   end
 end

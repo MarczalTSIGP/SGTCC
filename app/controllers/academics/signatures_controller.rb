@@ -30,11 +30,11 @@ class Academics::SignaturesController < Academics::BaseController
   private
 
   def set_signature
-    @signature = Signature.find(params[:id])
+    @signature = current_academic.signatures.find_by(id: params[:id])
   end
 
   def can_view
-    return if @signature.can_view(current_academic, 'academic')
+    return if @signature.present?
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to academics_signatures_pending_path
   end

@@ -202,6 +202,7 @@ pt-BR:
         is_active: "Ativo no sistema"
         scholarity: "Escolaridade"
         base_activity_type: "Tipo"
+        academic: "Acadêmico"
         role: "Papel"
         tcc: "TCC"
         deadline: "Prazo"
@@ -240,7 +241,6 @@ pt-BR:
       orientation:
         title: "Título"
         calendar: "Calendário"
-        academic: "Acadêmico"
         advisor: "Orientador"
         institution: "Instituição externa"
         orientation_supervisors: "Coorientadores"
@@ -385,7 +385,7 @@ pt-BR:
           external_member_supervisor: 'Coorientadora externa'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
-      TCAE: 'Termo de Compromisso e Aceite de Realização de TCC em Empresa/Instituição'
+      TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'
