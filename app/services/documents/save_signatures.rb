@@ -1,9 +1,9 @@
 class Documents::SaveSignatures
-  attr_reader :orientation, :document_type_id, :document_id, :signature_users, :signature_code
+  attr_reader :orientation, :document_type, :document_id, :signature_users, :signature_code
 
-  def initialize(orientation, document_type_id)
+  def initialize(orientation, document_type)
     @orientation = orientation
-    @document_type_id = document_type_id
+    @document_type = document_type
     @signature_users = []
   end
 
@@ -36,7 +36,7 @@ class Documents::SaveSignatures
   end
 
   def create_document
-    @document_id = Document.create(content: '-', document_type_id: @document_type_id).id
+    @document_id = Document.create(content: '-', document_type_id: @document_type&.id).id
   end
 
   def add_signature_users
@@ -44,6 +44,7 @@ class Documents::SaveSignatures
     add_advisor
     add_professor_supervisors
     add_external_member_supervisors
+    add_responsible_institution if @orientation.institution.present? && @document_type&.tcai?
   end
 
   def add_academic
@@ -64,5 +65,9 @@ class Documents::SaveSignatures
     @orientation.external_member_supervisors.each do |external_member_supervisor|
       @signature_users.push([external_member_supervisor.id, 'ES'])
     end
+  end
+
+  def add_responsible_institution
+    @signature_users.push([@orientation.institution.external_member.id, 'ES'])
   end
 end
