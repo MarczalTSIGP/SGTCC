@@ -94,6 +94,7 @@ pt-BR:
       show: "Visualizar documento"
       pendings: "Assinaturas Pendentes"
       signeds: "Assinaturas Assinadas"
+      title: "%{type} %{academic} %{calendar}"
       TCO:
         show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     tcc:
