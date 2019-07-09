@@ -1,11 +1,11 @@
 <% if @signature&.term_of_commitment? %>
   <term-of-commitment
-    url-signature-mark="<%= signatures_mark_path(@signature) %>"
+    url-signature-mark="<%= signatures_mark_path(@signature.orientation, @signature.document.document_type) %>"
     url-signature-code="<%= signatures_code_path(@signature) %>"
     url-signature-data="<%= signature_data_path(@signature) %>" />
 <% elsif @signature.term_of_accept_institution? %>
   <term-of-accept-institution
-    url-signature-mark="<%= signatures_mark_path(@signature) %>"
+    url-signature-mark="<%= signatures_mark_path(@signature.orientation, @signature.document.document_type) %>"
     url-signature-code="<%= signatures_code_path(@signature) %>"
     url-signature-data="<%= signature_data_path(@signature) %>" />
 <% end %>

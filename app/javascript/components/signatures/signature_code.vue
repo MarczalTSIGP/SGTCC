@@ -73,7 +73,7 @@ export default {
 
     onShowSignaturesMark() {
       this.$root.$on('show-signatures-mark', () => {
-        this.setSignaturesCode();
+        this.setSignatureCode();
       });
     },
   },

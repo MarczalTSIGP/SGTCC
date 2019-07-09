@@ -16,7 +16,7 @@ module OrientationDocuments
     private
 
     def create_term_signatures(term)
-      Documents::SaveSignatures.new(self, term&.id).save
+      Documents::SaveSignatures.new(self, term).save
     end
 
     def create_term_of_commitment_signatures
