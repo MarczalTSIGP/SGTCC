@@ -101,7 +101,7 @@ module Helpers
       I18n.t("signatures.users.roles.#{user_gender}.#{user_type}")
     end
 
-    def signature_code(signature_code)
+    def signature_code_message(signature_code)
       url = "#{current_host}:#{URI.parse(current_url).port}#{signature_path}"
       I18n.t('signatures.code', url: url, code: signature_code.code)
     end

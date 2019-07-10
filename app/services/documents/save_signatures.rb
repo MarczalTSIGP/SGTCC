@@ -8,8 +8,8 @@ class Documents::SaveSignatures
   end
 
   def save
-    create_document
     create_signature_code
+    create_document
     add_signature_users
     create_signatures
   end
@@ -22,8 +22,7 @@ class Documents::SaveSignatures
         orientation_id: @orientation.id,
         document_id: @document_id,
         user_id: user_id,
-        user_type: user_type,
-        signature_code_id: @signature_code.id
+        user_type: user_type
       )
     end
   end
@@ -31,12 +30,15 @@ class Documents::SaveSignatures
   def create_signature_code
     timestamps = Time.now.to_i
     timestamps += @orientation.id
-    timestamps += @document_id.to_i
     @signature_code = SignatureCode.create(code: timestamps)
   end
 
   def create_document
-    @document_id = Document.create(content: '-', document_type_id: @document_type&.id).id
+    @document_id = Document.create(
+      content: '-',
+      document_type_id: @document_type&.id,
+      signature_code_id: @signature_code&.id
+    ).id
   end
 
   def add_signature_users

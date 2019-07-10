@@ -6,7 +6,10 @@ describe 'Signature::show', type: :feature, js: true do
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
   let!(:document_type) { create(:document_type_tco) }
-  let!(:document) { create(:document, document_type: document_type) }
+  let!(:signature_code) { create(:signature_code) }
+  let!(:document) do
+    create(:document, document_type: document_type, signature_code: signature_code)
+  end
   let!(:signature) do
     create(:signature_signed, orientation_id: orientation.id,
                               document: document,
@@ -28,7 +31,7 @@ describe 'Signature::show', type: :feature, js: true do
 
   describe '#show' do
     before do
-      visit signature_path(signature.signature_code.code)
+      visit signature_path(signature_code.code)
     end
 
     context 'when shows the signed signature of the term of commitment' do
@@ -43,7 +46,7 @@ describe 'Signature::show', type: :feature, js: true do
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
                                        signature_role(academic.gender, signature.user_type),
-                                       signature_code(signature.signature_code),
+                                       signature_code_message(signature_code),
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|

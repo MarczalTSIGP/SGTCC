@@ -9,10 +9,12 @@ class SignaturesController < ApplicationController
   end
 
   def code
-    signature_code = @signature.signature_code
+    signature_code = @signature.document.signature_code
 
     render json: {
-      all_signed: signature_code.all_signed?, code: signature_code.code, link: signature_url
+      all_signed: signature_code.document.all_signed?,
+      code: signature_code.code,
+      link: signature_url
     }
   end
 
@@ -23,7 +25,7 @@ class SignaturesController < ApplicationController
   def document; end
 
   def show
-    @signature = @signature_code.signatures.first
+    @signature = @signature_code.document.signatures.first
     success_document_authenticated_message
   end
 
@@ -33,7 +35,7 @@ class SignaturesController < ApplicationController
 
   def confirm_document
     content = { message: document_not_found_message, status: :not_found }
-    content = { message: document_authenticated_message } if @signature_code&.all_signed?
+    content = { message: document_authenticated_message } if @signature_code&.document&.all_signed?
 
     render json: content
   end
@@ -45,7 +47,7 @@ class SignaturesController < ApplicationController
   end
 
   def can_show
-    return if @signature_code.present? && @signature_code.all_signed?
+    return if @signature_code.present? && @signature_code.document&.all_signed?
     error_document_not_found_message
     redirect_to signature_document_path
   end
