@@ -4,6 +4,7 @@
       <img
         class="img-fluid mb-2"
         alt="logo_utfpr"
+        :style="{ width: 350 + 'px' }"
         :src="urlImage"
       >
     </div>
