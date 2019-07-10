@@ -36,7 +36,7 @@
         </p>
 
         <p>
-          Tema: <b>{{ orientationTitle }}</b>
+          <b>Tema</b>: {{ orientationTitle }}
         </p>
 
         <div v-if="hasProfessorSupervisors()">

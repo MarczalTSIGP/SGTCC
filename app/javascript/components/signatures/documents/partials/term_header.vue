@@ -1,6 +1,6 @@
 <template>
-  <div class="clearfix mb-6">
-    <div class="float-left">
+  <div class="row mb-6">
+    <div class="col-md-4 col-sm-12">
       <img
         class="img-fluid mb-2"
         alt="logo_utfpr"
@@ -8,7 +8,7 @@
         :style="{ width: 350 + 'px' }"
       >
     </div>
-    <div class="ml-5 float-left">
+    <div class="col-md-8 col-sm-12">
       <p class="m-0">
         Ministério da Educação
       </p>

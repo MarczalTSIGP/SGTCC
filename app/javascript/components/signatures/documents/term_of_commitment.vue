@@ -26,7 +26,7 @@
         </p>
 
         <p>
-          Tema: <b>{{ orientationTitle }}</b>
+          <b>Tema</b>: {{ orientationTitle }}
         </p>
 
         <div v-if="hasProfessorSupervisors()">
@@ -57,7 +57,7 @@
 
         <div v-if="hasInstitution()">
           <p>
-            <b>TCC Desenvolvido em Parceria com a Instituição:</b> <br>
+            <b>TCC desenvolvido em parceria com a instituição:</b> <br>
             <span class="ml-4">
               Nome fantasia: {{ institution.trade_name }}
             </span><br>
