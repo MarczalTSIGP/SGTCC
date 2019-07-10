@@ -1,9 +1,9 @@
 <template>
-  <div class="clearfix">
+  <div>
     <button
       v-if="show"
       id="signature_button"
-      class="btn btn-outline-primary float-right mb-2"
+      class="btn btn-outline-primary"
       @click="emitOpenLoginConfirmation()"
     >
       Assinar documento
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'SignatureButton',
 
@@ -34,30 +35,23 @@ export default {
   },
 
   methods: {
-    openSignatureButton() {
-      this.show = true;
-    },
-
-    closeSignatureButton() {
-      this.show = false;
-    },
-
-    emitOpenLoginConfirmation() {
-      this.$root.$emit('open-login-confirmation');
-      this.$root.$emit('change-signature-show-title', this.showTitle);
-      this.closeSignatureButton();
-    },
-
     onCloseSignatureButton() {
       this.$root.$on('close-signature-button', () => {
-        this.closeSignatureButton();
+        this.show = false;
       });
     },
 
     onOpenSignatureButton() {
       this.$root.$on('open-signature-button', () => {
-        this.openSignatureButton();
+        this.show = true;
       });
+    },
+
+    emitOpenLoginConfirmation() {
+      this.$root.$emit('open-login-confirmation');
+      this.$root.$emit('close-signature-download-button');
+      this.$root.$emit('close-signature-button');
+      this.$root.$emit('change-signature-show-title', this.showTitle);
     },
   },
 };

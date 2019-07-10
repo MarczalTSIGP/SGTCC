@@ -20,6 +20,8 @@ class Signature < ApplicationRecord
     joins(:document).where(documents: { document_type_id: document_type_id })
   }
 
+  scope :recent, -> { order(created_at: :desc) }
+
   def sign
     self.status = true
     save
@@ -45,6 +47,13 @@ class Signature < ApplicationRecord
 
   def user
     user_table.find(user_id)
+  end
+
+  def document_filename
+    document_type = document.document_type.identifier
+    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    "SGTCC_#{document_type}_#{academic}_#{calendar}".upcase
   end
 
   def self.by_orientation_and_document_t(orientation_id, document_type_id)

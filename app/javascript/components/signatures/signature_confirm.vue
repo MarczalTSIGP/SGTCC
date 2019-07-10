@@ -104,6 +104,7 @@ export default {
       this.$root.$emit('open-term');
       this.$root.$emit('open-signature-status');
       this.$root.$emit('open-signature-button');
+      this.$root.$emit('open-signature-download-button');
       this.$root.$emit('change-signature-show-title', 'Visualizar documento');
     },
 
@@ -129,6 +130,7 @@ export default {
       this.$root.$emit('close-signature-button');
       this.$root.$emit('show-signatures-mark');
       this.$root.$emit('update-signature-status');
+      this.$root.$emit('open-signature-download-button');
     },
 
     isEmpty(field) {

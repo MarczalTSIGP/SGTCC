@@ -42,6 +42,6 @@ class Academic < ApplicationRecord
   end
 
   def signatures
-    Signature.where(user_id: id, user_type: Signature.user_types[:academic])
+    Signature.where(user_id: id, user_type: Signature.user_types[:academic]).recent
   end
 end

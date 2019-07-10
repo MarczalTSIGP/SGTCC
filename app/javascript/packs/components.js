@@ -7,6 +7,7 @@ import OrientationStatusFilter from '../components/orientations/orientation_stat
 import OrientationCancel from '../components/orientations/orientation_cancel';
 import Search from '../components/shared/search';
 import SignatureButton from '../components/signatures/signature_button';
+import SignatureDownloadButton from '../components/signatures/signature_download_button';
 import SignatureConfirm from '../components/signatures/signature_confirm';
 import SignatureShowTitle from '../components/signatures/signature_show_title';
 import TermOfCommitment from '../components/signatures/documents/term_of_commitment';
@@ -23,6 +24,7 @@ const components = {
   OrientationStatusFilter,
   Search,
   SignatureButton,
+  SignatureDownloadButton,
   SignatureConfirm,
   SignatureShowTitle,
   TermOfCommitment,

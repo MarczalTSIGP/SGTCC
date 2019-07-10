@@ -5,6 +5,7 @@
         class="img-fluid mb-2"
         alt="logo_utfpr"
         src="../assets/images/utfpr_logo.png"
+        :style="{ width: 350 + 'px' }"
       >
     </div>
     <div class="col-md-8 col-sm-12">

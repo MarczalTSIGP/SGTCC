@@ -63,6 +63,6 @@ class Professor < ApplicationRecord
   def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
-    Signature.where(user_id: id, user_type: user_types)
+    Signature.where(user_id: id, user_type: user_types).recent
   end
 end
