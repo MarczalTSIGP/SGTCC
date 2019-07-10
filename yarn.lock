@@ -7299,6 +7299,11 @@ vue-hot-reload-api@^2.2.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
   integrity sha512-AA86yKZ5uOKz87/q1UpngEXhbRkaYg1b7HMMVRobNV1IVKqZe8oLIzo6iMocVwZXnYitlGwf2k4ZRLOZlS8oPQ==
 
+vue-html-to-paper@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-html-to-paper/-/vue-html-to-paper-1.1.0.tgz#1478bf32d7fa8a20216d7fe039c654d063be1159"
+  integrity sha512-ywxYfSg1y3Sv50POhfYPSv9ls0z4lrV/AuliJ2XmTguJvf7RAQTGnDHxfODK74Qj2gHsKgXqPvn5NtZ2Lti+uQ==
+
 vue-i18n@^8.7.0:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.7.0.tgz#846269ad9d9c40c77479a540398d4024356fa4e1"
