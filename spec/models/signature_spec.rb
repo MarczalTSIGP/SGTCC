@@ -15,13 +15,13 @@ RSpec.describe Signature, type: :model do
     end
   end
 
-  describe '#document_file_name' do
+  describe '#document_filename' do
     let(:signature) { create(:signature) }
     let(:orientation) { signature.orientation }
 
     it 'returns the document file_name' do
       document_type = signature.document.document_type.identifier
-      academic_name = orientation.academic.name
+      academic_name = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
       calendar = orientation.calendar.year_with_semester.tr('/', '_')
       document_filename = "SGTCC_#{document_type}_#{academic_name}_#{calendar}".upcase
       expect(signature.document_filename).to eq(document_filename)
