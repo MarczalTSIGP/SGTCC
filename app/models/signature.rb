@@ -49,6 +49,13 @@ class Signature < ApplicationRecord
     user_table.find(user_id)
   end
 
+  def document_filename
+    document_type = document.document_type.identifier
+    academic = I18n.transliterate(orientation.academic.name)
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    "SGTCC_#{document_type}_#{academic}_#{calendar}".upcase
+  end
+
   def self.by_orientation_and_document_t(orientation_id, document_type_id)
     by_document_type(document_type_id).where(orientation_id: orientation_id)
   end

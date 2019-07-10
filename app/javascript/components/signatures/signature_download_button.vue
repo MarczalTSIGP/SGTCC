@@ -16,6 +16,18 @@
 export default {
   name: 'SignatureDownloadButton',
 
+  props: {
+    headTitle: {
+      type: String,
+      required: true
+    },
+
+    documentTitle: {
+      type: String,
+      required: true
+    }
+  },
+
   data() {
     return {
       show: true
@@ -29,9 +41,15 @@ export default {
 
   methods: {
     downloadPdf() {
+      this.updateHeadTitle(this.documentTitle);
       this.$htmlToPaper('term', () => {
         this.$root.$emit('download-document');
+        this.updateHeadTitle(this.headTitle);
       });
+    },
+
+    updateHeadTitle(title) {
+      document.title = title;
     },
 
     onCloseSignatureDownloadButton() {
