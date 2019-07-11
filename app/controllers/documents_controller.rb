@@ -1,6 +1,6 @@
-class SignaturesController < ApplicationController
+class DocumentsController < ApplicationController
   before_action :set_signature, only: [:code, :data]
-  before_action :set_signature_code, only: [:show, :confirm_document]
+  before_action :set_document, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
 
@@ -9,12 +9,10 @@ class SignaturesController < ApplicationController
   end
 
   def code
-    signature_code = @signature.document.signature_code
+    document = @signature.document
 
     render json: {
-      all_signed: signature_code.document.all_signed?,
-      code: signature_code.code,
-      link: signature_url
+      all_signed: document.all_signed?, code: document.code, link: document_code_url
     }
   end
 
@@ -25,7 +23,7 @@ class SignaturesController < ApplicationController
   def document; end
 
   def show
-    @signature = @signature_code.document.signatures.first
+    @signature = @document.signatures.first
     success_document_authenticated_message
   end
 
@@ -35,21 +33,21 @@ class SignaturesController < ApplicationController
 
   def confirm_document
     content = { message: document_not_found_message, status: :not_found }
-    content = { message: document_authenticated_message } if @signature_code&.document&.all_signed?
+    content = { message: document_authenticated_message } if @document&.all_signed?
 
     render json: content
   end
 
   private
 
-  def set_signature_code
-    @signature_code = SignatureCode.find_by(code: params[:code])
+  def set_document
+    @document = Document.find_by(code: params[:code])
   end
 
   def can_show
-    return if @signature_code.present? && @signature_code.document&.all_signed?
+    return if @document.present? && @document&.all_signed?
     error_document_not_found_message
-    redirect_to signature_document_path
+    redirect_to document_path
   end
 
   def set_signature

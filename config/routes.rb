@@ -9,28 +9,28 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/mark',
-       to: 'signatures#mark',
-       as: 'signatures_mark'
+  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/mark',
+       to: 'documents#mark',
+       as: 'document_mark'
 
-  post 'signatures/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
-       to: 'signatures#status',
-       as: 'signatures_status'
+  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
+       to: 'documents#status',
+       as: 'document_status'
 
   get 'autenticidade/documentos',
-      to: 'signatures#document',
-      as: 'signature_document'
+      to: 'documents#document',
+      as: 'document'
 
   get 'autenticidade/documentos/(:code)',
-      to: 'signatures#show',
-      as: 'signature'
+      to: 'documents#show',
+      as: 'confirm_document_code'
 
   post 'autenticidade/documentos/(:code)',
-       to: 'signatures#confirm_document',
-       as: 'signature_confirm_document'
+       to: 'documents#confirm_document',
+       as: 'confirm_document'
 
-  post 'signatures/(:id)/code', to: 'signatures#code', as: 'signatures_code'
-  post 'signatures/(:id)/data', to: 'signatures#data', as: 'signature_data'
+  post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
+  post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
 
   #========================================
   # Responsible

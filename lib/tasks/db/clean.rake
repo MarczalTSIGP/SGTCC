@@ -7,7 +7,6 @@ namespace :db do
     [OrientationSupervisor,
      Signature,
      Document,
-     SignatureCode,
      DocumentType,
      Orientation,
      Academic,

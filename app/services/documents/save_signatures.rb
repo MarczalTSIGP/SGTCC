@@ -1,15 +1,13 @@
 class Documents::SaveSignatures
-  attr_reader :orientation, :document_type, :document_id, :signature_users, :signature_code
+  attr_reader :orientation, :document, :signature_users
 
-  def initialize(orientation, document_type)
+  def initialize(orientation, document)
     @orientation = orientation
-    @document_type = document_type
+    @document = document
     @signature_users = []
   end
 
   def save
-    create_signature_code
-    create_document
     add_signature_users
     create_signatures
   end
@@ -20,25 +18,11 @@ class Documents::SaveSignatures
     @signature_users.each do |user_id, user_type|
       Signature.create(
         orientation_id: @orientation.id,
-        document_id: @document_id,
+        document_id: @document.id,
         user_id: user_id,
         user_type: user_type
       )
     end
-  end
-
-  def create_signature_code
-    timestamps = Time.now.to_i
-    timestamps += @orientation.id
-    @signature_code = SignatureCode.create(code: timestamps)
-  end
-
-  def create_document
-    @document_id = Document.create(
-      content: '-',
-      document_type_id: @document_type&.id,
-      signature_code_id: @signature_code&.id
-    ).id
   end
 
   def add_signature_users
@@ -46,7 +30,11 @@ class Documents::SaveSignatures
     add_advisor
     add_professor_supervisors
     add_external_member_supervisors
-    add_responsible_institution if @orientation.institution.present? && @document_type&.tcai?
+    add_responsible_institution if add_responsible_institution?
+  end
+
+  def add_responsible_institution?
+    @orientation.institution.present? && @document.document_type&.tcai?
   end
 
   def add_academic

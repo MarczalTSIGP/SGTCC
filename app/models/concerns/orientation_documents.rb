@@ -10,25 +10,30 @@ module OrientationDocuments
     end
 
     after_update do
-      destroy_signatures
+      document_ids = signatures.map { |signature| signature.document.id }
+      signatures.destroy_all
+      document_ids.each { |document_id| Document.delete(document_id) }
     end
 
     private
 
-    def create_term_signatures(term)
-      Documents::SaveSignatures.new(self, term).save
+    def create_document(document_type)
+      timestamps = Time.now.to_i + id
+      Document.create(content: '-', code: timestamps, document_type_id: document_type&.id)
+    end
+
+    def create_term_signatures(document)
+      Documents::SaveSignatures.new(self, document).save
     end
 
     def create_term_of_commitment_signatures
-      create_term_signatures(DocumentType.find_by(identifier: DocumentType.identifiers[:tco]))
+      document = create_document(DocumentType.find_by(identifier: DocumentType.identifiers[:tco]))
+      create_term_signatures(document)
     end
 
     def create_term_of_accept_institution_signatures
-      create_term_signatures(DocumentType.find_by(identifier: DocumentType.identifiers[:tcai]))
-    end
-
-    def destroy_signatures
-      signatures.destroy_all
+      document = create_document(DocumentType.find_by(identifier: DocumentType.identifiers[:tcai]))
+      create_term_signatures(document)
     end
   end
 end

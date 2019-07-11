@@ -71,7 +71,7 @@ describe 'Signature::show', type: :feature, js: true do
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
                                        signature_role(academic.gender, signature.user_type),
-                                       signature_code_message(document.signature_code),
+                                       signature_code_message(document),
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|

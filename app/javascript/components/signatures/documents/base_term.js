@@ -85,7 +85,7 @@ export default {
     },
 
     hasInstitution() {
-      return this.term.institution !== null;
+      return this.term.institution.responsible !== null && this.term.institution.trade_name !== null;
     },
 
     onCloseTerm() {

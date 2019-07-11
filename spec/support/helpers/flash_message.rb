@@ -102,7 +102,7 @@ module Helpers
     end
 
     def signature_code_message(signature_code)
-      url = "#{current_host}:#{URI.parse(current_url).port}#{signature_path}"
+      url = "#{current_host}:#{URI.parse(current_url).port}#{document_code_path}"
       I18n.t('signatures.code', url: url, code: signature_code.code)
     end
   end

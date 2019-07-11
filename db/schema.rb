@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_170007) do
+ActiveRecord::Schema.define(version: 2019_07_10_223922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,9 +84,8 @@ ActiveRecord::Schema.define(version: 2019_07_10_170007) do
     t.bigint "document_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "signature_code_id"
+    t.string "code"
     t.index ["document_type_id"], name: "index_documents_on_document_type_id"
-    t.index ["signature_code_id"], name: "index_documents_on_signature_code_id"
   end
 
   create_table "external_members", force: :cascade do |t|
@@ -192,12 +191,6 @@ ActiveRecord::Schema.define(version: 2019_07_10_170007) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "signature_codes", force: :cascade do |t|
-    t.string "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "signatures", force: :cascade do |t|
     t.bigint "orientation_id"
     t.bigint "document_id"
@@ -216,7 +209,6 @@ ActiveRecord::Schema.define(version: 2019_07_10_170007) do
   add_foreign_key "assignments", "roles"
   add_foreign_key "base_activities", "base_activity_types"
   add_foreign_key "documents", "document_types"
-  add_foreign_key "documents", "signature_codes"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "orientation_supervisors", "external_members", column: "external_member_supervisor_id"
