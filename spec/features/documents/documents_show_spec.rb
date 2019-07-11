@@ -1,29 +1,15 @@
 require 'rails_helper'
 
 describe 'Document::show', type: :feature, js: true do
-  let!(:professor) { create(:professor) }
-  let!(:external_member) { create(:external_member) }
-  let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
-  let!(:document_type) { create(:document_type_tco) }
-  let!(:document) { create(:document, document_type: document_type) }
-  let!(:signature) do
-    create(:signature_signed, orientation_id: orientation.id,
-                              document: document,
-                              user_id: professor.id)
-  end
+  let(:orientation) { create(:orientation) }
+  let(:signatures) { orientation.signatures }
+  let(:document) { signatures.first.document }
+  let(:academic_signature) { signatures.where(user_type: 'AC').first }
+  let(:academic) { academic_signature.user }
+  let(:document_type) { document.document_type }
 
   before do
-    create(:academic_signature_signed,
-           document: document,
-           orientation_id: orientation.id,
-           user_id: academic.id)
-
-    create(:external_member_signature_signed,
-           orientation_id: orientation.id,
-           user_id: external_member.id)
-
-    orientation.external_member_supervisors << external_member
+    orientation.signatures.each(&:sign)
   end
 
   describe '#show' do
@@ -42,7 +28,6 @@ describe 'Document::show', type: :feature, js: true do
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
-                                       signature_role(academic.gender, signature.user_type),
                                        signature_code_message(document),
                                        document_date(orientation.created_at)])
 

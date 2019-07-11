@@ -1,31 +1,23 @@
 require 'rails_helper'
 
 describe 'Signature::show', type: :feature, js: true do
-  let!(:professor) { create(:professor) }
-  let!(:academic) { create(:academic) }
-  let!(:external_member) { create(:external_member) }
-  let!(:orientation) { create(:orientation, advisor: professor) }
-  let(:document_type) { create(:document_type_tco) }
-  let(:document) { create(:document, document_type: document_type) }
+  let(:orientation) { create(:orientation) }
+  let(:signatures) { orientation.signatures }
+  let(:external_member_signature) do
+    signatures.where(user_type: :external_member_supervisor).first
+  end
+  let(:external_member) { external_member_signature.user }
 
   before do
     login_as(external_member, scope: :external_member)
-    orientation.external_member_supervisors << external_member
   end
 
   describe '#show' do
     context 'when shows the signature of the term of commitment' do
-      let!(:signature) do
-        create(:external_member_signature,
-               document: document,
-               orientation_id: orientation.id,
-               user_id: external_member.id)
-      end
-
       let(:active_link) { external_members_signatures_pending_path }
 
       before do
-        visit external_members_signature_path(signature)
+        visit external_members_signature_path(external_member_signature)
       end
 
       it 'shows the document of the term of commitment' do
@@ -40,43 +32,31 @@ describe 'Signature::show', type: :feature, js: true do
         orientation.supervisors do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
+
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end
 
     context 'when shows the signed signature of the term of commitment' do
-      let!(:signature) do
-        create(:external_member_signature_signed,
-               document: document,
-               orientation_id: orientation.id,
-               user_id: external_member.id)
-      end
-
+      let(:document) { signatures.first.document }
+      let(:document_type) { document.document_type }
       let(:active_link) { external_members_signatures_signed_path }
 
       before do
-        create(:signature_signed,
-               orientation_id: orientation.id,
-               document: document,
-               user_id: professor.id)
-
-        create(:academic_signature_signed,
-               orientation_id: orientation.id,
-               document: document,
-               user_id: academic.id)
-
-        orientation.external_member_supervisors << external_member
-        visit external_members_signature_path(signature)
+        orientation.signatures.each(&:sign)
+        visit external_members_signature_path(external_member_signature)
       end
 
       it 'shows the document of the term of commitment' do
+        role = signature_role(external_member.gender, external_member_signature.user_type)
+
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
-                                       signature_role(external_member.gender, signature.user_type),
+                                       role,
                                        signature_code_message(document),
                                        document_date(orientation.created_at)])
 
