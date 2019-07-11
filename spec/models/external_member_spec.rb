@@ -101,16 +101,13 @@ RSpec.describe ExternalMember, type: :model do
     end
   end
 
-  describe '#current_supervision' do
+  describe '#current_supervision_tcc_one' do
     let(:external_member) { create(:external_member) }
     let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
     let(:orientation_tcc_one) { create(:orientation, calendar: calendar_tcc_one) }
-    let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
-    let(:orientation_tcc_two) { create(:orientation, calendar: calendar_tcc_two) }
 
     before do
       orientation_tcc_one.external_member_supervisors << external_member
-      orientation_tcc_two.external_member_supervisors << external_member
     end
 
     it 'returns the current supervision by tcc one' do
@@ -118,6 +115,16 @@ RSpec.describe ExternalMember, type: :model do
         supervision.calendar.id == Calendar.current_by_tcc_one.id
       end
       expect(external_member.current_supervision_tcc_one).to eq(current_supervision)
+    end
+  end
+
+  describe '#current_supervision_tcc_one' do
+    let(:external_member) { create(:external_member) }
+    let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+    let(:orientation_tcc_two) { create(:orientation, calendar: calendar_tcc_two) }
+
+    before do
+      orientation_tcc_two.external_member_supervisors << external_member
     end
 
     it 'returns the current supervision by tcc two' do

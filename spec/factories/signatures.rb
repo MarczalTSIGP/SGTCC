@@ -6,6 +6,14 @@ FactoryBot.define do
     user_type { 'AD' }
     status { false }
 
+    factory :signature_tcai do
+      document { create(:document_tcai) }
+    end
+
+    factory :signature_tco do
+      document { create(:document_tco) }
+    end
+
     factory :signature_signed do
       status { true }
     end
