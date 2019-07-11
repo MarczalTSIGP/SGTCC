@@ -1,5 +1,8 @@
 <term-of-commitment
   url-signature-mark="<%= document_mark_path(@signature.orientation, @signature.document.document_type) %>"
   url-signature-code="<%= document_code_path(@signature) %>"
-  url-signature-data="<%= document_data_path(@signature) %>" />
+  url-signature-data="<%= document_data_path(@signature) %>"
+  url-signature-image="<%= asset_url('sgtcc_signature.png') %>"
+  url-header-image="<%= asset_url('utfpr_logo.png') %>" />
+
 
