@@ -30,9 +30,9 @@
         </p>
 
         <p>
-          Por meio deste Termo a empresa autoriza a divulgação do seu nome para fins da realização do TCC.
-          Além disso, o aluno se compromete em não divulgar dados sigilosos da empresa que foram necessários para
-          a realização do TCC.
+          Por meio deste termo a empresa autoriza a divulgação do seu nome para fins de desenvolvimento e
+          publicação do TCC. Além disso, o aluno se compromete em não divulgar dados sigilosos da empresa
+          que foram necessários para a realização do TCC.
         </p>
 
         <p>
