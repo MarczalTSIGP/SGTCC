@@ -9,7 +9,7 @@ module OrientationDocuments
     end
 
     after_update do
-      document_ids = signatures.map { |signature| signature.document.id }
+      document_ids = signatures.pluck(:document_id)
       signatures.destroy_all
       document_ids.each { |document_id| Document.delete(document_id) }
     end
