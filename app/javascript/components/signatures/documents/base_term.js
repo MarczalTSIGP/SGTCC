@@ -4,125 +4,88 @@ export default {
   components: { SignatureMark },
 
   props: {
-    orientationId: {
-      type: Number,
-      required: true
-    },
-
-    orientationTitle: {
+    urlSignatureMark: {
       type: String,
       required: true
     },
 
-    orientationDate: {
+    urlSignatureCode: {
       type: String,
       required: true
     },
 
-    urlSignaturesMark: {
+    urlSignatureData: {
       type: String,
       required: true
-    },
-
-    urlSignaturesStatus: {
-      type: String,
-      required: true
-    },
-
-    documentTitle: {
-      type: String,
-      required: true
-    },
-
-    signed: {
-      type: Boolean,
-      required: true
-    },
-
-    academic: {
-      type: Object,
-      required: true
-    },
-
-    advisor: {
-      type: Object,
-      required: true
-    },
-
-    advisorLabel: {
-      type: String,
-      required: true
-    },
-
-    advisorScholarity: {
-      type: Object,
-      required: true
-    },
-
-    institution: {
-      type: Object,
-      required: false
-    },
-
-    institutionResponsible: {
-      type: Object,
-      required: false
-    },
-
-    professorSupervisors: {
-      type: Array,
-      required: true
-    },
-
-    externalMemberSupervisors: {
-      type: Array,
-      required: true
-    },
-  },
-
-  computed: {
-    externalMemberSupervisorLabel() {
-      return this.externalMemberSupervisors.length === 1
-        ? 'Coorientador externo'
-        : 'Coorientadores externos';
-    },
-
-    professorSupervisorLabel() {
-      return this.professorSupervisors.length === 1
-        ? 'Coorientador da UTFPR'
-        : 'Coorientadores da UTFPR';
     },
   },
 
   data() {
     return {
-      open: true,
-      signedDocument: false,
+      term: {
+        orientation: {
+          title: '',
+          id: '',
+          date: ''
+        },
+        academic: {
+          name: '',
+          ra: '',
+        },
+        advisor: {
+          name: '',
+          label: ''
+        },
+        title: '',
+        institution: {},
+        professorSupervisors: [],
+        externalMemberSupervisors: [],
+      },
+      open: false,
       marginTitle: 50,
     };
+  },
+
+  computed: {
+    externalMemberSupervisorLabel() {
+      return this.term.externalMemberSupervisors.length === 1
+        ? 'Coorientador externo'
+        : 'Coorientadores externos';
+    },
+
+    professorSupervisorLabel() {
+      return this.term.professorSupervisors.length === 1
+        ? 'Coorientador da UTFPR'
+        : 'Coorientadores da UTFPR';
+    },
   },
 
   mounted() {
     this.onCloseTerm();
     this.onOpenTerm();
-    this.setSignedDocument();
+    this.setData();
   },
 
   methods: {
-    setSignedDocument() {
-      this.signedDocument = this.signed;
+    async setData(url = this.urlSignatureData) {
+      const response = await this.$axios.post(url);
+
+      if (response.data.status !== 'not_found') {
+        this.term = response.data;
+        this.open = true;
+      }
     },
 
     hasProfessorSupervisors() {
-      return this.professorSupervisors.length > 0;
+      return this.term.professorSupervisors.length > 0;
     },
 
     hasExternalMemberSupervisors() {
-      return this.externalMemberSupervisors.length > 0;
+      return this.term.externalMemberSupervisors.length > 0;
     },
 
     hasInstitution() {
-      return this.institution !== null;
+      return this.term.institution.responsible !== null && this.term.institution.trade_name !== null;
     },
 
     onCloseTerm() {

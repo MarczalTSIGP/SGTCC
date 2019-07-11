@@ -20,12 +20,20 @@ module Helpers
       I18n.t('views.buttons.save')
     end
 
+    def authenticate_button
+      I18n.t('views.buttons.authenticate')
+    end
+
     def cancel_button
       I18n.t('views.buttons.cancel')
     end
 
     def sign_button
       I18n.t('views.buttons.sign')
+    end
+
+    def ok_button
+      'OK'
     end
 
     def click_on_label(name, options = {})

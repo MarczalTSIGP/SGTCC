@@ -20,6 +20,14 @@ module Helpers
       I18n.t('simple_form.error_notification.default_message')
     end
 
+    def document_not_found_message
+      I18n.t('json.messages.documents.errors.not_found')
+    end
+
+    def document_authenticated_message
+      I18n.t('json.messages.documents.success.authenticated')
+    end
+
     def confirm_password_error_message
       I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes')
     end
@@ -39,6 +47,10 @@ module Helpers
 
     def invalid_sign_in_message
       I18n.t('devise.failure.invalid', authentication_keys: resource_name)
+    end
+
+    def invalid_code_message
+      I18n.t('json.messages.invalid_code')
     end
 
     def registrations_updated_message
@@ -87,6 +99,11 @@ module Helpers
 
     def signature_role(user_gender, user_type)
       I18n.t("signatures.users.roles.#{user_gender}.#{user_type}")
+    end
+
+    def signature_code_message(signature_code)
+      url = "#{current_host}:#{URI.parse(current_url).port}#{confirm_document_code_path}"
+      I18n.t('signatures.code', url: url, code: signature_code.code)
     end
   end
 end
