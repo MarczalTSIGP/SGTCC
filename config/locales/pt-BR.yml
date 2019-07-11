@@ -23,6 +23,7 @@ pt-BR:
       save: 'Salvar'
       cancel: 'Cancelar'
       sign: 'Assinar'
+      authenticate: 'Autenticar'
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
@@ -321,6 +322,12 @@ pt-BR:
         signed: 'Não é possível editar orientação com assinaturas!'
   json:
     messages:
+      invalid_code: 'Código inválido!'
+      documents:
+        success:
+          authenticated: 'Documento autenticado com sucesso!'
+        errors:
+          not_found: 'Documento não encontrado!'
       orientation:
         calendar:
           errors:
@@ -390,3 +397,5 @@ pt-BR:
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'
+    code: 'A autenticidade deste documento pode ser conferida no site %{url} , informando o código
+      verificador %{code}.'

@@ -291,4 +291,37 @@ RSpec.describe Signature, type: :model do
       expect(signature_mark).to match_array(signatures_mark)
     end
   end
+
+  describe '#term_json_data' do
+    let(:signature) { create(:signature) }
+    let(:orientation) { signature.orientation }
+    let(:advisor) { signature.orientation.advisor }
+    let(:institution) { signature.orientation.institution }
+
+    let(:orientation_data) do
+      { id: orientation.id, title: orientation.title,
+        date: I18n.l(orientation.created_at, format: :document) }
+    end
+
+    let(:advisor_data) do
+      { name: "#{advisor.scholarity.abbr} #{advisor.name}",
+        label: I18n.t("signatures.advisor.labels.#{advisor.gender}") }
+    end
+
+    let(:institution_data) do
+      { trade_name: institution.trade_name, responsible: institution.external_member&.name }
+    end
+
+    let(:term_json_data) do
+      { orientation: orientation_data, advisor: advisor_data,
+        title: signature.document.document_type.name.upcase,
+        academic: orientation.academic, institution: institution_data,
+        professorSupervisors: orientation.professor_supervisors_to_document,
+        externalMemberSupervisors: orientation.external_member_supervisors_to_document }
+    end
+
+    it 'returns the term json data' do
+      expect(signature.term_json_data).to eq(term_json_data)
+    end
+  end
 end

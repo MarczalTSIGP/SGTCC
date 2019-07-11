@@ -1,6 +1,7 @@
 class Signature < ApplicationRecord
   include Confirmable
   include SignatureMark
+  include TermJsonData
 
   belongs_to :orientation
   belongs_to :document
@@ -23,8 +24,7 @@ class Signature < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   def sign
-    self.status = true
-    save
+    update(status: true)
   end
 
   def confirm_and_sign(class_name, login, params)
