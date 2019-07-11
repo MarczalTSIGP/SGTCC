@@ -1,4 +1,1 @@
-<div>
-  <%= render 'shared/signatures/component', signature: @signature %>
-</div>
-
+<%= render partial: "shared/signatures/documents/#{@document.document_type.identifier}" %>

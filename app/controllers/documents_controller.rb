@@ -12,7 +12,7 @@ class DocumentsController < ApplicationController
     document = @signature.document
 
     render json: {
-      all_signed: document.all_signed?, code: document.code, link: document_code_url
+      all_signed: document.all_signed?, code: document.code, link: confirm_document_code_url
     }
   end
 
