@@ -19,7 +19,7 @@ class Populate::ExternalMembers
   end
 
   def create_external_member(index)
-    ExternalMember.create(
+    ExternalMember.create!(
       name: Faker::Name.name, email: Faker::Internet.email,
       password: '123456', password_confirmation: '123456',
       is_active: Faker::Boolean.boolean, working_area: Faker::Markdown.headers,

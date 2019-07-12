@@ -4,7 +4,7 @@
       <img
         class="img-fluid mb-2"
         alt="logo_utfpr"
-        src="../assets/images/utfpr_logo.png"
+        :src="urlHeaderImage"
         :style="{ width: 350 + 'px' }"
       >
     </div>
@@ -27,6 +27,13 @@
 
 <script>
 export default {
-  name: 'TermHeader'
+  name: 'TermHeader',
+
+  props: {
+    urlHeaderImage: {
+      type: String,
+      required: true
+    },
+  },
 };
 </script>

@@ -1,30 +1,21 @@
 require 'rails_helper'
 
 describe 'Signature::show', type: :feature, js: true do
-  let!(:professor) { create(:professor) }
-  let!(:academic) { create(:academic) }
-  let!(:external_member) { create(:external_member) }
-  let!(:orientation) { create(:orientation, advisor: professor) }
-  let(:document_type) { create(:document_type_tcai) }
-  let(:document) { create(:document, document_type: document_type) }
+  let(:orientation) { create(:orientation) }
+  let(:signatures) { orientation.signatures }
+  let(:professor_signature) { signatures.where(user_type: :advisor).last }
+  let(:professor) { professor_signature.user }
 
   before do
     login_as(professor, scope: :professor)
   end
 
   describe '#show' do
-    context 'when shows the pending signature of the term of commitment' do
-      let!(:signature) do
-        create(:signature,
-               document: document,
-               orientation_id: orientation.id,
-               user_id: professor.id)
-      end
-
+    context 'when shows the pending signature of the term of accept institution' do
       let(:active_link) { professors_signatures_pending_path }
 
-      it 'shows the document of the term of commitment' do
-        visit professors_signature_path(signature)
+      it 'shows the document of the term of accept institution' do
+        visit professors_signature_path(professor_signature)
 
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
@@ -37,43 +28,31 @@ describe 'Signature::show', type: :feature, js: true do
         orientation.supervisors do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
+
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end
 
-    context 'when shows the signed signature of the term of commitment' do
-      let(:signature) do
-        create(:signature_signed,
-               document: document,
-               orientation_id: orientation.id,
-               user_id: professor.id)
-      end
-
+    context 'when shows the signed signature of the term of accept institution' do
+      let(:document) { signatures.last.document }
+      let(:document_type) { document.document_type }
       let(:active_link) { professors_signatures_signed_path }
 
       before do
-        create(:external_member_signature_signed,
-               orientation_id: orientation.id,
-               document: document,
-               user_id: external_member.id)
-
-        create(:academic_signature_signed,
-               orientation_id: orientation.id,
-               document: document,
-               user_id: academic.id)
-
-        orientation.external_member_supervisors << external_member
-        visit professors_signature_path(signature)
+        orientation.signatures.each(&:sign)
+        visit professors_signature_path(professor_signature)
       end
 
-      it 'shows the document of the term of commitment' do
+      it 'shows the document of the term of accept institution' do
+        role = signature_role(professor.gender, professor_signature.user_type)
+
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
-                                       signature_role(professor.gender, signature.user_type),
+                                       role,
                                        signature_code_message(document),
                                        document_date(orientation.created_at)])
 
@@ -87,6 +66,7 @@ describe 'Signature::show', type: :feature, js: true do
                                signature[:date], signature[:time])
           )
         end
+
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end

@@ -8,6 +8,11 @@ FactoryBot.define do
     renewal_justification { Faker::Lorem.sentence(3) }
     status { Orientation.statuses.key('IN_PROGRESS') }
 
+    before :create do
+      create(:document_tco) if DocumentType.tco.empty?
+      create(:document_tcai) if DocumentType.tcai.empty?
+    end
+
     after :create do |orientation|
       professor = create(:professor)
       external_member = create(:external_member)

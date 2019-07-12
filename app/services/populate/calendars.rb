@@ -19,8 +19,8 @@ class Populate::Calendars
 
   def create_calendar_for_year(year)
     2.times do |index|
-      Calendar.create(year: year, semester: index + 1, tcc: 1)
-      Calendar.create(year: year, semester: index + 1, tcc: 2)
+      Calendar.create!(year: year, semester: index + 1, tcc: 1)
+      Calendar.create!(year: year, semester: index + 1, tcc: 2)
     end
   end
 end

@@ -5,7 +5,9 @@ class Document < ApplicationRecord
 
   has_many :signatures, dependent: :destroy
 
-  validates :code, presence: true, uniqueness: true
+  after_create do
+    update(code: Time.now.to_i + id)
+  end
 
   def all_signed?
     signatures.where(status: true).count == signatures.count

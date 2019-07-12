@@ -8,6 +8,9 @@ describe 'Orientation::create', type: :feature do
   let(:resource_name) { Orientation.model_name.human }
 
   before do
+    create(:document_tco)
+    create(:document_tcai)
+
     login_as(responsible, scope: :professor)
   end
 

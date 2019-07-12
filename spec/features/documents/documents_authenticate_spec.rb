@@ -1,30 +1,12 @@
 require 'rails_helper'
 
 describe 'Document::authenticate', type: :feature, js: true do
-  let!(:professor) { create(:professor) }
-  let!(:external_member) { create(:external_member) }
-  let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:orientation, advisor: professor, academic: academic) }
-  let!(:document_type_tco) { create(:document_type_tco) }
-  let!(:document) { create(:document, document_type: document_type_tco) }
+  let(:orientation) { create(:orientation) }
+  let(:signatures) { orientation.signatures }
+  let(:document) { signatures.first.document }
 
   before do
-    create(:signature_signed,
-           orientation_id: orientation.id,
-           document: document,
-           user_id: professor.id)
-
-    create(:academic_signature_signed,
-           document: document,
-           orientation_id: orientation.id,
-           user_id: academic.id)
-
-    create(:external_member_signature_signed,
-           document: document,
-           orientation_id: orientation.id,
-           user_id: external_member.id)
-
-    orientation.external_member_supervisors << external_member
+    orientation.signatures.each(&:sign)
   end
 
   describe '#authenticate' do
