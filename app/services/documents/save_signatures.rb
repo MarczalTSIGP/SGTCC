@@ -14,13 +14,13 @@ class Documents::SaveSignatures
   private
 
   def create_tco_signatures
-    tco = create_document(DocumentType.tco.first)
+    tco = DocumentType.tco.first.documents.create!(content: '-')
     add_signature_users(tco)
     create_signatures(tco)
   end
 
   def create_tcai_signatures
-    tcai = create_document(DocumentType.tcai.first)
+    tcai = DocumentType.tcai.first.documents.create!(content: '-')
     @signature_users = []
     add_signature_users(tcai)
     create_signatures(tcai)
@@ -28,18 +28,13 @@ class Documents::SaveSignatures
 
   def create_signatures(document)
     @signature_users.each do |user_id, user_type|
-      @orientation.signatures << Signature.create(
+      @orientation.signatures << Signature.create!(
         orientation_id: @orientation.id,
         document_id: document.id,
         user_id: user_id,
         user_type: user_type
       )
     end
-  end
-
-  def create_document(document_type)
-    timestamps = Time.now.to_i + @orientation.id + document_type.id
-    Document.create(content: '-', code: timestamps, document_type_id: document_type.id)
   end
 
   def add_signature_users(document)

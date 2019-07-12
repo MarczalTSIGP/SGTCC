@@ -24,7 +24,7 @@ class Populate::Professors
   def create_professor(index)
     boolean = Faker::Boolean.boolean
 
-    Professor.create(
+    Professor.create!(
       name: Faker::Name.name, email: "professor#{index}@gmail.com",
       username: "professor#{index}", gender: @genders.sample,
       lattes: "http://lattes.com.#{index}", is_active: boolean,

@@ -25,7 +25,7 @@ class Populate::Orientations
 
   def create_orientation_by_calendar(calendar_id)
     increment_index
-    orientation = Orientation.create(
+    orientation = Orientation.create!(
       title: "Orientation #{@index}",
       calendar_id: calendar_id,
       advisor_id: @advisor.id,

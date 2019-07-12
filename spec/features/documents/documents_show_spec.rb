@@ -4,7 +4,7 @@ describe 'Document::show', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
   let(:signatures) { orientation.signatures }
   let(:document) { signatures.first.document }
-  let(:academic_signature) { signatures.where(user_type: 'AC').first }
+  let(:academic_signature) { signatures.where(user_type: :academic).first }
   let(:academic) { academic_signature.user }
   let(:document_type) { document.document_type }
 
