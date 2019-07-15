@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Document, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:content) }
-    it { is_expected.to validate_uniqueness_of(:code) }
   end
 
   describe 'associations' do
@@ -36,6 +35,15 @@ RSpec.describe Document, type: :model do
       it 'returns false' do
         expect(document.all_signed?).to eq(false)
       end
+    end
+  end
+
+  describe '#after_create' do
+    let(:document) { create(:document) }
+
+    it 'returns the code with Timestamps and document id' do
+      code = Time.now.to_i + document.id
+      expect(document.code).to eq(code.to_s)
     end
   end
 end

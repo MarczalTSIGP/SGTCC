@@ -6,6 +6,8 @@ describe 'Orientation::create', type: :feature do
   let(:resource_name) { Orientation.model_name.human }
 
   before do
+    create(:document_tco)
+    create(:document_tcai)
     create(:current_calendar_tcc_one)
     login_as(professor, scope: :professor)
   end

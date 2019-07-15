@@ -15,7 +15,7 @@ class Populate::Institutions
 
   def create_institutions
     100.times do
-      Institution.create(
+      Institution.create!(
         name: Faker::Company.name,
         trade_name: Faker::Company.buzzword,
         cnpj: CNPJ.generate,

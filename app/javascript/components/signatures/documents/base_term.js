@@ -18,6 +18,16 @@ export default {
       type: String,
       required: true
     },
+
+    urlSignatureImage: {
+      type: String,
+      required: true
+    },
+
+    urlHeaderImage: {
+      type: String,
+      required: true
+    },
   },
 
   data() {

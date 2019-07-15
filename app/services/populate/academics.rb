@@ -13,7 +13,7 @@ class Populate::Academics
 
   def create_academics
     100.times do
-      Academic.create(
+      Academic.create!(
         name: Faker::Name.name,
         email: Faker::Internet.email,
         ra: Faker::Number.number(7),

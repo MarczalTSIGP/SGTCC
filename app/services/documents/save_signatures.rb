@@ -1,40 +1,52 @@
 class Documents::SaveSignatures
-  attr_reader :orientation, :document, :signature_users
+  attr_reader :orientation, :signature_users
 
-  def initialize(orientation, document)
+  def initialize(orientation)
     @orientation = orientation
-    @document = document
     @signature_users = []
   end
 
   def save
-    add_signature_users
-    create_signatures
+    create_tco_signatures
+    create_tcai_signatures if @orientation.institution.present?
   end
 
   private
 
-  def create_signatures
+  def create_tco_signatures
+    tco = DocumentType.tco.first.documents.create!(content: '-')
+    add_signature_users(tco)
+    create_signatures(tco)
+  end
+
+  def create_tcai_signatures
+    tcai = DocumentType.tcai.first.documents.create!(content: '-')
+    @signature_users = []
+    add_signature_users(tcai)
+    create_signatures(tcai)
+  end
+
+  def create_signatures(document)
     @signature_users.each do |user_id, user_type|
-      Signature.create(
+      @orientation.signatures << Signature.create!(
         orientation_id: @orientation.id,
-        document_id: @document.id,
+        document_id: document.id,
         user_id: user_id,
         user_type: user_type
       )
     end
   end
 
-  def add_signature_users
+  def add_signature_users(document)
     add_academic
     add_advisor
     add_professor_supervisors
     add_external_member_supervisors
-    add_responsible_institution if add_responsible_institution?
+    add_responsible_institution if add_responsible_institution?(document)
   end
 
-  def add_responsible_institution?
-    @orientation.institution.present? && @document.document_type&.tcai?
+  def add_responsible_institution?(document)
+    document.document_type.tcai?
   end
 
   def add_academic
