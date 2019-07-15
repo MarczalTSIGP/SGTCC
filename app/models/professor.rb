@@ -66,6 +66,7 @@ class Professor < ApplicationRecord
   def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
+    user_types.push(types[:professor_responsible]) if role?(:responsible)
     Signature.where(user_id: id, user_type: user_types).recent
   end
 end

@@ -8,6 +8,7 @@ class Signature < ApplicationRecord
   enum user_type: {
     advisor: 'AD',
     academic: 'AC',
+    professor_responsible: 'PR',
     professor_supervisor: 'PS',
     external_member_supervisor: 'ES'
   }, _prefix: :user_type

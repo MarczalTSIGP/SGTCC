@@ -17,6 +17,7 @@ import SignatureConfirmCode from '../components/signatures/signature_confirm_cod
 import SignatureShowTitle from '../components/signatures/signature_show_title';
 import SweetAlertMessages from '../components/shared/sweet_alert_messages';
 import TermOfCommitment from '../components/signatures/documents/term_of_commitment';
+import TermOfAbandonment from '../components/signatures/documents/term_of_abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
 import VueMarkdownPreview from 'vue-markdown';
 
@@ -39,6 +40,7 @@ const components = {
   SignatureStatus,
   SweetAlertMessages,
   TermOfCommitment,
+  TermOfAbandonment,
   TermOfAcceptInstitution,
   VueMarkdownPreview
 };

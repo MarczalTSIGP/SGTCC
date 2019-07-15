@@ -397,15 +397,18 @@ pt-BR:
           academic: 'Acadêmico'
           advisor: 'Orientador'
           professor_supervisor: 'Coorientador da UTFPR'
+          professor_responsible: 'Professor responsável'
           external_member_supervisor: 'Coorientador externo'
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
           professor_supervisor: 'Coorientadora da UTFPR'
+          professor_responsible: 'Professora responsável'
           external_member_supervisor: 'Coorientadora externa'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
+      TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'

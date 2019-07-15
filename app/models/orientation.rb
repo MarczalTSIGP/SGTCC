@@ -90,6 +90,7 @@ class Orientation < ApplicationRecord
 
   def abandon(justification)
     update(abandonment_justification: justification, status: 'ABANDONED')
+    Documents::SaveTdoSignatures.new(self).save
   end
 
   def active?
