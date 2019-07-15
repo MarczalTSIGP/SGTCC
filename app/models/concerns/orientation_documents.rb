@@ -11,7 +11,7 @@ module OrientationDocuments
     after_update do
       document_ids = signatures.pluck(:document_id)
       signatures.destroy_all
-      document_ids.each { |document_id| Document.delete(document_id) }
+      Document.delete(document_ids)
     end
   end
 end

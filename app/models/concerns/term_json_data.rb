@@ -6,13 +6,17 @@ module TermJsonData
   included do
     def term_json_data
       { orientation: orientation_data, advisor: advisor_data,
-        title: document.document_type.name.upcase,
+        title: document_type.name.upcase,
         academic: orientation.academic, institution: institution_data,
         professorSupervisors: orientation.professor_supervisors_to_document,
         externalMemberSupervisors: orientation.external_member_supervisors_to_document }
     end
 
     private
+
+    def orientation
+      signatures.first.orientation
+    end
 
     def orientation_data
       { id: orientation.id, title: orientation.title,

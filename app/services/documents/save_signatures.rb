@@ -17,6 +17,7 @@ class Documents::SaveSignatures
     tco = DocumentType.tco.first.documents.create!(content: '{}')
     add_signature_users(tco)
     create_signatures(tco)
+    tco.update_content_data
   end
 
   def create_tcai_signatures
@@ -24,6 +25,7 @@ class Documents::SaveSignatures
     @signature_users = []
     add_signature_users(tcai)
     create_signatures(tcai)
+    tcai.update_content_data
   end
 
   def create_signatures(document)
