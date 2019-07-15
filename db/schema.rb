@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_223922) do
+ActiveRecord::Schema.define(version: 2019_07_15_175442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_07_10_223922) do
 #   Unknown type 'document_type_identifiers' for column 'identifier'
 
   create_table "documents", force: :cascade do |t|
-    t.text "content"
+    t.json "content"
     t.bigint "document_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
