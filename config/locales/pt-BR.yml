@@ -257,6 +257,7 @@ pt-BR:
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
         cancellation_justification: "Justificativa do cancelamento"
+        abandonment_justification: "Justificativa de desistência"
         <<: *commons
       signature:
         orientation: "Orientação"

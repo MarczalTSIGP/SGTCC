@@ -12,6 +12,10 @@ module OrientationOption
       professor&.role?(:responsible) && !canceled?
     end
 
+    def can_be_abandoned?
+      !canceled?
+    end
+
     def can_be_edited?
       signatures.where(status: true).empty?
     end
