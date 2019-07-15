@@ -9,11 +9,11 @@ module OrientationOption
     end
 
     def can_be_canceled?(professor)
-      professor&.role?(:responsible) && !canceled?
+      professor&.role?(:responsible) && active?
     end
 
-    def can_be_abandoned?
-      !canceled?
+    def can_be_abandoned?(professor)
+      !professor.role?(:responsible) && !professor.role?(:tcc_one) && active?
     end
 
     def can_be_edited?

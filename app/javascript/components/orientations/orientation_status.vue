@@ -41,6 +41,7 @@ export default {
       statuses: {
         RENEWED: 'warning',
         APPROVED: 'success',
+        ABANDONED: 'danger',
         CANCELED: 'danger',
         IN_PROGRESS: 'primary'
       },

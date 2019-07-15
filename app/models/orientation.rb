@@ -77,9 +77,7 @@ class Orientation < ApplicationRecord
   def renew(justification)
     next_calendar = Calendar.next_semester(calendar)
     return false if next_calendar.blank?
-    self.renewal_justification = justification
-    self.status = 'RENEWED'
-    save
+    update(renewal_justification: justification, status: 'RENEWED')
     new_orientation = dup
     new_orientation.calendar = next_calendar
     new_orientation.save
@@ -87,9 +85,15 @@ class Orientation < ApplicationRecord
   end
 
   def cancel(justification)
-    self.cancellation_justification = justification
-    self.status = 'CANCELED'
-    save
+    update(cancellation_justification: justification, status: 'CANCELED')
+  end
+
+  def abandon(justification)
+    update(abandonment_justification: justification, status: 'ABANDONED')
+  end
+
+  def active?
+    !canceled? && !abandoned?
   end
 
   def calendar_tcc_one?

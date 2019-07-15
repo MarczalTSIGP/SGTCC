@@ -24,6 +24,10 @@ module OrientationStatus
       equal_status?('APPROVED')
     end
 
+    def abandoned?
+      equal_status?('ABANDONED')
+    end
+
     def canceled?
       equal_status?('CANCELED')
     end

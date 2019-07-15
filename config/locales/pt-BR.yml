@@ -302,11 +302,13 @@ pt-BR:
       status:
         RENEWED: 'renovada'
         APPROVED: 'aprovada'
+        ABANDONED: 'abandonada'
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
+          ABANDONED: 'Abandonada'
           CANCELED: 'Cancelada'
           IN_PROGRESS: 'Em andamento'
   flash:
@@ -344,6 +346,8 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
+        abandon:
+          success: 'Orientação abandonada com sucesso!'
         signatures:
           confirm:
             success: 'Assinatura realizada com sucesso!'

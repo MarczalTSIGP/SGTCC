@@ -5,6 +5,7 @@ class Professors::OrientationsController < Professors::BaseController
   before_action :set_tcc_two_title, only: :tcc_two
   before_action :professor_can_edit, only: :edit
   include OrientationEdit
+  include OrientationAbandon
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :professors_orientations_tcc_one_path,

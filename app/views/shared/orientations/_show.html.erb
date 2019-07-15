@@ -103,7 +103,7 @@
     :id="<%= @orientation.id %>"
     label="<%= Orientation.human_attribute_name('abandonment_justification') %>"
     error-message="<%= t('errors.messages.blank') %>"
-    :has-permission="<%= @orientation.can_be_abandoned? %>" />
+    :has-permission="<%= @orientation.can_be_abandoned?(current_professor) %>" />
 </div>
 
 <div class="clearfix"></div>
