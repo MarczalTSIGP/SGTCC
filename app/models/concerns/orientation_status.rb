@@ -35,9 +35,5 @@ module OrientationStatus
     def in_progress?
       equal_status?('IN_PROGRESS')
     end
-
-    def self.select_status_data
-      statuses.map { |index, field| [field, index.capitalize] }.sort!
-    end
   end
 end

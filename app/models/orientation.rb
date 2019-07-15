@@ -118,4 +118,8 @@ class Orientation < ApplicationRecord
   def external_member_supervisors_to_document
     supervisors_to_document(external_member_supervisors)
   end
+
+  def self.select_status_data
+    statuses.map { |index, field| [field, index.capitalize] }.sort!
+  end
 end
