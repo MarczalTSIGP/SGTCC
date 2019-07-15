@@ -11,7 +11,7 @@ module OrientationAbandon
 
   def success_abandon_json_message(status)
     render json: {
-      message: I18n.t('json.messages.orientation.cancel.success'),
+      message: I18n.t('json.messages.orientation.abandon.success'),
       orientation: {
         status: { enum: Orientation.statuses[status], label: status }
       }

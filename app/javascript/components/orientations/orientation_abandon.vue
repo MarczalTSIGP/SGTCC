@@ -12,7 +12,7 @@
       </div>
       <button
         v-if="show.button"
-        id="orientation_cancel"
+        id="orientation_abandon"
         type="button"
         class="float-right btn btn-outline-danger btn-sm"
         @click="confirmAbandonment()"

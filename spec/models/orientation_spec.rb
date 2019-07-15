@@ -419,6 +419,11 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#abandon' do
+    before do
+      create(:responsible)
+      create(:document_tdo)
+    end
+
     context 'when the orientation is abandoned' do
       let(:orientation) { create(:orientation) }
 

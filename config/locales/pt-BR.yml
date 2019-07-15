@@ -27,6 +27,7 @@ pt-BR:
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
+        abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
     pagination:
