@@ -82,7 +82,7 @@ import orientation_justification from './helpers/justification';
 import flash_message from '../shared/helpers/flash_message';
 
 export default {
-  name: 'OrientationCancel',
+  name: 'OrientationAbandon',
 
   mixins: [orientation_justification, flash_message],
 
@@ -97,7 +97,7 @@ export default {
   },
 
   methods: {
-    listenAbandonButon() {
+    listenAbandonButton() {
       this.$root.$on('show-abandon-button', (data) => {
         this.show.button = data;
       });
