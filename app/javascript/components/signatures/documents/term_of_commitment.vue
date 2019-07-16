@@ -72,7 +72,7 @@
           </p>
         </div>
         <div class="float-right">
-          <p :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }">
+          <p :style="{ 'margin-top': 50 + 'px', 'margin-bottom': 50 + 'px' }">
             Guarapuava, {{ term.orientation.created_at }}.
           </p>
         </div>

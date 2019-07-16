@@ -55,7 +55,6 @@ export default {
         externalMemberSupervisors: [],
       },
       open: false,
-      marginTitle: 50,
     };
   },
 
