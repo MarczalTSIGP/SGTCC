@@ -61,26 +61,32 @@ RSpec.describe Document, type: :model do
     let(:signatures) { orientation.signatures }
     let(:document) { signatures.first.document }
     let(:advisor) { signatures.where(user_type: :advisor).first.user }
+    let(:academic) { signatures.where(user_type: :academic).first.user }
     let(:institution) { orientation.institution }
 
     let(:orientation_data) do
       { id: orientation.id, title: orientation.title,
-        date: I18n.l(orientation.created_at, format: :document) }
+        created_at: I18n.l(orientation.created_at, format: :document) }
+    end
+
+    let(:academic_data) do
+      { id: academic.id, name: academic.name, ra: academic.ra }
     end
 
     let(:advisor_data) do
-      { name: "#{advisor.scholarity.abbr} #{advisor.name}",
+      { id: advisor.id, name: "#{advisor.scholarity.abbr} #{advisor.name}",
         label: I18n.t("signatures.advisor.labels.#{advisor.gender}") }
     end
 
     let(:institution_data) do
-      { trade_name: institution.trade_name, responsible: institution.external_member&.name }
+      { id: institution.id, trade_name: institution.trade_name,
+        responsible: institution.external_member&.name }
     end
 
     let(:term_json_data) do
       { orientation: orientation_data, advisor: advisor_data,
         title: document.document_type.name.upcase,
-        academic: orientation.academic, institution: institution_data,
+        academic: academic_data, institution: institution_data,
         professorSupervisors: orientation.professor_supervisors_to_document,
         externalMemberSupervisors: orientation.external_member_supervisors_to_document }
     end

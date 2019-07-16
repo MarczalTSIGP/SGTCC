@@ -11,6 +11,10 @@ class Document < ApplicationRecord
     update(code: Time.now.to_i + id)
   end
 
+  def first_orientation
+    signatures.first.orientation
+  end
+
   def all_signed?
     signatures.where(status: true).count == signatures.count
   end
