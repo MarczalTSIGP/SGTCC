@@ -34,15 +34,17 @@ export default {
     return {
       term: {
         orientation: {
-          title: '',
           id: '',
-          date: ''
+          title: '',
+          created_at: ''
         },
         academic: {
+          id: '',
           name: '',
           ra: '',
         },
         advisor: {
+          id: '',
           name: '',
           label: ''
         },

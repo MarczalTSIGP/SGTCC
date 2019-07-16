@@ -1,7 +1,6 @@
 class Signature < ApplicationRecord
   include Confirmable
   include SignatureMark
-  include TermJsonData
 
   belongs_to :orientation
   belongs_to :document

@@ -19,6 +19,7 @@ class Populate::Orientations
         create_orientation_by_calendar(calendar_id)
       end
     end
+    sign_orientations
   end
 
   private
@@ -33,6 +34,13 @@ class Populate::Orientations
       institution_id: @institution_ids.sample
     )
     add_supervisors(orientation)
+  end
+
+  def sign_orientations
+    orientations = Orientation.last(Orientation.count / 2)
+    orientations.each do |orientation|
+      orientation.signatures.each(&:sign)
+    end
   end
 
   def increment_index

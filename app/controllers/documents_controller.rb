@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
-  before_action :set_signature, only: [:code, :data]
-  before_action :set_document, only: [:show, :confirm_document]
+  before_action :set_signature, only: :code
+  before_action :set_document, only: :data
+  before_action :set_document_by_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
 
@@ -28,7 +29,7 @@ class DocumentsController < ApplicationController
   end
 
   def data
-    render json: @signature.term_json_data
+    render json: @document.content
   end
 
   def confirm_document
@@ -40,8 +41,12 @@ class DocumentsController < ApplicationController
 
   private
 
-  def set_document
+  def set_document_by_code
     @document = Document.find_by(code: params[:code])
+  end
+
+  def set_document
+    @document = Document.find(params[:id])
   end
 
   def can_show
