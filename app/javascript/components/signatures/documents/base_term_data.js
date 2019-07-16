@@ -1,7 +1,11 @@
+import TermHeader from './partials/term_header';
+import TermFooter from './partials/term_footer';
 import SignatureMark from '../signature_mark';
 
 export default {
-  components: { SignatureMark },
+  name: 'BaseTermLayout',
+
+  components: { TermHeader, TermFooter, SignatureMark },
 
   props: {
     urlSignatureMark: {
