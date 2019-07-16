@@ -102,7 +102,7 @@ class Orientation < ApplicationRecord
 
   def supervisors_to_document(supervisors)
     supervisors.map do |supervisor|
-      { name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
+      { id: supervisor.id, name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
     end
   end
 

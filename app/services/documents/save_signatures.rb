@@ -14,16 +14,18 @@ class Documents::SaveSignatures
   private
 
   def create_tco_signatures
-    tco = DocumentType.tco.first.documents.create!(content: '-')
+    tco = DocumentType.tco.first.documents.create!(content: '{}')
     add_signature_users(tco)
     create_signatures(tco)
+    tco.update_content_data
   end
 
   def create_tcai_signatures
-    tcai = DocumentType.tcai.first.documents.create!(content: '-')
+    tcai = DocumentType.tcai.first.documents.create!(content: '{}')
     @signature_users = []
     add_signature_users(tcai)
     create_signatures(tcai)
+    tcai.update_content_data
   end
 
   def create_signatures(document)
