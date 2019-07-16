@@ -102,15 +102,11 @@ export default {
     },
 
     onCloseTerm() {
-      this.$root.$on('close-term', () => {
-        this.open = false;
-      });
+      this.$root.$on('close-term', () => { this.open = false; });
     },
 
     onOpenTerm() {
-      this.$root.$on('open-term', () => {
-        this.open = true;
-      });
+      this.$root.$on('open-term', () => { this.open = true; });
     },
   },
 };
