@@ -13,11 +13,6 @@ module TermJsonData
 
     private
 
-    def orientation_data
-      { id: first_orientation.id, title: first_orientation.title,
-        created_at: I18n.l(first_orientation.created_at, format: :document) }
-    end
-
     def advisor_data
       advisor = first_orientation.advisor
       { id: advisor.id, name: "#{advisor.scholarity.abbr} #{advisor.name}",

@@ -37,7 +37,7 @@
 
         <div class="float-right">
           <p :style="{ 'margin-top': marginTitle + 'px', 'margin-bottom': marginTitle + 'px' }">
-            Guarapuava, {{ term.orientation.date }}.
+            Guarapuava, {{ term.orientation.created_at }}.
           </p>
         </div>
         <div class="clearfix" />

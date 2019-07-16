@@ -36,7 +36,8 @@ export default {
         orientation: {
           id: '',
           title: '',
-          created_at: ''
+          created_at: '',
+          abandonment_justification: '',
         },
         academic: {
           id: '',

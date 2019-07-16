@@ -16,6 +16,7 @@ class Documents::SaveTdoSignatures
     tdo = DocumentType.tdo.first.documents.create!(content: '-')
     add_signature_users
     create_signatures(tdo)
+    tdo.update_content_data
   end
 
   def create_signatures(document)
