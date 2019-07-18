@@ -140,29 +140,6 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '#can_be_abandoned?' do
-    it 'returns true' do
-      professor = create(:professor)
-      orientation = create(:orientation_tcc_two)
-      expect(orientation.can_be_abandoned?(professor)).to eq(true)
-    end
-
-    context 'when returns false' do
-      let(:responsible) { create(:responsible) }
-
-      it 'returns false with professor responsible' do
-        orientation = create(:orientation_tcc_one)
-        expect(orientation.can_be_abandoned?(responsible)).to eq(false)
-      end
-
-      it 'returns false with tcc one professor' do
-        professor = create(:professor_tcc_one)
-        orientation = create(:orientation_tcc_one)
-        expect(orientation.can_be_abandoned?(professor)).to eq(false)
-      end
-    end
-  end
-
   describe '#can_be_edited?' do
     let(:orientation) { create(:orientation) }
 
@@ -425,18 +402,6 @@ RSpec.describe Orientation, type: :model do
         orientation.cancel('Justification')
         orientation.reload
         expect(orientation.status).to eq('cancelada')
-      end
-    end
-  end
-
-  describe '#abandon' do
-    context 'when the orientation is abandoned' do
-      let(:orientation) { create(:orientation) }
-
-      it 'is status equal abandoned' do
-        orientation.abandon('Justification')
-        orientation.reload
-        expect(orientation.status).to eq('abandonada')
       end
     end
   end
