@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_15_211414) do
+ActiveRecord::Schema.define(version: 2019_07_18_160910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,6 @@ ActiveRecord::Schema.define(version: 2019_07_15_211414) do
     t.string "status", default: "IN_PROGRESS"
     t.text "renewal_justification"
     t.text "cancellation_justification"
-    t.text "abandonment_justification"
     t.index ["academic_id"], name: "index_orientations_on_academic_id"
     t.index ["advisor_id"], name: "index_orientations_on_advisor_id"
     t.index ["calendar_id"], name: "index_orientations_on_calendar_id"

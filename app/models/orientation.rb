@@ -88,11 +88,6 @@ class Orientation < ApplicationRecord
     update(cancellation_justification: justification, status: 'CANCELED')
   end
 
-  def abandon(justification)
-    update(abandonment_justification: justification, status: 'ABANDONED')
-    Documents::SaveTdoSignatures.new(self).save
-  end
-
   def active?
     !canceled? && !abandoned?
   end

@@ -66,7 +66,6 @@ RSpec.describe Document, type: :model do
 
     let(:orientation_data) do
       { id: orientation.id, title: orientation.title,
-        abandonment_justification: orientation.abandonment_justification,
         created_at: I18n.l(orientation.created_at, format: :document) }
     end
 

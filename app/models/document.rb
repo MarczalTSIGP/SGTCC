@@ -15,13 +15,6 @@ class Document < ApplicationRecord
     signatures.first.orientation
   end
 
-  def orientation_data
-    orientation = signatures.find_by(user_type: :advisor).orientation
-    { id: orientation.id, title: orientation.title,
-      abandonment_justification: orientation.abandonment_justification,
-      created_at: I18n.l(orientation.created_at, format: :document) }
-  end
-
   def all_signed?
     signatures.where(status: true).count == signatures.count
   end
