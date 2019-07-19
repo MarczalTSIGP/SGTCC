@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
   post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
+  post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
 
   #========================================
   # Responsible
@@ -199,6 +200,7 @@ Rails.application.routes.draw do
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/reviewing', to: 'signatures#reviewing', as: 'signatures_reviewing'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'

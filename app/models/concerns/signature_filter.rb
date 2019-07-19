@@ -15,5 +15,9 @@ module SignatureFilter
     def signatures_signed(page = nil)
       signatures_by_status(true, page)
     end
+
+    def signatures_for_review(page = nil)
+      signatures_by_status(false, page)
+    end
   end
 end

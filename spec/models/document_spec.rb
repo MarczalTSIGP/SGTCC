@@ -83,9 +83,13 @@ RSpec.describe Document, type: :model do
         responsible: institution.external_member&.name }
     end
 
+    let(:document_data) do
+      { id: document.id }
+    end
+
     let(:term_json_data) do
       { orientation: orientation_data, advisor: advisor_data,
-        title: document.document_type.name.upcase,
+        title: document.document_type.name.upcase, document: document_data,
         academic: academic_data, institution: institution_data,
         professorSupervisors: orientation.professor_supervisors_to_document,
         externalMemberSupervisors: orientation.external_member_supervisors_to_document }

@@ -1,4 +1,6 @@
 class Professors::RequestsController < Professors::BaseController
+  before_action :set_orientation, only: :create
+
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
                  :professors_requests_path
 
@@ -21,8 +23,11 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def create
-    if @document.create_request(request_params)
-      success_create_message
+    document = Document.create_tdo_request(@orientation, current_professor,
+                                           request_params[:justification])
+
+    if document.save
+      feminine_success_create_message
       redirect_to professors_requests_path
     else
       error_message
@@ -31,6 +36,14 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   private
+
+  def model_human
+    'Solicitação'
+  end
+
+  def set_orientation
+    @orientation = Orientation.find(request_params[:orientation])
+  end
 
   def request_params
     params.require(:orientation).permit(:orientation, :justification)

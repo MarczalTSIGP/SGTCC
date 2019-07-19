@@ -122,9 +122,9 @@ class Orientation < ApplicationRecord
     statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 
-  def self.select_request_data
+  def self.select_request_data(professor)
     order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
-    includes(:academic, :calendar).order(order_by).map do |orientation|
+    professor.orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
       [orientation.id, orientation.academic_with_calendar]
     end
   end

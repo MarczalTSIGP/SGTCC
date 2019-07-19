@@ -16,7 +16,7 @@
     <p>
       <b>Motivos da desistência</b>: <br>
       <span class="ml-4">
-        {{ term.orientation.abandonment_justification }}
+        {{ request.requester.justification }}
       </span>
     </p>
   </base-term-layout>

@@ -19,6 +19,10 @@ class Professors::SignaturesController < Professors::BaseController
     @signatures = current_professor.signatures_signed(params[:page])
   end
 
+  def reviewing
+    @signatures = current_professor.signatures_for_review(params[:page])
+  end
+
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'), professors_signature_path(@signature)
   end

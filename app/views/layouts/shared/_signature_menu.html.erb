@@ -1,7 +1,17 @@
 <span class="sidebar-heading">
-  <%= icon('fas', 'file-signature', class: 'mt-2 mr-2') %>
-  <%= t('views.sidebar.signatures.index') %>
+  <%= icon('fas', 'folder', class: 'mt-2 mr-2') %>
+  <%= t('views.sidebar.documents.index') %>
 </span>
+
+<% if current_professor.role?(:responsible) %>
+  <%= active_link_to(reviewing_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2 mt-2">
+      <%= icon('fas', 'file-alt') %>
+    </span>
+    <%= t('views.sidebar.documents.review') %>
+  <% end %>
+<% end %>
 
 <%= active_link_to(pending_path,
 		   active: send("#{resource}_signatures_pending_active_link?"),
@@ -9,7 +19,7 @@
   <span class="icon mr-2 mt-2">
     <%= icon('fas', 'file-signature') %>
   </span>
-  <%= t('views.sidebar.signatures.pendings') %>
+  <%= t('views.sidebar.documents.pending') %>
 <% end %>
 
 <%= active_link_to(signed_path,
@@ -18,5 +28,5 @@
   <span class="icon mr-2 mt-2">
     <%= icon('fas', 'file-contract') %>
   </span>
-  <%= t('views.sidebar.signatures.signeds') %>
+  <%= t('views.sidebar.documents.signed') %>
 <% end %>

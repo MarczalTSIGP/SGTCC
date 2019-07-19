@@ -54,11 +54,17 @@ export default {
           label: ''
         },
         title: '',
+        document: {},
         institution: {},
         professorSupervisors: [],
         externalMemberSupervisors: [],
       },
       open: false,
+      request: {
+        requester: {
+          justification: '',
+        }
+      },
     };
   },
 
@@ -89,7 +95,14 @@ export default {
       if (response.data.status !== 'not_found') {
         this.term = response.data;
         this.open = true;
+        this.setRequest();
       }
+    },
+
+    async setRequest() {
+      const url = `/documents/${this.term.document.id}/request`;
+      const response = await this.$axios.post(url);
+      this.request = response.data;
     },
 
     hasProfessorSupervisors() {
