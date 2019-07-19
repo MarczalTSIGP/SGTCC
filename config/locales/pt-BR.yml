@@ -43,6 +43,7 @@ pt-BR:
       academics: "Acadêmico"
       external_members: "Membro Externo"
       supervisor: "Coorientador"
+      requests: "Solicitações"
       signatures:
         index: "Assinaturas"
         pendings: "Pendentes"
@@ -98,6 +99,15 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+    documents:
+      requests:
+        index: "Solicitações"
+        new: "Nova solicitação"
+        show: "Visualizar solicitação"
+        tdo:
+          new: "Solicitar desistência de orientação"
+          show: "Visualizar solicitação de desistência de orientação"
+          advisor: "Desistência de Orientação"
     signatures:
       index: "Assinaturas"
       show: "Visualizar documento"

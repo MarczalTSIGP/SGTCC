@@ -1,0 +1,31 @@
+<%= simple_form_for(Orientation.model_name.param_key, url: professors_requests_path) do |f| %>
+  <div class="row">
+    <div class="col-6">
+      <%= f.input :orientation,
+        as: :select,
+        collection: Orientation.select_request_data,
+        class: 'form-control',
+        input_html: { data: 'selectize' },
+        label: false,
+        label_method: :second,
+        value_method: :first,
+        prompt: t('prompt.select.f', name: Orientation.model_name.human) %>
+    </div>
+
+    <div class="col-6">
+      <%= f.input :justification,
+        as: :text,
+        label: false,
+        placeholder: 'Justificativa',
+        class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      professors_requests_path,
+      class: 'btn btn-secondary' %>
+
+      <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

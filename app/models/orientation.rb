@@ -114,7 +114,18 @@ class Orientation < ApplicationRecord
     supervisors_to_document(external_member_supervisors)
   end
 
+  def academic_with_calendar
+    "#{academic.name} (#{academic.ra}) / #{calendar.year_with_semester_and_tcc}"
+  end
+
   def self.select_status_data
     statuses.map { |index, field| [field, index.capitalize] }.sort!
+  end
+
+  def self.select_request_data
+    order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+    includes(:academic, :calendar).order(order_by).map do |orientation|
+      [orientation.id, orientation.academic_with_calendar]
+    end
   end
 end

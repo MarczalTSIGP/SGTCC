@@ -187,6 +187,10 @@ Rails.application.routes.draw do
                 only: [:show],
                 constraints: { id: /[0-9]+/ }
 
+      resources :requests,
+                except: [:destroy],
+                constraints: { id: /[0-9]+/ }
+
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
