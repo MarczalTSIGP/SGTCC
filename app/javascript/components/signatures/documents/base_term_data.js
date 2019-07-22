@@ -41,7 +41,6 @@ export default {
           id: '',
           title: '',
           created_at: '',
-          abandonment_justification: '',
         },
         academic: {
           id: '',
