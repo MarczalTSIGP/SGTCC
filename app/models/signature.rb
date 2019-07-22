@@ -1,6 +1,11 @@
 class Signature < ApplicationRecord
   include Confirmable
   include SignatureMark
+  include Searchable
+
+  searchable relationships: {
+    orientation: { fields: [title: { unaccent: true }] }
+  }
 
   belongs_to :orientation
   belongs_to :document

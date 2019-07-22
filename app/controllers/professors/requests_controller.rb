@@ -8,15 +8,9 @@ class Professors::RequestsController < Professors::BaseController
                  :new_professors_request_path,
                  only: :new
 
-  add_breadcrumb I18n.t('breadcrumbs.documents.requests.show'),
-                 :professors_request_path,
-                 only: :show
-
   def index
-    @requests = []
+    @requests = current_professor.signatures_for_review(params[:page])
   end
-
-  def show; end
 
   def new
     @document = Document.new

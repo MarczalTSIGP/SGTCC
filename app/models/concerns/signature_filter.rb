@@ -4,20 +4,26 @@ module SignatureFilter
   extend ActiveSupport::Concern
 
   included do
-    def signatures_by_status(status, page)
-      signatures.where(status: status).page(page).with_relationships
+    def page_with_relationships(data, page)
+      data.page(page).with_relationships
     end
 
     def signatures_pending(page = nil)
-      signatures_by_status(false, page)
+      data = signatures.joins(:document)
+                       .where(status: false, documents: { request: nil })
+      page_with_relationships(data, page)
     end
 
-    def signatures_signed(page = nil)
-      signatures_by_status(true, page)
+    def signatures_signed(page = nil, term = nil)
+      data = signatures.where(status: true).search(term)
+      page_with_relationships(data, page)
     end
 
     def signatures_for_review(page = nil)
-      signatures_by_status(false, page)
+      data = signatures.joins(:document)
+                       .where(status: false)
+                       .where.not(documents: { request: nil })
+      page_with_relationships(data, page)
     end
   end
 end

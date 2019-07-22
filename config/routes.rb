@@ -189,7 +189,7 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                except: [:destroy],
+                except: [:show, :destroy],
                 constraints: { id: /[0-9]+/ }
 
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
@@ -220,6 +220,11 @@ Rails.application.routes.draw do
       get 'calendars/:calendar_id/activities/:id',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      get 'signatures/signed/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'signatures#signed',
+          as: 'signatures_search_signed'
 
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },

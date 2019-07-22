@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2019_07_19_182125) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code"
-    t.json "request", default: {}
+    t.json "request"
     t.index ["document_type_id"], name: "index_documents_on_document_type_id"
   end
 

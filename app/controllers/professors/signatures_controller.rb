@@ -16,7 +16,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def signed
-    @signatures = current_professor.signatures_signed(params[:page])
+    @signatures = current_professor.signatures_signed(params[:page], params[:term])
   end
 
   def reviewing
