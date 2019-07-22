@@ -3,7 +3,7 @@
   <%= t('views.sidebar.documents.index') %>
 </span>
 
-<% if current_professor.role?(:responsible) %>
+<% if current_professor&.role?(:responsible) %>
   <%= active_link_to(reviewing_path,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2 mt-2">
