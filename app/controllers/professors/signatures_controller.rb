@@ -3,6 +3,10 @@ class Professors::SignaturesController < Professors::BaseController
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
+  add_breadcrumb I18n.t('breadcrumbs.documents.reviewing'),
+                 :professors_signatures_reviewing_path,
+                 only: :reviewing
+
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
                  :professors_signatures_pending_path,
                  only: :pending
