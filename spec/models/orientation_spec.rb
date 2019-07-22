@@ -542,4 +542,16 @@ RSpec.describe Orientation, type: :model do
       end
     end
   end
+
+  describe '#academic_with_calendar' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+    let(:calendar) { orientation.calendar }
+
+    it 'is equal academic with calendar' do
+      academic_with_ra = "#{academic.name} (#{academic.ra})"
+      academic_with_calendar = "#{academic_with_ra} / #{calendar.year_with_semester_and_tcc}"
+      expect(orientation.academic_with_calendar).to eq(academic_with_calendar)
+    end
+  end
 end

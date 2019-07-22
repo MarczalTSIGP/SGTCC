@@ -17,8 +17,8 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def create
-    document = Document.create_tdo_request(@orientation, current_professor,
-                                           request_params[:justification])
+    document = Documents::SaveTdoSignatures.new(@orientation, current_professor,
+                                                request_params[:justification])
 
     if document.save
       feminine_success_create_message

@@ -69,4 +69,11 @@ class Professor < ApplicationRecord
     user_types.push(types[:professor_responsible]) if role?(:responsible)
     Signature.where(user_id: id, user_type: user_types).recent
   end
+
+  def select_request_data
+    order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+    orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
+      [orientation.id, orientation.academic_with_calendar]
+    end
+  end
 end

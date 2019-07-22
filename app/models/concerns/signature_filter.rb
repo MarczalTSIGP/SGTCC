@@ -9,8 +9,7 @@ module SignatureFilter
     end
 
     def signatures_pending(page = nil)
-      data = signatures.joins(:document)
-                       .where(status: false, documents: { request: nil })
+      data = signatures.where(status: false)
       page_with_relationships(data, page)
     end
 

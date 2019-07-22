@@ -169,8 +169,40 @@ RSpec.describe Professor, type: :model do
     end
 
     it 'returns the pending signatures' do
-      signatures = Signature.where(user_id: professor.id, user_type: 'AD', status: false)
+      signatures = Signature.joins(:document)
+                            .where(user_id: professor.id,
+                                   user_type: 'AD', status: false)
       expect(professor.signatures_pending).to match_array(signatures)
+    end
+  end
+
+  describe '#signatures_for_review' do
+    let!(:professor) { create(:professor) }
+
+    before do
+      create(:signature, user_id: professor.id)
+    end
+
+    it 'returns the reviewing signatures' do
+      signatures = Signature.joins(:document)
+                            .where(user_id: professor.id,
+                                   user_type: 'AD', status: false)
+                            .where.not(documents: { request: nil })
+      expect(professor.signatures_for_review).to match_array(signatures)
+    end
+  end
+
+  describe '#select_request_data' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+
+    it 'is equal professor request data' do
+      order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+      data = professor.orientations.includes(:academic, :calendar)
+                      .order(order_by).map do |orientation|
+                        [orientation.id, orientation.academic_with_calendar]
+                      end
+      expect(professor.select_request_data).to eq(data)
     end
   end
 end

@@ -22,8 +22,4 @@ class Document < ApplicationRecord
   def update_content_data
     update(content: term_json_data)
   end
-
-  def self.create_tdo_request(orientation, professor, justification)
-    Documents::SaveTdoSignatures.new(orientation, professor, justification)
-  end
 end
