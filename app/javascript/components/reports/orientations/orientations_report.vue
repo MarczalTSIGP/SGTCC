@@ -25,7 +25,7 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
           <orientations-number
             label="Em andamento"
             badge-type="primary"
@@ -34,7 +34,7 @@
           />
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
           <orientations-number
             label="Aprovadas"
             badge-type="success"
@@ -43,7 +43,7 @@
           />
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
           <orientations-number
             label="Renovadas"
             badge-type="warning"
@@ -52,7 +52,7 @@
           />
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
           <orientations-number
             label="Canceladas"
             badge-type="danger"
