@@ -7,8 +7,19 @@ class Document < ApplicationRecord
 
   include TermJsonData
 
+  store_accessor :request, :justification
+
+  attr_accessor :orientation
+
   after_create do
     update(code: Time.now.to_i + id)
+  end
+
+  after_save do
+    if document_type.tdo? && content.size == 1
+      Documents::SaveTdoSignatures.new(self, orientation).save
+      update_content_data
+    end
   end
 
   def first_orientation
@@ -21,5 +32,14 @@ class Document < ApplicationRecord
 
   def update_content_data
     update(content: term_json_data)
+  end
+
+  def self.create_tdo(professor, justification, orientation)
+    request = { requester: { id: professor.id, name: professor.name,
+                             type: 'advisor', justification: justification } }
+
+    document = DocumentType.tdo.first.documents.new(content: '-', request: request)
+    document.orientation = orientation
+    document.save
   end
 end

@@ -17,10 +17,9 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def create
-    document = Documents::SaveTdoSignatures.new(@orientation, current_professor,
-                                                request_params[:justification])
+    justification = request_params[:justification]
 
-    if document.save
+    if Document.create_tdo(current_professor, justification, @orientation)
       feminine_success_create_message
       redirect_to professors_requests_path
     else
@@ -40,6 +39,6 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def request_params
-    params.require(:orientation).permit(:orientation, :justification)
+    params.require(:document).permit(:orientation, :justification)
   end
 end

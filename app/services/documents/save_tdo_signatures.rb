@@ -1,10 +1,9 @@
 class Documents::SaveTdoSignatures
-  attr_reader :orientation, :professor, :justification, :signature_users
+  attr_reader :orientation, :document, :signature_users
 
-  def initialize(orientation, professor, justification)
+  def initialize(document, orientation)
+    @document = document
     @orientation = orientation
-    @professor = professor
-    @justification = justification
     @signature_users = []
   end
 
@@ -15,27 +14,19 @@ class Documents::SaveTdoSignatures
   private
 
   def create_tdo_signatures
-    tdo = DocumentType.tdo.first.documents.create!(content: '-', request: select_request)
     add_signature_users
-    create_signatures(tdo)
-    tdo.update_content_data
-    tdo
+    create_signatures
   end
 
-  def create_signatures(document)
+  def create_signatures
     @signature_users.each do |user_id, user_type|
       @orientation.signatures << Signature.create!(
         orientation_id: @orientation.id,
-        document_id: document.id,
+        document_id: @document.id,
         user_id: user_id,
         user_type: user_type
       )
     end
-  end
-
-  def select_request
-    { requester: { id: @professor.id, name: @professor.name,
-                   type: 'advisor', justification: @justification } }
   end
 
   def add_signature_users

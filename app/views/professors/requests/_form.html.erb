@@ -1,4 +1,4 @@
-<%= simple_form_for(Orientation.model_name.param_key, url: professors_requests_path) do |f| %>
+<%= simple_form_for(@document, url: professors_requests_path) do |f| %>
   <div class="row">
     <div class="col-6">
       <%= f.input :orientation,
