@@ -7,13 +7,15 @@
       <div class="card-options">
         <a
           href="#"
-          class="btn btn-primary btn-sm"
+          :class="totalTccOneButtonClass"
+          @click.prevent="updateTccOne()"
         >
           TCC 1 - Geral
         </a>
         <a
           href="#"
-          class="btn btn-secondary btn-sm ml-2"
+          :class="totalTccTwoButtonClass"
+          @click.prevent="updateTccTwo()"
         >
           TCC 2 - Geral
         </a>
@@ -25,7 +27,7 @@
           <orientations-number
             label="Em andamento"
             badge-type="primary"
-            url="teste"
+            :url="totalUrl"
           />
         </div>
 
@@ -33,7 +35,7 @@
           <orientations-number
             label="Aprovadas"
             badge-type="success"
-            url="teste"
+            :url="totalApprovedUrl"
           />
         </div>
 
@@ -41,7 +43,7 @@
           <orientations-number
             label="Renovadas"
             badge-type="warning"
-            url="teste"
+            :url="totalRenewedUrl"
           />
         </div>
 
@@ -49,7 +51,7 @@
           <orientations-number
             label="Canceladas"
             badge-type="danger"
-            url="teste"
+            :url="totalCanceledUrl"
           />
         </div>
       </div>
@@ -65,6 +67,55 @@ export default {
   name: 'OrientationsReport',
 
   components: { OrientationsNumber },
+
+  data() {
+    return {
+      tcc: 'tcc_one',
+      tccOneButtonType: 'primary',
+      tccTwoButtonType: 'secondary',
+      url: '/responsible/orientations'
+    };
+  },
+
+  computed: {
+    totalUrl() {
+      return `${this.url}/${this.tcc}/total`;
+    },
+
+    totalApprovedUrl() {
+      return `${this.totalUrl}/approved`;
+    },
+
+    totalRenewedUrl() {
+      return `${this.totalUrl}/renewed`;
+    },
+
+    totalCanceledUrl() {
+      return `${this.totalUrl}/canceled`;
+    },
+
+    totalTccOneButtonClass() {
+      return `btn btn-${this.tccOneButtonType} btn-sm`;
+    },
+
+    totalTccTwoButtonClass() {
+      return `btn btn-${this.tccTwoButtonType} btn-sm ml-2`;
+    },
+  },
+
+  methods: {
+    updateTccOne() {
+      this.tcc = 'tcc_one';
+      this.tccOneButtonType = 'primary';
+      this.tccTwoButtonType = 'secondary';
+    },
+
+    updateTccTwo() {
+      this.tcc = 'tcc_two';
+      this.tccTwoButtonType = 'primary';
+      this.tccOneButtonType = 'secondary';
+    },
+  },
 };
 
 </script>

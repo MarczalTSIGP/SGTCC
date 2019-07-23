@@ -1,11 +1,14 @@
 <template>
-  <div :class="`card border border-${badgeType}`">
+  <div
+    v-if="load"
+    :class="`card border border-${badgeType}`"
+  >
     <div class="card-body text-center">
       <div class="h5">
         {{ label }}
       </div>
       <div class="display-4 font-weight-bold mb-4">
-        100
+        {{ total }}
       </div>
       <div class="progress progress-sm">
         <div
@@ -41,6 +44,8 @@ export default {
 
   data() {
     return {
+      load: false,
+      total: 0,
       backgroundColor: {
         primary: 'blue',
         danger: 'red',
@@ -51,10 +56,28 @@ export default {
   },
 
   computed: {
-    progressBarClass: function() {
+    progressBarClass() {
       const backgroundColor = this.backgroundColor[this.badgeType];
 
       return `progress-bar bg-${backgroundColor}`;
+    },
+  },
+
+  watch: {
+    url() {
+      this.setTotal();
+    },
+  },
+
+  mounted() {
+    this.setTotal();
+  },
+
+  methods: {
+    async setTotal() {
+      const response = await this.$axios.get(this.url);
+      this.total = response.data;
+      this.load = true;
     },
   },
 };
