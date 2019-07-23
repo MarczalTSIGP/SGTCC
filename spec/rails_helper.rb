@@ -13,6 +13,7 @@ require 'support/helpers/form'
 require 'support/helpers/button'
 require 'support/helpers/select'
 require 'support/helpers/link'
+require 'support/helpers/label'
 require 'support/helpers/string'
 require 'support/helpers/flash_message'
 
@@ -35,6 +36,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature
+  config.include Helpers::Label, type: :feature
   config.include Helpers::Button, type: :feature
   config.include Helpers::Select, type: :feature
   config.include Helpers::Link, type: :feature

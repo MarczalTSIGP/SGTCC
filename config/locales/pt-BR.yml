@@ -46,6 +46,13 @@ pt-BR:
         index: "Assinaturas"
         pendings: "Pendentes"
         signeds: "Assinadas"
+  reports:
+    professors:
+      index: "Professores"
+      label:
+        total: "Cadastrados no SGTCC"
+        available: "Disponíveis para orientação"
+        unavailable: "Indisponíveis para orientação"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
