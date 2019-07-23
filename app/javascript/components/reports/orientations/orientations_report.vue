@@ -6,6 +6,7 @@
       </h3>
       <div class="card-options">
         <a
+          id="tcc_one_geral"
           href="#"
           :class="totalTccOneButtonClass"
           @click.prevent="updateTccOne()"
@@ -13,6 +14,7 @@
           TCC 1 - Geral
         </a>
         <a
+          id="tcc_two_geral"
           href="#"
           :class="totalTccTwoButtonClass"
           @click.prevent="updateTccTwo()"
@@ -95,7 +97,7 @@ export default {
     },
 
     redirectAprrovedUrl() {
-      return `${this.baseUrl}/APPROVED/search/`;
+      return `${this.baseUrl}/APPROVED/search`;
     },
 
     totalRenewedUrl() {
@@ -103,7 +105,7 @@ export default {
     },
 
     redirectRenewedUrl() {
-      return `${this.baseUrl}/RENEWED/search/`;
+      return `${this.baseUrl}/RENEWED/search`;
     },
 
     totalCanceledUrl() {
@@ -111,7 +113,7 @@ export default {
     },
 
     redirectCanceledUrl() {
-      return `${this.baseUrl}/CANCELED/search/`;
+      return `${this.baseUrl}/CANCELED/search`;
     },
 
     totalTccOneButtonClass() {

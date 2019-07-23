@@ -60,6 +60,12 @@ pt-BR:
         total: "Cadastrados no SGTCC"
         available: "Disponíveis para orientação"
         unavailable: "Indisponíveis para orientação"
+    orientations:
+      label:
+        in_progress: "Em andamento"
+        approved: "Aprovadas"
+        renewed: "Renovadas"
+        canceled: "Canceladas"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
