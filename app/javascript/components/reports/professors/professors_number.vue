@@ -44,7 +44,7 @@ export default {
 
     redirect: {
       type: String,
-      required: false,
+      required: true
     },
   },
 
