@@ -99,4 +99,20 @@ RSpec.describe Document, type: :model do
       expect(document.term_json_data).to eq(term_json_data)
     end
   end
+
+  describe '#create_tdo' do
+    before do
+      create(:document_type_tdo)
+      create(:responsible)
+    end
+
+    context 'when document is created' do
+      let!(:professor) { create(:professor) }
+      let!(:orientation) { create(:orientation, advisor_id: professor.id) }
+
+      it 'returns true' do
+        expect(Document.create_tdo(professor, 'justification', orientation)).to eq(true)
+      end
+    end
+  end
 end
