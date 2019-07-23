@@ -9,7 +9,7 @@
       </span>
       <div>
         <h4 class="m-0">
-          <a href="javascript:void(0)">
+          <a :href="redirect">
             {{ number }} <small>Professores</small>
           </a>
         </h4>
@@ -40,7 +40,12 @@ export default {
     url: {
       type: String,
       required: true
-    }
+    },
+
+    redirect: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {

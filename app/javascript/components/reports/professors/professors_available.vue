@@ -1,8 +1,9 @@
 <template>
   <div>
     <professors-number
-      url="/responsible/professors/available"
+      url="/responsible/professors/total/available"
       label="Disponíveis para orientação"
+      redirect="/responsible/professors/available"
       background-color="green"
     />
   </div>

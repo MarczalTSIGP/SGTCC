@@ -17,7 +17,17 @@ class Responsible::ProfessorsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @professors = Professor.page(params[:page]).search(params[:term]).order(:name)
+    @professors = paginate(Professor.all)
+  end
+
+  def available
+    @professors = paginate(Professor.available_advisor)
+    render :index
+  end
+
+  def unavailable
+    @professors = paginate(Professor.unavailable_advisor)
+    render :index
   end
 
   def show; end
@@ -62,6 +72,10 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   private
+
+  def paginate(data)
+    data.page(params[:page]).search(params[:term]).order(:name)
+  end
 
   def set_professor
     @professor = Professor.find(params[:id])

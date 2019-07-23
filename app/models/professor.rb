@@ -56,6 +56,9 @@ class Professor < ApplicationRecord
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
 
+  scope :available_advisor, -> { where(available_advisor: true) }
+  scope :unavailable_advisor, -> { where(available_advisor: false) }
+
   def role?(identifier)
     roles.where(identifier: identifier).any?
   end

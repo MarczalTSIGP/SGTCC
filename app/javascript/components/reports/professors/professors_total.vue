@@ -3,6 +3,7 @@
     <professors-number
       url="/responsible/professors/total"
       label="Cadastrados no SGTCC"
+      redirect="/responsible/professors"
       background-color="primary"
     />
   </div>

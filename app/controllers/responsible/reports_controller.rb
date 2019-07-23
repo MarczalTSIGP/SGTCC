@@ -4,10 +4,10 @@ class Responsible::ReportsController < Responsible::BaseController
   end
 
   def professors_available
-    render json: Professor.where(available_advisor: true).count
+    render json: Professor.available_advisor.count
   end
 
   def professors_unavailable
-    render json: Professor.where(available_advisor: false).count
+    render json: Professor.unavailable_advisor.count
   end
 end
