@@ -18,15 +18,18 @@ class Responsible::ProfessorsController < Responsible::BaseController
 
   def index
     @professors = paginate(Professor.all)
+    @search_url = responsible_professors_search_path
   end
 
   def available
     @professors = paginate(Professor.available_advisor)
+    @search_url = responsible_professors_available_search_path
     render :index
   end
 
   def unavailable
     @professors = paginate(Professor.unavailable_advisor)
+    @search_url = responsible_professors_unavailable_search_path
     render :index
   end
 

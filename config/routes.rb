@@ -124,6 +124,16 @@ Rails.application.routes.draw do
           to: 'professors#index',
           as: 'professors_search'
 
+      get 'professors/available/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#available',
+          as: 'professors_available_search'
+
+      get 'professors/unavailable/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#unavailable',
+          as: 'professors_unavailable_search'
+
       get 'external_members/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'external_members#index',
