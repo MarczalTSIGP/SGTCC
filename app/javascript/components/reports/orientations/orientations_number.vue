@@ -3,20 +3,25 @@
     v-if="load"
     :class="`card border border-${badgeType}`"
   >
-    <div class="card-body text-center">
-      <div class="h5">
-        {{ label }}
+    <a
+      :href="redirect"
+      class="text-decoration-none"
+    >
+      <div class="card-body text-center">
+        <div class="h5">
+          {{ label }}
+        </div>
+        <div class="display-4 font-weight-bold mb-4">
+          {{ total }}
+        </div>
+        <div class="progress progress-sm">
+          <div
+            :class="progressBarClass"
+            style="width: 100%"
+          />
+        </div>
       </div>
-      <div class="display-4 font-weight-bold mb-4">
-        {{ total }}
-      </div>
-      <div class="progress progress-sm">
-        <div
-          :class="progressBarClass"
-          style="width: 100%"
-        />
-      </div>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -37,6 +42,11 @@ export default {
     },
 
     url: {
+      type: String,
+      required: true
+    },
+
+    redirect: {
       type: String,
       required: true
     },

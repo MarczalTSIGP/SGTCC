@@ -28,6 +28,7 @@
             label="Em andamento"
             badge-type="primary"
             :url="totalUrl"
+            :redirect="baseUrl"
           />
         </div>
 
@@ -36,6 +37,7 @@
             label="Aprovadas"
             badge-type="success"
             :url="totalApprovedUrl"
+            :redirect="redirectAprrovedUrl"
           />
         </div>
 
@@ -44,6 +46,7 @@
             label="Renovadas"
             badge-type="warning"
             :url="totalRenewedUrl"
+            :redirect="redirectRenewedUrl"
           />
         </div>
 
@@ -52,6 +55,7 @@
             label="Canceladas"
             badge-type="danger"
             :url="totalCanceledUrl"
+            :redirect="redirectCanceledUrl"
           />
         </div>
       </div>
@@ -78,20 +82,36 @@ export default {
   },
 
   computed: {
+    baseUrl() {
+      return `${this.url}/${this.tcc}`;
+    },
+
     totalUrl() {
-      return `${this.url}/${this.tcc}/total`;
+      return `${this.baseUrl}/total`;
     },
 
     totalApprovedUrl() {
       return `${this.totalUrl}/approved`;
     },
 
+    redirectAprrovedUrl() {
+      return `${this.baseUrl}/APPROVED/search/`;
+    },
+
     totalRenewedUrl() {
       return `${this.totalUrl}/renewed`;
     },
 
+    redirectRenewedUrl() {
+      return `${this.baseUrl}/RENEWED/search/`;
+    },
+
     totalCanceledUrl() {
       return `${this.totalUrl}/canceled`;
+    },
+
+    redirectCanceledUrl() {
+      return `${this.baseUrl}/CANCELED/search/`;
     },
 
     totalTccOneButtonClass() {
