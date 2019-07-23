@@ -1,7 +1,7 @@
 <template>
   <div>
     <professors-number
-      number="25"
+      url="/responsible/professors/available"
       label="Disponíveis para orientação"
       background-color="green"
     />

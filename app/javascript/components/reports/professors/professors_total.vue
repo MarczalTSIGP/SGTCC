@@ -1,7 +1,7 @@
 <template>
   <div>
     <professors-number
-      number="50"
+      url="/responsible/professors/total"
       label="Cadastrados no SGTCC"
       background-color="primary"
     />

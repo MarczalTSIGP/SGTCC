@@ -83,6 +83,18 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      get 'professors/total',
+          to: 'reports#professors_total',
+          as: 'professors_total'
+
+      get 'professors/available',
+          to: 'reports#professors_available',
+          as: 'professors_available'
+
+      get 'professors/unavailable',
+          to: 'reports#professors_unavailable',
+          as: 'professors_unavailable'
+
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'
