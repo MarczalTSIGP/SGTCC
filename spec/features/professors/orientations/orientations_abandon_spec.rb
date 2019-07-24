@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Orientation::abandon', type: :feature do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor_id: professor.id) }
-  let(:resource_name) { 'Solicitação' }
+  let(:resource_name) { request_resource_name }
 
   before do
     create(:responsible)

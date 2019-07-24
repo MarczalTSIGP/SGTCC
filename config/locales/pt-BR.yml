@@ -342,6 +342,8 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    request:
+      index: "Solicitação"
     orientation:
       destroy:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'

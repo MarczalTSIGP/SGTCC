@@ -18,20 +18,15 @@ class Professors::RequestsController < Professors::BaseController
 
   def create
     justification = request_params[:justification]
-
-    if Document.create_tdo(current_professor, justification, @orientation)
-      feminine_success_create_message
-      redirect_to professors_requests_path
-    else
-      error_message
-      render :new
-    end
+    document = Document.create_tdo(current_professor, justification, @orientation)
+    feminine_success_create_message if document
+    redirect_to professors_requests_path
   end
 
   private
 
   def model_human
-    'Solicitação'
+    I18n.t('flash.request.index')
   end
 
   def set_orientation
