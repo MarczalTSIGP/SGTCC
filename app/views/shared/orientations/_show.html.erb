@@ -101,5 +101,7 @@
 
 <div class="mt-4 d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
-  <%= yield(:edit_button) %>
+  <% if @orientation.can_be_edited? %>
+    <%= yield(:edit_button) %>
+  <% end %>
 </div>

@@ -43,5 +43,17 @@ describe 'Orientation::update', type: :feature do
         expect(page).to have_message(blank_error_message, in: 'div.orientation_title')
       end
     end
+
+    context 'when the orientation cant be edited' do
+      before do
+        create(:signature_signed, orientation_id: orientation.id)
+        visit edit_professors_orientation_path(orientation)
+      end
+
+      it 'redirect to the orientations page' do
+        expect(page).to have_current_path professors_orientations_tcc_one_path
+        expect(page).to have_flash(:warning, text: orientation_edit_signed_warning_message)
+      end
+    end
   end
 end
