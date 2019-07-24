@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe 'Orientation::abandon', type: :feature do
-  let(:orientation) { create(:orientation) }
-  let(:professor) { orientation.advisor }
-  let(:resource_name) { Orientation.model_name.human }
+  let!(:professor) { create(:professor) }
+  let!(:orientation) { create(:orientation, advisor_id: professor.id) }
+  let(:resource_name) { 'Solicitação' }
 
   before do
-    create(:document_tdo)
+    create(:responsible)
+    create(:document_type_tdo)
     create(:current_calendar_tcc_one)
     login_as(professor, scope: :professor)
   end
@@ -18,8 +19,8 @@ describe 'Orientation::abandon', type: :feature do
 
     context 'when request is valid', js: true do
       it 'create a term of abandonment' do
-        selectize(orientation.academic_with_calendar, from: 'orientation_orientation_id')
-        fill_in 'orientation_justification', with: 'justification'
+        selectize(orientation.academic_with_calendar, from: 'document_orientation')
+        fill_in 'document_justification', with: 'justification'
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_requests_path
