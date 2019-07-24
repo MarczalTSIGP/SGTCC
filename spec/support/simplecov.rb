@@ -20,5 +20,4 @@ SimpleCov.start 'rails' do
   add_filter 'lib/ldap/ldap_authentication.rb'
   add_filter 'app/controllers/concerns/ldap_authentication.rb'
   add_filter 'app/services/populate'
-  add_filter 'app/javascript/components/signatures/documents/base_term_data.js'
 end
