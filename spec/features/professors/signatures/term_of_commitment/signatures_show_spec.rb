@@ -62,7 +62,7 @@ describe 'Signature::show', type: :feature, js: true do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        Signature.mark(orientation.id, document_type.id).each do |signature|
+        document.mark.each do |signature|
           expect(page).to have_content(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])
