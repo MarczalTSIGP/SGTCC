@@ -52,7 +52,7 @@ RSpec.describe Document, type: :model do
     end
   end
 
-  describe '#update_content_data' do
+  describe '#save_to_json' do
     let(:orientation) { create(:orientation) }
 
     before do
@@ -63,7 +63,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns true' do
-        expect(document.update_content_data).to eq(true)
+        expect(document.save_to_json).to eq(true)
       end
     end
   end

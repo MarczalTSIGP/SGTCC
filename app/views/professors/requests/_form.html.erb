@@ -3,7 +3,7 @@
     <div class="col-6">
       <%= f.input :orientation_id,
         as: :select,
-        collection: current_professor.select_request_data,
+        collection: current_professor.orientations_to_form,
         class: 'form-control',
         input_html: { data: 'selectize' },
         label: false,

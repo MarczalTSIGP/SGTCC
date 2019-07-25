@@ -188,7 +188,7 @@ RSpec.describe Professor, type: :model do
     end
   end
 
-  describe '#select_request_data' do
+  describe '#orientations_to_form' do
     let(:orientation) { create(:orientation) }
     let(:professor) { orientation.advisor }
 
@@ -198,7 +198,18 @@ RSpec.describe Professor, type: :model do
                       .order(order_by).map do |orientation|
                         [orientation.id, orientation.academic_with_calendar]
                       end
-      expect(professor.select_request_data).to eq(data)
+      expect(professor.orientations_to_form).to eq(data)
+    end
+  end
+
+  describe '#current_responsible' do
+    before do
+      create(:responsible)
+    end
+
+    it 'is equal current responsible' do
+      responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
+      expect(Professor.current_responsible).to eq(responsible)
     end
   end
 end

@@ -11,7 +11,7 @@ class Document < ApplicationRecord
 
   after_create :generate_unique_code,
                :create_signatures,
-               :update_content_data
+               :save_to_json
 
   def orientation
     signatures.first.orientation
@@ -21,7 +21,7 @@ class Document < ApplicationRecord
     signatures.where(status: true).count == signatures.count
   end
 
-  def update_content_data
+  def save_to_json
     update(content: term_json_data)
   end
 
