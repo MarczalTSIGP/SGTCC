@@ -43,7 +43,7 @@ RSpec.describe Document, type: :model do
       orientation.signatures << Signature.all
     end
 
-    context 'when returns the unique code' do
+    context 'when returns the tdo signatures' do
       let(:signatures) { orientation.signatures.where(document_id: document_tdo.id) }
       let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
       let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
