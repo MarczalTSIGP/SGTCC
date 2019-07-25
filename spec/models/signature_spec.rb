@@ -216,5 +216,123 @@ RSpec.describe Signature, type: :model do
         expect(signature.user_table).to eq(Professor)
       end
     end
+
+    describe '#by_orientation_and_document_t' do
+      let(:orientation) { create(:orientation) }
+      let(:signature) { orientation.signatures.first }
+      let(:document_type) { signature.document.document_type }
+
+      before do
+        orientation.signatures << Signature.all
+      end
+
+      it 'returns the result by condition and document type' do
+        result = Signature.joins(:document)
+                          .where(orientation_id: orientation.id,
+                                 documents: { document_type_id: document_type.id })
+
+        signature_by_condition = Signature.by_orientation_and_document_t(
+          orientation.id, document_type.id
+        )
+        expect(signature_by_condition).to match_array(result)
+      end
+    end
+
+    describe '#status_table' do
+      let(:orientation) { create(:orientation) }
+      let(:signature) { orientation.signatures.first }
+
+      before do
+        orientation.signatures << Signature.all
+      end
+
+      it 'returns the status table' do
+        document_type_id = signature.document.document_type.id
+        signatures = Signature.joins(:document)
+                              .where(orientation_id: orientation.id,
+                                     documents: { document_type_id: document_type_id })
+        result = signatures.map do |signature|
+          { name: signature.user.name, status: signature.status }
+        end
+        signature_status_table = Signature.status_table(orientation.id, document_type_id)
+        expect(signature_status_table.first[:name]).to eq(result.first[:name])
+        expect(signature_status_table.first[:status]).to eq(result.first[:status])
+      end
+    end
+
+    describe '#mark' do
+      let(:orientation) { create(:orientation) }
+      let(:signatures) { orientation.signatures }
+      let(:document_type) { signatures.first.document.document_type }
+
+      let(:professor_signature_signed) do
+        signatures.where(user_type: :advisor).first
+      end
+
+      let(:supervisor_signature_signed) do
+        signatures.where(user_type: :professor_supervisor).first
+      end
+
+      let(:academic_signature_signed) do
+        signatures.where(user_type: :academic).first
+      end
+
+      let(:external_member_signature_signed) do
+        signatures.where(user_type: :external_member_supervisor).first
+      end
+
+      let(:professor) { professor_signature_signed.user }
+      let(:supervisor) { supervisor_signature_signed.user }
+      let(:academic) { academic_signature_signed.user }
+      let(:external_member) { external_member_signature_signed.user }
+
+      let(:roles) do
+        'signatures.users.roles'
+      end
+
+      let(:supervisor_role) do
+        I18n.t("#{roles}.#{supervisor.gender}.#{supervisor_signature_signed.user_type}")
+      end
+
+      let(:external_member_role) do
+        I18n.t("#{roles}.#{external_member.gender}.#{external_member_signature_signed.user_type}")
+      end
+
+      let(:academic_role) do
+        I18n.t("#{roles}.#{academic.gender}.#{academic_signature_signed.user_type}")
+      end
+
+      let(:professor_role) do
+        I18n.t("#{roles}.#{professor.gender}.#{professor_signature_signed.user_type}")
+      end
+
+      before do
+        orientation.signatures << Signature.all
+        orientation.signatures.each { |s| s.update(status: true) }
+      end
+
+      it 'returns the signatures mark' do
+        signatures_mark = [
+          { name: supervisor.name,
+            role: supervisor_role,
+            date: I18n.l(supervisor_signature_signed.updated_at, format: :short),
+            time: I18n.l(supervisor_signature_signed.updated_at, format: :time) },
+          { name: external_member.name,
+            role: external_member_role,
+            date: I18n.l(external_member_signature_signed.updated_at, format: :short),
+            time: I18n.l(external_member_signature_signed.updated_at, format: :time) },
+          { name: academic.name,
+            role: academic_role,
+            date: I18n.l(academic_signature_signed.updated_at, format: :short),
+            time: I18n.l(academic_signature_signed.updated_at, format: :time) },
+          { name: professor.name,
+            role: professor_role,
+            date: I18n.l(professor_signature_signed.updated_at, format: :short),
+            time: I18n.l(professor_signature_signed.updated_at, format: :time) }
+        ]
+        signature_mark = Signature.mark(orientation.id, document_type.id)
+        expect(signature_mark).to match_array(signatures_mark)
+      end
+    end
   end
 end

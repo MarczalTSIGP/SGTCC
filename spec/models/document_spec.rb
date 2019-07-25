@@ -63,6 +63,15 @@ RSpec.describe Document, type: :model do
         expect(responsible_signature).to have_attributes(attributes)
       end
     end
+
+    context 'when returns the unique code' do
+      let(:document) { orientation.signatures.first.document }
+
+      it 'returns the code with Timestamps and document id' do
+        code = Time.now.to_i + document.id
+        expect(document.code).to eq(code.to_s)
+      end
+    end
   end
 
   describe '#save_to_json' do
