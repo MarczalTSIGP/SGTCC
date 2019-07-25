@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/mark',
+  post 'documents/(:id)/mark',
        to: 'documents#mark',
        as: 'document_mark'
 
-  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
+  post 'documents/(:id)/status',
        to: 'documents#status',
        as: 'document_status'
 

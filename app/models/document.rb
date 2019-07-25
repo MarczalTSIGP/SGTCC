@@ -1,5 +1,6 @@
 class Document < ApplicationRecord
   include TermJsonData
+  include SignatureMark
 
   attr_accessor :orientation_id, :justification
 
@@ -23,6 +24,12 @@ class Document < ApplicationRecord
 
   def save_to_json
     update(content: term_json_data)
+  end
+
+  def status_table
+    signatures.map do |signature|
+      { name: signature.user.name, status: signature.status }
+    end
   end
 
   def self.new_tdo(professor, params = {})

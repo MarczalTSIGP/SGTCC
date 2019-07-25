@@ -74,7 +74,8 @@ class Documents::SaveSignatures
   end
 
   def add_responsible
-    professor = Professor.current_responsible
-    @signature_users.push([professor.id, 'PR'])
+    professor_id = Professor.current_responsible.id
+    return if @orientation.advisor.id == professor_id
+    @signature_users.push([professor_id, 'PR'])
   end
 end

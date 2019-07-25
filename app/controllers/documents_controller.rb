@@ -1,12 +1,12 @@
 class DocumentsController < ApplicationController
   before_action :set_signature, only: :code
-  before_action :set_document, only: [:data, :request_data]
+  before_action :set_document, only: [:data, :mark, :status, :request_data]
   before_action :set_document_by_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
 
   def mark
-    render json: Signature.mark(params[:orientation_id], params[:document_type_id])
+    render json: @document.mark
   end
 
   def code
@@ -18,7 +18,7 @@ class DocumentsController < ApplicationController
   end
 
   def status
-    render json: Signature.status_table(params[:orientation_id], params[:document_type_id])
+    render json: @document.status_table
   end
 
   def document; end
