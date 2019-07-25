@@ -1,7 +1,7 @@
 <%= simple_form_for(@document, url: professors_requests_path) do |f| %>
   <div class="row">
     <div class="col-6">
-      <%= f.input :orientation,
+      <%= f.input :orientation_id,
         as: :select,
         collection: current_professor.select_request_data,
         class: 'form-control',
@@ -14,10 +14,10 @@
 
     <div class="col-6">
       <%= f.input :justification,
-        as: :text,
-        label: false,
         placeholder: 'Justificativa',
-        class: 'form-control' %>
+        label: false,
+        as: :text,
+        input_html: { rows: '8' } %>
     </div>
   </div>
 

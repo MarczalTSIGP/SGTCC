@@ -1,26 +1,17 @@
 class Document < ApplicationRecord
-  validates :content, presence: true
+  include TermJsonData
+
+  attr_accessor :orientation_id, :justification
 
   belongs_to :document_type
 
   has_many :signatures, dependent: :destroy
 
-  include TermJsonData
+  validates :justification, :orientation_id, presence: true, if: -> { document_type.tdo? }
 
-  store_accessor :request, :justification
-
-  attr_accessor :orientation
-
-  after_create do
-    update(code: Time.now.to_i + id)
-  end
-
-  after_save do
-    if document_type.tdo? && content.size == 1
-      Documents::SaveTdoSignatures.new(self, orientation).save
-      update_content_data
-    end
-  end
+  after_create :generate_unique_code,
+               :create_signatures,
+               :update_content_data
 
   def first_orientation
     signatures.first.orientation
@@ -34,12 +25,24 @@ class Document < ApplicationRecord
     update(content: term_json_data)
   end
 
-  def self.create_tdo(professor, justification, orientation)
-    request = { requester: { id: professor.id, name: professor.name,
-                             type: 'advisor', justification: justification } }
+  def self.new_tdo(professor, params = {})
+    document = DocumentType.find_by(identifier: :tdo).documents.new(params)
+    document.request = { requester: { id: professor.id, name: professor.name,
+                                      type: 'advisor', justification: document.justification } }
+    document
+  end
 
-    document = DocumentType.tdo.first.documents.new(content: '-', request: request)
-    document.orientation = orientation
-    document.save
+  private
+
+  def create_signatures
+    documents = Documents::SaveSignatures.new(self)
+    return documents.save_tco if document_type.tco?
+    return documents.save_tcai if document_type.tcai?
+
+    documents.save_tdo
+  end
+
+  def generate_unique_code
+    update(code: Time.now.to_i + id)
   end
 end

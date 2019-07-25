@@ -1,6 +1,4 @@
 class Professors::RequestsController < Professors::BaseController
-  before_action :set_orientation, only: :create
-
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
                  :professors_requests_path
 
@@ -17,10 +15,14 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def create
-    justification = request_params[:justification]
-    document = Document.create_tdo(current_professor, justification, @orientation)
-    feminine_success_create_message if document
-    redirect_to professors_requests_path
+    @document = Document.new_tdo(current_professor, request_params)
+
+    if @document.save
+      feminine_success_create_message
+      redirect_to professors_requests_path
+    else
+      render :new
+    end
   end
 
   private
@@ -29,11 +31,7 @@ class Professors::RequestsController < Professors::BaseController
     I18n.t('flash.request.index')
   end
 
-  def set_orientation
-    @orientation = Orientation.find(request_params[:orientation])
-  end
-
   def request_params
-    params.require(:document).permit(:orientation, :justification)
+    params.require(:document).permit(:orientation_id, :justification)
   end
 end

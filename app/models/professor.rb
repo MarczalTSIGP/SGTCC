@@ -76,4 +76,8 @@ class Professor < ApplicationRecord
       [orientation.id, orientation.academic_with_calendar]
     end
   end
+
+  def self.current_responsible
+    joins(:roles).find_by('roles.identifier': :responsible)
+  end
 end
