@@ -2,15 +2,17 @@ require 'rails_helper'
 
 describe 'Signature::show', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
-  let(:signatures) { orientation.signatures }
-  let(:academic_signature) { signatures.where(user_type: :academic).last }
-  let(:academic) { academic_signature.user }
 
   before do
+    orientation.signatures << Signature.all
     login_as(academic, scope: :academic)
   end
 
   describe '#show' do
+    let(:signatures) { orientation.signatures }
+    let(:academic_signature) { signatures.where(user_type: :academic).last }
+    let(:academic) { academic_signature.user }
+
     context 'when shows the signature of the term of accept institution' do
       before do
         visit academics_signature_path(academic_signature)
@@ -38,7 +40,7 @@ describe 'Signature::show', type: :feature, js: true do
       let(:document_type) { document.document_type }
 
       before do
-        orientation.signatures.each(&:sign)
+        signatures.each(&:sign)
         visit academics_signature_path(academic_signature)
       end
 
@@ -69,8 +71,8 @@ describe 'Signature::show', type: :feature, js: true do
 
     context 'when the document signature cant be viewed' do
       before do
-        signature = create(:signature)
-        visit academics_signature_path(signature)
+        em_signature = signatures.where(user_type: :external_member_supervisor)
+        visit academics_signature_path(em_signature)
       end
 
       it 'redirect to the signature pending page' do

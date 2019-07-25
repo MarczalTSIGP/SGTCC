@@ -13,7 +13,7 @@ class Document < ApplicationRecord
                :create_signatures,
                :update_content_data
 
-  def first_orientation
+  def orientation
     signatures.first.orientation
   end
 

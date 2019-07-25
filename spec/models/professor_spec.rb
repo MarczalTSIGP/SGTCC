@@ -149,10 +149,11 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_signed' do
-    let!(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
 
     before do
-      create(:signature_signed, user_id: professor.id)
+      orientation.signatures.find_by(user_type: :advisor).sign
     end
 
     it 'returns the signed signatures' do
@@ -162,11 +163,8 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_pending' do
-    let!(:professor) { create(:professor) }
-
-    before do
-      create(:signature, user_id: professor.id)
-    end
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
 
     it 'returns the pending signatures' do
       signatures = Signature.joins(:document)
@@ -177,11 +175,9 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_for_review' do
-    let!(:professor) { create(:professor) }
-
-    before do
-      create(:signature, user_id: professor.id)
-    end
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+    let(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
 
     it 'returns the reviewing signatures' do
       signatures = Signature.joins(:document)
