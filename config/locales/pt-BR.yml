@@ -280,6 +280,10 @@ pt-BR:
         orientation: "Orientação"
         document_type: "Tipo do documento"
         <<: *commons
+      document:
+        orientation_id: "Orientação"
+        justification: "Justificativa"
+        <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'

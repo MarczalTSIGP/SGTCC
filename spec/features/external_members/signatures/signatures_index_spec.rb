@@ -22,7 +22,7 @@ describe 'Signature::index', type: :feature do
         signatures.each do |signature|
           expect(page).to have_contents([signature.orientation.short_title,
                                          signature.orientation.academic.name,
-                                         signature.document.document_type.name])
+                                         signature.document.document_type.identifier.upcase])
           expect(page).to have_selector("a[href='#{index_url}'].active")
         end
       end
@@ -40,7 +40,7 @@ describe 'Signature::index', type: :feature do
         signatures.each do |signature|
           expect(page).to have_contents([signature.orientation.short_title,
                                          signature.orientation.academic.name,
-                                         signature.document.document_type.name])
+                                         signature.document.document_type.identifier.upcase])
           expect(page).to have_selector("a[href='#{index_url}'].active")
         end
       end
