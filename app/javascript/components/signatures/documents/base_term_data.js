@@ -1,9 +1,10 @@
 import TermHeader from './partials/term_header';
 import TermFooter from './partials/term_footer';
 import SignatureMark from '../signature_mark';
+import termData from './term_data';
 
 export default {
-  name: 'BaseTermLayout',
+  mixins: [termData],
 
   components: { TermHeader, TermFooter, SignatureMark },
 
@@ -36,28 +37,6 @@ export default {
 
   data() {
     return {
-      term: {
-        orientation: {
-          id: '',
-          title: '',
-          created_at: '',
-        },
-        academic: {
-          id: '',
-          name: '',
-          ra: '',
-        },
-        advisor: {
-          id: '',
-          name: '',
-          label: ''
-        },
-        title: '',
-        document: {},
-        institution: {},
-        professorSupervisors: [],
-        externalMemberSupervisors: [],
-      },
       open: false,
       request: {
         requester: {
