@@ -42,10 +42,11 @@ RSpec.describe Document, type: :model do
     end
 
     context 'when returns the unique code' do
+      let(:time) { Time.now.to_i }
       let(:document) { orientation.signatures.first.document }
 
       it 'returns the code with Timestamps and document id' do
-        code = Time.now.to_i + document.id
+        code = time + document.id
         expect(document.code).to eq(code.to_s)
       end
     end

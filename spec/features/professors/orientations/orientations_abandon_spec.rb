@@ -19,7 +19,7 @@ describe 'Orientation::abandon', type: :feature do
 
     context 'when request is valid', js: true do
       it 'create a term of abandonment' do
-        selectize(orientation.academic_with_calendar, from: 'document_orientation')
+        selectize(orientation.academic_with_calendar, from: 'document_orientation_id')
         fill_in 'document_justification', with: 'justification'
         submit_form('input[name="commit"]')
 
@@ -31,6 +31,9 @@ describe 'Orientation::abandon', type: :feature do
 
     context 'when request is not valid', js: true do
       it 'show errors' do
+        submit_form('input[name="commit"]')
+        expect(page).to have_message(blank_error_message, in: 'div.document_orientation_id')
+        expect(page).to have_message(blank_error_message, in: 'div.document_justification')
       end
     end
   end
