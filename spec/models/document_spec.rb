@@ -35,19 +35,32 @@ RSpec.describe Document, type: :model do
   end
 
   describe '#after_create' do
-    let(:orientation) { create(:orientation) }
+    let!(:responsible) { create(:responsible) }
+    let!(:orientation) { create(:orientation) }
+    let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
 
     before do
       orientation.signatures << Signature.all
     end
 
     context 'when returns the unique code' do
-      let(:time) { Time.now.to_i }
-      let(:document) { orientation.signatures.first.document }
+      let(:signatures) { orientation.signatures.where(document_id: document_tdo.id) }
+      let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
+      let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
+      let(:advisor) { advisor_signature.user }
 
-      it 'returns the code with Timestamps and document id' do
-        code = time + document.id
-        expect(document.code).to eq(code.to_s)
+      it 'returns the Advisor signature' do
+        attributes = { user_type: 'advisor', user_id: advisor.id,
+                       status: false, document_id: document_tdo.id,
+                       orientation_id: orientation.id }
+        expect(advisor_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the Responsible signature' do
+        attributes = { user_type: 'professor_responsible', user_id: responsible.id,
+                       status: false, document_id: document_tdo.id,
+                       orientation_id: orientation.id }
+        expect(responsible_signature).to have_attributes(attributes)
       end
     end
   end
