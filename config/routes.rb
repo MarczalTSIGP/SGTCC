@@ -91,17 +91,7 @@ Rails.application.routes.draw do
           to: 'professors#unavailable',
           as: 'professors_unavailable'
 
-      get 'professors/total',
-          to: 'reports#professors_total',
-          as: 'professors_total'
-
-      get 'professors/total/available',
-          to: 'reports#professors_available',
-          as: 'professors_total_available'
-
-      get 'professors/total/unavailable',
-          to: 'reports#professors_unavailable',
-          as: 'professors_total_unavailable'
+      get 'reports', to: 'dashboard#report', as: 'professors_reports'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
