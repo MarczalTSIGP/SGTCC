@@ -13,37 +13,16 @@ class Dashboard::ResponsibleReport
   end
 
   def orientations_report
-    { tcc_one: orientations_tcc_one_report,
-      tcc_two: orientations_tcc_two_report,
-      current_tcc_one: orientations_current_tcc_one_report,
-      current_tcc_two: orientations_current_tcc_two_report }
+    { tcc_one: orientations_by_tcc('tcc_one'),
+      tcc_two: orientations_by_tcc('tcc_two'),
+      current_tcc_one: orientations_by_tcc('current_tcc_one'),
+      current_tcc_two: orientations_by_tcc('current_tcc_two') }
   end
 
-  def orientations_tcc_one_report
-    { in_progress: Orientation.tcc_one('IN_PROGRESS').count,
-      approved: Orientation.tcc_one('APPROVED').count,
-      renewed: Orientation.tcc_one('RENEWED').count / 2,
-      canceled: Orientation.tcc_one('CANCELED').count }
-  end
-
-  def orientations_tcc_two_report
-    { in_progress: Orientation.tcc_two('IN_PROGRESS').count,
-      approved: Orientation.tcc_two('APPROVED').count,
-      renewed: Orientation.tcc_two('RENEWED').count / 2,
-      canceled: Orientation.tcc_two('CANCELED').count }
-  end
-
-  def orientations_current_tcc_one_report
-    { in_progress: Orientation.current_tcc_one('IN_PROGRESS').count,
-      approved: Orientation.current_tcc_one('APPROVED').count,
-      renewed: Orientation.current_tcc_one('RENEWED').count / 2,
-      canceled: Orientation.current_tcc_one('CANCELED').count }
-  end
-
-  def orientations_current_tcc_two_report
-    { in_progress: Orientation.current_tcc_two('IN_PROGRESS').count,
-      approved: Orientation.current_tcc_two('APPROVED').count,
-      renewed: Orientation.current_tcc_two('RENEWED').count / 2,
-      canceled: Orientation.current_tcc_two('CANCELED').count }
+  def orientations_by_tcc(method)
+    { in_progress: Orientation.send(method, 'IN_PROGRESS').count,
+      approved: Orientation.send(method, 'APPROVED').count,
+      renewed: Orientation.send(method, 'RENEWED').count / 2,
+      canceled: Orientation.send(method, 'CANCELED').count }
   end
 end
