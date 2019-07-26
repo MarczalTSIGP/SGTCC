@@ -88,38 +88,6 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
-      get 'orientations/tcc_one/total',
-          to: 'reports#orientations_tcc_one_total',
-          as: 'orientations_tcc_one_total'
-
-      get 'orientations/tcc_one/total/approved',
-          to: 'reports#orientations_tcc_one_total_approved',
-          as: 'orientations_tcc_one_total_approved'
-
-      get 'orientations/tcc_one/total/renewed',
-          to: 'reports#orientations_tcc_one_total_renewed',
-          as: 'orientations_tcc_one_total_renewed'
-
-      get 'orientations/tcc_one/total/canceled',
-          to: 'reports#orientations_tcc_one_total_canceled',
-          as: 'orientations_tcc_one_total_canceled'
-
-      get 'orientations/tcc_two/total',
-          to: 'reports#orientations_tcc_two_total',
-          as: 'orientations_tcc_two_total'
-
-      get 'orientations/tcc_two/total/approved',
-          to: 'reports#orientations_tcc_two_total_approved',
-          as: 'orientations_tcc_two_total_approved'
-
-      get 'orientations/tcc_two/total/renewed',
-          to: 'reports#orientations_tcc_two_total_renewed',
-          as: 'orientations_tcc_two_total_renewed'
-
-      get 'orientations/tcc_two/total/canceled',
-          to: 'reports#orientations_tcc_two_total_canceled',
-          as: 'orientations_tcc_two_total_canceled'
-
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'
