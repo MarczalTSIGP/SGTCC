@@ -212,4 +212,15 @@ RSpec.describe Professor, type: :model do
       expect(Professor.current_responsible).to eq(responsible)
     end
   end
+
+  describe '#current_coordinator' do
+    before do
+      create(:coordinator)
+    end
+
+    it 'is equal current coordinator' do
+      coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
+      expect(Professor.current_coordinator).to eq(coordinator)
+    end
+  end
 end

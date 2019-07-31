@@ -35,9 +35,11 @@ RSpec.describe Document, type: :model do
   end
 
   describe '#after_create' do
+    let!(:coordinator) { create(:coordinator) }
     let!(:responsible) { create(:responsible) }
-    let!(:orientation) { create(:orientation) }
+    let!(:orientation) { create(:current_orientation_tcc_two) }
     let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
+    let!(:document_tep) { create(:document_tep, orientation_id: orientation.id) }
 
     before do
       orientation.signatures << Signature.all
@@ -64,12 +66,32 @@ RSpec.describe Document, type: :model do
       end
     end
 
-    context 'when returns the unique code' do
-      let(:document) { orientation.signatures.first.document }
+    context 'when returns the tep signatures' do
+      let(:signatures) { orientation.signatures.where(document_id: document_tep.id) }
+      let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
+      let(:academic_signature) { signatures.find_by(user_type: :academic) }
+      let(:coordinator_signature) { signatures.find_by(user_type: :coordinator) }
+      let(:academic) { academic_signature.user }
 
-      it 'returns the code with Timestamps and document id' do
-        code = Time.now.to_i + document.id
-        expect(document.code).to eq(code.to_s)
+      it 'returns the Academic signature' do
+        attributes = { user_type: 'academic', user_id: academic.id,
+                       status: false, document_id: document_tep.id,
+                       orientation_id: orientation.id }
+        expect(academic_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the Responsible signature' do
+        attributes = { user_type: 'professor_responsible', user_id: responsible.id,
+                       status: false, document_id: document_tep.id,
+                       orientation_id: orientation.id }
+        expect(responsible_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the Coordinator signature' do
+        attributes = { user_type: 'coordinator', user_id: coordinator.id,
+                       status: false, document_id: document_tep.id,
+                       orientation_id: orientation.id }
+        expect(coordinator_signature).to have_attributes(attributes)
       end
     end
   end
@@ -141,23 +163,42 @@ RSpec.describe Document, type: :model do
     end
   end
 
-  describe '#create_tdo' do
+  describe '#new_tdo' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor_id: professor.id) }
+
     before do
       create(:document_type_tdo)
       create(:responsible)
     end
 
-    context 'when document is created' do
-      let!(:professor) { create(:professor) }
-      let!(:orientation) { create(:orientation, advisor_id: professor.id) }
+    it 'returns true' do
+      params = { orientation_id: orientation.id, justification: 'justification' }
+      document = DocumentType.find_by(identifier: :tdo).documents.new(params)
+      document.request = { requester: { id: professor.id, name: professor.name,
+                                        type: 'advisor', justification: 'justification' } }
+      expect(Document.new_tdo(professor, params).to_json).to eq(document.to_json)
+    end
+  end
 
-      it 'returns true' do
-        params = { orientation_id: orientation.id, justification: 'justification' }
-        document = DocumentType.find_by(identifier: :tdo).documents.new(params)
-        document.request = { requester: { id: professor.id, name: professor.name,
-                                          type: 'advisor', justification: 'justification' } }
-        expect(Document.new_tdo(professor, params).to_json).to eq(document.to_json)
-      end
+  describe '#new_tep' do
+    let!(:academic) { create(:academic) }
+
+    let!(:orientation) do
+      create(:current_orientation_tcc_two, academic_id: academic.id)
+    end
+
+    before do
+      create(:document_type_tep)
+      create(:responsible)
+    end
+
+    it 'returns true' do
+      params = { orientation_id: orientation.id, justification: 'justification' }
+      document = DocumentType.find_by(identifier: :tep).documents.new(params)
+      document.request = { requester: { id: academic.id, name: academic.name,
+                                        type: 'academic', justification: 'justification' } }
+      expect(Document.new_tep(academic, params).to_json).to eq(document.to_json)
     end
   end
 
