@@ -43,13 +43,13 @@
     <%= t('breadcrumbs.calendars.index') %>
   <% end %>
 
-  <% if current_academic.current_orientation_tcc_two.present? %>
-    <div class="sidebar-menu">
-      <span class="sidebar-heading">
-        <%= icon('fas', 'envelope-open', class: 'mr-2') %>
-        <%= t('views.sidebar.requests') %>
-      </span>
+  <div class="sidebar-menu">
+    <span class="sidebar-heading">
+      <%= icon('fas', 'envelope-open', class: 'mr-2') %>
+      <%= t('views.sidebar.requests') %>
+    </span>
 
+    <% if current_academic.current_orientation_tcc_two.present? %>
       <%= active_link_to(academics_tep_requests_path,
 		         class: 'list-group-item list-group-item-action') do %>
         <span class="icon mr-2">
@@ -57,8 +57,8 @@
         </span>
         <%= t('breadcrumbs.documents.requests.tep.sidebar') %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <%= render 'layouts/shared/signature_menu', resource: 'academics',
                                               pending_path: academics_signatures_pending_path,
