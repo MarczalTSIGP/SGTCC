@@ -5,7 +5,8 @@ end
 
 professor_roles = [
   { name: 'Professor Responsável', identifier: 'responsible' },
-  { name: 'Professor de TCC 1', identifier: 'tcc_one' }
+  { name: 'Professor de TCC 1', identifier: 'tcc_one' },
+  { name: 'Coordenador do Curso', identifier: 'coordinator' }
 ]
 
 professor_roles.each do |role|
