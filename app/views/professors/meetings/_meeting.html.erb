@@ -1,6 +1,7 @@
 <tr>
   <td><%= meeting.title %></td>
   <td><%= short_date(meeting.created_at) %></td>
+  <td><%= short_date(meeting.updated_at) %></td>
   <td>
     <%= link_to(professors_meeting_path(meeting)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
