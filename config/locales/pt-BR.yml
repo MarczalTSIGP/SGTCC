@@ -124,6 +124,11 @@ pt-BR:
           new: "Solicitar desistência de orientação"
           show: "Visualizar solicitação de desistência de orientação"
           advisor: "Desistência de Orientação"
+    meetings:
+      index: "Reuniões"
+      new: "Nova Reunião"
+      edit: "Editar Reunião"
+      show: "Visualizar Reunião"
     signatures:
       index: "Assinaturas"
       show: "Visualizar documento"
@@ -222,6 +227,9 @@ pt-BR:
       signature:
         one: "Assinatura"
         other: "Assinaturas"
+      meeting:
+        one: "Reunião"
+        other: "Reuniões"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -242,6 +250,8 @@ pt-BR:
         role: "Papel"
         tcc: "TCC"
         deadline: "Prazo"
+        title: "Título"
+        orientation: "Orientação"
       academic:
         ra: "RA"
         <<: *commons
@@ -275,7 +285,6 @@ pt-BR:
         year_semester: "Ano / Semestre"
         <<: *commons
       orientation:
-        title: "Título"
         calendar: "Calendário"
         advisor: "Orientador"
         institution: "Instituição externa"
@@ -287,12 +296,13 @@ pt-BR:
         abandonment_justification: "Justificativa de desistência"
         <<: *commons
       signature:
-        orientation: "Orientação"
         document_type: "Tipo do documento"
         <<: *commons
       document:
         orientation_id: "Orientação"
         justification: "Justificativa"
+      meeting:
+        content: "Conteúdo"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'

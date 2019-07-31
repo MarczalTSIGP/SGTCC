@@ -1,0 +1,36 @@
+<% provide(:page_title, t('breadcrumbs.meetings.index')) %>
+<% provide(:head_title, t('breadcrumbs.meetings.index')) %>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-4">
+    <%= link_to(new_professors_meeting_path, class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.meetings.new') %>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @meetings %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Meeting.human_attribute_name('title') %></th>
+        <th><%= Meeting.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @meetings.empty? %>
+      </tr>
+      <%= render @meetings %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @meetings %>

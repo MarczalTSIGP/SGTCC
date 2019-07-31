@@ -196,6 +196,10 @@ Rails.application.routes.draw do
                 only: [:index, :new, :create],
                 constraints: { id: /[0-9]+/ }
 
+      resources :meetings,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
