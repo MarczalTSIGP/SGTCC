@@ -24,6 +24,12 @@ class Documents::SaveSignatures
     create_signatures
   end
 
+  def save_tep
+    add_academic
+    add_responsible
+    create_signatures
+  end
+
   private
 
   def create_signatures

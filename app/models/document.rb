@@ -9,6 +9,7 @@ class Document < ApplicationRecord
   has_many :signatures, dependent: :destroy
 
   validates :justification, :orientation_id, presence: true, if: -> { document_type.tdo? }
+  validates :justification, presence: true, if: -> { document_type.tep? }
 
   after_create :generate_unique_code,
                :create_signatures,
@@ -34,8 +35,18 @@ class Document < ApplicationRecord
 
   def self.new_tdo(professor, params = {})
     document = DocumentType.find_by(identifier: :tdo).documents.new(params)
-    document.request = { requester: { id: professor.id, name: professor.name,
-                                      type: 'advisor', justification: document.justification } }
+    new_request(professor, 'advisor', document)
+  end
+
+  def self.new_tep(academic, params = {})
+    params[:orientation_id] = academic.current_orientation_tcc_two.first.id
+    document = DocumentType.find_by(identifier: :tep).documents.new(params)
+    new_request(academic, 'academic', document)
+  end
+
+  def self.new_request(user, user_type, document)
+    document.request = { requester: { id: user.id, name: user.name,
+                                      type: user_type, justification: document.justification } }
     document
   end
 
@@ -45,8 +56,9 @@ class Document < ApplicationRecord
     documents = Documents::SaveSignatures.new(self)
     return documents.save_tco if document_type.tco?
     return documents.save_tcai if document_type.tcai?
+    return documents.save_tdo if document_type.tdo?
 
-    documents.save_tdo
+    documents.save_tep
   end
 
   def generate_unique_code

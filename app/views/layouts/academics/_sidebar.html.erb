@@ -43,6 +43,21 @@
     <%= t('breadcrumbs.calendars.index') %>
   <% end %>
 
+  <div class="sidebar-menu">
+    <span class="sidebar-heading">
+      <%= icon('fas', 'envelope-open', class: 'mr-2') %>
+      <%= t('views.sidebar.requests') %>
+    </span>
+
+    <%= active_link_to(academics_tep_requests_path,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'plus-square') %>
+      </span>
+      <%= t('breadcrumbs.documents.requests.tep.sidebar') %>
+    <% end %>
+  </div>
+
   <%= render 'layouts/shared/signature_menu', resource: 'academics',
                                               pending_path: academics_signatures_pending_path,
                                               signed_path: academics_signatures_signed_path %>

@@ -17,6 +17,7 @@ import SweetAlertMessages from '../components/shared/sweet_alert_messages';
 import TermOfCommitment from '../components/signatures/documents/term_of_commitment';
 import TermOfAbandonment from '../components/signatures/documents/term_of_abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
+import TermOfExtension from '../components/signatures/documents/term_of_extension';
 import VueMarkdownPreview from 'vue-markdown';
 
 const components = {
@@ -39,6 +40,7 @@ const components = {
   TermOfCommitment,
   TermOfAbandonment,
   TermOfAcceptInstitution,
+  TermOfExtension,
   VueMarkdownPreview
 };
 
