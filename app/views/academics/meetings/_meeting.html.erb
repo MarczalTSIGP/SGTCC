@@ -1,12 +1,5 @@
 <tr>
-  <td><%= meeting.title %></td>
-  <td>
-    <span data-toggle="tooltip" title="<%= meeting.orientation.title %>">
-      <%= meeting.orientation.short_title %>
-    </span>
-  </td>
-  <td><%= short_date(meeting.created_at) %></td>
-  <td><%= short_date(meeting.updated_at) %></td>
+  <%= render 'shared/meetings/tbody', meeting: meeting %>
   <td>
     <%= link_to(academics_meeting_path(meeting)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>

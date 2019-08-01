@@ -1,6 +1,3 @@
-<% provide(:page_title, t('breadcrumbs.meetings.index')) %>
-<% provide(:head_title, t('breadcrumbs.meetings.index')) %>
-
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
     <search url="<%= professors_meetings_search_path %>" search-term="<%= params[:term] %>" />
@@ -13,29 +10,4 @@
   </div>
 </div>
 
-<div class="text-right mt-3">
-  <%= page_entries_info @meetings %>
-</div>
-
-<div class="table-striped mt-3 table-responsive w-100">
-  <table class="table card-table table-vcenter text-nowrap">
-    <thead>
-      <tr>
-        <th><%= Meeting.human_attribute_name('title') %></th>
-        <th><%= Meeting.human_attribute_name('orientation') %></th>
-        <th><%= Meeting.human_attribute_name('created_at') %></th>
-        <th><%= Meeting.human_attribute_name('updated_at') %></th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <%= render('shared/no_results') if @meetings.empty? %>
-      </tr>
-      <%= render @meetings %>
-    </tbody>
-  </table>
-</div>
-
-<%= paginate @meetings %>
+<%= render 'shared/meetings/table' %>
