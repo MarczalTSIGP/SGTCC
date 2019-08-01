@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'Meeting::show', type: :feature do
-  let(:professor) { create(:professor) }
-  let(:orientation) { create(:orientation, advisor: professor) }
+  let(:academic) { create(:academic) }
+  let(:orientation) { create(:orientation, academic: academic) }
   let(:meeting) { create(:meeting, orientation: orientation) }
 
   before do
-    login_as(professor, scope: :professor)
-    visit professors_meeting_path(meeting)
+    login_as(academic, scope: :academic)
+    visit academics_meeting_path(meeting)
   end
 
   describe '#show' do
@@ -22,11 +22,11 @@ describe 'Meeting::show', type: :feature do
     context 'when the meeting cant be viewed' do
       before do
         meeting = create(:meeting)
-        visit professors_meeting_path(meeting)
+        visit academics_meeting_path(meeting)
       end
 
       it 'redirect to the meetings page' do
-        expect(page).to have_current_path professors_meetings_path
+        expect(page).to have_current_path academics_meetings_path
       end
     end
   end

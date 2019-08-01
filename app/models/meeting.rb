@@ -10,4 +10,6 @@ class Meeting < ApplicationRecord
 
   validates :content,
             presence: true
+
+  scope :with_relationship, -> { includes(:orientation) }
 end

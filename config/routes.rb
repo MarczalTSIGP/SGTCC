@@ -368,6 +368,11 @@ Rails.application.routes.draw do
                 only: [:index, :new, :create],
                 constraints: { id: /[0-9]+/ }
 
+      resources :meetings,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
@@ -382,6 +387,11 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      get 'meetings/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'meetings#index',
+          as: 'meetings_search'
     end
   end
 

@@ -39,16 +39,5 @@ describe 'Meeting::update', type: :feature, js: true do
         expect(page).to have_message(blank_error_message, in: 'div.meeting_title')
       end
     end
-
-    context 'when the meeting cant be viewed' do
-      before do
-        meeting = create(:meeting)
-        visit edit_professors_meeting_path(meeting)
-      end
-
-      it 'redirect to the meetings page' do
-        expect(page).to have_current_path professors_meetings_path
-      end
-    end
   end
 end
