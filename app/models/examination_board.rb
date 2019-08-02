@@ -1,4 +1,11 @@
 class ExaminationBoard < ApplicationRecord
+  include Searchable
+  include Tcc
+
+  searchable place: { unaccent: true }, relationships: {
+    orientation: { fields: [title: { unaccent: true }] }
+  }
+
   belongs_to :orientation
 
   validates :place, presence: true
@@ -16,7 +23,10 @@ class ExaminationBoard < ApplicationRecord
                               through: :examination_board_attendees,
                               dependent: :destroy
 
+  scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
+  scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
+
   scope :with_relationships, lambda {
-    includes(:orientation, :professors, :external_members)
+    includes(:orientation, :examination_board_attendees, :professors, :external_members)
   }
 end

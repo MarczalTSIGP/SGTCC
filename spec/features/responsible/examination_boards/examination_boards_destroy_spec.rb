@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
-  let!(:examination_board) { create(:examination_board) }
+  let!(:examination_board) { create(:examination_board_tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do

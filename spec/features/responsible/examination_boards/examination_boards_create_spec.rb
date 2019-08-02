@@ -21,7 +21,7 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_examination_boards_path
+        expect(page).to have_current_path responsible_examination_boards_tcc_one_path
         expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end

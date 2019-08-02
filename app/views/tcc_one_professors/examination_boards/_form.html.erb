@@ -1,8 +1,8 @@
-<%= simple_form_for [:responsible, @examination_board] do |f| %>
+<%= simple_form_for [:tcc_one_professors, @examination_board] do |f| %>
   <div class="form-inputs">
     <%= f.association :orientation,
       input_html: { data: 'selectize' },
-      collection: Orientation.current_tcc_two,
+      collection: Orientation.current_tcc_one,
       prompt: t('prompt.select.f', name: ExaminationBoard.human_attribute_name('orientation')) %>
 
     <div class="row">
@@ -35,12 +35,12 @@
 
     <%= f.input :tcc,
       as: :hidden,
-      input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' } %>
+      input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'one' } %>
   </div>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),
-      responsible_examination_boards_path,
+      tcc_one_professors_examination_boards_path,
       class: 'btn btn-secondary' %>
 
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>

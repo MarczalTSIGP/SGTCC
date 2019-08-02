@@ -138,10 +138,15 @@ pt-BR:
     examination_boards:
       index: "Bancas de defesa"
       tcc:
+        one:
+          index: "Bancas de defesa de TCC 1"
+          show: "Visualizar banca de defesa de TCC 1"
+          edit: "Editar banca de defesa de TCC 1"
+          new: "Nova banca de defesa de TCC 1"
         two:
+          index: "Bancas de defesa de TCC 2"
           show: "Visualizar banca de defesa de TCC 2"
           edit: "Editar banca de defesa de TCC 2"
-          show: "Visualizar banca de defesa de TCC 2"
           new: "Nova banca de defesa de TCC 2"
     signatures:
       index: "Assinaturas"

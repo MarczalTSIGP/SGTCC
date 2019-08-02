@@ -17,6 +17,14 @@ describe 'ExaminationBoard::show', type: :feature do
                                        complete_date(examination_board.date),
                                        complete_date(examination_board.created_at),
                                        complete_date(examination_board.updated_at)])
+
+        examination_board.professors.each do |professor|
+          expect(page).to have_content(professor.name)
+        end
+
+        examination_board.external_members.each do |external_member|
+          expect(page).to have_content(external_member.name)
+        end
       end
     end
   end
