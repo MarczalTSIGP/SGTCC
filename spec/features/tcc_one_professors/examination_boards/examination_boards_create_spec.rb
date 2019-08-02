@@ -32,7 +32,8 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.examination_board_place')
-        expect(page).to have_message(required_error_message, in: 'div.examination_board_orientation')
+        expect(page).to have_message(required_error_message,
+                                     in: 'div.examination_board_orientation')
       end
     end
   end

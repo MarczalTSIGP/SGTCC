@@ -23,7 +23,8 @@ describe 'ExaminationBoard::update', type: :feature, js: true do
         selectize(orientation.title, from: 'examination_board_orientation_id')
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path tcc_one_professors_examination_board_path(examination_board)
+        updated_path = tcc_one_professors_examination_board_path(examination_board)
+        expect(page).to have_current_path updated_path
         expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_contents([attributes[:place],
                                        orientation.short_title])
