@@ -5,6 +5,12 @@
   <div class="card-body">
     <p>
       <strong>
+        <%= ExaminationBoard.human_attribute_name('orienatation') %>:
+      </strong>
+      <%= @examination_board.orientation.title %>
+    </p>
+    <p>
+      <strong>
         <%= ExaminationBoard.human_attribute_name('place') %>:
       </strong>
       <%= @examination_board.place %>
