@@ -328,6 +328,8 @@ pt-BR:
         date: "Data"
         viewed: "Ciência"
       examination_board:
+        professors: "Professores da UTFPR"
+        external_members: "Membros externos"
         orientation: "Orientação"
         place: "Local"
         <<: *commons

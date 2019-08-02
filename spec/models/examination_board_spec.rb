@@ -8,5 +8,16 @@ RSpec.describe ExaminationBoard, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:orientation) }
+    it { is_expected.to have_many(:examination_board_attendees).dependent(:delete_all) }
+
+    it 'is expected to have many professors' do
+      is_expected.to have_many(:professors).through(:examination_board_attendees)
+                                           .dependent(:destroy)
+    end
+
+    it 'is expected to have many external members' do
+      is_expected.to have_many(:external_members).through(:examination_board_attendees)
+                                                 .dependent(:destroy)
+    end
   end
 end

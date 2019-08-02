@@ -17,7 +17,9 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @examination_boards = ExaminationBoard.page(params[:page]).order(created_at: :desc)
+    @examination_boards = ExaminationBoard.with_relationships
+                                          .page(params[:page])
+                                          .order(created_at: :desc)
   end
 
   def show; end
@@ -64,6 +66,8 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def examination_board_params
-    params.require(:examination_board).permit(:place, :date, :orientation_id)
+    params.require(:examination_board)
+          .permit(:place, :date, :orientation_id,
+                  professor_ids: [], external_member_ids: [])
   end
 end

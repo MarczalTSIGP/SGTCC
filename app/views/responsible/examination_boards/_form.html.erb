@@ -5,13 +5,33 @@
       collection: Orientation.current_tcc_two,
       prompt: t('prompt.select.f', name: ExaminationBoard.human_attribute_name('orientation')) %>
 
-    <%= f.input :place %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :place %>
+      </div>
+      <div class="col-sm-6">
+        <datetimepicker
+          name="examination_board[date]"
+          id="examination_board_date"
+          label="<%= ExaminationBoard.human_attribute_name('date') %>"
+          datetime="<%= @examination_board.date %>" />
+      </div>
+    </div>
 
-    <datetimepicker
-      name="examination_board[date]"
-      id="examination_board_date"
-      label="<%= ExaminationBoard.human_attribute_name('date') %>"
-      datetime="<%= @examination_board.date %>" />
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :professors,
+          input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :external_members,
+          input_html: { data: 'selectize' },
+          collection: ExternalMember.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+      </div>
+    </div>
   </div>
 
   <div class="d-flex">

@@ -21,6 +21,26 @@
       </strong>
       <%= complete_date(@examination_board.date) %>
     </p>
+    <% unless @examination_board.professors.empty? %>
+      <p>
+        <strong>
+          <%= ExaminationBoard.human_attribute_name('professors') %>:
+        </strong>
+        <% @examination_board.professors.each do |professor| %>
+          <%= professor.name %>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @examination_board.external_members.empty? %>
+      <p>
+        <strong>
+          <%= ExaminationBoard.human_attribute_name('external_members') %>:
+        </strong>
+        <% @examination_board.external_members.each do |external_member| %>
+          <%= external_member.name %>
+        <% end %>
+      </p>
+    <% end %>
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('created_at') %>:
