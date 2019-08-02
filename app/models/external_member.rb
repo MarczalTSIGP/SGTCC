@@ -24,6 +24,17 @@ class ExternalMember < ApplicationRecord
            through: :external_member_supervisors,
            source: :orientation
 
+  has_many :examination_board_attendees,
+           class_name: 'ExaminationBoardAttendee',
+           foreign_key: :external_member_id,
+           inverse_of: :external_member,
+           source: :examination_board,
+           dependent: :destroy
+
+  has_many :examination_boards,
+           through: :examination_board_attendees,
+           source: :examination_board
+
   validates :name,
             presence: true
 

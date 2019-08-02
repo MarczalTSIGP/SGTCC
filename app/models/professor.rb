@@ -35,6 +35,17 @@ class Professor < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :examination_board_attendees,
+           class_name: 'ExaminationBoardAttendee',
+           foreign_key: :professor_id,
+           inverse_of: :professor,
+           source: :examination_board,
+           dependent: :destroy
+
+  has_many :examination_boards,
+           through: :examination_board_attendees,
+           source: :examination_board
+
   validates :name,
             presence: true
 

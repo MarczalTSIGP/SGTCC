@@ -44,15 +44,18 @@ RSpec.describe Professor, type: :model do
   end
 
   describe 'associations' do
-    professor_fk = 'professor_supervisor_id'
+    professor_sfk = 'professor_supervisor_id'
+    professor_fk = 'professor_id'
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:roles).through(:assignments) }
     it { is_expected.to have_many(:meetings).through(:orientations) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
+    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
 
   describe '#human_genders' do

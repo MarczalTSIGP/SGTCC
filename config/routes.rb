@@ -239,6 +239,10 @@ Rails.application.routes.draw do
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
+      get 'examination_boards',
+          to: 'examination_boards#index',
+          as: 'examination_boards'
+
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
           as: 'supervisions_tcc_one'
@@ -259,6 +263,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'signatures#signed',
           as: 'signatures_search_signed'
+
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
 
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -429,6 +438,10 @@ Rails.application.routes.draw do
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 
+      get 'examination_boards',
+          to: 'examination_boards#index',
+          as: 'examination_boards'
+
       get '/calendars/(:calendar_id)/activities',
           to: 'activities#index',
           as: 'calendar_activities'
@@ -436,6 +449,11 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
     end
   end
 
@@ -476,6 +494,10 @@ Rails.application.routes.draw do
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
+      get 'examination_boards',
+          to: 'examination_boards#index',
+          as: 'examination_boards'
+
       get 'calendars', to: 'calendars#index', as: 'calendars'
 
       get '/calendars/(:calendar_id)/activities',
@@ -510,6 +532,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
+
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
     end
   end
 end
