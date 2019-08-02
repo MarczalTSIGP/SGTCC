@@ -135,6 +135,14 @@ pt-BR:
       new: "Nova Reunião"
       edit: "Editar Reunião"
       show: "Visualizar Reunião"
+    examination_boards:
+      index: "Bancas de defesa"
+      tcc:
+        two:
+          show: "Visualizar banca de defesa de TCC 2"
+          edit: "Editar banca de defesa de TCC 2"
+          show: "Visualizar banca de defesa de TCC 2"
+          new: "Nova banca de defesa de TCC 2"
     signatures:
       index: "Assinaturas"
       show: "Visualizar documento"
@@ -236,6 +244,9 @@ pt-BR:
       meeting:
         one: "Reunião"
         other: "Reuniões"
+      examination_board:
+        one: "Banca de defesa"
+        other: "Bancas de defesa"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -258,6 +269,7 @@ pt-BR:
         deadline: "Prazo"
         title: "Título"
         orientation: "Orientação"
+        date: "Data"
       academic:
         ra: "RA"
         <<: *commons
@@ -315,6 +327,9 @@ pt-BR:
         content: "Conteúdo"
         date: "Data"
         viewed: "Ciência"
+      examination_board:
+        orientation: "Orientação"
+        place: "Local"
         <<: *commons
   placeholders:
     meetings:

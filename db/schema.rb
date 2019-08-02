@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 2019_08_08_174240) do
     t.index ["document_type_id"], name: "index_documents_on_document_type_id"
   end
 
+  create_table "examination_boards", force: :cascade do |t|
+    t.datetime "date"
+    t.string "place"
+    t.bigint "orientation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orientation_id"], name: "index_examination_boards_on_orientation_id"
+  end
+
   create_table "external_members", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -220,6 +229,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_174240) do
   add_foreign_key "assignments", "roles"
   add_foreign_key "base_activities", "base_activity_types"
   add_foreign_key "documents", "document_types"
+  add_foreign_key "examination_boards", "orientations"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
   add_foreign_key "meetings", "orientations"

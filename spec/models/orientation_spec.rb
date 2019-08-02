@@ -12,6 +12,7 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to belong_to(:institution) }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
     it { is_expected.to have_many(:meetings).dependent(:destroy) }
+    it { is_expected.to have_many(:examination_boards).dependent(:destroy) }
     it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
 
     it 'is expected to have many professor supervisors' do

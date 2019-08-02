@@ -75,6 +75,10 @@ Rails.application.routes.draw do
                   resources :activities
                 end
 
+      resources :examination_boards,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
            as: 'calendar_activities_by_calendar'

@@ -1,0 +1,24 @@
+<tr>
+  <td>
+    <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
+      <%= examination_board.orientation.short_title %>
+    </span>
+  </td>
+  <td><%= examination_board.place %></td>
+  <td><%= datetime(examination_board.date) %></td>
+  <td><%= short_date(examination_board.created_at) %></td>
+  <td>
+    <%= link_to(responsible_examination_board_path(examination_board)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_examination_board_path(examination_board)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_examination_board_path(examination_board),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>

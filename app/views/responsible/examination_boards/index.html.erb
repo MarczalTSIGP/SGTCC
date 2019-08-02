@@ -1,0 +1,38 @@
+<% provide(:page_title, t('breadcrumbs.examination_boards.index')) %>
+<% provide(:head_title, t('breadcrumbs.examination_boards.index')) %>
+
+<div class="row">
+  <div class="col-12">
+    <%= link_to(new_responsible_examination_board_path, class: 'btn btn-outline-primary d-block') do %>
+      <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.examination_boards.tcc.two.new') %>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @examination_boards %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= ExaminationBoard.human_attribute_name('orientation') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('place') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('date') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @examination_boards.empty? %>
+      </tr>
+      <%= render @examination_boards %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @examination_boards %>

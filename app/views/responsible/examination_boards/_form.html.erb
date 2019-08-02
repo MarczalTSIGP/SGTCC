@@ -1,0 +1,24 @@
+<%= simple_form_for [:responsible, @examination_board] do |f| %>
+  <div class="form-inputs">
+    <%= f.association :orientation,
+      input_html: { data: 'selectize' },
+      collection: Orientation.current_tcc_two,
+      prompt: t('prompt.select.f', name: ExaminationBoard.human_attribute_name('orientation')) %>
+
+    <%= f.input :place %>
+
+    <datetimepicker
+      name="examination_board[date]"
+      id="examination_board_date"
+      label="<%= ExaminationBoard.human_attribute_name('date') %>"
+      datetime="<%= @examination_board.date %>" />
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_examination_boards_path,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
