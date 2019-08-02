@@ -1,0 +1,18 @@
+<td>
+  <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
+    <%= examination_board.orientation.short_title %>
+  </span>
+</td>
+<td><%= examination_board.place %></td>
+<td><%= datetime(examination_board.date) %></td>
+<td>
+  <% examination_board.professors.each do |professor| %>
+    <p class="m-0"><%= professor.name %></p>
+  <% end %>
+</td>
+<td>
+  <% examination_board.external_members.each do |external_member| %>
+    <p class="m-0"><%= external_member.name %></p>
+  <% end %>
+</td>
+
