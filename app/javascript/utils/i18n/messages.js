@@ -13,10 +13,6 @@ export const messages = {
             label: 'Renovar orientação',
             details: 'Renovar orientação para o próximo semestre.',
           },
-          abandon: {
-            label: 'Desistir da orientação',
-            details: 'Desistir da seguinte orientação',
-          },
           cancel: {
             label: 'Cancelar orientação',
             details: 'Cancelar a seguinte orientação.'
