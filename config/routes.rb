@@ -83,6 +83,16 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      get 'professors/available',
+          to: 'professors#available',
+          as: 'professors_available'
+
+      get 'professors/unavailable',
+          to: 'professors#unavailable',
+          as: 'professors_unavailable'
+
+      get 'reports', to: 'dashboard#report', as: 'professors_reports'
+
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'
@@ -103,6 +113,16 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'professors#index',
           as: 'professors_search'
+
+      get 'professors/available/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#available',
+          as: 'professors_available_search'
+
+      get 'professors/unavailable/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#unavailable',
+          as: 'professors_unavailable_search'
 
       get 'external_members/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
