@@ -25,7 +25,7 @@ class ExternalMembers::SignaturesController < ExternalMembers::BaseController
   end
 
   def confirm
-    confirm_and_sign(ExternalMember, 'email')
+    confirm_and_sign(current_external_member, current_external_member.email)
   end
 
   private

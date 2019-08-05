@@ -26,8 +26,8 @@ class Signature < ApplicationRecord
     update(status: true)
   end
 
-  def confirm_and_sign(class_name, login, params)
-    confirm(class_name, login, params) && sign
+  def confirm_and_sign(current_user, login, params)
+    confirm(current_user, login, params) && sign
   end
 
   def term_of_commitment?

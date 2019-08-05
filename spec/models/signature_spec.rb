@@ -64,12 +64,12 @@ RSpec.describe Signature, type: :model do
       let(:params) { { login: professor.username, password: 'password' } }
 
       it 'returns true if the professors login is correct' do
-        expect(signature.confirm(Professor, 'username', params)). to eq(true)
+        expect(signature.confirm(professor, professor.username, params)). to eq(true)
       end
 
       it 'returns false if the professors login is not correct' do
         params = { login: professor.username, password: '231' }
-        expect(signature.confirm(Professor, 'username', params)). to eq(false)
+        expect(signature.confirm(professor, professor.username, params)). to eq(false)
       end
     end
 
@@ -80,12 +80,12 @@ RSpec.describe Signature, type: :model do
       let(:params) { { login: academic.ra, password: 'password' } }
 
       it 'returns true if the academics login is correct' do
-        expect(signature.confirm(Academic, 'ra', params)). to eq(true)
+        expect(signature.confirm(academic, academic.ra, params)). to eq(true)
       end
 
       it 'returns false if the academics login is not correct' do
         params = { login: academic.ra, password: '231' }
-        expect(signature.confirm(Academic, 'ra', params)). to eq(false)
+        expect(signature.confirm(academic, academic.ra, params)). to eq(false)
       end
     end
 
@@ -98,12 +98,12 @@ RSpec.describe Signature, type: :model do
       let(:params) { { login: external_member.email, password: 'password' } }
 
       it 'returns true if the external member login is correct' do
-        expect(signature.confirm(ExternalMember, 'email', params)). to eq(true)
+        expect(signature.confirm(external_member, external_member.email, params)). to eq(true)
       end
 
       it 'returns false if the external member login is not correct' do
         params = { login: external_member.email, password: '231' }
-        expect(signature.confirm(ExternalMember, 'email', params)). to eq(false)
+        expect(signature.confirm(external_member, external_member.email, params)). to eq(false)
       end
     end
   end
@@ -115,13 +115,13 @@ RSpec.describe Signature, type: :model do
     let(:params) { { login: professor.username, password: 'password' } }
 
     it 'returns true for the confirm and sign' do
-      expect(signature.confirm_and_sign(Professor, 'username', params)). to eq(true)
+      expect(signature.confirm_and_sign(professor, professor.username, params)). to eq(true)
       expect(signature.status). to eq(true)
     end
 
     it 'returns false if the confirm and sign' do
       params = { login: professor.username, password: '231' }
-      expect(signature.confirm_and_sign(Professor, 'username', params)). to eq(false)
+      expect(signature.confirm_and_sign(professor, professor.username, params)). to eq(false)
       expect(signature.status). to eq(false)
     end
   end

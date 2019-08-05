@@ -24,7 +24,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def confirm
-    confirm_and_sign(Professor, 'username')
+    confirm_and_sign(current_professor, current_professor.username)
   end
 
   private
