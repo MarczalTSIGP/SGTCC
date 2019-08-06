@@ -81,7 +81,7 @@ class Documents::SaveSignatures
   end
 
   def add_coordinator
-    @signature_users.push([Professor.current_coordinator.id, 'C'])
+    @signature_users.push([Professor.current_coordinator.id, 'CC'])
   end
 
   def add_responsible
