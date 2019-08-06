@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  get 'documents/images',
+      to: 'documents#images',
+      as: 'document_images'
+
   post 'documents/(:id)/mark',
        to: 'documents#mark',
        as: 'document_mark'

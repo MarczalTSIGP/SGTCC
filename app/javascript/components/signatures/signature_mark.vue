@@ -10,7 +10,7 @@
         <div class="py-4">
           <img
             class="float-left mr-2"
-            :src="urlSignatureImage"
+            :src="sgtccSealImage"
             :style="{ width: imageWidth + 'px' }"
           >
           <p>
@@ -57,26 +57,29 @@ export default {
       type: String,
       required:true
     },
-
-    urlSignatureImage: {
-      type: String,
-      required: true
-    },
   },
 
   data() {
     return {
+      urlDocumentImages: '/documents/images',
       signaturesMark: [],
       imageWidth: 100,
+      sgtccSealImage: '',
     };
   },
 
   mounted() {
+    this.setSrcSignatureImage();
     this.setSignaturesMark();
     this.onShowSignaturesMark();
   },
 
   methods: {
+    async setSrcSignatureImage() {
+      const response = await this.$axios.get(this.urlDocumentImages);
+      this.sgtccSealImage = response.data.sgtcc_seal;
+    },
+
     async setSignaturesMark() {
       const response = await this.$axios.post(this.url);
 

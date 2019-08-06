@@ -4,14 +4,13 @@
     class="card"
   >
     <div
+      id="term"
       ref="term"
       class="card-body signature-document w-80"
     >
       <header>
         <slot name="header">
-          <term-header
-            :url-header-image="urlHeaderImage"
-          />
+          <term-header />
         </slot>
       </header>
       <main>
@@ -34,7 +33,6 @@
           <signature-mark
             :url="urlSignatureMark"
             :url-signature-code="urlSignatureCode"
-            :url-signature-image="urlSignatureImage"
           />
         </slot>
       </footer>

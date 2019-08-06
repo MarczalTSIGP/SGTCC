@@ -4,7 +4,7 @@
       <img
         class="img-fluid mb-2"
         alt="logo_utfpr"
-        :src="urlHeaderImage"
+        :src="headerImage"
         :style="{ width: 350 + 'px' }"
       >
     </div>
@@ -29,10 +29,21 @@
 export default {
   name: 'TermHeader',
 
-  props: {
-    urlHeaderImage: {
-      type: String,
-      required: true
+  data() {
+    return {
+      urlDocumentImages: '/documents/images',
+      headerImage: '',
+    };
+  },
+
+  mounted() {
+    this.getUrlHeaderImage();
+  },
+
+  methods: {
+    async getUrlHeaderImage() {
+      const response = await this.$axios.get(this.urlDocumentImages);
+      this.headerImage = response.data.utfpr_logo;
     },
   },
 };

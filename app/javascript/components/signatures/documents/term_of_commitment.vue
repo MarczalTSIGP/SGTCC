@@ -3,8 +3,6 @@
     :url-signature-mark="urlSignatureMark"
     :url-signature-code="urlSignatureCode"
     :url-signature-data="urlSignatureData"
-    :url-signature-image="urlSignatureImage"
-    :url-header-image="urlHeaderImage"
   >
     <p>
       Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,

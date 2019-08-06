@@ -40,6 +40,12 @@ class DocumentsController < ApplicationController
     render json: content
   end
 
+  def images
+    helpers = ActionController::Base.helpers
+    render json: { sgtcc_seal: helpers.asset_url('sgtcc_signature.png'),
+                   utfpr_logo: helpers.asset_url('utfpr_logo.png') }
+  end
+
   private
 
   def set_document_by_code
