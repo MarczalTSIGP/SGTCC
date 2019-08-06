@@ -53,12 +53,7 @@ class Document < ApplicationRecord
   private
 
   def create_signatures
-    documents = Documents::SaveSignatures.new(self)
-    return documents.save_tco if document_type.tco?
-    return documents.save_tcai if document_type.tcai?
-    return documents.save_tdo if document_type.tdo?
-
-    documents.save_tep
+    Documents::SaveSignatures.new(self).send("save_#{document_type.identifier}")
   end
 
   def generate_unique_code
