@@ -182,7 +182,7 @@ RSpec.describe Professor, type: :model do
     it 'returns the reviewing signatures' do
       signatures = Signature.joins(:document)
                             .where(user_id: professor.id,
-                                   user_type: 'AD', status: false)
+                                   user_type: 'AD')
                             .where.not(documents: { request: nil })
       expect(professor.signatures_for_review).to match_array(signatures)
     end

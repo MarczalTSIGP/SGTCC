@@ -20,7 +20,6 @@ module SignatureFilter
 
     def signatures_for_review(page = nil)
       data = signatures.joins(:document)
-                       .where(status: false)
                        .where.not(documents: { request: nil })
       page_with_relationships(data, page)
     end
