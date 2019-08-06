@@ -202,6 +202,10 @@ Rails.application.routes.draw do
 
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
+      get 'orientations/(:id)/meetings',
+          to: 'meetings#orientation',
+          as: 'orientation_meetings'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'

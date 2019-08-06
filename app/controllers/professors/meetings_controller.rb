@@ -1,4 +1,5 @@
 class Professors::MeetingsController < Professors::BaseController
+  before_action :set_orientation, only: :orientation
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
@@ -60,11 +61,22 @@ class Professors::MeetingsController < Professors::BaseController
     redirect_to professors_meetings_path
   end
 
+  def orientation
+    @meetings = @orientation.meetings
+                            .page(params[:page])
+                            .order(created_at: :desc)
+    render :index
+  end
+
   private
 
   def set_meeting
     @meeting = current_professor.meetings.find_by(id: params[:id])
     redirect_to professors_meetings_path if @meeting.blank?
+  end
+
+  def set_orientation
+    @orientation = Orientation.find(params[:id])
   end
 
   def meeting_params
