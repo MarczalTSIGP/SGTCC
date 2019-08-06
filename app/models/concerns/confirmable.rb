@@ -4,8 +4,8 @@ module Confirmable
   extend ActiveSupport::Concern
 
   included do
-    def confirm(class_name, login, params)
-      class_name.find_by("#{login}": params[:login])&.valid_password?(params[:password])
+    def confirm(current_user, login, params)
+      login == params[:login] && current_user.valid_password?(params[:password])
     end
   end
 end

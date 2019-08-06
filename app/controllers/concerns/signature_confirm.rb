@@ -1,8 +1,8 @@
 module SignatureConfirm
   extend ActiveSupport::Concern
 
-  def confirm_and_sign(class_name, login)
-    if @signature.confirm_and_sign(class_name, login, params)
+  def confirm_and_sign(current_user, login)
+    if @signature.confirm_and_sign(current_user, login, params)
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
       render json: { message: message }
     else

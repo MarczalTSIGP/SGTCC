@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
-    <search url="<%= responsible_professors_search_path %>" search-term="<%= params[:term] %>" />
+    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_professor_path, class: 'btn btn-outline-primary d-block') do %>

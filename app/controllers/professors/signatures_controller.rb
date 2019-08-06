@@ -3,6 +3,10 @@ class Professors::SignaturesController < Professors::BaseController
   before_action :set_signature, only: [:show, :confirm]
   before_action :can_view, only: :show
 
+  add_breadcrumb I18n.t('breadcrumbs.documents.reviewing'),
+                 :professors_signatures_reviewing_path,
+                 only: :reviewing
+
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
                  :professors_signatures_pending_path,
                  only: :pending
@@ -16,7 +20,11 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def signed
-    @signatures = current_professor.signatures_signed(params[:page])
+    @signatures = current_professor.signatures_signed(params[:page], params[:term])
+  end
+
+  def reviewing
+    @signatures = current_professor.signatures_for_review(params[:page])
   end
 
   def show
@@ -24,7 +32,7 @@ class Professors::SignaturesController < Professors::BaseController
   end
 
   def confirm
-    confirm_and_sign(Professor, 'username')
+    confirm_and_sign(current_professor, current_professor.username)
   end
 
   private

@@ -2,10 +2,11 @@ class Responsible::OrientationsController < Responsible::BaseController
   include Breadcrumb
   include OrientationRenew
   include OrientationCancel
+  include OrientationEdit
 
   before_action :set_orientation, only: [:show, :edit, :update, :destroy]
   before_action :set_calendar, only: [:show, :edit]
-  before_action :can_edit, only: :edit
+  before_action :responsible_can_edit, only: :edit
   before_action :can_destroy, only: :destroy
 
   def tcc_one
@@ -92,12 +93,6 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.calendar
-  end
-
-  def can_edit
-    return if @orientation.can_be_edited?
-    flash[:alert] = I18n.t('flash.orientation.edit.signed')
-    redirect_to responsible_orientations_tcc_one_path
   end
 
   def can_destroy

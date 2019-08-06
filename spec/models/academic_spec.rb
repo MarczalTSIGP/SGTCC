@@ -116,10 +116,11 @@ RSpec.describe Academic, type: :model do
   end
 
   describe '#signatures_signed' do
-    let!(:academic) { create(:academic) }
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
 
     before do
-      create(:signature_signed, user_id: academic.id)
+      orientation.signatures.find_by(user_type: :academic).sign
     end
 
     it 'returns the signed signatures' do
@@ -129,11 +130,8 @@ RSpec.describe Academic, type: :model do
   end
 
   describe '#signatures_pending' do
-    let!(:academic) { create(:academic) }
-
-    before do
-      create(:signature, user_id: academic.id)
-    end
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
 
     it 'returns the pending signatures' do
       signatures = Signature.where(user_id: academic.id, user_type: 'AC', status: false)

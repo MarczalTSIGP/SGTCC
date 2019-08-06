@@ -1,9 +1,11 @@
-<span class="sidebar-heading pl-0 pt-2 pb-2">
+<span class="sidebar-heading">
   <%= icon('fas', 'users', class: 'mr-2') %>
   <%= t('views.sidebar.advisor') %>
 </span>
 
-<%= active_link_to(professors_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
+<%= active_link_to(professors_root_path,
+		   active: :exact,
+		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'home') %>
   </span>
@@ -47,3 +49,18 @@
   </span>
   <%= t('breadcrumbs.history') %>
 <% end %>
+
+<div class="sidebar-menu">
+<span class="sidebar-heading">
+  <%= icon('fas', 'envelope-open', class: 'mr-2') %>
+  <%= t('views.sidebar.requests') %>
+</span>
+
+<%= active_link_to(professors_requests_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'exclamation-triangle') %>
+  </span>
+  <%= t('breadcrumbs.documents.requests.tdo.advisor') %>
+<% end %>
+</div>

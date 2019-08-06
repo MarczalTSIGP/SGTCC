@@ -56,6 +56,9 @@ class Professor < ApplicationRecord
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensitive: false }
 
+  scope :available_advisor, -> { where(available_advisor: true) }
+  scope :unavailable_advisor, -> { where(available_advisor: false) }
+
   def role?(identifier)
     roles.where(identifier: identifier).any?
   end
@@ -63,6 +66,18 @@ class Professor < ApplicationRecord
   def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
+    user_types.push(types[:professor_responsible]) if role?(:responsible)
     Signature.where(user_id: id, user_type: user_types).recent
+  end
+
+  def orientations_to_form
+    order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+    orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
+      [orientation.id, orientation.academic_with_calendar]
+    end
+  end
+
+  def self.current_responsible
+    joins(:roles).find_by('roles.identifier': :responsible)
   end
 end

@@ -52,8 +52,11 @@ describe 'Orientation::update', type: :feature do
     end
 
     context 'when the orientation cant be edited' do
+      let(:orientation) { create(:orientation) }
+
       before do
-        create(:signature_signed, orientation_id: orientation.id)
+        orientation.signatures << Signature.all
+        orientation.signatures.each(&:sign)
         visit edit_responsible_orientation_path(orientation)
       end
 

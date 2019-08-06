@@ -77,9 +77,7 @@ class Orientation < ApplicationRecord
   def renew(justification)
     next_calendar = Calendar.next_semester(calendar)
     return false if next_calendar.blank?
-    self.renewal_justification = justification
-    self.status = 'RENEWED'
-    save
+    update(renewal_justification: justification, status: 'RENEWED')
     new_orientation = dup
     new_orientation.calendar = next_calendar
     new_orientation.save
@@ -87,9 +85,11 @@ class Orientation < ApplicationRecord
   end
 
   def cancel(justification)
-    self.cancellation_justification = justification
-    self.status = 'CANCELED'
-    save
+    update(cancellation_justification: justification, status: 'CANCELED')
+  end
+
+  def active?
+    !canceled? && !abandoned?
   end
 
   def calendar_tcc_one?
@@ -112,5 +112,13 @@ class Orientation < ApplicationRecord
 
   def external_member_supervisors_to_document
     supervisors_to_document(external_member_supervisors)
+  end
+
+  def academic_with_calendar
+    "#{academic.name} (#{academic.ra}) / #{calendar.year_with_semester_and_tcc}"
+  end
+
+  def self.select_status_data
+    statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 end

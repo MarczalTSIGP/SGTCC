@@ -9,8 +9,8 @@ FactoryBot.define do
     status { Orientation.statuses.key('IN_PROGRESS') }
 
     before :create do
-      create(:document_tco) if DocumentType.tco.empty?
-      create(:document_tcai) if DocumentType.tcai.empty?
+      create(:document_type_tco) if DocumentType.tco.empty?
+      create(:document_type_tcai) if DocumentType.tcai.empty?
     end
 
     after :create do |orientation|

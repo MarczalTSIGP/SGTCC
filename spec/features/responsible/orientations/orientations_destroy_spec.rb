@@ -25,6 +25,7 @@ describe 'Orientation::destroy', type: :feature, js: true do
       before do
         visit responsible_orientations_tcc_one_path
         click_on_destroy_link(responsible_orientation_path(orientation))
+        orientation.signatures << Signature.all
       end
 
       it 'redirect to the orientations page' do

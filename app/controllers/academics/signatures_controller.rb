@@ -24,7 +24,7 @@ class Academics::SignaturesController < Academics::BaseController
   end
 
   def confirm
-    confirm_and_sign(Academic, 'ra')
+    confirm_and_sign(current_academic, current_academic.ra)
   end
 
   private

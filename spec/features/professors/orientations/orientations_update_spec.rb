@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::update', type: :feature do
   let(:professor) { create(:professor) }
-  let(:orientation) { create(:orientation, advisor: professor) }
+  let!(:orientation) { create(:orientation, advisor: professor) }
   let!(:academic) { create(:academic) }
   let!(:professors) { create_list(:professor, 4) }
   let!(:external_members) { create_list(:external_member, 4) }
@@ -41,6 +41,19 @@ describe 'Orientation::update', type: :feature do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.orientation_title')
+      end
+    end
+
+    context 'when the orientation cant be edited' do
+      before do
+        orientation.signatures << Signature.all
+        orientation.signatures.each(&:sign)
+        visit edit_professors_orientation_path(orientation)
+      end
+
+      it 'redirect to the orientations page' do
+        expect(page).to have_current_path professors_orientations_tcc_one_path
+        expect(page).to have_flash(:warning, text: orientation_edit_signed_warning_message)
       end
     end
   end

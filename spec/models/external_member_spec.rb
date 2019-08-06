@@ -136,10 +136,11 @@ RSpec.describe ExternalMember, type: :model do
   end
 
   describe '#signatures_signed' do
-    let!(:external_member) { create(:external_member) }
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
 
     before do
-      create(:signature_signed, user_id: external_member.id)
+      orientation.signatures.find_by(user_type: :external_member_supervisor).sign
     end
 
     it 'returns the signed signatures' do
@@ -149,11 +150,8 @@ RSpec.describe ExternalMember, type: :model do
   end
 
   describe '#signatures_pending' do
-    let!(:external_member) { create(:external_member) }
-
-    before do
-      create(:signature, user_id: external_member.id)
-    end
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
 
     it 'returns the pending signatures' do
       signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: false)

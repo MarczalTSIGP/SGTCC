@@ -149,10 +149,11 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_signed' do
-    let!(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
 
     before do
-      create(:signature_signed, user_id: professor.id)
+      orientation.signatures.find_by(user_type: :advisor).sign
     end
 
     it 'returns the signed signatures' do
@@ -162,15 +163,53 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#signatures_pending' do
-    let!(:professor) { create(:professor) }
-
-    before do
-      create(:signature, user_id: professor.id)
-    end
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
 
     it 'returns the pending signatures' do
-      signatures = Signature.where(user_id: professor.id, user_type: 'AD', status: false)
+      signatures = Signature.joins(:document)
+                            .where(user_id: professor.id,
+                                   user_type: 'AD', status: false)
       expect(professor.signatures_pending).to match_array(signatures)
+    end
+  end
+
+  describe '#signatures_for_review' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+    let(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
+
+    it 'returns the reviewing signatures' do
+      signatures = Signature.joins(:document)
+                            .where(user_id: professor.id,
+                                   user_type: 'AD')
+                            .where.not(documents: { request: nil })
+      expect(professor.signatures_for_review).to match_array(signatures)
+    end
+  end
+
+  describe '#orientations_to_form' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+
+    it 'is equal professor request data' do
+      order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+      data = professor.orientations.includes(:academic, :calendar)
+                      .order(order_by).map do |orientation|
+                        [orientation.id, orientation.academic_with_calendar]
+                      end
+      expect(professor.orientations_to_form).to eq(data)
+    end
+  end
+
+  describe '#current_responsible' do
+    before do
+      create(:responsible)
+    end
+
+    it 'is equal current responsible' do
+      responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
+      expect(Professor.current_responsible).to eq(responsible)
     end
   end
 end

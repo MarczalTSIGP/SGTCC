@@ -2,15 +2,17 @@ require 'rails_helper'
 
 describe 'Signature::show', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
-  let(:signatures) { orientation.signatures }
-  let(:professor_signature) { signatures.where(user_type: :advisor).last }
-  let(:professor) { professor_signature.user }
 
   before do
+    orientation.signatures << Signature.all
     login_as(professor, scope: :professor)
   end
 
   describe '#show' do
+    let(:signatures) { orientation.signatures }
+    let(:professor_signature) { signatures.where(user_type: :advisor).last }
+    let(:professor) { professor_signature.user }
+
     context 'when shows the pending signature of the term of accept institution' do
       let(:active_link) { professors_signatures_pending_path }
 
@@ -39,7 +41,7 @@ describe 'Signature::show', type: :feature, js: true do
       let(:active_link) { professors_signatures_signed_path }
 
       before do
-        orientation.signatures.each(&:sign)
+        signatures.each(&:sign)
         visit professors_signature_path(professor_signature)
       end
 
@@ -60,7 +62,7 @@ describe 'Signature::show', type: :feature, js: true do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        Signature.mark(orientation.id, document_type.id).each do |signature|
+        document.mark.each do |signature|
           expect(page).to have_content(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])
@@ -73,8 +75,8 @@ describe 'Signature::show', type: :feature, js: true do
 
     context 'when the document signature cant be viewed' do
       before do
-        academic_signature = create(:academic_signature)
-        visit professors_signature_path(academic_signature)
+        em_signature = signatures.where(user_type: :external_member_supervisor)
+        visit professors_signature_path(em_signature)
       end
 
       it 'redirect to the signature pending page' do

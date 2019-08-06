@@ -27,6 +27,7 @@ pt-BR:
       orientation:
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
+        abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
     pagination:
@@ -42,10 +43,23 @@ pt-BR:
       academics: "Acadêmico"
       external_members: "Membro Externo"
       supervisor: "Coorientador"
+      requests: "Solicitações"
+      documents:
+        index: "Documentos"
+        review: "Para análise"
+        pending: "Para assinar"
+        signed: "Assinados"
       signatures:
         index: "Assinaturas"
         pendings: "Pendentes"
         signeds: "Assinadas"
+  reports:
+    professors:
+      index: "Professores"
+      label:
+        total: "Cadastrados no SGTCC"
+        available: "Disponíveis para orientação"
+        unavailable: "Indisponíveis para orientação"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -90,6 +104,16 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+    documents:
+      reviewing: "Documentos para análise"
+      requests:
+        index: "Solicitações"
+        new: "Nova solicitação"
+        show: "Visualizar solicitação"
+        tdo:
+          new: "Solicitar desistência de orientação"
+          show: "Visualizar solicitação de desistência de orientação"
+          advisor: "Desistência de Orientação"
     signatures:
       index: "Assinaturas"
       show: "Visualizar documento"
@@ -250,10 +274,15 @@ pt-BR:
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
         cancellation_justification: "Justificativa do cancelamento"
+        abandonment_justification: "Justificativa de desistência"
         <<: *commons
       signature:
         orientation: "Orientação"
         document_type: "Tipo do documento"
+        <<: *commons
+      document:
+        orientation_id: "Orientação"
+        justification: "Justificativa"
         <<: *commons
   helpers:
     no_results: 'Nenhum resultado encontrado.'
@@ -294,11 +323,13 @@ pt-BR:
       status:
         RENEWED: 'renovada'
         APPROVED: 'aprovada'
+        ABANDONED: 'abandonada'
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
+          ABANDONED: 'Abandonada'
           CANCELED: 'Cancelada'
           IN_PROGRESS: 'Em andamento'
   flash:
@@ -315,6 +346,8 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    request:
+      index: "Solicitação"
     orientation:
       destroy:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
@@ -336,6 +369,8 @@ pt-BR:
           save: 'Orientação renovada com sucesso!'
         cancel:
           success: 'Orientação cancelada com sucesso!'
+        abandon:
+          success: 'Orientação abandonada com sucesso!'
         signatures:
           confirm:
             success: 'Assinatura realizada com sucesso!'
@@ -385,15 +420,18 @@ pt-BR:
           academic: 'Acadêmico'
           advisor: 'Orientador'
           professor_supervisor: 'Coorientador da UTFPR'
+          professor_responsible: 'Professor responsável'
           external_member_supervisor: 'Coorientador externo'
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
           professor_supervisor: 'Coorientadora da UTFPR'
+          professor_responsible: 'Professora responsável'
           external_member_supervisor: 'Coorientadora externa'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
+      TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'
