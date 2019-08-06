@@ -5,9 +5,15 @@
   <div class="card-body">
     <p>
       <strong>
-        <%= Meeting.human_attribute_name('title') %>:
+        <%= Meeting.human_attribute_name('academic') %>:
       </strong>
-      <%= @meeting.title %>
+      <%= @meeting.orientation.academic_with_calendar %>
+    </p>
+    <p>
+      <strong>
+        <%= Meeting.human_attribute_name('orientation') %>:
+      </strong>
+      <%= @meeting.orientation.title %>
     </p>
     <p>
       <strong>
@@ -16,6 +22,12 @@
       <div class="form-fieldset w-50 text-left">
         <vue-markdown-preview><%= @meeting.content %></vue-markdown-preview>
       </div>
+    </p>
+    <p>
+      <strong>
+        <%= Meeting.human_attribute_name('date') %>:
+      </strong>
+      <%= complete_date(@meeting.date) %>
     </p>
     <p>
       <strong>

@@ -17,15 +17,13 @@ describe 'Meeting::create', type: :feature, js: true do
 
     context 'when meeting is valid' do
       it 'create a meeting' do
-        attributes = attributes_for(:meeting)
-        selectize(orientation.title, from: 'meeting_orientation_id')
-        fill_in 'meeting_title', with: attributes[:title]
+        selectize(orientation.academic_with_calendar, from: 'meeting_orientation_id')
         find('.fa-bold').click
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_meetings_path
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_message(attributes[:title], in: 'table tbody')
+        expect(page).to have_message(orientation.academic_with_calendar, in: 'table tbody')
       end
     end
 
@@ -33,7 +31,6 @@ describe 'Meeting::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.meeting_title')
         expect(page).to have_message(blank_error_message, in: 'div.meeting_content')
         expect(page).to have_message(required_error_message, in: 'div.meeting_orientation')
       end

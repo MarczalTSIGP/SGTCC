@@ -1,8 +1,5 @@
 <div class="row">
-  <div class="col-sm-12 col-lg-8 mb-2">
-    <search url="<%= professors_meetings_search_path %>" search-term="<%= params[:term] %>" />
-  </div>
-  <div class="col-sm-12 col-lg-4">
+  <div class="col-12">
     <%= link_to(new_professors_meeting_path, class: 'btn btn-outline-primary d-block') do %>
       <i class="fe fe-plus"></i>
       <%= t('breadcrumbs.meetings.new') %>

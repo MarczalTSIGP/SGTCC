@@ -303,7 +303,11 @@ pt-BR:
         justification: "Justificativa"
       meeting:
         content: "Conteúdo"
+        date: "Data"
         <<: *commons
+  placeholders:
+    meetings:
+      content: "Discutido: \n\nTarefas para o acadêmico: \n\nTarefas para o orientador: \n\nConcluído: "
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'

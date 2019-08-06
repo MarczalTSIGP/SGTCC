@@ -19,7 +19,6 @@ class Professors::MeetingsController < Professors::BaseController
   def index
     @meetings = current_professor.meetings
                                  .with_relationship
-                                 .search(params[:term])
                                  .page(params[:page])
                                  .order(created_at: :desc)
   end
@@ -69,6 +68,6 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:title, :content, :orientation_id)
+    params.require(:meeting).permit(:date, :content, :orientation_id)
   end
 end

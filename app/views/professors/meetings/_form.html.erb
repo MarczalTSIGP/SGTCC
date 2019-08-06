@@ -1,13 +1,26 @@
 <%= simple_form_for [:professors, @meeting] do |f| %>
-  <div class="form-inputs">
-    <%= f.association :orientation,
-      input_html: { data: 'selectize' },
-      collection: current_professor.orientations,
-      prompt: t('prompt.select.f', name: Meeting.human_attribute_name('orientation')) %>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= f.association :orientation,
+        label: Academic.model_name.human,
+        input_html: { data: 'selectize' },
+        collection: current_professor.orientations_to_form,
+        label_method: :second,
+        value_method: :first,
+        prompt: t('prompt.select.f', name: Academic.model_name.human) %>
+    </div>
 
-    <%= f.input :title %>
-    <%= f.input :content, input_html: { class: 'markdown-editor' } %>
+    <div class="col-sm-6">
+      <datetimepicker
+        name="meeting[date]"
+        id="meeting_date"
+        label="<%= Meeting.human_attribute_name('date') %>"
+        datetime="<%= @meeting.date %>" />
+    </div>
   </div>
+
+  <%= f.input :content,
+    input_html: { class: 'markdown-editor', placeholder: t('placeholders.meetings.content') } %>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),

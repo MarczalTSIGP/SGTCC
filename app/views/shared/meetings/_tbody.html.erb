@@ -1,9 +1,8 @@
-<td><%= meeting.title %></td>
 <td>
   <span data-toggle="tooltip" title="<%= meeting.orientation.title %>">
-    <%= meeting.orientation.short_title %>
+    <%= meeting.orientation.academic_with_calendar %>
   </span>
 </td>
-<td><%= short_date(meeting.created_at) %></td>
+<td><%= short_date(meeting.date) %></td>
 <td><%= short_date(meeting.updated_at) %></td>
 

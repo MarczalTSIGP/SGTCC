@@ -13,7 +13,9 @@ describe 'Meeting::show', type: :feature do
   describe '#show' do
     context 'when shows the meeting' do
       it 'shows the meeting' do
-        expect(page).to have_contents([meeting.title,
+        expect(page).to have_contents([meeting.orientation.academic_with_calendar,
+                                       meeting.orientation.title,
+                                       complete_date(meeting.date),
                                        complete_date(meeting.created_at),
                                        complete_date(meeting.updated_at)])
       end

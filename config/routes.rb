@@ -387,11 +387,6 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
-
-      get 'meetings/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'meetings#index',
-          as: 'meetings_search'
     end
   end
 
