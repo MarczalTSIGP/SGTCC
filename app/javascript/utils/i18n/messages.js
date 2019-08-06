@@ -10,11 +10,11 @@ export const messages = {
       models: {
         orientation: {
           renew: {
-            label: 'Renovar a orientação',
+            label: 'Renovar orientação',
             details: 'Renovar orientação para o próximo semestre.',
           },
           cancel: {
-            label: 'Cancelar a orientação',
+            label: 'Cancelar orientação',
             details: 'Cancelar a seguinte orientação.'
           }
         },
