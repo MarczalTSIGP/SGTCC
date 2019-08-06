@@ -3,8 +3,8 @@
     <div>
       <hr class="m-0">
       <div
-        v-for="signature in signaturesMark"
-        :key="signature.name"
+        v-for="(signature, index) in signaturesMark"
+        :key="index"
         class="signature_mark"
       >
         <div class="py-4">

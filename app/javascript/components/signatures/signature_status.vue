@@ -18,8 +18,8 @@
         </thead>
         <tbody>
           <tr
-            v-for="signature in signatureStatus"
-            :key="signature.name"
+            v-for="(signature, index) in signatureStatus"
+            :key="index"
           >
             <td>{{ signature.name }}</td>
             <td>

@@ -27,6 +27,7 @@ class Documents::SaveSignatures
   def save_tep
     add_academic
     add_coordinator
+    add_advisor
     add_responsible
     create_signatures
   end
