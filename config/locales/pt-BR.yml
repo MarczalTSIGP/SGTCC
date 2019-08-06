@@ -423,12 +423,14 @@ pt-BR:
         male:
           academic: 'Acadêmico'
           advisor: 'Orientador'
+          coordinator: 'Coordernador do Curso'
           professor_supervisor: 'Coorientador da UTFPR'
           professor_responsible: 'Professor responsável'
           external_member_supervisor: 'Coorientador externo'
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
+          coordinator: 'Coordenadora do Curso'
           professor_supervisor: 'Coorientadora da UTFPR'
           professor_responsible: 'Professora responsável'
           external_member_supervisor: 'Coorientadora externa'

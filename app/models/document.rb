@@ -29,7 +29,8 @@ class Document < ApplicationRecord
 
   def status_table
     signatures.map do |signature|
-      { name: signature.user.name, status: signature.status }
+      { name: signature.user.name, status: signature.status,
+        role: I18n.t("signatures.users.roles.#{signature.user.gender}.#{signature.user_type}") }
     end
   end
 

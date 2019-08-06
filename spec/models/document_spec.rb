@@ -213,7 +213,8 @@ RSpec.describe Document, type: :model do
     it 'returns the status table' do
       document = signature.document
       result = document.signatures.map do |signature|
-        { name: signature.user.name, status: signature.status }
+        { name: signature.user.name, status: signature.status,
+          role: I18n.t("signatures.users.roles.#{signature.user.gender}.#{signature.user_type}") }
       end
       document_status_table = document.status_table
       expect(document_status_table.first[:name]).to eq(result.first[:name])

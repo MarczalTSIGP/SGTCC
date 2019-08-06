@@ -21,7 +21,7 @@
             v-for="(signature, index) in signatureStatus"
             :key="index"
           >
-            <td>{{ signature.name }}</td>
+            <td>{{ signature.name }} - {{ signature.role }}</td>
             <td>
               <span :class="selectBadge(signature.status)">
                 {{ selectStatus(signature.status) }}
