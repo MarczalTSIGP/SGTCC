@@ -5,12 +5,6 @@
   <div class="card-body">
     <p>
       <strong>
-        <%= Meeting.human_attribute_name('title') %>:
-      </strong>
-      <%= @meeting.title %>
-    </p>
-    <p>
-      <strong>
         <%= Meeting.human_attribute_name('content') %>:
       </strong>
       <div class="form-fieldset w-50 text-left">
@@ -19,15 +13,9 @@
     </p>
     <p>
       <strong>
-        <%= Meeting.human_attribute_name('created_at') %>:
+        <%= Meeting.human_attribute_name('date') %>:
       </strong>
-      <%= complete_date(@meeting.created_at) %>
-    </p>
-    <p>
-      <strong>
-        <%= Meeting.human_attribute_name('updated_at') %>:
-      </strong>
-      <%= complete_date(@meeting.updated_at) %>
+      <%= complete_date(@meeting.date) %>
     </p>
   </div>
 </div>

@@ -13,9 +13,7 @@ describe 'Meeting::show', type: :feature do
   describe '#show' do
     context 'when shows the meeting' do
       it 'shows the meeting' do
-        expect(page).to have_contents([meeting.title,
-                                       complete_date(meeting.created_at),
-                                       complete_date(meeting.updated_at)])
+        expect(page).to have_content(complete_date(meeting.date))
       end
     end
 

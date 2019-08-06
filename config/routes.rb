@@ -238,11 +238,6 @@ Rails.application.routes.draw do
           to: 'signatures#signed',
           as: 'signatures_search_signed'
 
-      get 'meetings/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'meetings#index',
-          as: 'meetings_search'
-
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#history',

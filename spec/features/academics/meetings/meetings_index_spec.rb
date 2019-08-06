@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Meeting::index', type: :feature, js: true do
-  let(:academic) { create(:academic) }
+  let!(:academic) { create(:academic) }
   let!(:meetings) { create_list(:meeting, 3) }
 
   before do
@@ -13,9 +13,9 @@ describe 'Meeting::index', type: :feature, js: true do
     context 'when shows all meetings' do
       it 'shows all meetings with options' do
         visit academics_meetings_path
-        meetings.each do |meeting|
-          expect(page).to have_contents([meeting.title,
-                                         short_date(meeting.created_at),
+        academic.meetings.each do |meeting|
+          expect(page).to have_contents([meeting.orientation.academic_with_calendar,
+                                         short_date(meeting.date),
                                          short_date(meeting.updated_at)])
         end
       end

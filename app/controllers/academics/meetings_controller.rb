@@ -11,7 +11,6 @@ class Academics::MeetingsController < Academics::BaseController
   def index
     @meetings = current_academic.meetings
                                 .with_relationship
-                                .search(params[:term])
                                 .page(params[:page])
                                 .order(created_at: :desc)
   end
