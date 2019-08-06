@@ -1,9 +1,5 @@
 <template>
-  <base-term-layout
-    :url-signature-mark="urlSignatureMark"
-    :url-signature-code="urlSignatureCode"
-    :url-signature-data="urlSignatureData"
-  >
+  <base-term-layout :document-id="documentId">
     <p>
       Eu, <b>{{ term.institution.responsible }}</b>, como representante da instituição
       <b>{{ term.institution.trade_name }}</b>, afirmo que o acadêmico <b>{{ term.academic.name }}</b>,

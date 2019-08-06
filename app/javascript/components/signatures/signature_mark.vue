@@ -33,7 +33,7 @@
       </div>
     </div>
     <div>
-      <signature-code :url-signature-code="urlSignatureCode" />
+      <signature-code :document-id="documentId" />
     </div>
   </div>
 </template>
@@ -48,13 +48,8 @@ export default {
   components: { SignatureCode },
 
   props: {
-    url: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureCode: {
-      type: String,
+    documentId: {
+      type: Number,
       required:true
     },
   },
@@ -66,6 +61,12 @@ export default {
       imageWidth: 100,
       sgtccSealImage: '',
     };
+  },
+
+  computed: {
+    urlSignatureMark() {
+      return `/documents/${this.documentId}/mark`;
+    },
   },
 
   mounted() {
@@ -81,7 +82,7 @@ export default {
     },
 
     async setSignaturesMark() {
-      const response = await this.$axios.post(this.url);
+      const response = await this.$axios.post(this.urlSignatureMark);
 
       this.signaturesMark = response.data;
     },

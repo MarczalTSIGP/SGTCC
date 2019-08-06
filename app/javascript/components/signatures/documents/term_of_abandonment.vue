@@ -1,9 +1,5 @@
 <template>
-  <base-term-layout
-    :url-signature-mark="urlSignatureMark"
-    :url-signature-code="urlSignatureCode"
-    :url-signature-data="urlSignatureData"
-  >
+  <base-term-layout :document-id="documentId">
     <p>
       Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,
       declaro para os devidos fins, desistir da orientação do trabalho de conclusão de

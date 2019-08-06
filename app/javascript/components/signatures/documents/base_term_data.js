@@ -9,18 +9,8 @@ export default {
   components: { TermHeader, TermFooter, SignatureMark },
 
   props: {
-    urlSignatureMark: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureCode: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureData: {
-      type: String,
+    documentId: {
+      type: Number,
       required: true
     },
   },
@@ -37,6 +27,10 @@ export default {
   },
 
   computed: {
+    urlSignatureData() {
+      return `/documents/${this.documentId}/data`;
+    },
+
     externalMemberSupervisorLabel() {
       return this.term.externalMemberSupervisors.length === 1
         ? 'Coorientador externo'

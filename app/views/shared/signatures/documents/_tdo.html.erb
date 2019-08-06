@@ -1,6 +1,3 @@
-<term-of-abandonment
-  url-signature-mark="<%= document_mark_path(@signature.document) %>"
-  url-signature-code="<%= document_code_path(@signature.document) %>"
-  url-signature-data="<%= document_data_path(@signature.document) %>" />
+<term-of-abandonment :document-id="<%= @signature.document.id %>" />
 
 

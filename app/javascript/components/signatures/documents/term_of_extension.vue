@@ -1,9 +1,5 @@
 <template>
-  <base-term-layout
-    :url-signature-mark="urlSignatureMark"
-    :url-signature-code="urlSignatureCode"
-    :url-signature-data="urlSignatureData"
-  >
+  <base-term-layout :document-id="documentId">
     <p>
       Eu, <b>{{ term.academic.name }}</b>, acadêmico(a) desta instituição,
       solicito a extensão do prazo de trabalho de conclusão de curso em 1 (um)

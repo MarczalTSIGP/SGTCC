@@ -30,10 +30,7 @@
             :created-at="term.orientation.created_at"
           />
           <div class="clearfix" />
-          <signature-mark
-            :url="urlSignatureMark"
-            :url-signature-code="urlSignatureCode"
-          />
+          <signature-mark :document-id="documentId" />
         </slot>
       </footer>
     </div>
