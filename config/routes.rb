@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/mark',
+  post 'documents/(:id)/mark',
        to: 'documents#mark',
        as: 'document_mark'
 
-  post 'documents/orientations/(:orientation_id)/document_types/(:document_type_id)/status',
+  post 'documents/(:id)/status',
        to: 'documents#status',
        as: 'document_status'
 
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
   post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
+  post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
 
   #========================================
   # Responsible
@@ -187,12 +188,19 @@ Rails.application.routes.draw do
                 only: [:show],
                 constraints: { id: /[0-9]+/ }
 
+      resources :requests,
+                except: [:show, :destroy],
+                constraints: { id: /[0-9]+/ }
+
+      post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'signatures/reviewing', to: 'signatures#reviewing', as: 'signatures_reviewing'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
@@ -212,6 +220,11 @@ Rails.application.routes.draw do
       get 'calendars/:calendar_id/activities/:id',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      get 'signatures/signed/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'signatures#signed',
+          as: 'signatures_search_signed'
 
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },

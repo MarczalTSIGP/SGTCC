@@ -9,7 +9,7 @@ module OrientationOption
     end
 
     def can_be_canceled?(professor)
-      professor&.role?(:responsible) && !canceled?
+      professor&.role?(:responsible) && active?
     end
 
     def can_be_edited?

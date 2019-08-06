@@ -8,6 +8,11 @@ FactoryBot.define do
       identifier { DocumentType.identifiers[:tco] }
     end
 
+    factory :document_type_tdo do
+      name { I18n.t('signatures.documents.TDO') }
+      identifier { DocumentType.identifiers[:tdo] }
+    end
+
     factory :document_type_tcai do
       name { I18n.t('signatures.documents.TCAI') }
       identifier { DocumentType.identifiers[:tcai] }

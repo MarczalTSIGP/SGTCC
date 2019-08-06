@@ -2,17 +2,19 @@ require 'rails_helper'
 
 describe 'Document::show', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
-  let(:signatures) { orientation.signatures }
-  let(:document) { signatures.first.document }
-  let(:academic_signature) { signatures.where(user_type: :academic).first }
-  let(:academic) { academic_signature.user }
-  let(:document_type) { document.document_type }
 
   before do
+    orientation.signatures << Signature.all
     orientation.signatures.each(&:sign)
   end
 
   describe '#show' do
+    let(:signatures) { orientation.signatures }
+    let(:document) { signatures.first.document }
+    let(:academic_signature) { signatures.where(user_type: :academic).first }
+    let(:academic) { academic_signature.user }
+    let(:document_type) { document.document_type }
+
     before do
       visit confirm_document_code_path(document.code)
     end
@@ -35,7 +37,7 @@ describe 'Document::show', type: :feature, js: true do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        Signature.mark(orientation.id, document_type.id).each do |signature|
+        document.mark.each do |signature|
           expect(page).to have_content(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])

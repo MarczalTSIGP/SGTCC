@@ -1,54 +1,52 @@
 class Documents::SaveSignatures
-  attr_reader :orientation, :signature_users
+  attr_reader :document, :signature_users
 
-  def initialize(orientation)
-    @orientation = orientation
+  def initialize(document)
+    @document = document
+    @orientation = Orientation.find(document.orientation_id)
     @signature_users = []
   end
 
-  def save
-    create_tco_signatures
-    create_tcai_signatures if @orientation.institution.present?
+  def save_tco
+    add_signature_users
+    create_signatures
+  end
+
+  def save_tcai
+    @signature_users = []
+    add_signature_users
+    create_signatures
+  end
+
+  def save_tdo
+    add_advisor
+    add_responsible
+    create_signatures
   end
 
   private
 
-  def create_tco_signatures
-    tco = DocumentType.tco.first.documents.create!(content: '{}')
-    add_signature_users(tco)
-    create_signatures(tco)
-    tco.update_content_data
-  end
-
-  def create_tcai_signatures
-    tcai = DocumentType.tcai.first.documents.create!(content: '{}')
-    @signature_users = []
-    add_signature_users(tcai)
-    create_signatures(tcai)
-    tcai.update_content_data
-  end
-
-  def create_signatures(document)
+  def create_signatures
     @signature_users.each do |user_id, user_type|
       @orientation.signatures << Signature.create!(
         orientation_id: @orientation.id,
-        document_id: document.id,
+        document_id: @document.id,
         user_id: user_id,
         user_type: user_type
       )
     end
   end
 
-  def add_signature_users(document)
+  def add_signature_users
     add_academic
     add_advisor
     add_professor_supervisors
     add_external_member_supervisors
-    add_responsible_institution if add_responsible_institution?(document)
+    add_responsible_institution if add_responsible_institution?
   end
 
-  def add_responsible_institution?(document)
-    document.document_type.tcai?
+  def add_responsible_institution?
+    @document.document_type.tcai?
   end
 
   def add_academic
@@ -73,5 +71,11 @@ class Documents::SaveSignatures
 
   def add_responsible_institution
     @signature_users.push([@orientation.institution.external_member.id, 'ES'])
+  end
+
+  def add_responsible
+    professor_id = Professor.current_responsible.id
+    return if @orientation.advisor.id == professor_id && @document.document_type.tdo?
+    @signature_users.push([professor_id, 'PR'])
   end
 end

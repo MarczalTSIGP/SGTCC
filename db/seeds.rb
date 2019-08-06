@@ -52,6 +52,7 @@ end
 
 document_types = [
   { name: I18n.t('signatures.documents.TCO'), identifier: DocumentType.identifiers[:tco] },
+  { name: I18n.t('signatures.documents.TDO'), identifier: DocumentType.identifiers[:tdo] },
   { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] }
 ]
 

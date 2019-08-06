@@ -141,28 +141,39 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#can_be_edited?' do
+    let(:orientation) { create(:orientation) }
+
+    before do
+      orientation.signatures << Signature.all
+    end
+
     it 'returns true' do
-      orientation = create(:orientation_tcc_one)
       expect(orientation.can_be_edited?).to eq(true)
     end
 
-    it 'returns false' do
-      signature = create(:signature, status: true)
-      orientation = create(:orientation_tcc_one)
-      orientation.signatures << signature
-      expect(orientation.can_be_edited?).to eq(false)
+    context 'when cant be edited' do
+      before do
+        orientation.signatures.each(&:sign)
+      end
+
+      it 'returns false' do
+        expect(orientation.can_be_edited?).to eq(false)
+      end
     end
   end
 
   describe '#can_be_destroyed?' do
+    let(:orientation) { create(:orientation) }
+
+    before do
+      orientation.signatures << Signature.all
+    end
+
     it 'returns true' do
-      orientation = create(:orientation)
       expect(orientation.can_be_destroyed?).to eq(true)
     end
 
     context 'when returns false' do
-      let(:orientation) { create(:orientation) }
-
       before do
         orientation.signatures.each(&:sign)
       end
@@ -421,6 +432,10 @@ RSpec.describe Orientation, type: :model do
     let(:orientation) { create(:orientation) }
     let(:signatures) { orientation.signatures }
 
+    before do
+      orientation.signatures << Signature.all
+    end
+
     context 'when is the tco signature' do
       let(:document_tco) { signatures.first.document }
       let(:tco_signatures) { signatures.where(document_id: document_tco.id) }
@@ -540,6 +555,18 @@ RSpec.describe Orientation, type: :model do
       it 'returns the signature count' do
         expect(tcai_signatures.count).to eq(5)
       end
+    end
+  end
+
+  describe '#academic_with_calendar' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+    let(:calendar) { orientation.calendar }
+
+    it 'is equal academic with calendar' do
+      academic_with_ra = "#{academic.name} (#{academic.ra})"
+      academic_with_calendar = "#{academic_with_ra} / #{calendar.year_with_semester_and_tcc}"
+      expect(orientation.academic_with_calendar).to eq(academic_with_calendar)
     end
   end
 end

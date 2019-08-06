@@ -1,7 +1,12 @@
+import TermHeader from './partials/term_header';
+import TermFooter from './partials/term_footer';
 import SignatureMark from '../signature_mark';
+import termData from './term_data';
 
 export default {
-  components: { SignatureMark },
+  mixins: [termData],
+
+  components: { TermHeader, TermFooter, SignatureMark },
 
   props: {
     urlSignatureMark: {
@@ -32,29 +37,12 @@ export default {
 
   data() {
     return {
-      term: {
-        orientation: {
-          id: '',
-          title: '',
-          created_at: ''
-        },
-        academic: {
-          id: '',
-          name: '',
-          ra: '',
-        },
-        advisor: {
-          id: '',
-          name: '',
-          label: ''
-        },
-        title: '',
-        institution: {},
-        professorSupervisors: [],
-        externalMemberSupervisors: [],
-      },
       open: false,
-      marginTitle: 50,
+      request: {
+        requester: {
+          justification: '',
+        }
+      },
     };
   },
 
@@ -85,7 +73,14 @@ export default {
       if (response.data.status !== 'not_found') {
         this.term = response.data;
         this.open = true;
+        this.setRequest();
       }
+    },
+
+    async setRequest() {
+      const url = `/documents/${this.term.document.id}/request`;
+      const response = await this.$axios.post(url);
+      this.request = response.data;
     },
 
     hasProfessorSupervisors() {
@@ -101,15 +96,11 @@ export default {
     },
 
     onCloseTerm() {
-      this.$root.$on('close-term', () => {
-        this.open = false;
-      });
+      this.$root.$on('close-term', () => { this.open = false; });
     },
 
     onOpenTerm() {
-      this.$root.$on('open-term', () => {
-        this.open = true;
-      });
+      this.$root.$on('open-term', () => { this.open = true; });
     },
   },
 };

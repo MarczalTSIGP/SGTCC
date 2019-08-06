@@ -69,6 +69,10 @@ module Helpers
       I18n.t('helpers.no_results')
     end
 
+    def request_resource_name
+      I18n.t('flash.request.index')
+    end
+
     def message(key)
       I18n.t("flash.actions.#{key}", resource_name: resource_name)
     end

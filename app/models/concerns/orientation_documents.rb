@@ -5,7 +5,9 @@ module OrientationDocuments
 
   included do
     after_save do
-      Documents::SaveSignatures.new(self).save
+      params = { orientation_id: id }
+      DocumentType.find_by(identifier: :tco).documents.create!(params)
+      DocumentType.find_by(identifier: :tcai).documents.create!(params) if institution.present?
     end
 
     after_update do

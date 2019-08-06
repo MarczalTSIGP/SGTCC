@@ -1,4 +1,10 @@
 <% provide(:page_title, t('breadcrumbs.signatures.signeds')) %>
 <% provide(:head_title, t('breadcrumbs.signatures.signeds')) %>
 
+<div class="row">
+  <div class="col-12">
+    <search url="<%= professors_signatures_search_signed_path %>" search-term="<%= params[:term] %>" />
+  </div>
+</div>
+
 <%= render 'shared/signatures/table', entry_name: t('breadcrumbs.signatures.signeds') %>

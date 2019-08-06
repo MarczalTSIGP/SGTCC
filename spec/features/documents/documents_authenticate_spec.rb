@@ -2,14 +2,15 @@ require 'rails_helper'
 
 describe 'Document::authenticate', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
-  let(:signatures) { orientation.signatures }
-  let(:document) { signatures.first.document }
 
   before do
+    orientation.signatures << Signature.all
     orientation.signatures.each(&:sign)
   end
 
   describe '#authenticate' do
+    let(:document) { orientation.signatures.first.document }
+
     context 'when authenticate the signature code of the term of commitment' do
       it 'signs the document of the term of commitment' do
         visit document_path
