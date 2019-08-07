@@ -29,7 +29,9 @@
         redirect="/responsible/professors/unavailable"
       />
     </div>
-    <orientations-report :data="report.orientations" />
+    <div class="col-12">
+      <orientations-report :data="report.orientations" />
+    </div>
   </div>
 </template>
 

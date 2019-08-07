@@ -1,48 +1,66 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <orientations-chart
-              title="Orientações de TCC 1 - Geral"
-              :data="data.tcc_one"
-            />
-          </div>
-        </div>
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          Orientações de TCC 1
+        </h3>
       </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <orientations-chart
+                  title="Orientações no Total"
+                  :data="data.tcc_one"
+                />
+              </div>
+            </div>
+          </div>
 
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <orientations-chart
-              title="Orientações de TCC 2 - Geral"
-              :data="data.tcc_two"
-            />
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <orientations-chart
+                  :title="titleWithCalendar"
+                  :data="data.current_tcc_one"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <orientations-chart
-              title="Orientações de TCC 1 - Período atual"
-              :data="data.current_tcc_one"
-            />
-          </div>
-        </div>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          Orientações de TCC 2
+        </h3>
       </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <orientations-chart
+                  title="Orientações no Total"
+                  :data="data.tcc_two"
+                />
+              </div>
+            </div>
+          </div>
 
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <orientations-chart
-              title="Orientações de TCC 2 - Período atual"
-              :data="data.current_tcc_two"
-            />
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <orientations-chart
+                  :title="titleWithCalendar"
+                  :data="data.current_tcc_two"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -63,6 +81,12 @@ export default {
     data: {
       type: Object,
       required: true
+    },
+  },
+
+  computed: {
+    titleWithCalendar() {
+      return `Orientações em (${this.data.calendar})`;
     },
   },
 };

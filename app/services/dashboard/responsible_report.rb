@@ -13,16 +13,26 @@ class Dashboard::ResponsibleReport
   end
 
   def orientations_report
-    { tcc_one: orientations_by_tcc('tcc_one'),
+    { calendar: Calendar.current_by_tcc_one.year_with_semester,
+      tcc_one: orientations_by_tcc('tcc_one'),
       tcc_two: orientations_by_tcc('tcc_two'),
       current_tcc_one: orientations_by_tcc('current_tcc_one'),
       current_tcc_two: orientations_by_tcc('current_tcc_two') }
   end
 
   def orientations_by_tcc(method)
-    { in_progress: Orientation.send(method, 'IN_PROGRESS').count,
+    { total: Orientation.send(method, Orientation.statuses.values).count,
+      in_progress: Orientation.send(method, 'IN_PROGRESS').count,
       approved: Orientation.send(method, 'APPROVED').count,
-      renewed: Orientation.send(method, 'RENEWED').count / 2,
-      canceled: Orientation.send(method, 'CANCELED').count }
+      renewed: Orientation.send(method, 'RENEWED').count,
+      canceled: Orientation.send(method, 'CANCELED').count,
+      links: orientations_link(method) }
+  end
+
+  def orientations_link(method)
+    Orientation.statuses.values.map do |status|
+      url_helpers = Rails.application.routes.url_helpers
+      url_helpers.send("responsible_orientations_search_#{method}_path", status)
+    end
   end
 end

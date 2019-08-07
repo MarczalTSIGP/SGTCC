@@ -1,10 +1,17 @@
 <template>
   <div>
-    <apexchart
-      type="donut"
-      width="270"
-      :options="chartOptions"
-      :series="series"
+    <div>
+      <apexchart
+        type="pie"
+        width="90%"
+        height="280"
+        :options="chartOptions"
+        :series="series"
+      />
+    </div>
+    <a
+      ref="redirect"
+      href="#"
     />
   </div>
 </template>
@@ -36,14 +43,31 @@ export default {
       chartOptions: {
         labels: ['Em andamento', 'Aprovadas', 'Renovadas', 'Canceladas'],
         legend: {
-          position: 'bottom',
+          position: 'right',
         },
         title: {},
+        chart: {
+          events: {
+            legendClick: (event, seriesIndex) => {
+              const link = this.$refs.redirect;
+              link.href = this.data.links[seriesIndex];
+              link.click();
+            },
+          },
+        },
+        dataLabels: {
+          formatter: (val, { seriesIndex, w}) => {
+            return w.config.series[seriesIndex];
+          },
+        },
         responsive: [{
-          breakpoint: 200,
+          breakpoint: 1000,
           options: {
             chart: {
-              width: 100
+              width: 200
+            },
+            legend: {
+              position: 'bottom',
             },
           }
         }]
@@ -53,9 +77,6 @@ export default {
 
   created() {
     this.setTitle();
-  },
-
-  mounted() {
     this.setSeries();
   },
 
@@ -70,7 +91,7 @@ export default {
     },
 
     setTitle() {
-      this.chartOptions.title.text = this.title;
+      this.chartOptions.title.text = `${this.data.total} ${this.title}`;
     },
   },
 };
