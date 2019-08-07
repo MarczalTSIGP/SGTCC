@@ -17,7 +17,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   private
 
   def set_examination_board
-    @examination_board = current_professor.guest_examination_boards
+    @examination_board = current_professor.examination_boards
                                           .find(params[:id])
                                           .first
   end
