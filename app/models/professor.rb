@@ -46,6 +46,10 @@ class Professor < ApplicationRecord
            through: :examination_board_attendees,
            source: :examination_board
 
+  has_many :orientation_examination_boards,
+           through: :orientations,
+           source: :examination_boards
+
   validates :name,
             presence: true
 
@@ -92,6 +96,10 @@ class Professor < ApplicationRecord
     orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
       [orientation.id, orientation.academic_with_calendar]
     end
+  end
+
+  def guest_examination_boards(search = nil)
+    examination_boards.search(search) + orientation_examination_boards.search(search)
   end
 
   def self.current_responsible

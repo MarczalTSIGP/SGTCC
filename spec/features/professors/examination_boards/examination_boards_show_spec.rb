@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe 'ExaminationBoard::show', type: :feature do
-  let(:responsible) { create(:responsible) }
-  let!(:examination_board) { create(:examination_board) }
+  let(:professor) { create(:professor) }
+  let(:orientation) { create(:orientation, advisor: professor) }
+  let!(:examination_board) { create(:examination_board, orientation: orientation) }
 
   before do
-    login_as(responsible, scope: :professor)
-    visit responsible_examination_board_path(examination_board)
+    login_as(professor, scope: :professor)
+    visit professors_examination_board_path(examination_board)
   end
 
   describe '#show' do

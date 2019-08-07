@@ -26,7 +26,7 @@ describe 'ExaminationBoard::update', type: :feature, js: true do
         expect(page).to have_current_path responsible_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_contents([attributes[:place],
-                                       orientation.short_title])
+                                       orientation.academic_with_calendar])
       end
     end
 

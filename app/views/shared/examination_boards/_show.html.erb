@@ -5,21 +5,27 @@
   <div class="card-body">
     <p>
       <strong>
-        <%= ExaminationBoard.human_attribute_name('orienatation') %>:
+        <%= ExaminationBoard.human_attribute_name('orientation') %>:
       </strong>
       <%= @examination_board.orientation.title %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('advisor') %>:
+      </strong>
+      <%= @examination_board.orientation.advisor.name %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('academic') %>:
+      </strong>
+      <%= @examination_board.orientation.academic_with_calendar %>
     </p>
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('place') %>:
       </strong>
       <%= @examination_board.place %>
-    </p>
-    <p>
-      <strong>
-        <%= ExaminationBoard.human_attribute_name('tcc') %>:
-      </strong>
-      <%= ExaminationBoard.tccs[@examination_board.tcc] %>
     </p>
     <p>
       <strong>
@@ -64,6 +70,6 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
-  <%= link_to t('simple_form.buttons.edit'), edit_url, class: 'btn btn-primary ml-auto' %>
+  <%= yield(:edit_button) %>
 </div>
 

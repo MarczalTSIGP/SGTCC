@@ -23,7 +23,7 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
 
         expect(page).to have_current_path tcc_one_professors_examination_boards_tcc_one_path
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect(page).to have_message(attributes[:place], in: 'table tbody')
       end
     end
 

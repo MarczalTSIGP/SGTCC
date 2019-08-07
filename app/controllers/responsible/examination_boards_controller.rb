@@ -48,7 +48,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
     if @examination_board.save
       feminine_success_create_message
-      redirect_to responsible_examination_boards_path
+      redirect_to responsible_examination_boards_tcc_two_path
     else
       error_message
       render :new

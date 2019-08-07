@@ -222,6 +222,10 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
+
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
       get 'meetings/orientations/(:id)',
@@ -238,10 +242,6 @@ Rails.application.routes.draw do
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
-
-      get 'examination_boards',
-          to: 'examination_boards#index',
-          as: 'examination_boards'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
@@ -431,16 +431,16 @@ Rails.application.routes.draw do
 
       put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
+
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
-
-      get 'examination_boards',
-          to: 'examination_boards#index',
-          as: 'examination_boards'
 
       get '/calendars/(:calendar_id)/activities',
           to: 'activities#index',
@@ -489,14 +489,14 @@ Rails.application.routes.draw do
 
       resources :supervisions, only: [:show], constraints: { id: /[0-9]+/ }
 
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
+
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
       get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
-
-      get 'examination_boards',
-          to: 'examination_boards#index',
-          as: 'examination_boards'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 

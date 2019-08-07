@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe 'ExaminationBoard::show', type: :feature do
-  let(:responsible) { create(:responsible) }
+  let(:external_member) { create(:external_member) }
   let!(:examination_board) { create(:examination_board) }
 
   before do
-    login_as(responsible, scope: :professor)
-    visit responsible_examination_board_path(examination_board)
+    examination_board.external_members << external_member
+    login_as(external_member, scope: :external_member)
+    visit external_members_examination_board_path(examination_board)
   end
 
   describe '#show' do

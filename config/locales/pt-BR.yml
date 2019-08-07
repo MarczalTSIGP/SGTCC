@@ -269,6 +269,7 @@ pt-BR:
         scholarity: "Escolaridade"
         base_activity_type: "Tipo"
         academic: "Acadêmico"
+        advisor: "Orientador"
         role: "Papel"
         tcc: "TCC"
         deadline: "Prazo"
@@ -309,7 +310,6 @@ pt-BR:
         <<: *commons
       orientation:
         calendar: "Calendário"
-        advisor: "Orientador"
         institution: "Instituição externa"
         orientation_supervisors: "Coorientadores"
         professor_supervisors: "Coorientadores da UTFPR"
@@ -336,6 +336,7 @@ pt-BR:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
         orientation: "Orientação"
+        guests: "Convidados"
         place: "Local"
         <<: *commons
   placeholders:

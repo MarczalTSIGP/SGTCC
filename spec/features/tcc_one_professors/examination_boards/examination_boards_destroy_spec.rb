@@ -16,7 +16,7 @@ describe 'ExaminationBoard::destroy', type: :feature, js: true do
         click_on_destroy_link(tcc_one_professors_examination_board_path(examination_board))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_content(examination_board.orientation.short_title)
+        expect(page).not_to have_content(examination_board.orientation.academic_with_calendar)
       end
     end
   end

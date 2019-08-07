@@ -13,6 +13,8 @@ describe 'ExaminationBoard::show', type: :feature do
     context 'when shows the examination_board' do
       it 'shows the examination board' do
         expect(page).to have_contents([examination_board.orientation.title,
+                                       examination_board.orientation.academic_with_calendar,
+                                       examination_board.orientation.advisor.name,
                                        examination_board.place,
                                        complete_date(examination_board.date),
                                        complete_date(examination_board.created_at),

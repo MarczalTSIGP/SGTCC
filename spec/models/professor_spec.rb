@@ -56,6 +56,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
     it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
+    it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
   end
 
   describe '#human_genders' do
@@ -234,6 +235,24 @@ RSpec.describe Professor, type: :model do
     it 'is equal name with scholarity' do
       name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
       expect(professor.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
+
+  describe '#guest_examination_boards' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
+
+    before do
+      create(:examination_board, orientation: orientation)
+      examination_board_tcc_one.professors << professor
+    end
+
+    it 'is equal guest_examination_boards' do
+      guest_examination_boards = (professor.examination_boards +
+        professor.orientation_examination_boards)
+      expect(professor.guest_examination_boards).to match_array(guest_examination_boards)
+      expect(professor.guest_examination_boards.count).to eq(2)
     end
   end
 end

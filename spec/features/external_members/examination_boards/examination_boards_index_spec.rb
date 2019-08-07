@@ -13,11 +13,9 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
   describe '#index' do
     context 'when shows the examination boards of the tcc one calendar' do
       it 'shows the examination boards of the tcc one with options' do
-        tcc = ExaminationBoard.tccs[examination_board.tcc]
-
-        expect(page).to have_contents([examination_board.orientation.short_title,
+        expect(page).to have_contents([examination_board.orientation.academic_with_calendar,
+                                       examination_board.orientation.advisor.name,
                                        examination_board.place,
-                                       tcc,
                                        datetime(examination_board.date)])
 
         examination_board.professors.each do |professor|
