@@ -80,4 +80,8 @@ class Professor < ApplicationRecord
   def self.current_responsible
     joins(:roles).find_by('roles.identifier': :responsible)
   end
+
+  def self.current_coordinator
+    joins(:roles).find_by('roles.identifier': :coordinator)
+  end
 end

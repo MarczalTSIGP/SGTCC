@@ -1,14 +1,13 @@
 <template>
   <base-term-layout :document-id="documentId">
     <p>
-      Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,
-      declaro para os devidos fins, desistir da orientação do trabalho de conclusão de
-      curso intitulado <b>{{ term.orientation.title }}</b> do acadêmico
-      <b>{{ term.academic.name }}</b>, RA {{ term.academic.ra }}.
+      Eu, <b>{{ term.academic.name }}</b>, acadêmico(a) desta instituição,
+      solicito a extensão do prazo de trabalho de conclusão de curso em 1 (um)
+      semestre levito.
     </p>
 
     <p>
-      <b>Motivos da desistência</b>: <br>
+      <b>Justificativa</b>: <br>
       <span class="ml-4">
         {{ request.requester.justification }}
       </span>
@@ -22,7 +21,7 @@ import baseTermData from './base_term_data';
 import BaseTermLayout from './base_term_layout';
 
 export default {
-  name: 'TermOfAbandonment',
+  name: 'TermOfExtension',
 
   components: { BaseTermLayout },
 

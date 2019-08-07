@@ -9,6 +9,7 @@ class Document < ApplicationRecord
   has_many :signatures, dependent: :destroy
 
   validates :justification, :orientation_id, presence: true, if: -> { document_type.tdo? }
+  validates :justification, presence: true, if: -> { document_type.tep? }
 
   after_create :generate_unique_code,
                :create_signatures,
@@ -28,25 +29,32 @@ class Document < ApplicationRecord
 
   def status_table
     signatures.map do |signature|
-      { name: signature.user.name, status: signature.status }
+      { name: signature.user.name, status: signature.status,
+        role: I18n.t("signatures.users.roles.#{signature.user.gender}.#{signature.user_type}") }
     end
   end
 
   def self.new_tdo(professor, params = {})
     document = DocumentType.find_by(identifier: :tdo).documents.new(params)
-    document.request = { requester: { id: professor.id, name: professor.name,
-                                      type: 'advisor', justification: document.justification } }
+    new_request(professor, 'advisor', document)
+  end
+
+  def self.new_tep(academic, params = {})
+    params[:orientation_id] = academic.current_orientation_tcc_two.first.id
+    document = DocumentType.find_by(identifier: :tep).documents.new(params)
+    new_request(academic, 'academic', document)
+  end
+
+  def self.new_request(user, user_type, document)
+    document.request = { requester: { id: user.id, name: user.name,
+                                      type: user_type, justification: document.justification } }
     document
   end
 
   private
 
   def create_signatures
-    documents = Documents::SaveSignatures.new(self)
-    return documents.save_tco if document_type.tco?
-    return documents.save_tcai if document_type.tcai?
-
-    documents.save_tdo
+    Documents::SaveSignatures.new(self).send("save_#{document_type.identifier}")
   end
 
   def generate_unique_code

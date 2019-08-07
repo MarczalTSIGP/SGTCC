@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  get 'documents/images',
+      to: 'documents#images',
+      as: 'document_images'
+
   post 'documents/(:id)/mark',
        to: 'documents#mark',
        as: 'document_mark'
@@ -189,7 +193,7 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                except: [:show, :destroy],
+                only: [:index, :new, :create],
                 constraints: { id: /[0-9]+/ }
 
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
@@ -350,6 +354,10 @@ Rails.application.routes.draw do
   authenticate :academic do
     namespace :academics do
       root to: 'dashboard#index'
+
+      resources :tep_requests,
+                only: [:index, :new, :create],
+                constraints: { id: /[0-9]+/ }
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'

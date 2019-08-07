@@ -182,7 +182,7 @@ RSpec.describe Professor, type: :model do
     it 'returns the reviewing signatures' do
       signatures = Signature.joins(:document)
                             .where(user_id: professor.id,
-                                   user_type: 'AD')
+                                   user_type: 'AD', status: false)
                             .where.not(documents: { request: nil })
       expect(professor.signatures_for_review).to match_array(signatures)
     end
@@ -210,6 +210,17 @@ RSpec.describe Professor, type: :model do
     it 'is equal current responsible' do
       responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
       expect(Professor.current_responsible).to eq(responsible)
+    end
+  end
+
+  describe '#current_coordinator' do
+    before do
+      create(:coordinator)
+    end
+
+    it 'is equal current coordinator' do
+      coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
+      expect(Professor.current_coordinator).to eq(coordinator)
     end
   end
 end
