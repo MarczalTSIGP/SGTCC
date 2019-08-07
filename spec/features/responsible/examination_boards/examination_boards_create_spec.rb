@@ -17,7 +17,7 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
     context 'when examination_board is valid' do
       it 'create an examination_board' do
         attributes = attributes_for(:examination_board_tcc_one)
-        selectize(orientation.title, from: 'examination_board_orientation_id')
+        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 

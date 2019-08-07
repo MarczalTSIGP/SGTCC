@@ -55,7 +55,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
-    it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
+    it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
   end
 
@@ -238,7 +238,7 @@ RSpec.describe Professor, type: :model do
     end
   end
 
-  describe '#guest_examination_boards' do
+  describe '#examination_boards' do
     let!(:professor) { create(:professor) }
     let!(:orientation) { create(:orientation, advisor: professor) }
     let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
@@ -249,10 +249,10 @@ RSpec.describe Professor, type: :model do
     end
 
     it 'is equal guest_examination_boards' do
-      guest_examination_boards = (professor.examination_boards +
+      examination_boards = (professor.guest_examination_boards +
         professor.orientation_examination_boards)
-      expect(professor.guest_examination_boards).to match_array(guest_examination_boards)
-      expect(professor.guest_examination_boards.count).to eq(2)
+      expect(professor.examination_boards).to match_array(examination_boards)
+      expect(professor.examination_boards.count).to eq(2)
     end
   end
 end

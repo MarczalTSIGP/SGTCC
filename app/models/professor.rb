@@ -42,7 +42,7 @@ class Professor < ApplicationRecord
            source: :examination_board,
            dependent: :destroy
 
-  has_many :examination_boards,
+  has_many :guest_examination_boards,
            through: :examination_board_attendees,
            source: :examination_board
 
@@ -98,8 +98,9 @@ class Professor < ApplicationRecord
     end
   end
 
-  def guest_examination_boards(search = nil)
-    examination_boards.search(search) + orientation_examination_boards.search(search)
+  def examination_boards(search = nil)
+    (guest_examination_boards.search(search).with_relationships +
+      orientation_examination_boards.search(search).with_relationships)
   end
 
   def self.current_responsible

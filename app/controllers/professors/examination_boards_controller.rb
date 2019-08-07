@@ -5,7 +5,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
                  :professors_examination_boards_path
 
   def index
-    data = current_professor.guest_examination_boards(params[:term])
+    data = current_professor.examination_boards(params[:term])
     @examination_boards = Kaminari.paginate_array(data).page(params[:page])
   end
 

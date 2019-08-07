@@ -20,7 +20,7 @@ describe 'ExaminationBoard::update', type: :feature, js: true do
       it 'updates the examination_board' do
         attributes = attributes_for(:examination_board)
         fill_in 'examination_board_place', with: attributes[:place]
-        selectize(orientation.title, from: 'examination_board_orientation_id')
+        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_examination_board_path(examination_board)
