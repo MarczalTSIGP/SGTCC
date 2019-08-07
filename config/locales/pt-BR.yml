@@ -25,6 +25,8 @@ pt-BR:
       sign: 'Assinar'
       authenticate: 'Autenticar'
       orientation:
+        meeting:
+          view: 'Dar ciência'
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
         abandon: 'Desistir da orientação'
