@@ -17,6 +17,11 @@
       </strong>
       <%= complete_date(@meeting.date) %>
     </p>
+    <div>
+      <meeting-view
+        :id="<%= @meeting.id %>"
+        :value="<%= @meeting.viewed %>" />
+    </div>
   </div>
 </div>
 

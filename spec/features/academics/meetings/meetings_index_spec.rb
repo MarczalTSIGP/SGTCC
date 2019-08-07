@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Meeting::index', type: :feature, js: true do
   let!(:academic) { create(:academic) }
-  let!(:meetings) { create_list(:meeting, 3) }
+  let(:meetings) { create_list(:meeting, 3) }
 
   before do
     academic.orientations << Orientation.all

@@ -372,6 +372,8 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
+
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'

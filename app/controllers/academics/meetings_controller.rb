@@ -1,5 +1,5 @@
 class Academics::MeetingsController < Academics::BaseController
-  before_action :set_meeting, only: :show
+  before_action :set_meeting, only: [:show, :update_viewed]
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
                  :academics_meetings_path
@@ -16,6 +16,10 @@ class Academics::MeetingsController < Academics::BaseController
   end
 
   def show; end
+
+  def update_viewed
+    render json: @meeting.update_viewed
+  end
 
   private
 

@@ -373,6 +373,10 @@ pt-BR:
     request:
       index: "Solicitação"
     orientation:
+      meeting:
+        errors:
+          edit: 'Não é possível editar reunião, pois o acadêmico deu ciência da mesma!'
+          destroy: 'Não é possível excluir reunião, pois o acadêmico deu ciência da mesma!'
       destroy:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:

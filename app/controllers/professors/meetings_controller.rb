@@ -1,6 +1,8 @@
 class Professors::MeetingsController < Professors::BaseController
   before_action :set_orientation, only: :orientation
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :can_edit, only: :edit
+  before_action :can_destroy, only: :destroy
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
                  :professors_meetings_path
@@ -81,5 +83,19 @@ class Professors::MeetingsController < Professors::BaseController
 
   def meeting_params
     params.require(:meeting).permit(:date, :content, :orientation_id)
+  end
+
+  def can_update(action)
+    return if @meeting.can_update?
+    flash[:alert] = I18n.t("flash.orientation.meeting.errors.#{action}")
+    redirect_to professors_meetings_path
+  end
+
+  def can_edit
+    can_update('edit')
+  end
+
+  def can_destroy
+    can_update('destroy')
   end
 end

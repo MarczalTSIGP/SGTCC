@@ -29,5 +29,18 @@ describe 'Meeting::update', type: :feature, js: true do
         expect(page).to have_content(new_orientation.academic_with_calendar)
       end
     end
+
+    context 'when the meeting cant be edited' do
+      let(:meeting) { create(:meeting, orientation: orientation, viewed: true) }
+
+      before do
+        visit edit_professors_meeting_path(meeting)
+      end
+
+      it 'redirect to the meetings page' do
+        expect(page).to have_current_path professors_meetings_path
+        expect(page).to have_flash(:warning, text: meeting_edit_warning_message)
+      end
+    end
   end
 end
