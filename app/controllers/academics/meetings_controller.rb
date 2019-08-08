@@ -12,7 +12,7 @@ class Academics::MeetingsController < Academics::BaseController
     @meetings = current_academic.meetings
                                 .with_relationship
                                 .page(params[:page])
-                                .order(created_at: :desc)
+                                .recent
   end
 
   def show; end
