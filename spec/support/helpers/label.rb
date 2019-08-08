@@ -16,20 +16,8 @@ module Helpers
       I18n.t('reports.professors.label.unavailable')
     end
 
-    def orientations_in_progress_label
-      I18n.t('reports.orientations.label.in_progress')
-    end
-
-    def orientations_approved_label
-      I18n.t('reports.orientations.label.approved')
-    end
-
-    def orientations_renewed_label
-      I18n.t('reports.orientations.label.renewed')
-    end
-
-    def orientations_canceled_label
-      I18n.t('reports.orientations.label.canceled')
+    def meeting_view_label
+      I18n.t('views.buttons.orientation.meeting.view')
     end
   end
 end

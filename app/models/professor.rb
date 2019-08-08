@@ -33,6 +33,8 @@ class Professor < ApplicationRecord
            through: :professor_supervisors,
            source: :orientation
 
+  has_many :meetings, through: :orientations
+
   validates :name,
             presence: true
 

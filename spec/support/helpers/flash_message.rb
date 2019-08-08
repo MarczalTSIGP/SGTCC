@@ -89,6 +89,14 @@ module Helpers
       I18n.t('flash.orientation.destroy.signed')
     end
 
+    def meeting_edit_warning_message
+      I18n.t('flash.orientation.meeting.errors.edit')
+    end
+
+    def meeting_destroy_warning_message
+      I18n.t('flash.orientation.meeting.errors.destroy')
+    end
+
     def signature_signed_success_message
       I18n.t('json.messages.orientation.signatures.confirm.success')
     end

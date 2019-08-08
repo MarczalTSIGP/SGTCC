@@ -6,7 +6,8 @@ namespace :db do
 
     populate_tasks = %w[academics professors
                         external_members institutions
-                        base_activities calendars orientations]
+                        base_activities calendars orientations
+                        meetings]
 
     Rake::Task['db:clean'].invoke
     puts 'DB seed...'

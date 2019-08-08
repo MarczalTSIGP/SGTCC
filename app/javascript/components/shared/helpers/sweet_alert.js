@@ -17,5 +17,15 @@ export default {
     showErrorMessage(message) {
       this.showMessage(message, 'error');
     },
+
+    confirmMessage(message) {
+      return swal({
+        title: '',
+        text: message,
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      });
+    },
   },
 };
