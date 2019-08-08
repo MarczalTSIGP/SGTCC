@@ -117,7 +117,7 @@ class Orientation < ApplicationRecord
   end
 
   def academic_with_calendar
-    "#{academic.name} (#{academic.ra}) / #{calendar.year_with_semester_and_tcc}"
+    "#{academic.name} (#{academic.ra}) | #{calendar.year_with_semester_and_tcc}"
   end
 
   def self.select_status_data

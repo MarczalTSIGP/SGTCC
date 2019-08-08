@@ -309,7 +309,7 @@ pt-BR:
         <<: *commons
   placeholders:
     meetings:
-      content: "Discutido: \n\nTarefas para o acadêmico: \n\nTarefas para o orientador: \n\nConcluído: "
+      content: "Discutido: \n\n\nTarefas para o acadêmico: \n\n\nTarefas para o orientador: \n\n\nConcluído: "
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
