@@ -31,7 +31,6 @@ describe 'Meeting::create', type: :feature, js: true do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.meeting_content')
         expect(page).to have_message(required_error_message, in: 'div.meeting_orientation')
       end
     end
