@@ -35,6 +35,10 @@ class Professor < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :orientation_examination_boards,
+           through: :orientations,
+           source: :examination_boards
+
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
            foreign_key: :professor_id,
@@ -45,10 +49,6 @@ class Professor < ApplicationRecord
   has_many :guest_examination_boards,
            through: :examination_board_attendees,
            source: :examination_board
-
-  has_many :orientation_examination_boards,
-           through: :orientations,
-           source: :examination_boards
 
   validates :name,
             presence: true
