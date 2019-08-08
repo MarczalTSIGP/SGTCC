@@ -21,7 +21,7 @@
         </div>
 
         <span class="ml-4">
-          <b>Coorientadores:</b>
+          <b>{{ orientationSupervisorsLabel }}:</b>
         </span>
 
         <div v-if="hasProfessorSupervisors()">
@@ -50,37 +50,37 @@
       <b>Dados da nova orientação</b>
       <span class="ml-4">
         <div>
-          <p>
-            <span class="ml-4">
-              <b>Orientador:</b>
-            </span>
-            <br>
-            <span class="ml-6">
-              {{ request.new_orientation.advisor.name }}
-            </span>
-          </p>
+          <span class="ml-4">
+            <b>Orientador:</b>
+          </span>
+          <br>
+          <span class="ml-6">
+            {{ request.new_orientation.advisor.name }}
+          </span>
         </div>
       </span>
 
-      <span class="ml-4">
-        <b>Coorientadores:</b><br>
-      </span>
+      <div v-if="hasNewProfessorSupervisors() || hasNewExternalMemberSupervisors()">
+        <span class="ml-4">
+          <b>{{ newOrientationSupervisorsLabel }}:</b><br>
+        </span>
 
-      <span
-        v-for="professorSupervisor in request.new_orientation.professorSupervisors"
-        :key="professorSupervisor.id"
-        class="ml-6"
-      >
-        {{ professorSupervisor.name }} <br>
-      </span>
+        <span
+          v-for="professorSupervisor in request.new_orientation.professorSupervisors"
+          :key="professorSupervisor.id"
+          class="ml-6"
+        >
+          {{ professorSupervisor.name }} <br>
+        </span>
 
-      <span
-        v-for="externalMemberSupervisor in request.new_orientation.externalMemberSupervisors"
-        :key="externalMemberSupervisor.id"
-        class="ml-6"
-      >
-        {{ externalMemberSupervisor.name }} <br>
-      </span>
+        <span
+          v-for="externalMemberSupervisor in request.new_orientation.externalMemberSupervisors"
+          :key="externalMemberSupervisor.id"
+          class="ml-6"
+        >
+          {{ externalMemberSupervisor.name }} <br>
+        </span>
+      </div>
     </div>
 
     <br>
@@ -104,5 +104,32 @@ export default {
   components: { BaseTermLayout },
 
   mixins: [baseTermData],
+
+  computed: {
+    orientationSupervisorsLabel() {
+      return this.supervisorsLabel(this.term);
+    },
+
+    newOrientationSupervisorsLabel() {
+      return this.supervisorsLabel(this.request.new_orientation);
+    },
+  },
+
+  methods: {
+    supervisorsLabel(orientation) {
+      return (orientation.professorSupervisors.length +
+        orientation.externalMemberSupervisors.length) > 1
+        ? 'Coorientadores'
+        : 'Coorientador';
+    },
+
+    hasNewProfessorSupervisors() {
+      return this.request.new_orientation.professorSupervisors.length > 0;
+    },
+
+    hasNewExternalMemberSupervisors() {
+      return this.request.new_orientation.externalMemberSupervisors.length > 0;
+    },
+  },
 };
 </script>
