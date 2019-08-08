@@ -11,26 +11,4 @@
   <%= page_entries_info @examination_boards %>
 </div>
 
-<div class="table-striped mt-3 table-responsive w-100">
-  <table class="table card-table table-vcenter text-nowrap">
-    <thead>
-      <tr>
-        <th><%= ExaminationBoard.human_attribute_name('orientation') %></th>
-        <th><%= ExaminationBoard.human_attribute_name('place') %></th>
-        <th><%= ExaminationBoard.human_attribute_name('date') %></th>
-        <th><%= ExaminationBoard.human_attribute_name('advisor') %></th>
-        <th><%= ExaminationBoard.human_attribute_name('guests') %></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <%= render('shared/no_results') if @examination_boards.empty? %>
-      </tr>
-      <%= render @examination_boards %>
-    </tbody>
-  </table>
-</div>
-
-<%= paginate @examination_boards %>
+<%= render 'shared/examination_boards/table' %>

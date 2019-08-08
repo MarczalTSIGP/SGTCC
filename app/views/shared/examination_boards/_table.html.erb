@@ -1,14 +1,8 @@
-<div class="text-right mt-3">
-  <%= page_entries_info @examination_boards %>
-</div>
-
-<%= render('tabs') %>
-
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
-        <th><%= ExaminationBoard.human_attribute_name('orientation') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('academic') %></th>
         <th><%= ExaminationBoard.human_attribute_name('place') %></th>
         <th><%= ExaminationBoard.human_attribute_name('date') %></th>
         <th><%= ExaminationBoard.human_attribute_name('advisor') %></th>
