@@ -45,6 +45,12 @@ class Document < ApplicationRecord
     new_request(academic, 'academic', document)
   end
 
+  def self.new_tso(academic, params = {})
+    params[:orientation_id] = academic.current_orientation.id
+    document = DocumentType.find_by(identifier: :tso).documents.new(params)
+    new_request(academic, 'academic', document)
+  end
+
   def self.new_request(user, user_type, document)
     document.request = { requester: { id: user.id, name: user.name,
                                       type: user_type, justification: document.justification } }

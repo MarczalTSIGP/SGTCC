@@ -118,10 +118,14 @@ pt-BR:
         index: "Solicitações"
         new: "Nova solicitação"
         show: "Visualizar solicitação"
+        tso:
+          sidebar: "Substituição do TCC"
+          index: "Solicitações de substituição do TCC"
+          new: "Solicitar substituição do TCC"
         tep:
-          sidebar: "Extensão do prazo do TCC"
+          sidebar: "Extensão de prazo do TCC"
           index: "Solicitações de extensão do prazo do TCC"
-          new: "Solicitar extensão do prazo do TCC"
+          new: "Solicitar extensão de prazo do TCC"
         tdo:
           new: "Solicitar desistência de orientação"
           show: "Visualizar solicitação de desistência de orientação"
@@ -466,6 +470,7 @@ pt-BR:
       TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
       TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
       TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
+      TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'

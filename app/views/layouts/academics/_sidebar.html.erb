@@ -66,6 +66,14 @@
         <%= t('breadcrumbs.documents.requests.tep.sidebar') %>
       <% end %>
     <% end %>
+
+    <%= active_link_to(academics_tso_requests_path,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('fas', 'exchange-alt') %>
+      </span>
+      <%= t('breadcrumbs.documents.requests.tso.sidebar') %>
+    <% end %>
   </div>
 
   <%= render 'layouts/shared/signature_menu', resource: 'academics',

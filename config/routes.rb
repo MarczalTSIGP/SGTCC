@@ -367,6 +367,10 @@ Rails.application.routes.draw do
                 only: [:index, :new, :create],
                 constraints: { id: /[0-9]+/ }
 
+      resources :tso_requests,
+                only: [:index, :new, :create],
+                constraints: { id: /[0-9]+/ }
+
       resources :meetings,
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ },
