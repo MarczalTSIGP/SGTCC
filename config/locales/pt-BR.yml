@@ -306,6 +306,7 @@ pt-BR:
       meeting:
         content: "Conteúdo"
         date: "Data"
+        viewed: "Ciência"
         <<: *commons
   placeholders:
     meetings:

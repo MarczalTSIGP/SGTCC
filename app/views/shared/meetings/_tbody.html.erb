@@ -1,4 +1,6 @@
 <td><%= meeting.orientation.academic_with_calendar %></td>
 <td><%= short_date(meeting.date) %></td>
 <td><%= short_date(meeting.updated_at) %></td>
+<td><%= t("helpers.boolean.#{meeting.viewed}") %></td>
+
 

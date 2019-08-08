@@ -7,7 +7,7 @@ class Meeting < ApplicationRecord
   scope :with_relationship, -> { includes(orientation: [:academic, :calendar]) }
 
   scope :recent, lambda {
-    joins(orientation: [:academic]).order('meetings.date DESC, academics.name ASC')
+    joins(orientation: [:academic]).order('academics.name ASC, meetings.date DESC')
   }
 
   def update_viewed
