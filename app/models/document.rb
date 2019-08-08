@@ -2,7 +2,8 @@ class Document < ApplicationRecord
   include TermJsonData
   include SignatureMark
 
-  attr_accessor :orientation_id, :justification
+  attr_accessor :orientation_id, :advisor_id, :justification,
+                :professor_supervisor_ids, :external_member_supervisor_ids
 
   belongs_to :document_type
 
@@ -10,6 +11,7 @@ class Document < ApplicationRecord
 
   validates :justification, :orientation_id, presence: true, if: -> { document_type.tdo? }
   validates :justification, presence: true, if: -> { document_type.tep? }
+  validates :justification, :advisor_id, presence: true, if: -> { document_type.tso? }
 
   after_create :generate_unique_code,
                :create_signatures,
@@ -34,6 +36,28 @@ class Document < ApplicationRecord
     end
   end
 
+  def requester_data(user, user_type)
+    { id: user.id, name: user.name, type: user_type, justification: justification }
+  end
+
+  def new_orientation_data
+    advisor = Professor.find(advisor_id)
+    advisor_data = { id: advisor.id, name: advisor.name }
+
+    { advisor: advisor_data, professorSupervisors: select_professor_supervisors,
+      externalMemberSupervisors: select_external_members }
+  end
+
+  def select_professor_supervisors
+    professors = Professor.find(professor_supervisor_ids)
+    Orientation.new.supervisors_to_document(professors)
+  end
+
+  def select_external_members
+    external_members = ExternalMember.find(external_member_supervisor_ids)
+    Orientation.new.supervisors_to_document(external_members)
+  end
+
   def self.new_tdo(professor, params = {})
     document = DocumentType.find_by(identifier: :tdo).documents.new(params)
     new_request(professor, 'advisor', document)
@@ -47,13 +71,21 @@ class Document < ApplicationRecord
 
   def self.new_tso(academic, params = {})
     params[:orientation_id] = academic.current_orientation.id
+    params[:professor_supervisor_ids].shift
+    params[:external_member_supervisor_ids].shift
+
     document = DocumentType.find_by(identifier: :tso).documents.new(params)
-    new_request(academic, 'academic', document)
+    new_orientation_request(academic, 'academic', document)
+  end
+
+  def self.new_orientation_request(user, user_type, document)
+    document.request = { requester: document.requester_data(user, user_type),
+                         new_orientation: document.new_orientation_data }
+    document
   end
 
   def self.new_request(user, user_type, document)
-    document.request = { requester: { id: user.id, name: user.name,
-                                      type: user_type, justification: document.justification } }
+    document.request = { requester: document.requester_data(user, user_type) }
     document
   end
 

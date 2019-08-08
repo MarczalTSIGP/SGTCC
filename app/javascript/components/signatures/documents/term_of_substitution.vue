@@ -5,26 +5,26 @@
       solicito a substituição de orientação.
     </p>
 
-    <b>Dados da orientação em andamento</b>
-    <span class="ml-4">
-      <div>
-        <p>
-          <span class="ml-4">
-            <b>Orientador:</b>
-          </span>
-          <br>
-          <span class="ml-6">
-            {{ term.advisor.name }}
-          </span>
-        </p>
-      </div>
+    <div>
+      <b>Dados da orientação em andamento</b>
+      <span class="ml-4">
+        <div>
+          <p>
+            <span class="ml-4">
+              <b>Orientador:</b>
+            </span>
+            <br>
+            <span class="ml-6">
+              {{ term.advisor.name }}
+            </span>
+          </p>
+        </div>
 
-      <div v-if="hasProfessorSupervisors()">
-        <p>
-          <span class="ml-4">
-            <b>{{ professorSupervisorLabel }}:</b>
-          </span>
-          <br>
+        <span class="ml-4">
+          <b>Coorientadores:</b>
+        </span>
+
+        <div v-if="hasProfessorSupervisors()">
           <span
             v-for="professorSupervisor in term.professorSupervisors"
             :key="professorSupervisor.id"
@@ -32,15 +32,9 @@
           >
             {{ professorSupervisor.name }} <br>
           </span>
-        </p>
-      </div>
+        </div>
 
-      <div v-if="hasExternalMemberSupervisors()">
-        <p>
-          <span class="ml-4">
-            <b>{{ externalMemberSupervisorLabel }}:</b>
-          </span>
-          <br>
+        <div v-if="hasExternalMemberSupervisors()">
           <span
             v-for="externalMemberSupervisor in term.externalMemberSupervisors"
             :key="externalMemberSupervisor.id"
@@ -48,10 +42,48 @@
           >
             {{ externalMemberSupervisor.name }} <br>
           </span>
-        </p>
-      </div>
-    </span>
+        </div>
+      </span>
+    </div>
 
+    <div>
+      <b>Dados da nova orientação</b>
+      <span class="ml-4">
+        <div>
+          <p>
+            <span class="ml-4">
+              <b>Orientador:</b>
+            </span>
+            <br>
+            <span class="ml-6">
+              {{ request.new_orientation.advisor.name }}
+            </span>
+          </p>
+        </div>
+      </span>
+
+      <span class="ml-4">
+        <b>Coorientadores:</b><br>
+      </span>
+
+      <span
+        v-for="professorSupervisor in request.new_orientation.professorSupervisors"
+        :key="professorSupervisor.id"
+        class="ml-6"
+      >
+        {{ professorSupervisor.name }} <br>
+      </span>
+
+      <span
+        v-for="externalMemberSupervisor in request.new_orientation.externalMemberSupervisors"
+        :key="externalMemberSupervisor.id"
+        class="ml-6"
+      >
+        {{ externalMemberSupervisor.name }} <br>
+      </span>
+    </div>
+
+    <br>
     <p>
       <b>Justificativa</b>: <br>
       <span class="ml-4">

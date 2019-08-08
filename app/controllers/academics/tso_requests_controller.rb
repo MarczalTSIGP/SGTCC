@@ -33,6 +33,8 @@ class Academics::TsoRequestsController < Academics::BaseController
   end
 
   def request_params
-    params.require(:document).permit(:justification)
+    params.require(:document)
+          .permit(:justification, :advisor_id,
+                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
   end
 end

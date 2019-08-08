@@ -307,6 +307,10 @@ pt-BR:
       document:
         orientation_id: "Orientação"
         justification: "Justificativa"
+        advisor_id: "Novo Orientador"
+        new_advisor: "Novo Orientador"
+        professor_supervisor_ids: "Novos Coorientadores da UTFPR"
+        external_member_supervisor_ids: "Novos Coorientadores externos"
       meeting:
         content: "Conteúdo"
         date: "Data"
