@@ -5,11 +5,8 @@ class Professors::MeetingsController < Professors::BaseController
   before_action :can_destroy, only: :destroy
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
-                 :professors_meetings_path
-
-  add_breadcrumb I18n.t('breadcrumbs.meetings.show'),
-                 :professors_meeting_path,
-                 only: [:show]
+                 :professors_meetings_path,
+                 only: [:index, :show, :edit]
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.new'),
                  :new_professors_meeting_path,
@@ -26,7 +23,10 @@ class Professors::MeetingsController < Professors::BaseController
                                  .order(created_at: :desc)
   end
 
-  def show; end
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.meetings.show'),
+                   professors_meeting_path
+  end
 
   def new
     @meeting = Meeting.new
@@ -64,6 +64,9 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def orientation
+    add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
+                   professors_orientation_meetings_path(@orientation)
+
     @meetings = @orientation.meetings
                             .page(params[:page])
                             .order(created_at: :desc)

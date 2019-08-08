@@ -202,7 +202,7 @@ Rails.application.routes.draw do
 
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
-      get 'orientations/(:id)/meetings',
+      get 'meetings/orientations/(:id)',
           to: 'meetings#orientation',
           as: 'orientation_meetings'
 
