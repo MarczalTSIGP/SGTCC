@@ -22,5 +22,10 @@ FactoryBot.define do
       name { I18n.t('signatures.documents.TEP') }
       identifier { DocumentType.identifiers[:tep] }
     end
+
+    factory :document_type_tso do
+      name { I18n.t('signatures.documents.TSO') }
+      identifier { DocumentType.identifiers[:tso] }
+    end
   end
 end
