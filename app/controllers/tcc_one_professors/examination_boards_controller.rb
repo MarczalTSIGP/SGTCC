@@ -82,7 +82,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def set_examination_board
-    @examination_board = ExaminationBoard.find(params[:id])
+    @examination_board = ExaminationBoard.with_relationships.find(params[:id])
   end
 
   def examination_board_params

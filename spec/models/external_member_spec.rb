@@ -161,4 +161,13 @@ RSpec.describe ExternalMember, type: :model do
       expect(external_member.signatures_pending).to match_array(signatures)
     end
   end
+
+  describe '#name_with_scholarity' do
+    let(:external_member) { create(:external_member) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{external_member.scholarity.abbr} #{external_member.name}"
+      expect(external_member.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
 end

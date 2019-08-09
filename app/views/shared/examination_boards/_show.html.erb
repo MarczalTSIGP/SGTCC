@@ -38,8 +38,9 @@
         <strong>
           <%= ExaminationBoard.human_attribute_name('professors') %>:
         </strong>
+        <br>
         <% @examination_board.professors.each do |professor| %>
-          <%= professor.name %>
+          <%= professor.name_with_scholarity %><br>
         <% end %>
       </p>
     <% end %>
@@ -48,8 +49,9 @@
         <strong>
           <%= ExaminationBoard.human_attribute_name('external_members') %>:
         </strong>
+        <br>
         <% @examination_board.external_members.each do |external_member| %>
-          <%= external_member.name %>
+          <%= external_member.name_with_scholarity %><br>
         <% end %>
       </p>
     <% end %>

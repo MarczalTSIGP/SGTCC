@@ -7,10 +7,13 @@
 <td><%= datetime(examination_board.date) %></td>
 <td><%= examination_board.orientation.advisor.name %></td>
 <td>
+  <b><%= ExaminationBoard.human_attribute_name('professors') %></b>
   <% examination_board.professors.each do |professor| %>
-    <p class="m-0"><%= professor.name %></p>
+    <p class="m-0"><%= professor.name_with_scholarity %></p>
   <% end %>
+  <br>
+  <b><%= ExaminationBoard.human_attribute_name('external_members') %></b>
   <% examination_board.external_members.each do |external_member| %>
-    <p class="m-0"><%= external_member.name %></p>
+    <p class="m-0"><%= external_member.name_with_scholarity %></p>
   <% end %>
 </td>

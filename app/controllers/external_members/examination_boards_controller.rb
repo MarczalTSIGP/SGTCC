@@ -21,6 +21,7 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
 
   def set_examination_board
     @examination_board = current_external_member.examination_boards
+                                                .with_relationships
                                                 .find(params[:id])
   end
 end

@@ -27,6 +27,8 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
   scope :with_relationships, lambda {
-    includes(:professors, :external_members, orientation: [:advisor, :academic, :calendar])
+    includes(external_members: [:scholarity],
+             professors: [:scholarity],
+             orientation: [:advisor, :academic, :calendar])
   }
 end

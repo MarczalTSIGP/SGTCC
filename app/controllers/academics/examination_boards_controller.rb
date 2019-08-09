@@ -20,6 +20,8 @@ class Academics::ExaminationBoardsController < Academics::BaseController
   private
 
   def set_examination_board
-    @examination_board = current_academic.examination_boards.find(params[:id])
+    @examination_board = current_academic.examination_boards
+                                         .with_relationships
+                                         .find(params[:id])
   end
 end
