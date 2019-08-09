@@ -216,7 +216,7 @@ RSpec.describe Document, type: :model do
     end
 
     let(:new_orientation_data) do
-      { advisor: { id: professor.id, name: professor.name },
+      { advisor: { id: professor.id, name: professor.name_with_scholarity },
         professorSupervisors: [], externalMemberSupervisors: [] }
     end
 

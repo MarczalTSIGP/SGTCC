@@ -224,4 +224,13 @@ RSpec.describe Professor, type: :model do
       expect(Professor.current_coordinator).to eq(coordinator)
     end
   end
+
+  describe '#name_with_scholarity' do
+    let(:professor) { create(:professor) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
+      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
 end

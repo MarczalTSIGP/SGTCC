@@ -42,7 +42,7 @@ class Document < ApplicationRecord
 
   def new_orientation_data
     advisor = Professor.find(advisor_id) if advisor_id.present?
-    advisor_data = { id: advisor&.id, name: advisor&.name }
+    advisor_data = { id: advisor&.id, name: advisor&.name_with_scholarity }
 
     { advisor: advisor_data, professorSupervisors: select_professor_supervisors,
       externalMemberSupervisors: select_external_members }
