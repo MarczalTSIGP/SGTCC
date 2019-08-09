@@ -9,28 +9,8 @@ export default {
   components: { TermHeader, TermFooter, SignatureMark },
 
   props: {
-    urlSignatureMark: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureCode: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureData: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureImage: {
-      type: String,
-      required: true
-    },
-
-    urlHeaderImage: {
-      type: String,
+    documentId: {
+      type: Number,
       required: true
     },
   },
@@ -39,6 +19,14 @@ export default {
     return {
       open: false,
       request: {
+        new_orientation: {
+          advisor: {
+            id: '',
+            name: ''
+          },
+          professorSupervisors: [],
+          externalMemberSupervisors: []
+        },
         requester: {
           justification: '',
         }
@@ -47,6 +35,10 @@ export default {
   },
 
   computed: {
+    urlSignatureData() {
+      return `/documents/${this.documentId}/data`;
+    },
+
     externalMemberSupervisorLabel() {
       return this.term.externalMemberSupervisors.length === 1
         ? 'Coorientador externo'

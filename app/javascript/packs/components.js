@@ -1,5 +1,6 @@
 import Datetimepicker from '../components/shared/datetimepicker';
 import FlashMessages from '../components/shared/flash_messages';
+import MeetingView from '../components/orientations/meetings/meeting_view';
 import ProfileImagePreview from '../components/shared/registrations/profile_image_preview';
 import OrientationCancel from '../components/orientations/orientation_cancel';
 import OrientationRenew from '../components/orientations/orientation_renew';
@@ -17,11 +18,14 @@ import SweetAlertMessages from '../components/shared/sweet_alert_messages';
 import TermOfCommitment from '../components/signatures/documents/term_of_commitment';
 import TermOfAbandonment from '../components/signatures/documents/term_of_abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
+import TermOfExtension from '../components/signatures/documents/term_of_extension';
+import TermOfSubstitution from '../components/signatures/documents/term_of_substitution';
 import VueMarkdownPreview from 'vue-markdown';
 
 const components = {
   Datetimepicker,
   FlashMessages,
+  MeetingView,
   OrientationCancel,
   OrientationRenew,
   OrientationStatus,
@@ -39,6 +43,8 @@ const components = {
   TermOfCommitment,
   TermOfAbandonment,
   TermOfAcceptInstitution,
+  TermOfExtension,
+  TermOfSubstitution,
   VueMarkdownPreview
 };
 

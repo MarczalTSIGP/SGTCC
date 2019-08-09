@@ -43,6 +43,18 @@
     <%= t('breadcrumbs.calendars.index') %>
   <% end %>
 
+  <%= active_link_to(academics_meetings_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-check') %>
+    </span>
+    <%= t('breadcrumbs.meetings.index') %>
+  <% end %>
+
+  <% if current_academic.current_orientation.present? %>
+    <%= render 'layouts/academics/requests_menu' %>
+  <% end %>
+
   <%= render 'layouts/shared/signature_menu', resource: 'academics',
                                               pending_path: academics_signatures_pending_path,
                                               signed_path: academics_signatures_signed_path %>

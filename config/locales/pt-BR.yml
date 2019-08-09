@@ -25,6 +25,8 @@ pt-BR:
       sign: 'Assinar'
       authenticate: 'Autenticar'
       orientation:
+        meeting:
+          view: 'Dar ciência'
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
         abandon: 'Desistir da orientação'
@@ -60,6 +62,12 @@ pt-BR:
         total: "Cadastrados no SGTCC"
         available: "Disponíveis para orientação"
         unavailable: "Indisponíveis para orientação"
+    orientations:
+      label:
+        in_progress: "Em andamento"
+        approved: "Aprovadas"
+        renewed: "Renovadas"
+        canceled: "Canceladas"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -110,10 +118,23 @@ pt-BR:
         index: "Solicitações"
         new: "Nova solicitação"
         show: "Visualizar solicitação"
+        tso:
+          sidebar: "Substituição do TCC"
+          index: "Solicitações de substituição do TCC"
+          new: "Solicitar substituição do TCC"
+        tep:
+          sidebar: "Extensão de prazo do TCC"
+          index: "Solicitações de extensão do prazo do TCC"
+          new: "Solicitar extensão de prazo do TCC"
         tdo:
           new: "Solicitar desistência de orientação"
           show: "Visualizar solicitação de desistência de orientação"
           advisor: "Desistência de Orientação"
+    meetings:
+      index: "Reuniões"
+      new: "Nova Reunião"
+      edit: "Editar Reunião"
+      show: "Visualizar Reunião"
     signatures:
       index: "Assinaturas"
       show: "Visualizar documento"
@@ -212,6 +233,9 @@ pt-BR:
       signature:
         one: "Assinatura"
         other: "Assinaturas"
+      meeting:
+        one: "Reunião"
+        other: "Reuniões"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -232,6 +256,8 @@ pt-BR:
         role: "Papel"
         tcc: "TCC"
         deadline: "Prazo"
+        title: "Título"
+        orientation: "Orientação"
       academic:
         ra: "RA"
         <<: *commons
@@ -265,7 +291,6 @@ pt-BR:
         year_semester: "Ano / Semestre"
         <<: *commons
       orientation:
-        title: "Título"
         calendar: "Calendário"
         advisor: "Orientador"
         institution: "Instituição externa"
@@ -277,13 +302,23 @@ pt-BR:
         abandonment_justification: "Justificativa de desistência"
         <<: *commons
       signature:
-        orientation: "Orientação"
         document_type: "Tipo do documento"
         <<: *commons
       document:
         orientation_id: "Orientação"
         justification: "Justificativa"
+        advisor_id: "Novo Orientador"
+        new_advisor: "Novo Orientador"
+        professor_supervisor_ids: "Novos Coorientadores da UTFPR"
+        external_member_supervisor_ids: "Novos Coorientadores externos"
+      meeting:
+        content: "Conteúdo"
+        date: "Data"
+        viewed: "Ciência"
         <<: *commons
+  placeholders:
+    meetings:
+      content: "Discutido: \n\n\nTarefas para o acadêmico: \n\n\nTarefas para o orientador: \n\n\nConcluído: "
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -349,6 +384,10 @@ pt-BR:
     request:
       index: "Solicitação"
     orientation:
+      meeting:
+        errors:
+          edit: 'Não é possível editar reunião, pois o acadêmico deu ciência da mesma!'
+          destroy: 'Não é possível excluir reunião, pois o acadêmico deu ciência da mesma!'
       destroy:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
@@ -419,12 +458,14 @@ pt-BR:
         male:
           academic: 'Acadêmico'
           advisor: 'Orientador'
+          coordinator: 'Coordernador do Curso'
           professor_supervisor: 'Coorientador da UTFPR'
           professor_responsible: 'Professor responsável'
           external_member_supervisor: 'Coorientador externo'
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
+          coordinator: 'Coordenadora do Curso'
           professor_supervisor: 'Coorientadora da UTFPR'
           professor_responsible: 'Professora responsável'
           external_member_supervisor: 'Coorientadora externa'
@@ -432,6 +473,8 @@ pt-BR:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
       TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
+      TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
+      TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'

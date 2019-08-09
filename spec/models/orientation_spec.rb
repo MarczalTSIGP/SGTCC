@@ -11,6 +11,7 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to belong_to(:advisor).class_name('Professor') }
     it { is_expected.to belong_to(:institution) }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
+    it { is_expected.to have_many(:meetings).dependent(:destroy) }
     it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
 
     it 'is expected to have many professor supervisors' do
@@ -565,7 +566,7 @@ RSpec.describe Orientation, type: :model do
 
     it 'is equal academic with calendar' do
       academic_with_ra = "#{academic.name} (#{academic.ra})"
-      academic_with_calendar = "#{academic_with_ra} / #{calendar.year_with_semester_and_tcc}"
+      academic_with_calendar = "#{academic_with_ra} | #{calendar.year_with_semester_and_tcc}"
       expect(orientation.academic_with_calendar).to eq(academic_with_calendar)
     end
   end

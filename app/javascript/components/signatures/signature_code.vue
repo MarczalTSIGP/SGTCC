@@ -40,8 +40,8 @@ export default {
   components: { VueQrcode },
 
   props: {
-    urlSignatureCode: {
-      type: String,
+    documentId: {
+      type: Number,
       required:true
     }
   },
@@ -56,6 +56,10 @@ export default {
   computed: {
     urlSignatureShow() {
       return `${this.signatureCode.link}/${this.signatureCode.code}`;
+    },
+
+    urlSignatureCode() {
+      return `/documents/${this.documentId}/code`;
     },
   },
 

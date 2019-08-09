@@ -1,0 +1,29 @@
+<% provide(:page_title, t('breadcrumbs.meetings.index')) %>
+<% provide(:head_title, t('breadcrumbs.meetings.index')) %>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @meetings %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Meeting.human_attribute_name('academic') %></th>
+        <th><%= Meeting.human_attribute_name('date') %></th>
+        <th><%= Meeting.human_attribute_name('updated_at') %></th>
+        <th><%= Meeting.human_attribute_name('viewed') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @meetings.empty? %>
+      </tr>
+      <%= render @meetings %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @meetings %>

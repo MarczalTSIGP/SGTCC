@@ -1,0 +1,17 @@
+<%= simple_form_for(@document, url: academics_tep_requests_path) do |f| %>
+  <div class="row container">
+    <div class="col-12">
+      <%= f.input :justification,
+        as: :text,
+        input_html: { rows: '8' } %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      academics_tep_requests_path,
+      class: 'btn btn-secondary' %>
+
+      <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

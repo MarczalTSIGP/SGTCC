@@ -48,6 +48,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:roles).through(:assignments) }
+    it { is_expected.to have_many(:meetings).through(:orientations) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_fk) }
@@ -182,7 +183,7 @@ RSpec.describe Professor, type: :model do
     it 'returns the reviewing signatures' do
       signatures = Signature.joins(:document)
                             .where(user_id: professor.id,
-                                   user_type: 'AD')
+                                   user_type: 'AD', status: false)
                             .where.not(documents: { request: nil })
       expect(professor.signatures_for_review).to match_array(signatures)
     end
@@ -210,6 +211,26 @@ RSpec.describe Professor, type: :model do
     it 'is equal current responsible' do
       responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
       expect(Professor.current_responsible).to eq(responsible)
+    end
+  end
+
+  describe '#current_coordinator' do
+    before do
+      create(:coordinator)
+    end
+
+    it 'is equal current coordinator' do
+      coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
+      expect(Professor.current_coordinator).to eq(coordinator)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:professor) { create(:professor) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
+      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
     end
   end
 end

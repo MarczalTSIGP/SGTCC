@@ -1,11 +1,5 @@
 <template>
-  <base-term-layout
-    :url-signature-mark="urlSignatureMark"
-    :url-signature-code="urlSignatureCode"
-    :url-signature-data="urlSignatureData"
-    :url-signature-image="urlSignatureImage"
-    :url-header-image="urlHeaderImage"
-  >
+  <base-term-layout :document-id="documentId">
     <p>
       Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,
       declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho

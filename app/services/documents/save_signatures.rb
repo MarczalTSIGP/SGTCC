@@ -24,6 +24,21 @@ class Documents::SaveSignatures
     create_signatures
   end
 
+  def save_tep
+    add_academic
+    add_coordinator
+    add_advisor
+    add_responsible
+    create_signatures
+  end
+
+  def save_tso
+    add_academic
+    add_advisor
+    add_responsible
+    create_signatures
+  end
+
   private
 
   def create_signatures
@@ -71,6 +86,10 @@ class Documents::SaveSignatures
 
   def add_responsible_institution
     @signature_users.push([@orientation.institution.external_member.id, 'ES'])
+  end
+
+  def add_coordinator
+    @signature_users.push([Professor.current_coordinator.id, 'CC'])
   end
 
   def add_responsible

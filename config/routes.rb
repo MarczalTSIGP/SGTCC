@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  get 'documents/images',
+      to: 'documents#images',
+      as: 'document_images'
+
   post 'documents/(:id)/mark',
        to: 'documents#mark',
        as: 'document_mark'
@@ -189,10 +193,18 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                except: [:show, :destroy],
+                only: [:index, :new, :create],
                 constraints: { id: /[0-9]+/ }
 
+      resources :meetings,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
+
+      get 'meetings/orientations/(:id)',
+          to: 'meetings#orientation',
+          as: 'orientation_meetings'
 
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
@@ -350,6 +362,21 @@ Rails.application.routes.draw do
   authenticate :academic do
     namespace :academics do
       root to: 'dashboard#index'
+
+      resources :tep_requests,
+                only: [:index, :new, :create],
+                constraints: { id: /[0-9]+/ }
+
+      resources :tso_requests,
+                only: [:index, :new, :create],
+                constraints: { id: /[0-9]+/ }
+
+      resources :meetings,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'

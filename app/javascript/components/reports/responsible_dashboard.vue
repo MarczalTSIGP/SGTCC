@@ -29,17 +29,22 @@
         redirect="/responsible/professors/unavailable"
       />
     </div>
+    <div class="col-12">
+      <orientations-report :data="report.orientations" />
+    </div>
   </div>
 </template>
 
 <script>
 
 import ProfessorsNumber from './professors/professors_number';
+import OrientationsReport from './orientations/orientations_report';
 
 export default {
   name: 'ResponsibleDashboard',
 
   components: {
+    OrientationsReport,
     ProfessorsNumber
   },
 

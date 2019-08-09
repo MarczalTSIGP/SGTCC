@@ -3,14 +3,14 @@
     <div>
       <hr class="m-0">
       <div
-        v-for="signature in signaturesMark"
-        :key="signature.name"
+        v-for="(signature, index) in signaturesMark"
+        :key="index"
         class="signature_mark"
       >
         <div class="py-4">
           <img
             class="float-left mr-2"
-            :src="urlSignatureImage"
+            :src="sgtccSealImage"
             :style="{ width: imageWidth + 'px' }"
           >
           <p>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div>
-      <signature-code :url-signature-code="urlSignatureCode" />
+      <signature-code :document-id="documentId" />
     </div>
   </div>
 </template>
@@ -48,37 +48,41 @@ export default {
   components: { SignatureCode },
 
   props: {
-    url: {
-      type: String,
-      required: true
-    },
-
-    urlSignatureCode: {
-      type: String,
+    documentId: {
+      type: Number,
       required:true
-    },
-
-    urlSignatureImage: {
-      type: String,
-      required: true
     },
   },
 
   data() {
     return {
+      urlDocumentImages: '/documents/images',
       signaturesMark: [],
       imageWidth: 100,
+      sgtccSealImage: '',
     };
   },
 
+  computed: {
+    urlSignatureMark() {
+      return `/documents/${this.documentId}/mark`;
+    },
+  },
+
   mounted() {
+    this.setSrcSignatureImage();
     this.setSignaturesMark();
     this.onShowSignaturesMark();
   },
 
   methods: {
+    async setSrcSignatureImage() {
+      const response = await this.$axios.get(this.urlDocumentImages);
+      this.sgtccSealImage = response.data.sgtcc_seal;
+    },
+
     async setSignaturesMark() {
-      const response = await this.$axios.post(this.url);
+      const response = await this.$axios.post(this.urlSignatureMark);
 
       this.signaturesMark = response.data;
     },

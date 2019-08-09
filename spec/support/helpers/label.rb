@@ -15,5 +15,9 @@ module Helpers
     def professors_unavailable_label
       I18n.t('reports.professors.label.unavailable')
     end
+
+    def meeting_view_label
+      I18n.t('views.buttons.orientation.meeting.view')
+    end
   end
 end

@@ -8,6 +8,8 @@ class DocumentType < ApplicationRecord
   enum identifier: {
     tco: 'tco',
     tdo: 'tdo',
-    tcai: 'tcai'
+    tcai: 'tcai',
+    tep: 'tep',
+    tso: 'tso'
   }
 end

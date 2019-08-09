@@ -8,6 +8,7 @@ namespace :db do
      Signature,
      Document,
      DocumentType,
+     Meeting,
      Orientation,
      Academic,
      Institution,

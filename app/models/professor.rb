@@ -33,6 +33,8 @@ class Professor < ApplicationRecord
            through: :professor_supervisors,
            source: :orientation
 
+  has_many :meetings, through: :orientations
+
   validates :name,
             presence: true
 
@@ -63,6 +65,10 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
+  def name_with_scholarity
+    "#{scholarity.abbr} #{name}"
+  end
+
   def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
@@ -79,5 +85,9 @@ class Professor < ApplicationRecord
 
   def self.current_responsible
     joins(:roles).find_by('roles.identifier': :responsible)
+  end
+
+  def self.current_coordinator
+    joins(:roles).find_by('roles.identifier': :coordinator)
   end
 end

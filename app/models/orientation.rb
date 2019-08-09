@@ -22,6 +22,8 @@ class Orientation < ApplicationRecord
 
   has_many :signatures, dependent: :destroy
 
+  has_many :meetings, dependent: :destroy
+
   has_many :professor_supervisors, class_name: 'Professor',
                                    foreign_key: :professor_supervisor_id,
                                    through: :orientation_supervisors,
@@ -52,7 +54,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:advisor, :academic, :calendar, :signatures,
+    includes(:advisor, :academic, :calendar, :signatures, :meetings,
              :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
   }
 
@@ -115,7 +117,7 @@ class Orientation < ApplicationRecord
   end
 
   def academic_with_calendar
-    "#{academic.name} (#{academic.ra}) / #{calendar.year_with_semester_and_tcc}"
+    "#{academic.name} (#{academic.ra}) | #{calendar.year_with_semester_and_tcc}"
   end
 
   def self.select_status_data

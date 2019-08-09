@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_signature, only: :code
-  before_action :set_document, only: [:data, :mark, :status, :request_data]
+  before_action :set_document, only: [:data, :mark, :code, :status, :request_data]
   before_action :set_document_by_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
@@ -10,10 +9,8 @@ class DocumentsController < ApplicationController
   end
 
   def code
-    document = @signature.document
-
     render json: {
-      all_signed: document.all_signed?, code: document.code, link: confirm_document_code_url
+      all_signed: @document.all_signed?, code: @document.code, link: confirm_document_code_url
     }
   end
 
@@ -43,6 +40,12 @@ class DocumentsController < ApplicationController
     render json: content
   end
 
+  def images
+    helpers = ActionController::Base.helpers
+    render json: { sgtcc_seal: helpers.asset_url('sgtcc_signature.png'),
+                   utfpr_logo: helpers.asset_url('utfpr_logo.png') }
+  end
+
   private
 
   def set_document_by_code
@@ -57,9 +60,5 @@ class DocumentsController < ApplicationController
     return if @document.present? && @document&.all_signed?
     error_document_not_found_message
     redirect_to document_path
-  end
-
-  def set_signature
-    @signature = Signature.find(params[:id])
   end
 end
