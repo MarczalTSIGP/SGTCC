@@ -1,0 +1,26 @@
+<div class="sidebar-menu">
+  <span class="sidebar-heading">
+    <%= icon('fas', 'envelope-open', class: 'mr-2') %>
+    <%= t('views.sidebar.requests') %>
+  </span>
+
+  <% if current_academic.current_orientation_tcc_two.present? %>
+    <%= active_link_to(academics_tep_requests_path,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'plus-square') %>
+      </span>
+      <%= t('breadcrumbs.documents.requests.tep.sidebar') %>
+    <% end %>
+  <% end %>
+
+  <%= active_link_to(academics_tso_requests_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'exchange-alt') %>
+    </span>
+    <%= t('breadcrumbs.documents.requests.tso.sidebar') %>
+  <% end %>
+</div>
+
+

@@ -19,6 +19,7 @@ import TermOfCommitment from '../components/signatures/documents/term_of_commitm
 import TermOfAbandonment from '../components/signatures/documents/term_of_abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
 import TermOfExtension from '../components/signatures/documents/term_of_extension';
+import TermOfSubstitution from '../components/signatures/documents/term_of_substitution';
 import VueMarkdownPreview from 'vue-markdown';
 
 const components = {
@@ -43,6 +44,7 @@ const components = {
   TermOfAbandonment,
   TermOfAcceptInstitution,
   TermOfExtension,
+  TermOfSubstitution,
   VueMarkdownPreview
 };
 

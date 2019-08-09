@@ -43,9 +43,22 @@ class Academic < ApplicationRecord
     current_orientation_by_calendar(Calendar.current_by_tcc_two)
   end
 
+  def current_orientation
+    orientation = current_orientation_tcc_one | current_orientation_tcc_two
+    orientation.first
+  end
+
   def signatures(document_type = nil)
     query = { user_id: id, user_type: Signature.user_types[:academic] }
     query[:documents] = { document_type: document_type } if document_type.present?
     Signature.joins(:document).where(query).recent
+  end
+
+  def tsos
+    signatures(DocumentType.tso.first)
+  end
+
+  def teps
+    signatures(DocumentType.tep.first)
   end
 end

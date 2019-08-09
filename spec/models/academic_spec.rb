@@ -138,4 +138,32 @@ RSpec.describe Academic, type: :model do
       expect(academic.signatures_pending).to match_array(signatures)
     end
   end
+
+  describe '#tsos' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    before do
+      create(:document_type_tso)
+    end
+
+    it 'returns the tsos' do
+      tsos = academic.signatures(DocumentType.tso.first)
+      expect(academic.tsos).to match_array(tsos)
+    end
+  end
+
+  describe '#teps' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    before do
+      create(:document_type_tso)
+    end
+
+    it 'returns the teps' do
+      teps = academic.signatures(DocumentType.tep.first)
+      expect(academic.teps).to match_array(teps)
+    end
+  end
 end

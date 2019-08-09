@@ -20,6 +20,12 @@ FactoryBot.define do
       request { '{"requester":{ "justification":"dsds" }' }
     end
 
+    factory :document_tso do
+      document_type { create(:document_type_tso) }
+      justification { 'justification' }
+      request { '{"requester":{ "justification":"dsds" }' }
+    end
+
     factory :document_tcai do
       document_type { create(:document_type_tcai) }
     end

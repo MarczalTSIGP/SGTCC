@@ -19,6 +19,14 @@ export default {
     return {
       open: false,
       request: {
+        new_orientation: {
+          advisor: {
+            id: '',
+            name: ''
+          },
+          professorSupervisors: [],
+          externalMemberSupervisors: []
+        },
         requester: {
           justification: '',
         }

@@ -202,6 +202,42 @@ RSpec.describe Document, type: :model do
     end
   end
 
+  describe '#new_tso' do
+    let!(:academic) { create(:academic) }
+    let!(:professor) { create(:professor) }
+
+    let!(:orientation) do
+      create(:current_orientation_tcc_two, advisor: professor, academic: academic)
+    end
+
+    let(:requester_data) do
+      { id: academic.id, name: academic.name,
+        type: 'academic', justification: 'justification' }
+    end
+
+    let(:new_orientation_data) do
+      { advisor: { id: professor.id, name: professor.name_with_scholarity },
+        professorSupervisors: [], externalMemberSupervisors: [] }
+    end
+
+    let(:params) do
+      { orientation_id: orientation.id, justification: 'justification',
+        advisor_id: professor.id, professor_supervisor_ids: [''],
+        external_member_supervisor_ids: [''] }
+    end
+
+    before do
+      create(:document_type_tso)
+      create(:responsible)
+    end
+
+    it 'returns true' do
+      document = DocumentType.find_by(identifier: :tso).documents.new(params)
+      document.request = { requester: requester_data, new_orientation: new_orientation_data }
+      expect(Document.new_tso(academic, params).to_json).to eq(document.to_json)
+    end
+  end
+
   describe '#status_table' do
     let(:orientation) { create(:orientation) }
     let(:signature) { orientation.signatures.first }
