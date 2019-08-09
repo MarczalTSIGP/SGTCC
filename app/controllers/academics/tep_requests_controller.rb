@@ -7,8 +7,7 @@ class Academics::TepRequestsController < Academics::BaseController
                  only: :new
 
   def index
-    @requests = current_academic.signatures(DocumentType.tep.first)
-                                .with_relationships.page(params[:page])
+    @requests = current_academic.teps.with_relationships.page(params[:page])
   end
 
   def new

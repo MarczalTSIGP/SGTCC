@@ -53,4 +53,12 @@ class Academic < ApplicationRecord
     query[:documents] = { document_type: document_type } if document_type.present?
     Signature.joins(:document).where(query).recent
   end
+
+  def tsos
+    signatures(DocumentType.tso.first)
+  end
+
+  def teps
+    signatures(DocumentType.tep.first)
+  end
 end

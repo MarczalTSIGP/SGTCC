@@ -7,8 +7,7 @@ class Academics::TsoRequestsController < Academics::BaseController
                  only: :new
 
   def index
-    @requests = current_academic.signatures(DocumentType.tso.first)
-                                .with_relationships.page(params[:page])
+    @requests = current_academic.tsos.with_relationships.page(params[:page])
   end
 
   def new
