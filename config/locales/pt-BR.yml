@@ -336,7 +336,7 @@ pt-BR:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
         orientation: "Orientação"
-        guests: "Convidados"
+        evaluators: "Avaliadores"
         place: "Local"
         <<: *commons
   placeholders:

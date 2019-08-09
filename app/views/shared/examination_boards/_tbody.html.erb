@@ -5,7 +5,7 @@
 </td>
 <td><%= examination_board.place %></td>
 <td><%= datetime(examination_board.date) %></td>
-<td><%= examination_board.orientation.advisor.name %></td>
+<td><%= examination_board.orientation.advisor.name_with_scholarity %></td>
 <td>
   <b><%= ExaminationBoard.human_attribute_name('professors') %></b>
   <% examination_board.professors.each do |professor| %>

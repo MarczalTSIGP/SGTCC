@@ -19,16 +19,16 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
       it 'shows all the examination boards of the tcc one with options' do
         examination_boards_tcc_one.each do |examination_board|
           expect(page).to have_contents([examination_board.orientation.academic_with_calendar,
-                                         examination_board.orientation.advisor.name,
+                                         examination_board.orientation.advisor.name_with_scholarity,
                                          examination_board.place,
                                          datetime(examination_board.date)])
 
           examination_board.professors.each do |professor|
-            expect(page).to have_content(professor.name)
+            expect(page).to have_content(professor.name_with_scholarity)
           end
 
           examination_board.external_members.each do |external_member|
-            expect(page).to have_content(external_member.name)
+            expect(page).to have_content(external_member.name_with_scholarity)
           end
         end
       end
