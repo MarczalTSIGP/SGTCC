@@ -3,6 +3,7 @@ class Professor < ApplicationRecord
   include Searchable
   include ProfileImage
   include SignatureFilter
+  include ScholarityName
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -35,6 +36,21 @@ class Professor < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :orientation_examination_boards,
+           through: :orientations,
+           source: :examination_boards
+
+  has_many :examination_board_attendees,
+           class_name: 'ExaminationBoardAttendee',
+           foreign_key: :professor_id,
+           inverse_of: :professor,
+           source: :examination_board,
+           dependent: :destroy
+
+  has_many :guest_examination_boards,
+           through: :examination_board_attendees,
+           source: :examination_board
+
   validates :name,
             presence: true
 
@@ -65,10 +81,6 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
-  def name_with_scholarity
-    "#{scholarity.abbr} #{name}"
-  end
-
   def signatures
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
@@ -81,6 +93,11 @@ class Professor < ApplicationRecord
     orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
       [orientation.id, orientation.academic_with_calendar]
     end
+  end
+
+  def examination_boards(search = nil)
+    (guest_examination_boards.search(search).with_relationships +
+      orientation_examination_boards.search(search).with_relationships)
   end
 
   def self.current_responsible

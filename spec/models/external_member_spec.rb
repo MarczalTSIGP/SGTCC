@@ -28,11 +28,14 @@ RSpec.describe ExternalMember, type: :model do
   end
 
   describe 'associations' do
-    em_fk = 'external_member_supervisor_id'
+    ems_fk = 'external_member_supervisor_id'
+    em_fk = 'external_member_id'
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(em_fk) }
+    it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
     it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
+    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(em_fk) }
+    it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
 
   describe '#human_genders' do
@@ -156,6 +159,15 @@ RSpec.describe ExternalMember, type: :model do
     it 'returns the pending signatures' do
       signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: false)
       expect(external_member.signatures_pending).to match_array(signatures)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:external_member) { create(:external_member) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{external_member.scholarity.abbr} #{external_member.name}"
+      expect(external_member.name_with_scholarity).to eq(name_with_scholarity)
     end
   end
 end

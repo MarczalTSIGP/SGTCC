@@ -51,6 +51,14 @@
     <%= t('breadcrumbs.meetings.index') %>
   <% end %>
 
+  <%= active_link_to(academics_examination_boards_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-friends') %>
+    </span>
+    <%= t('breadcrumbs.examination_boards.index') %>
+  <% end %>
+
   <% if current_academic.current_orientation.present? %>
     <%= render 'layouts/academics/requests_menu' %>
   <% end %>

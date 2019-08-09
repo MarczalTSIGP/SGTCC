@@ -10,4 +10,8 @@ module DateHelper
   def document_date(date)
     I18n.localize(date, format: :document)
   end
+
+  def datetime(date)
+    I18n.localize(date, format: :datetime)
+  end
 end

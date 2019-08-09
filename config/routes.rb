@@ -75,6 +75,18 @@ Rails.application.routes.draw do
                   resources :activities
                 end
 
+      resources :examination_boards,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'examination_boards/tcc_one',
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one'
+
+      get 'examination_boards/tcc_two',
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two'
+
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
            as: 'calendar_activities_by_calendar'
@@ -139,6 +151,16 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
+      get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one_search'
+
+      get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two_search'
+
       get 'orientations/current_tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#current_tcc_one',
@@ -200,6 +222,10 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
+
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
 
       get 'meetings/orientations/(:id)',
@@ -238,6 +264,11 @@ Rails.application.routes.draw do
           to: 'signatures#signed',
           as: 'signatures_search_signed'
 
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
+
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'orientations#history',
@@ -272,7 +303,29 @@ Rails.application.routes.draw do
     namespace :tcc_one_professors do
       root to: 'dashboard#index'
 
+      resources :examination_boards,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      get 'examination_boards/tcc_one',
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one'
+
+      get 'examination_boards/tcc_two',
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two'
+
       get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
+
+      get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one_search'
+
+      get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two_search'
 
       get 'calendars/(:calendar_id)/orientations',
           to: 'orientations#by_calendar',
@@ -378,6 +431,10 @@ Rails.application.routes.draw do
 
       put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
+
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
       get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
@@ -392,6 +449,11 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
     end
   end
 
@@ -426,6 +488,10 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :supervisions, only: [:show], constraints: { id: /[0-9]+/ }
+
+      resources :examination_boards,
+                only: [:index, :show],
+                constraints: { id: /[0-9]+/ }
 
       post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
       get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
@@ -466,6 +532,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
+
+      get 'examination_boards/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'examination_boards#index',
+          as: 'examination_boards_search'
     end
   end
 end

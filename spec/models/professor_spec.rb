@@ -44,15 +44,19 @@ RSpec.describe Professor, type: :model do
   end
 
   describe 'associations' do
-    professor_fk = 'professor_supervisor_id'
+    professor_sfk = 'professor_supervisor_id'
+    professor_fk = 'professor_id'
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:roles).through(:assignments) }
     it { is_expected.to have_many(:meetings).through(:orientations) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
+    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
+    it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
   end
 
   describe '#human_genders' do
@@ -222,6 +226,33 @@ RSpec.describe Professor, type: :model do
     it 'is equal current coordinator' do
       coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
       expect(Professor.current_coordinator).to eq(coordinator)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:professor) { create(:professor) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
+      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
+
+  describe '#examination_boards' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
+
+    before do
+      create(:examination_board, orientation: orientation)
+      examination_board_tcc_one.professors << professor
+    end
+
+    it 'is equal guest_examination_boards' do
+      examination_boards = (professor.guest_examination_boards +
+        professor.orientation_examination_boards)
+      expect(professor.examination_boards).to match_array(examination_boards)
+      expect(professor.examination_boards.count).to eq(2)
     end
   end
 
