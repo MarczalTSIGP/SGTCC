@@ -390,4 +390,24 @@ RSpec.describe Document, type: :model do
       end
     end
   end
+
+  describe 'save_judgment' do
+    let!(:professor) { create(:responsible) }
+    let!(:orientation) { create(:orientation) }
+    let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+
+    let(:params) do
+      { justification: 'justification', accept: true }
+    end
+
+    let(:json_judgment) do
+      { responsible: { id: professor.id,
+                       accept: params[:accept],
+                       justification: params[:justification] } }
+    end
+
+    it 'returns true' do
+      expect(document.save_judgment(professor, params)).to eq(true)
+    end
+  end
 end
