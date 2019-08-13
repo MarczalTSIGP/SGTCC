@@ -13,10 +13,6 @@ class Signature < ApplicationRecord
     external_member_supervisor: 'ES'
   }, _prefix: :user_type
 
-  scope :with_relationships, lambda {
-    includes(orientation: [:academic], document: [:document_type])
-  }
-
   scope :by_document_type, lambda { |document_type_id|
     joins(:document).where(documents: { document_type_id: document_type_id })
   }

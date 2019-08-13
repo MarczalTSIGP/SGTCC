@@ -19,7 +19,7 @@ module DocumentFilter
     end
 
     def documents_reviewing(page = nil)
-      data = documents.where.not(request: nil)
+      data = documents(false).where.not(request: nil)
       page_with_relationships(data, page)
     end
   end

@@ -153,43 +153,47 @@ RSpec.describe Professor, type: :model do
     end
   end
 
-  describe '#signatures_signed' do
+  describe '#documents_signed' do
     let(:orientation) { create(:orientation) }
     let(:professor) { orientation.advisor }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
 
     before do
       orientation.signatures.find_by(user_type: :advisor).sign
     end
 
-    it 'returns the signed signatures' do
-      signatures = Signature.where(user_id: professor.id, user_type: 'AD', status: true)
-      expect(professor.signatures_signed).to match_array(signatures)
+    it 'returns the signed documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: true }
+      documents = Document.joins(:signatures).select(distinct_query).where(signatures: conditions)
+      expect(professor.documents_signed).to match_array(documents)
     end
   end
 
-  describe '#signatures_pending' do
+  describe '#documents_pending' do
     let(:orientation) { create(:orientation) }
     let(:professor) { orientation.advisor }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
 
-    it 'returns the pending signatures' do
-      signatures = Signature.joins(:document)
-                            .where(user_id: professor.id,
-                                   user_type: 'AD', status: false)
-      expect(professor.signatures_pending).to match_array(signatures)
+    it 'returns the pending documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: false }
+      documents = Document.joins(:signatures).select(distinct_query).where(signatures: conditions)
+      expect(professor.documents_pending).to match_array(documents)
     end
   end
 
-  describe '#signatures_for_review' do
+  describe '#documents_reviewing' do
     let(:orientation) { create(:orientation) }
     let(:professor) { orientation.advisor }
     let(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
 
-    it 'returns the reviewing signatures' do
-      signatures = Signature.joins(:document)
-                            .where(user_id: professor.id,
-                                   user_type: 'AD', status: false)
-                            .where.not(documents: { request: nil })
-      expect(professor.signatures_for_review).to match_array(signatures)
+    it 'returns the reviewing documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: false }
+      documents = Document.joins(:signatures)
+                          .select(distinct_query)
+                          .where(signatures: conditions)
+                          .where.not(request: nil)
+      expect(professor.documents_reviewing).to match_array(documents)
     end
   end
 

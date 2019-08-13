@@ -116,7 +116,7 @@ RSpec.describe Academic, type: :model do
     end
   end
 
-  describe '#signatures_signed' do
+  describe '#documents_signed' do
     let(:orientation) { create(:orientation) }
     let(:academic) { orientation.academic }
 
@@ -124,19 +124,21 @@ RSpec.describe Academic, type: :model do
       orientation.signatures.find_by(user_type: :academic).sign
     end
 
-    it 'returns the signed signatures' do
-      signatures = Signature.where(user_id: academic.id, user_type: 'AC', status: true)
-      expect(academic.signatures_signed).to match_array(signatures)
+    it 'returns the signed documents' do
+      conditions = { user_id: academic.id, user_type: 'AC', status: true }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(academic.documents_signed).to match_array(documents)
     end
   end
 
-  describe '#signatures_pending' do
+  describe '#documents_pending' do
     let(:orientation) { create(:orientation) }
     let(:academic) { orientation.academic }
 
-    it 'returns the pending signatures' do
-      signatures = Signature.where(user_id: academic.id, user_type: 'AC', status: false)
-      expect(academic.signatures_pending).to match_array(signatures)
+    it 'returns the pending documents' do
+      conditions = { user_id: academic.id, user_type: 'AC', status: false }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(academic.documents_pending).to match_array(documents)
     end
   end
 
@@ -149,7 +151,7 @@ RSpec.describe Academic, type: :model do
     end
 
     it 'returns the tsos' do
-      tsos = academic.signatures(DocumentType.tso.first)
+      tsos = academic.documents([true, false], DocumentType.tso.first)
       expect(academic.tsos).to match_array(tsos)
     end
   end
@@ -159,11 +161,11 @@ RSpec.describe Academic, type: :model do
     let(:academic) { orientation.academic }
 
     before do
-      create(:document_type_tso)
+      create(:document_type_tep)
     end
 
     it 'returns the teps' do
-      teps = academic.signatures(DocumentType.tep.first)
+      teps = academic.documents([true, false], DocumentType.tep.first)
       expect(academic.teps).to match_array(teps)
     end
   end
