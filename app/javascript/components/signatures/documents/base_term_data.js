@@ -29,7 +29,14 @@ export default {
         },
         requester: {
           justification: '',
-        }
+        },
+        judgment: {
+          responsible: {
+            id: '',
+            accept: false,
+            justification: ''
+          },
+        },
       },
     };
   },

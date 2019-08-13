@@ -100,6 +100,8 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
+
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'

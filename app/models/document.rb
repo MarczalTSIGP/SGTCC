@@ -32,6 +32,14 @@ class Document < ApplicationRecord
     update(content: term_json_data)
   end
 
+  def save_judgment(user, params)
+    json_judgment = { responsible: { id: user.id,
+                                     accept: params[:accept],
+                                     justification: params[:justification] } }
+    request['judgment'] = json_judgment
+    update!(request: request, justification: '-', orientation_id: orientation)
+  end
+
   def status_table
     signatures.map do |signature|
       { name: signature.user.name, status: signature.status,

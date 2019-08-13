@@ -9,7 +9,7 @@
           <input
             id="document_accept"
             type="radio"
-            value="accept"
+            value="true"
             name="document[judgment]"
             class="custom-control-input"
           >
@@ -19,7 +19,7 @@
           <input
             id="document_refuse"
             type="radio"
-            value="refuse"
+            value="false"
             name="document[judgment]"
             class="custom-control-input"
           >
@@ -61,10 +61,23 @@ export default {
 
   mixins: [sweetAlert],
 
+  props: {
+    documentId: {
+      type: Number,
+      required: true
+    },
+  },
+
   data() {
     return {
       justification: '',
     };
+  },
+
+  computed: {
+    url() {
+      return `/responsible/documents/${this.documentId}/judgment`;
+    },
   },
 
   watch: {
@@ -91,6 +104,14 @@ export default {
     async saveJudgment() {
       if (this.hasErrors()) {
         this.showErrorMessage('Preencha todos os campos!');
+      }
+
+      const params = { accept: this.solicitationValue(), justification: this.justification };
+      const response = await this.$axios.put(this.url, params);
+      console.log(response);
+      if (response.date) {
+        this.showSuccessMessage('Documento atualizado com sucesso!');
+        this.$root.forceUpdate();
       }
     },
 

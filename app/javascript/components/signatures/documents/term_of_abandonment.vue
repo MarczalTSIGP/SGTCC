@@ -14,7 +14,10 @@
       </span>
     </p>
 
-    <document-judgment />
+    <document-review
+      :document-id="documentId"
+      :request="request"
+    />
   </base-term-layout>
 </template>
 
@@ -22,12 +25,12 @@
 
 import baseTermData from './base_term_data';
 import BaseTermLayout from './base_term_layout';
-import DocumentJudgment from '../document_judgment';
+import DocumentReview from '../document_review';
 
 export default {
   name: 'TermOfAbandonment',
 
-  components: { BaseTermLayout, DocumentJudgment },
+  components: { BaseTermLayout, DocumentReview },
 
   mixins: [baseTermData],
 };
