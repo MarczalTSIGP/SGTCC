@@ -81,6 +81,10 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
+  def responsible?
+    role?(:responsible)
+  end
+
   def user_types
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]

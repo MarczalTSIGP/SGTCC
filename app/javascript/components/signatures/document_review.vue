@@ -1,8 +1,8 @@
 <template>
-  <div v-if="notHasJudgment()">
+  <div v-if="notHasJudgment() && hasPermission">
     <document-judgment :document-id="documentId" />
   </div>
-  <div v-else>
+  <div v-else-if="hasJudgment()">
     <p>
       <b>Solicitação:</b>
       {{ solicitationLabel() }}
@@ -14,6 +14,12 @@
     <div>
       <vue-simple-markdown :source="request.judgment.responsible.justification" />
     </div>
+  </div>
+  <div v-else>
+    <p>
+      <b>Solicitação:</b>
+      Em análise pelo professor responsável do TCC
+    </p>
   </div>
 </template>
 
@@ -36,6 +42,14 @@ export default {
       type: Object,
       required: true
     },
+
+    hasPermission: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      }
+    },
   },
 
   methods: {
@@ -46,6 +60,10 @@ export default {
 
     notHasJudgment() {
       return typeof this.request['judgment'] !== 'object';
+    },
+
+    hasJudgment() {
+      return typeof this.request['judgment'] === 'object';
     },
   },
 };

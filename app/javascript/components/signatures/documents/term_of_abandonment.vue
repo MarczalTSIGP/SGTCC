@@ -17,6 +17,7 @@
     <document-review
       :document-id="documentId"
       :request="request"
+      :has-permission="isResponsible"
     />
   </base-term-layout>
 </template>
@@ -33,5 +34,15 @@ export default {
   components: { BaseTermLayout, DocumentReview },
 
   mixins: [baseTermData],
+
+  props: {
+    isResponsible: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      }
+    },
+  },
 };
 </script>

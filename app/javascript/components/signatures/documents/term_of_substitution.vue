@@ -90,6 +90,12 @@
         {{ request.requester.justification }}
       </span>
     </p>
+
+    <document-review
+      :document-id="documentId"
+      :request="request"
+      :has-permission="isResponsible"
+    />
   </base-term-layout>
 </template>
 
@@ -97,13 +103,24 @@
 
 import baseTermData from './base_term_data';
 import BaseTermLayout from './base_term_layout';
+import DocumentReview from '../document_review';
 
 export default {
   name: 'TermOfSubstitution',
 
-  components: { BaseTermLayout },
+  components: { BaseTermLayout, DocumentReview },
 
   mixins: [baseTermData],
+
+  props: {
+    isResponsible: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      },
+    },
+  },
 
   computed: {
     orientationSupervisorsLabel() {

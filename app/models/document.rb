@@ -37,7 +37,7 @@ class Document < ApplicationRecord
                                      accept: params[:accept],
                                      justification: params[:justification] } }
     request['judgment'] = json_judgment
-    update!(request: request, justification: '-', orientation_id: orientation)
+    update_attribute(:request, request)
   end
 
   def status_table
