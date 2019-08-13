@@ -37,7 +37,9 @@ class Document < ApplicationRecord
                                      accept: params[:accept],
                                      justification: params[:justification] } }
     request['judgment'] = json_judgment
+    # rubocop:disable Rails/SkipsModelValidations
     update_attribute(:request, request)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def status_table
