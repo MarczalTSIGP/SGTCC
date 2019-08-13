@@ -1,7 +1,7 @@
 <tr>
   <%= render 'shared/documents/tbody', document: document %>
   <td>
-    <%= link_to(professors_document_path(document)) do %>
+    <%= link_to(external_members_document_path(document)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
     <% end %>
   </td>

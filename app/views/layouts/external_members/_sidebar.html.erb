@@ -58,7 +58,7 @@
     <%= t('breadcrumbs.examination_boards.index') %>
   <% end %>
 
-  <%= render 'layouts/shared/signature_menu', resource: 'external_members',
-                                              pending_path: external_members_signatures_pending_path,
-                                              signed_path: external_members_signatures_signed_path %>
+  <%= render 'layouts/shared/document_menu', resource: 'external_members',
+                                             pending_path: external_members_documents_pending_path,
+                                             signed_path: external_members_documents_signed_path %>
 <% end %>

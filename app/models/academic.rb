@@ -2,7 +2,7 @@ class Academic < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include SignatureFilter
+  include DocumentFilter
 
   searchable :ra, :email, name: { unaccent: true }
 
@@ -51,17 +51,17 @@ class Academic < ApplicationRecord
     orientation.first
   end
 
-  def signatures(document_type = nil)
-    query = { user_id: id, user_type: Signature.user_types[:academic] }
+  def documents(status = [true, false], document_type = nil, query: {})
+    user_types = Signature.user_types[:academic]
     query[:documents] = { document_type: document_type } if document_type.present?
-    Signature.joins(:document).where(query).recent
+    Document.from(Document.by_user(id, user_types, status), :documents).where(query).recent
   end
 
   def tsos
-    signatures(DocumentType.tso.first)
+    documents(DocumentType.tso.first)
   end
 
   def teps
-    signatures(DocumentType.tep.first)
+    documents(DocumentType.tep.first)
   end
 end

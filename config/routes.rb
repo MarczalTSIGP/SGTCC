@@ -237,11 +237,11 @@ Rails.application.routes.draw do
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
-      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
-      get 'signatures/reviewing', to: 'signatures#reviewing', as: 'signatures_reviewing'
-      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
-      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
-      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
+      post 'documents/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'documents/reviewing', to: 'documents#reviewing', as: 'documents_reviewing'
+      get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
+      get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
+      get 'documents/(:id)', to: 'documents#show', as: 'document'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
@@ -430,10 +430,10 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
-      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
-      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
-      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
-      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
+      post 'documents/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
+      get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
+      get 'documents/(:id)', to: 'documents#show', as: 'document'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 
@@ -488,10 +488,10 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
-      post 'signatures/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
-      get 'signatures/pending', to: 'signatures#pending', as: 'signatures_pending'
-      get 'signatures/signed', to: 'signatures#signed', as: 'signatures_signed'
-      get 'signatures/(:id)', to: 'signatures#show', as: 'signature'
+      post 'documents/(:id)/confirm', to: 'documents#confirm', as: 'signature_confirm'
+      get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
+      get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
+      get 'documents/(:id)', to: 'documents#show', as: 'document'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 

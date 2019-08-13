@@ -2,7 +2,7 @@ class Professor < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include SignatureFilter
+  include DocumentFilter
   include ScholarityName
 
   devise :database_authenticatable,

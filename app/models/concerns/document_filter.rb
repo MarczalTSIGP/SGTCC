@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module SignatureFilter
+module DocumentFilter
   extend ActiveSupport::Concern
 
   included do

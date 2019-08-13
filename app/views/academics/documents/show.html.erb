@@ -1,0 +1,4 @@
+<%= render 'shared/documents/show',
+  label: Academic.human_attribute_name('ra'),
+  confirm_url: academics_signature_confirm_path(@document),
+  back_url: professors_documents_pending_path %>
