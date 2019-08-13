@@ -1,0 +1,13 @@
+<td>
+  <span data-toggle="tooltip" title="<%= document.orientation.title %>">
+    <%= document.orientation.short_title %>
+  </span>
+</td>
+<td><%= document.orientation.academic.name %></td>
+<td>
+  <span data-toggle="tooltip" title="<%= document.document_type.name %>">
+    <%= document.document_type.identifier.upcase %>
+  </span>
+</td>
+<td><%= short_date(document.created_at) %></td>
+

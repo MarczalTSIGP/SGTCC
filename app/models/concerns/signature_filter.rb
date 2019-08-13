@@ -8,20 +8,18 @@ module SignatureFilter
       data.page(page).with_relationships
     end
 
-    def signatures_pending(page = nil)
-      data = signatures.where(status: false)
+    def documents_pending(page = nil)
+      data = documents(false)
       page_with_relationships(data, page)
     end
 
-    def signatures_signed(page = nil, term = nil)
-      data = signatures.where(status: true).search(term)
+    def documents_signed(page = nil)
+      data = documents(true)
       page_with_relationships(data, page)
     end
 
-    def signatures_for_review(page = nil)
-      data = signatures.joins(:document)
-                       .where(status: false)
-                       .where.not(documents: { request: nil })
+    def documents_reviewing(page = nil)
+      data = documents.where.not(request: nil)
       page_with_relationships(data, page)
     end
   end

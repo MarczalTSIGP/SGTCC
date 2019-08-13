@@ -1,0 +1,39 @@
+<% provide(:head_title, t('breadcrumbs.signatures.show')) %>
+<% provide(:page_title) do %>
+  <signature-show-title />
+<% end %>
+
+<div class="clearfix mb-4">
+  <div class="float-right ml-2">
+    <signature-download-button
+      head-title="<%= t('breadcrumbs.signatures.show') %>"
+      document-title="<%= @document.filename %>" />
+  </div>
+
+  <div>
+    <signature-confirm
+      label="<%= label %>"
+      url="<%= confirm_url %>" />
+  </div>
+
+  <div class="float-right">
+    <signature-button
+      show-title="<%= t('breadcrumbs.signatures.TCO.show',
+                        academic: @document.orientation.academic.name) %>" />
+  </div>
+</div>
+
+<div class="container">
+  <div>
+    <%= render 'shared/documents/component', document: @document %>
+  </div>
+  <div>
+    <signature-status
+      url="<%= document_status_path(@document) %>" />
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
+</div>
+

@@ -1,6 +1,6 @@
 class Professors::SignaturesController < Professors::BaseController
   include SignatureConfirm
-  before_action :set_signature, only: [:show, :confirm]
+  before_action :set_document, only: [:show, :confirm]
   before_action :can_view, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.documents.reviewing'),
@@ -16,19 +16,19 @@ class Professors::SignaturesController < Professors::BaseController
                  only: :signed
 
   def pending
-    @signatures = current_professor.signatures_pending(params[:page])
+    @documents = current_professor.documents_pending(params[:page])
   end
 
   def signed
-    @signatures = current_professor.signatures_signed(params[:page], params[:term])
+    @documents = current_professor.documents_signed(params[:page])
   end
 
   def reviewing
-    @signatures = current_professor.signatures_for_review(params[:page])
+    @documents = current_professor.documents_reviewing(params[:page])
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.signatures.show'), professors_signature_path(@signature)
+    add_breadcrumb I18n.t('breadcrumbs.signatures.show'), professors_signature_path(@document)
   end
 
   def confirm
@@ -37,12 +37,12 @@ class Professors::SignaturesController < Professors::BaseController
 
   private
 
-  def set_signature
-    @signature = current_professor.signatures.find_by(id: params[:id])
+  def set_document
+    @document = current_professor.documents.find_by(id: params[:id])
   end
 
   def can_view
-    return if @signature.present?
+    return if @document.present?
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_signatures_pending_path
   end

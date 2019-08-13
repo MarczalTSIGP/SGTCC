@@ -259,11 +259,6 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
-      get 'signatures/signed/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
-          to: 'signatures#signed',
-          as: 'signatures_search_signed'
-
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',

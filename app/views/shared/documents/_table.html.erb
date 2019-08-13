@@ -1,5 +1,5 @@
 <div class="text-right mt-3">
-  <%= page_entries_info @signatures, entry_name: entry_name.downcase  %>
+  <%= page_entries_info @documents, entry_name: entry_name.downcase  %>
 </div>
 
 <div class="table-striped mt-3 table-responsive w-100">
@@ -16,11 +16,11 @@
 
     <tbody>
       <tr>
-        <%= render('shared/no_results') if @signatures.empty? %>
+        <%= render('shared/no_results') if @documents.empty? %>
       </tr>
-      <%= render @signatures %>
+      <%= render @documents %>
     </tbody>
   </table>
 </div>
 
-<%= paginate @signatures %>
+<%= paginate @documents %>

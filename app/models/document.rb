@@ -13,6 +13,9 @@ class Document < ApplicationRecord
   validates :justification, presence: true, if: -> { document_type.tep? }
   validates :justification, :advisor_id, presence: true, if: -> { document_type.tso? }
 
+  scope :with_relationships, -> { includes(:document_type) }
+  scope :recent, -> { order(created_at: :desc) }
+
   after_create :generate_unique_code,
                :create_signatures,
                :save_to_json
@@ -56,6 +59,18 @@ class Document < ApplicationRecord
   def select_external_members
     external_members = ExternalMember.find(external_member_supervisor_ids)
     Orientation.new.supervisors_to_document(external_members)
+  end
+
+  def filename
+    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
+  end
+
+  def self.by_user(user_id, user_types, status = [true, false])
+    conditions = { user_id: user_id, user_type: user_types, status: status }
+    distinct_query = 'DISTINCT ON (documents.id) documents.*'
+    joins(:signatures).select(distinct_query).where(signatures: conditions)
   end
 
   def self.new_tdo(professor, params = {})
