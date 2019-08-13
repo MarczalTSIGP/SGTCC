@@ -13,6 +13,8 @@
         {{ request.requester.justification }}
       </span>
     </p>
+
+    <document-judgment />
   </base-term-layout>
 </template>
 
@@ -20,11 +22,12 @@
 
 import baseTermData from './base_term_data';
 import BaseTermLayout from './base_term_layout';
+import DocumentJudgment from '../document_judgment';
 
 export default {
   name: 'TermOfAbandonment',
 
-  components: { BaseTermLayout },
+  components: { BaseTermLayout, DocumentJudgment },
 
   mixins: [baseTermData],
 };
