@@ -1,24 +1,22 @@
 require 'rails_helper'
 
-describe 'Signature::show', type: :feature, js: true do
-  let(:orientation) { create(:orientation) }
+describe 'Document::show', type: :feature, js: true do
+  let(:academic) { create(:academic) }
+  let(:orientation) { create(:orientation, academic: academic) }
+  let(:document) { Document.last }
 
   before do
     orientation.signatures << Signature.all
-    login_as(professor, scope: :professor)
+    login_as(academic, scope: :academic)
   end
 
   describe '#show' do
-    let(:signatures) { orientation.signatures }
-    let(:professor_signature) { signatures.where(user_type: :advisor).first }
-    let(:professor) { professor_signature.user }
+    context 'when shows the document of the term of accept institution' do
+      before do
+        visit academics_document_path(document)
+      end
 
-    context 'when shows the pending signature of the term of commitment' do
-      let(:active_link) { professors_signatures_pending_path }
-
-      it 'shows the document of the term of commitment' do
-        visit professors_signature_path(professor_signature)
-
+      it 'shows the document of the term of accept institution' do
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
@@ -31,30 +29,25 @@ describe 'Signature::show', type: :feature, js: true do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_selector("a[href='#{academics_documents_pending_path}'].active")
       end
     end
 
-    context 'when shows the signed signature of the term of commitment' do
-      let(:document) { signatures.first.document }
+    context 'when shows the signed document of the term of accept institution' do
       let(:document_type) { document.document_type }
-      let(:active_link) { professors_signatures_signed_path }
 
       before do
-        signatures.each(&:sign)
-        visit professors_signature_path(professor_signature)
+        document.signatures.each(&:sign)
+        visit academics_document_path(document)
       end
 
-      it 'shows the document of the term of commitment' do
-        role = signature_role(professor.gender, professor_signature.user_type)
-
+      it 'shows the document of the term of accept institution' do
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
-                                       role,
                                        signature_code_message(document),
                                        document_date(orientation.created_at)])
 
@@ -68,18 +61,21 @@ describe 'Signature::show', type: :feature, js: true do
                                signature[:date], signature[:time])
           )
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+
+        expect(page).to have_selector("a[href='#{academics_documents_signed_path}'].active")
       end
     end
 
-    context 'when the document signature cant be viewed' do
+    context 'when the document cant be viewed' do
+      let!(:new_academic) { create(:academic) }
+
       before do
-        academic_signature = signatures.where(user_type: :academic)
-        visit professors_signature_path(academic_signature)
+        create(:orientation, academic: new_academic)
+        visit academics_document_path(Document.last)
       end
 
-      it 'redirect to the signature pending page' do
-        expect(page).to have_current_path professors_signatures_pending_path
+      it 'redirect to the documents pending page' do
+        expect(page).to have_current_path academics_documents_pending_path
         expect(page).to have_flash(:warning, text: not_authorized_message)
       end
     end

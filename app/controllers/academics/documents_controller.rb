@@ -21,6 +21,7 @@ class Academics::DocumentsController < Academics::BaseController
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'), academics_document_path(@document)
+    @signature = @document.signature_by_academic(current_academic)
   end
 
   def confirm

@@ -30,6 +30,7 @@ class Professors::DocumentsController < Professors::BaseController
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
                    professors_document_path(@document)
+    @signature = @document.signature_by_professor(current_professor)
   end
 
   def confirm

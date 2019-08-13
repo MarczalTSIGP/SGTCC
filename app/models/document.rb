@@ -67,6 +67,18 @@ class Document < ApplicationRecord
     "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
   end
 
+  def signature_by_academic(academic)
+    signatures.find_by(user_id: academic.id, user_type: :academic)
+  end
+
+  def signature_by_external_member(external_member)
+    signatures.find_by(user_id: external_member.id, user_type: :external_member_supervisor)
+  end
+
+  def signature_by_professor(professor)
+    signatures.find_by(user_id: professor.id, user_type: [:advisor, :professor_responsible])
+  end
+
   def self.by_user(user_id, user_types, status = [true, false])
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
