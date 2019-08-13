@@ -35,7 +35,7 @@
     </label>
     <textarea
       id="document_judgment_justification"
-      class="form-control markdown-editor"
+      class="form-control"
       rows="5"
     />
     <div class="mt-4 float-right">
@@ -55,6 +55,7 @@
 <script>
 
 import sweetAlert from '../shared/helpers/sweet_alert';
+import SimpleMDE from 'simplemde';
 
 export default {
   name: 'DocumentJudgment',
@@ -85,16 +86,10 @@ export default {
   },
 
   mounted() {
-    this.listenMarkdownEditor();
+    this.initMarkdown();
   },
 
   methods: {
-    listenMarkdownEditor() {
-      this.$root.$on('markdown-editor', (val) => {
-        this.justification = val;
-      });
-    },
-
     solicitationValue() {
       const $ = window.jQuery;
 
@@ -104,19 +99,30 @@ export default {
     async saveJudgment() {
       if (this.hasErrors()) {
         this.showErrorMessage('Preencha todos os campos!');
+        return;
       }
 
       const params = { accept: this.solicitationValue(), justification: this.justification };
       const response = await this.$axios.put(this.url, params);
-      console.log(response);
-      if (response.date) {
+
+      if (response.data) {
         this.showSuccessMessage('Documento atualizado com sucesso!');
-        this.$root.forceUpdate();
+        this.$root.$emit('update-json-request');
       }
     },
 
     hasErrors() {
       return this.solicitationValue() === 'undefined' || this.justification === '';
+    },
+
+    initMarkdown() {
+      const simplemde = new SimpleMDE({
+        element: document.getElementById('document_judgment_justification')
+      });
+
+      simplemde.codemirror.on('change', () => {
+        this.justification = simplemde.value();
+      });
     },
   },
 };

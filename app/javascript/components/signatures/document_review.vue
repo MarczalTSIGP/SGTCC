@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasJudgment()">
+  <div v-if="notHasJudgment()">
     <document-judgment :document-id="documentId" />
   </div>
   <div v-else>
@@ -11,9 +11,9 @@
     <p>
       <b>Justificativa:</b>
     </p>
-    <vue-markdown-preview>
-      {{ request.judgment.responsible.justification }}
-    </vue-markdown-preview>
+    <div>
+      <vue-simple-markdown :source="request.judgment.responsible.justification" />
+    </div>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
       return accept ? 'Deferido' : 'Indeferido';
     },
 
-    hasJudgment() {
+    notHasJudgment() {
       return typeof this.request['judgment'] !== 'object';
     },
   },
