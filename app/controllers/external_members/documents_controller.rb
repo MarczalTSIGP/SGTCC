@@ -1,6 +1,7 @@
 class ExternalMembers::DocumentsController < ExternalMembers::BaseController
-  include SignatureConfirm
-  before_action :set_document, only: [:show, :confirm]
+  include DocumentSignature
+  before_action :set_document, only: [:show, :sign]
+  before_action :set_signature, only: [:show, :sign]
   before_action :can_view, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
@@ -22,10 +23,9 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
                    external_members_document_path(@document)
-    @signature = @document.signature_by_external_member(current_external_member)
   end
 
-  def confirm
+  def sign
     confirm_and_sign(current_external_member, current_external_member.email)
   end
 
@@ -33,6 +33,11 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
 
   def set_document
     @document = current_external_member.documents.find_by(id: params[:id])
+  end
+
+  def set_signature
+    @signature = @document.signature_by_user(current_external_member.id,
+                                             :external_member_supervisor)
   end
 
   def can_view

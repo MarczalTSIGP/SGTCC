@@ -1,4 +1,4 @@
 <%= render 'shared/documents/show',
   label: Professor.human_attribute_name('username'),
-  confirm_url: professors_signature_confirm_path(@document),
+  confirm_url: professors_document_sign_path(@document),
   back_url: professors_documents_pending_path %>

@@ -1,6 +1,7 @@
 class Professors::DocumentsController < Professors::BaseController
-  include SignatureConfirm
-  before_action :set_document, only: [:show, :confirm]
+  include DocumentSignature
+  before_action :set_document, only: [:show, :sign]
+  before_action :set_signature, only: [:show, :sign]
   before_action :can_view, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.documents.reviewing'),
@@ -30,10 +31,9 @@ class Professors::DocumentsController < Professors::BaseController
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
                    professors_document_path(@document)
-    @signature = @document.signature_by_professor(current_professor)
   end
 
-  def confirm
+  def sign
     confirm_and_sign(current_professor, current_professor.username)
   end
 
@@ -41,6 +41,10 @@ class Professors::DocumentsController < Professors::BaseController
 
   def set_document
     @document = current_professor.documents.find_by(id: params[:id])
+  end
+
+  def set_signature
+    @signature = @document.signature_by_user(current_professor.id, current_professor.user_types)
   end
 
   def can_view

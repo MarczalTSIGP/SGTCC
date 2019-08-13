@@ -81,10 +81,13 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
-  def documents(status = [true, false])
+  def user_types
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
+  end
+
+  def documents(status = [true, false])
     Document.from(Document.by_user(id, user_types, status), :documents).recent
   end
 

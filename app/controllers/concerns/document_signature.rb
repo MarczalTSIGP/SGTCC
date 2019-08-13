@@ -1,4 +1,4 @@
-module SignatureConfirm
+module DocumentSignature
   extend ActiveSupport::Concern
 
   def confirm_and_sign(current_user, login)

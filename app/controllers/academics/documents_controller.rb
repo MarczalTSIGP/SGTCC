@@ -1,6 +1,7 @@
 class Academics::DocumentsController < Academics::BaseController
-  include SignatureConfirm
-  before_action :set_document, only: [:show, :confirm]
+  include DocumentSignature
+  before_action :set_document, only: [:show, :sign]
+  before_action :set_signature, only: [:show, :sign]
   before_action :can_view, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
@@ -21,10 +22,9 @@ class Academics::DocumentsController < Academics::BaseController
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.signatures.show'), academics_document_path(@document)
-    @signature = @document.signature_by_academic(current_academic)
   end
 
-  def confirm
+  def sign
     confirm_and_sign(current_academic, current_academic.ra)
   end
 
@@ -32,6 +32,10 @@ class Academics::DocumentsController < Academics::BaseController
 
   def set_document
     @document = current_academic.documents.find_by(id: params[:id])
+  end
+
+  def set_signature
+    @signature = @document.signature_by_user(current_academic.id, :academic)
   end
 
   def can_view

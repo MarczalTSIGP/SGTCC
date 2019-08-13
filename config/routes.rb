@@ -237,7 +237,7 @@ Rails.application.routes.draw do
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
-      post 'documents/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/reviewing', to: 'documents#reviewing', as: 'documents_reviewing'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
@@ -430,7 +430,7 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
-      post 'documents/(:id)/confirm', to: 'signatures#confirm', as: 'signature_confirm'
+      post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
@@ -488,7 +488,7 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
-      post 'documents/(:id)/confirm', to: 'documents#confirm', as: 'signature_confirm'
+      post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'

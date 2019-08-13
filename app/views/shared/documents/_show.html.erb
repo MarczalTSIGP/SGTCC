@@ -10,17 +10,19 @@
       document-title="<%= @document.filename %>" />
   </div>
 
-  <div>
-    <signature-confirm
-      label="<%= label %>"
-      url="<%= confirm_url %>" />
-  </div>
+  <% unless @signature.status %>
+    <div>
+      <signature-confirm
+        label="<%= label %>"
+        url="<%= confirm_url %>" />
+    </div>
 
-  <div class="float-right">
-    <signature-button
-      show-title="<%= t('breadcrumbs.signatures.TCO.show',
-                        academic: @document.orientation.academic.name) %>" />
-  </div>
+    <div class="float-right">
+      <signature-button
+        show-title="<%= t('breadcrumbs.signatures.TCO.show',
+                           academic: @document.orientation.academic.name) %>" />
+    </div>
+  <% end %>
 </div>
 
 <div class="container">
