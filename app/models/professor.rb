@@ -85,6 +85,7 @@ class Professor < ApplicationRecord
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
+    user_types
   end
 
   def documents(status = [true, false])

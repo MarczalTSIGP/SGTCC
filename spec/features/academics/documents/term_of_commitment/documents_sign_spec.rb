@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Signature::sign', type: :feature, js: true do
+describe 'Document::sign', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
   let(:academic_signature) { orientation.signatures.where(user_type: :academic).first }
   let(:academic) { academic_signature.user }
 
   before do
     login_as(academic, scope: :academic)
-    visit academics_signature_path(academic_signature)
+    visit academics_document_path(Document.first)
   end
 
   describe '#sign' do

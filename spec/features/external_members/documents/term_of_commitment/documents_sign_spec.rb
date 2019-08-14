@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Signature::sign', type: :feature, js: true do
+describe 'Document::sign', type: :feature, js: true do
   let(:orientation) { create(:orientation) }
   let(:external_member_signature) do
     orientation.signatures.where(user_type: :external_member_supervisor).first
@@ -9,7 +9,7 @@ describe 'Signature::sign', type: :feature, js: true do
 
   before do
     login_as(external_member, scope: :external_member)
-    visit external_members_signature_path(external_member_signature)
+    visit external_members_document_path(Document.first)
   end
 
   describe '#sign' do

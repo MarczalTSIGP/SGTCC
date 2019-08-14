@@ -67,10 +67,8 @@ describe 'Document::show', type: :feature, js: true do
     end
 
     context 'when the document cant be viewed' do
-      let!(:new_academic) { create(:academic) }
-
       before do
-        create(:orientation, academic: new_academic)
+        create(:orientation)
         visit academics_document_path(Document.last)
       end
 

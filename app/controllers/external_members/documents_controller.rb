@@ -1,8 +1,8 @@
 class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   include DocumentSignature
   before_action :set_document, only: [:show, :sign]
-  before_action :set_signature, only: [:show, :sign]
   before_action :can_view, only: :show
+  before_action :set_signature, only: [:show, :sign]
 
   add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
                  :external_members_documents_pending_path,

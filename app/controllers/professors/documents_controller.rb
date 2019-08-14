@@ -1,8 +1,8 @@
 class Professors::DocumentsController < Professors::BaseController
   include DocumentSignature
   before_action :set_document, only: [:show, :sign]
-  before_action :set_signature, only: [:show, :sign]
   before_action :can_view, only: :show
+  before_action :set_signature, only: [:show, :sign]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.reviewing'),
                  :professors_documents_reviewing_path,
