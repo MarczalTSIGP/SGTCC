@@ -1,25 +1,16 @@
 <%= simple_form_for(@document, url: professors_requests_path) do |f| %>
-  <div class="row">
-    <div class="col-6">
       <%= f.input :orientation_id,
         as: :select,
         collection: current_professor.orientations_to_form,
         class: 'form-control',
         input_html: { data: 'selectize' },
-        label: false,
         label_method: :second,
         value_method: :first,
         prompt: t('prompt.select.f', name: Orientation.model_name.human) %>
-    </div>
 
-    <div class="col-6">
       <%= f.input :justification,
-        placeholder: 'Justificativa',
-        label: false,
         as: :text,
-        input_html: { rows: '8' } %>
-    </div>
-  </div>
+        input_html: { rows: '8', class: 'markdown-editor' } %>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),
