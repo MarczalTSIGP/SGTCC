@@ -332,6 +332,7 @@ pt-BR:
         content: "Conteúdo"
         date: "Data"
         viewed: "Ciência"
+        <<: *commons
       examination_board:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
