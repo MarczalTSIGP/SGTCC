@@ -14,6 +14,9 @@ class Academic < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :examination_boards,
+           through: :orientations
+
   validates :name,
             presence: true
 

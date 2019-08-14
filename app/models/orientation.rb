@@ -24,6 +24,8 @@ class Orientation < ApplicationRecord
 
   has_many :meetings, dependent: :destroy
 
+  has_many :examination_boards, dependent: :destroy
+
   has_many :professor_supervisors, class_name: 'Professor',
                                    foreign_key: :professor_supervisor_id,
                                    through: :orientation_supervisors,
@@ -45,11 +47,11 @@ class Orientation < ApplicationRecord
     join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }), status)
   }
 
-  scope :current_tcc_one, lambda { |status|
+  scope :current_tcc_one, lambda { |status = nil|
     join_with_status(join_current_calendar_tcc_one, status)
   }
 
-  scope :current_tcc_two, lambda { |status|
+  scope :current_tcc_two, lambda { |status = nil|
     join_with_status(join_current_calendar_tcc_two, status)
   }
 
@@ -59,6 +61,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
+  scope :order_by_academic, -> { order('academics.name') }
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title

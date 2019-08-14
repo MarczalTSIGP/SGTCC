@@ -40,3 +40,11 @@
   </span>
   <%= t('breadcrumbs.calendars.index') %>
 <% end %>
+
+<%= active_link_to(tcc_one_professors_examination_boards_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'user-friends') %>
+  </span>
+  <%= t('breadcrumbs.examination_boards.index') %>
+<% end %>

@@ -50,6 +50,14 @@
     </div>
   <% end %>
 
+  <%= active_link_to(external_members_examination_boards_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-friends') %>
+    </span>
+    <%= t('breadcrumbs.examination_boards.index') %>
+  <% end %>
+
   <%= render 'layouts/shared/signature_menu', resource: 'external_members',
                                               pending_path: external_members_signatures_pending_path,
                                               signed_path: external_members_signatures_signed_path %>

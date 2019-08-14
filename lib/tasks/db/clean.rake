@@ -9,6 +9,8 @@ namespace :db do
      Document,
      DocumentType,
      Meeting,
+     ExaminationBoardAttendee,
+     ExaminationBoard,
      Orientation,
      Academic,
      Institution,

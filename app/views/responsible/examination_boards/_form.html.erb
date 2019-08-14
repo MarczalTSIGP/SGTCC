@@ -1,0 +1,51 @@
+<%= simple_form_for [:responsible, @examination_board] do |f| %>
+  <div class="form-inputs">
+    <%= f.association :orientation,
+      label: Academic.model_name.human,
+      input_html: { data: 'selectize' },
+      value_method: :id,
+      label_method: :academic_with_calendar,
+      collection: Orientation.current_tcc_two.includes(:academic, :calendar).order_by_academic,
+      prompt: t('prompt.select.m', name: Academic.model_name.human) %>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :place %>
+      </div>
+      <div class="col-sm-6">
+        <datetimepicker
+          name="examination_board[date]"
+          id="examination_board_date"
+          label="<%= ExaminationBoard.human_attribute_name('date') %>"
+          datetime="<%= @examination_board.date %>" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :professors,
+          input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :external_members,
+          input_html: { data: 'selectize' },
+          collection: ExternalMember.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+      </div>
+    </div>
+
+    <%= f.input :tcc,
+      as: :hidden,
+      input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' } %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_examination_boards_path,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
