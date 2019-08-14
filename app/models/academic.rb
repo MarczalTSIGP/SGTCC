@@ -58,10 +58,10 @@ class Academic < ApplicationRecord
   end
 
   def tsos
-    documents(DocumentType.tso.first)
+    documents([true, false], DocumentType.tso.first)
   end
 
   def teps
-    documents(DocumentType.tep.first)
+    documents([true, false], DocumentType.tep.first)
   end
 end

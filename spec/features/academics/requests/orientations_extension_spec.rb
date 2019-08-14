@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'Orientation::extension', type: :feature do
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:current_orientation_tcc_two, academic_id: academic.id) }
+  let!(:document_type) { create(:document_type_tep) }
   let(:resource_name) { request_resource_name }
 
   before do
     create(:responsible)
     create(:coordinator)
-    create(:document_type_tep)
     login_as(academic, scope: :academic)
   end
 
@@ -24,7 +24,8 @@ describe 'Orientation::extension', type: :feature do
 
         expect(page).to have_current_path academics_tep_requests_path
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_message(orientation.short_title, in: 'table tbody')
+        expect(page).to have_contents([orientation.title,
+                                       document_type.identifier.upcase])
       end
     end
 

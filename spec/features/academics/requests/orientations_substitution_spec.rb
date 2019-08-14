@@ -6,11 +6,11 @@ describe 'Orientation::substitution', type: :feature do
   let!(:orientation) do
     create(:current_orientation_tcc_one, advisor: advisor, academic: academic)
   end
+  let!(:document_type) { create(:document_type_tso) }
   let(:resource_name) { request_resource_name }
 
   before do
     create(:responsible)
-    create(:document_type_tso)
     login_as(academic, scope: :academic)
   end
 
@@ -27,7 +27,8 @@ describe 'Orientation::substitution', type: :feature do
 
         expect(page).to have_current_path academics_tso_requests_path
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_message(orientation.short_title, in: 'table tbody')
+        expect(page).to have_contents([orientation.title,
+                                       document_type.identifier.upcase])
       end
     end
 
