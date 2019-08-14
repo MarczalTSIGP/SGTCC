@@ -23,7 +23,7 @@ class Academics::TsoRequestsController < Academics::BaseController
 
     if @document.save
       feminine_success_create_message
-      redirect_to academics_tso_requests_path
+      redirect_to academics_document_path(@document)
     else
       render :new
     end

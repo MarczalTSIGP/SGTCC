@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Orientation::extension', type: :feature do
   let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:current_orientation_tcc_two, academic_id: academic.id) }
   let!(:document_type) { create(:document_type_tep) }
   let(:resource_name) { request_resource_name }
 
   before do
+    create(:current_orientation_tcc_two, academic_id: academic.id)
     create(:responsible)
     create(:coordinator)
     login_as(academic, scope: :academic)
@@ -19,13 +19,13 @@ describe 'Orientation::extension', type: :feature do
 
     context 'when request is valid', js: true do
       it 'create a term of extension' do
-        fill_in 'document_justification', with: 'justification'
+        find('.fa-bold').click
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path academics_tep_requests_path
+        expect(page).to have_current_path academics_document_path(Document.last)
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_contents([orientation.title,
-                                       document_type.identifier.upcase])
+        expect(page).to have_contents([academic.name,
+                                       document_type.name.upcase])
       end
     end
 
