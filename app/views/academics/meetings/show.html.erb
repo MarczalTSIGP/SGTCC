@@ -8,7 +8,7 @@
         <%= Meeting.human_attribute_name('content') %>:
       </strong>
       <div class="form-fieldset w-50 text-left">
-        <vue-markdown-preview><%= @meeting.content %></vue-markdown-preview>
+        <vue-simple-markdown source="<%= @meeting.content %>" />
       </div>
     </p>
     <p>
