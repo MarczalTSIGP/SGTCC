@@ -34,7 +34,6 @@ class Academics::TepRequestsController < Academics::BaseController
       feminine_success_update_message
       redirect_to academics_document_path(@document)
     else
-      error_message
       render :edit
     end
   end
