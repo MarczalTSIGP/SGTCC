@@ -351,4 +351,43 @@ RSpec.describe Document, type: :model do
       end
     end
   end
+
+  describe '#signature_by_user' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let(:document) { Document.first }
+
+    context 'when returns the pending signature' do
+      let(:pending_signature) do
+        document.signatures.find_by(user_id: academic.id,
+                                    user_type: :academic,
+                                    status: false)
+      end
+
+      it 'returns the pending signature' do
+        expect(document.signature_by_user(academic.id, :academic)).to eq(pending_signature)
+      end
+    end
+
+    context 'when returns the signed signature' do
+      let(:signed_signature) do
+        document.signatures.find_by(user_id: academic.id,
+                                    user_type: :academic,
+                                    status: true)
+      end
+
+      let(:academic_signature) do
+        orientation.signatures.find_by(user_id: academic.id,
+                                       user_type: :academic)
+      end
+
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns the signed signature' do
+        expect(document.signature_by_user(academic.id, :academic)).to eq(signed_signature)
+      end
+    end
+  end
 end
