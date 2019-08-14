@@ -8,6 +8,10 @@ class Academics::TepRequestsController < Academics::BaseController
                  :new_academics_tep_request_path,
                  only: :new
 
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tep.edit'),
+                 :edit_academics_tep_request_path,
+                 only: :edit
+
   def index
     @requests = current_academic.teps.with_relationships.page(params[:page])
   end

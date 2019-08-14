@@ -4,9 +4,13 @@ class Professors::RequestsController < Professors::BaseController
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
                  :professors_requests_path
 
-  add_breadcrumb I18n.t('breadcrumbs.documents.requests.new'),
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tdo.new'),
                  :new_professors_request_path,
                  only: :new
+
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tdo.edit'),
+                 :edit_professors_request_path,
+                 only: :edit
 
   def index
     @requests = current_professor.documents_request(params[:page])

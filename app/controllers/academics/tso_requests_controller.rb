@@ -8,6 +8,10 @@ class Academics::TsoRequestsController < Academics::BaseController
                  :new_academics_tso_request_path,
                  only: :new
 
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.edit'),
+                 :edit_academics_tso_request_path,
+                 only: :edit
+
   def index
     @requests = current_academic.tsos.with_relationships.page(params[:page])
   end
