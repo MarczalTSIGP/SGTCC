@@ -2,7 +2,7 @@ class Professor < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include SignatureFilter
+  include DocumentFilter
   include ScholarityName
 
   devise :database_authenticatable,
@@ -81,11 +81,15 @@ class Professor < ApplicationRecord
     roles.where(identifier: identifier).any?
   end
 
-  def signatures
+  def user_types
     types = Signature.user_types
     user_types = [types[:advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
-    Signature.where(user_id: id, user_type: user_types).recent
+    user_types
+  end
+
+  def documents(status = [true, false])
+    Document.from(Document.by_user(id, user_types, status), :documents).recent
   end
 
   def orientations_to_form

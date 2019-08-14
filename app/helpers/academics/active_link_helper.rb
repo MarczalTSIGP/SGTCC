@@ -12,11 +12,11 @@ module Academics::ActiveLinkHelper
     activities_tcc_active_link?('two', 'academics') && calendar_equal_current_calendar_tcc_two?
   end
 
-  def academics_signatures_pending_active_link?
-    signatures_pending_active_link?('academics')
+  def academics_documents_pending_active_link?
+    documents_pending_active_link?('academics')
   end
 
-  def academics_signatures_signed_active_link?
-    signatures_signed_active_link?('academics')
+  def academics_documents_signed_active_link?
+    documents_signed_active_link?('academics')
   end
 end

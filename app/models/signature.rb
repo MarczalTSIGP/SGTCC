@@ -1,10 +1,5 @@
 class Signature < ApplicationRecord
   include Confirmable
-  include Searchable
-
-  searchable relationships: {
-    orientation: { fields: [title: { unaccent: true }] }
-  }
 
   belongs_to :orientation
   belongs_to :document
@@ -17,10 +12,6 @@ class Signature < ApplicationRecord
     professor_supervisor: 'PS',
     external_member_supervisor: 'ES'
   }, _prefix: :user_type
-
-  scope :with_relationships, lambda {
-    includes(orientation: [:academic], document: [:document_type])
-  }
 
   scope :by_document_type, lambda { |document_type_id|
     joins(:document).where(documents: { document_type_id: document_type_id })
@@ -52,12 +43,5 @@ class Signature < ApplicationRecord
 
   def user
     user_table.find(user_id)
-  end
-
-  def document_filename
-    document_type = document.document_type.identifier
-    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
-    "SGTCC_#{document_type}_#{academic}_#{calendar}".upcase
   end
 end

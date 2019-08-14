@@ -15,8 +15,8 @@
       <%= render 'layouts/professors/professor_tcc1_menu' %>
     <% end %>
   </div>
-  <%= render 'layouts/shared/signature_menu', resource: 'professors',
-                                              reviewing_path: professors_signatures_reviewing_path,
-                                              pending_path: professors_signatures_pending_path,
-                                              signed_path: professors_signatures_signed_path %>
+  <%= render 'layouts/shared/document_menu', resource: 'professors',
+                                             reviewing_path: professors_documents_reviewing_path,
+                                             pending_path: professors_documents_pending_path,
+                                             signed_path: professors_documents_signed_path %>
 <% end %>

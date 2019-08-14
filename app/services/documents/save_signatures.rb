@@ -94,7 +94,6 @@ class Documents::SaveSignatures
 
   def add_responsible
     professor_id = Professor.current_responsible.id
-    return if @orientation.advisor.id == professor_id && @document.document_type.tdo?
     @signature_users.push([professor_id, 'PR'])
   end
 end

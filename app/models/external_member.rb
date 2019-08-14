@@ -2,7 +2,7 @@ class ExternalMember < ApplicationRecord
   include Classifiable
   include Searchable
   include ProfileImage
-  include SignatureFilter
+  include DocumentFilter
   include ScholarityName
 
   devise :database_authenticatable,
@@ -69,8 +69,8 @@ class ExternalMember < ApplicationRecord
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
   end
 
-  def signatures
-    Signature.where(user_id: id, user_type: Signature.user_types[:external_member_supervisor])
-             .recent
+  def documents(status = [true, false])
+    user_types = Signature.user_types[:external_member_supervisor]
+    Document.from(Document.by_user(id, user_types, status), :documents).recent
   end
 end
