@@ -1,7 +1,11 @@
-<%= simple_form_for(@document, url: academics_tep_requests_path) do |f| %>
+<%= simple_form_for(@document, url: url) do |f| %>
   <%= f.input :justification,
     as: :text,
-    input_html: { rows: '8', class: 'markdown-editor' } %>
+    input_html: {
+      rows: '8',
+      class: 'markdown-editor',
+      value: @document.request.present? ? @document.request['requester']['justification'] : ''
+    } %>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),

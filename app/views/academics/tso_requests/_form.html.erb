@@ -1,4 +1,4 @@
-<%= simple_form_for(@document, url: academics_tso_requests_path) do |f| %>
+<%= simple_form_for(@document, url: url) do |f| %>
   <div class="row">
     <div class="col-sm-4">
       <%= f.input :advisor_id,
@@ -24,7 +24,11 @@
     <div class="col-12">
       <%= f.input :justification,
         as: :text,
-        input_html: { rows: '8', class: 'markdown-editor' } %>
+        input_html: {
+          rows: '8',
+          class: 'markdown-editor',
+          value: @document.request.present? ? @document.request['requester']['justification'] : ''
+        } %>
     </div>
   </div>
 

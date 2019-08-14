@@ -32,16 +32,22 @@ class Document < ApplicationRecord
     update(content: term_json_data)
   end
 
+  # rubocop:disable Rails/SkipsModelValidations
   def save_judgment(user, params)
     json_judgment = { responsible: { id: user.id,
                                      accept: params[:accept],
                                      justification: params[:justification] } }
     request['judgment'] = json_judgment
-    # rubocop:disable Rails/SkipsModelValidations
     update_attribute(:request, request)
-    # rubocop:enable Rails/SkipsModelValidations
   end
 
+  def update_requester_justification(params)
+    new_request = request
+    new_request['requester']['justification'] = params[:justification]
+    update_attribute(:request, new_request)
+  end
+
+  # rubocop:enable Rails/SkipsModelValidations
   def status_table
     signatures.map do |signature|
       { name: signature.user.name, status: signature.status,

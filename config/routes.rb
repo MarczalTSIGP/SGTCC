@@ -217,7 +217,7 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                only: [:index, :new, :create],
+                except: [:show, :destroy],
                 constraints: { id: /[0-9]+/ }
 
       resources :meetings,
@@ -414,11 +414,11 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :tep_requests,
-                only: [:index, :new, :create],
+                except: [:show, :destroy],
                 constraints: { id: /[0-9]+/ }
 
       resources :tso_requests,
-                only: [:index, :new, :create],
+                except: [:show, :destroy],
                 constraints: { id: /[0-9]+/ }
 
       resources :meetings,
@@ -426,11 +426,11 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
-
       resources :examination_boards,
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
+
+      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'

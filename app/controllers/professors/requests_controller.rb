@@ -1,4 +1,6 @@
 class Professors::RequestsController < Professors::BaseController
+  before_action :set_document, only: [:edit, :update]
+
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
                  :professors_requests_path
 
@@ -14,6 +16,8 @@ class Professors::RequestsController < Professors::BaseController
     @document = Document.new
   end
 
+  def edit; end
+
   def create
     @document = Document.new_tdo(current_professor, request_params)
 
@@ -25,7 +29,21 @@ class Professors::RequestsController < Professors::BaseController
     end
   end
 
+  def update
+    if @document.update_requester_justification(request_params)
+      feminine_success_update_message
+      redirect_to professors_document_path(@document)
+    else
+      error_message
+      render :edit
+    end
+  end
+
   private
+
+  def set_document
+    @document = current_professor.documents.find_by(id: params[:id])
+  end
 
   def model_human
     I18n.t('flash.request.index')

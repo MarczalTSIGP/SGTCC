@@ -1,0 +1,11 @@
+<tr>
+  <%= render 'shared/documents/tbody', document: document %>
+  <td>
+    <%= link_to(academics_document_path(document)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
+    <% end %>
+    <%= link_to(edit_academics_tep_request_path(document)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar justificativa"></i>
+    <% end %>
+  </td>
+</tr>
