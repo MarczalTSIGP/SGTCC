@@ -9,8 +9,10 @@
 
     <p>
       <b>Motivos da desistência</b>: <br>
-      <span class="ml-4">
-        {{ request.requester.justification }}
+      <span>
+        <div class="ml-4">
+          <vue-simple-markdown :source="request.requester.justification" />
+        </div>
       </span>
     </p>
 

@@ -7,9 +7,11 @@
     </p>
 
     <p>
-      <b>Justificativa</b>: <br>
-      <span class="ml-4">
-        {{ request.requester.justification }}
+      <b>Justificativa</b>:
+      <span>
+        <div class="ml-4">
+          <vue-simple-markdown :source="request.requester.justification" />
+        </div>
       </span>
     </p>
 
