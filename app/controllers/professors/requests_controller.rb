@@ -7,7 +7,7 @@ class Professors::RequestsController < Professors::BaseController
                  only: :new
 
   def index
-    @requests = current_professor.documents_reviewing(params[:page])
+    @requests = current_professor.documents_request(params[:page])
   end
 
   def new
