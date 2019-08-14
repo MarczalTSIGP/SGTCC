@@ -138,7 +138,7 @@ RSpec.describe ExternalMember, type: :model do
     end
   end
 
-  describe '#signatures_signed' do
+  describe '#documents_signed' do
     let(:orientation) { create(:orientation) }
     let(:external_member) { orientation.external_member_supervisors.first }
 
@@ -146,19 +146,21 @@ RSpec.describe ExternalMember, type: :model do
       orientation.signatures.find_by(user_type: :external_member_supervisor).sign
     end
 
-    it 'returns the signed signatures' do
-      signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: true)
-      expect(external_member.signatures_signed).to match_array(signatures)
+    it 'returns the signed documents' do
+      conditions = { user_id: external_member.id, user_type: 'ES', status: true }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(external_member.documents_signed).to match_array(documents)
     end
   end
 
-  describe '#signatures_pending' do
+  describe '#documents_pending' do
     let(:orientation) { create(:orientation) }
     let(:external_member) { orientation.external_member_supervisors.first }
 
-    it 'returns the pending signatures' do
-      signatures = Signature.where(user_id: external_member.id, user_type: 'ES', status: false)
-      expect(external_member.signatures_pending).to match_array(signatures)
+    it 'returns the pending documents' do
+      conditions = { user_id: external_member.id, user_type: 'ES', status: false }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(external_member.documents_pending).to match_array(documents)
     end
   end
 

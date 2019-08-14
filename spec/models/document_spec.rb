@@ -331,4 +331,63 @@ RSpec.describe Document, type: :model do
       expect(document.mark).to match_array(signatures_mark)
     end
   end
+
+  describe '#filename' do
+    let(:orientation) { create(:orientation) }
+
+    before do
+      orientation.signatures << Signature.all
+    end
+
+    context 'when returns the filename' do
+      let(:signature) { orientation.signatures.first }
+
+      it 'returns the document file_name' do
+        document_type = signature.document.document_type.identifier
+        academic_name = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
+        calendar = orientation.calendar.year_with_semester.tr('/', '_')
+        document_filename = "SGTCC_#{document_type}_#{academic_name}_#{calendar}".upcase
+        expect(signature.document.filename).to eq(document_filename)
+      end
+    end
+  end
+
+  describe '#signature_by_user' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let(:document) { Document.first }
+
+    context 'when returns the pending signature' do
+      let(:pending_signature) do
+        document.signatures.find_by(user_id: academic.id,
+                                    user_type: :academic,
+                                    status: false)
+      end
+
+      it 'returns the pending signature' do
+        expect(document.signature_by_user(academic.id, :academic)).to eq(pending_signature)
+      end
+    end
+
+    context 'when returns the signed signature' do
+      let(:signed_signature) do
+        document.signatures.find_by(user_id: academic.id,
+                                    user_type: :academic,
+                                    status: true)
+      end
+
+      let(:academic_signature) do
+        orientation.signatures.find_by(user_id: academic.id,
+                                       user_type: :academic)
+      end
+
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns the signed signature' do
+        expect(document.signature_by_user(academic.id, :academic)).to eq(signed_signature)
+      end
+    end
+  end
 end
