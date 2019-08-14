@@ -1,3 +1,6 @@
-<term-of-abandonment :document-id="<%= @document.id %>" />
+<term-of-abandonment
+  :document-id="<%= @document.id %>"
+  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
+
 
 
