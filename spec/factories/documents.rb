@@ -27,9 +27,13 @@ FactoryBot.define do
     end
 
     factory :document_tso do
+      new_orientation = { requester: { justificatio: 'dfd' },
+                          new_orientation: { advisor: { id: '', name: '' },
+                                             professorSupervisors: {},
+                                             externalMemberSupervisors: {} } }
       document_type { create(:document_type_tso) }
       justification { 'justification' }
-      request { request }
+      request { new_orientation }
     end
   end
 end
