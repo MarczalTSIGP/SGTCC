@@ -43,7 +43,9 @@ class Document < ApplicationRecord
 
   def update_requester_justification(params)
     new_request = request
-    new_request['requester']['justification'] = params[:justification]
+    justification = params[:justification]
+    return true if justification.blank?
+    new_request['requester']['justification'] = justification
     update_attribute(:request, new_request)
   end
 

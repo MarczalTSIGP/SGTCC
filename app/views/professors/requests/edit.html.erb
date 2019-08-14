@@ -1,7 +1,7 @@
 <% provide(:page_title, t('breadcrumbs.documents.requests.tdo.new')) %>
 <% provide(:head_title, t('breadcrumbs.documents.requests.tdo.new')) %>
 
-<%= simple_form_for(@document, url: professors_request_path) do |f| %>
+<%= simple_form_for(@document, url: professors_request_path(@document)) do |f| %>
   <%= f.input :orientation_id,
     as: :select,
     collection: current_professor.orientations_to_form,

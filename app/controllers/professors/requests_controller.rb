@@ -23,7 +23,7 @@ class Professors::RequestsController < Professors::BaseController
 
     if @document.save
       feminine_success_create_message
-      redirect_to professors_requests_path
+      redirect_to professors_document_path(@document)
     else
       render :new
     end
@@ -34,7 +34,6 @@ class Professors::RequestsController < Professors::BaseController
       feminine_success_update_message
       redirect_to professors_document_path(@document)
     else
-      error_message
       render :edit
     end
   end
