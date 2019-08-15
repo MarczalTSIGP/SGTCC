@@ -1,6 +1,8 @@
 class Document < ApplicationRecord
   include TermJsonData
   include SignatureMark
+  include DocumentSigned
+  include NewDocumentByType
 
   attr_accessor :orientation_id, :advisor_id, :justification,
                 :professor_supervisor_ids, :external_member_supervisor_ids
@@ -22,6 +24,12 @@ class Document < ApplicationRecord
 
   def orientation
     signatures.first.orientation
+  end
+
+  def filename
+    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
   end
 
   def all_signed?
@@ -79,12 +87,6 @@ class Document < ApplicationRecord
     Orientation.new.supervisors_to_document(external_members)
   end
 
-  def filename
-    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
-    "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
-  end
-
   def signature_by_user(user_id, user_types)
     pending_signature = pending_signature_by_user(user_id, user_types)
     return pending_signature if pending_signature.present?
@@ -95,49 +97,10 @@ class Document < ApplicationRecord
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
   end
 
-  def academic_signed?(academic)
-    signature_by_user(academic.id, :academic).status
-  end
-
-  def professor_signed?(professor)
-    signature_by_user(professor.id, professor.user_types).status
-  end
-
   def self.by_user(user_id, user_types, status = [true, false])
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
     joins(:signatures).select(distinct_query).where(signatures: conditions)
-  end
-
-  def self.new_tdo(professor, params = {})
-    document = DocumentType.find_by(identifier: :tdo).documents.new(params)
-    new_request(professor, 'advisor', document)
-  end
-
-  def self.new_tep(academic, params = {})
-    params[:orientation_id] = academic.current_orientation_tcc_two.first.id
-    document = DocumentType.find_by(identifier: :tep).documents.new(params)
-    new_request(academic, 'academic', document)
-  end
-
-  def self.new_tso(academic, params = {})
-    params[:orientation_id] = academic.current_orientation.id
-    params[:professor_supervisor_ids].shift
-    params[:external_member_supervisor_ids].shift
-
-    document = DocumentType.find_by(identifier: :tso).documents.new(params)
-    new_orientation_request(academic, 'academic', document)
-  end
-
-  def self.new_orientation_request(user, user_type, document)
-    document.request = { requester: document.requester_data(user, user_type),
-                         new_orientation: document.new_orientation_data }
-    document
-  end
-
-  def self.new_request(user, user_type, document)
-    document.request = { requester: document.requester_data(user, user_type) }
-    document
   end
 
   private
