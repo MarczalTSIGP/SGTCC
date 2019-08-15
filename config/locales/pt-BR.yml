@@ -24,6 +24,8 @@ pt-BR:
       cancel: 'Cancelar'
       sign: 'Assinar'
       authenticate: 'Autenticar'
+      concede: 'Deferir'
+      dismiss: 'Indeferir'
       orientation:
         meeting:
           view: 'Dar ciência'

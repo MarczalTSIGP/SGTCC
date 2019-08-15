@@ -12,6 +12,7 @@
       {{ solicitationLabel() }}
       <button
         v-if="hasPermission && canEdit"
+        id="edit_button_judgment"
         class="btn btn-outline-primary btn-sm"
         @click="editDocumentJudgment()"
       >

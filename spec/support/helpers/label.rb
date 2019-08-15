@@ -19,5 +19,13 @@ module Helpers
     def meeting_view_label
       I18n.t('views.buttons.orientation.meeting.view')
     end
+
+    def concede_label
+      I18n.t('views.buttons.concede')
+    end
+
+    def dismiss_label
+      I18n.t('views.buttons.dismiss')
+    end
   end
 end
