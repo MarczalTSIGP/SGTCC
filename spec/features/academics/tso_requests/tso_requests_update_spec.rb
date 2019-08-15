@@ -6,8 +6,19 @@ describe 'TsoRequest::update', type: :feature, js: true do
   let!(:advisor) { create(:professor) }
   let!(:orientation) { create(:orientation, academic: academic) }
 
+  let(:new_orientation) do
+    { advisor: { id: advisor.id, name: advisor.name },
+      professorSupervisors: {},
+      externalMemberSupervisors: {} }
+  end
+
+  let(:request) do
+    { requester: { justificatio: 'just' }, new_orientation: new_orientation }
+  end
+
   let!(:document_tso) do
-    create(:document_tso, orientation_id: orientation.id, advisor_id: advisor.id)
+    create(:document_tso, orientation_id: orientation.id,
+                          advisor_id: advisor.id, request: request)
   end
 
   before do
