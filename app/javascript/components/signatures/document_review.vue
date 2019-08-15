@@ -11,7 +11,7 @@
       <b>Solicitação:</b>
       {{ solicitationLabel() }}
       <button
-        v-if="hasPermission"
+        v-if="hasPermission && canEdit"
         class="btn btn-outline-primary btn-sm"
         @click="editDocumentJudgment()"
       >
@@ -55,6 +55,14 @@ export default {
     },
 
     hasPermission: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      }
+    },
+
+    canEdit: {
       type: Boolean,
       required: false,
       default() {

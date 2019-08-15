@@ -18,6 +18,7 @@
 
     <document-review
       :document-id="documentId"
+      :can-edit="canEdit"
       :request="request"
       :has-permission="isResponsible"
     />
@@ -39,6 +40,14 @@ export default {
 
   props: {
     isResponsible: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      }
+    },
+
+    canEdit: {
       type: Boolean,
       required: false,
       default() {
