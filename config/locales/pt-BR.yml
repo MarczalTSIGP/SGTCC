@@ -122,11 +122,13 @@ pt-BR:
           sidebar: "Substituição do TCC"
           index: "Solicitações de substituição do TCC"
           new: "Solicitar substituição do TCC"
+          show: "Visualizar substituição do TCC"
           edit: "Editar solicitação de substituição do TCC"
         tep:
           sidebar: "Extensão de prazo do TCC"
           index: "Solicitações de extensão do prazo do TCC"
           new: "Solicitar extensão de prazo do TCC"
+          show: "Visualizar extensão de prazo do TCC"
           edit: "Editar extensão de prazo do TCC"
         tdo:
           new: "Solicitar desistência de orientação"
@@ -331,6 +333,7 @@ pt-BR:
         new_advisor: "Novo Orientador"
         professor_supervisor_ids: "Novos Coorientadores da UTFPR"
         external_member_supervisor_ids: "Novos Coorientadores externos"
+        <<: *commons
       meeting:
         content: "Conteúdo"
         date: "Data"

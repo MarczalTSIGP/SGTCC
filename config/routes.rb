@@ -414,11 +414,10 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :tep_requests,
-                except: [:show, :destroy],
                 constraints: { id: /[0-9]+/ }
 
       resources :tso_requests,
-                except: [:show, :destroy],
+                except: [:show],
                 constraints: { id: /[0-9]+/ }
 
       resources :meetings,

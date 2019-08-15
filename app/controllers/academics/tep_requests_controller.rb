@@ -1,8 +1,12 @@
 class Academics::TepRequestsController < Academics::BaseController
-  before_action :set_document, only: [:edit, :update]
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tep.index'),
                  :academics_tep_requests_path
+
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tep.show'),
+                 :academics_tep_request_path,
+                 only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tep.new'),
                  :new_academics_tep_request_path,
@@ -15,6 +19,8 @@ class Academics::TepRequestsController < Academics::BaseController
   def index
     @requests = current_academic.teps.with_relationships.page(params[:page])
   end
+
+  def show; end
 
   def new
     @document = Document.new
@@ -40,6 +46,13 @@ class Academics::TepRequestsController < Academics::BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @document.destroy
+    feminine_success_destroy_message
+
+    redirect_to academics_tep_requests_path
   end
 
   private
