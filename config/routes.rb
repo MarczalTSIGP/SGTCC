@@ -414,11 +414,12 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :tep_requests,
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :tso_requests,
-                except: [:show],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :meetings,
                 only: [:index, :show],
@@ -427,7 +428,8 @@ Rails.application.routes.draw do
 
       resources :examination_boards,
                 only: [:index, :show],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 

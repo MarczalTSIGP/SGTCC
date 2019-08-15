@@ -1,5 +1,5 @@
 class Academics::TsoRequestsController < Academics::BaseController
-  before_action :set_document, only: [:edit, :update]
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.index'),
                  :academics_tso_requests_path
@@ -15,6 +15,8 @@ class Academics::TsoRequestsController < Academics::BaseController
   def index
     @requests = current_academic.tsos.with_relationships.page(params[:page])
   end
+
+  def show; end
 
   def new
     @document = Document.new
@@ -41,6 +43,13 @@ class Academics::TsoRequestsController < Academics::BaseController
       error_message
       render :edit
     end
+  end
+
+  def destroy
+    @document.destroy
+    feminine_success_destroy_message
+
+    redirect_to academics_tso_requests_path
   end
 
   private
