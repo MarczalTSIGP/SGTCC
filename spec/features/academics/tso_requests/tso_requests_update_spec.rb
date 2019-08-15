@@ -12,9 +12,11 @@ describe 'TsoRequest::update', type: :feature, js: true do
 
   describe '#update' do
     let!(:orientation) { create(:orientation, academic: academic) }
+
     let!(:document_tso) do
       create(:document_tso, orientation_id: orientation.id, advisor_id: advisor.id)
     end
+
     let(:new_justification) { "**#{document_tso.request['requester']['justification']}" }
 
     before do

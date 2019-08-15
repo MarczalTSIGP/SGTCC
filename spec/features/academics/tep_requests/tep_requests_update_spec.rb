@@ -5,8 +5,6 @@ describe 'TepRequest::update', type: :feature, js: true do
   let(:resource_name) { request_resource_name }
 
   before do
-    create(:responsible)
-    create(:coordinator)
     login_as(academic, scope: :academic)
   end
 

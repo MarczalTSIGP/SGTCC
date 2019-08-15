@@ -35,5 +35,10 @@ FactoryBot.define do
       justification { 'justification' }
       request { new_orientation }
     end
+
+    before :create do
+      create(:responsible)
+      create(:coordinator)
+    end
   end
 end
