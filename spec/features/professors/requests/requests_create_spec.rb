@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::abandon', type: :feature do
+describe 'Request::create', type: :feature do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor_id: professor.id) }
   let(:resource_name) { request_resource_name }
