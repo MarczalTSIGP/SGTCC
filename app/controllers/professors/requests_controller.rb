@@ -36,12 +36,14 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def update
-    if @document.update_requester_justification(request_params)
-      feminine_success_update_message
-      redirect_to professors_document_path(@document)
+    if request_params[:orientation_id].present?
+      destroy_and_create
     else
-      render :edit
+      @document.update_requester_justification(request_params)
     end
+
+    feminine_success_update_message
+    redirect_to professors_document_path(@document)
   end
 
   def destroy
@@ -63,5 +65,11 @@ class Professors::RequestsController < Professors::BaseController
 
   def request_params
     params.require(:document).permit(:orientation_id, :justification)
+  end
+
+  def destroy_and_create
+    @document.destroy
+    @document = Document.new_tdo(current_professor, request_params)
+    @document.save
   end
 end

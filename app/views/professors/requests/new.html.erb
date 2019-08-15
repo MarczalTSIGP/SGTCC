@@ -13,7 +13,10 @@
 
   <%= f.input :justification,
     as: :text,
-    input_html: { rows: '8', class: 'markdown-editor' } %>
+    input_html: {
+      rows: '8',
+      class: 'markdown-editor',
+    } %>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),
