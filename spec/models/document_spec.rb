@@ -454,4 +454,20 @@ RSpec.describe Document, type: :model do
       end
     end
   end
+
+  describe '#update_requester_justification' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+    let(:params) { { justification: 'new_justification' } }
+
+    it 'returns true when is updated' do
+      expect(document.update_requester_justification(params)).to eq(true)
+    end
+
+    it 'returns when the justification is empty' do
+      params = { justification: nil }
+      expect(document.update_requester_justification(params)).to eq(true)
+    end
+  end
 end
