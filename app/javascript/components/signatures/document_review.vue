@@ -1,11 +1,22 @@
 <template>
-  <div v-if="notHasJudgment() && hasPermission">
-    <document-judgment :document-id="documentId" />
+  <div v-if="showDocumentJudgment()">
+    <document-judgment
+      :document-id="documentId"
+      :accept-value="getJudgmentAcceptValue()"
+      :justification-value="getJudgmentJustificationValue()"
+    />
   </div>
   <div v-else-if="hasJudgment()">
     <p>
       <b>Solicitação:</b>
       {{ solicitationLabel() }}
+      <button
+        v-if="hasPermission"
+        class="btn btn-outline-primary btn-sm"
+        @click="editDocumentJudgment()"
+      >
+        Editar
+      </button>
     </p>
 
     <p>
@@ -52,10 +63,24 @@ export default {
     },
   },
 
+  data() {
+    return {
+      showJudgment: false,
+    };
+  },
+
+  mounted() {
+    this.onCloseDocumentJudgment();
+  },
+
   methods: {
     solicitationLabel() {
       const accept = this.request.judgment.responsible.accept;
-      return accept ? 'Deferido' : 'Indeferido';
+      return accept === 'true' ? 'Deferido' : 'Indeferido';
+    },
+
+    showDocumentJudgment() {
+      return (this.notHasJudgment() && this.hasPermission) || this.showJudgment;
     },
 
     notHasJudgment() {
@@ -64,6 +89,28 @@ export default {
 
     hasJudgment() {
       return typeof this.request['judgment'] === 'object';
+    },
+
+    getJudgmentAcceptValue() {
+      if (this.hasJudgment()) {
+        return this.request.judgment.responsible.accept;
+      }
+    },
+
+    getJudgmentJustificationValue() {
+      if (this.hasJudgment()) {
+        return this.request.judgment.responsible.justification;
+      }
+    },
+
+    editDocumentJudgment() {
+      this.showJudgment = true;
+    },
+
+    onCloseDocumentJudgment() {
+      this.$root.$on('close-document-judgment', () => {
+        this.showJudgment = false;
+      });
     },
   },
 };

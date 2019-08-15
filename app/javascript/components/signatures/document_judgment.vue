@@ -12,6 +12,7 @@
             value="true"
             name="document[judgment]"
             class="custom-control-input"
+            :checked="documentAccept"
           >
           <span class="custom-control-label">Deferir</span>
         </label>
@@ -22,6 +23,7 @@
             value="false"
             name="document[judgment]"
             class="custom-control-input"
+            :checked="documentRefuse"
           >
           <span class="custom-control-label">Indeferir</span>
         </label>
@@ -35,6 +37,7 @@
     </label>
     <textarea
       id="document_judgment_justification"
+      :value="justificationValue"
       class="form-control"
       rows="5"
     />
@@ -46,6 +49,14 @@
         @click.prevent="saveJudgment()"
       >
         {{ $t('buttons.save') }}
+      </button>
+      <button
+        id="cancel_document_judgment"
+        type="button"
+        class="btn btn-danger"
+        @click.prevent="close()"
+      >
+        {{ $t('buttons.cancel') }}
       </button>
     </div>
     <div class="clearfix" />
@@ -67,10 +78,28 @@ export default {
       type: Number,
       required: true
     },
+
+    acceptValue: {
+      type: String,
+      required: false,
+      default() {
+        return '';
+      }
+    },
+
+    justificationValue: {
+      type: String,
+      required: false,
+      default() {
+        return '';
+      }
+    },
   },
 
   data() {
     return {
+      documentAccept: false,
+      documentRefuse: false,
       justification: '',
     };
   },
@@ -87,6 +116,8 @@ export default {
 
   mounted() {
     this.initMarkdown();
+    this.setJustification();
+    this.setRadioboxs();
   },
 
   methods: {
@@ -108,6 +139,7 @@ export default {
       if (response.data) {
         this.showSuccessMessage('Documento atualizado com sucesso!');
         this.$root.$emit('update-json-request');
+        this.$root.$emit('close-document-judgment');
       }
     },
 
@@ -123,6 +155,23 @@ export default {
       simplemde.codemirror.on('change', () => {
         this.justification = simplemde.value();
       });
+    },
+
+    setJustification() {
+      this.justification = this.justificationValue;
+    },
+
+    setRadioboxs() {
+      switch(this.acceptValue) {
+      case 'true':
+        this.documentAccept = true; break;
+      case 'false':
+        this.documentRefuse = true; return;
+      }
+    },
+
+    close() {
+      this.$root.$emit('close-document-judgment');
     },
   },
 };
