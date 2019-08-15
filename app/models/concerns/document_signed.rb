@@ -5,11 +5,11 @@ module DocumentSigned
 
   included do
     def academic_signed?(academic)
-      signature_by_user(academic.id, :academic).status
+      signature_by_user(academic.id, :academic).status if academic.present?
     end
 
     def professor_signed?(professor)
-      signature_by_user(professor.id, professor.user_types).status
+      signature_by_user(professor.id, professor.user_types).status if professor.present?
     end
   end
 end

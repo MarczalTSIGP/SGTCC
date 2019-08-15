@@ -391,7 +391,7 @@ RSpec.describe Document, type: :model do
     end
   end
 
-  describe 'save_judgment' do
+  describe '#save_judgment' do
     let!(:professor) { create(:responsible) }
     let!(:orientation) { create(:orientation) }
     let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
@@ -408,6 +408,50 @@ RSpec.describe Document, type: :model do
 
     it 'returns true' do
       expect(document.save_judgment(professor, params)).to eq(true)
+    end
+  end
+
+  describe '#academic_signed?' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+
+    context 'when the document is not signed' do
+      it 'returns false' do
+        expect(document.academic_signed?(academic)).to eq(false)
+      end
+    end
+
+    context 'when the document is signed' do
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns true' do
+        expect(document.academic_signed?(academic)).to eq(true)
+      end
+    end
+  end
+
+  describe '#professor_signed?' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+
+    context 'when the document is not signed' do
+      it 'returns false' do
+        expect(document.professor_signed?(professor)).to eq(false)
+      end
+    end
+
+    context 'when the document is not signed' do
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns true' do
+        expect(document.professor_signed?(professor)).to eq(true)
+      end
     end
   end
 end
