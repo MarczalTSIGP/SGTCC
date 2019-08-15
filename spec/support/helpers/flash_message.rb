@@ -125,5 +125,9 @@ module Helpers
     def document_professor_not_allowed_message
       I18n.t('flash.documents.professors.requests.not_allowed')
     end
+
+    def document_errors_update_message
+      I18n.t('json.messages.documents.errors.update')
+    end
   end
 end

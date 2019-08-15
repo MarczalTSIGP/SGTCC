@@ -62,5 +62,20 @@ describe 'Document::review', type: :feature, js: true do
         expect(page).to have_contents(['Indeferido', '**justi'])
       end
     end
+
+    context 'when the document is not updated' do
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'shows errors message' do
+        find('#edit_button_judgment').click
+        click_on_label(dismiss_label, in: 'document_judgment')
+        find('.fa-bold').click
+
+        find('button[id="save_document_judgment"]', text: save_button).click
+        expect(page).to have_alert(text: document_errors_update_message)
+      end
+    end
   end
 end

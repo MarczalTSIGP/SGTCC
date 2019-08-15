@@ -436,9 +436,11 @@ pt-BR:
       invalid_code: 'Código inválido!'
       documents:
         success:
+          update: 'Documento atualizado com sucesso!'
           authenticated: 'Documento autenticado com sucesso!'
         errors:
           not_found: 'Documento não encontrado!'
+          update: 'Documento não pode ser atualizado, pois já foi assinado!'
       orientation:
         calendar:
           errors:

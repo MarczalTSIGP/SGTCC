@@ -127,20 +127,26 @@ export default {
       return $('input[name="document[judgment]"]:checked').val();
     },
 
+    selectJudgmentParams() {
+      return { accept: this.solicitationValue(), justification: this.justification };
+    },
+
     async saveJudgment() {
       if (this.hasErrors()) {
         this.showErrorMessage('Preencha todos os campos!');
         return;
       }
 
-      const params = { accept: this.solicitationValue(), justification: this.justification };
-      const response = await this.$axios.put(this.url, params);
+      const response = await this.$axios.put(this.url, this.selectJudgmentParams());
 
-      if (response.data) {
-        this.showSuccessMessage('Documento atualizado com sucesso!');
+      if (response.data.status) {
+        this.showSuccessMessage(response.data.message);
         this.$root.$emit('update-json-request');
-        this.$root.$emit('close-document-judgment');
+      } else {
+        this.showErrorMessage(response.data.message);
       }
+
+      this.$root.$emit('close-document-judgment');
     },
 
     hasErrors() {
@@ -152,6 +158,10 @@ export default {
         element: document.getElementById('document_judgment_justification')
       });
 
+      this.onUpdateJustification(simplemde);
+    },
+
+    onUpdateJustification(simplemde) {
       simplemde.codemirror.on('change', () => {
         this.justification = simplemde.value();
       });
