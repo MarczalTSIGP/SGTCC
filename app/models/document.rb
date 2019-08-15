@@ -95,6 +95,14 @@ class Document < ApplicationRecord
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
   end
 
+  def academic_signed?(academic)
+    signature_by_user(academic.id, :academic).status
+  end
+
+  def professor_signed?(professor)
+    signature_by_user(professor.id, professor.user_types).status
+  end
+
   def self.by_user(user_id, user_types, status = [true, false])
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'

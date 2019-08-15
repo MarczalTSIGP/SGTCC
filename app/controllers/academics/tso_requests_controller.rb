@@ -1,5 +1,6 @@
 class Academics::TsoRequestsController < Academics::BaseController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :can_change, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.index'),
                  :academics_tso_requests_path
@@ -70,5 +71,11 @@ class Academics::TsoRequestsController < Academics::BaseController
     params.require(:document)
           .permit(:justification, :advisor_id,
                   professor_supervisor_ids: [], external_member_supervisor_ids: [])
+  end
+
+  def can_change
+    return unless @document.academic_signed?(current_academic)
+    flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
+    redirect_to academics_tso_requests_path
   end
 end

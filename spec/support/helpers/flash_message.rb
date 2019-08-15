@@ -117,5 +117,13 @@ module Helpers
       url = "#{current_host}:#{URI.parse(current_url).port}#{confirm_document_code_path}"
       I18n.t('signatures.code', url: url, code: signature_code.code)
     end
+
+    def document_academic_not_allowed_message
+      I18n.t('flash.documents.academics.requests.not_allowed')
+    end
+
+    def document_professor_not_allowed_message
+      I18n.t('flash.documents.professors.requests.not_allowed')
+    end
   end
 end

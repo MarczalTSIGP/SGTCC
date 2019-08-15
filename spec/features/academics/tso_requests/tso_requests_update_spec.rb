@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 describe 'TsoRequest::update', type: :feature, js: true do
+  let(:resource_name) { request_resource_name }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }
-  let(:resource_name) { request_resource_name }
+  let!(:orientation) { create(:orientation, academic: academic) }
+
+  let!(:document_tso) do
+    create(:document_tso, orientation_id: orientation.id, advisor_id: advisor.id)
+  end
 
   before do
     create(:responsible)
@@ -11,12 +16,6 @@ describe 'TsoRequest::update', type: :feature, js: true do
   end
 
   describe '#update' do
-    let!(:orientation) { create(:orientation, academic: academic) }
-
-    let!(:document_tso) do
-      create(:document_tso, orientation_id: orientation.id, advisor_id: advisor.id)
-    end
-
     let(:new_justification) { "**#{document_tso.request['requester']['justification']}" }
 
     before do
@@ -33,6 +32,18 @@ describe 'TsoRequest::update', type: :feature, js: true do
         expect(page).to have_contents([academic.name,
                                        document_tso.document_type.name.upcase,
                                        new_justification])
+      end
+    end
+
+    context 'when the request can t be edited' do
+      before do
+        document_tso.signature_by_user(academic, :academic).sign
+        visit edit_academics_tso_request_path(document_tso)
+      end
+
+      it 'redirect to the tep requests page' do
+        expect(page).to have_current_path academics_tso_requests_path
+        expect(page).to have_flash(:warning, text: document_academic_not_allowed_message)
       end
     end
   end

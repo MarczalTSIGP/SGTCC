@@ -422,6 +422,13 @@ pt-BR:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
+    documents:
+      academics:
+        requests:
+          not_allowed: 'Operação não permitida, pois o acadêmico já assinou o documento!'
+      professors:
+        requests:
+          not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
   json:
     messages:
       invalid_code: 'Código inválido!'

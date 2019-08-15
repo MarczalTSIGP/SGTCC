@@ -1,5 +1,6 @@
 class Professors::RequestsController < Professors::BaseController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :can_change, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
                  :professors_requests_path
@@ -71,5 +72,11 @@ class Professors::RequestsController < Professors::BaseController
     @document.destroy
     @document = Document.new_tdo(current_professor, request_params)
     @document.save
+  end
+
+  def can_change
+    return unless @document.professor_signed?(current_professor)
+    flash[:alert] = I18n.t('flash.documents.professors.requests.not_allowed')
+    redirect_to professors_requests_path
   end
 end

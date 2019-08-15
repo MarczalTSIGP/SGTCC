@@ -7,14 +7,16 @@
     <%= link_to(academics_tep_request_path(document)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
-    <%= link_to(edit_academics_tep_request_path(document)) do %>
-      <i class="fe fe-edit" data-toggle="tooltip" title="Editar justificativa"></i>
-    <% end %>
-    <%= link_to academics_tep_request_path(document),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+    <% unless document.academic_signed?(current_academic) %>
+      <%= link_to(edit_academics_tep_request_path(document)) do %>
+        <i class="fe fe-edit" data-toggle="tooltip" title="Editar justificativa"></i>
+      <% end %>
+      <%= link_to academics_tep_request_path(document),
+        method: :delete,
+        data: { confirm: t('prompt.confirm') },
+        class: 'destroy' do %>
+        <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+      <% end %>
     <% end %>
   </td>
 </tr>

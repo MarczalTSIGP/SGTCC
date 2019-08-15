@@ -31,5 +31,17 @@ describe 'Request::update', type: :feature, js: true do
                                        new_justification])
       end
     end
+
+    context 'when the request can t be edited' do
+      before do
+        document.signature_by_user(professor.id, professor.user_types).sign
+        visit edit_professors_request_path(document)
+      end
+
+      it 'redirect to the tep requests page' do
+        expect(page).to have_current_path professors_requests_path
+        expect(page).to have_flash(:warning, text: document_professor_not_allowed_message)
+      end
+    end
   end
 end
