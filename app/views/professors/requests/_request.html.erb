@@ -2,10 +2,19 @@
   <%= render 'shared/documents/tbody', document: document %>
   <td>
     <%= link_to(professors_document_path(document)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
+      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar documento"></i>
+    <% end %>
+    <%= link_to(professors_request_path(document)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
     <%= link_to(edit_professors_request_path(document)) do %>
-      <i class="fe fe-edit" data-toggle="tooltip" title="Editar justificativa"></i>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar solicitação"></i>
+    <% end %>
+    <%= link_to professors_request_path(document),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
     <% end %>
   </td>
 </tr>

@@ -4,6 +4,10 @@ class Academics::TsoRequestsController < Academics::BaseController
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.index'),
                  :academics_tso_requests_path
 
+  add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.show'),
+                 :academics_tso_request_path,
+                 only: :show
+
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.new'),
                  :new_academics_tso_request_path,
                  only: :new

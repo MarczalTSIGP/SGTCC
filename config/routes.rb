@@ -217,8 +217,8 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                except: [:show, :destroy],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :meetings,
                 constraints: { id: /[0-9]+/ },
