@@ -11,7 +11,7 @@
       <b>Solicitação:</b>
       {{ solicitationLabel() }}
       <button
-        v-if="hasPermission && canEdit"
+        v-if="showEditButtonJudment()"
         id="edit_button_judgment"
         class="btn btn-outline-primary btn-sm"
         @click="editDocumentJudgment()"
@@ -74,15 +74,28 @@ export default {
 
   data() {
     return {
+      showEditButton: false,
       showJudgment: false,
     };
   },
 
   mounted() {
+    this.setShowEditButton();
     this.onCloseDocumentJudgment();
+    this.onCloseEditButton();
   },
 
   methods: {
+    setShowEditButton() {
+      this.showEditButton = this.canEdit;
+    },
+
+    onCloseEditButton() {
+      this.$root.$on('close-edit-button', () => {
+        this.showEditButton = false;
+      });
+    },
+
     solicitationLabel() {
       const accept = this.request.judgment.responsible.accept;
       return accept === 'true' ? 'Deferido' : 'Indeferido';
@@ -90,6 +103,10 @@ export default {
 
     showDocumentJudgment() {
       return (this.notHasJudgment() && this.hasPermission) || this.showJudgment;
+    },
+
+    showEditButtonJudment() {
+      return this.hasPermission && this.canEdit && this.showEditButton;
     },
 
     notHasJudgment() {
