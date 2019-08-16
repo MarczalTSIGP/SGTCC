@@ -35,7 +35,12 @@ class Academics::TsoRequestsController < Academics::BaseController
   end
 
   def update
-    @document.update_requester_justification(request_params)
+    if can_destroy_and_update?
+      destroy_and_update
+    else
+      update_justification
+    end
+
     feminine_success_update_message
     redirect_to academics_document_path(@document)
   end
@@ -61,6 +66,34 @@ class Academics::TsoRequestsController < Academics::BaseController
     params.require(:document)
           .permit(:justification, :advisor_id,
                   professor_supervisor_ids: [], external_member_supervisor_ids: [])
+  end
+
+  def diff_advisor?
+    request_params[:advisor_id].to_i != @document.request['new_orientation']['advisor']['id']
+  end
+
+  def diff_supervisors?(param_name, request_name)
+    supervisor_ids = request_params[param_name]
+    supervisor_ids.shift
+    supervisor_ids = supervisor_ids.map(&:to_i)
+    supervisor_ids != @document.request['new_orientation'][request_name].map do |supervisor|
+      supervisor['id']
+    end
+  end
+
+  def can_destroy_and_update?
+    diff_advisor? || diff_supervisors?('professor_supervisor_ids', 'professorSupervisors') ||
+      diff_supervisors?('external_member_supervisor_ids', 'externalMemberSupervisors')
+  end
+
+  def destroy_and_update
+    @document.destroy
+    @document = Document.new_tso(current_academic, request_params)
+    @document.save
+  end
+
+  def update_justification
+    @document.update_requester_justification(request_params)
   end
 
   def can_change
