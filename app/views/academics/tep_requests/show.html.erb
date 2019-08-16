@@ -5,6 +5,12 @@
   <div class="card-body">
     <p>
       <strong>
+        <%= Document.human_attribute_name('orientation') %>:
+      </strong>
+      <%= @document.orientation.title %>
+    </p>
+    <p>
+      <strong>
         <%= Document.human_attribute_name('justification') %>:
       </strong>
       <vue-simple-markdown

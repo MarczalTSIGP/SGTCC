@@ -5,6 +5,44 @@
   <div class="card-body">
     <p>
       <strong>
+        <%= Document.human_attribute_name('orientation') %>
+      </strong>
+      <%= @document.orientation.title %>
+    </p>
+    <p>
+      <strong>
+        <%= Document.human_attribute_name('advisor') %>
+      </strong>
+      <%= @document.orientation.advisor.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Document.human_attribute_name('new_advisor') %>
+      </strong>
+      <%= @document.request['new_orientation']['advisor']['name'] %>
+    </p>
+    <% unless @document.request['new_orientation']['professorSupervisors'].empty? %>
+      <p>
+        <strong>
+          <%= Document.human_attribute_name('professor_supervisor_ids') %>:
+        </strong>
+        <% @document.request['new_orientation']['professorSupervisors'].each do |supervisor| %>
+          <%= supervisor['name'] %>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @document.request['new_orientation']['externalMemberSupervisors'].empty? %>
+      <p>
+        <strong>
+          <%= Document.human_attribute_name('external_member_supervisor_ids') %>:
+        </strong>
+        <% @document.request['new_orientation']['externalMemberSupervisors'].each do |supervisor| %>
+          <%= supervisor['name'] %>
+        <% end %>
+      </p>
+    <% end %>
+    <p>
+      <strong>
         <%= Document.human_attribute_name('justification') %>:
       </strong>
       <vue-simple-markdown

@@ -28,8 +28,18 @@ describe 'TsoRequest::show', type: :feature, js: true do
     context 'when shows the tso request' do
       it 'shows the tso request' do
         expect(page).to have_contents([document.request['requester']['justification'],
+                                       document.orientation.title,
+                                       document.orientation.advisor.name,
                                        complete_date(document.created_at),
                                        complete_date(document.updated_at)])
+
+        document.request['new_orientation']['professorSupervisors'].each do |supervisor|
+          expect(page).to have_content(supervisor['name'])
+        end
+
+        document.request['new_orientation']['externalMemberSupervisors'].each do |supervisor|
+          expect(page).to have_content(supervisor['name'])
+        end
       end
     end
   end

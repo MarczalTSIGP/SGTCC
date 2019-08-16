@@ -6,7 +6,7 @@ describe 'TsoRequest::update', type: :feature, js: true do
   let!(:advisor) { create(:professor) }
   let!(:orientation) { create(:orientation, academic: academic) }
 
-  let(:new_orientation) do
+  let!(:new_orientation) do
     { advisor: { id: advisor.id, name: advisor.name },
       professorSupervisors: {},
       externalMemberSupervisors: {} }
@@ -22,7 +22,6 @@ describe 'TsoRequest::update', type: :feature, js: true do
   end
 
   before do
-    create(:responsible)
     login_as(academic, scope: :academic)
   end
 
@@ -30,12 +29,12 @@ describe 'TsoRequest::update', type: :feature, js: true do
     let(:new_justification) { "**#{document_tso.request['requester']['justification']}" }
 
     before do
-      visit edit_academics_tep_request_path(document_tso)
+      visit edit_academics_tso_request_path(document_tso)
     end
 
     context 'when request is valid' do
       it 'updates the justification of the term of substitution' do
-        find('.fa-italic').click
+        find('.fa-bold').click
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path academics_document_path(document_tso)

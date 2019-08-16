@@ -14,6 +14,7 @@ describe 'TepRequest::show', type: :feature, js: true do
     context 'when shows the tep request' do
       it 'shows the tep request' do
         expect(page).to have_contents([document.request['requester']['justification'],
+                                       document.orientation.title,
                                        complete_date(document.created_at),
                                        complete_date(document.updated_at)])
       end

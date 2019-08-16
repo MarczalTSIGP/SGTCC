@@ -41,13 +41,9 @@ class Academics::TsoRequestsController < Academics::BaseController
   end
 
   def update
-    if @document.update_requester_justification(request_params)
-      feminine_success_update_message
-      redirect_to academics_document_path(@document)
-    else
-      error_message
-      render :edit
-    end
+    @document.update_requester_justification(request_params)
+    feminine_success_update_message
+    redirect_to academics_document_path(@document)
   end
 
   def destroy
