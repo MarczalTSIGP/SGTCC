@@ -4,12 +4,13 @@ describe 'TsoRequest::update', type: :feature, js: true do
   let(:resource_name) { request_resource_name }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }
+  let!(:supervisor) { create(:professor) }
   let!(:orientation) { create(:current_orientation_tcc_one, academic: academic) }
 
   let!(:new_orientation) do
     { advisor: { id: advisor.id, name: advisor.name },
-      professorSupervisors: {},
-      externalMemberSupervisors: {} }
+      professorSupervisors:  [{ id: supervisor.id, name: supervisor.name }],
+      externalMemberSupervisors: [] }
   end
 
   let(:request) do
