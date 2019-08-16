@@ -184,8 +184,10 @@ RSpec.describe Professor, type: :model do
   describe '#documents_reviewing' do
     let!(:orientation) { create(:orientation) }
     let!(:professor) { orientation.advisor }
-    let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
-    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
+
+    before do
+      create(:document_tdo, orientation_id: orientation.id)
+    end
 
     it 'returns the reviewing documents' do
       data = professor.documents.with_relationships.where.not(request: nil)

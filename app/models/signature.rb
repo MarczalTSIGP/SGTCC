@@ -22,14 +22,6 @@ class Signature < ApplicationRecord
     update(status: true)
   end
 
-  def term_of_commitment?
-    document.document_type.tco?
-  end
-
-  def term_of_accept_institution?
-    document.document_type.tcai?
-  end
-
   def user_table
     return Academic if user_type == 'academic'
     return ExternalMember if user_type == 'external_member_supervisor'

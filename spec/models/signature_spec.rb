@@ -20,48 +20,6 @@ RSpec.describe Signature, type: :model do
     end
   end
 
-  describe '#term_of_commitement?' do
-    let(:orientation) { create(:orientation) }
-
-    before do
-      orientation.signatures << Signature.all
-    end
-
-    context 'when returns if is the term of commitment' do
-      let(:signature_tco) { orientation.signatures.first }
-      let(:signature_tcai) { orientation.signatures.last }
-
-      it 'returns true' do
-        expect(signature_tco.term_of_commitment?).to eq(true)
-      end
-
-      it 'returns false' do
-        expect(signature_tcai.term_of_commitment?).to eq(false)
-      end
-    end
-  end
-
-  describe '#term_of_accept_institution?' do
-    let(:orientation) { create(:orientation) }
-
-    before do
-      orientation.signatures << Signature.all
-    end
-
-    context 'when returns if is the term of accept institution' do
-      let(:signature_tco) { orientation.signatures.first }
-      let(:signature_tcai) { orientation.signatures.last }
-
-      it 'returns true' do
-        expect(signature_tcai.term_of_accept_institution?).to eq(true)
-      end
-
-      it 'returns false' do
-        expect(signature_tco.term_of_accept_institution?).to eq(false)
-      end
-    end
-  end
-
   describe '#user' do
     let(:orientation) { create(:orientation) }
 
