@@ -99,8 +99,7 @@ class Document < ApplicationRecord
 
   def signed_by_users?(user_types)
     return if all_signed?
-    signeds = signatures.where(user_type: user_types, status: true)
-    signeds.size == user_types.size
+    signatures.where(user_type: user_types, status: true).size == user_types.size
   end
 
   def tdo_for_review?
