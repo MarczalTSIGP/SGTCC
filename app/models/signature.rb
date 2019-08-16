@@ -6,6 +6,7 @@ class Signature < ApplicationRecord
     advisor: 'AD',
     academic: 'AC',
     coordinator: 'CC',
+    new_advisor: 'NAD',
     professor_responsible: 'PR',
     professor_supervisor: 'PS',
     external_member_supervisor: 'ES'

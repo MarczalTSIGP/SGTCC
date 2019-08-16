@@ -75,7 +75,7 @@ class Documents::SaveSignatures
 
   def add_new_advisor
     new_advisor = @document.request['new_orientation']['advisor']
-    @signature_users.push([new_advisor['id'], 'AD'])
+    @signature_users.push([new_advisor['id'], 'NAD'])
   end
 
   def add_professor_supervisors

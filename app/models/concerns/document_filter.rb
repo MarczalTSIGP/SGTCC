@@ -19,11 +19,16 @@ module DocumentFilter
     end
 
     def documents_reviewing(page = nil)
-      documents_request(page, false)
+      data = documents.with_relationships.where.not(request: nil)
+      data = data.select do |document|
+        document.send("#{document.document_type.identifier}_for_review?")
+      end
+      Kaminari.paginate_array(data).page(page)
     end
 
-    def documents_request(page = nil, status = [true, false])
-      data = documents(status).where.not(request: nil)
+    def documents_request(page = nil)
+      data = documents.where(document_types: { identifier: :tdo })
+                      .where.not(request: nil)
       page_with_relationships(data, page)
     end
   end

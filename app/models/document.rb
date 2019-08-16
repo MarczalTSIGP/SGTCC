@@ -97,6 +97,24 @@ class Document < ApplicationRecord
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
   end
 
+  def signed_by_users?(user_types)
+    return if all_signed?
+    signeds = signatures.where(user_type: user_types, status: true)
+    signeds.size == user_types.size
+  end
+
+  def tdo_for_review?
+    signed_by_users?(%w[advisor])
+  end
+
+  def tep_for_review?
+    signed_by_users?(%w[advisor academic coordinator])
+  end
+
+  def tso_for_review?
+    signed_by_users?(%w[advisor new_advisor academic])
+  end
+
   def self.by_user(user_id, user_types, status = [true, false])
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
