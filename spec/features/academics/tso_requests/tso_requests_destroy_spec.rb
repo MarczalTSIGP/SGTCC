@@ -12,7 +12,7 @@ describe 'TsoRequest::destroy', type: :feature, js: true do
   end
 
   let(:request) do
-    { requester: { justificatio: 'just' }, new_orientation: new_orientation }
+    { requester: { justification: 'just' }, new_orientation: new_orientation }
   end
 
   let!(:document) do
