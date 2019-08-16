@@ -19,12 +19,23 @@ describe 'Request::update', type: :feature, js: true do
     end
 
     context 'when request is valid' do
-      it 'updates the term of abandonment' do
+      it 'updates the term of abandonment with orientation' do
         selectize(new_orientation.academic_with_calendar, from: 'document_orientation_id')
         find('.fa-italic').click
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_document_path(new_orientation.documents.last)
+        expect(page).to have_flash(:success, text: message('update.f'))
+        expect(page).to have_contents([professor.name,
+                                       document.document_type.name.upcase,
+                                       new_justification])
+      end
+
+      it 'updates the justification of the term of abandonment' do
+        find('.fa-italic').click
+        submit_form('input[name="commit"]')
+
+        expect(page).to have_current_path professors_document_path(document)
         expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_contents([professor.name,
                                        document.document_type.name.upcase,
