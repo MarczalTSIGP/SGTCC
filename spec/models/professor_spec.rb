@@ -182,6 +182,21 @@ RSpec.describe Professor, type: :model do
   end
 
   describe '#documents_reviewing' do
+    let!(:orientation) { create(:orientation) }
+    let!(:professor) { orientation.advisor }
+    let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
+
+    it 'returns the reviewing documents' do
+      data = professor.documents.with_relationships.where.not(request: nil)
+      data = data.select do |document|
+        document.send("#{document.document_type.identifier}_for_review?")
+      end
+      expect(professor.documents_reviewing).to match_array(data)
+    end
+  end
+
+  describe '#documents_request' do
     let(:orientation) { create(:orientation) }
     let(:professor) { orientation.advisor }
     let(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
@@ -192,8 +207,10 @@ RSpec.describe Professor, type: :model do
       documents = Document.joins(:signatures)
                           .select(distinct_query)
                           .where(signatures: conditions)
+                          .where(document_types: { identifier: :tdo })
                           .where.not(request: nil)
-      expect(professor.documents_reviewing).to match_array(documents)
+                          .with_relationships
+      expect(professor.documents_request).to match_array(documents)
     end
   end
 
