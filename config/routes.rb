@@ -217,6 +217,7 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
+                except: :show,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -414,10 +415,12 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :tep_requests,
+                except: :show,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
       resources :tso_requests,
+                except: :show,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 

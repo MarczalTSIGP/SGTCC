@@ -1,5 +1,5 @@
 class Professors::RequestsController < Professors::BaseController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:edit, :update, :destroy]
   before_action :can_change, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.index'),
@@ -16,8 +16,6 @@ class Professors::RequestsController < Professors::BaseController
   def index
     @requests = current_professor.documents_request(params[:page])
   end
-
-  def show; end
 
   def new
     @document = Document.new
