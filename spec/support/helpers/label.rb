@@ -27,5 +27,13 @@ module Helpers
     def dismiss_label
       I18n.t('views.buttons.dismiss')
     end
+
+    def conceded_label
+      I18n.t('views.labels.conceded')
+    end
+
+    def dismissed_label
+      I18n.t('views.labels.dismissed')
+    end
   end
 end

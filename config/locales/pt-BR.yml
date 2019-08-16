@@ -18,6 +18,9 @@ pt-BR:
       tcc:
         one: 'TCC 1'
         two: 'TCC 2'
+    labels:
+      conceded: 'Deferido'
+      dismissed: 'Indeferido'
     buttons:
       select: 'Selecionar'
       save: 'Salvar'
@@ -434,6 +437,7 @@ pt-BR:
   json:
     messages:
       invalid_code: 'Código inválido!'
+      empty_fields: 'Preencha todos os campos!'
       documents:
         success:
           update: 'Documento atualizado com sucesso!'

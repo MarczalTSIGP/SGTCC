@@ -22,14 +22,14 @@ describe 'Document::review', type: :feature, js: true do
 
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
-        expect(page).to have_contents(['Deferido', '**'])
+        expect(page).to have_contents([conceded_label, '**'])
       end
     end
 
     context 'when the document review is invalid' do
       it 'shows blank error message' do
         find('button[id="save_document_judgment"]', text: save_button).click
-        expect(page).to have_alert(text: 'Preencha todos os campos!')
+        expect(page).to have_alert(text: I18n.t('json.messages.empty_fields'))
       end
     end
   end
@@ -59,7 +59,7 @@ describe 'Document::review', type: :feature, js: true do
 
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
-        expect(page).to have_contents(['Indeferido', '**justi'])
+        expect(page).to have_contents([dismissed_label, '**justi'])
       end
     end
 
