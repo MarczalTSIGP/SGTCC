@@ -6,7 +6,7 @@ describe 'Document::index', type: :feature do
   let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
 
   before do
-    orientation.signatures << Signature.where(document: document)
+    document.signatures.find_by(user_type: :advisor).sign
     login_as(professor, scope: :professor)
   end
 
