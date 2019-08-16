@@ -20,7 +20,9 @@
   </div>
 
   <%= f.input :content,
-    input_html: { class: 'markdown-editor', value: t('placeholders.meetings.content') } %>
+    input_html: {
+      class: 'markdown-editor',
+      value: @meeting.content.present? ? @meeting.content : t('placeholders.meetings.content') } %>
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),
