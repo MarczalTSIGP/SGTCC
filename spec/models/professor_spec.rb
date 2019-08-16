@@ -268,4 +268,17 @@ RSpec.describe Professor, type: :model do
       expect(professor.name_with_scholarity).to eq(name_with_scholarity)
     end
   end
+
+  describe '#responsible?' do
+    let(:responsible) { create(:responsible) }
+    let(:professor) { create(:professor) }
+
+    it 'returns true' do
+      expect(responsible.responsible?).to eq(true)
+    end
+
+    it 'returns false' do
+      expect(professor.responsible?).to eq(false)
+    end
+  end
 end

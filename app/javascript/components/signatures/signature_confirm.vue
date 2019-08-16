@@ -131,6 +131,8 @@ export default {
       this.$root.$emit('show-signatures-mark');
       this.$root.$emit('update-signature-status');
       this.$root.$emit('open-signature-download-button');
+      this.$root.$emit('close-document-judgment');
+      this.$root.$emit('close-edit-button');
     },
 
     isEmpty(field) {

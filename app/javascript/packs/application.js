@@ -3,6 +3,7 @@ import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
 import VueSwal from 'vue-swal';
 import VueHtmlToPaper from 'vue-html-to-paper';
+import VueSimpleMarkdown from 'vue-simple-markdown';
 import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
@@ -20,6 +21,7 @@ Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 Vue.use(VueSwal);
+Vue.use(VueSimpleMarkdown);
 
 const options = {
   name: '_blank',

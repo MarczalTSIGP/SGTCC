@@ -86,10 +86,19 @@
     <br>
     <p>
       <b>Justificativa</b>: <br>
-      <span class="ml-4">
-        {{ request.requester.justification }}
+      <span>
+        <div class="ml-4">
+          <vue-simple-markdown :source="request.requester.justification" />
+        </div>
       </span>
     </p>
+
+    <document-review
+      :document-id="documentId"
+      :request="request"
+      :can-edit="canEdit"
+      :has-permission="isResponsible"
+    />
   </base-term-layout>
 </template>
 
@@ -97,13 +106,32 @@
 
 import baseTermData from './base_term_data';
 import BaseTermLayout from './base_term_layout';
+import DocumentReview from '../document_review';
 
 export default {
   name: 'TermOfSubstitution',
 
-  components: { BaseTermLayout },
+  components: { BaseTermLayout, DocumentReview },
 
   mixins: [baseTermData],
+
+  props: {
+    isResponsible: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      },
+    },
+
+    canEdit: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      }
+    },
+  },
 
   computed: {
     orientationSupervisorsLabel() {

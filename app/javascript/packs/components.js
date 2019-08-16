@@ -20,7 +20,6 @@ import TermOfAbandonment from '../components/signatures/documents/term_of_abando
 import TermOfAcceptInstitution from '../components/signatures/documents/term_of_accept_institution';
 import TermOfExtension from '../components/signatures/documents/term_of_extension';
 import TermOfSubstitution from '../components/signatures/documents/term_of_substitution';
-import VueMarkdownPreview from 'vue-markdown';
 
 const components = {
   Datetimepicker,
@@ -44,8 +43,7 @@ const components = {
   TermOfAbandonment,
   TermOfAcceptInstitution,
   TermOfExtension,
-  TermOfSubstitution,
-  VueMarkdownPreview
+  TermOfSubstitution
 };
 
 export {components};

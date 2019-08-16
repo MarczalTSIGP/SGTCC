@@ -1,6 +1,8 @@
 class Document < ApplicationRecord
   include TermJsonData
   include SignatureMark
+  include DocumentSigned
+  include NewDocumentByType
 
   attr_accessor :orientation_id, :advisor_id, :justification,
                 :professor_supervisor_ids, :external_member_supervisor_ids
@@ -24,6 +26,12 @@ class Document < ApplicationRecord
     signatures.first.orientation
   end
 
+  def filename
+    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
+  end
+
   def all_signed?
     signatures.where(status: true).count == signatures.count
   end
@@ -32,6 +40,24 @@ class Document < ApplicationRecord
     update(content: term_json_data)
   end
 
+  # rubocop:disable Rails/SkipsModelValidations
+  def save_judgment(user, params)
+    json_judgment = { responsible: { id: user.id,
+                                     accept: params[:accept],
+                                     justification: params[:justification] } }
+    request['judgment'] = json_judgment
+    update_attribute(:request, request)
+  end
+
+  def update_requester_justification(params)
+    new_request = request
+    justification = params[:justification]
+    return true if justification.blank?
+    new_request['requester']['justification'] = justification
+    update_attribute(:request, new_request)
+  end
+
+  # rubocop:enable Rails/SkipsModelValidations
   def status_table
     signatures.map do |signature|
       { name: signature.user.name, status: signature.status,
@@ -61,12 +87,6 @@ class Document < ApplicationRecord
     Orientation.new.supervisors_to_document(external_members)
   end
 
-  def filename
-    academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
-    "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
-  end
-
   def signature_by_user(user_id, user_types)
     pending_signature = pending_signature_by_user(user_id, user_types)
     return pending_signature if pending_signature.present?
@@ -81,37 +101,6 @@ class Document < ApplicationRecord
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
     joins(:signatures).select(distinct_query).where(signatures: conditions)
-  end
-
-  def self.new_tdo(professor, params = {})
-    document = DocumentType.find_by(identifier: :tdo).documents.new(params)
-    new_request(professor, 'advisor', document)
-  end
-
-  def self.new_tep(academic, params = {})
-    params[:orientation_id] = academic.current_orientation_tcc_two.first.id
-    document = DocumentType.find_by(identifier: :tep).documents.new(params)
-    new_request(academic, 'academic', document)
-  end
-
-  def self.new_tso(academic, params = {})
-    params[:orientation_id] = academic.current_orientation.id
-    params[:professor_supervisor_ids].shift
-    params[:external_member_supervisor_ids].shift
-
-    document = DocumentType.find_by(identifier: :tso).documents.new(params)
-    new_orientation_request(academic, 'academic', document)
-  end
-
-  def self.new_orientation_request(user, user_type, document)
-    document.request = { requester: document.requester_data(user, user_type),
-                         new_orientation: document.new_orientation_data }
-    document
-  end
-
-  def self.new_request(user, user_type, document)
-    document.request = { requester: document.requester_data(user, user_type) }
-    document
   end
 
   private

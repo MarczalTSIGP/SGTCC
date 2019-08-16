@@ -18,12 +18,17 @@ pt-BR:
       tcc:
         one: 'TCC 1'
         two: 'TCC 2'
+    labels:
+      conceded: 'Deferido'
+      dismissed: 'Indeferido'
     buttons:
       select: 'Selecionar'
       save: 'Salvar'
       cancel: 'Cancelar'
       sign: 'Assinar'
       authenticate: 'Autenticar'
+      concede: 'Deferir'
+      dismiss: 'Indeferir'
       orientation:
         meeting:
           view: 'Dar ciência'
@@ -122,14 +127,19 @@ pt-BR:
           sidebar: "Substituição do TCC"
           index: "Solicitações de substituição do TCC"
           new: "Solicitar substituição do TCC"
+          show: "Visualizar substituição do TCC"
+          edit: "Editar solicitação de substituição do TCC"
         tep:
           sidebar: "Extensão de prazo do TCC"
           index: "Solicitações de extensão do prazo do TCC"
           new: "Solicitar extensão de prazo do TCC"
+          show: "Visualizar extensão de prazo do TCC"
+          edit: "Editar extensão de prazo do TCC"
         tdo:
           new: "Solicitar desistência de orientação"
           show: "Visualizar solicitação de desistência de orientação"
           advisor: "Desistência de Orientação"
+          edit: "Editar desistência de orientação"
     meetings:
       index: "Reuniões"
       new: "Nova Reunião"
@@ -328,10 +338,12 @@ pt-BR:
         new_advisor: "Novo Orientador"
         professor_supervisor_ids: "Novos Coorientadores da UTFPR"
         external_member_supervisor_ids: "Novos Coorientadores externos"
+        <<: *commons
       meeting:
         content: "Conteúdo"
         date: "Data"
         viewed: "Ciência"
+        <<: *commons
       examination_board:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
@@ -415,14 +427,24 @@ pt-BR:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
+    documents:
+      academics:
+        requests:
+          not_allowed: 'Operação não permitida, pois o acadêmico já assinou o documento!'
+      professors:
+        requests:
+          not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
   json:
     messages:
       invalid_code: 'Código inválido!'
+      empty_fields: 'Preencha todos os campos!'
       documents:
         success:
+          update: 'Documento atualizado com sucesso!'
           authenticated: 'Documento autenticado com sucesso!'
         errors:
           not_found: 'Documento não encontrado!'
+          update: 'Documento não pode ser atualizado, pois já foi assinado!'
       orientation:
         calendar:
           errors:

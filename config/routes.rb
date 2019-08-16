@@ -100,6 +100,8 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
+
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'
@@ -215,8 +217,9 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
-                only: [:index, :new, :create],
-                constraints: { id: /[0-9]+/ }
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :meetings,
                 constraints: { id: /[0-9]+/ },
@@ -412,23 +415,26 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :tep_requests,
-                only: [:index, :new, :create],
-                constraints: { id: /[0-9]+/ }
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :tso_requests,
-                only: [:index, :new, :create],
-                constraints: { id: /[0-9]+/ }
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
 
       resources :meetings,
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
-
       resources :examination_boards,
                 only: [:index, :show],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
