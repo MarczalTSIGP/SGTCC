@@ -2,7 +2,8 @@ class Document < ApplicationRecord
   include TermJsonData
   include SignatureMark
   include DocumentSigned
-  include NewDocumentByType
+  include DocumentByType
+  include DocumentReview
 
   attr_accessor :orientation_id, :advisor_id, :justification,
                 :professor_supervisor_ids, :external_member_supervisor_ids
@@ -95,23 +96,6 @@ class Document < ApplicationRecord
 
   def pending_signature_by_user(user_id, user_types)
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
-  end
-
-  def signed_by_users?(user_types)
-    return if all_signed?
-    signatures.where(user_type: user_types, status: true).size == user_types.size
-  end
-
-  def tdo_for_review?
-    signed_by_users?(%w[advisor])
-  end
-
-  def tep_for_review?
-    signed_by_users?(%w[advisor academic coordinator])
-  end
-
-  def tso_for_review?
-    signed_by_users?(%w[advisor new_advisor academic])
   end
 
   def self.by_user(user_id, user_types, status = [true, false])

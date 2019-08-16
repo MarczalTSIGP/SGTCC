@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module NewDocumentByType
+module DocumentByType
   extend ActiveSupport::Concern
 
   included do
