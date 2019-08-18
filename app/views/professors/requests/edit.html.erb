@@ -1,10 +1,11 @@
-<% provide(:page_title, t('breadcrumbs.documents.requests.tdo.new')) %>
-<% provide(:head_title, t('breadcrumbs.documents.requests.tdo.new')) %>
+<% provide(:page_title, t('breadcrumbs.documents.requests.tdo.edit')) %>
+<% provide(:head_title, t('breadcrumbs.documents.requests.tdo.edit')) %>
 
-<%= simple_form_for(@document, url: professors_requests_path) do |f| %>
+<%= simple_form_for(@document, url: professors_request_path(@document)) do |f| %>
   <%= f.input :orientation_id,
     as: :select,
     collection: current_professor.orientations_to_form,
+    selected: @document.orientation.id,
     class: 'form-control',
     input_html: { data: 'selectize' },
     label_method: :second,
@@ -16,6 +17,7 @@
     input_html: {
       rows: '8',
       class: 'markdown-editor',
+      value: @document.request['requester']['justification']
     } %>
 
   <div class="d-flex">

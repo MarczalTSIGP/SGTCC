@@ -25,7 +25,9 @@
       <tr>
         <%= render('shared/no_results') if @requests.empty? %>
       </tr>
-      <%= render @requests %>
+      <% @requests.each do |request| %>
+        <%= render 'academics/tep_requests/request', document: request %>
+      <% end %>
     </tbody>
   </table>
 </div>

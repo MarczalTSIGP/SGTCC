@@ -38,36 +38,32 @@ RSpec.describe Document, type: :model do
     let!(:coordinator) { create(:coordinator) }
     let!(:responsible) { create(:responsible) }
     let!(:orientation) { create(:current_orientation_tcc_two) }
-    let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
-    let!(:document_tep) { create(:document_tep, orientation_id: orientation.id) }
-
-    before do
-      orientation.signatures << Signature.all
-    end
 
     context 'when returns the tdo signatures' do
-      let(:signatures) { orientation.signatures.where(document_id: document_tdo.id) }
+      let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+      let(:signatures) { document.signatures }
       let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
       let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
       let(:advisor) { advisor_signature.user }
 
       it 'returns the Advisor signature' do
         attributes = { user_type: 'advisor', user_id: advisor.id,
-                       status: false, document_id: document_tdo.id,
+                       status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(advisor_signature).to have_attributes(attributes)
       end
 
       it 'returns the Responsible signature' do
         attributes = { user_type: 'professor_responsible', user_id: responsible.id,
-                       status: false, document_id: document_tdo.id,
+                       status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(responsible_signature).to have_attributes(attributes)
       end
     end
 
     context 'when returns the tep signatures' do
-      let(:signatures) { orientation.signatures.where(document_id: document_tep.id) }
+      let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+      let(:signatures) { document.signatures }
       let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
       let(:academic_signature) { signatures.find_by(user_type: :academic) }
       let(:coordinator_signature) { signatures.find_by(user_type: :coordinator) }
@@ -75,23 +71,78 @@ RSpec.describe Document, type: :model do
 
       it 'returns the Academic signature' do
         attributes = { user_type: 'academic', user_id: academic.id,
-                       status: false, document_id: document_tep.id,
+                       status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(academic_signature).to have_attributes(attributes)
       end
 
       it 'returns the Responsible signature' do
         attributes = { user_type: 'professor_responsible', user_id: responsible.id,
-                       status: false, document_id: document_tep.id,
+                       status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(responsible_signature).to have_attributes(attributes)
       end
 
       it 'returns the Coordinator signature' do
         attributes = { user_type: 'coordinator', user_id: coordinator.id,
-                       status: false, document_id: document_tep.id,
+                       status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(coordinator_signature).to have_attributes(attributes)
+      end
+    end
+
+    context 'when returns the tso signatures' do
+      let!(:new_advisor) { create(:professor) }
+
+      let(:new_orientation) do
+        { advisor: { id: new_advisor.id, name: new_advisor.name },
+          professorSupervisors: {},
+          externalMemberSupervisors: {} }
+      end
+
+      let(:request) do
+        { requester: { justificatio: 'just' }, new_orientation: new_orientation }
+      end
+
+      let!(:document) do
+        create(:document_tso, orientation_id: orientation.id,
+                              advisor_id: new_advisor.id, request: request)
+      end
+
+      let(:signatures) { document.signatures }
+      let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
+      let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
+      let(:new_advisor_signature) { signatures.where(user_type: :advisor).last }
+      let(:academic_signature) { signatures.find_by(user_type: :academic) }
+      let(:advisor) { advisor_signature.user }
+      let(:academic) { academic_signature.user }
+
+      it 'returns the Academic signature' do
+        attributes = { user_type: 'academic', user_id: academic.id,
+                       status: false, document_id: document.id,
+                       orientation_id: orientation.id }
+        expect(academic_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the Advisor signature' do
+        attributes = { user_type: 'advisor', user_id: advisor.id,
+                       status: false, document_id: document.id,
+                       orientation_id: orientation.id }
+        expect(advisor_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the new Advisor signature' do
+        attributes = { user_type: 'advisor', user_id: new_advisor.id,
+                       status: false, document_id: document.id,
+                       orientation_id: orientation.id }
+        expect(new_advisor_signature).to have_attributes(attributes)
+      end
+
+      it 'returns the Responsible signature' do
+        attributes = { user_type: 'professor_responsible', user_id: responsible.id,
+                       status: false, document_id: document.id,
+                       orientation_id: orientation.id }
+        expect(responsible_signature).to have_attributes(attributes)
       end
     end
   end
@@ -388,6 +439,86 @@ RSpec.describe Document, type: :model do
       it 'returns the signed signature' do
         expect(document.signature_by_user(academic.id, :academic)).to eq(signed_signature)
       end
+    end
+  end
+
+  describe '#save_judgment' do
+    let!(:professor) { create(:responsible) }
+    let!(:orientation) { create(:orientation) }
+    let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+
+    let(:params) do
+      { justification: 'justification', accept: true }
+    end
+
+    let(:json_judgment) do
+      { responsible: { id: professor.id,
+                       accept: params[:accept],
+                       justification: params[:justification] } }
+    end
+
+    it 'returns true' do
+      expect(document.save_judgment(professor, params)).to eq(true)
+    end
+  end
+
+  describe '#academic_signed?' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+
+    context 'when the document is not signed' do
+      it 'returns false' do
+        expect(document.academic_signed?(academic)).to eq(false)
+      end
+    end
+
+    context 'when the document is signed' do
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns true' do
+        expect(document.academic_signed?(academic)).to eq(true)
+      end
+    end
+  end
+
+  describe '#professor_signed?' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+
+    context 'when the document is not signed' do
+      it 'returns false' do
+        expect(document.professor_signed?(professor)).to eq(false)
+      end
+    end
+
+    context 'when the document is not signed' do
+      before do
+        document.signatures.each(&:sign)
+      end
+
+      it 'returns true' do
+        expect(document.professor_signed?(professor)).to eq(true)
+      end
+    end
+  end
+
+  describe '#update_requester_justification' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+    let(:params) { { justification: 'new_justification' } }
+
+    it 'returns true when is updated' do
+      expect(document.update_requester_justification(params)).to eq(true)
+    end
+
+    it 'returns when the justification is empty' do
+      params = { justification: nil }
+      expect(document.update_requester_justification(params)).to eq(true)
     end
   end
 end

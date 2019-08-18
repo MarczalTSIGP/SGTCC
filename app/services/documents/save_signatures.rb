@@ -35,6 +35,7 @@ class Documents::SaveSignatures
   def save_tso
     add_academic
     add_advisor
+    add_new_advisor
     add_responsible
     create_signatures
   end
@@ -70,6 +71,11 @@ class Documents::SaveSignatures
 
   def add_advisor
     @signature_users.push([@orientation.advisor.id, 'AD'])
+  end
+
+  def add_new_advisor
+    new_advisor = @document.request['new_orientation']['advisor']
+    @signature_users.push([new_advisor['id'], 'AD'])
   end
 
   def add_professor_supervisors

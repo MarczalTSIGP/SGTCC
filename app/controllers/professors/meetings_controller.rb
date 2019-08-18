@@ -47,13 +47,9 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def update
-    if @meeting.update(meeting_params)
-      feminine_success_update_message
-      redirect_to professors_meeting_path(@meeting)
-    else
-      error_message
-      render :edit
-    end
+    @meeting.update(meeting_params) if meeting_params[:content].present?
+    feminine_success_update_message
+    redirect_to professors_meeting_path(@meeting)
   end
 
   def destroy

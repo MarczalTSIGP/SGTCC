@@ -29,7 +29,14 @@ export default {
         },
         requester: {
           justification: '',
-        }
+        },
+        judgment: {
+          responsible: {
+            id: '',
+            accept: false,
+            justification: ''
+          },
+        },
       },
     };
   },
@@ -55,6 +62,7 @@ export default {
   mounted() {
     this.onCloseTerm();
     this.onOpenTerm();
+    this.onUpdateRequest();
     this.setData();
   },
 
@@ -85,6 +93,12 @@ export default {
 
     hasInstitution() {
       return this.term.institution.responsible !== null && this.term.institution.trade_name !== null;
+    },
+
+    onUpdateRequest() {
+      this.$root.$on('update-json-request', () => {
+        this.setRequest();
+      });
     },
 
     onCloseTerm() {
