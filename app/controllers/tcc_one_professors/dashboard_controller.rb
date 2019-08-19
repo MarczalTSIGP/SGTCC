@@ -11,10 +11,7 @@ class TccOneProfessors::DashboardController < TccOneProfessors::BaseController
   end
 
   def set_examination_boards
-    @examination_boards = ExaminationBoard.tcc_one
-                                          .with_relationships
-                                          .page(params[:page])
-                                          .per(5)
-                                          .order(created_at: :desc)
+    data = current_professor.examination_boards(params[:term])
+    @examination_boards = Kaminari.paginate_array(data).page(params[:page]).per(5)
   end
 end
