@@ -551,22 +551,18 @@ RSpec.describe Document, type: :model do
     let!(:orientation) { create(:orientation, academic: academic) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
 
-    context 'when the academic, advisor and coordinator not signed' do
+    context 'when the academic not signed' do
       it 'returns false' do
         expect(document.tep_for_review?).to eq(false)
       end
     end
 
-    context 'when the academic, advisor and coordinator already signed' do
+    context 'when the academic already signed' do
       let(:signatures) { document.signatures }
-      let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
       let(:academic_signature) { signatures.find_by(user_type: :academic) }
-      let(:coordinator_signature) { signatures.find_by(user_type: :coordinator) }
 
       before do
-        advisor_signature.sign
         academic_signature.sign
-        coordinator_signature.sign
       end
 
       it 'returns true' do
@@ -594,22 +590,18 @@ RSpec.describe Document, type: :model do
                             request: request, advisor_id: advisor.id)
     end
 
-    context 'when the academic, advisor and new_advisor not signed' do
+    context 'when the academic not signed' do
       it 'returns false' do
         expect(document.tso_for_review?).to eq(false)
       end
     end
 
-    context 'when the academic, advisor and new_advisor already signed' do
+    context 'when the academic signed' do
       let(:signatures) { document.signatures }
       let(:academic_signature) { signatures.find_by(user_type: :academic) }
-      let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
-      let(:new_advisor_signature) { signatures.find_by(user_type: :new_advisor) }
 
       before do
-        advisor_signature.sign
         academic_signature.sign
-        new_advisor_signature.sign
       end
 
       it 'returns true' do
