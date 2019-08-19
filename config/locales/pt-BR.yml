@@ -119,6 +119,10 @@ pt-BR:
       show: "Visualizar Atividade"
     documents:
       reviewing: "Documentos para análise"
+      pending: "Documentos para assinar"
+      signed: "Documentos assinados"
+      recent:
+        pending: "Últimos documentos com assinaturas pendentes"
       requests:
         index: "Solicitações"
         new: "Nova solicitação"
@@ -145,6 +149,7 @@ pt-BR:
       new: "Nova Reunião"
       edit: "Editar Reunião"
       show: "Visualizar Reunião"
+      recent: "Últimas reuniões"
     examination_boards:
       index: "Bancas de defesa"
       tcc:
