@@ -176,7 +176,9 @@ RSpec.describe Professor, type: :model do
 
     it 'returns the pending documents' do
       conditions = { user_id: professor.id, user_type: 'AD', status: false }
-      documents = Document.joins(:signatures).select(distinct_query).where(signatures: conditions)
+      documents = Document.joins(:signatures)
+                          .select(distinct_query)
+                          .where(signatures: conditions, request: nil)
       expect(professor.documents_pending).to match_array(documents)
     end
   end

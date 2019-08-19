@@ -9,7 +9,7 @@ module DocumentFilter
     end
 
     def documents_pending(page = nil)
-      data = documents(false)
+      data = documents(false).where(request: nil)
       page_with_relationships(data, page)
     end
 
