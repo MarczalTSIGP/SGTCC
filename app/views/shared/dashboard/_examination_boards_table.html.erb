@@ -1,12 +1,12 @@
-<% unless @documents.empty? %>
+<% unless @examination_boards.empty? %>
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">
-        <%= t('breadcrumbs.documents.recent.pending') %>
+        <%= t('breadcrumbs.examination_boards.recent') %>
       </h3>
     </div>
     <div class="table-sm table-responsive">
-      <%= render 'shared/documents/table' %>
+      <%= render 'shared/examination_boards/table' %>
     </div>
   </div>
 <% end %>

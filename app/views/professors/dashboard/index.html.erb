@@ -2,19 +2,5 @@
 <% provide(:head_title, "Dashboard") %>
 
 <%= render 'shared/dashboard/documents_table' %>
-
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title col-sm-8">
-      <%= t('breadcrumbs.meetings.recent') %>
-    </h3>
-    <div class="col-sm-4">
-      <%= render 'shared/meetings/new_button' %>
-    </div>
-  </div>
-  <div class="table-responsive">
-    <%= render 'shared/meetings/table' %>
-  </div>
-</div>
-
-
+<%= render 'professors/dashboard/meetings_table' %>
+<%= render 'shared/dashboard/examination_boards_table' %>

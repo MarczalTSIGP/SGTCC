@@ -1,0 +1,17 @@
+<% unless @meetings.empty? %>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title col-sm-8">
+        <%= t('breadcrumbs.meetings.recent') %>
+      </h3>
+      <div class="col-sm-4">
+        <%= render 'shared/meetings/new_button' %>
+      </div>
+    </div>
+    <div class="table-sm table-responsive">
+      <%= render 'shared/meetings/table' %>
+    </div>
+  </div>
+<% end %>
+
+

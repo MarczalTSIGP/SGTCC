@@ -152,6 +152,7 @@ pt-BR:
       recent: "Últimas reuniões"
     examination_boards:
       index: "Bancas de defesa"
+      recent: "Últimas bancas de defesa"
       tcc:
         one:
           index: "Bancas de defesa de TCC 1"
