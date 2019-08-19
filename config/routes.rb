@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
-  root to: 'home#index'
+  root to: 'site#index'
 
   get 'documents/images',
       to: 'documents#images',
