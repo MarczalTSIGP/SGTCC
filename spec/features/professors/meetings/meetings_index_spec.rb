@@ -15,8 +15,7 @@ describe 'Meeting::index', type: :feature, js: true do
         visit professors_meetings_path
         meetings.each do |meeting|
           expect(page).to have_contents([meeting.orientation.academic_with_calendar,
-                                         short_date(meeting.date),
-                                         short_date(meeting.updated_at)])
+                                         short_date(meeting.date)])
         end
       end
     end
@@ -29,8 +28,7 @@ describe 'Meeting::index', type: :feature, js: true do
 
         orientation.meetings.each do |meeting|
           expect(page).to have_contents([meeting.orientation.academic_with_calendar,
-                                         short_date(meeting.date),
-                                         short_date(meeting.updated_at)])
+                                         short_date(meeting.date)])
         end
       end
     end
