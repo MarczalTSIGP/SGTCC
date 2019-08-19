@@ -1,16 +1,7 @@
 <% provide(:page_title, "Dashboard") %>
 <% provide(:head_title, "Dashboard") %>
 
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">
-      <%= t('breadcrumbs.documents.recent.pending') %>
-    </h3>
-  </div>
-  <div class="table-responsive">
-    <%= render 'shared/documents/table' %>
-  </div>
-</div>
+<%= render 'shared/dashboard/documents_table' %>
 
 <div class="card">
   <div class="card-header">
