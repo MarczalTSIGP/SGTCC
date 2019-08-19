@@ -11,6 +11,6 @@ class Responsible::DashboardController < Responsible::BaseController
   private
 
   def set_documents
-    @documents = current_professor.documents_signed(params[:page]).per(5)
+    @documents = current_professor.documents_pending(params[:page]).per(5)
   end
 end
