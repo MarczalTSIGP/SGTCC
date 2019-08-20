@@ -85,7 +85,17 @@ export default {
     this.onCloseEditButton();
   },
 
+  updated() {
+    this.onShowDocumentJudgment();
+  },
+
   methods: {
+    onShowDocumentJudgment() {
+      if (this.hasPermission && this.notHasJudgment()) {
+        this.$root.$emit('close-signature-button');
+      }
+    },
+
     setShowEditButton() {
       this.showEditButton = this.canEdit;
     },
