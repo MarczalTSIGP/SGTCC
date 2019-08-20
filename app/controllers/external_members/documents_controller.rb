@@ -21,7 +21,7 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    external_members_document_path(@document)
   end
 

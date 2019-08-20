@@ -118,6 +118,7 @@ pt-BR:
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
     documents:
+      show: "Visualizar documento"
       reviewing: "Documentos para análise"
       pending: "Documentos para assinar"
       signed: "Documentos assinados"
