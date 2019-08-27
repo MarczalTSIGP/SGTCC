@@ -1,8 +1,42 @@
 pt-BR:
   time:
+    deadline: "De %{initial_date} à %{final_date}"
     formats:
       short: '%d/%m/%Y'
+      month: '%m'
+      year: '%Y'
+      time: '%-H:%M'
+      datetime: '%d/%m/%Y %-H:%M'
+      document: '%d de %B de %Y'
   views:
+    title:
+      calendar:
+        tcc:
+          one: "Calendário de Atividades de TCC 1 (%{calendar})"
+          two: "Calendário de Atividades de TCC 2 (%{calendar})"
+    tabs:
+      tcc:
+        one: 'TCC 1'
+        two: 'TCC 2'
+    labels:
+      conceded: 'Deferido'
+      dismissed: 'Indeferido'
+    buttons:
+      select: 'Selecionar'
+      save: 'Salvar'
+      cancel: 'Cancelar'
+      sign: 'Assinar'
+      authenticate: 'Autenticar'
+      concede: 'Deferir'
+      dismiss: 'Indeferir'
+      orientation:
+        meeting:
+          view: 'Dar ciência'
+        renew: 'Renovar orientação'
+        cancel: 'Cancelar orientação'
+        abandon: 'Desistir da orientação'
+      signature:
+        sign: 'Assinar documento'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -11,12 +45,37 @@ pt-BR:
       truncate: "&hellip;"
     sidebar:
       responsible: "Responsável"
-      orientations: "Orientações"
+      advisor: "Orientador"
       tcc_one: "TCC 1"
       academics: "Acadêmico"
       external_members: "Membro Externo"
+      supervisor: "Coorientador"
+      requests: "Solicitações"
+      documents:
+        index: "Documentos"
+        review: "Para análise"
+        pending: "Para assinar"
+        signed: "Assinados"
+      signatures:
+        index: "Assinaturas"
+        pendings: "Pendentes"
+        signeds: "Assinadas"
+  reports:
+    professors:
+      index: "Professores"
+      label:
+        total: "Cadastrados no SGTCC"
+        available: "Disponíveis para orientação"
+        unavailable: "Indisponíveis para orientação"
+    orientations:
+      label:
+        in_progress: "Em andamento"
+        approved: "Aprovadas"
+        renewed: "Renovadas"
+        canceled: "Canceladas"
   breadcrumbs:
     homepage: "Página inicial"
+    history: "Histórico"
     academics:
       index: 'Acadêmicos'
       new: 'Novo Acadêmico'
@@ -39,6 +98,9 @@ pt-BR:
       show: 'Visualizar Instituição externa'
     calendars:
       index: "Calendários"
+      new: "Novo Calendário"
+      edit: "Editar Calendário"
+      show: "Visualizar Calendário"
     meetings:
       index: "Reuniões"
     examination_boards:
@@ -50,6 +112,105 @@ pt-BR:
       new: "Nova Atividade base"
       edit: "Editar Atividade base"
       show: "Visualizar Atividade base"
+    activities:
+      index: "Atividades"
+      new: "Nova Atividade"
+      edit: "Editar Atividade"
+      show: "Visualizar Atividade"
+    documents:
+      reviewing: "Documentos para análise"
+      requests:
+        index: "Solicitações"
+        new: "Nova solicitação"
+        show: "Visualizar solicitação"
+        tso:
+          sidebar: "Substituição do TCC"
+          index: "Solicitações de substituição do TCC"
+          new: "Solicitar substituição do TCC"
+          show: "Visualizar substituição do TCC"
+          edit: "Editar solicitação de substituição do TCC"
+        tep:
+          sidebar: "Extensão de prazo do TCC"
+          index: "Solicitações de extensão do prazo do TCC"
+          new: "Solicitar extensão de prazo do TCC"
+          show: "Visualizar extensão de prazo do TCC"
+          edit: "Editar extensão de prazo do TCC"
+        tdo:
+          new: "Solicitar desistência de orientação"
+          show: "Visualizar solicitação de desistência de orientação"
+          advisor: "Desistência de Orientação"
+          edit: "Editar desistência de orientação"
+    meetings:
+      index: "Reuniões"
+      new: "Nova Reunião"
+      edit: "Editar Reunião"
+      show: "Visualizar Reunião"
+    examination_boards:
+      index: "Bancas de defesa"
+      tcc:
+        one:
+          index: "Bancas de defesa de TCC 1"
+          show: "Visualizar banca de defesa de TCC 1"
+          edit: "Editar banca de defesa de TCC 1"
+          new: "Nova banca de defesa de TCC 1"
+        two:
+          index: "Bancas de defesa de TCC 2"
+          show: "Visualizar banca de defesa de TCC 2"
+          edit: "Editar banca de defesa de TCC 2"
+          new: "Nova banca de defesa de TCC 2"
+    signatures:
+      index: "Assinaturas"
+      show: "Visualizar documento"
+      pendings: "Assinaturas Pendentes"
+      signeds: "Assinaturas Assinadas"
+      title: "%{type} %{academic} %{calendar}"
+      TCO:
+        show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
+    tcc:
+      one:
+        index: "Atividades de TCC 1"
+        new: "Nova Atividade de TCC 1"
+        edit: "Editar Atividade de TCC 1"
+        show: "Visualizar Atividade de TCC 1"
+        calendar: "Atividades de TCC 1 (%{calendar})"
+      two:
+        index: "Atividades de TCC 2"
+        new: "Nova Atividade de TCC 2"
+        edit: "Editar Atividade de TCC 2"
+        show: "Visualizar Atividade de TCC 2"
+        calendar: "Atividades de TCC 2 (%{calendar})"
+    orientations:
+      index: "Orientações"
+      new: "Nova Orientação"
+      edit: "Editar Orientação"
+      show: "Visualizar Orientação"
+      history: "Histórico de orientações"
+      tcc:
+        calendar: 'Orientações de TCC (%{calendar})'
+        one:
+          index: 'Orientações de TCC 1'
+          edit: 'Editar Orientação de TCC 1 (%{calendar})'
+          new: 'Nova Orientação de TCC 1 (%{calendar})'
+          show: "Visualizar Orientação de TCC 1 (%{calendar})"
+          calendar: 'Orientações de TCC 1 (%{calendar})'
+        two:
+          index: 'Orientações de TCC 2'
+          edit: 'Editar Orientação de TCC 2 (%{calendar})'
+          show: 'Visualizar Orientação de TCC 2 (%{calendar})'
+          calendar: 'Orientações de TCC 2 (%{calendar})'
+    supervisions:
+      index: "Coorientações"
+      calendar: "Coorientações de TCC (%{calendar})"
+      history: "Histórico de coorientações"
+      tcc:
+        one:
+          calendar: "Coorientações de TCC 1 (%{calendar})"
+          edit: "Editar Coorientação de TCC 1 (%{calendar})"
+          show: "Visualizar Coorientação de TCC 1 (%{calendar})"
+        two:
+          calendar: "Coorientações de TCC 2 (%{calendar})"
+          edit: "Editar Coorientação de TCC 2 (%{calendar})"
+          show: "Visualizar Coorientação de TCC 2 (%{calendar})"
   activerecord:
     errors:
       models:
@@ -57,6 +218,13 @@ pt-BR:
           attributes:
             cnpj:
               invalid_cnpj: "inválido"
+        calendar:
+          attributes:
+            year: 'já está em uso para o TCC e semestre selecionado'
+        orientation:
+          attributes:
+            supervisors:
+              advisor: '- %{advisor} já está em uso para orientação'
     models:
       professor:
         one: "Professor"
@@ -73,6 +241,27 @@ pt-BR:
       base_activity:
         one: "Atividade base"
         other: "Atividades base"
+      activity:
+        one: "Atividade"
+        other: "Atividades"
+      calendar:
+        one: "Calendário"
+        other: "Calendários"
+      orientation:
+        one: "Orientação"
+        other: "Orientações"
+      document:
+        one: "Documento"
+        other: "Documentos"
+      signature:
+        one: "Assinatura"
+        other: "Assinaturas"
+      meeting:
+        one: "Reunião"
+        other: "Reuniões"
+      examination_board:
+        one: "Banca de defesa"
+        other: "Bancas de defesa"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -88,7 +277,15 @@ pt-BR:
         working_area: "Área de atuação"
         is_active: "Ativo no sistema"
         scholarity: "Escolaridade"
+        base_activity_type: "Tipo"
+        academic: "Acadêmico"
+        advisor: "Orientador"
         role: "Papel"
+        tcc: "TCC"
+        deadline: "Prazo"
+        title: "Título"
+        orientation: "Orientação"
+        date: "Data"
       academic:
         ra: "RA"
         <<: *commons
@@ -96,10 +293,10 @@ pt-BR:
         roles: "Papéis"
         profile_image: "Imagem do perfil"
         available_advisor: "Disponível para orientação"
-        professor_type: "Tipo"
+        professor_type: "Vínculo"
         <<: *commons
       external_member:
-        personal_page: "Página pessoal (link)"
+        personal_page: "Página pessoal"
         external_member_type: "Tipo"
         company_responsible: "Responsável de empresa"
         <<: *commons
@@ -110,9 +307,53 @@ pt-BR:
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
       base_activity:
-        base_activity_type: "Tipo"
-        tcc: "TCC"
         <<: *commons
+      activity:
+        calendar: "Calendário"
+        initial_date: "Data inicial de entrega"
+        final_date: "Data final de entrega"
+        <<: *commons
+      calendar:
+        semester: "Semestre"
+        year: "Ano"
+        year_semester: "Ano / Semestre"
+        <<: *commons
+      orientation:
+        calendar: "Calendário"
+        institution: "Instituição externa"
+        orientation_supervisors: "Coorientadores"
+        professor_supervisors: "Coorientadores da UTFPR"
+        external_member_supervisors: "Coorientadores externos"
+        renewal_justification: "Justificativa da renovação"
+        cancellation_justification: "Justificativa do cancelamento"
+        abandonment_justification: "Justificativa de desistência"
+        <<: *commons
+      signature:
+        document_type: "Tipo do documento"
+        <<: *commons
+      document:
+        orientation_id: "Orientação"
+        justification: "Justificativa"
+        advisor_id: "Novo Orientador"
+        new_advisor: "Novo Orientador"
+        professor_supervisor_ids: "Novos Coorientadores da UTFPR"
+        external_member_supervisor_ids: "Novos Coorientadores externos"
+        <<: *commons
+      meeting:
+        content: "Conteúdo"
+        date: "Data"
+        viewed: "Ciência"
+        <<: *commons
+      examination_board:
+        professors: "Professores da UTFPR"
+        external_members: "Membros externos"
+        orientation: "Orientação"
+        evaluators: "Avaliadores"
+        place: "Local"
+        <<: *commons
+  placeholders:
+    meetings:
+      content: "Discutido: \n\n\nTarefas para o acadêmico: \n\n\nTarefas para o orientador: \n\n\nConcluído: "
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -131,6 +372,8 @@ pt-BR:
     genders:
       male: 'Masculino'
       female: 'Feminino'
+      M: 'Masculino'
+      F: 'Feminino'
     semesters:
       first: '1º'
       second: '2º'
@@ -140,11 +383,30 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+    tcc_number:
+      one: 1
+      two: 2
+    semester:
+      one: '1'
+      two: '2'
+    orientation:
+      status:
+        RENEWED: 'renovada'
+        APPROVED: 'aprovada'
+        ABANDONED: 'abandonada'
+        CANCELED: 'cancelada'
+        IN_PROGRESS: 'em andamento'
+        select:
+          RENEWED: 'Renovada'
+          APPROVED: 'Aprovada'
+          ABANDONED: 'Abandonada'
+          CANCELED: 'Cancelada'
+          IN_PROGRESS: 'Em andamento'
   flash:
     actions:
       update:
-        m: '%{resource_name} Atualizado com sucesso!'
-        f: '%{resource_name} Atualizada com sucesso!'
+        m: '%{resource_name} atualizado com sucesso!'
+        f: '%{resource_name} atualizada com sucesso!'
       create:
         m: '%{resource_name} criado com sucesso!'
         f: '%{resource_name} criada com sucesso!'
@@ -152,8 +414,51 @@ pt-BR:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
         bond: 'Não é possível remover %{resource_name} com vínculos!'
-      errors: 'Existem dados incorretos!'
+      errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    request:
+      index: "Solicitação"
+    orientation:
+      meeting:
+        errors:
+          edit: 'Não é possível editar reunião, pois o acadêmico deu ciência da mesma!'
+          destroy: 'Não é possível excluir reunião, pois o acadêmico deu ciência da mesma!'
+      destroy:
+        signed: 'Não é possível excluir orientação com todas as assinaturas!'
+      edit:
+        signed: 'Não é possível editar orientação com assinaturas!'
+    documents:
+      academics:
+        requests:
+          not_allowed: 'Operação não permitida, pois o acadêmico já assinou o documento!'
+      professors:
+        requests:
+          not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
+  json:
+    messages:
+      invalid_code: 'Código inválido!'
+      empty_fields: 'Preencha todos os campos!'
+      documents:
+        success:
+          update: 'Documento atualizado com sucesso!'
+          authenticated: 'Documento autenticado com sucesso!'
+        errors:
+          not_found: 'Documento não encontrado!'
+          update: 'Documento não pode ser atualizado, pois já foi assinado!'
+      orientation:
+        calendar:
+          errors:
+            empty_next_semester: 'Não existe calendário cadastrado para o próximo semestre'
+        renew:
+          save: 'Orientação renovada com sucesso!'
+        cancel:
+          success: 'Orientação cancelada com sucesso!'
+        abandon:
+          success: 'Orientação abandonada com sucesso!'
+        signatures:
+          confirm:
+            success: 'Assinatura realizada com sucesso!'
+            error: 'Usuário institucional ou senha inválidos!'
   sessions:
     sign_in: "Login"
     sign_out: "Sair"
@@ -179,6 +484,7 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+      multiple: 'Selecionar %{name}'
   mailer:
     login: 'Acessar sistema'
     external_member:
@@ -187,3 +493,35 @@ pt-BR:
         subject: 'Registrado com sucesso no SGTCC'
         register: 'Você foi registrado com sucesso no SGTCC, sua senha para acesso é: %{password}'
         login: 'Para realizar o login no sistema clique no link abaixo'
+  signatures:
+    advisor:
+      labels:
+        male: 'professor'
+        female: 'professora'
+    users:
+      roles:
+        male:
+          academic: 'Acadêmico'
+          advisor: 'Orientador'
+          coordinator: 'Coordernador do Curso'
+          professor_supervisor: 'Coorientador da UTFPR'
+          professor_responsible: 'Professor responsável'
+          external_member_supervisor: 'Coorientador externo'
+        female:
+          academic: 'Acadêmica'
+          advisor: 'Orientadora'
+          coordinator: 'Coordenadora do Curso'
+          professor_supervisor: 'Coorientadora da UTFPR'
+          professor_responsible: 'Professora responsável'
+          external_member_supervisor: 'Coorientadora externa'
+    documents:
+      TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
+      TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
+      TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
+      TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
+      TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
+    register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
+      horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
+      8 de outubro de 2015 .'
+    code: 'A autenticidade deste documento pode ser conferida no site %{url} , informando o código
+      verificador %{code}.'

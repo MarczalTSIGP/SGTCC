@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics:logout', type: :feature do
+describe 'Academics:logout', type: :feature, js: true do
   let(:academic) { create(:academic) }
 
   before do
@@ -8,15 +8,11 @@ describe 'Academics:logout', type: :feature do
     visit academics_root_path
   end
 
-  it 'displays success logout message', js: true do
+  it 'displays success logout message' do
     click_link academic.name
-    click_link(I18n.t('sessions.sign_out'))
+    click_link(sign_out_button)
 
     expect(page).to have_current_path new_academic_session_path
-
-    expect(page).to have_flash(
-      :info,
-      text: I18n.t('devise.sessions.already_signed_out')
-    )
+    expect(page).to have_flash(:info, text: already_signed_out_message)
   end
 end

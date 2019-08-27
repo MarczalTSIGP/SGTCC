@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 describe 'Professors::show', type: :feature do
+  let(:responsible) { create(:responsible) }
+  let!(:professor) { create(:professor) }
+
+  before do
+    login_as(responsible, scope: :professor)
+    visit responsible_professor_path(professor)
+  end
+
   describe '#show' do
     context 'when shows the professor' do
       it 'shows the professor' do
-        responsible = create(:responsible)
-        login_as(responsible, scope: :professor)
-
-        professor = create(:professor)
-        visit responsible_professor_path(professor)
-
         gender = I18n.t("enums.genders.#{professor.gender}")
         is_active = I18n.t("helpers.boolean.#{professor.is_active}")
         available_advisor = I18n.t("helpers.boolean.#{professor.available_advisor}")

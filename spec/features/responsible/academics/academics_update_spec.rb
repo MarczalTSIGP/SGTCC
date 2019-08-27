@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::update', type: :feature do
+describe 'Academic::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Academic.model_name.human }
 
@@ -15,36 +15,37 @@ describe 'Academic::update', type: :feature do
       visit edit_responsible_academic_path(academic)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the academic' do
         attributes = attributes_for(:academic)
-
-        new_name = 'Teste'
-        fill_in 'academic_name', with: new_name
+        fill_in 'academic_name', with: attributes[:name]
         fill_in 'academic_email', with: attributes[:email]
+        fill_in 'academic_ra', with: attributes[:ra]
+        gender = I18n.t("enums.genders.#{attributes[:gender]}")
+        click_on_label(gender, in: 'academic_gender')
 
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_academic_path(academic)
-
-        success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
-        expect(page).to have_content(new_name)
+        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:email],
+                                       attributes[:ra],
+                                       gender])
       end
     end
 
-    context 'when the academic is not valid', js: true do
+    context 'when the academic is not valid' do
       it 'show errors' do
         fill_in 'academic_name', with: ''
         fill_in 'academic_email', with: ''
+        fill_in 'academic_ra', with: ''
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-
-        message_blank_error = I18n.t('errors.messages.blank')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_name')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_email')
-        expect(page).to have_message(message_blank_error, in: 'div.academic_gender')
+        expect(page).to have_flash(:danger, text: errors_message)
+        expect(page).to have_message(blank_error_message, in: 'div.academic_name')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_email')
+        expect(page).to have_message(blank_error_message, in: 'div.academic_ra')
       end
     end
   end

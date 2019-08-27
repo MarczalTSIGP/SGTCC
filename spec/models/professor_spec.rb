@@ -30,12 +30,33 @@ RSpec.describe Professor, type: :model do
     context 'when lattes is not valid' do
       it { is_expected.not_to allow_value('lattes.com').for(:lattes) }
     end
+
+    context 'when professor supervisors is not valid' do
+      let(:advisor) { build(:professor) }
+      let(:orientation) { build(:orientation, advisor: advisor) }
+
+      it 'validation should reject invalid orientation' do
+        orientation.professor_supervisors << advisor
+        orientation.save
+        expect(orientation.errors[:professor_supervisors]).not_to be_empty
+      end
+    end
   end
 
   describe 'associations' do
+    professor_sfk = 'professor_supervisor_id'
+    professor_fk = 'professor_id'
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
+    it { is_expected.to have_many(:roles).through(:assignments) }
+    it { is_expected.to have_many(:meetings).through(:orientations) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
+    it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
+    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
+    it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
   end
 
   describe '#human_genders' do
@@ -48,8 +69,21 @@ RSpec.describe Professor, type: :model do
     end
   end
 
+  describe '#role?' do
+    let(:responsible) { create(:responsible) }
+
+    it 'returns true if the professor has role' do
+      expect(responsible.role?('responsible')).to eq(true)
+    end
+
+    it 'returns false if the professor has not role' do
+      expect(responsible.role?('tcc_one')).to eq(false)
+    end
+  end
+
   describe '#search' do
-    let(:professor) { create(:professor) }
+    let(:responsible) { create(:responsible) }
+    let(:professor) { create(:professor_tcc_one) }
 
     context 'when finds professor by attributes' do
       it 'returns professor by name' do
@@ -66,11 +100,21 @@ RSpec.describe Professor, type: :model do
         results_search = Professor.search(professor.username)
         expect(professor.username).to eq(results_search.first.username)
       end
+
+      it 'returns professor by role name' do
+        results_search = Professor.search(responsible.roles.first.name)
+        expect(responsible.name).to eq(results_search.first.name)
+      end
+
+      it 'returns professor by role identifier' do
+        results_search = Professor.search(responsible.roles.first.identifier)
+        expect(responsible.name).to eq(results_search.first.name)
+      end
     end
 
     context 'when finds professor by name with accents' do
       it 'returns professor' do
-        professor = create(:professor, name: 'João')
+        professor = create(:responsible, name: 'João')
         results_search = Professor.search('Joao')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -78,7 +122,7 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by name on search term with accents' do
       it 'returns professor' do
-        professor = create(:professor, name: 'Joao')
+        professor = create(:responsible, name: 'Joao')
         results_search = Professor.search('João')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -86,13 +130,13 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by name ignoring the case sensitive' do
       it 'returns professor by attribute' do
-        professor = create(:professor, name: 'Ana')
+        professor = create(:professor_tcc_one, name: 'Ana')
         results_search = Professor.search('an')
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by search term' do
-        professor = create(:professor, name: 'ana')
+        professor = create(:professor_tcc_one, name: 'ana')
         results_search = Professor.search('AN')
         expect(professor.name).to eq(results_search.first.name)
       end
@@ -100,12 +144,141 @@ RSpec.describe Professor, type: :model do
 
     context 'when returns professors ordered by name' do
       it 'returns ordered' do
-        create_list(:professor, 30)
+        create_list(:professor_tcc_one, 30)
         professors_ordered = Professor.order(:name)
         professor = professors_ordered.first
         results_search = Professor.search.order(:name)
         expect(professor.name). to eq(results_search.first.name)
       end
+    end
+  end
+
+  describe '#documents_signed' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
+
+    before do
+      orientation.signatures.find_by(user_type: :advisor).sign
+    end
+
+    it 'returns the signed documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: true }
+      documents = Document.joins(:signatures).select(distinct_query).where(signatures: conditions)
+      expect(professor.documents_signed).to match_array(documents)
+    end
+  end
+
+  describe '#documents_pending' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
+
+    it 'returns the pending documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: false }
+      documents = Document.joins(:signatures).select(distinct_query).where(signatures: conditions)
+      expect(professor.documents_pending).to match_array(documents)
+    end
+  end
+
+  describe '#documents_reviewing' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+    let(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }
+    let(:distinct_query) { 'DISTINCT ON (documents.id) documents.*' }
+
+    it 'returns the reviewing documents' do
+      conditions = { user_id: professor.id, user_type: 'AD', status: false }
+      documents = Document.joins(:signatures)
+                          .select(distinct_query)
+                          .where(signatures: conditions)
+                          .where.not(request: nil)
+      expect(professor.documents_reviewing).to match_array(documents)
+    end
+  end
+
+  describe '#orientations_to_form' do
+    let(:orientation) { create(:orientation) }
+    let(:professor) { orientation.advisor }
+
+    it 'is equal professor request data' do
+      order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
+      data = professor.orientations.includes(:academic, :calendar)
+                      .order(order_by).map do |orientation|
+                        [orientation.id, orientation.academic_with_calendar]
+                      end
+      expect(professor.orientations_to_form).to eq(data)
+    end
+  end
+
+  describe '#current_responsible' do
+    before do
+      create(:responsible)
+    end
+
+    it 'is equal current responsible' do
+      responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
+      expect(Professor.current_responsible).to eq(responsible)
+    end
+  end
+
+  describe '#current_coordinator' do
+    before do
+      create(:coordinator)
+    end
+
+    it 'is equal current coordinator' do
+      coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
+      expect(Professor.current_coordinator).to eq(coordinator)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:professor) { create(:professor) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
+      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
+
+  describe '#examination_boards' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
+
+    before do
+      create(:examination_board, orientation: orientation)
+      examination_board_tcc_one.professors << professor
+    end
+
+    it 'is equal guest_examination_boards' do
+      examination_boards = (professor.guest_examination_boards +
+        professor.orientation_examination_boards)
+      expect(professor.examination_boards).to match_array(examination_boards)
+      expect(professor.examination_boards.count).to eq(2)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:professor) { create(:professor) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
+      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
+
+  describe '#responsible?' do
+    let(:responsible) { create(:responsible) }
+    let(:professor) { create(:professor) }
+
+    it 'returns true' do
+      expect(responsible.responsible?).to eq(true)
+    end
+
+    it 'returns false' do
+      expect(professor.responsible?).to eq(false)
     end
   end
 end

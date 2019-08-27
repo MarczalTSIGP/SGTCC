@@ -1,0 +1,33 @@
+<% provide(:page_title, t('breadcrumbs.meetings.show')) %>
+<% provide(:head_title, t('breadcrumbs.meetings.show')) %>
+
+<div class="card">
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= Meeting.human_attribute_name('content') %>:
+      </strong>
+      <div class="form-fieldset w-50 text-left">
+        <vue-simple-markdown source="<%= @meeting.content %>" />
+      </div>
+    </p>
+    <p>
+      <strong>
+        <%= Meeting.human_attribute_name('date') %>:
+      </strong>
+      <%= complete_date(@meeting.date) %>
+    </p>
+    <div>
+      <meeting-view
+        :id="<%= @meeting.id %>"
+        :value="<%= @meeting.viewed %>" />
+    </div>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    academics_meetings_path,
+    class: 'btn btn-secondary' %>
+</div>
+

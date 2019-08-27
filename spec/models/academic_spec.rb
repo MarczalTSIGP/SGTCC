@@ -18,6 +18,11 @@ RSpec.describe Academic, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:examination_boards).through(:orientations) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
+  end
+
   describe '#human_genders' do
     it 'returns the genders' do
       genders = Academic.genders
@@ -25,6 +30,28 @@ RSpec.describe Academic, type: :model do
       genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
 
       expect(Academic.human_genders).to eq(hash)
+    end
+  end
+
+  describe '#current_orientation' do
+    it 'returns the current orientation by tcc one' do
+      academic = create(:academic)
+      calendar = create(:current_calendar_tcc_one)
+      create(:orientation, calendar: calendar, academic: academic)
+      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
+        orientation.calendar.id == Calendar.current_by_tcc_one.id
+      end
+      expect(academic.current_orientation_tcc_one).to eq(current_orientation)
+    end
+
+    it 'returns the current orientation by tcc two' do
+      academic = create(:academic)
+      calendar = create(:current_calendar_tcc_two)
+      create(:orientation, calendar: calendar, academic: academic)
+      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
+        orientation.calendar.id == Calendar.current_by_tcc_two.id
+      end
+      expect(academic.current_orientation_tcc_two).to eq(current_orientation)
     end
   end
 
@@ -86,6 +113,60 @@ RSpec.describe Academic, type: :model do
         results_search = Academic.search.order(:name)
         expect(academic.name). to eq(results_search.first.name)
       end
+    end
+  end
+
+  describe '#documents_signed' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    before do
+      orientation.signatures.find_by(user_type: :academic).sign
+    end
+
+    it 'returns the signed documents' do
+      conditions = { user_id: academic.id, user_type: 'AC', status: true }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(academic.documents_signed).to match_array(documents)
+    end
+  end
+
+  describe '#documents_pending' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    it 'returns the pending documents' do
+      conditions = { user_id: academic.id, user_type: 'AC', status: false }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(academic.documents_pending).to match_array(documents)
+    end
+  end
+
+  describe '#tsos' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    before do
+      create(:document_type_tso)
+    end
+
+    it 'returns the tsos' do
+      tsos = academic.documents([true, false], DocumentType.tso.first)
+      expect(academic.tsos).to match_array(tsos)
+    end
+  end
+
+  describe '#teps' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    before do
+      create(:document_type_tep)
+    end
+
+    it 'returns the teps' do
+      teps = academic.documents([true, false], DocumentType.tep.first)
+      expect(academic.teps).to match_array(teps)
     end
   end
 end

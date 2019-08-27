@@ -1,25 +1,42 @@
-/* eslint no-console:0 */
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-//
-// To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
-// layout file, like app/views/layouts/application.html.erb
-
 import Vue from 'vue/dist/vue.esm';
 import VueI18n from 'vue-i18n';
 import TurbolinksAdapter from 'vue-turbolinks';
-import SimpleMDE from 'simplemde';
+import VueSwal from 'vue-swal';
+import VueHtmlToPaper from 'vue-html-to-paper';
+import VueSimpleMarkdown from 'vue-simple-markdown';
+import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
 import {messages} from '../utils/i18n/messages';
 import {components} from './components';
 
-Vue.prototype.$axios = axios;
+import menu from '../initializers/menu';
+import markdown from '../initializers/markdown_editor';
+import selectize from '../initializers/selectize';
+import datetimepicker from '../initializers/datetimepicker';
+import tooltip from '../initializers/tooltip';
+import sidebarScroll from '../initializers/sidebar_scroll';
 
+Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
+Vue.use(VueSwal);
+Vue.use(VueSimpleMarkdown);
+
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=no',
+    'scrollbars=yes',
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ]
+};
+
+Vue.use(VueHtmlToPaper, options);
 
 const i18n = new VueI18n({
   locale: 'pt-BR',
@@ -31,42 +48,13 @@ document.addEventListener('turbolinks:load', () => {
     i18n,
     el: '#app',
     components,
-    mounted() {
-      this.initMarkdownEditor();
-      this.initSelectize();
-      this.initHeaderMenuCollapse();
-    },
-
-    methods: {
-      initMarkdownEditor() {
-        const $ = window.jQuery;
-
-        $('.markdown-editor').each(function () {
-          const id = $(this).attr('id');
-          new SimpleMDE({
-            element: document.getElementById(id)
-          });
-        });
-      },
-
-      initSelectize() {
-        const $ = window.jQuery;
-        const selects = $('select');
-
-        if (selects.length > 0) {
-          selects.selectize();
-          $('select[data="selectize"]').selectize();
-          $('.selectize-input input[placeholder]').attr('style', 'width: 100%;');
-        }
-      },
-
-      initHeaderMenuCollapse() {
-        const $ = window.jQuery;
-
-        $('[data-toggle="collapse"]').click(function() {
-          $('html, body').animate({ scrollTop: 0 }, 'slow');
-        });
-      },
-    },
+    mixins: [
+      datetimepicker,
+      markdown,
+      menu,
+      selectize,
+      sidebarScroll,
+      tooltip
+    ],
   });
 });

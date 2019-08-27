@@ -1,14 +1,71 @@
 <%= render 'layouts/shared/sidebar' do %>
 
   <span class="sidebar-heading pl-0 pt-2 pb-2">
-    <%= icon('fas', 'compass', class: 'mr-1') %>
+    <%= icon('fas', 'compass', class: 'mr-2') %>
     <%= t('views.sidebar.academics') %>
   </span>
 
   <%= active_link_to(academics_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+    <span class="icon mr-2">
       <%= icon('fas', 'home') %>
     </span>
     <%= t('breadcrumbs.homepage') %>
   <% end %>
+
+  <% if current_academic.current_orientation_tcc_one.any? %>
+    <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_one.id),
+		       active: academics_activities_tcc_one_active_link?,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
+    <% end %>
+  <% end %>
+
+  <% if current_academic.current_orientation_tcc_two.any? %>
+    <%= active_link_to(academics_calendar_activities_path(Calendar.current_by_tcc_two.id),
+		       active: academics_activities_tcc_two_active_link?,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
+    <% end %>
+  <% end %>
+
+  <%= active_link_to(academics_calendars_path,
+		     active: academics_calendars_active_link?,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('far', 'calendar-plus') %>
+    </span>
+    <%= t('breadcrumbs.calendars.index') %>
+  <% end %>
+
+  <%= active_link_to(academics_meetings_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-check') %>
+    </span>
+    <%= t('breadcrumbs.meetings.index') %>
+  <% end %>
+
+  <%= active_link_to(academics_examination_boards_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-friends') %>
+    </span>
+    <%= t('breadcrumbs.examination_boards.index') %>
+  <% end %>
+
+  <% if current_academic.current_orientation.present? %>
+    <%= render 'layouts/academics/requests_menu' %>
+  <% end %>
+
+  <%= render 'layouts/shared/document_menu', resource: 'academics',
+                                             pending_path: academics_documents_pending_path,
+                                             signed_path: academics_documents_signed_path %>
 <% end %>
+
+

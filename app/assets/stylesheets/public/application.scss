@@ -1,0 +1,32 @@
+/*************************************************************
+* Gems
+**************************************************************/
+/*@import "bootstrap"; bootstrap is added by tabler*/
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "../tempusdominus-bootstrap-4.css";
+
+/*************************************************************
+* Vendors stylesheets
+**************************************************************/
+@import "simplemde/simplemde.min";
+@import "selectize/selectize.min";
+
+/*************************************************************
+* Configurations
+**************************************************************/
+@import "config/tabler";
+
+/*************************************************************
+* Customizations
+**************************************************************/
+@import "customizations/simple_form_bootstrap";
+@import "customizations/bootstrap";
+@import "customizations/icons";
+
+/*************************************************************
+* Apps stylesheets
+**************************************************************/
+@import "errors/errors";
+@import "inputs";
+@import "public/document";

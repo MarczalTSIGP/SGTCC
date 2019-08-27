@@ -1,0 +1,17 @@
+<tr>
+  <%= render 'shared/examination_boards/tbody', examination_board: examination_board %>
+  <td>
+    <%= link_to(tcc_one_professors_examination_board_path(examination_board)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to tcc_one_professors_examination_board_path(examination_board),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>

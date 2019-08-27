@@ -15,9 +15,15 @@ RSpec.describe BaseActivity, type: :model do
     let(:base_activity) { create(:base_activity) }
 
     context 'when finds base_activity by attributes' do
-      it 'returns base_activity by name' do
+      it 'returns base activity by name' do
         results_search = BaseActivity.search(base_activity.name)
         expect(base_activity.name).to eq(results_search.first.name)
+      end
+
+      it 'returns base activity by base activity type name' do
+        base_activity_type_name = base_activity.base_activity_type.name
+        results_search = BaseActivity.search(base_activity_type_name)
+        expect(base_activity_type_name).to eq(results_search.first.base_activity_type.name)
       end
     end
 
@@ -59,6 +65,34 @@ RSpec.describe BaseActivity, type: :model do
         results_search = BaseActivity.search.order(:name)
         expect(base_activity.name). to eq(results_search.first.name)
       end
+    end
+  end
+
+  describe '#search_by_tcc_one' do
+    let(:base_activity_tcc_one) { create(:base_activity_tcc_one) }
+    let(:base_activity_tcc_two) { create(:base_activity_tcc_two) }
+
+    context 'when finds base_activity by tcc one' do
+      it 'returns base_activity by tcc one' do
+        results_search = BaseActivity.by_tcc_one(base_activity_tcc_one.name)
+        expect(base_activity_tcc_one.name).to eq(results_search.first.name)
+      end
+    end
+
+    context 'when finds base_activity by tcc two' do
+      it 'returns base_activity by tcc two' do
+        results_search = BaseActivity.by_tcc_two(base_activity_tcc_two.name)
+        expect(base_activity_tcc_two.name).to eq(results_search.first.name)
+      end
+    end
+  end
+
+  describe '#human_tccs' do
+    it 'returns the tccs' do
+      tccs = BaseActivity.tccs
+      hash = {}
+      tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
+      expect(BaseActivity.human_tccs).to eq(hash)
     end
   end
 end

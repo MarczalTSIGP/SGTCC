@@ -8,7 +8,10 @@ addons:
     update: true
 before_script:
   - sudo apt-get update
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
+  - export PATH=$HOME/.yarn/bin:$PATH
   - sudo apt-get install -y imagemagick
+  - sudo apt-get install build-essential
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.travis config/application.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -26,13 +29,15 @@ rvm:
 install:
   - bundle install
   - nvm install node
+  - npm install -g node-gyp
   - node -v
-  - npm i -g yarn
-  - yarn
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - rm yarn.lock
+  - yarn install
+  - yarn install --check-files
   - bundle exec rails webpacker:compile
-  - yarn lint
+  - yarn run lint
   - bundle exec rubocop
   - bundle exec rspec
 after_script:

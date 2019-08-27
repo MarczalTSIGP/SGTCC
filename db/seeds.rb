@@ -5,7 +5,8 @@ end
 
 professor_roles = [
   { name: 'Professor Responsável', identifier: 'responsible' },
-  { name: 'Professor de TCC 1', identifier: 'tcc_one' }
+  { name: 'Professor de TCC 1', identifier: 'tcc_one' },
+  { name: 'Coordenador do Curso', identifier: 'coordinator' }
 ]
 
 professor_roles.each do |role|
@@ -48,4 +49,18 @@ base_activity_types = [
 
 base_activity_types.each do |base_activity_type|
   BaseActivityType.find_or_create_by!(name: base_activity_type)
+end
+
+document_types = [
+  { name: I18n.t('signatures.documents.TCO'), identifier: DocumentType.identifiers[:tco] },
+  { name: I18n.t('signatures.documents.TDO'), identifier: DocumentType.identifiers[:tdo] },
+  { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] },
+  { name: I18n.t('signatures.documents.TEP'), identifier: DocumentType.identifiers[:tep] },
+  { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] }
+]
+
+document_types.each do |document_type|
+  DocumentType.find_or_create_by!(
+    name: document_type[:name], identifier: document_type[:identifier]
+  )
 end

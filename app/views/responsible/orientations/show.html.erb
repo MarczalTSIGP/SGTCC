@@ -1,0 +1,16 @@
+<% provide(:page_title) do %>
+  <%= t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
+        calendar: @orientation.calendar.year_with_semester) %>
+<% end %>
+<% provide(:head_title) do %>
+  <%= t("breadcrumbs.orientations.tcc.#{@orientation.calendar.tcc}.show",
+        calendar: @orientation.calendar.year_with_semester) %>
+<% end %>
+
+<%= provide(:edit_button) do %>
+  <%= link_to t('simple_form.buttons.edit'),
+    edit_responsible_orientation_path(@orientation),
+    class: 'btn btn-primary ml-auto' %>
+<% end %>
+
+<%= render('shared/orientations/show', back_url: @back_url) %>

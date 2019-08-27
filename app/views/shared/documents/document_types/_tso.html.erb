@@ -1,0 +1,7 @@
+<term-of-substitution
+  :document-id="<%= @document.id %>"
+  :can-edit="<%= !@document.professor_signed?(current_professor) %>"
+  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
+
+
+

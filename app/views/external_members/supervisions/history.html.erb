@@ -1,0 +1,41 @@
+<% provide(:page_title, t('breadcrumbs.supervisions.history')) %>
+<% provide(:head_title, t('breadcrumbs.supervisions.history')) %>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-8">
+    <search url="<%= external_members_supervisions_search_history_path %>"
+            search-term="<%= params[:term] %>" />
+  </div>
+  <div class="col-sm-12 col-lg-4">
+    <%= render 'shared/orientations/status_filter' %>
+  </div>
+</div>
+
+<div class="text-right mt-3">
+  <%= page_entries_info @orientations %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Orientation.human_attribute_name('academic') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('calendar') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @orientations.empty? %>
+      </tr>
+      <% @orientations.each do |orientation| %>
+        <%= render 'external_members/supervisions/orientation', orientation: orientation %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @orientations %>

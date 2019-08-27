@@ -1,28 +1,21 @@
 require 'rails_helper'
 
-describe 'BaseActivity::destroy', type: :feature do
+describe 'BaseActivity::destroy', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
+  let!(:base_activity) { create(:base_activity_tcc_one) }
   let(:resource_name) { BaseActivity.model_name.human }
 
   before do
     login_as(responsible, scope: :professor)
+    visit responsible_base_activities_tcc_one_path
   end
 
   describe '#destroy' do
-    context 'when base activity is destroyed', js: true do
+    context 'when base activity is destroyed' do
       it 'show success message' do
-        base_activity = create(:base_activity_tcc_one)
-        visit responsible_base_activities_path
-
-        within first('.destroy').click
-
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
-        sleep 2.seconds
-
-        success_message = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
-
+        click_on_destroy_link(responsible_base_activity_path(base_activity))
+        accept_alert
+        expect(page).to have_flash(:success, text: message('destroy.f'))
         expect(page).not_to have_content(base_activity.name)
       end
     end

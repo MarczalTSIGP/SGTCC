@@ -1,8 +1,8 @@
 <% provide(:page_title, t('breadcrumbs.base_activities.show')) %>
 <% provide(:head_title, t('breadcrumbs.base_activities.show')) %>
 
-<div class="card card-profile">
-  <div class="card-body text-center">
+<div class="card">
+  <div class="card-body">
     <p>
       <strong>
         <%= BaseActivity.human_attribute_name('name') %>:
@@ -38,7 +38,7 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_base_activities_path,
+    responsible_base_activities_tcc_one_path,
     class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),

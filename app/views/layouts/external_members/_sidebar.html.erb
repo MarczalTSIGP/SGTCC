@@ -4,10 +4,61 @@
     <%= t('views.sidebar.external_members') %>
   </span>
 
-  <%= active_link_to(external_members_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-3">
+  <%= active_link_to(external_members_root_path,
+		     active: :exact,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
       <%= icon('fas', 'home') %>
     </span>
     <%= t('breadcrumbs.homepage') %>
   <% end %>
+
+  <% if current_external_member.current_supervision_tcc_one.any? %>
+    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_one.id),
+		       active: external_members_activities_tcc_one_active_link?,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
+    <% end %>
+  <% end %>
+
+  <% if current_external_member.current_supervision_tcc_two.any? %>
+    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_two.id),
+		       active: external_members_activities_tcc_two_active_link?,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'file-alt') %>
+      </span>
+      <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
+    <% end %>
+  <% end %>
+
+  <%= active_link_to(external_members_calendars_path,
+		     active: external_members_calendars_active_link?,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('far', 'calendar-plus') %>
+    </span>
+    <%= t('breadcrumbs.calendars.index') %>
+  <% end %>
+
+  <% if current_external_member.supervisions.any? %>
+    <div class="pt-2">
+      <%= render 'layouts/external_members/supervisor_menu' %>
+    </div>
+  <% end %>
+
+  <%= active_link_to(external_members_examination_boards_path,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'user-friends') %>
+    </span>
+    <%= t('breadcrumbs.examination_boards.index') %>
+  <% end %>
+
+  <%= render 'layouts/shared/document_menu', resource: 'external_members',
+                                             pending_path: external_members_documents_pending_path,
+                                             signed_path: external_members_documents_signed_path %>
 <% end %>

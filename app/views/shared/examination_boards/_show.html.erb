@@ -1,0 +1,77 @@
+<% provide(:page_title, @title) %>
+<% provide(:head_title, @title) %>
+
+<div class="card">
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('orientation') %>:
+      </strong>
+      <%= @examination_board.orientation.title %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('advisor') %>:
+      </strong>
+      <%= @examination_board.orientation.advisor.name_with_scholarity %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('academic') %>:
+      </strong>
+      <%= @examination_board.orientation.academic_with_calendar %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('place') %>:
+      </strong>
+      <%= @examination_board.place %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('date') %>:
+      </strong>
+      <%= complete_date(@examination_board.date) %>
+    </p>
+    <% unless @examination_board.professors.empty? %>
+      <p>
+        <strong>
+          <%= ExaminationBoard.human_attribute_name('professors') %>:
+        </strong>
+        <br>
+        <% @examination_board.professors.each do |professor| %>
+          <%= professor.name_with_scholarity %><br>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @examination_board.external_members.empty? %>
+      <p>
+        <strong>
+          <%= ExaminationBoard.human_attribute_name('external_members') %>:
+        </strong>
+        <br>
+        <% @examination_board.external_members.each do |external_member| %>
+          <%= external_member.name_with_scholarity %><br>
+        <% end %>
+      </p>
+    <% end %>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@examination_board.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@examination_board.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
+  <%= yield(:edit_button) %>
+</div>
+

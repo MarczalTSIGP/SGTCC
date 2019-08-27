@@ -28,8 +28,14 @@ RSpec.describe ExternalMember, type: :model do
   end
 
   describe 'associations' do
+    ems_fk = 'external_member_supervisor_id'
+    em_fk = 'external_member_id'
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
+    it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
+    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(em_fk) }
+    it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
 
   describe '#human_genders' do
@@ -95,6 +101,75 @@ RSpec.describe ExternalMember, type: :model do
         results_search = ExternalMember.search.order(:name)
         expect(external_member.name). to eq(results_search.first.name)
       end
+    end
+  end
+
+  describe '#current_supervision_tcc_one' do
+    let(:external_member) { create(:external_member) }
+    let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
+    let(:orientation_tcc_one) { create(:orientation, calendar: calendar_tcc_one) }
+
+    before do
+      orientation_tcc_one.external_member_supervisors << external_member
+    end
+
+    it 'returns the current supervision by tcc one' do
+      current_supervision = external_member.supervisions.includes(:calendar).select do |supervision|
+        supervision.calendar.id == Calendar.current_by_tcc_one.id
+      end
+      expect(external_member.current_supervision_tcc_one).to eq(current_supervision)
+    end
+  end
+
+  describe '#current_supervision_tcc_one' do
+    let(:external_member) { create(:external_member) }
+    let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+    let(:orientation_tcc_two) { create(:orientation, calendar: calendar_tcc_two) }
+
+    before do
+      orientation_tcc_two.external_member_supervisors << external_member
+    end
+
+    it 'returns the current supervision by tcc two' do
+      current_supervision = external_member.supervisions.includes(:calendar).select do |supervision|
+        supervision.calendar.id == Calendar.current_by_tcc_two.id
+      end
+      expect(external_member.current_supervision_tcc_two).to eq(current_supervision)
+    end
+  end
+
+  describe '#documents_signed' do
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
+
+    before do
+      orientation.signatures.find_by(user_type: :external_member_supervisor).sign
+    end
+
+    it 'returns the signed documents' do
+      conditions = { user_id: external_member.id, user_type: 'ES', status: true }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(external_member.documents_signed).to match_array(documents)
+    end
+  end
+
+  describe '#documents_pending' do
+    let(:orientation) { create(:orientation) }
+    let(:external_member) { orientation.external_member_supervisors.first }
+
+    it 'returns the pending documents' do
+      conditions = { user_id: external_member.id, user_type: 'ES', status: false }
+      documents = Document.joins(:signatures).where(signatures: conditions)
+      expect(external_member.documents_pending).to match_array(documents)
+    end
+  end
+
+  describe '#name_with_scholarity' do
+    let(:external_member) { create(:external_member) }
+
+    it 'is equal name with scholarity' do
+      name_with_scholarity = "#{external_member.scholarity.abbr} #{external_member.name}"
+      expect(external_member.name_with_scholarity).to eq(name_with_scholarity)
     end
   end
 end

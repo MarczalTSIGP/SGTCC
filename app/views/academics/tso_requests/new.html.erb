@@ -1,0 +1,43 @@
+<% provide(:page_title, t('breadcrumbs.documents.requests.tso.new')) %>
+<% provide(:head_title, t('breadcrumbs.documents.requests.tso.new')) %>
+
+<%= simple_form_for(@document, url: academics_tso_requests_path) do |f| %>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.input :advisor_id,
+        input_html: { data: 'selectize' },
+        collection: Professor.all.order(:name),
+        prompt: t('prompt.select.m', name: Document.human_attribute_name('advisor_id')) %>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.input :professor_supervisor_ids,
+        input_html: { data: 'selectize', multiple: 'multiple' },
+        collection: Professor.all.order(:name),
+        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('professor_supervisor_ids')) %>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.input :external_member_supervisor_ids,
+        input_html: { data: 'selectize', multiple: 'multiple' },
+        collection: ExternalMember.all.order(:name),
+        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('external_member_supervisor_ids')) %>
+    </div>
+
+    <div class="col-12">
+      <%= f.input :justification,
+        as: :text,
+        input_html: { rows: '8', class: 'markdown-editor' } %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      academics_tso_requests_path,
+      class: 'btn btn-secondary' %>
+
+      <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
+
+

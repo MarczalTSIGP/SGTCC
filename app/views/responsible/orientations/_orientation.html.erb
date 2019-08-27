@@ -1,0 +1,26 @@
+<tr>
+  <%= render('shared/orientations/tbody', orientation: orientation) %>
+  <td>
+    <%= link_to(responsible_orientation_path(orientation)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
+    <% end %>
+    <% unless orientation.meetings.empty? %>
+      <%= link_to(professors_orientation_meetings_path(orientation)) do %>
+        <i class="fe fe-clipboard" data-toggle="tooltip" title="Visualizar reuniões"></i>
+      <% end %>
+    <% end %>
+    <% if orientation.can_be_edited? %>
+      <%= link_to(edit_responsible_orientation_path(orientation)) do %>
+        <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+      <% end %>
+    <% end %>
+    <% if orientation.can_be_destroyed? %>
+      <%= link_to responsible_orientation_path(orientation),
+        method: :delete,
+        data: { confirm: t('prompt.confirm') },
+        class: 'destroy' do %>
+        <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

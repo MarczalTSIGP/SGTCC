@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-describe 'Basebase_activity::update', type: :feature do
+describe 'Basebase_activity::update', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
+  let!(:base_activity_types) { create_list(:base_activity_type, 3) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -15,25 +16,31 @@ describe 'Basebase_activity::update', type: :feature do
       visit edit_responsible_base_activity_path(base_activity)
     end
 
-    context 'when data is valid', js: true do
+    context 'when data is valid' do
       it 'updates the base activity' do
-        new_name = 'Teste'
-        fill_in 'base_activity_name', with: new_name
+        attributes = attributes_for(:base_activity).merge(
+          base_activity_type: base_activity_types.last
+        )
+        fill_in 'base_activity_name', with: attributes[:name]
+        click_on_label(attributes[:tcc], in: 'base_activity_tcc')
+        selectize(attributes[:base_activity_type].name, from: 'base_activity_base_activity_type_id')
+
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activity_path(base_activity)
-        success_message = I18n.t('flash.actions.update.m', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: success_message)
-        expect(page).to have_content(new_name)
+        expect(page).to have_flash(:success, text: message('update.f'))
+        expect(page).to have_contents([attributes[:name],
+                                       attributes[:tcc],
+                                       attributes[:base_activity_type].name])
       end
     end
 
-    context 'when the base activity is not valid', js: true do
+    context 'when the base activity is not valid' do
       it 'show errors' do
         fill_in 'base_activity_name', with: ''
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_message(I18n.t('errors.messages.blank'), in: 'div.base_activity_name')
+        expect(page).to have_flash(:danger, text: errors_message)
+        expect(page).to have_message(blank_error_message, in: 'div.base_activity_name')
       end
     end
   end

@@ -6,6 +6,34 @@ export const messages = {
       },
       search: 'Procurar...',
     },
+    buttons: {
+      models: {
+        orientation: {
+          renew: {
+            label: 'Renovar orientação',
+            details: 'Renovar orientação para o próximo semestre.',
+          },
+          cancel: {
+            label: 'Cancelar orientação',
+            details: 'Cancelar a seguinte orientação.'
+          }
+        },
+      },
+      cancel: 'Cancelar',
+      save: 'Salvar'
+    },
+    labels: {
+      required: 'obrigatório',
+    },
+    prompt: {
+      confirm: 'Você tem certeza?',
+    },
+    select: {
+      all: {
+        f: 'Todas',
+        m: 'Todos'
+      }
+    },
   },
   'en': {
     messages: {}

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::search', type: :feature do
+describe 'Institution::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
   let(:institutions) { create_list(:institution, 25) }
 
@@ -11,13 +11,13 @@ describe 'Institution::search', type: :feature do
 
   describe '#search' do
     context 'when finds the institution' do
-      it 'finds the institution by the name', js: true do
+      it 'finds the institution by the trade name' do
         institution = institutions.first
 
-        fill_in 'term', with: institution.name
+        fill_in 'term', with: institution.trade_name
         first('#search').click
 
-        expect(page).to have_contents([institution.name,
+        expect(page).to have_contents([institution.external_member.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,
                                        short_date(institution.created_at)])
@@ -25,11 +25,10 @@ describe 'Institution::search', type: :feature do
     end
 
     context 'when the result is not found' do
-      it 'returns not found message', js: true do
+      it 'returns not found message' do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
-
-        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
+        expect(page).to have_message(no_results_message, in: 'table tbody')
       end
     end
   end

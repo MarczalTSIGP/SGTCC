@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_000610) do
+ActiveRecord::Schema.define(version: 2019_08_08_174240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 2019_04_08_000610) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "base_activity_type_id"
+    t.integer "tcc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "calendar_id"
+    t.datetime "initial_date"
+    t.datetime "final_date"
+    t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
+    t.index ["calendar_id"], name: "index_activities_on_calendar_id"
+  end
+
   create_table "assignments", force: :cascade do |t|
     t.bigint "professor_id"
     t.bigint "role_id"
@@ -45,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_000610) do
     t.bigint "base_activity_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tcc"
+    t.integer "tcc"
     t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
   end
 
@@ -53,6 +66,48 @@ ActiveRecord::Schema.define(version: 2019_04_08_000610) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.string "year"
+    t.integer "semester"
+    t.integer "tcc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+# Could not dump table "document_types" because of following StandardError
+#   Unknown type 'document_type_identifiers' for column 'identifier'
+
+  create_table "documents", force: :cascade do |t|
+    t.json "content"
+    t.bigint "document_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "code"
+    t.json "request"
+    t.index ["document_type_id"], name: "index_documents_on_document_type_id"
+  end
+
+  create_table "examination_board_attendees", force: :cascade do |t|
+    t.bigint "examination_board_id"
+    t.bigint "professor_id"
+    t.bigint "external_member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["examination_board_id"], name: "index_examination_board_attendees_on_examination_board_id"
+    t.index ["external_member_id"], name: "index_examination_board_attendees_on_external_member_id"
+    t.index ["professor_id"], name: "index_examination_board_attendees_on_professor_id"
+  end
+
+  create_table "examination_boards", force: :cascade do |t|
+    t.datetime "date"
+    t.string "place"
+    t.bigint "orientation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tcc"
+    t.index ["orientation_id"], name: "index_examination_boards_on_orientation_id"
   end
 
   create_table "external_members", force: :cascade do |t|
@@ -83,6 +138,44 @@ ActiveRecord::Schema.define(version: 2019_04_08_000610) do
     t.datetime "updated_at", null: false
     t.text "working_area"
     t.index ["external_member_id"], name: "index_institutions_on_external_member_id"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.text "content"
+    t.datetime "date"
+    t.boolean "viewed", default: false
+    t.bigint "orientation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orientation_id"], name: "index_meetings_on_orientation_id"
+  end
+
+  create_table "orientation_supervisors", force: :cascade do |t|
+    t.bigint "orientation_id"
+    t.bigint "professor_supervisor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "external_member_supervisor_id"
+    t.index ["external_member_supervisor_id"], name: "index_orientation_supervisors_on_external_member_supervisor_id"
+    t.index ["orientation_id"], name: "index_orientation_supervisors_on_orientation_id"
+    t.index ["professor_supervisor_id"], name: "index_orientation_supervisors_on_professor_supervisor_id"
+  end
+
+  create_table "orientations", force: :cascade do |t|
+    t.string "title"
+    t.bigint "calendar_id"
+    t.bigint "academic_id"
+    t.bigint "advisor_id"
+    t.bigint "institution_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "IN_PROGRESS"
+    t.text "renewal_justification"
+    t.text "cancellation_justification"
+    t.index ["academic_id"], name: "index_orientations_on_academic_id"
+    t.index ["advisor_id"], name: "index_orientations_on_advisor_id"
+    t.index ["calendar_id"], name: "index_orientations_on_calendar_id"
+    t.index ["institution_id"], name: "index_orientations_on_institution_id"
   end
 
   create_table "professor_types", force: :cascade do |t|
@@ -130,11 +223,40 @@ ActiveRecord::Schema.define(version: 2019_04_08_000610) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "signatures", force: :cascade do |t|
+    t.bigint "orientation_id"
+    t.bigint "document_id"
+    t.integer "user_id"
+    t.string "user_type", limit: 2
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_signatures_on_document_id"
+    t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
+  end
+
+  add_foreign_key "activities", "base_activity_types"
+  add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "roles"
   add_foreign_key "base_activities", "base_activity_types"
+  add_foreign_key "documents", "document_types"
+  add_foreign_key "examination_board_attendees", "examination_boards"
+  add_foreign_key "examination_board_attendees", "external_members"
+  add_foreign_key "examination_board_attendees", "professors"
+  add_foreign_key "examination_boards", "orientations"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"
+  add_foreign_key "meetings", "orientations"
+  add_foreign_key "orientation_supervisors", "external_members", column: "external_member_supervisor_id"
+  add_foreign_key "orientation_supervisors", "orientations"
+  add_foreign_key "orientation_supervisors", "professors", column: "professor_supervisor_id"
+  add_foreign_key "orientations", "academics"
+  add_foreign_key "orientations", "calendars"
+  add_foreign_key "orientations", "institutions"
+  add_foreign_key "orientations", "professors", column: "advisor_id"
   add_foreign_key "professors", "professor_types"
   add_foreign_key "professors", "scholarities"
+  add_foreign_key "signatures", "documents"
+  add_foreign_key "signatures", "orientations"
 end

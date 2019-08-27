@@ -1,11 +1,50 @@
-<span class="sidebar-heading pl-0 pt-2 pb-2">
+<span class="sidebar-heading">
   <%= icon('fas', 'users-cog', class: 'mr-2') %>
   <%= t('views.sidebar.tcc_one') %>
 </span>
 
-<%= active_link_to('#', active: :exact, class: 'list-group-item list-group-item-action') do %>
-  <span class="icon mr-3">
+<%= active_link_to(tcc_one_professors_root_path,
+		   active: :exact,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
     <%= icon('fas', 'home') %>
   </span>
   <%= t('breadcrumbs.homepage') %>
+<% end %>
+
+<% if Calendar.current_by_tcc_one %>
+  <%= active_link_to(tcc_one_professors_calendar_activities_path(Calendar.current_by_tcc_one&.id),
+		     active: tcc_one_professors_activities_tcc_one_active_link?,
+		     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('far', 'file-alt') %>
+    </span>
+    <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
+  <% end %>
+<% end %>
+
+<%= active_link_to(tcc_one_professors_calendar_orientations_path(Calendar.current_by_tcc_one&.id),
+		   active: tcc_one_professors_orientations_tcc_one_active_link?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'file-code') %>
+  </span>
+  <%= t('breadcrumbs.orientations.tcc.one.calendar', calendar: current_calendar_title) %>
+<% end %>
+
+<%= active_link_to(tcc_one_professors_calendars_tcc_one_path,
+		   active: tcc_one_professors_calendars_active_link?,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('far', 'calendar-plus') %>
+  </span>
+  <%= t('breadcrumbs.calendars.index') %>
+<% end %>
+
+<%= active_link_to(tcc_one_professors_examination_boards_path,
+		   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'user-friends') %>
+  </span>
+  <%= t('breadcrumbs.examination_boards.index') %>
 <% end %>

@@ -27,7 +27,7 @@
       <strong>
         <%= ExternalMember.human_attribute_name('personal_page') %>:
       </strong>
-      <%= @external_member.personal_page %>
+      <%= link_to(@external_member.personal_page, @external_member.personal_page, target: '_blank').html_safe %>
     </p>
     <p>
       <strong>
@@ -46,7 +46,7 @@
         <%= ExternalMember.human_attribute_name('working_area') %>:
       </strong>
       <div class="form-fieldset w-50 mx-auto text-left">
-        <vue-markdown-preview><%= @external_member.working_area %></vue-markdown-preview>
+        <vue-simple-markdown source="<%= @external_member.working_area %>" />
       </div>
     </p>
     <p>

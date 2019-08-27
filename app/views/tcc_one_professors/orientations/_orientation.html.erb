@@ -1,0 +1,8 @@
+<tr>
+  <%= render('shared/orientations/tbody', orientation: orientation) %>
+  <td>
+    <%= link_to(tcc_one_professors_calendar_orientation_path(@calendar, orientation)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+  </td>
+</tr>

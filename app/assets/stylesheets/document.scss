@@ -1,0 +1,11 @@
+.card-body.signature-document {
+  padding: 120px;
+
+  @media (max-width: 768px) {
+    padding: 50px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 5px;
+  }
+}

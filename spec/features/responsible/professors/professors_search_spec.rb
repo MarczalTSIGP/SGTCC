@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'Professor::search', type: :feature do
+describe 'Professor::search', type: :feature, js: true do
   let(:responsible) { create(:responsible) }
-  let(:professors) { create_list(:professor, 25) }
+  let(:professors) { create_list(:professor_tcc_one, 25) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -11,25 +11,22 @@ describe 'Professor::search', type: :feature do
 
   describe '#search' do
     context 'when finds the professor' do
-      it 'finds the professor by the name', js: true do
-        professor = professors.first
-
-        fill_in 'term', with: professor.name
+      it 'finds the professor by the name' do
+        fill_in 'term', with: responsible.name
         first('#search').click
 
-        expect(page).to have_contents([professor.name,
-                                       professor.email,
-                                       professor.username,
-                                       professor.created_at.strftime('%d/%m/%Y')])
+        expect(page).to have_contents([responsible.name,
+                                       responsible.email,
+                                       short_date(responsible.created_at)])
+        expect(page).to have_selector(link(responsible.lattes))
       end
     end
 
     context 'when the result is not found' do
-      it 'returns not found message', js: true do
+      it 'returns not found message' do
         fill_in 'term', with: 'a1#23123rere'
         first('#search').click
-
-        expect(page).to have_message(I18n.t('helpers.no_results'), in: 'table tbody')
+        expect(page).to have_message(no_results_message, in: 'table tbody')
       end
     end
   end

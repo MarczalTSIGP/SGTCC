@@ -1,0 +1,33 @@
+<% provide(:head_title, t("breadcrumbs.documents.requests.tso.sidebar")) %>
+<% provide(:page_title, t("breadcrumbs.documents.requests.tso.sidebar")) %>
+
+<div class="float-right">
+  <%= link_to(new_academics_tso_request_path,
+              class: 'btn btn-outline-primary d-block') do %>
+    <i class="fe fe-plus"></i>
+      <%= t('breadcrumbs.documents.requests.tso.new') %>
+  <% end %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Signature.human_attribute_name('orientation') %></th>
+        <th><%= Signature.human_attribute_name('academic') %></th>
+        <th><%= Signature.human_attribute_name('document_type') %></th>
+        <th><%= Signature.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @requests.empty? %>
+      </tr>
+      <% @requests.each do |request| %>
+        <%= render 'academics/tso_requests/request', document: request %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
