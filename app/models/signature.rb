@@ -1,6 +1,4 @@
 class Signature < ApplicationRecord
-  include Confirmable
-
   belongs_to :orientation
   belongs_to :document
 
@@ -21,10 +19,6 @@ class Signature < ApplicationRecord
 
   def sign
     update(status: true)
-  end
-
-  def confirm_and_sign(current_user, login, params)
-    confirm(current_user, login, params) && sign
   end
 
   def term_of_commitment?
