@@ -142,6 +142,7 @@ export default {
       if (response.data.status) {
         this.showSuccessMessage(response.data.message);
         this.$root.$emit('update-json-request');
+        this.$root.$emit('open-signature-button');
       } else {
         this.showErrorMessage(response.data.message);
       }
