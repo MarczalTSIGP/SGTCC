@@ -26,6 +26,10 @@ class Calendar < ApplicationRecord
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
+  def self.start_date
+    "01/#{current_month}/#{current_year}"
+  end
+
   def self.search_by_semester(calendar, semester)
     find_by(semester: semester, year: calendar.year, tcc: tccs[calendar.tcc])
   end

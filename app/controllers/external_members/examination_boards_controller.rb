@@ -6,6 +6,7 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
 
   def index
     @examination_boards = current_external_member.examination_boards
+                                                 .current_semester
                                                  .search(params[:term])
                                                  .page(params[:page])
                                                  .order(:tcc, created_at: :desc)

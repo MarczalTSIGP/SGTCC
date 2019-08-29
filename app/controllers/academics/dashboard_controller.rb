@@ -22,6 +22,7 @@ class Academics::DashboardController < Academics::BaseController
 
   def set_examination_boards
     @examination_boards = current_academic.examination_boards
+                                          .current_semester
                                           .page(params[:page])
                                           .per(5)
                                           .order(:tcc, created_at: :desc)
