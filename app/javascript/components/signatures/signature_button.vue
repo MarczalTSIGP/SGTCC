@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div v-if="show">
     <button
-      v-if="show"
       id="signature_button"
       class="btn btn-outline-primary"
       @click="emitOpenLoginConfirmation()"
