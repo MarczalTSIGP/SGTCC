@@ -9,6 +9,7 @@ class Academics::DashboardController < Academics::BaseController
 
   def set_meetings
     @meetings = current_academic.meetings
+                                .not_viewed
                                 .with_relationship
                                 .page(params[:page])
                                 .per(5)

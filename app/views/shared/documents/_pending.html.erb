@@ -2,3 +2,5 @@
 <% provide(:head_title, t('breadcrumbs.documents.pending')) %>
 
 <%= render 'shared/documents/table' %>
+
+<%= paginate @documents %>

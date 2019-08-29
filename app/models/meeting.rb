@@ -5,6 +5,7 @@ class Meeting < ApplicationRecord
             presence: true
 
   scope :with_relationship, -> { includes(orientation: [:academic, :calendar]) }
+  scope :not_viewed, -> { where(viewed: false) }
 
   scope :recent, lambda {
     joins(orientation: [:academic]).order('academics.name ASC, meetings.date DESC')
