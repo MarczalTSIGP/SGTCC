@@ -2,7 +2,7 @@
 <% provide(:head_title, t('breadcrumbs.documents.reviewing')) %>
 
 <div class="text-right mt-3">
-  <%= page_entries_info @documents, entry_name: t('breadcrumbs.documents.reviewing')  %>
+  <%= page_entries_info @documents, entry_name: t('breadcrumbs.documents.reviewing').downcase  %>
 </div>
 
 <div class="table-striped mt-3 table-responsive w-100">
