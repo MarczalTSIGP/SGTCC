@@ -17,3 +17,7 @@
     <p class="m-0"><%= external_member.name_with_scholarity %></p>
   <% end %>
 </td>
+<td>
+  <examination-board-status
+    :date="<%= I18n.l(examination_board.date, format: :intl).to_json %>" />
+</td>

@@ -8,6 +8,7 @@ pt-BR:
       time: '%-H:%M'
       datetime: '%d/%m/%Y %-H:%M'
       document: '%d de %B de %Y'
+      intl: '%m/%d/%Y'
   views:
     title:
       calendar:
