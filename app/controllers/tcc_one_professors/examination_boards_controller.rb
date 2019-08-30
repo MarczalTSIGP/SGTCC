@@ -1,5 +1,6 @@
 class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseController
-  before_action :set_examination_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_examination_board, only: [:edit, :update, :destroy]
+  before_action :set_examination_board_with_relationships, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :tcc_one_professors_examination_boards_tcc_one_path,
@@ -82,6 +83,10 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def set_examination_board
+    @examination_board = ExaminationBoard.find(params[:id])
+  end
+
+  def set_examination_board_with_relationships
     @examination_board = ExaminationBoard.with_relationships.find(params[:id])
   end
 

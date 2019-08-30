@@ -1,5 +1,8 @@
 <template>
-  <span :class="badgeClass">{{ label }}</span>
+  <div>
+    <span :class="badgeClass" />
+    {{ label }}
+  </div>
 </template>
 
 <script>
@@ -16,7 +19,7 @@ export default {
 
   data() {
     return {
-      badgeType: 'default',
+      badgeType: 'secondary',
       label: 'Ocorreu',
       examinationDate: '',
       dateNow: '',
@@ -25,7 +28,7 @@ export default {
 
   computed: {
     badgeClass() {
-      return `badge badge-${this.badgeType}`;
+      return `status-icon bg-${this.badgeType}`;
     },
   },
 

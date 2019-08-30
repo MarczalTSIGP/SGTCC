@@ -1,4 +1,8 @@
 <td>
+  <examination-board-status
+    :date="<%= I18n.l(examination_board.date, format: :intl).to_json %>" />
+</td>
+<td>
   <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
     <%= examination_board.orientation.academic_with_calendar %>
   </span>
@@ -16,8 +20,4 @@
   <% examination_board.external_members.each do |external_member| %>
     <p class="m-0"><%= external_member.name_with_scholarity %></p>
   <% end %>
-</td>
-<td>
-  <examination-board-status
-    :date="<%= I18n.l(examination_board.date, format: :intl).to_json %>" />
 </td>
