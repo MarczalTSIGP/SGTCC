@@ -140,13 +140,18 @@ export default {
       const response = await this.$axios.put(this.url, this.selectJudgmentParams());
 
       if (response.data.status) {
-        this.showSuccessMessage(response.data.message);
-        this.$root.$emit('update-json-request');
+        this.afterSave(response.data.message);
       } else {
         this.showErrorMessage(response.data.message);
       }
 
       this.$root.$emit('close-document-judgment');
+    },
+
+    afterSave(message) {
+      this.showSuccessMessage(message);
+      this.$root.$emit('update-json-request');
+      this.$root.$emit('open-signature-button');
     },
 
     hasErrors() {

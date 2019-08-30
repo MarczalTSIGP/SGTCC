@@ -15,8 +15,17 @@
       <%= render 'layouts/professors/professor_tcc1_menu' %>
     <% end %>
   </div>
+  <%= provide(:document_review) do %>
+    <%= active_link_to(professors_documents_reviewing_path,
+		                   class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2 mt-2">
+        <%= icon('fas', 'file-alt') %>
+      </span>
+      <%= t('views.sidebar.documents.review') %>
+    <% end %>
+  <% end %>
+
   <%= render 'layouts/shared/document_menu', resource: 'professors',
-                                             reviewing_path: professors_documents_reviewing_path,
                                              pending_path: professors_documents_pending_path,
                                              signed_path: professors_documents_signed_path %>
 <% end %>

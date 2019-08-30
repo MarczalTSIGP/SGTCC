@@ -503,6 +503,7 @@ pt-BR:
         male:
           academic: 'Acadêmico'
           advisor: 'Orientador'
+          new_advisor: 'Novo orientador'
           coordinator: 'Coordernador do Curso'
           professor_supervisor: 'Coorientador da UTFPR'
           professor_responsible: 'Professor responsável'
@@ -510,6 +511,7 @@ pt-BR:
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
+          new_advisor: 'Nova orientadora'
           coordinator: 'Coordenadora do Curso'
           professor_supervisor: 'Coorientadora da UTFPR'
           professor_responsible: 'Professora responsável'

@@ -87,8 +87,9 @@ class Professor < ApplicationRecord
 
   def user_types
     types = Signature.user_types
-    user_types = [types[:advisor], types[:professor_supervisor]]
+    user_types = [types[:advisor], types[:new_advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
+    user_types.push(types[:coordinator]) if role?(:coordinator)
     user_types
   end
 

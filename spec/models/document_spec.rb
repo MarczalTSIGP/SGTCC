@@ -112,7 +112,7 @@ RSpec.describe Document, type: :model do
       let(:signatures) { document.signatures }
       let(:responsible_signature) { signatures.find_by(user_type: :professor_responsible) }
       let(:advisor_signature) { signatures.find_by(user_type: :advisor) }
-      let(:new_advisor_signature) { signatures.where(user_type: :advisor).last }
+      let(:new_advisor_signature) { signatures.where(user_type: :new_advisor).last }
       let(:academic_signature) { signatures.find_by(user_type: :academic) }
       let(:advisor) { advisor_signature.user }
       let(:academic) { academic_signature.user }
@@ -132,7 +132,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns the new Advisor signature' do
-        attributes = { user_type: 'advisor', user_id: new_advisor.id,
+        attributes = { user_type: 'new_advisor', user_id: new_advisor.id,
                        status: false, document_id: document.id,
                        orientation_id: orientation.id }
         expect(new_advisor_signature).to have_attributes(attributes)
@@ -519,6 +519,94 @@ RSpec.describe Document, type: :model do
     it 'returns when the justification is empty' do
       params = { justification: nil }
       expect(document.update_requester_justification(params)).to eq(true)
+    end
+  end
+
+  describe '#tdo_for_review?' do
+    let!(:professor) { create(:responsible) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
+
+    context 'when the advisor not signed' do
+      it 'returns false' do
+        expect(document.tdo_for_review?).to eq(false)
+      end
+    end
+
+    context 'when the advisor already signed' do
+      let(:advisor_signature) { document.signatures.find_by(user_type: :advisor) }
+
+      before do
+        advisor_signature.sign
+      end
+
+      it 'returns true' do
+        expect(document.tdo_for_review?).to eq(true)
+      end
+    end
+  end
+
+  describe '#tep_for_review?' do
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:document) { create(:document_tep, orientation_id: orientation.id) }
+
+    context 'when the academic not signed' do
+      it 'returns false' do
+        expect(document.tep_for_review?).to eq(false)
+      end
+    end
+
+    context 'when the academic already signed' do
+      let(:signatures) { document.signatures }
+      let(:academic_signature) { signatures.find_by(user_type: :academic) }
+
+      before do
+        academic_signature.sign
+      end
+
+      it 'returns true' do
+        expect(document.tep_for_review?).to eq(true)
+      end
+    end
+  end
+
+  describe '#tso_for_review?' do
+    let!(:advisor) { create(:professor) }
+    let!(:academic) { create(:academic) }
+    let!(:orientation) { create(:orientation, academic: academic) }
+    let(:new_orientation) do
+      { advisor: { id: advisor.id, name: advisor.name },
+        professorSupervisors: {},
+        externalMemberSupervisors: {} }
+    end
+
+    let(:request) do
+      { requester: { justification: 'just' }, new_orientation: new_orientation }
+    end
+
+    let!(:document) do
+      create(:document_tso, orientation_id: orientation.id,
+                            request: request, advisor_id: advisor.id)
+    end
+
+    context 'when the academic not signed' do
+      it 'returns false' do
+        expect(document.tso_for_review?).to eq(false)
+      end
+    end
+
+    context 'when the academic signed' do
+      let(:signatures) { document.signatures }
+      let(:academic_signature) { signatures.find_by(user_type: :academic) }
+
+      before do
+        academic_signature.sign
+      end
+
+      it 'returns true' do
+        expect(document.tso_for_review?).to eq(true)
+      end
     end
   end
 end
