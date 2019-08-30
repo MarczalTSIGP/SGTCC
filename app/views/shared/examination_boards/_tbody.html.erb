@@ -11,13 +11,17 @@
 <td><%= datetime(examination_board.date) %></td>
 <td><%= examination_board.orientation.advisor.name_with_scholarity %></td>
 <td>
-  <b><%= ExaminationBoard.human_attribute_name('professors') %></b>
-  <% examination_board.professors.each do |professor| %>
-    <p class="m-0"><%= professor.name_with_scholarity %></p>
+  <% unless examination_board.professors.empty? %>
+    <b><%= ExaminationBoard.human_attribute_name('professors') %></b>
+    <% examination_board.professors.each do |professor| %>
+      <p class="m-0"><%= professor.name_with_scholarity %></p>
+    <% end %>
   <% end %>
   <br>
-  <b><%= ExaminationBoard.human_attribute_name('external_members') %></b>
-  <% examination_board.external_members.each do |external_member| %>
-    <p class="m-0"><%= external_member.name_with_scholarity %></p>
+  <% unless examination_board.external_members.empty? %>
+    <b><%= ExaminationBoard.human_attribute_name('external_members') %></b>
+    <% examination_board.external_members.each do |external_member| %>
+      <p class="m-0"><%= external_member.name_with_scholarity %></p>
+    <% end %>
   <% end %>
 </td>
