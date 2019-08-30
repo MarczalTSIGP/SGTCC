@@ -112,9 +112,7 @@ class Calendar < ApplicationRecord
 
   def clone_base_activities
     base_activities = BaseActivity.where(tcc: tcc)
-    base_activities.each do |base_activity|
-      create_activity(base_activity)
-    end
+    base_activities.each { |base_activity| create_activity(base_activity) }
   end
 
   def create_activity(activity)
