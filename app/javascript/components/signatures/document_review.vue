@@ -21,7 +21,7 @@
     </p>
 
     <p>
-      <b>Justificativa:</b>
+      <b>Parecer:</b>
     </p>
     <div>
       <vue-simple-markdown :source="request.judgment.responsible.justification" />
