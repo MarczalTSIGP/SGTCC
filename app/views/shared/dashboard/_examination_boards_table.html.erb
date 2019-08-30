@@ -1,0 +1,13 @@
+<% unless @examination_boards.empty? %>
+  <div class="card col-12">
+    <div class="card-header">
+      <h3 class="card-title">
+        <b><%= t('breadcrumbs.examination_boards.recent') %></b>
+      </h3>
+    </div>
+    <div class="table-sm table-responsive">
+      <%= render 'shared/examination_boards/table' %>
+    </div>
+  </div>
+<% end %>
+

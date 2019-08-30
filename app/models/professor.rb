@@ -105,8 +105,9 @@ class Professor < ApplicationRecord
   end
 
   def examination_boards(search = nil)
-    (guest_examination_boards.search(search).with_relationships +
-      orientation_examination_boards.search(search).with_relationships)
+    all = (guest_examination_boards.current_semester.search(search).with_relationships +
+     orientation_examination_boards.current_semester.search(search).with_relationships)
+    all.sort_by(&:date).reverse.uniq
   end
 
   def self.current_responsible

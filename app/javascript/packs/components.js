@@ -1,5 +1,6 @@
 import Datetimepicker from '../components/shared/datetimepicker';
 import DocumentStatus from '../components/signatures/document_status';
+import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash_messages';
 import MeetingView from '../components/orientations/meetings/meeting_view';
 import ProfileImagePreview from '../components/shared/registrations/profile_image_preview';
@@ -25,6 +26,7 @@ import TermOfSubstitution from '../components/signatures/documents/term_of_subst
 const components = {
   Datetimepicker,
   DocumentStatus,
+  ExaminationBoardStatus,
   FlashMessages,
   MeetingView,
   OrientationCancel,

@@ -1,4 +1,4 @@
-<% provide(:head_title, t('breadcrumbs.signatures.show')) %>
+<% provide(:head_title, t('breadcrumbs.documents.show')) %>
 <% provide(:page_title) do %>
   <signature-show-title />
 <% end %>
@@ -6,7 +6,7 @@
 <div class="clearfix mb-4">
   <div class="float-right ml-2">
     <signature-download-button
-      head-title="<%= t('breadcrumbs.signatures.show') %>"
+      head-title="<%= t('breadcrumbs.documents.show') %>"
       document-title="<%= @document.filename %>" />
   </div>
 

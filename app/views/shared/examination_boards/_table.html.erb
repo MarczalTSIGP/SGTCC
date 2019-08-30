@@ -1,7 +1,12 @@
+<div class="text-right mt-3">
+  <%= page_entries_info @examination_boards, entry_name: t('breadcrumbs.examination_boards.index').downcase  %>
+</div>
+
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
+        <th><%= ExaminationBoard.human_attribute_name('status') %></th>
         <th><%= ExaminationBoard.human_attribute_name('academic') %></th>
         <th><%= ExaminationBoard.human_attribute_name('place') %></th>
         <th><%= ExaminationBoard.human_attribute_name('date') %></th>
@@ -20,4 +25,3 @@
   </table>
 </div>
 
-<%= paginate @examination_boards %>

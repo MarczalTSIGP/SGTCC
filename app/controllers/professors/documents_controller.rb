@@ -8,11 +8,11 @@ class Professors::DocumentsController < Professors::BaseController
                  :professors_documents_reviewing_path,
                  only: :reviewing
 
-  add_breadcrumb I18n.t('breadcrumbs.signatures.pendings'),
+  add_breadcrumb I18n.t('breadcrumbs.documents.pending'),
                  :professors_documents_pending_path,
                  only: :pending
 
-  add_breadcrumb I18n.t('breadcrumbs.signatures.signeds'),
+  add_breadcrumb I18n.t('breadcrumbs.documents.signed'),
                  :professors_documents_signed_path,
                  only: :signed
 
@@ -29,7 +29,7 @@ class Professors::DocumentsController < Professors::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.signatures.show'),
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    professors_document_path(@document)
   end
 
