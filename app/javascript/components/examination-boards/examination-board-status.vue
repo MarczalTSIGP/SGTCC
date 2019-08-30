@@ -1,7 +1,16 @@
 <template>
   <div>
-    <span :class="badgeClass" />
-    {{ label }}
+    <span :class="badgeClass">
+      <span :style="textColor">
+        -
+      </span>
+    </span>
+    <span
+      class="float-left ml-2"
+      :style="labelStyle"
+    >
+      {{ label }}
+    </span>
   </div>
 </template>
 
@@ -19,16 +28,26 @@ export default {
 
   data() {
     return {
-      badgeType: 'secondary',
+      badgeType: 'default',
       label: 'Ocorreu',
+      labelStyle: { marginTop: '0.5px' },
       examinationDate: '',
       dateNow: '',
     };
   },
 
   computed: {
+    textColor() {
+      switch (this.badgeType) {
+      case 'primary': return { color: '#467fcf' };
+      case 'warning': return { color: '#f1c40f' };
+      }
+
+      return { color: '#e9ecef' };
+    },
+
     badgeClass() {
-      return `status-icon bg-${this.badgeType}`;
+      return `float-left mt-1 badge badge-pill badge-${this.badgeType}`;
     },
   },
 
