@@ -1,17 +1,14 @@
 <template>
-  <div>
+  <span
+    data-toggle="tooltip"
+    :title="label"
+  >
     <span :class="badgeClass">
       <span :style="textColor">
         -
       </span>
     </span>
-    <span
-      class="float-left ml-2"
-      :style="labelStyle"
-    >
-      {{ label }}
-    </span>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -30,7 +27,6 @@ export default {
     return {
       badgeType: 'default',
       label: 'Ocorreu',
-      labelStyle: { marginTop: '0.5px' },
       examinationDate: '',
       dateNow: '',
     };
@@ -47,11 +43,11 @@ export default {
     },
 
     badgeClass() {
-      return `float-left mt-1 badge badge-pill badge-${this.badgeType}`;
+      return `badge badge-pill badge-${this.badgeType}`;
     },
   },
 
-  mounted() {
+  created() {
     this.updateDates();
     this.setBadgeType();
   },
