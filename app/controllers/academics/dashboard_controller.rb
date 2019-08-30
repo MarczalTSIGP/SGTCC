@@ -25,7 +25,7 @@ class Academics::DashboardController < Academics::BaseController
                                           .current_semester
                                           .page(params[:page])
                                           .per(5)
-                                          .order(:tcc, created_at: :desc)
+                                          .order(:tcc, date: :desc)
                                           .with_relationships
   end
 end

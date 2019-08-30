@@ -27,6 +27,7 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
   scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
+  scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {
     includes(external_members: [:scholarity],

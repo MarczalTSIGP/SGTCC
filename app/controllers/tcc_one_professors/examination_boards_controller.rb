@@ -79,7 +79,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
     data.with_relationships
         .search(params[:term])
         .page(params[:page])
-        .order(created_at: :desc)
+        .recent
   end
 
   def set_examination_board
