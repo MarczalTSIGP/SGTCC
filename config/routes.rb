@@ -236,6 +236,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'professors#tcc_two',
           as: 'professor_orientations_search_tcc_two'
+
+      get 'posts/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'posts#index',
+          as: 'posts_search'
     end
 
     namespace :professors do

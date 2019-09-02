@@ -17,7 +17,7 @@ class Responsible::PostsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.page(params[:page]).search(params[:term])
   end
 
   def show; end
