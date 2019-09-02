@@ -112,3 +112,11 @@
   </span>
   <%= t('breadcrumbs.examination_boards.index') %>
 <% end %>
+
+<%= active_link_to(responsible_site_configs_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'cogs') %>
+  </span>
+  <%= t('breadcrumbs.site.configs') %>
+<% end %>
