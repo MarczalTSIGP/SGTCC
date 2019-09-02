@@ -64,6 +64,6 @@ class Responsible::PostsController < Responsible::BaseController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :fa_icon, :content, :url)
   end
 end

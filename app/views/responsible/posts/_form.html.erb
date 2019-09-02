@@ -1,6 +1,16 @@
 <%= simple_form_for [:responsible, @post] do |f| %>
   <div class="form-inputs">
-    <%= f.input :title %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.input :title %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.input :url, placeholder: 'Ex: professors' %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.input :fa_icon %>
+      </div>
+    </div>
     <%= f.input :content, input_html: { class: 'markdown-editor' } %>
   </div>
 

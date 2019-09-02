@@ -11,6 +11,18 @@
     </p>
     <p>
       <strong>
+        <%= Post.human_attribute_name('url') %>:
+      </strong>
+      <%= @post.url %>
+    </p>
+    <p>
+      <strong>
+        <%= Post.human_attribute_name('fa_icon') %>:
+      </strong>
+      <%= @post.fa_icon %>
+    </p>
+    <p>
+      <strong>
         <%= Post.human_attribute_name('content') %>:
       </strong>
       <div class="form-fieldset">

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   root to: 'site#index'
 
+  get '(:post)', to: 'site#post', as: 'site_post'
+
   get 'documents/images',
       to: 'documents#images',
       as: 'document_images'

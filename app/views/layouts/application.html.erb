@@ -23,9 +23,30 @@
 
 	<div class="container">
 	  <%= render 'shared/alert_messages' %>
-	  <%= yield %>
+
+	  <div class="page-header">
+	    <h1 class="page-title"><%= Site.first.title %></h1>
+	  </div>
+
+	  <div class="row">
+	    <%= render 'layouts/site/sidebar' %>
+
+	    <div class="col-lg-9">
+	      <div class="card">
+		<div class="card-body">
+		  <div class="text-wrap p-lg-6">
+		    <h2 class="mt-0 mb-4">
+		      <%= yield(:page_title) %>
+		    </h2>
+		  </div>
+
+		  <%= yield %>
+		</div>
+	      </div>
+	    </div>
+	  </div>
 	</div>
       </div>
-    </di>
+    </div>
   </body>
 </html>
