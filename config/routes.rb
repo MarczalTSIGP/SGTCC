@@ -79,6 +79,10 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :site,
+                only: [:edit, :update],
+                constraints: { id: /[0-9]+/ }
+
       get 'examination_boards/tcc_one',
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'

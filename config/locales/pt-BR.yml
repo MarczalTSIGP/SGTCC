@@ -52,6 +52,7 @@ pt-BR:
       external_members: "Membro Externo"
       supervisor: "Coorientador"
       requests: "Solicitações"
+      site: "Site"
       documents:
         index: "Documentos"
         review: "Para análise"
@@ -183,7 +184,7 @@ pt-BR:
       TCO:
         show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     site:
-      configs: "Configurações do site"
+      configs: "Configurações"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -280,6 +281,8 @@ pt-BR:
       examination_board:
         one: "Banca de defesa"
         other: "Bancas de defesa"
+      site:
+        one: "Site"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -369,6 +372,8 @@ pt-BR:
         orientation: "Orientação"
         evaluators: "Avaliadores"
         place: "Local"
+        <<: *commons
+      site:
         <<: *commons
   placeholders:
     meetings:

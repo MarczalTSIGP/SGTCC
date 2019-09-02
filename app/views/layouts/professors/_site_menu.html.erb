@@ -1,0 +1,12 @@
+<span class="sidebar-heading">
+  <%= icon('fas', 'sliders-h', class: 'mr-2') %>
+  <%= t('views.sidebar.site') %>
+</span>
+
+<%= active_link_to(edit_responsible_site_path(Site.first),
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'cogs') %>
+  </span>
+  <%= t('breadcrumbs.site.configs') %>
+<% end %>

@@ -64,3 +64,5 @@ document_types.each do |document_type|
     name: document_type[:name], identifier: document_type[:identifier]
   )
 end
+
+Site.find_or_create_by!(title: 'Site do TCC')
