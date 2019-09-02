@@ -44,12 +44,12 @@ describe 'Document::review', type: :feature, js: true do
       { requester: { justification: 'a' }, judgment: { responsible: responsible_json } }
     end
 
-    let!(:document) do
-      create(:document_tdo, orientation_id: orientation.id, request: request)
+    let(:new_document) do
+      create(:document_tep, orientation_id: orientation.id, request: request)
     end
 
     before do
-      visit professors_document_path(document)
+      visit professors_document_path(new_document)
     end
 
     context 'when the document is updated' do
@@ -67,7 +67,7 @@ describe 'Document::review', type: :feature, js: true do
 
     context 'when the document is not updated' do
       before do
-        document.signatures.each(&:sign)
+        new_document.signatures.each(&:sign)
       end
 
       it 'shows errors message' do
