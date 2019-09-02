@@ -1,4 +1,6 @@
 class SiteController < ApplicationController
+  layout 'layouts/site/application'
+
   before_action :set_post, only: :post
 
   def index
@@ -11,8 +13,6 @@ class SiteController < ApplicationController
 
   def set_post
     @post = Post.find_by(url: params[:post])
-    return if @post.present?
-    flash[:alert] = I18n.t('flash.not_found_page')
-    redirect_to root_path
+    return not_found if @post.blank?
   end
 end
