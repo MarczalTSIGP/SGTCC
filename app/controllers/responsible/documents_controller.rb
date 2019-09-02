@@ -19,7 +19,7 @@ class Responsible::DocumentsController < Responsible::BaseController
   def orientation
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    responsible_orientation_documents_path(@orientation)
-    @documents = @orientation.documents.page(params[:page]).with_relationships
+    @documents = @orientation.documents.page(params[:page]).with_relationships.recent
   end
 
   private
