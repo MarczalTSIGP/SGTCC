@@ -123,6 +123,7 @@ pt-BR:
       reviewing: "Documentos para análise"
       pending: "Documentos para assinar"
       signed: "Documentos assinados"
+      orientation: "Documentos da orientação"
       recent:
         pending: "Últimos documentos com assinaturas pendentes"
       requests:

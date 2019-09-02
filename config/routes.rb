@@ -123,6 +123,10 @@ Rails.application.routes.draw do
       post 'orientations/(:id)/renew', to: 'orientations#renew', as: 'orientations_renew'
       post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'
 
+      get 'orientations/(:id)/documents',
+          to: 'documents#orientation',
+          as: 'orientation_documents'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
