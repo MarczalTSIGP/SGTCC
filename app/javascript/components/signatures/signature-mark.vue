@@ -40,7 +40,7 @@
 
 <script>
 
-import SignatureCode from './signature_code';
+import SignatureCode from './signature-code';
 
 export default {
   name: 'SignatureMark',

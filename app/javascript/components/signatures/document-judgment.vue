@@ -65,7 +65,7 @@
 
 <script>
 
-import sweetAlert from '../shared/helpers/sweet_alert';
+import sweetAlert from '../shared/helpers/sweet-alert';
 import SimpleMDE from 'simplemde';
 
 export default {

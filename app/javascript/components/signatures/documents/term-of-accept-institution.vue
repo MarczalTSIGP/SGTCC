@@ -1,9 +1,19 @@
 <template>
   <base-term-layout :document-id="documentId">
     <p>
-      Eu, <b>{{ term.advisor.name }}</b>, {{ term.advisor.label }} desta instituição,
-      declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
-      de conclusão de curso do acadêmico <b>{{ term.academic.name }}</b>, RA {{ term.academic.ra }}.
+      Eu, <b>{{ term.institution.responsible }}</b>, como representante da instituição
+      <b>{{ term.institution.trade_name }}</b>, afirmo que o acadêmico <b>{{ term.academic.name }}</b>,
+      RA {{ term.academic.ra }}, do curso de Tecnolgia em Sistemas para Internet da Universidade
+      Tecnológica Federal do Paraná do Câmpus Guarapuava, orientado pelo professor
+      <b>{{ term.advisor.name }}</b>, possa realizar as atividades de seu trabalho
+      de conclusão de curso nesta instituição, sem prejuízo desde que ambas as partes preservem a ética
+      necessária.
+    </p>
+
+    <p>
+      Por meio deste termo a empresa autoriza a divulgação do seu nome para fins de desenvolvimento e
+      publicação do TCC. Além disso, o aluno se compromete em não divulgar dados sigilosos da empresa
+      que foram necessários para a realização do TCC.
     </p>
 
     <p>
@@ -38,28 +48,16 @@
         </span>
       </p>
     </div>
-
-    <div v-if="hasInstitution()">
-      <p>
-        <b>TCC desenvolvido em parceria com a instituição:</b> <br>
-        <span class="ml-4">
-          Nome fantasia: {{ term.institution.trade_name }}
-        </span><br>
-        <span class="ml-4">
-          Responsável: {{ term.institution.responsible }}
-        </span><br>
-      </p>
-    </div>
   </base-term-layout>
 </template>
 
 <script>
 
-import baseTermData from './base_term_data';
-import BaseTermLayout from './base_term_layout';
+import baseTermData from './base-term-data';
+import BaseTermLayout from './base-term-layout';
 
 export default {
-  name: 'TermOfCommitment',
+  name: 'TermOfAcceptInstitution',
 
   components: { BaseTermLayout },
 

@@ -37,7 +37,7 @@
 
 <script>
 
-import DocumentJudgment from './document_judgment';
+import DocumentJudgment from './document-judgment';
 
 export default {
   name: 'DocumentReview',

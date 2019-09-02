@@ -1,7 +1,7 @@
-import TermHeader from './partials/term_header';
-import TermFooter from './partials/term_footer';
-import SignatureMark from '../signature_mark';
-import termData from './term_data';
+import TermHeader from './partials/term-header';
+import TermFooter from './partials/term-footer';
+import SignatureMark from '../signature-mark';
+import termData from './term-data';
 
 export default {
   mixins: [termData],

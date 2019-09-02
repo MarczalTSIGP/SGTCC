@@ -79,7 +79,7 @@
 <script>
 
 import orientation_justification from './helpers/justification';
-import flash_message from '../shared/helpers/flash_message';
+import flash_message from '../shared/helpers/flash-message';
 
 export default {
   name: 'OrientationCancel',

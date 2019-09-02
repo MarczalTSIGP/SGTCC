@@ -70,7 +70,7 @@
 
 <script>
 
-import OrientationsChart from './orientations_chart';
+import OrientationsChart from './orientations-chart';
 
 export default {
   name: 'OrientationsReport',
