@@ -12,6 +12,7 @@ import OrientationStatusFilter from '../components/orientations/orientation-stat
 import ResponsibleDashboard from '../components/reports/responsible-dashboard';
 import ProfessorDashboard from '../components/reports/professor-dashboard';
 import Search from '../components/shared/search';
+import SidebarDraggable from '../components/site/sidebar-draggable';
 import SignatureButton from '../components/signatures/signature-button';
 import SignatureDownloadButton from '../components/signatures/signature-download-button';
 import SignatureConfirm from '../components/signatures/signature-confirm';
@@ -40,6 +41,7 @@ const components = {
   ResponsibleDashboard,
   ProfessorDashboard,
   Search,
+  SidebarDraggable,
   SignatureButton,
   SignatureConfirm,
   SignatureConfirmCode,

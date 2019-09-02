@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   root to: 'site#index'
 
-  get '(:post)', to: 'site#post', as: 'site_post'
-
   get 'documents/images',
       to: 'documents#images',
       as: 'document_images'
@@ -38,6 +36,9 @@ Rails.application.routes.draw do
   post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
   post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
   post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
+
+  post '/sidebar', to: 'site#sidebar', as: 'site_sidebar'
+  put '/update-sidebar', to: 'site#update_sidebar', as: 'site_update-sidebar'
 
   #========================================
   # Responsible
@@ -623,4 +624,6 @@ Rails.application.routes.draw do
           as: 'examination_boards_search'
     end
   end
+
+  get '(:post)', to: 'site#post', as: 'site_post'
 end

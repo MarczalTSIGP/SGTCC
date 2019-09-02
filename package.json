@@ -17,7 +17,8 @@
     "vue-simple-markdown": "^1.0.9",
     "vue-swal": "^1.0.0",
     "vue-template-compiler": "^2.5.21",
-    "vue-turbolinks": "^2.0.4"
+    "vue-turbolinks": "^2.0.4",
+    "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
