@@ -185,6 +185,12 @@ pt-BR:
         show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     site:
       configs: "Configurações"
+      posts: "Posts"
+    posts:
+      index: "Posts"
+      edit: "Editar post"
+      show: "Visualizar post"
+      new: "Novo post"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -283,6 +289,9 @@ pt-BR:
         other: "Bancas de defesa"
       site:
         one: "Site"
+      post:
+        one: "Post"
+        other: "Posts"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -374,6 +383,8 @@ pt-BR:
         place: "Local"
         <<: *commons
       site:
+        <<: *commons
+      post:
         <<: *commons
   placeholders:
     meetings:

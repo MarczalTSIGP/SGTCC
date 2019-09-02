@@ -1,0 +1,19 @@
+<tr>
+  <td><%= post.title %></td>
+  <td><%= short_date(post.created_at) %></td>
+  <td><%= short_date(post.updated_at) %></td>
+  <td>
+    <%= link_to(responsible_post_path(post)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_post_path(post)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_post_path(post),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>
