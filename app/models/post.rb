@@ -16,12 +16,7 @@ class Post < ApplicationRecord
     sidebar = site.sidebar
 
     if sidebar.present?
-      post = sidebar.select { |item| item['identifier'] == identifier }
-
-      if post.present?
-        sidebar.delete_at(post.first['order'] - 1)
-      end
-
+      remove_from_sidebar(sidebar)
       new_sidebar = sidebar << select_post_object
       site.update(sidebar: new_sidebar)
     else
@@ -31,13 +26,7 @@ class Post < ApplicationRecord
 
   after_destroy do
     sidebar = site.sidebar
-
-    post = sidebar.select { |item| item['identifier'] == identifier }
-
-    if post.present?
-      sidebar.delete_at(post.first['order'] - 1)
-    end
-
+    remove_from_sidebar(sidebar)
     site.update(sidebar: sidebar)
   end
 
@@ -46,6 +35,11 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def remove_from_sidebar(sidebar)
+    post = sidebar.select { |item| item['identifier'] == identifier }
+    sidebar.delete_at(post.first['order'] - 1) if post.present?
+  end
 
   def select_post_object(order = Post.all.size)
     { name: title, url: url, icon: fa_icon, order: order, identifier: identifier }
