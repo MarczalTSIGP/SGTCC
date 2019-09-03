@@ -22,6 +22,10 @@ pt-BR:
     labels:
       conceded: 'Deferido'
       dismissed: 'Indeferido'
+    login:
+      academic: 'Acadêmico'
+      professor: 'Professor'
+      external_member: 'Membro externo'
     buttons:
       select: 'Selecionar'
       save: 'Salvar'

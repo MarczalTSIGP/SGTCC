@@ -3,6 +3,27 @@
     <%= link_to root_path, class: 'header-brand ml-5' do %>
       <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi'  %>
     <% end  %>
+
+    <div class="d-flex order-lg-2 ml-auto">
+      <div class="dropdown">
+	<a href="#" class="mr-4 btn btn-outline-primary" data-toggle="dropdown">
+	  Login
+	</a>
+
+	<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+	  <%= link_to new_professor_session_path, class: 'dropdown-item' do %>
+	    <i class="dropdown-icon fas fa-chalkboard-teacher"></i> <%= t('views.login.professor') %>
+	  <% end %>
+	  <%= link_to new_academic_session_path, class: 'dropdown-item' do %>
+	    <i class="dropdown-icon fas fa-user-graduate"></i> <%= t('views.login.academic') %>
+	  <% end %>
+	  <%= link_to new_external_member_session_path, class: 'dropdown-item' do %>
+	    <i class="dropdown-icon fas fa-user"></i> <%= t('views.login.external_member') %>
+	  <% end %>
+	</div>
+      </div>
+    </div>
+
     <%= render '/layouts/shared/responsive_menu_toggle' %>
   </div>
 </div>
