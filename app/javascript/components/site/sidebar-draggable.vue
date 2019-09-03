@@ -4,36 +4,30 @@
       v-model="posts"
       class="list-group"
       tag="ul"
-      v-bind="dragOptions"
       @start="isDragging = true"
       @end="isDragging = false"
     >
-      <transition-group
-        type="transition"
-        name="flip-list"
+      <div
+        v-for="post in posts"
+        :key="post.order"
+        class="list-group list-group-transparent mb-0"
       >
-        <div
-          v-for="post in posts"
-          :key="post.order"
-          class="list-group list-group-transparent mb-0"
+        <a
+          aria-current="page"
+          :href="post.url"
+          :class="aClass(post.url)"
         >
-          <a
-            aria-current="page"
-            :href="post.url"
-            class="list-group-item list-group-item-action"
-          >
-            <span class="icon mr-3">
-              <i :class="`fe fe-${post.icon}`" />
-            </span>
-            {{ post.name }}
-            <i
-              v-if="editable"
-              class="ml-3 fa fa-list-ul"
-              :style="{ fontSize: '8px' }"
-            />
-          </a>
-        </div>
-      </transition-group>
+          <span class="icon mr-3">
+            <i :class="`fe fe-${post.icon}`" />
+          </span>
+          {{ post.name }}
+          <i
+            v-if="editable"
+            class="ml-3 fa fa-list-ul"
+            :style="{ fontSize: '8px' }"
+          />
+        </a>
+      </div>
     </draggable>
 
     <button
@@ -70,18 +64,17 @@
 import Draggable from 'vuedraggable';
 import Sidebar from './sidebar';
 import sweetAlert from '../shared/helpers/sweet_alert';
+import linkActive from './helpers/link-active';
 
 export default {
   name: 'SidebarDraggable',
-
-  display: 'Transition',
 
   components: {
     Draggable,
     Sidebar
   },
 
-  mixins: [ sweetAlert ],
+  mixins: [ sweetAlert, linkActive ],
 
   props: {
     hasPermission: {
@@ -100,17 +93,6 @@ export default {
       editable: false,
       posts: [],
     };
-  },
-
-  computed: {
-    dragOptions() {
-      return {
-        animation: 0,
-        group: 'description',
-        disabled: false,
-        ghostClass: 'ghost'
-      };
-    }
   },
 
   mounted() {

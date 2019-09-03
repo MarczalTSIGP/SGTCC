@@ -8,19 +8,23 @@
       <a
         aria-current="page"
         :href="post.url"
-        class="list-group-item list-group-item-action"
+        :class="aClass(post.url)"
       >
         <span class="icon mr-3">
           <i :class="`fe fe-${post.icon}`" />
         </span>
         {{ post.name }}
+        <i
+          v-if="editable"
+          class="ml-3 fa fa-list-ul"
+          :style="{ fontSize: '8px' }"
+        />
       </a>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Sidebar',
 
