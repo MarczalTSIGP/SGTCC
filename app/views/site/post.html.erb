@@ -1,4 +1,4 @@
-<% provide(:head_title, "Home") %>
+<% provide(:head_title, @post.title) %>
 <% provide(:page_title, @post.title) %>
 
 <vue-simple-markdown source="<%= @post.content %>" />

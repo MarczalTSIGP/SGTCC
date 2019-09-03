@@ -28,7 +28,8 @@
             {{ post.name }}
             <i
               v-if="editable"
-              class="fa fa-list-ul float-right"
+              class="ml-3 fa fa-list-ul"
+              :style="{ fontSize: '8px' }"
             />
           </a>
         </div>
@@ -37,18 +38,26 @@
 
     <button
       v-if="!editable"
-      class="mt-5 btn btn-block btn-outline-primary"
+      class="my-3 btn btn-block btn-outline-primary"
       @click="editSidebar()"
     >
-      Editar Sidebar
+      Editar sidebar
     </button>
 
     <button
       v-if="editable"
-      class="mt-5 btn btn-block btn-outline-primary"
+      class="my-3 btn btn-block btn-outline-primary"
       @click="updateSidebar()"
     >
       Atualizar sidebar
+    </button>
+
+    <button
+      v-if="editable"
+      class="btn btn-block btn-outline-danger"
+      @click="close()"
+    >
+      Cancelar
     </button>
   </div>
   <div v-else>
@@ -140,6 +149,10 @@ export default {
 
     editSidebar() {
       this.editable = true;
+    },
+
+    close() {
+      this.editable = false;
     },
   },
 };
