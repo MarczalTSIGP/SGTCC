@@ -53,7 +53,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:advisor, :academic, :calendar, :signatures, :meetings,
+    includes(:advisor, :academic, :calendar, :documents, :meetings,
              :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
   }
 
