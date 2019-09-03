@@ -3,10 +3,19 @@ class Post < ApplicationRecord
 
   searchable title: { unaccent: true }
 
-  validates :url, presence: true
-  validates :title, presence: true
-  validates :fa_icon, presence: true
-  validates :content, presence: true
+  validates :url,
+            presence: true,
+            uniqueness: true
+
+  validates :title,
+            presence: true,
+            uniqueness: true
+
+  validates :fa_icon,
+            presence: true
+
+  validates :content,
+            presence: true
 
   before_save do
     self.identifier = Post.maximum('identifier').to_i + 1 if identifier.blank?
