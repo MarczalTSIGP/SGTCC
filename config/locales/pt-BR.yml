@@ -243,6 +243,10 @@ pt-BR:
   activerecord:
     errors:
       models:
+        post:
+          attributes:
+            url:
+              invalid_format: "formato inválido só é possível utilizar letras e hífen na composição da url"
         institution:
           attributes:
             cnpj:

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
     sequence(:title) { |n| "Post #{n}" }
-    sequence(:url) { |n| "/path-#{n}" }
+    url { Faker::Name.first_name.parameterize }
     content { Faker::Lorem.paragraph }
     fa_icon { 'home' }
 

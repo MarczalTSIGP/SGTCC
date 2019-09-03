@@ -5,7 +5,11 @@ class Post < ApplicationRecord
 
   validates :url,
             presence: true,
-            uniqueness: true
+            uniqueness: true,
+            format: {
+              with: /\A^[a-z-]+$\z/i,
+              message: I18n.t('activerecord.errors.models.post.attributes.url.invalid_format')
+            }
 
   validates :title,
             presence: true,
