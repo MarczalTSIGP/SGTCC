@@ -14,19 +14,19 @@
           <i :class="`fe fe-${post.icon}`" />
         </span>
         {{ post.name }}
-        <i
-          v-if="editable"
-          class="ml-3 fa fa-list-ul"
-          :style="{ fontSize: '8px' }"
-        />
       </a>
     </div>
   </div>
 </template>
 
 <script>
+
+import linkActive from './helpers/link-active';
+
 export default {
   name: 'Sidebar',
+
+  mixins: [linkActive],
 
   props: {
     posts: {
