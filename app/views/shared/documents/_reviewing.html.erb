@@ -1,4 +1,32 @@
 <% provide(:page_title, t('breadcrumbs.documents.reviewing')) %>
 <% provide(:head_title, t('breadcrumbs.documents.reviewing')) %>
 
-<%= render 'shared/documents/table', entry_name: t('breadcrumbs.documents.reviewing') %>
+<div class="text-right mt-3">
+  <%= page_entries_info @documents, entry_name: t('breadcrumbs.documents.reviewing').downcase  %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Signature.human_attribute_name('orientation') %></th>
+        <th><%= Signature.human_attribute_name('academic') %></th>
+        <th><%= Signature.human_attribute_name('document_type') %></th>
+        <th><%= Signature.human_attribute_name('status') %></th>
+        <th><%= Signature.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @documents.empty? %>
+      </tr>
+      <% @documents.each do |document| %>
+        <%= render 'professors/documents/document_review', document: document %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @documents %>

@@ -6,6 +6,7 @@ class Signature < ApplicationRecord
     advisor: 'AD',
     academic: 'AC',
     coordinator: 'CC',
+    new_advisor: 'NAD',
     professor_responsible: 'PR',
     professor_supervisor: 'PS',
     external_member_supervisor: 'ES'
@@ -19,14 +20,6 @@ class Signature < ApplicationRecord
 
   def sign
     update(status: true)
-  end
-
-  def term_of_commitment?
-    document.document_type.tco?
-  end
-
-  def term_of_accept_institution?
-    document.document_type.tcai?
   end
 
   def user_table

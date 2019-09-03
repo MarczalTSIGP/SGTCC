@@ -1,10 +1,14 @@
 module Responsible::ActiveLinkHelper
   def responsible_orientations_active_link?
-    orientations_active_link?('responsible')
+    orientations_active_link?('responsible') || responsible_orientation_documents_link?
   end
 
   def responsible_orientations_show_or_edit_link?
     match_link?('^\/responsible/orientations\/\\d+(\/edit)?$')
+  end
+
+  def responsible_orientation_documents_link?
+    match_link?('^\/responsible/orientations\/\\d+/documents?$')
   end
 
   def responsible_orientations_tcc_one_active_link?

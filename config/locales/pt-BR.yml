@@ -8,6 +8,7 @@ pt-BR:
       time: '%-H:%M'
       datetime: '%d/%m/%Y %-H:%M'
       document: '%d de %B de %Y'
+      intl: '%m/%d/%Y'
   views:
     title:
       calendar:
@@ -104,7 +105,7 @@ pt-BR:
     meetings:
       index: "Reuniões"
     examination_boards:
-      index: "Bancas"
+      index: "Bancas de defesa"
     pages:
       index: "Páginas"
     base_activities:
@@ -118,7 +119,13 @@ pt-BR:
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
     documents:
+      show: "Visualizar documento"
       reviewing: "Documentos para análise"
+      pending: "Documentos para assinar"
+      signed: "Documentos assinados"
+      orientation: "Documentos da orientação"
+      recent:
+        pending: "Últimos documentos com assinaturas pendentes"
       requests:
         index: "Solicitações"
         new: "Nova solicitação"
@@ -145,8 +152,10 @@ pt-BR:
       new: "Nova Reunião"
       edit: "Editar Reunião"
       show: "Visualizar Reunião"
+      recent: "Últimas reuniões"
     examination_boards:
       index: "Bancas de defesa"
+      recent: "Últimas bancas de defesa"
       tcc:
         one:
           index: "Bancas de defesa de TCC 1"
@@ -503,6 +512,7 @@ pt-BR:
         male:
           academic: 'Acadêmico'
           advisor: 'Orientador'
+          new_advisor: 'Novo orientador'
           coordinator: 'Coordernador do Curso'
           professor_supervisor: 'Coorientador da UTFPR'
           professor_responsible: 'Professor responsável'
@@ -510,6 +520,7 @@ pt-BR:
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
+          new_advisor: 'Nova orientadora'
           coordinator: 'Coordenadora do Curso'
           professor_supervisor: 'Coorientadora da UTFPR'
           professor_responsible: 'Professora responsável'

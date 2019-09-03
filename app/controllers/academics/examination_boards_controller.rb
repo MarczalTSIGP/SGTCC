@@ -8,7 +8,7 @@ class Academics::ExaminationBoardsController < Academics::BaseController
     @examination_boards = current_academic.examination_boards
                                           .search(params[:term])
                                           .page(params[:page])
-                                          .order(:tcc, created_at: :desc)
+                                          .order(:tcc, date: :desc)
                                           .with_relationships
   end
 

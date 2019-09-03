@@ -1,1 +1,6 @@
+<% provide(:page_title, t('breadcrumbs.meetings.index')) %>
+<% provide(:head_title, t('breadcrumbs.meetings.index')) %>
+
 <%= render 'shared/meetings/table' %>
+
+<%= paginate @meetings %>

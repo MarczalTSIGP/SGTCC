@@ -87,8 +87,9 @@ class Professor < ApplicationRecord
 
   def user_types
     types = Signature.user_types
-    user_types = [types[:advisor], types[:professor_supervisor]]
+    user_types = [types[:advisor], types[:new_advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
+    user_types.push(types[:coordinator]) if role?(:coordinator)
     user_types
   end
 
@@ -104,8 +105,9 @@ class Professor < ApplicationRecord
   end
 
   def examination_boards(search = nil)
-    (guest_examination_boards.search(search).with_relationships +
-      orientation_examination_boards.search(search).with_relationships)
+    all = (guest_examination_boards.current_semester.search(search).with_relationships +
+     orientation_examination_boards.current_semester.search(search).with_relationships)
+    all.sort_by(&:date).reverse.uniq
   end
 
   def self.current_responsible

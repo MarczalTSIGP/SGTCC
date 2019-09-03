@@ -21,7 +21,7 @@
     </p>
 
     <p>
-      <b>Justificativa:</b>
+      <b>Parecer:</b>
     </p>
     <div>
       <vue-simple-markdown :source="request.judgment.responsible.justification" />
@@ -85,7 +85,17 @@ export default {
     this.onCloseEditButton();
   },
 
+  updated() {
+    this.onShowDocumentJudgment();
+  },
+
   methods: {
+    onShowDocumentJudgment() {
+      if (this.hasPermission && this.notHasJudgment()) {
+        this.$root.$emit('close-signature-button');
+      }
+    },
+
     setShowEditButton() {
       this.showEditButton = this.canEdit;
     },

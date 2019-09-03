@@ -22,6 +22,7 @@ describe 'Document::review', type: :feature, js: true do
 
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
+        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
         expect(page).to have_contents([conceded_label, '**'])
       end
     end
@@ -59,6 +60,7 @@ describe 'Document::review', type: :feature, js: true do
 
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
+        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
         expect(page).to have_contents([dismissed_label, '**justi'])
       end
     end

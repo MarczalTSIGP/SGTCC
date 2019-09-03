@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_174240) do
+ActiveRecord::Schema.define(version: 2019_08_16_174008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_174240) do
     t.bigint "orientation_id"
     t.bigint "document_id"
     t.integer "user_id"
-    t.string "user_type", limit: 2
+    t.string "user_type", limit: 3
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

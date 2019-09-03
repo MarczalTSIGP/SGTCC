@@ -23,7 +23,6 @@ class Orientation < ApplicationRecord
   has_many :documents, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
-
   has_many :professor_supervisors, class_name: 'Professor',
                                    foreign_key: :professor_supervisor_id,
                                    through: :orientation_supervisors,
@@ -54,7 +53,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:advisor, :academic, :calendar, :signatures, :meetings,
+    includes(:advisor, :academic, :calendar, :documents, :meetings,
              :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
   }
 
