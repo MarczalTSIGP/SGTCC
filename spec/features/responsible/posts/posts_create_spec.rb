@@ -5,6 +5,7 @@ describe 'Post::create', type: :feature, js: true do
   let(:resource_name) { Post.model_name.human }
 
   before do
+    create(:site)
     login_as(responsible, scope: :professor)
   end
 
