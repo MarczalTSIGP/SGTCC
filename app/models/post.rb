@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   validates :url,
             presence: true,
-            uniqueness: true,
+            uniqueness: { case_sensitive: false },
             format: {
               with: /\A^[a-z-]+$\z/i,
               message: I18n.t('activerecord.errors.models.post.attributes.url.invalid_format')
@@ -13,7 +13,7 @@ class Post < ApplicationRecord
 
   validates :title,
             presence: true,
-            uniqueness: true
+            uniqueness: { case_sensitive: false }
 
   validates :fa_icon,
             presence: true
@@ -22,6 +22,7 @@ class Post < ApplicationRecord
             presence: true
 
   before_save do
+    url.downcase!
     self.identifier = Post.maximum('identifier').to_i + 1 if identifier.blank?
   end
 
