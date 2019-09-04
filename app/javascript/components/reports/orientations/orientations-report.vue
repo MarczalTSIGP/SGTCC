@@ -3,19 +3,6 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title font-weight-bold">
-          Orientações de TCC 2
-        </h3>
-      </div>
-      <div class="card-body">
-        <orientations-line-chart
-          :data="data.calendar_report"
-        />
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title font-weight-bold">
           Orientações de TCC 1
         </h3>
       </div>
@@ -76,6 +63,19 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title font-weight-bold">
+          Orientações de TCC 2
+        </h3>
+      </div>
+      <div class="card-body">
+        <orientations-line-chart
+          :data="data.calendar_report"
+        />
       </div>
     </div>
   </div>
