@@ -101,6 +101,7 @@ export default {
   created() {
     this.setSeries();
     this.setCategories();
+    this.setMaxValue();
   },
 
   methods: {
@@ -110,6 +111,16 @@ export default {
 
     setCategories() {
       this.chartOptions.xaxis.categories = this.data.years;
+    },
+
+    setMaxValue() {
+      this.chartOptions.yaxis.max = this.getMaxValue();
+    },
+
+    getMaxValue() {
+      return this.data.total.reduce((a, b) => {
+        return Math.max(a, b);
+      });
     },
   },
 
