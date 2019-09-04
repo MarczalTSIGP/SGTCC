@@ -32,12 +32,17 @@
     <div class="col-12">
       <orientations-report :data="report.orientations" />
     </div>
+
+    <div class="col-12">
+      <professors-ranking :ranking="report.orientations.ranking" />
+    </div>
   </div>
 </template>
 
 <script>
 
 import ProfessorsNumber from './professors/professors-number';
+import ProfessorsRanking from './professors/professors-ranking';
 import OrientationsReport from './orientations/orientations-report';
 
 export default {
@@ -45,7 +50,8 @@ export default {
 
   components: {
     OrientationsReport,
-    ProfessorsNumber
+    ProfessorsNumber,
+    ProfessorsRanking
   },
 
   data() {
