@@ -20,19 +20,14 @@ export default {
 
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true
     },
   },
 
   data() {
     return {
-      series: [
-        {
-          name: 'Aprovados TCC 2',
-          data: [],
-        },
-      ],
+      series: [],
       chartOptions: {
         chart: {
           shadow: {
@@ -47,7 +42,7 @@ export default {
             show: false
           }
         },
-        colors: ['#00E396'],
+        colors: ['#00E396', '#FF4560', '#008FFB','#FEB019'],
         dataLabels: {
           enabled: true,
         },
@@ -55,7 +50,7 @@ export default {
           curve: 'smooth'
         },
         title: {
-          text: 'Aprovadas por ano/semestre',
+          text: 'Ano/Semestre',
           align: 'left'
         },
         grid: {
@@ -76,7 +71,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Nº de aprovados'
+            text: 'Nº de orientações'
           },
           labels: {
             formatter: function (val) {
@@ -84,7 +79,7 @@ export default {
             },
           },
           tickAmount: 3,
-          min: 1,
+          min: 0,
           max: 6
         },
         legend: {
@@ -106,7 +101,9 @@ export default {
 
   methods: {
     setSeries() {
-      this.series[0].data = this.data.total;
+      this.series = this.data.map((item) => {
+        return { name: item.label, data: item.data.total };
+      });
     },
 
     setCategories() {
@@ -118,11 +115,22 @@ export default {
     },
 
     getMaxValue() {
-      return this.data.total.reduce((a, b) => {
+      return this.getAllValues().reduce((a, b) => {
         return Math.max(a, b);
       });
     },
-  },
 
+    getAllValues() {
+      let values = [];
+
+      this.data.forEach((item) => {
+        return item.data.total.forEach((value) => {
+          values.push(value);
+        });
+      });
+
+      return values;
+    },
+  },
 };
 </script>

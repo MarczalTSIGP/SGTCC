@@ -84,13 +84,13 @@ class Calendar < ApplicationRecord
     find_by(year: first_year, semester: 'two', tcc: tcc)
   end
 
-  def self.approved_orientations_report(years: [], total: [])
+  def self.orientations_report_by_status(status, years: [], total: [])
     calendar = by_first_year_and_tcc('two')
     loop do
-      years.push(calendar.year_with_semester)
-      total.push(calendar.orientations.where(status: 'APPROVED').size)
-      calendar = next_semester(calendar)
       break if calendar.blank?
+      years.push(calendar.year_with_semester)
+      total.push(calendar.orientations.where(status: status).size)
+      calendar = next_semester(calendar)
     end
     { years: years, total: total }
   end

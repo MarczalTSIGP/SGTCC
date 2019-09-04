@@ -243,14 +243,15 @@ RSpec.describe Calendar, type: :model do
     let(:total) { [] }
 
     let(:calendars) { [first_calendar, second_calendar] }
+    let(:status) { 'APPROVED' }
 
     it 'returns the list of approved orientations' do
       calendars.each do |calendar|
         years.push(calendar.year_with_semester)
-        total.push(calendar.orientations.where(status: 'APPROVED').size)
+        total.push(calendar.orientations.where(status: status).size)
       end
       report = { years: years, total: total }
-      expect(Calendar.approved_orientations_report).to eq(report)
+      expect(Calendar.orientations_report_by_status(status)).to eq(report)
     end
   end
 end
