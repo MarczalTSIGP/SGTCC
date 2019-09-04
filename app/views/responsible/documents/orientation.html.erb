@@ -1,6 +1,30 @@
 <% provide(:page_title, t('breadcrumbs.documents.orientation')) %>
 <% provide(:head_title, t('breadcrumbs.documents.orientation')) %>
 
-<%= render 'shared/documents/table' %>
+<div class="text-right mt-3">
+  <%= page_entries_info @documents,
+    entry_name: t('entry_names.documents', count: @documents.size) %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Document.human_attribute_name('orientation') %></th>
+        <th><%= Document.human_attribute_name('academic') %></th>
+        <th><%= Document.human_attribute_name('document_type') %></th>
+        <th><%= Document.human_attribute_name('created_at') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @documents.empty? %>
+      </tr>
+      <%= render @documents %>
+    </tbody>
+  </table>
+</div>
 
 <%= paginate @documents %>
