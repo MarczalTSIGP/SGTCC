@@ -40,7 +40,9 @@ class Professors::DocumentsController < Professors::BaseController
   private
 
   def set_document
-    @document = current_professor.documents.find_by(id: params[:id])
+    id = params[:id]
+    @document = current_professor.documents.find_by(id: id)
+    @document = Document.find(id) if current_professor.responsible? && @document.blank?
   end
 
   def set_signature

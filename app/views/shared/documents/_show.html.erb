@@ -10,7 +10,7 @@
       document-title="<%= @document.filename %>" />
   </div>
 
-  <% unless @signature.status %>
+  <% unless @signature&.status %>
     <div>
       <signature-confirm
         label="<%= label %>"
