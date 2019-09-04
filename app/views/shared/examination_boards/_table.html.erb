@@ -1,5 +1,6 @@
 <div class="text-right mt-3">
-  <%= page_entries_info @examination_boards, entry_name: t('breadcrumbs.examination_boards.index').downcase  %>
+  <%= page_entries_info @examination_boards,
+    entry_name: t('entry_names.examination_boards', count: @examination_boards.size) %>
 </div>
 
 <div class="table-striped mt-3 table-responsive w-100">
