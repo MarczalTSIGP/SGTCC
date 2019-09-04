@@ -126,11 +126,12 @@ class Orientation < ApplicationRecord
 
   def self.professors_ranking
     professors = tcc_two('APPROVED').group_by(&:advisor_id)
-    orientations = professors.values
+    orientations = professors.values.map(&:size)
     professors_ids = professors.keys
-    professors_ids.map.with_index do |professor_id, index|
-      { professor: Professor.find(professor_id).name_with_scholarity,
-        approved_orientations: orientations[index].size }
+    professors = professors_ids.map.with_index do |professor_id, index|
+      [Professor.find(professor_id).name_with_scholarity,
+       orientations[index]]
     end
+    professors.sort_by { |professor| professor[1] }.reverse[0..4]
   end
 end
