@@ -124,7 +124,7 @@ export default {
       let values = [];
 
       this.data.forEach((item) => {
-        return item.data.total.forEach((value) => {
+        item.data.total.forEach((value) => {
           values.push(value);
         });
       });
