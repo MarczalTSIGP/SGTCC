@@ -1,13 +1,15 @@
 class Populate::Orientations
   attr_reader :academic_ids, :institution_ids,
-              :calendar_ids, :advisor, :professors,
-              :index, :external_members, :statuses
+              :calendar_ids, :professor_ids, :advisor,
+              :supervisors, :external_members, :statuses,
+              :index
 
   def initialize
     @academic_ids = Academic.pluck(:id)
     @institution_ids = Institution.pluck(:id)
     @advisor = Professor.find_by(username: 'marczal')
-    @professors = Professor.where.not(username: 'marczal')
+    @supervisors = Professor.where.not(username: 'marczal')
+    @professor_ids = Professor.pluck(:id).first(5)
     @external_members = ExternalMember.all
     @calendar_ids = Calendar.pluck(:id)
     @statuses = Orientation.statuses.values
@@ -30,7 +32,7 @@ class Populate::Orientations
     orientation = Orientation.create!(
       title: "Orientation #{@index}",
       calendar_id: calendar_id,
-      advisor_id: @advisor.id,
+      advisor_id: @professor_ids.sample,
       academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample,
       status: @statuses.sample
@@ -50,7 +52,7 @@ class Populate::Orientations
   end
 
   def add_supervisors(orientation)
-    orientation.professor_supervisors << @professors.sample
+    orientation.professor_supervisors << @supervisors.sample
     orientation.external_member_supervisors << @external_members.sample
     orientation.save
   end
