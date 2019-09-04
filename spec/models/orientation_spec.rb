@@ -572,4 +572,17 @@ RSpec.describe Orientation, type: :model do
       expect(orientation.academic_with_calendar).to eq(academic_with_calendar)
     end
   end
+
+  describe '#professors_ranking' do
+    let!(:professor_orientations) { create_list(:orientation_tcc_two_approved, 4) }
+    let!(:professors) { professor_orientations.map(&:advisor) }
+
+    it 'returns the professors ranking data' do
+      ranking = professors.map do |professor|
+        [professor.name_with_scholarity, professor.orientations.size]
+      end
+      ranking = ranking.sort_by { |professor| professor[1] }.reverse[0..4]
+      expect(Orientation.professors_ranking).to eq(ranking)
+    end
+  end
 end

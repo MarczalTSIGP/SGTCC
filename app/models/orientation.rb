@@ -5,6 +5,8 @@ class Orientation < ApplicationRecord
   include OrientationJoin
   include OrientationOption
   include OrientationDocuments
+  include OrientationReport
+  include OrientationValidation
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -64,14 +66,6 @@ class Orientation < ApplicationRecord
     title.length > 35 ? "#{title[0..35]}..." : title
   end
 
-  def validates_supervisor_ids
-    return true unless professor_supervisor_ids.include?(advisor_id)
-    message = I18n.t('activerecord.errors.models.orientation.attributes.supervisors.advisor',
-                     advisor: advisor.name)
-    errors.add(:professor_supervisors, message)
-    false
-  end
-
   def supervisors
     professor_supervisors + external_member_supervisors
   end
@@ -122,16 +116,5 @@ class Orientation < ApplicationRecord
 
   def self.select_status_data
     statuses.map { |index, field| [field, index.capitalize] }.sort!
-  end
-
-  def self.professors_ranking
-    professors = tcc_two('APPROVED').group_by(&:advisor_id)
-    orientations = professors.values.map(&:size)
-    professors_ids = professors.keys
-    professors = professors_ids.map.with_index do |professor_id, index|
-      [Professor.find(professor_id).name_with_scholarity,
-       orientations[index]]
-    end
-    professors.sort_by { |professor| professor[1] }.reverse[0..4]
   end
 end
