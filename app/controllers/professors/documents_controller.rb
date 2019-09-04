@@ -1,6 +1,7 @@
 class Professors::DocumentsController < Professors::BaseController
   include DocumentSignature
   before_action :set_document, only: [:show, :sign]
+  before_action :set_document_for_responsible, only: :show
   before_action :can_view, only: :show
   before_action :set_signature, only: [:show, :sign]
 
@@ -41,6 +42,12 @@ class Professors::DocumentsController < Professors::BaseController
 
   def set_document
     @document = current_professor.documents.find_by(id: params[:id])
+  end
+
+  def set_document_for_responsible
+    for_responsible = current_professor.responsible? && @document.blank?
+    @document = Document.find(params[:id]) if for_responsible
+    @not_show_sign_button = true if for_responsible
   end
 
   def set_signature

@@ -74,6 +74,13 @@ pt-BR:
         approved: "Aprovadas"
         renewed: "Renovadas"
         canceled: "Canceladas"
+  entry_names:
+    examination_boards:
+      one: "banca de defesa"
+      other: "bancas de defesa"
+    documents:
+      one: "documento"
+      other: "documentos"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -345,6 +352,7 @@ pt-BR:
         justification: "Justificativa"
         advisor_id: "Novo Orientador"
         new_advisor: "Novo Orientador"
+        document_type: "Tipo do documento"
         professor_supervisor_ids: "Novos Coorientadores da UTFPR"
         external_member_supervisor_ids: "Novos Coorientadores externos"
         <<: *commons
