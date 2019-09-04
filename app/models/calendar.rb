@@ -108,6 +108,23 @@ class Calendar < ApplicationRecord
     end
   end
 
+  def self.first_calendar
+    first_year = minimum('year')
+    first_calendar = find_by(year: first_year, semester: 'one', tcc: 'two')
+    return first_calendar if first_calendar.present?
+    next_semester(self)
+  end
+
+  def self.approved_orientations_report(calendar = first_calendar)
+    years = []
+    total = []
+    until (calendar = next_semester(calendar)).blank?
+      years.push(calendar.year_with_semester)
+      total.push(calendar.orientations.where(status: 'APPROVED').size)
+    end
+    { years: years, total: total }
+  end
+
   private
 
   def clone_base_activities

@@ -7,7 +7,9 @@
         </h3>
       </div>
       <div class="card-body">
-        <orientations-line-chart />
+        <orientations-line-chart
+          :data="data.calendar_report"
+        />
       </div>
     </div>
 

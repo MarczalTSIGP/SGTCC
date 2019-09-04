@@ -23,11 +23,6 @@ export default {
       type: Object,
       required: true
     },
-
-    title: {
-      type: String,
-      required: true
-    },
   },
 
   data() {
@@ -35,7 +30,7 @@ export default {
       series: [
         {
           name: 'Aprovados TCC 2',
-          data: [3, 1, 1, 5, 4, 3, 3]
+          data: [],
         },
       ],
       chartOptions: {
@@ -74,7 +69,7 @@ export default {
           size: 6
         },
         xaxis: {
-          categories: ['2013/1', '2014/1', '2015/1', '2015/2', '2016/1', '2016/2', '2017/1'],
+          categories: [],
           title: {
             text: 'Ano'
           }
@@ -102,6 +97,22 @@ export default {
       }
     };
   },
+
+  created() {
+    this.setSeries();
+    this.setCategories();
+  },
+
+  methods: {
+    setSeries() {
+      this.series[0].data = this.data.total;
+    },
+
+    setCategories() {
+      this.chartOptions.xaxis.categories = this.data.years;
+    },
+  },
+
 };
 
 </script>
