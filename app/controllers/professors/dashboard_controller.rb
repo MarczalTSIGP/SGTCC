@@ -27,9 +27,8 @@ class Professors::DashboardController < Professors::BaseController
   end
 
   def set_examination_boards
-    # data = current_professor.examination_boards(params[:term])
-    @examination_boards = []
-    # @examination_boards = Kaminari.paginate_array(data).page(params[:page]).per(6)
+    data = current_professor.examination_boards(params[:term])
+    @examination_boards = Kaminari.paginate_array(data).page(params[:page]).per(6)
   end
 
   def set_professor
