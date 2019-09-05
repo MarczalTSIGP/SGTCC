@@ -14,6 +14,7 @@ class Dashboard::ResponsibleReport
 
   def orientations_report
     { calendar: Calendar.current_by_tcc_one&.year_with_semester,
+      ranking: Orientation.professors_ranking,
       tcc_one: orientations_by_tcc('tcc_one'),
       tcc_two: orientations_by_tcc('tcc_two'),
       current_tcc_one: orientations_by_tcc('current_tcc_one'),
