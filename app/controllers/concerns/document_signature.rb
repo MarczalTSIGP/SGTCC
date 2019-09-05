@@ -15,24 +15,15 @@ module DocumentSignature
   private
 
   def confirm_authentication(current_user, login)
-    return false if login != params[:login]
+    pwd = params[:password]
 
-    if ENV['ldap.on'].eql?('true') &&
-       (current_user.is_a?(Academic) || current_user.is_a?(Professor))
+    if SGTCC::LDAP.enable? &&
+       !current_user.is_a?(ExternalMember)
 
-      return ldap_authenticate(current_user, params[:password])
+      return SGTCC::LDAP.authenticate(current_user, pwd)
     end
 
-    current_user.valid_password?(params[:password])
-  end
-
-  def ldap_authenticate(current_user, pwd)
-    require './lib/ldap/ldap_authentication'
-
-    user = current_user.try(:ra) || current_user.username
-    base = current_user.class.to_s.pluralize.downcase
-
-    return false unless SGTCC::LDAP.authenticate(user, pwd, base)
-    true
+    return false if login != params[:login]
+    current_user.valid_password?(pwd)
   end
 end
