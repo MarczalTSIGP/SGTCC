@@ -22,5 +22,30 @@ describe 'Orientation::documents', type: :feature, js: true do
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end
+
+    context 'when show the document by orientation' do
+      let(:document) { orientation.documents.first }
+      let(:active_link) { responsible_orientations_tcc_one_path }
+
+      before do
+        visit responsible_orientation_document_path(orientation, document)
+      end
+
+      it 'shows the document' do
+        expect(page).to have_contents([orientation.title,
+                                       orientation.academic.name,
+                                       orientation.academic.ra,
+                                       orientation.institution.trade_name,
+                                       orientation.institution.external_member.name,
+                                       scholarity_with_name(orientation.advisor),
+                                       document_date(orientation.created_at)])
+
+        orientation.supervisors do |supervisor|
+          expect(page).to have_content(scholarity_with_name(supervisor))
+        end
+
+        expect(page).to have_selector("a[href='#{active_link}'].active")
+      end
+    end
   end
 end

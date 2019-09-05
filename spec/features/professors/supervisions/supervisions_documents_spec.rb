@@ -23,5 +23,30 @@ describe 'Supervision::documents', type: :feature, js: true do
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end
+
+    context 'when show the document by orientation' do
+      let(:document) { orientation.documents.first }
+      let(:active_link) { professors_supervisions_tcc_one_path }
+
+      before do
+        visit professors_supervision_document_path(orientation, document)
+      end
+
+      it 'shows the document' do
+        expect(page).to have_contents([orientation.title,
+                                       orientation.academic.name,
+                                       orientation.academic.ra,
+                                       orientation.institution.trade_name,
+                                       orientation.institution.external_member.name,
+                                       scholarity_with_name(orientation.advisor),
+                                       document_date(orientation.created_at)])
+
+        orientation.supervisors do |supervisor|
+          expect(page).to have_content(scholarity_with_name(supervisor))
+        end
+
+        expect(page).to have_selector("a[href='#{active_link}'].active")
+      end
+    end
   end
 end
