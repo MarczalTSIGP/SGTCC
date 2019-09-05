@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="load && hasTccReport()">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title font-weight-bold">
@@ -8,23 +8,29 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6">
+          <div
+            v-if="hasTccOneReport()"
+            :class="cardResponsiveClass"
+          >
             <div class="card">
               <div class="card-body">
                 <orientations-chart
                   title="Orientações de TCC 1 no Total"
-                  :data="data.tcc_one"
+                  :data="report.tcc_one"
                 />
               </div>
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div
+            v-if="hasTccTwoReport()"
+            :class="cardResponsiveClass"
+          >
             <div class="card">
               <div class="card-body">
                 <orientations-chart
                   title="Orientações de TCC 2 no Total"
-                  :data="data.tcc_two"
+                  :data="report.tcc_two"
                 />
               </div>
             </div>
@@ -45,15 +51,54 @@ export default {
   components: { OrientationsChart },
 
   props: {
-    data: {
-      type: Object,
+    professorId: {
+      type: Number,
       required: true
     },
   },
 
+  data() {
+    return {
+      load: false,
+      report: {},
+    };
+  },
+
   computed: {
-    titleWithCalendar() {
-      return `Orientações em (${this.data.calendar})`;
+    url() {
+      return `/professors/reports/${this.professorId}`;
+    },
+
+    cardResponsiveClass() {
+      return this.hasBothTccReport() ? 'col-md-6' : 'col-12';
+    },
+  },
+
+  mounted() {
+    this.setReport();
+  },
+
+  methods: {
+    async setReport() {
+      const report = await this.$axios.get(this.url);
+      this.report = report.data.orientations;
+      this.load = true;
+    },
+
+    hasTccReport() {
+      return this.hasTccOneReport() || this.hasTccTwoReport();
+    },
+
+    hasBothTccReport() {
+      return this.hasTccOneReport() && this.hasTccTwoReport();
+    },
+
+    hasTccOneReport() {
+      return this.report.tcc_one.total > 0;
+    },
+
+    hasTccTwoReport() {
+      return this.report.tcc_two.total > 0;
     },
   },
 };

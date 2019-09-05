@@ -250,7 +250,7 @@ Rails.application.routes.draw do
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
 
-      get 'reports', to: 'dashboard#report', as: 'reports'
+      get 'reports/(:professor_id)', to: 'dashboard#report', as: 'reports'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',

@@ -2,7 +2,8 @@
 <% provide(:head_title, "Dashboard") %>
 
 <div>
-  <professor-dashboard />
+  <professor-dashboard
+    :professor-id="<%= current_professor&.id %>" />
 </div>
 
 <%= render 'shared/dashboard/documents_table' %>

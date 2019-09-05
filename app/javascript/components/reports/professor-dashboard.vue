@@ -1,11 +1,6 @@
 <template>
-  <div
-    v-if="load"
-    class="row"
-  >
-    <div class="col-12">
-      <professors-orientations-report :data="report.orientations" />
-    </div>
+  <div>
+    <professors-orientations-report :professor-id="professorId" />
   </div>
 </template>
 
@@ -18,23 +13,10 @@ export default {
 
   components: { ProfessorsOrientationsReport },
 
-  data() {
-    return {
-      url: '/professors/reports',
-      load: false,
-      report: {},
-    };
-  },
-
-  mounted() {
-    this.setReport();
-  },
-
-  methods: {
-    async setReport() {
-      const report = await this.$axios.get(this.url);
-      this.report = report.data;
-      this.load = true;
+  props: {
+    professorId: {
+      type: Number,
+      required: true
     },
   },
 };

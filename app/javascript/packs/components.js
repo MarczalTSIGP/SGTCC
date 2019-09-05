@@ -4,6 +4,7 @@ import ExaminationBoardStatus from '../components/examination-boards/examination
 import FlashMessages from '../components/shared/flash-messages';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
+import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
 import OrientationCancel from '../components/orientations/orientation-cancel';
 import OrientationRenew from '../components/orientations/orientation-renew';
 import OrientationStatus from '../components/orientations/orientation-status';
@@ -35,6 +36,7 @@ const components = {
   OrientationStatus,
   OrientationStatusFilter,
   ProfileImagePreview,
+  ProfessorOrientationsReport,
   ResponsibleDashboard,
   ProfessorDashboard,
   Search,
