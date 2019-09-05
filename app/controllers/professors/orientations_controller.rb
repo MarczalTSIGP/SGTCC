@@ -1,5 +1,5 @@
 class Professors::OrientationsController < Professors::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update]
+  before_action :set_orientation, only: [:show, :edit, :update, :documents, :document]
   before_action :set_orientations, only: [:tcc_one, :tcc_two, :history]
   before_action :set_tcc_one_title, only: :tcc_one
   before_action :set_tcc_two_title, only: :tcc_two
@@ -72,6 +72,23 @@ class Professors::OrientationsController < Professors::BaseController
       error_message
       render :edit
     end
+  end
+
+  def documents
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   professors_orientation_documents_path(@orientation)
+
+    @documents = @orientation.documents.with_relationships.page(params[:page])
+  end
+
+  def document
+    @document = @orientation.documents.find(params[:document_id])
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   professors_orientation_documents_path(@orientation)
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
+                   professors_orientation_document_path(@orientation, @document)
   end
 
   private

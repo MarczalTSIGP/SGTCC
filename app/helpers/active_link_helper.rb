@@ -34,6 +34,10 @@ module ActiveLinkHelper
     match_link?("#{namespace}/orientations/current_tcc_two")
   end
 
+  def orientations_documents_link?(namespace)
+    match_link?("^\/#{namespace}/orientations\/\\d+/documents?(\/\\d+)?$")
+  end
+
   def activities_tcc_active_link?(tcc_type, namespace)
     is_equal_tcc_type = @calendar && @calendar.tcc == tcc_type
     match_link?("/#{namespace}/calendars/\\d+/activities") && is_equal_tcc_type

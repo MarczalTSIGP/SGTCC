@@ -20,8 +20,7 @@ class Responsible::DocumentsController < Responsible::BaseController
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    responsible_orientation_documents_path(@orientation)
 
-    documents = @orientation.documents.with_relationships.recent.uniq
-    @documents = Kaminari.paginate_array(documents).page(params[:page])
+    @documents = @orientation.documents.with_relationships.page(params[:page])
   end
 
   private
