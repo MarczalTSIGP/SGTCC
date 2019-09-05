@@ -11,11 +11,11 @@ import {messages} from '../utils/i18n/messages';
 import {components} from './components';
 
 import menu from '../initializers/menu';
-import markdown from '../initializers/markdown_editor';
+import markdown from '../initializers/markdown-editor';
 import selectize from '../initializers/selectize';
 import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
-import sidebarScroll from '../initializers/sidebar_scroll';
+import sidebarScroll from '../initializers/sidebar-scroll';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);

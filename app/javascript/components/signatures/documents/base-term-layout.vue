@@ -39,7 +39,7 @@
 
 <script>
 
-import baseTermData from './base_term_data';
+import baseTermData from './base-term-data';
 
 export default {
   name: 'BaseTermLayout',

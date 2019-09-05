@@ -37,8 +37,8 @@
 
 <script>
 
-import ProfessorsNumber from './professors/professors_number';
-import OrientationsReport from './orientations/orientations_report';
+import ProfessorsNumber from './professors/professors-number';
+import OrientationsReport from './orientations/orientations-report';
 
 export default {
   name: 'ResponsibleDashboard',

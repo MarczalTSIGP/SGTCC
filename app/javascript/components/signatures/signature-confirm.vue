@@ -53,7 +53,7 @@
 
 <script>
 
-import sweetAlert from '../shared/helpers/sweet_alert';
+import sweetAlert from '../shared/helpers/sweet-alert';
 
 export default {
   name: 'SignatuerConfirm',

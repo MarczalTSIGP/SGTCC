@@ -104,9 +104,9 @@
 
 <script>
 
-import baseTermData from './base_term_data';
-import BaseTermLayout from './base_term_layout';
-import DocumentReview from '../document_review';
+import baseTermData from './base-term-data';
+import BaseTermLayout from './base-term-layout';
+import DocumentReview from '../document-review';
 
 export default {
   name: 'TermOfSubstitution',
