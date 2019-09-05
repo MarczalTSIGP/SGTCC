@@ -7,7 +7,7 @@ class Professors::DashboardController < Professors::BaseController
   def index; end
 
   def report
-    dashboard = Dashboard::ProfessorReport.new(@professor)
+    dashboard = Dashboard::ProfessorReport.new(current_professor, @professor)
     render json: dashboard.report
   end
 

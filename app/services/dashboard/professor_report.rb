@@ -1,7 +1,8 @@
 class Dashboard::ProfessorReport
-  attr_reader :professor
+  attr_reader :professor, :current_professor
 
-  def initialize(professor)
+  def initialize(current_professor, professor)
+    @current_professor = current_professor
     @professor = professor
   end
 
@@ -22,13 +23,19 @@ class Dashboard::ProfessorReport
       approved: orientations.send(method, 'APPROVED').count,
       renewed: orientations.send(method, 'RENEWED').count,
       canceled: orientations.send(method, 'CANCELED').count,
-      links: orientations_link }
+      links: orientations_link(method) }
   end
 
-  def orientations_link
+  def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})
+    if @current_professor.responsible?
+      url = "responsible_professor_orientations_search_#{method}_path"
+      params_url = { id: @professor.id }
+    end
+
     Orientation.statuses.values.map do |status|
+      params_url['status'] = status
       url_helpers = Rails.application.routes.url_helpers
-      url_helpers.send('professors_orientations_search_history_path', status)
+      url_helpers.send(url, params_url)
     end
   end
 end

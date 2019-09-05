@@ -100,6 +100,14 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      get 'professors/(:id)/orientations/tcc_one',
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two',
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_tcc_two'
+
       put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
 
       get 'reports', to: 'dashboard#report', as: 'reports'
@@ -206,6 +214,16 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_two',
           as: 'calendars_search_tcc_two'
+
+      get 'professors/(:id)/orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_search_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_search_tcc_two'
     end
 
     namespace :professors do
