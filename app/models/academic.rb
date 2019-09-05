@@ -64,4 +64,11 @@ class Academic < ApplicationRecord
   def teps
     documents([true, false], DocumentType.tep.first)
   end
+
+  ## Method to LDAP Authentication
+  def self.find_through_ra(academic_register)
+    return Academic.find_by(ra: academic_register) unless academic_register.chr.eql?('a')
+
+    Academic.find_by(ra: academic_register[1..-1])
+  end
 end

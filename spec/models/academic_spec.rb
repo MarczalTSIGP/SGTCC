@@ -169,4 +169,16 @@ RSpec.describe Academic, type: :model do
       expect(academic.teps).to match_array(teps)
     end
   end
+
+  describe 'methods to ldap' do
+    let!(:academic) { create(:academic) }
+
+    it 'find by ra without a' do
+      expect(academic).to eql(Academic.find_through_ra(academic.ra))
+    end
+
+    it 'find by ra with a' do
+      expect(academic).to eql(Academic.find_through_ra("a#{academic.ra}"))
+    end
+  end
 end
