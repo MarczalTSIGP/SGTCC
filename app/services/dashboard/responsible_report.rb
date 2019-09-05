@@ -16,15 +16,17 @@ class Dashboard::ResponsibleReport
   def academics_report
     { total: Academic.count,
       orientations: {
-        all: { in_progress: academics_orientations('IN_PROGRESS', 2) },
+        all: { in_progress: academics_orientations('IN_PROGRESS') },
         tcc_one: { approved: academics_orientations('APPROVED', 1) },
         tcc_two: { approved: academics_orientations('APPROVED', 2) }
       } }
   end
 
-  def academics_orientations(status, tcc)
+  def academics_orientations(status, tcc = nil)
+    conditions = { status: status }
+    conditions['calendars'] = { tcc: tcc } if tcc.present?
     Academic.joins(orientations: [:calendar])
-            .where(orientations: { status: status, calendars: { tcc: tcc } }).size
+            .where(orientations: conditions).size
   end
 
   def orientations_report
