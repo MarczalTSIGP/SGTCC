@@ -16,7 +16,7 @@
         background-color="primary"
         :number="academics.orientations.all.in_progress"
         :title="title"
-        redirect="/responsible/academics"
+        redirect="/responsible/orientations/current_tcc_one"
       />
     </div>
 
@@ -26,7 +26,7 @@
         background-color="lime"
         :number="academics.orientations.tcc_one.approved"
         :title="title"
-        redirect="/responsible/academics"
+        redirect="/responsible/orientations/tcc_one/APPROVED/search"
       />
     </div>
 
@@ -36,7 +36,7 @@
         background-color="green"
         :number="academics.orientations.tcc_two.approved"
         :title="title"
-        redirect="/responsible/academics"
+        redirect="/responsible/orientations/tcc_two/APPROVED/search"
       />
     </div>
   </div>
