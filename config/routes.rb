@@ -266,6 +266,14 @@ Rails.application.routes.draw do
           to: 'supervisions#tcc_two',
           as: 'supervisions_tcc_two'
 
+      get 'supervisions/(:id)/documents',
+          to: 'supervisions#documents',
+          as: 'supervision_documents'
+
+      get 'supervisions/(:id)/documents/(:document_id)',
+          to: 'supervisions#document',
+          as: 'supervision_document'
+
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
           as: 'calendar_activities'

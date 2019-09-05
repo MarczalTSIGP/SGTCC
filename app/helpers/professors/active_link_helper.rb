@@ -16,7 +16,7 @@ module Professors::ActiveLinkHelper
   end
 
   def professors_supervisions_active_link?
-    supervisions_active_link?('professors')
+    supervisions_active_link?('professors') || supervisions_documents_link?('professors')
   end
 
   def professors_supervisions_history_active_link?

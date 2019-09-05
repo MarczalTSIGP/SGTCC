@@ -1,6 +1,6 @@
 class Professors::SupervisionsController < Professors::BaseController
   before_action :set_orientations
-  before_action :set_orientation, only: :show
+  before_action :set_orientation, only: [:show, :documents, :document]
 
   add_breadcrumb I18n.t('breadcrumbs.supervisions.history'),
                  :professors_supervisions_history_path,
@@ -34,6 +34,23 @@ class Professors::SupervisionsController < Professors::BaseController
     add_index_breadcrumb
     add_breadcrumb show_supervision_calendar_title(@orientation.calendar),
                    professors_supervision_path(@orientation)
+  end
+
+  def documents
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   professors_supervision_documents_path(@orientation)
+
+    @documents = @orientation.documents.with_relationships.page(params[:page])
+  end
+
+  def document
+    @document = @orientation.documents.find(params[:document_id])
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   professors_supervision_documents_path(@orientation)
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
+                   professors_supervision_document_path(@orientation, @document)
   end
 
   private

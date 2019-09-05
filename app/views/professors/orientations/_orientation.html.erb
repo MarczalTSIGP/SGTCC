@@ -11,10 +11,8 @@
       <% end %>
     <% end %>
 
-    <% unless orientation.documents.empty? %>
-      <%= link_to(professors_orientation_documents_path(orientation)) do %>
-        <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
-      <% end %>
+    <%= link_to(professors_orientation_documents_path(orientation)) do %>
+      <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
     <% end %>
 
     <% if orientation.can_be_edited? %>
