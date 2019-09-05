@@ -43,7 +43,7 @@
 
 <script>
 
-import OrientationsChart from '../orientations/orientations_chart';
+import OrientationsChart from '../orientations/orientations-chart';
 
 export default {
   name: 'ProfessorsOrientationsReport',
