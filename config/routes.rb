@@ -100,7 +100,17 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      get 'professors/(:id)/orientations/tcc_one',
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two',
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_tcc_two'
+
       put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
+
+      get 'reports', to: 'dashboard#report', as: 'reports'
 
       get 'professors/available',
           to: 'professors#available',
@@ -109,8 +119,6 @@ Rails.application.routes.draw do
       get 'professors/unavailable',
           to: 'professors#unavailable',
           as: 'professors_unavailable'
-
-      get 'reports', to: 'dashboard#report', as: 'professors_reports'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -210,6 +218,16 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_two',
           as: 'calendars_search_tcc_two'
+
+      get 'professors/(:id)/orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_search_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_search_tcc_two'
     end
 
     namespace :professors do
@@ -261,6 +279,8 @@ Rails.application.routes.draw do
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
+
+      get 'reports/(:professor_id)', to: 'dashboard#report', as: 'reports'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
