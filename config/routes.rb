@@ -531,6 +531,14 @@ Rails.application.routes.draw do
 
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
+      get 'supervisions/(:id)/documents',
+          to: 'supervisions#documents',
+          as: 'supervision_documents'
+
+      get 'supervisions/(:id)/documents/(:document_id)',
+          to: 'supervisions#document',
+          as: 'supervision_document'
+
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
           as: 'supervisions_tcc_one'
