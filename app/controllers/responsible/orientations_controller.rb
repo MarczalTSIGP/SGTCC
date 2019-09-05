@@ -4,7 +4,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   include OrientationCancel
   include OrientationEdit
 
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :document, :documents]
   before_action :set_calendar, only: [:show, :edit]
   before_action :responsible_can_edit, only: :edit
   before_action :can_destroy, only: :destroy
@@ -83,6 +83,23 @@ class Responsible::OrientationsController < Responsible::BaseController
     feminine_success_destroy_message
 
     redirect_to responsible_orientations_tcc_one_path
+  end
+
+  def documents
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   responsible_orientation_documents_path(@orientation)
+
+    @documents = @orientation.documents.with_relationships.page(params[:page])
+  end
+
+  def document
+    @document = @orientation.documents.find(params[:document_id])
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   responsible_orientation_documents_path(@orientation)
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
+                   responsible_orientation_document_path(@orientation, @document)
   end
 
   private

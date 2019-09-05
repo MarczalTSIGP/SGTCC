@@ -21,7 +21,9 @@
       <tr>
         <%= render('shared/no_results') if @documents.empty? %>
       </tr>
-      <%= render @documents %>
+      <% @documents.each do |document| %>
+        <%= render 'responsible/documents/document_orientation', document: document %>
+      <% end %>
     </tbody>
   </table>
 </div>
