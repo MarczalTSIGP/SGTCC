@@ -483,6 +483,14 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      get '/calendars/(:calendar_id)/orientations/(:id)/documents',
+          to: 'orientations#documents',
+          as: 'calendar_orientation_documents'
+
+      get '/calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'calendar_orientation_document'
+
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',

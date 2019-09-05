@@ -4,7 +4,7 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   before_action :set_orientations, only: :by_calendar
   before_action :set_title, only: :by_calendar
   before_action :set_index_breadcrumb
-  before_action :set_document_orienation_breadcrumb, only: [:document, :documents]
+  before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
 
   def by_calendar
     @orientations = @orientations.search(params[:term]).page(params[:page])
@@ -59,7 +59,7 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
                    tcc_one_professors_calendar_orientations_path(@calendar)
   end
 
-  def set_document_orienation_breadcrumb
+  def set_document_orientation_breadcrumb
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    tcc_one_professors_calendar_orientation_documents_path(@calendar, @orientation)
   end
