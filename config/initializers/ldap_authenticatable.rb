@@ -1,5 +1,6 @@
-if ENV['ldap.on'].eql?('true')
-  require './lib/ldap/ldap_authentication'
+require './lib/ldap/ldap_authentication'
+
+if SGTCC::LDAP.enable?
   require 'devise/strategies/authenticatable'
 
   module Devise
@@ -14,33 +15,20 @@ if ENV['ldap.on'].eql?('true')
           username = params[:professor][:username]
           password = params[:professor][:password]
 
-          user = Professor.find_by(username: username)
-          return success!(user) if user && SGTCC::LDAP.authenticate(username, password, :professors)
+          professor = Professor.find_by(username: username)
+          return success!(professor) if SGTCC::LDAP.authenticate(professor, password)
 
           fail(:invalid_login)
         end
 
         def authenticate_academic
-          username = normalize_ra_to_find
+          ra = params[:academic][:ra]
           password = params[:academic][:password]
 
-          user = Academic.find_by(ra: username)
-          username = normalize_ra_to_authenticate
-          return success!(user) if user && SGTCC::LDAP.authenticate(username, password, :academics)
+          academic = Academic.find_through_ra(ra)
+          return success!(academic) if SGTCC::LDAP.authenticate(academic, password)
 
           fail(:invalid_login)
-        end
-
-        def normalize_ra_to_find
-          ra = params[:academic][:ra]
-          return ra unless ra.chr.eql?('a')
-          ra[1..-1]
-        end
-
-        def normalize_ra_to_authenticate
-          ra = params[:academic][:ra]
-          return ra if ra.chr.eql?('a')
-          "a#{ra}"
         end
       end
     end

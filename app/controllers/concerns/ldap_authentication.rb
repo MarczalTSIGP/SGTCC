@@ -4,27 +4,15 @@ module LDAPAuthentication
   protected
 
   def update_resource(resource, params)
-    if ENV['ldap.on'].eql?('true') && authenticate(params[:current_password])
+    user = current_academic || current_professor
+
+    if SGTCC::LDAP.enable? &&
+       SGTCC::LDAP.authenticate(user, params[:current_password])
+
       params.delete(:current_password)
-      resource.update_without_password(params)
-    else
-      super
+      return resource.update_without_password(params)
     end
-  end
 
-  private
-
-  def authenticate(pwd)
-    require './lib/ldap/ldap_authentication'
-
-    user = if resource_name == :academic
-             "a#{current_academic.ra}"
-           else
-             current_professor.username
-           end
-
-    base = resource_name.to_s.pluralize
-    return false unless SGTCC::LDAP.authenticate(user, pwd, base)
-    true
+    super
   end
 end
