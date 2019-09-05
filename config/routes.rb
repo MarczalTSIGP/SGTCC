@@ -102,6 +102,8 @@ Rails.application.routes.draw do
 
       put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
 
+      get 'reports', to: 'dashboard#report', as: 'reports'
+
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'
@@ -109,8 +111,6 @@ Rails.application.routes.draw do
       get 'professors/unavailable',
           to: 'professors#unavailable',
           as: 'professors_unavailable'
-
-      get 'reports', to: 'dashboard#report', as: 'professors_reports'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -249,6 +249,8 @@ Rails.application.routes.draw do
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
+
+      get 'reports', to: 'dashboard#report', as: 'reports'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',

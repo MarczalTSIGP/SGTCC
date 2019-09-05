@@ -9,6 +9,7 @@ import OrientationRenew from '../components/orientations/orientation-renew';
 import OrientationStatus from '../components/orientations/orientation-status';
 import OrientationStatusFilter from '../components/orientations/orientation-status-filter';
 import ResponsibleDashboard from '../components/reports/responsible-dashboard';
+import ProfessorDashboard from '../components/reports/professor-dashboard';
 import Search from '../components/shared/search';
 import SignatureButton from '../components/signatures/signature-button';
 import SignatureDownloadButton from '../components/signatures/signature-download-button';
@@ -35,6 +36,7 @@ const components = {
   OrientationStatusFilter,
   ProfileImagePreview,
   ResponsibleDashboard,
+  ProfessorDashboard,
   Search,
   SignatureButton,
   SignatureConfirm,
