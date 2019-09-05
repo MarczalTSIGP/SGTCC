@@ -1,17 +1,18 @@
 require 'rails_helper'
 
-describe 'Orientation::documents', type: :feature, js: true do
-  let!(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:orientation) }
+describe 'Supervision::documents', type: :feature, js: true do
+  let!(:external_member) { create(:external_member) }
+  let!(:orientation) { create(:current_orientation_tcc_one) }
 
   before do
-    login_as(responsible, scope: :professor)
-    visit responsible_orientation_documents_path(orientation)
+    orientation.external_member_supervisors << external_member
+    login_as(external_member, scope: :external_member)
+    visit external_members_supervision_documents_path(orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation documents' do
-      let(:active_link) { responsible_orientations_tcc_one_path }
+      let(:active_link) { external_members_supervisions_tcc_one_path }
 
       it 'shows all the documents' do
         orientation.documents.each do |document|
