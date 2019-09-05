@@ -1,0 +1,8 @@
+<tr>
+  <%= render 'shared/documents/tbody', document: document %>
+  <td>
+    <%= link_to(external_members_supervision_document_path(document.orientation, document)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
+    <% end %>
+  </td>
+</tr>

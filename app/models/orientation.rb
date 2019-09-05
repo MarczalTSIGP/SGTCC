@@ -22,7 +22,7 @@ class Orientation < ApplicationRecord
 
   has_many :orientation_supervisors, dependent: :delete_all
   has_many :signatures, dependent: :destroy
-  has_many :documents, through: :signatures
+  has_many :documents, -> { select('DISTINCT ON (documents.id) documents.*') }, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
   has_many :professor_supervisors, class_name: 'Professor',

@@ -2,8 +2,7 @@
 <% provide(:head_title, t('breadcrumbs.documents.orientation')) %>
 
 <div class="text-right mt-3">
-  <%= page_entries_info @documents,
-    entry_name: t('entry_names.documents', count: @documents.size) %>
+  <%= page_entries_info @documents %>
 </div>
 
 <div class="table-striped mt-3 table-responsive w-100">
@@ -22,7 +21,9 @@
       <tr>
         <%= render('shared/no_results') if @documents.empty? %>
       </tr>
-      <%= render @documents %>
+      <% @documents.each do |document| %>
+        <%= render 'external_members/documents/document_supervision', document: document %>
+      <% end %>
     </tbody>
   </table>
 </div>

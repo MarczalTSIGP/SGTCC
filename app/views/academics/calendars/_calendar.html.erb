@@ -17,6 +17,9 @@
     <%= link_to(academics_calendar_activities_path(orientation.calendar)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
+    <%= link_to(academics_calendar_orientation_documents_path(orientation.calendar, orientation)) do %>
+      <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
+    <% end %>
   </td>
 </tr>
 

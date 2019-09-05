@@ -1,18 +1,17 @@
 require 'rails_helper'
 
 describe 'Orientation::documents', type: :feature, js: true do
-  let!(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:orientation) }
+  let!(:academic) { create(:academic) }
+  let!(:orientation) { create(:current_orientation_tcc_one, academic: academic) }
+  let(:active_link) { academics_calendars_path }
 
   before do
-    login_as(responsible, scope: :professor)
-    visit responsible_orientation_documents_path(orientation)
+    login_as(academic, scope: :academic)
+    visit academics_calendar_orientation_documents_path(orientation.calendar, orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation documents' do
-      let(:active_link) { responsible_orientations_tcc_one_path }
-
       it 'shows all the documents' do
         orientation.documents.each do |document|
           expect(page).to have_contents([document.orientation.short_title,
@@ -25,10 +24,11 @@ describe 'Orientation::documents', type: :feature, js: true do
 
     context 'when show the document by orientation' do
       let(:document) { orientation.documents.first }
-      let(:active_link) { responsible_orientations_tcc_one_path }
 
       before do
-        visit responsible_orientation_document_path(orientation, document)
+        visit academics_calendar_orientation_document_path(
+          orientation.calendar, orientation, document
+        )
       end
 
       it 'shows the document' do

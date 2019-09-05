@@ -1,17 +1,18 @@
 require 'rails_helper'
 
-describe 'Orientation::documents', type: :feature, js: true do
-  let!(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:orientation) }
+describe 'Supervision::documents', type: :feature, js: true do
+  let!(:professor) { create(:professor) }
+  let!(:orientation) { create(:current_orientation_tcc_one) }
 
   before do
-    login_as(responsible, scope: :professor)
-    visit responsible_orientation_documents_path(orientation)
+    orientation.professor_supervisors << professor
+    login_as(professor, scope: :professor)
+    visit professors_supervision_documents_path(orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation documents' do
-      let(:active_link) { responsible_orientations_tcc_one_path }
+      let(:active_link) { professors_supervisions_tcc_one_path }
 
       it 'shows all the documents' do
         orientation.documents.each do |document|
@@ -25,10 +26,10 @@ describe 'Orientation::documents', type: :feature, js: true do
 
     context 'when show the document by orientation' do
       let(:document) { orientation.documents.first }
-      let(:active_link) { responsible_orientations_tcc_one_path }
+      let(:active_link) { professors_supervisions_tcc_one_path }
 
       before do
-        visit responsible_orientation_document_path(orientation, document)
+        visit professors_supervision_document_path(orientation, document)
       end
 
       it 'shows the document' do

@@ -1,6 +1,5 @@
 class Responsible::DocumentsController < Responsible::BaseController
   before_action :set_document, only: :judgment
-  before_action :set_orientation, only: :orientation
 
   add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
                  :responsible_orientations_tcc_one_path,
@@ -16,21 +15,9 @@ class Responsible::DocumentsController < Responsible::BaseController
     end
   end
 
-  def orientation
-    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
-                   responsible_orientation_documents_path(@orientation)
-
-    documents = @orientation.documents.with_relationships.recent.uniq
-    @documents = Kaminari.paginate_array(documents).page(params[:page])
-  end
-
   private
 
   def set_document
     @document = Document.find(params[:id])
-  end
-
-  def set_orientation
-    @orientation = Orientation.find(params[:id])
   end
 end

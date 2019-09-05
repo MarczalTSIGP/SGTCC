@@ -1,20 +1,13 @@
 class Professors::OrientationsController < Professors::BaseController
-  before_action :set_orientation, only: [:show, :edit, :update]
-  before_action :set_orientations, only: [:tcc_one, :tcc_two, :history]
-  before_action :set_tcc_one_title, only: :tcc_one
-  before_action :set_tcc_two_title, only: :tcc_two
+  before_action :set_orientation, only: [:show, :edit, :update, :documents, :document]
+  before_action :set_document_orientation_breadcrumb, only: [:documents, :document]
+  before_action :select_orientations, only: [:tcc_one, :tcc_two, :history]
   before_action :professor_can_edit, only: :edit
   include OrientationEdit
 
-  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :professors_orientations_tcc_one_path,
-                 only: [:tcc_one]
-
-  add_breadcrumb I18n.t('breadcrumbs.orientations.index'),
-                 :professors_orientations_tcc_two_path,
-                 only: [:tcc_two]
-
   def tcc_one
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), professors_orientations_tcc_one_path
+    @title = orientation_calendar_title(Calendar.current_by_tcc_one)
     @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
     @search_url = professors_orientations_search_tcc_one_path
 
@@ -22,6 +15,8 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def tcc_two
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), professors_orientations_tcc_two_path
+    @title = orientation_calendar_title(Calendar.current_by_tcc_two)
     @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
     @search_url = professors_orientations_search_tcc_two_path
 
@@ -74,24 +69,26 @@ class Professors::OrientationsController < Professors::BaseController
     end
   end
 
+  def documents
+    @documents = @orientation.documents.with_relationships.page(params[:page])
+  end
+
+  def document
+    @document = @orientation.documents.find(params[:document_id])
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
+                   professors_orientation_document_path(@orientation, @document)
+  end
+
   private
 
   def set_orientation
     @orientation = current_professor.orientations.find(params[:id])
   end
 
-  def set_orientations
-    status = params[:status]
+  def select_orientations(status: params[:status])
     condition = status.present? ? { status: status } : {}
     @orientations = current_professor.orientations.where(condition)
-  end
-
-  def set_tcc_one_title
-    @title = orientation_calendar_title(Calendar.current_by_tcc_one)
-  end
-
-  def set_tcc_two_title
-    @title = orientation_calendar_title(Calendar.current_by_tcc_two)
   end
 
   def search_and_paginate(data)
@@ -99,12 +96,9 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def orientation_params
-    params.require(:orientation).permit(
-      :title, :calendar_id, :academic_id,
-      :advisor_id, :institution_id,
-      professor_supervisor_ids: [],
-      external_member_supervisor_ids: []
-    )
+    params.require(:orientation)
+          .permit(:title, :calendar_id, :academic_id, :advisor_id, :institution_id,
+                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
   end
 
   def add_index_breadcrumb
@@ -120,5 +114,11 @@ class Professors::OrientationsController < Professors::BaseController
   def current_tcc_index_link
     return professors_orientations_tcc_one_path if @orientation.calendar.tcc == 'one'
     professors_orientations_tcc_two_path
+  end
+
+  def set_document_orientation_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), current_tcc_index_link
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   professors_orientation_documents_path(@orientation)
   end
 end

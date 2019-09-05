@@ -4,11 +4,17 @@
     <%= link_to(professors_orientation_path(orientation)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
+
     <% unless orientation.meetings.empty? %>
       <%= link_to(professors_orientation_meetings_path(orientation)) do %>
         <i class="fe fe-clipboard" data-toggle="tooltip" title="Visualizar reuniões"></i>
       <% end %>
     <% end %>
+
+    <%= link_to(professors_orientation_documents_path(orientation)) do %>
+      <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
+    <% end %>
+
     <% if orientation.can_be_edited? %>
       <%= link_to(edit_professors_orientation_path(orientation)) do %>
         <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
