@@ -349,6 +349,18 @@ Rails.application.routes.draw do
           to: 'orientations#by_calendar',
           as: 'calendar_orientations'
 
+      get 'calendars/(:calendar_id)/orientations/(:id)',
+          to: 'orientations#show',
+          as: 'calendar_orientation'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/documents',
+          to: 'orientations#documents',
+          as: 'calendar_orientation_documents'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'calendar_orientation_document'
+
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'
@@ -370,10 +382,6 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
-
-      get 'calendars/(:calendar_id)/orientations/(:id)',
-          to: 'orientations#show',
-          as: 'calendar_orientation'
     end
   end
 
