@@ -86,6 +86,8 @@ pt-BR:
     documents:
       one: "documento"
       other: "documentos"
+  site:
+    sign_in: "Acessar SGTCC"
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
