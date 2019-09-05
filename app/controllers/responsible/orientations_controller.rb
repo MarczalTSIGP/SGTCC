@@ -6,8 +6,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   include OrientationDestroy
 
   before_action :set_orientation, only: [:show, :edit, :update, :destroy, :document, :documents]
+  before_action :set_calendar, only: [:show, :edit, :document, :documents]
   before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
-  before_action :set_calendar, only: [:show, :edit]
   before_action :responsible_can_edit, only: :edit
   before_action :responsible_can_destroy, only: :destroy
 
@@ -115,6 +115,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def set_document_orientation_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_tcc_index_path
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    responsible_orientation_documents_path(@orientation)
   end

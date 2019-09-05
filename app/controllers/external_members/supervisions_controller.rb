@@ -1,6 +1,7 @@
 class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   before_action :set_orientations
   before_action :set_orientation, only: [:show, :document, :documents]
+  before_action :set_document_orientation_breadcrumb, only: [:documents, :document]
   before_action :set_tcc_one_title, only: :tcc_one
   before_action :set_tcc_two_title, only: :tcc_two
 
@@ -37,17 +38,11 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   end
 
   def documents
-    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
-                   external_members_supervision_documents_path(@orientation)
-
     @documents = @orientation.documents.with_relationships.page(params[:page])
   end
 
   def document
     @document = @orientation.documents.find(params[:document_id])
-
-    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
-                   external_members_supervision_documents_path(@orientation)
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    external_members_supervision_document_path(@orientation, @document)
@@ -91,5 +86,11 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   def current_tcc_index_link
     return external_members_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
     external_members_supervisions_tcc_two_path
+  end
+
+  def set_document_orientation_breadcrumb
+    add_breadcrumb supervision_calendar_title(@orientation.calendar), current_tcc_index_link
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   external_members_supervision_documents_path(@orientation)
   end
 end

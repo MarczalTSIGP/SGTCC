@@ -1,7 +1,7 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :documents, :document]
   before_action :set_document_orientation_breadcrumb, only: [:documents, :document]
-  before_action :set_orientations, only: [:tcc_one, :tcc_two, :history]
+  before_action :select_orientations, only: [:tcc_one, :tcc_two, :history]
   before_action :professor_can_edit, only: :edit
   include OrientationEdit
 
@@ -86,8 +86,7 @@ class Professors::OrientationsController < Professors::BaseController
     @orientation = current_professor.orientations.find(params[:id])
   end
 
-  def set_orientations
-    status = params[:status]
+  def select_orientations(status: params[:status])
     condition = status.present? ? { status: status } : {}
     @orientations = current_professor.orientations.where(condition)
   end
@@ -118,6 +117,7 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def set_document_orientation_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), current_tcc_index_link
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    professors_orientation_documents_path(@orientation)
   end
