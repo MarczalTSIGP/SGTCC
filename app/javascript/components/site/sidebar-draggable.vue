@@ -63,7 +63,7 @@
 
 import Draggable from 'vuedraggable';
 import Sidebar from './sidebar';
-import sweetAlert from '../shared/helpers/sweet_alert';
+import sweetAlert from '../shared/helpers/sweet-alert';
 import linkActive from './helpers/link-active';
 
 export default {
