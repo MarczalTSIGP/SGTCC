@@ -1,6 +1,7 @@
 class Dashboard::ResponsibleReport
   def report
     { professors: professors_report,
+      academics: academics_report,
       orientations: orientations_report }
   end
 
@@ -10,6 +11,20 @@ class Dashboard::ResponsibleReport
     { total: Professor.count,
       available: Professor.available_advisor.count,
       unavailable: Professor.unavailable_advisor.count }
+  end
+
+  def academics_report
+    { total: Academic.count,
+      orientations: {
+        all: { in_progress: academics_orientations('IN_PROGRESS', 2) },
+        tcc_one: { approved: academics_orientations('APPROVED', 1) },
+        tcc_two: { approved: academics_orientations('APPROVED', 2) }
+      } }
+  end
+
+  def academics_orientations(status, tcc)
+    Academic.joins(orientations: [:calendar])
+            .where(orientations: { status: status, calendars: { tcc: tcc } }).size
   end
 
   def orientations_report
