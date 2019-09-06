@@ -8,7 +8,9 @@
         <%= f.input :url, placeholder: t('placeholders.page.url') %>
       </div>
       <div class="col-sm-4">
-        <%= f.input :fa_icon %>
+        <fontawesome-picker
+          :icon="<%= @page&.fa_icon.to_json %>"
+          :errors="<%= @page.errors[:fa_icon] %>" />
       </div>
     </div>
     <%= f.input :publish, as: :checkbox_tabler %>

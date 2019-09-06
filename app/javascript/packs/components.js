@@ -2,6 +2,7 @@ import Datetimepicker from '../components/shared/datetimepicker';
 import DocumentStatus from '../components/signatures/document-status';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
+import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
 import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
@@ -31,6 +32,7 @@ const components = {
   DocumentStatus,
   ExaminationBoardStatus,
   FlashMessages,
+  FontawesomePicker,
   MeetingView,
   OrientationCancel,
   OrientationRenew,
