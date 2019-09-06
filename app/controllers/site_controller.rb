@@ -2,10 +2,15 @@ class SiteController < ApplicationController
   layout 'layouts/site/application'
 
   before_action :set_page, only: :page
+  before_action :set_pages, only: :index
   before_action :set_site, only: :sidebar
 
   def index
-    redirect_to action: :page, page: 'intro'
+    if @pages.present?
+      redirect_to action: :page, page: @pages.first.url
+    else
+      render 'site/page'
+    end
   end
 
   def page; end
@@ -15,6 +20,10 @@ class SiteController < ApplicationController
   end
 
   private
+
+  def set_pages
+    @pages = Page.publisheds
+  end
 
   def set_site
     @site = Site.first
