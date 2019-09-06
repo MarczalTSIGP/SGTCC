@@ -5,7 +5,7 @@ class SiteController < ApplicationController
   before_action :set_site, only: [:sidebar, :update_sidebar]
 
   def index
-    redirect_to action: :post, post: 'intro'
+    redirect_to action: :page, page: 'intro'
   end
 
   def page; end

@@ -625,5 +625,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '(:post)', to: 'site#post', as: 'site_post'
+  get '(:page)', to: 'site#page', as: 'site_page'
 end
