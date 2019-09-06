@@ -107,7 +107,7 @@ export default {
     },
 
     setCategories() {
-      this.chartOptions.xaxis.categories = this.data.years;
+      this.chartOptions.xaxis.categories = this.data[0].data.years;
     },
 
     setMaxValue() {
