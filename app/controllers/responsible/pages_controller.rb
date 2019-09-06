@@ -57,6 +57,8 @@ class Responsible::PagesController < Responsible::BaseController
     redirect_to responsible_pages_path
   end
 
+  def order; end
+
   private
 
   def set_page

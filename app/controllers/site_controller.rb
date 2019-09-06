@@ -11,11 +11,11 @@ class SiteController < ApplicationController
   def page; end
 
   def sidebar
-    render json: @site.sidebar
+    render json: Page.ordered
   end
 
   def update_sidebar
-    render json: @site.update(sidebar: params[:data])
+    render json: Page.update_menu_order(params[:data])
   end
 
   private

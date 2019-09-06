@@ -88,7 +88,7 @@ pt-BR:
       other: "documentos"
   site:
     sign_in: "Acessar SGTCC"
-    all_rights_reserved: "Todos os direitos reservados"
+    all_rights_reserved: "Todos os direitos reservados."
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -193,11 +193,13 @@ pt-BR:
     site:
       configs: "Configurações"
       pages: "Páginas"
+      menu_order: "Ordernar menu"
     pages:
       index: "Páginas"
       edit: "Editar página"
       show: "Visualizar página"
       new: "Nova página"
+      order: "Ordernar menu"
     tcc:
       one:
         index: "Atividades de TCC 1"

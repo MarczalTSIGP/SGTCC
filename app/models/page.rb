@@ -21,6 +21,8 @@ class Page < ApplicationRecord
   validates :content,
             presence: true
 
+  scope :ordered, -> { order(:order) }
+
   before_save do
     url.downcase!
     self.order = Page.maximum('order').to_i + 1 if order.blank?
@@ -28,5 +30,13 @@ class Page < ApplicationRecord
 
   def site
     Site.first
+  end
+
+  def self.update_menu_order(items)
+    pages_ids = items.map { |item| item['id'] }
+    pages = find(pages_ids)
+    pages.map.with_index do |page, index|
+      page.update(order: index + 1)
+    end
   end
 end

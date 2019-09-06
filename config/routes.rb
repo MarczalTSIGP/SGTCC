@@ -123,6 +123,8 @@ Rails.application.routes.draw do
 
       get 'reports', to: 'dashboard#report', as: 'reports'
 
+      get 'site/pages/order', to: 'pages#order', as: 'pages_order'
+
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'

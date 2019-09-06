@@ -1,96 +1,59 @@
 <template>
-  <div v-if="hasPermission">
-    <draggable
-      v-model="pages"
-      class="list-group"
-      tag="ul"
-      @start="isDragging = true"
-      @end="isDragging = false"
-    >
-      <div
-        v-for="page in pages"
-        :key="page.order"
-        class="list-group list-group-transparent mb-0"
-      >
-        <a
-          aria-current="page"
-          :href="page.url"
-          :class="aClass(page.url)"
+  <div class="row">
+    <div class="mx-auto col-md-4 col-lg-6">
+      <div class="card">
+        <draggable
+          v-model="pages"
+          class="list-group"
+          tag="ul"
+          @start="isDragging = true"
+          @end="isDragging = false"
         >
-          <span class="icon mr-3">
-            <i :class="`fe fe-${page.icon}`" />
-          </span>
-          {{ page.name }}
-          <i
-            v-if="editable"
-            class="ml-3 fa fa-list-ul"
-            :style="{ fontSize: '8px' }"
-          />
-        </a>
+          <div
+            v-for="page in pages"
+            :key="page.order"
+            class="list-group list-group-transparent mb-0"
+          >
+            <span class="list-group-item list-group-item-action">
+              <span class="icon mr-3">
+                <i :class="`fe fe-${page.fa_icon}`" />
+              </span>
+              {{ page.menu_title }}
+              <i
+                class="ml-3 fa fa-list-ul"
+                :style="{ fontSize: '8px' }"
+              />
+            </span>
+          </div>
+        </draggable>
       </div>
-    </draggable>
 
-    <button
-      v-if="!editable"
-      class="my-3 btn btn-block btn-outline-primary"
-      @click="editSidebar()"
-    >
-      Editar sidebar
-    </button>
-
-    <button
-      v-if="editable"
-      class="my-3 btn btn-block btn-outline-primary"
-      @click="updateSidebar()"
-    >
-      Atualizar sidebar
-    </button>
-
-    <button
-      v-if="editable"
-      class="btn btn-block btn-outline-danger"
-      @click="close()"
-    >
-      Cancelar
-    </button>
-  </div>
-  <div v-else>
-    <sidebar :pages="pages" />
+      <button
+        class="my-3 btn btn-block btn-outline-primary"
+        @click="updateSidebar()"
+      >
+        Atualizar menu
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 
 import Draggable from 'vuedraggable';
-import Sidebar from './sidebar';
 import sweetAlert from '../shared/helpers/sweet-alert';
-import linkActive from './helpers/link-active';
 
 export default {
   name: 'SidebarDraggable',
 
-  components: {
-    Draggable,
-    Sidebar
-  },
+  components: { Draggable },
 
-  mixins: [ sweetAlert, linkActive ],
-
-  props: {
-    hasPermission: {
-      type: Boolean,
-      required: false,
-      default() {
-        return false;
-      }
-    },
-  },
+  mixins: [ sweetAlert ],
 
   data() {
     return {
       sidebarUrl: '/sidebar',
       updateSidebarUrl: '/update-sidebar',
-      editable: false,
       pages: [],
     };
   },
@@ -106,35 +69,18 @@ export default {
     },
 
     async updateSidebar() {
-      const sidebarOrdered = this.pages.map((item, index) => {
-        return this.sidebarObject(item, index);
-      });
-
-      const data = { data: sidebarOrdered };
+      const data = { data: this.getSidebarOrdered() };
       const response = await this.$axios.put(this.updateSidebarUrl, data);
 
       if(response.data) {
-        this.showSuccessMessage('Sidebar atualizada com sucesso!');
+        this.showSuccessMessage('Menu atualizado com sucesso!');
       }
-
-      this.editable = false;
     },
 
-    sidebarObject(item, index) {
-      return {
-        name: item.name,
-        icon: item.icon,
-        url: item.url,
-        order: index + 1
-      };
-    },
-
-    editSidebar() {
-      this.editable = true;
-    },
-
-    close() {
-      this.editable = false;
+    getSidebarOrdered() {
+      return this.pages.map((item) => {
+        return { id: item.id };
+      });
     },
   },
 };
