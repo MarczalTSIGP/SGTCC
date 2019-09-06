@@ -1,17 +1,17 @@
-class Post < ApplicationRecord
+class Page < ApplicationRecord
   include Searchable
 
-  searchable title: { unaccent: true }
+  searchable menu_title: { unaccent: true }
 
   validates :url,
             presence: true,
             uniqueness: { case_sensitive: false },
             format: {
               with: /\A^[a-z-]+$\z/i,
-              message: I18n.t('activerecord.errors.models.post.attributes.url.invalid_format')
+              message: I18n.t('activerecord.errors.models.page.attributes.url.invalid_format')
             }
 
-  validates :title,
+  validates :menu_title,
             presence: true,
             uniqueness: { case_sensitive: false }
 
@@ -23,7 +23,7 @@ class Post < ApplicationRecord
 
   before_save do
     url.downcase!
-    self.identifier = Post.maximum('identifier').to_i + 1 if identifier.blank?
+    self.identifier = Page.maximum('identifier').to_i + 1 if identifier.blank?
   end
 
   after_save do
@@ -31,10 +31,10 @@ class Post < ApplicationRecord
 
     if sidebar.present?
       remove_from_sidebar(sidebar)
-      new_sidebar = sidebar << select_post_object
+      new_sidebar = sidebar << select_page_object
       site.update(sidebar: new_sidebar)
     else
-      site.update(sidebar: [select_post_object(1)])
+      site.update(sidebar: [select_page_object(1)])
     end
   end
 
@@ -51,11 +51,11 @@ class Post < ApplicationRecord
   private
 
   def remove_from_sidebar(sidebar)
-    post = sidebar.select { |item| item['identifier'] == identifier }
-    sidebar.delete_at(post.first['order'] - 1) if post.present?
+    page = sidebar.select { |item| item['identifier'] == identifier }
+    sidebar.delete_at(page.first['order'] - 1) if page.present?
   end
 
-  def select_post_object(order = Post.all.size)
-    { name: title, url: url, icon: fa_icon, order: order, identifier: identifier }
+  def select_page_object(order = Page.all.size)
+    { name: menu_title, url: url, icon: fa_icon, order: order, identifier: identifier }
   end
 end

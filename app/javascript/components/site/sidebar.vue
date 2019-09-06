@@ -1,19 +1,19 @@
 <template>
   <div>
     <div
-      v-for="post in posts"
-      :key="post.order"
+      v-for="page in pages"
+      :key="page.order"
       class="list-group list-group-transparent mb-0"
     >
       <a
         aria-current="page"
-        :href="post.url"
-        :class="aClass(post.url)"
+        :href="page.url"
+        :class="aClass(page.url)"
       >
         <span class="icon mr-3">
-          <i :class="`fe fe-${post.icon}`" />
+          <i :class="`fe fe-${page.icon}`" />
         </span>
-        {{ post.name }}
+        {{ page.name }}
       </a>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   mixins: [linkActive],
 
   props: {
-    posts: {
+    pages: {
       type: Array,
       required: true
     },

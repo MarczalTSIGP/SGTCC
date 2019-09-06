@@ -1,14 +1,14 @@
 class SiteController < ApplicationController
   layout 'layouts/site/application'
 
-  before_action :set_post, only: :post
+  before_action :set_page, only: :page
   before_action :set_site, only: [:sidebar, :update_sidebar]
 
   def index
     redirect_to action: :post, post: 'intro'
   end
 
-  def post; end
+  def page; end
 
   def sidebar
     render json: @site.sidebar
@@ -24,8 +24,8 @@ class SiteController < ApplicationController
     @site = Site.first
   end
 
-  def set_post
-    @post = Post.find_by(url: params[:post])
-    return not_found if @post.blank?
+  def set_page
+    @page = Page.find_by(url: params[:page])
+    return not_found if @page.blank?
   end
 end

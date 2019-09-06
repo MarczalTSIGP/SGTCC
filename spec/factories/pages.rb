@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :post do
-    sequence(:title) { |n| "Post #{n}" }
+  factory :page do
+    sequence(:menu_title) { |n| "Page #{n}" }
     url { Faker::Name.first_name.parameterize }
     content { Faker::Lorem.paragraph }
     fa_icon { 'home' }

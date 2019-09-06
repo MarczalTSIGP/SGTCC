@@ -1,0 +1,55 @@
+<% provide(:page_title, t('breadcrumbs.pages.show')) %>
+<% provide(:head_title, t('breadcrumbs.pages.show')) %>
+
+<div class="card">
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('menu_title') %>:
+      </strong>
+      <%= @page.menu_title %>
+    </p>
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('url') %>:
+      </strong>
+      <%= @page.url %>
+    </p>
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('fa_icon') %>:
+      </strong>
+      <%= @page.fa_icon %>
+    </p>
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('content') %>:
+      </strong>
+      <div class="form-fieldset">
+        <vue-simple-markdown source="<%= @page.content %>" />
+      </div>
+    </p>
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@page.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Page.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@page.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    responsible_pages_path,
+    class: 'btn btn-secondary' %>
+
+  <%= link_to t('simple_form.buttons.edit'),
+    edit_responsible_page_path(@page),
+    class: 'btn btn-primary ml-auto' %>
+</div>

@@ -1,15 +1,15 @@
 <tr>
-  <td><%= post.title %></td>
-  <td><%= short_date(post.created_at) %></td>
-  <td><%= short_date(post.updated_at) %></td>
+  <td><%= page.menu_title %></td>
+  <td><%= short_date(page.created_at) %></td>
+  <td><%= short_date(page.updated_at) %></td>
   <td>
-    <%= link_to(responsible_post_path(post)) do %>
+    <%= link_to(responsible_page_path(page)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
     <% end %>
-    <%= link_to(edit_responsible_post_path(post)) do %>
+    <%= link_to(edit_responsible_page_path(page)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
     <% end %>
-    <%= link_to responsible_post_path(post),
+    <%= link_to responsible_page_path(page),
       method: :delete,
       data: { confirm: t('prompt.confirm') },
       class: 'destroy' do %>

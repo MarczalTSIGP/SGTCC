@@ -1,11 +1,11 @@
-<%= simple_form_for [:responsible, @post] do |f| %>
+<%= simple_form_for [:responsible, @page] do |f| %>
   <div class="form-inputs">
     <div class="row">
       <div class="col-sm-4">
-        <%= f.input :title %>
+        <%= f.input :menu_title %>
       </div>
       <div class="col-sm-4">
-        <%= f.input :url, placeholder: t('placeholders.post.url') %>
+        <%= f.input :url, placeholder: t('placeholders.page.url') %>
       </div>
       <div class="col-sm-4">
         <%= f.input :fa_icon %>
@@ -16,7 +16,7 @@
 
   <div class="d-flex">
     <%= link_to t('simple_form.buttons.back'),
-      responsible_posts_path,
+      responsible_pages_path,
       class: 'btn btn-secondary' %>
 
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>

@@ -1,26 +1,26 @@
 <template>
   <div v-if="hasPermission">
     <draggable
-      v-model="posts"
+      v-model="pages"
       class="list-group"
       tag="ul"
       @start="isDragging = true"
       @end="isDragging = false"
     >
       <div
-        v-for="post in posts"
-        :key="post.order"
+        v-for="page in pages"
+        :key="page.order"
         class="list-group list-group-transparent mb-0"
       >
         <a
           aria-current="page"
-          :href="post.url"
-          :class="aClass(post.url)"
+          :href="page.url"
+          :class="aClass(page.url)"
         >
           <span class="icon mr-3">
-            <i :class="`fe fe-${post.icon}`" />
+            <i :class="`fe fe-${page.icon}`" />
           </span>
-          {{ post.name }}
+          {{ page.name }}
           <i
             v-if="editable"
             class="ml-3 fa fa-list-ul"
@@ -55,7 +55,7 @@
     </button>
   </div>
   <div v-else>
-    <sidebar :posts="posts" />
+    <sidebar :pages="pages" />
   </div>
 </template>
 
@@ -91,7 +91,7 @@ export default {
       sidebarUrl: '/sidebar',
       updateSidebarUrl: '/update-sidebar',
       editable: false,
-      posts: [],
+      pages: [],
     };
   },
 
@@ -102,11 +102,11 @@ export default {
   methods: {
     async setSidebar() {
       const response = await this.$axios.post(this.sidebarUrl);
-      this.posts = response.data;
+      this.pages = response.data;
     },
 
     async updateSidebar() {
-      const sidebarOrdered = this.posts.map((item, index) => {
+      const sidebarOrdered = this.pages.map((item, index) => {
         return this.sidebarObject(item, index);
       });
 

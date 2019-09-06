@@ -86,7 +86,7 @@ Rails.application.routes.draw do
                 only: [:edit, :update],
                 constraints: { id: /[0-9]+/ }
 
-      resources :posts,
+      resources :pages,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -240,10 +240,10 @@ Rails.application.routes.draw do
           to: 'professors#tcc_two',
           as: 'professor_orientations_search_tcc_two'
 
-      get 'posts/search/(:term)/(page/:page)',
+      get 'pages/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
-          to: 'posts#index',
-          as: 'posts_search'
+          to: 'pages#index',
+          as: 'pages_search'
     end
 
     namespace :professors do

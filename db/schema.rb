@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_171255) do
+ActiveRecord::Schema.define(version: 2019_09_06_112639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(version: 2019_09_03_171255) do
     t.index ["institution_id"], name: "index_orientations_on_institution_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.string "title"
+  create_table "pages", force: :cascade do |t|
+    t.string "menu_title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

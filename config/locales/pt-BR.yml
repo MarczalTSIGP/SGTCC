@@ -192,12 +192,12 @@ pt-BR:
         show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
     site:
       configs: "Configurações"
-      posts: "Posts"
-    posts:
-      index: "Posts"
-      edit: "Editar post"
-      show: "Visualizar post"
-      new: "Novo post"
+      pages: "Páginas"
+    pages:
+      index: "Páginas"
+      edit: "Editar página"
+      show: "Visualizar página"
+      new: "Nova página"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -246,7 +246,7 @@ pt-BR:
   activerecord:
     errors:
       models:
-        post:
+        page:
           attributes:
             url:
               invalid_format: "formato inválido só é possível utilizar letras e hífen na composição da url"
@@ -300,9 +300,9 @@ pt-BR:
         other: "Bancas de defesa"
       site:
         one: "Site"
-      post:
-        one: "Post"
-        other: "Posts"
+      page:
+        one: "Página"
+        other: "Páginas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -395,14 +395,15 @@ pt-BR:
         <<: *commons
       site:
         <<: *commons
-      post:
+      page:
         url: "URL"
+        menu_title: "Título no menu"
         fa_icon: "Ícone do font awesome"
         <<: *commons
   placeholders:
     meetings:
       content: "Discutido: \n\n\nTarefas para o acadêmico: \n\n\nTarefas para o orientador: \n\n\nConcluído: "
-    post:
+    page:
       url: "Ex: professores, documentos-do-tcc, academicos"
   helpers:
     no_results: 'Nenhum resultado encontrado.'

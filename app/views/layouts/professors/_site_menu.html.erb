@@ -3,12 +3,12 @@
   <%= t('views.sidebar.site') %>
 </span>
 
-<%= active_link_to(responsible_posts_path,
+<%= active_link_to(responsible_pages_path,
                    class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
     <%= icon('fas', 'pencil-alt') %>
   </span>
-  <%= t('breadcrumbs.site.posts') %>
+  <%= t('breadcrumbs.site.pages') %>
 <% end %>
 
 <% if Site.first %>
