@@ -10,7 +10,7 @@
         </span>
         <div>
           <h4 class="m-0">
-            {{ number }} <small>Professores</small>
+            {{ number }} <small>{{ title }}</small>
           </h4>
           <small class="text-muted">
             {{ label }}
@@ -24,7 +24,7 @@
 <script>
 
 export default {
-  name: 'ProfessorsNumber',
+  name: 'CardReportNumber',
 
   props: {
     backgroundColor: {
@@ -44,6 +44,11 @@ export default {
 
     number: {
       type: Number,
+      required: true
+    },
+
+    title: {
+      type: String,
       required: true
     },
   },
