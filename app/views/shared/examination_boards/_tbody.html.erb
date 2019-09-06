@@ -1,6 +1,8 @@
 <td class="text-center">
   <examination-board-status
-    :date="<%= I18n.l(examination_board.date, format: :intl).to_json %>" />
+    date="<%= I18n.l(examination_board.date, format: :intl) %>"
+    time="<%= I18n.l(examination_board.date, format: :time) %>"
+    distance-in-words="<%= distance_of_time_in_words(datetime(examination_board.date), Time.current) %>" />
 </td>
 <td>
   <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
