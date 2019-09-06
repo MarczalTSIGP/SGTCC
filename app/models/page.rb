@@ -23,39 +23,10 @@ class Page < ApplicationRecord
 
   before_save do
     url.downcase!
-    self.identifier = Page.maximum('identifier').to_i + 1 if identifier.blank?
-  end
-
-  after_save do
-    sidebar = site.sidebar
-
-    if sidebar.present?
-      remove_from_sidebar(sidebar)
-      new_sidebar = sidebar << select_page_object
-      site.update(sidebar: new_sidebar)
-    else
-      site.update(sidebar: [select_page_object(1)])
-    end
-  end
-
-  after_destroy do
-    sidebar = site.sidebar
-    remove_from_sidebar(sidebar)
-    site.update(sidebar: sidebar)
+    self.order = Page.maximum('order').to_i + 1 if order.blank?
   end
 
   def site
     Site.first
-  end
-
-  private
-
-  def remove_from_sidebar(sidebar)
-    page = sidebar.select { |item| item['identifier'] == identifier }
-    sidebar.delete_at(page.first['order'] - 1) if page.present?
-  end
-
-  def select_page_object(order = Page.all.size)
-    { name: menu_title, url: url, icon: fa_icon, order: order, identifier: identifier }
   end
 end
