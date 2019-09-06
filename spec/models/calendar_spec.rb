@@ -191,21 +191,21 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
-  describe 'current_by_tcc_one?' do
+  describe '#current_by_tcc_one?' do
     it 'returns the value if the calendar is the current by tcc one' do
       calendar = create(:current_calendar_tcc_one)
       expect(Calendar.current_by_tcc_one?(calendar)).to eq(true)
     end
   end
 
-  describe 'current_by_tcc_two?' do
+  describe '#current_by_tcc_two?' do
     it 'returns the value if the calendar is the current by tcc two' do
       calendar = create(:current_calendar_tcc_two)
       expect(Calendar.current_by_tcc_two?(calendar)).to eq(true)
     end
   end
 
-  describe 'current_calendar?' do
+  describe '#current_calendar?' do
     it 'returns true for the current calendar' do
       calendar = create(:current_calendar_tcc_two)
       expect(Calendar.current_calendar?(calendar)).to eq(true)
@@ -214,6 +214,44 @@ RSpec.describe Calendar, type: :model do
     it 'returns false for the current calendar' do
       calendar = create(:calendar)
       expect(Calendar.current_calendar?(calendar)).to eq(false)
+    end
+  end
+
+  describe '#by_year_and_tcc' do
+    context 'when returns the calendar by first year and first semester' do
+      let!(:calendar_semester_one) { create(:current_calendar_tcc_two, semester: 'one') }
+
+      it 'returns the calendar' do
+        expect(Calendar.by_first_year_and_tcc('two')).to eq(calendar_semester_one)
+      end
+    end
+
+    context 'when returns the calendar by first year and second semester' do
+      let!(:calendar_semester_two) { create(:current_calendar_tcc_two, semester: 'two') }
+
+      it 'returns the calendar' do
+        expect(Calendar.by_first_year_and_tcc('two')).to eq(calendar_semester_two)
+      end
+    end
+  end
+
+  describe '#approved_orientations_report' do
+    let!(:first_calendar) { create(:current_calendar_tcc_two, semester: 'one') }
+    let!(:second_calendar) { create(:current_calendar_tcc_two, semester: 'two') }
+
+    let(:years) { [] }
+    let(:total) { [] }
+
+    let(:calendars) { [first_calendar, second_calendar] }
+    let(:status) { 'APPROVED' }
+
+    it 'returns the list of approved orientations' do
+      calendars.each do |calendar|
+        years.push(calendar.year_with_semester)
+        total.push(calendar.orientations.where(status: status).size)
+      end
+      report = { years: years, total: total }
+      expect(Calendar.orientations_report_by_status(status)).to eq(report)
     end
   end
 end

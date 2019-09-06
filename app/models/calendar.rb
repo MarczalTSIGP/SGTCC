@@ -2,6 +2,7 @@ class Calendar < ApplicationRecord
   include Searchable
   include Tcc
   include Semester
+  include CurrentCalendar
 
   searchable :year
 
@@ -64,38 +65,6 @@ class Calendar < ApplicationRecord
     search_by_tcc(tccs[:two], page, term)
   end
 
-  def self.current_by_tcc_one
-    find_by(year: current_year, semester: current_semester, tcc: tccs[:one])
-  end
-
-  def self.current_by_tcc_two
-    find_by(year: current_year, semester: current_semester, tcc: tccs[:two])
-  end
-
-  def self.current_by_tcc_one?(calendar)
-    calendar&.id == current_by_tcc_one&.id
-  end
-
-  def self.current_by_tcc_two?(calendar)
-    calendar&.id == current_by_tcc_two&.id
-  end
-
-  def self.current_calendar?(calendar)
-    current_by_tcc_one?(calendar) || current_by_tcc_two?(calendar)
-  end
-
-  def self.current_year
-    I18n.l(Time.current, format: :year)
-  end
-
-  def self.current_month
-    I18n.l(Time.current, format: :month)
-  end
-
-  def self.current_semester
-    current_month.to_i <= 6 ? 1 : 2
-  end
-
   def self.select_data(tcc)
     where(tcc: tcc).order({ year: :desc }, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester]
@@ -106,6 +75,24 @@ class Calendar < ApplicationRecord
     all.order({ year: :desc }, :tcc, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester_and_tcc]
     end
+  end
+
+  def self.by_first_year_and_tcc(tcc)
+    first_year = minimum('year')
+    first_calendar = find_by(year: first_year, semester: 'one', tcc: tcc)
+    return first_calendar if first_calendar.present?
+    find_by(year: first_year, semester: 'two', tcc: tcc)
+  end
+
+  def self.orientations_report_by_status(status, years: [], total: [])
+    calendar = by_first_year_and_tcc('two')
+    loop do
+      break if calendar.blank?
+      years.push(calendar.year_with_semester)
+      total.push(calendar.orientations.where(status: status).size)
+      calendar = next_semester(calendar)
+    end
+    { years: years, total: total }
   end
 
   private
