@@ -10,10 +10,10 @@
       <orientations-report :data="report.orientations" />
     </div>
     <div class="col-12">
-      <professors-ranking :ranking="report.orientations.ranking" />
+      <professors-report :professors="report.professors" />
     </div>
     <div class="col-12">
-      <professors-report :professors="report.professors" />
+      <professors-ranking :ranking="report.orientations.ranking" />
     </div>
   </div>
 </template>
