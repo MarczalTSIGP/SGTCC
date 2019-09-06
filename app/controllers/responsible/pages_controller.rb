@@ -57,6 +57,10 @@ class Responsible::PagesController < Responsible::BaseController
     redirect_to responsible_pages_path
   end
 
+  def update_order
+    render json: Page.update_menu_order(params[:data])
+  end
+
   def order; end
 
   private

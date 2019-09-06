@@ -50,10 +50,16 @@ export default {
 
   mixins: [ sweetAlert ],
 
+  props: {
+    updateSidebarUrl: {
+      type: String,
+      required: true
+    },
+  },
+
   data() {
     return {
       sidebarUrl: '/sidebar',
-      updateSidebarUrl: '/update-sidebar',
       pages: [],
     };
   },

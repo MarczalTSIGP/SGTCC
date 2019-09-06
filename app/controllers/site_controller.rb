@@ -2,7 +2,7 @@ class SiteController < ApplicationController
   layout 'layouts/site/application'
 
   before_action :set_page, only: :page
-  before_action :set_site, only: [:sidebar, :update_sidebar]
+  before_action :set_site, only: :sidebar
 
   def index
     redirect_to action: :page, page: 'intro'
@@ -12,10 +12,6 @@ class SiteController < ApplicationController
 
   def sidebar
     render json: Page.ordered
-  end
-
-  def update_sidebar
-    render json: Page.update_menu_order(params[:data])
   end
 
   private

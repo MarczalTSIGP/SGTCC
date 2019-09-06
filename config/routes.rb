@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
 
   post '/sidebar', to: 'site#sidebar', as: 'site_sidebar'
-  put '/update-sidebar', to: 'site#update_sidebar', as: 'site_update-sidebar'
 
   #========================================
   # Responsible
@@ -124,6 +123,7 @@ Rails.application.routes.draw do
       get 'reports', to: 'dashboard#report', as: 'reports'
 
       get 'site/pages/order', to: 'pages#order', as: 'pages_order'
+      put 'site/sidebar/update', to: 'pages#update_order', as: 'update_sidebar'
 
       get 'professors/available',
           to: 'professors#available',
