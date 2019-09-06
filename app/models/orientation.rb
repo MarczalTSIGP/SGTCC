@@ -5,6 +5,8 @@ class Orientation < ApplicationRecord
   include OrientationJoin
   include OrientationOption
   include OrientationDocuments
+  include OrientationReport
+  include OrientationValidation
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -20,7 +22,7 @@ class Orientation < ApplicationRecord
 
   has_many :orientation_supervisors, dependent: :delete_all
   has_many :signatures, dependent: :destroy
-  has_many :documents, through: :signatures
+  has_many :documents, -> { select('DISTINCT ON (documents.id) documents.*') }, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
   has_many :professor_supervisors, class_name: 'Professor',
@@ -62,14 +64,6 @@ class Orientation < ApplicationRecord
 
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
-  end
-
-  def validates_supervisor_ids
-    return true unless professor_supervisor_ids.include?(advisor_id)
-    message = I18n.t('activerecord.errors.models.orientation.attributes.supervisors.advisor',
-                     advisor: advisor.name)
-    errors.add(:professor_supervisors, message)
-    false
   end
 
   def supervisors

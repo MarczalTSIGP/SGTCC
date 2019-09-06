@@ -3,11 +3,13 @@ class Responsible::OrientationsController < Responsible::BaseController
   include OrientationRenew
   include OrientationCancel
   include OrientationEdit
+  include OrientationDestroy
 
-  before_action :set_orientation, only: [:show, :edit, :update, :destroy]
-  before_action :set_calendar, only: [:show, :edit]
+  before_action :set_orientation, only: [:show, :edit, :update, :destroy, :document, :documents]
+  before_action :set_calendar, only: [:show, :edit, :document, :documents]
+  before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
   before_action :responsible_can_edit, only: :edit
-  before_action :can_destroy, only: :destroy
+  before_action :responsible_can_destroy, only: :destroy
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -85,6 +87,17 @@ class Responsible::OrientationsController < Responsible::BaseController
     redirect_to responsible_orientations_tcc_one_path
   end
 
+  def document
+    @document = @orientation.documents.find(params[:document_id])
+
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'),
+                   responsible_orientation_document_path(@orientation, @document)
+  end
+
+  def documents
+    @documents = @orientation.documents.with_relationships.page(params[:page])
+  end
+
   private
 
   def set_orientation
@@ -95,16 +108,15 @@ class Responsible::OrientationsController < Responsible::BaseController
     @calendar = @orientation.calendar
   end
 
-  def can_destroy
-    return if @orientation.can_be_destroyed?
-    flash[:alert] = I18n.t('flash.orientation.destroy.signed')
-    redirect_to responsible_orientations_tcc_one_path
+  def orientation_params
+    params.require(:orientation)
+          .permit(:title, :calendar_id, :academic_id, :advisor_id, :institution_id,
+                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
   end
 
-  def orientation_params
-    params.require(:orientation).permit(
-      :title, :calendar_id, :academic_id, :advisor_id, :institution_id,
-      professor_supervisor_ids: [], external_member_supervisor_ids: []
-    )
+  def set_document_orientation_breadcrumb
+    add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_tcc_index_path
+    add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
+                   responsible_orientation_documents_path(@orientation)
   end
 end

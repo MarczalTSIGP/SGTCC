@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= active_link_to(responsible_professor_orientations_tcc_one_path(@professor),
+                       class: 'nav-link') do %>
+      <%= t('views.tabs.tcc.one') %>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(responsible_professor_orientations_tcc_two_path(@professor),
+                       class: 'nav-link') do %>
+      <%= t('views.tabs.tcc.two') %>
+    <% end %>
+  </li>
+</ul>

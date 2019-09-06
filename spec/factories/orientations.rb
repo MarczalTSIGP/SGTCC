@@ -37,6 +37,11 @@ FactoryBot.define do
       calendar { create(:current_calendar_tcc_two) }
     end
 
+    factory :orientation_tcc_two_approved do
+      calendar { create(:calendar_tcc_two) }
+      status { Orientation.statuses.key('APPROVED') }
+    end
+
     factory :orientation_renewed do
       status { Orientation.statuses.key('RENEWED') }
     end

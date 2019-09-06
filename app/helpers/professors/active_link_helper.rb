@@ -1,6 +1,7 @@
 module Professors::ActiveLinkHelper
   def professors_orientations_active_link?
-    orientations_active_link?('professors') &&
+    (orientations_documents_link?('professors') ||
+      orientations_active_link?('professors')) &&
       (calendar_equal_current_calendar_tcc_one? ||
       calendar_equal_current_calendar_tcc_two?)
   end
@@ -15,7 +16,7 @@ module Professors::ActiveLinkHelper
   end
 
   def professors_supervisions_active_link?
-    supervisions_active_link?('professors')
+    supervisions_active_link?('professors') || supervisions_documents_link?('professors')
   end
 
   def professors_supervisions_history_active_link?

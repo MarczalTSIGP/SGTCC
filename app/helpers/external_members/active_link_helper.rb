@@ -15,7 +15,8 @@ module ExternalMembers::ActiveLinkHelper
   end
 
   def external_members_supervisions_active_link?
-    supervisions_active_link?('external_members')
+    supervisions_active_link?('external_members') ||
+      supervisions_documents_link?('external_members')
   end
 
   def external_members_supervisions_history_active_link?

@@ -100,7 +100,17 @@ Rails.application.routes.draw do
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
 
+      get 'professors/(:id)/orientations/tcc_one',
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two',
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_tcc_two'
+
       put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
+
+      get 'reports', to: 'dashboard#report', as: 'reports'
 
       get 'professors/available',
           to: 'professors#available',
@@ -109,8 +119,6 @@ Rails.application.routes.draw do
       get 'professors/unavailable',
           to: 'professors#unavailable',
           as: 'professors_unavailable'
-
-      get 'reports', to: 'dashboard#report', as: 'professors_reports'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -124,8 +132,12 @@ Rails.application.routes.draw do
       post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'
 
       get 'orientations/(:id)/documents',
-          to: 'documents#orientation',
+          to: 'orientations#documents',
           as: 'orientation_documents'
+
+      get 'orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'orientation_document'
 
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -206,6 +218,16 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_two',
           as: 'calendars_search_tcc_two'
+
+      get 'professors/(:id)/orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_one',
+          as: 'professor_orientations_search_tcc_one'
+
+      get 'professors/(:id)/orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'professors#tcc_two',
+          as: 'professor_orientations_search_tcc_two'
     end
 
     namespace :professors do
@@ -239,6 +261,14 @@ Rails.application.routes.draw do
           to: 'meetings#orientation',
           as: 'orientation_meetings'
 
+      get 'orientations/(:id)/documents',
+          to: 'orientations#documents',
+          as: 'orientation_documents'
+
+      get 'orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'orientation_document'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
@@ -250,6 +280,8 @@ Rails.application.routes.draw do
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
 
+      get 'reports/(:professor_id)', to: 'dashboard#report', as: 'reports'
+
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
           as: 'supervisions_tcc_one'
@@ -257,6 +289,14 @@ Rails.application.routes.draw do
       get 'supervisions/tcc_two',
           to: 'supervisions#tcc_two',
           as: 'supervisions_tcc_two'
+
+      get 'supervisions/(:id)/documents',
+          to: 'supervisions#documents',
+          as: 'supervision_documents'
+
+      get 'supervisions/(:id)/documents/(:document_id)',
+          to: 'supervisions#document',
+          as: 'supervision_document'
 
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
@@ -333,6 +373,18 @@ Rails.application.routes.draw do
           to: 'orientations#by_calendar',
           as: 'calendar_orientations'
 
+      get 'calendars/(:calendar_id)/orientations/(:id)',
+          to: 'orientations#show',
+          as: 'calendar_orientation'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/documents',
+          to: 'orientations#documents',
+          as: 'calendar_orientation_documents'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'calendar_orientation_document'
+
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'
@@ -354,10 +406,6 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
-
-      get 'calendars/(:calendar_id)/orientations/(:id)',
-          to: 'orientations#show',
-          as: 'calendar_orientation'
     end
   end
 
@@ -455,6 +503,14 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      get '/calendars/(:calendar_id)/orientations/(:id)/documents',
+          to: 'orientations#documents',
+          as: 'calendar_orientation_documents'
+
+      get '/calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
+          to: 'orientations#document',
+          as: 'calendar_orientation_document'
+
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',
@@ -514,6 +570,14 @@ Rails.application.routes.draw do
           as: 'calendar_activity'
 
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
+
+      get 'supervisions/(:id)/documents',
+          to: 'supervisions#documents',
+          as: 'supervision_documents'
+
+      get 'supervisions/(:id)/documents/(:document_id)',
+          to: 'supervisions#document',
+          as: 'supervision_document'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
