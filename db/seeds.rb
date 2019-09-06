@@ -67,5 +67,5 @@ end
 
 Site.find_or_create_by!(title: 'Site do TCC')
 
-Page.find_or_create_by!(menu_title: 'Introduction', fa_icon: 'home',
+Page.find_or_create_by!(menu_title: 'Introduction', fa_icon: 'fas fa-home',
                         url: 'intro', content: '...', publish: true)

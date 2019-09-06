@@ -16,7 +16,7 @@
           >
             <span class="list-group-item list-group-item-action">
               <span class="icon mr-3">
-                <i :class="`fe fe-${page.fa_icon}`" />
+                <i :class="page.fa_icon" />
               </span>
               {{ page.menu_title }}
               <i

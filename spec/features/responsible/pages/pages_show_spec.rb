@@ -13,7 +13,6 @@ describe 'Page::show', type: :feature do
     it 'shows the page' do
       expect(page).to have_contents([site_page.menu_title,
                                      site_page.url,
-                                     site_page.fa_icon,
                                      complete_date(site_page.created_at),
                                      complete_date(site_page.updated_at)])
     end

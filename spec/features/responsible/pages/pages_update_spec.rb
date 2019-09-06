@@ -27,8 +27,7 @@ describe 'Page::update', type: :feature, js: true do
         expect(page).to have_current_path responsible_page_path(site_page)
         expect(page).to have_flash(:success, text: message('update.m'))
         expect(page).to have_contents([attributes[:menu_title],
-                                       attributes[:url],
-                                       attributes[:fa_icon]])
+                                       attributes[:url]])
       end
     end
 
@@ -36,13 +35,11 @@ describe 'Page::update', type: :feature, js: true do
       it 'show errors' do
         fill_in 'page_menu_title', with: ''
         fill_in 'page_url', with: ''
-        fill_in 'page_fa_icon', with: ''
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.page_menu_title')
         expect(page).to have_message(blank_error_message, in: 'div.page_url')
-        expect(page).to have_message(blank_error_message, in: 'div.page_fa_icon')
       end
     end
   end
