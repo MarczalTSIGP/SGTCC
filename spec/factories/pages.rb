@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:menu_title) { |n| "Page #{n}" }
     url { Faker::Name.first_name.parameterize }
     content { Faker::Lorem.paragraph }
-    fa_icon { 'home' }
+    fa_icon { 'fas fa-home' }
 
     before :create do
       create(:site) if Site.all.empty?
