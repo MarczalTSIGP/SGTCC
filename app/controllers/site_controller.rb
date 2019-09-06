@@ -11,7 +11,7 @@ class SiteController < ApplicationController
   def page; end
 
   def sidebar
-    render json: Page.ordered
+    render json: Page.publisheds
   end
 
   private

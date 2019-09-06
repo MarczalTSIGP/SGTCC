@@ -30,6 +30,7 @@
 
       <button
         class="my-3 btn btn-block btn-outline-primary"
+        :disabled="disabledButton"
         @click="updateSidebar()"
       >
         Atualizar menu
@@ -60,6 +61,7 @@ export default {
   data() {
     return {
       sidebarUrl: '/sidebar',
+      disabledButton: false,
       pages: [],
     };
   },
@@ -69,9 +71,16 @@ export default {
   },
 
   methods: {
+    setDisabledButton() {
+      if(this.pages.length === 1) {
+        this.disabledButton = true;
+      }
+    },
+
     async setSidebar() {
       const response = await this.$axios.post(this.sidebarUrl);
       this.pages = response.data;
+      this.setDisabledButton();
     },
 
     async updateSidebar() {

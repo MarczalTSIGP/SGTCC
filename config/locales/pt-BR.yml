@@ -193,13 +193,13 @@ pt-BR:
     site:
       configs: "Configurações"
       pages: "Páginas"
-      menu_order: "Ordernar menu"
+      menu_order: "Ordenar menu"
     pages:
       index: "Páginas"
       edit: "Editar página"
       show: "Visualizar página"
       new: "Nova página"
-      order: "Ordernar menu"
+      order: "Ordenar menu"
     tcc:
       one:
         index: "Atividades de TCC 1"
