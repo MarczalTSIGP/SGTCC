@@ -400,6 +400,8 @@ pt-BR:
       page:
         url: "URL"
         menu_title: "Título no menu"
+        published: "Publicado"
+        publish: "Publicar"
         fa_icon: "Ícone do font awesome"
         <<: *commons
   placeholders:

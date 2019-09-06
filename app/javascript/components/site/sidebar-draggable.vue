@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="mx-auto col-md-4 col-lg-6">
+    <div class="mx-auto col-md-8">
       <div class="card">
         <draggable
           v-model="pages"

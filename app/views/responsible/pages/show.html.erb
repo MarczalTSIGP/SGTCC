@@ -11,6 +11,12 @@
     </p>
     <p>
       <strong>
+        <%= Page.human_attribute_name('published') %>
+      </strong>
+      <%= t("helpers.boolean.#{@page.publish}") %>
+    </p>
+    <p>
+      <strong>
         <%= Page.human_attribute_name('url') %>:
       </strong>
       <%= @page.url %>

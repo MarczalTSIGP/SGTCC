@@ -22,14 +22,11 @@ class Page < ApplicationRecord
             presence: true
 
   scope :ordered, -> { order(:order) }
+  scope :published, -> { where(publish: true) }
 
   before_save do
     url.downcase!
     self.order = Page.maximum('order').to_i + 1 if order.blank?
-  end
-
-  def site
-    Site.first
   end
 
   def self.update_menu_order(items)
@@ -38,5 +35,9 @@ class Page < ApplicationRecord
     pages.map.with_index do |page, index|
       page.update(order: index + 1)
     end
+  end
+
+  def self.publisheds
+    published.ordered
   end
 end

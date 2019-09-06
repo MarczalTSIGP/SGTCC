@@ -17,7 +17,7 @@ class Responsible::PagesController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @pages = Page.page(params[:page]).search(params[:term])
+    @pages = Page.ordered.page(params[:page]).search(params[:term])
   end
 
   def show; end
@@ -66,6 +66,6 @@ class Responsible::PagesController < Responsible::BaseController
   end
 
   def page_params
-    params.require(:page).permit(:menu_title, :fa_icon, :content, :url)
+    params.require(:page).permit(:menu_title, :fa_icon, :content, :url, :publish)
   end
 end
