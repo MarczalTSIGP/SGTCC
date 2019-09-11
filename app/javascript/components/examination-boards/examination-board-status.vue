@@ -21,14 +21,24 @@ export default {
       type: String,
       required: true
     },
+
+    time: {
+      type: String,
+      require: true
+    },
+
+    distanceInWords: {
+      type: String,
+      required: true
+    },
   },
 
   data() {
     return {
-      badgeType: 'default',
-      label: 'Ocorreu',
       examinationDate: '',
+      badgeType: '',
       dateNow: '',
+      label: '',
     };
   },
 
@@ -45,27 +55,60 @@ export default {
     badgeClass() {
       return `badge badge-pill badge-${this.badgeType}`;
     },
+
+    todayLabel() {
+      return `Será hoje às ${this.time}`;
+    },
+
+    nextLabel() {
+      return `Será em ${this.distanceInWords}`;
+    },
+
+    ocurredLabel() {
+      return `Ocorreu a ${this.distanceInWords}`;
+    },
   },
 
   created() {
     this.updateDates();
+  },
+
+  beforeMount() {
     this.setBadgeType();
   },
 
   methods: {
     setBadgeType() {
       if (this.examinationDate === this.dateNow) {
-        this.badgeType = 'primary';
-        this.label = 'Hoje';
-      } else if (this.examinationDate > this.dateNow) {
-        this.badgeType = 'warning';
-        this.label = 'Próxima';
+        return this.setTodayData();
       }
+
+      return (this.examinationDate > this.dateNow)
+        ? this.setNextData()
+        : this.setOcurredData();
+    },
+
+    setTodayData() {
+      this.badgeType = 'primary';
+      this.label = this.todayLabel;
+    },
+
+    setNextData() {
+      this.badgeType = 'warning';
+      this.label = this.nextLabel;
+    },
+
+    setOcurredData() {
+      this.badgeType = 'default';
+      this.label = this.ocurredLabel;
     },
 
     updateDates() {
-      this.examinationDate = new Date(this.date).toLocaleDateString();
-      this.dateNow = new Date(Date.now()).toLocaleDateString();
+      const today = new Date(Date.now());
+      const date = new Date(this.date);
+
+      this.examinationDate = date.toLocaleDateString();
+      this.dateNow = today.toLocaleDateString();
     },
   },
 
