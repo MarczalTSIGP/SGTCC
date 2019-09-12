@@ -95,6 +95,11 @@ pt-BR:
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
+    pages:
+      professors:
+        orientations:
+          in_progress: 'Orientações em andamento'
+          approved: 'Orientações concluídas'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"

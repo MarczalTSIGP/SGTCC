@@ -80,9 +80,20 @@
   </div>
 </div>
 
+<h2 class="page-title">
+  <%= t('site.pages.professors.orientations.in_progress') %>
+</h2>
+
+<%= render 'site/orientations/table', orientations: @in_progress_orientations %>
+
+<h2 class="page-title">
+  <%= t('site.pages.professors.orientations.approved') %>
+</h2>
+
+<%= render 'site/orientations/table', orientations: @approved_orientations %>
+
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
     site_professors_path,
     class: 'btn btn-secondary' %>
 </div>
-

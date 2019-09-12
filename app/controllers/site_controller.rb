@@ -29,7 +29,10 @@ class SiteController < ApplicationController
     @page = Page.find_by(url: 'professores')
   end
 
-  def professor; end
+  def professor
+    @approved_orientations = @professor.orientations_by_status('APPROVED')
+    @in_progress_orientations = @professor.orientations_by_status('IN_PROGRESS')
+  end
 
   def sidebar
     render json: Page.publisheds

@@ -24,6 +24,22 @@ describe 'Professors::show', type: :feature do
                                        professor.scholarity.name,
                                        professor.professor_type.name])
       end
+
+      it 'shows the professor in progress orientations' do
+        professor.orientations_by_status('IN_PROGRESS').each do |orientation|
+          expect(page).to have_contents([orientation.short_title,
+                                         orientation.advisor.name,
+                                         orientation.academic.name])
+        end
+      end
+
+      it 'shows the professor approved orientations' do
+        professor.orientations_by_status('APPROVED').each do |orientation|
+          expect(page).to have_contents([orientation.short_title,
+                                         orientation.advisor.name,
+                                         orientation.academic.name])
+        end
+      end
     end
   end
 end

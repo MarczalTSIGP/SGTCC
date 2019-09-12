@@ -110,6 +110,13 @@ class Professor < ApplicationRecord
     all.sort_by(&:date).reverse.uniq
   end
 
+  def orientations_by_status(status)
+    orientations.where(status: status)
+                .includes(:academic, :calendar, :professor_supervisors,
+                          :orientation_supervisors, :external_member_supervisors)
+                .recent
+  end
+
   def self.current_responsible
     joins(:roles).find_by('roles.identifier': :responsible)
   end
