@@ -1,6 +1,9 @@
 <%= render 'layouts/shared/sidebar' do %>
   <% if current_professor.role?(:responsible) %>
     <%= render 'layouts/professors/responsible_menu' %>
+    <div class="sidebar-menu">
+      <%= render 'layouts/professors/site_menu' %>
+    </div>
   <% end %>
   <div class="sidebar-menu">
     <%= render 'layouts/professors/professor_menu' %>

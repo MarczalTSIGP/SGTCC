@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_174008) do
+ActiveRecord::Schema.define(version: 2019_09_06_195155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,17 @@ ActiveRecord::Schema.define(version: 2019_08_16_174008) do
     t.index ["institution_id"], name: "index_orientations_on_institution_id"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.string "menu_title"
+    t.text "content"
+    t.string "url"
+    t.string "fa_icon"
+    t.integer "order"
+    t.boolean "publish", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "professor_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -233,6 +244,12 @@ ActiveRecord::Schema.define(version: 2019_08_16_174008) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_signatures_on_document_id"
     t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "activities", "base_activity_types"

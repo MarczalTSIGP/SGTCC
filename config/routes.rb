@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
-  root to: 'home#index'
+  root to: 'site#index'
 
   get 'documents/images',
       to: 'documents#images',
@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
   post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
   post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
+
+  post '/sidebar', to: 'site#sidebar', as: 'site_sidebar'
 
   #========================================
   # Responsible
@@ -79,6 +81,14 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :site,
+                only: [:edit, :update],
+                constraints: { id: /[0-9]+/ }
+
+      resources :pages,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       get 'examination_boards/tcc_one',
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
@@ -111,6 +121,9 @@ Rails.application.routes.draw do
       put 'documents/(:id)/judgment', to: 'documents#judgment', as: 'document_judgment'
 
       get 'reports', to: 'dashboard#report', as: 'reports'
+
+      get 'site/pages/order', to: 'pages#order', as: 'pages_order'
+      put 'site/sidebar/update', to: 'pages#update_order', as: 'update_sidebar'
 
       get 'professors/available',
           to: 'professors#available',
@@ -228,6 +241,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'professors#tcc_two',
           as: 'professor_orientations_search_tcc_two'
+
+      get 'pages/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'pages#index',
+          as: 'pages_search'
     end
 
     namespace :professors do
@@ -608,4 +626,6 @@ Rails.application.routes.draw do
           as: 'examination_boards_search'
     end
   end
+
+  get '(:page)', to: 'site#page', as: 'site_page'
 end

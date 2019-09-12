@@ -22,6 +22,10 @@ pt-BR:
     labels:
       conceded: 'Deferido'
       dismissed: 'Indeferido'
+    login:
+      academic: 'Acadêmico'
+      professor: 'Professor'
+      external_member: 'Membro externo'
     buttons:
       select: 'Selecionar'
       save: 'Salvar'
@@ -44,6 +48,11 @@ pt-BR:
       previous: "&lsaquo; Anterior"
       next: "Seguinte &rsaquo;"
       truncate: "&hellip;"
+    tables:
+      examination_board:
+        next: "Será em %{distance}"
+        today: "Será hoje às %{time}"
+        occurred: "Ocorreu a %{distance}"
     sidebar:
       responsible: "Responsável"
       advisor: "Orientador"
@@ -52,6 +61,7 @@ pt-BR:
       external_members: "Membro Externo"
       supervisor: "Coorientador"
       requests: "Solicitações"
+      site: "Site"
       documents:
         index: "Documentos"
         review: "Para análise"
@@ -81,6 +91,9 @@ pt-BR:
     documents:
       one: "documento"
       other: "documentos"
+  site:
+    sign_in: "Acessar SGTCC"
+    all_rights_reserved: "Todos os direitos reservados."
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -182,6 +195,16 @@ pt-BR:
       title: "%{type} %{academic} %{calendar}"
       TCO:
         show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
+    site:
+      configs: "Configurações"
+      pages: "Páginas"
+      menu_order: "Ordenar menu"
+    pages:
+      index: "Páginas"
+      edit: "Editar página"
+      show: "Visualizar página"
+      new: "Nova página"
+      order: "Ordenar menu"
     tcc:
       one:
         index: "Atividades de TCC 1"
@@ -230,6 +253,10 @@ pt-BR:
   activerecord:
     errors:
       models:
+        page:
+          attributes:
+            url:
+              invalid_format: "formato inválido só é possível utilizar letras e hífen na composição da url"
         institution:
           attributes:
             cnpj:
@@ -278,6 +305,11 @@ pt-BR:
       examination_board:
         one: "Banca de defesa"
         other: "Bancas de defesa"
+      site:
+        one: "Site"
+      page:
+        one: "Página"
+        other: "Páginas"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -368,9 +400,20 @@ pt-BR:
         evaluators: "Avaliadores"
         place: "Local"
         <<: *commons
+      site:
+        <<: *commons
+      page:
+        url: "URL"
+        menu_title: "Título no menu"
+        published: "Publicado"
+        publish: "Publicar"
+        fa_icon: "Ícone do font awesome"
+        <<: *commons
   placeholders:
     meetings:
       content: "Discutido: \n\n\nTarefas para o acadêmico: \n\n\nTarefas para o orientador: \n\n\nConcluído: "
+    page:
+      url: "Ex: professores, documentos-do-tcc, academicos"
   helpers:
     no_results: 'Nenhum resultado encontrado.'
     currently: 'Atualmente'
@@ -433,6 +476,7 @@ pt-BR:
         bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
+    not_found_page: 'Página não encontrada!'
     request:
       index: "Solicitação"
     orientation:

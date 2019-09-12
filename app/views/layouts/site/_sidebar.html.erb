@@ -1,0 +1,15 @@
+<div class="col-sm-12 col-md-3 order-md-1 mb-4 collapse d-md-flex align-items-start" id="headerMenuCollapse">
+  <div class="sidebar">
+    <% Page.publisheds.each do |page| %>
+      <div class="list-group list-group-transparent mb-0">
+        <%= active_link_to("/#{page.url}",
+			   class: 'list-group-item list-group-item-action') do %>
+          <span class="icon mr-3">
+	    <i class="<%= page.fa_icon %>"></i>
+	  </span>
+	  <%= page.menu_title %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

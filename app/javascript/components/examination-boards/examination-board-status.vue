@@ -17,17 +17,12 @@ export default {
   name: 'ExaminationBoardStatus',
 
   props: {
-    date: {
+    status: {
       type: String,
       required: true
     },
 
-    time: {
-      type: String,
-      require: true
-    },
-
-    distanceInWords: {
+    label: {
       type: String,
       required: true
     },
@@ -35,10 +30,7 @@ export default {
 
   data() {
     return {
-      examinationDate: '',
-      badgeType: '',
-      dateNow: '',
-      label: '',
+      badgeType: 'default',
     };
   },
 
@@ -55,22 +47,6 @@ export default {
     badgeClass() {
       return `badge badge-pill badge-${this.badgeType}`;
     },
-
-    todayLabel() {
-      return `Será hoje às ${this.time}`;
-    },
-
-    nextLabel() {
-      return `Será em ${this.distanceInWords}`;
-    },
-
-    ocurredLabel() {
-      return `Ocorreu a ${this.distanceInWords}`;
-    },
-  },
-
-  created() {
-    this.updateDates();
   },
 
   beforeMount() {
@@ -79,39 +55,15 @@ export default {
 
   methods: {
     setBadgeType() {
-      if (this.examinationDate === this.dateNow) {
-        return this.setTodayData();
+      switch(this.status) {
+      case 'today':
+        this.badgeType = 'primary';
+        break;
+      case 'next' :
+        this.badgeType = 'warning';
       }
-
-      return (this.examinationDate > this.dateNow)
-        ? this.setNextData()
-        : this.setOcurredData();
-    },
-
-    setTodayData() {
-      this.badgeType = 'primary';
-      this.label = this.todayLabel;
-    },
-
-    setNextData() {
-      this.badgeType = 'warning';
-      this.label = this.nextLabel;
-    },
-
-    setOcurredData() {
-      this.badgeType = 'default';
-      this.label = this.ocurredLabel;
-    },
-
-    updateDates() {
-      const today = new Date(Date.now());
-      const date = new Date(this.date);
-
-      this.examinationDate = date.toLocaleDateString();
-      this.dateNow = today.toLocaleDateString();
     },
   },
-
 };
 
 </script>

@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <i class="<%= "#{page.fa_icon} mr-2" %>"></i>
+    <%= page.menu_title %>
+  </td>
+  <td><%= t("helpers.boolean.#{page.publish}") %></td>
+  <td><%= short_date(page.created_at) %></td>
+  <td><%= short_date(page.updated_at) %></td>
+  <td>
+    <%= link_to(responsible_page_path(page)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_page_path(page)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_page_path(page),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
+  </td>
+</tr>
