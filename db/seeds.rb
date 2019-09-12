@@ -67,5 +67,12 @@ end
 
 Site.find_or_create_by!(title: 'Site do TCC')
 
-Page.find_or_create_by!(menu_title: 'Introduction', fa_icon: 'fas fa-home',
-                        url: 'intro', content: '...', publish: true)
+pages = [
+  { menu_title: 'Introdução', fa_icon: 'fas fa-home', url: 'intro' },
+  { menu_title: 'Atividades do TCC', fa_icon: 'far fa-file-alt', url: 'atividades' }
+]
+
+pages.each do |page|
+  Page.find_or_create_by!(menu_title: page[:menu_title], fa_icon: page[:fa_icon],
+                          url: page[:url], content: '.', publish: true)
+end

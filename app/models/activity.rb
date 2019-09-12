@@ -9,6 +9,8 @@ class Activity < ApplicationRecord
   validates :initial_date, presence: true
   validates :final_date, presence: true
 
+  scope :recent, -> { order(:final_date) }
+
   def deadline
     I18n.t('time.deadline',
            initial_date: I18n.l(initial_date, format: :datetime),

@@ -15,6 +15,14 @@ class SiteController < ApplicationController
 
   def page; end
 
+  def activities
+    @calendar_tcc_one = Calendar.current_by_tcc_one
+    @calendar_tcc_two = Calendar.current_by_tcc_two
+    @activities_tcc_one = @calendar_tcc_one.activities.includes(:base_activity_type).recent
+    @activities_tcc_two = @calendar_tcc_two.activities.includes(:base_activity_type).recent
+    @page = Page.find_by(url: 'atividades')
+  end
+
   def sidebar
     render json: Page.publisheds
   end

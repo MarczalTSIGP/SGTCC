@@ -627,5 +627,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'atividades', to: 'site#activities', as: 'site_activities'
   get '(:page)', to: 'site#page', as: 'site_page'
 end
