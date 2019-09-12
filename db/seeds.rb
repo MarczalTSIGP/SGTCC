@@ -68,7 +68,6 @@ end
 Site.find_or_create_by!(title: 'Site do TCC')
 
 pages = [
-  { menu_title: 'Introdução', fa_icon: 'fas fa-home', url: 'intro' },
   { menu_title: 'Atividades do TCC', fa_icon: 'far fa-file-alt', url: 'atividades' }
 ]
 
