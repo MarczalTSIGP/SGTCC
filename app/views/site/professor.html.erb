@@ -73,32 +73,16 @@
       <strong>
         <%= Professor.human_attribute_name('working_area') %>:
       </strong>
-      <div class="form-fieldset w-50 mx-auto text-left">
+      <div class="form-fieldset">
         <vue-simple-markdown source="<%= @professor.working_area %>" />
       </div>
-    </p>
-    <p>
-      <strong>
-        <%= Professor.human_attribute_name('created_at') %>:
-      </strong>
-      <%= complete_date(@professor.created_at) %>
-    </p>
-    <p>
-      <strong>
-        <%= Professor.human_attribute_name('updated_at') %>:
-      </strong>
-      <%= complete_date(@professor.updated_at) %>
     </p>
   </div>
 </div>
 
-<div>
-  <professor-orientations-report :professor-id="<%= @professor.id %>" />
-</div>
-
 <div class="d-flex">
-  <%= link_to t('simple_form.buttons.back'), responsible_professors_path, class: 'btn btn-secondary' %>
-
-  <%= link_to t('simple_form.buttons.edit'), edit_responsible_professor_path(@professor), class: 'btn btn-primary ml-auto' %>
+  <%= link_to t('simple_form.buttons.back'),
+    site_professors_path,
+    class: 'btn btn-secondary' %>
 </div>
 
