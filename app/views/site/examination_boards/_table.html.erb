@@ -1,0 +1,25 @@
+<div class="site-table">
+  <table class="table table-striped table-responsive table-vcenter">
+    <thead>
+      <tr>
+        <th><%= ExaminationBoard.human_attribute_name('status') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('academic') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('place') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('date') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('advisor') %></th>
+        <th><%= ExaminationBoard.human_attribute_name('evaluators') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if examination_boards.empty? %>
+      </tr>
+      <% examination_boards.each do |examination_board| %>
+        <%= render('site/examination_boards/examination_board',
+                   examination_board: examination_board) %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

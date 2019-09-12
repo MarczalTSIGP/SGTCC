@@ -27,6 +27,13 @@ class SiteController < ApplicationController
     render json: Page.publisheds
   end
 
+  def examination_boards
+    @examination_boards_tcc_one = examination_board_data(ExaminationBoard.tcc_one)
+    @examination_boards_tcc_two = examination_board_data(ExaminationBoard.tcc_two)
+
+    @page = Page.find_by(url: 'bancas-de-defesa')
+  end
+
   private
 
   def set_pages
@@ -40,5 +47,12 @@ class SiteController < ApplicationController
   def set_page
     @page = Page.find_by(url: params[:page])
     return not_found if @page.blank?
+  end
+
+  def examination_board_data(data)
+    data.includes(external_members: [:scholarity],
+                  professors: [:scholarity],
+                  orientation: [:academic, advisor: [:scholarity]])
+        .recent
   end
 end

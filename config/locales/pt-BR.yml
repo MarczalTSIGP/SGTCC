@@ -179,11 +179,13 @@ pt-BR:
       tcc:
         one:
           index: "Bancas de defesa de TCC 1"
+          calendar: "Bancas de defesa de TCC 1 (%{calendar})"
           show: "Visualizar banca de defesa de TCC 1"
           edit: "Editar banca de defesa de TCC 1"
           new: "Nova banca de defesa de TCC 1"
         two:
           index: "Bancas de defesa de TCC 2"
+          calendar: "Bancas de defesa de TCC 2 (%{calendar})"
           show: "Visualizar banca de defesa de TCC 2"
           edit: "Editar banca de defesa de TCC 2"
           new: "Nova banca de defesa de TCC 2"
