@@ -1,0 +1,21 @@
+<div class="table-responsive-sm site-activities-table">
+  <table class="table table-sm table-striped card-table table-vcenter">
+    <thead>
+      <tr>
+        <th><%= Activity.human_attribute_name('name') %></th>
+        <th><%= Activity.human_attribute_name('base_activity_type') %></th>
+        <th><%= Activity.human_attribute_name('deadline') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if activities.empty? %>
+      </tr>
+      <% activities.each do |activity| %>
+        <%= render('site/activities/activity', activity: activity) %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
