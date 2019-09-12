@@ -23,6 +23,11 @@ class SiteController < ApplicationController
     @page = Page.find_by(url: 'calendario')
   end
 
+  def professors
+    @professors = Professor.all.includes(:professor_type).order(:name)
+    @page = Page.find_by(url: 'professores')
+  end
+
   def sidebar
     render json: Page.publisheds
   end

@@ -1,0 +1,18 @@
+<tr>
+  <td class="text-center">
+    <img class="avatar d-block" src="<%= professor.profile_image %>">
+  </td>
+  <td><%= professor.name %></td>
+  <td><%= professor.professor_type.name %></td>
+  <td><%= professor.email %></td>
+  <td class="text-center">
+    <%= link_to professor.lattes, target: '_blank' do %>
+      <%= icon('fas', 'external-link-alt', 'data-toggle' => 'tooltip', title: 'lattes') %>
+    <% end %>
+  </td>
+  <td class="text-center">
+    <%= link_to(responsible_professor_path(professor)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar detalhes do professor"></i>
+    <% end %>
+  </td>
+</tr>

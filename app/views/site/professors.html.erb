@@ -1,0 +1,27 @@
+<% provide(:head_title, @page.menu_title) %>
+
+<h1 class="page-title"><%= @page.menu_title %></h1>
+
+<div class="site-table table-striped table-responsive w-100 mt-5">
+  <table class="border border-gray card-table table-vcenter">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= Professor.human_attribute_name('name') %></th>
+        <th><%= Professor.human_attribute_name('professor_type') %></th>
+        <th><%= Professor.human_attribute_name('email') %></th>
+        <th><%= Professor.human_attribute_name('lattes') %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @professors.empty? %>
+      </tr>
+      <% @professors.each do |professor| %>
+        <%= render('site/professors/professor', professor: professor) %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
