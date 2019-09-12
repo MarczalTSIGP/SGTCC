@@ -49,4 +49,5 @@ RSpec.configure do |config|
 
   config.include ApplicationHelper
   config.include DateHelper
+  config.include ActionView::Helpers
 end
