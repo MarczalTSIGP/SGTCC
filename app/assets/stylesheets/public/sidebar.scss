@@ -1,25 +1,3 @@
 .sidebar {
-  position: fixed;
-  max-height: calc(100vh - 5rem);
-  overflow-y: auto;
-  overflow-x: auto;
-  display: block;
-  white-space: nowrap;
-
-  @media (max-width: 767px) {
-    position: sticky;
-  }
-
-  @media (min-width: 768px) {
-    height: calc(100vh - 6rem);
-    flex: 0 0 25%;
-    max-width: 25%;
-    width: 24%;
-  }
-
-  @media (min-width: 992px) {
-    flex: 0 0 16.66666667% !important;
-    max-width: 16.66666667% !important;
-    width: 16%;
-  }
+  width: 100%;
 }

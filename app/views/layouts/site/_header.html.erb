@@ -1,13 +1,13 @@
 <div class="fixed-top header py-4">
   <div class="container">
     <div class="d-flex">
-      <%= link_to root_path, class: 'header-brand ml-5' do %>
+      <%= link_to root_path, class: 'header-brand' do %>
         <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi'  %>
       <% end  %>
 
       <div class="d-flex order-lg-2 ml-auto">
         <div class="dropdown">
-	  <a href="#" class="mr-4 btn btn-outline-primary" data-toggle="dropdown">
+	  <a href="#" class="btn btn-outline-primary" data-toggle="dropdown">
 	    <%= t('site.sign_in') %>
 	  </a>
 
