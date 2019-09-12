@@ -32,6 +32,6 @@ class ExaminationBoard < ApplicationRecord
   scope :with_relationships, lambda {
     includes(external_members: [:scholarity],
              professors: [:scholarity],
-             orientation: [:advisor, :academic, :calendar])
+             orientation: [:academic, :calendar, advisor: [:scholarity]])
   }
 end
