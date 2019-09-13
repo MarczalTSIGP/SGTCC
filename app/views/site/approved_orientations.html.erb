@@ -1,5 +1,7 @@
 <% provide(:head_title, @page.menu_title) %>
 
 <div>
-  <orientations-table :data="<%= Orientation.to_json_table(@orientations) %>" />
+  <orientations-table
+    :years="<%= Site.select_calendar_years.to_json %>"
+    :data="<%= Orientation.to_json_table(@orientations) %>" />
 </div>
