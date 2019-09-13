@@ -27,13 +27,6 @@ export default {
 
   components: { OrientationsTable },
 
-  props: {
-    data: {
-      type: Array,
-      required: true
-    },
-  },
-
   data() {
     return {
       year: '',

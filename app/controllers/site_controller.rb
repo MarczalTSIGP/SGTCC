@@ -33,33 +33,21 @@ class SiteController < ApplicationController
   def professor; end
 
   def approved_orientations
-    @orientations = Orientation.tcc_two('APPROVED', Calendar.maximum(:year))
-                               .with_relationships.recent
     @page = Page.find_by(url: 'tccs-aprovados')
   end
 
   def in_progress_orientations
-    @orientations = Orientation.tcc_one('IN_PROGRESS', Calendar.maximum(:year))
-                               .with_relationships.recent
     @page = Page.find_by(url: 'tccs-em-andamento')
   end
 
-  def approved_orientations_by_year(status: 'APPROVED')
-    year = params[:year]
-    first_semester_data = Orientation.tcc_two(status, year, 'one')
-    second_semester_data = Orientation.tcc_two(status, year, 'two')
-    data = { first_semester: first_semester_data.with_relationships.recent,
-             second_semester: second_semester_data.with_relationships.recent }
-    render_orientations(data)
+  def approved_orientations_by_year(status: 'APPROVED', year: params[:year])
+    render_orientations(Orientation.tcc_two(status, year, 'one'),
+                        Orientation.tcc_two(status, year, 'two'))
   end
 
-  def in_progress_orientations_by_year(status: 'IN_PROGRESS')
-    year = params[:year]
-    first_semester_data = Orientation.tcc_one(status, year, 'one')
-    second_semester_data = Orientation.tcc_one(status, year, 'two')
-    data = { first_semester: first_semester_data.with_relationships.recent,
-             second_semester: second_semester_data.with_relationships.recent }
-    render_orientations(data)
+  def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
+    render_orientations(Orientation.tcc_one(status, year, 'one'),
+                        Orientation.tcc_one(status, year, 'two'))
   end
 
   def sidebar
@@ -100,7 +88,9 @@ class SiteController < ApplicationController
     @professor = Professor.find(params[:id])
   end
 
-  def render_orientations(data)
+  def render_orientations(first_semester_data, second_semester_data)
+    data = { first_semester: first_semester_data.with_relationships.recent,
+             second_semester: second_semester_data.with_relationships.recent }
     render json: Orientation.to_json_table(data)
   end
 end

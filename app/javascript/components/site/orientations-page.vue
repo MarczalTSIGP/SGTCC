@@ -4,7 +4,7 @@
       :years="years"
       :path="path"
     />
-    <orientations-tables :data="data" />
+    <orientations-tables />
   </div>
 </template>
 
@@ -22,11 +22,6 @@ export default {
   },
 
   props: {
-    data: {
-      type: Array,
-      required: true
-    },
-
     years: {
       type: Array,
       required: true
