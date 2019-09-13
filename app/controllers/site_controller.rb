@@ -39,17 +39,27 @@ class SiteController < ApplicationController
   end
 
   def in_progress_orientations
+    @orientations = Orientation.tcc_one('IN_PROGRESS', Calendar.maximum(:year))
+                               .with_relationships.recent
     @page = Page.find_by(url: 'tccs-em-andamento')
   end
 
-  def approved_orientations_by_year
-    orientations = Orientation.tcc_two('APPROVED', params[:year])
-    render_orientations(orientations)
+  def approved_orientations_by_year(status: 'APPROVED')
+    year = params[:year]
+    first_semester_data = Orientation.tcc_two(status, year, 'one')
+    second_semester_data = Orientation.tcc_two(status, year, 'two')
+    data = { first_semester: first_semester_data.with_relationships.recent,
+             second_semester: second_semester_data.with_relationships.recent }
+    render_orientations(data)
   end
 
-  def in_progress_orientations_by_year
-    orientations = Orientation.tcc_one('IN_PROGRESS', params[:year])
-    render_orientations(orientations)
+  def in_progress_orientations_by_year(status: 'IN_PROGRESS')
+    year = params[:year]
+    first_semester_data = Orientation.tcc_one(status, year, 'one')
+    second_semester_data = Orientation.tcc_one(status, year, 'two')
+    data = { first_semester: first_semester_data.with_relationships.recent,
+             second_semester: second_semester_data.with_relationships.recent }
+    render_orientations(data)
   end
 
   def sidebar
@@ -91,6 +101,6 @@ class SiteController < ApplicationController
   end
 
   def render_orientations(data)
-    render json: Orientation.to_json_table(data.with_relationships.recent)
+    render json: Orientation.to_json_table(data)
   end
 end

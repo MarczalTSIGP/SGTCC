@@ -38,12 +38,12 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
-  scope :tcc_one, lambda { |status, year = nil|
-    join_with_status_by_tcc('one', status, year)
+  scope :tcc_one, lambda { |status, year = nil, semester = nil|
+    join_with_status_by_tcc('one', status, year, semester)
   }
 
-  scope :tcc_two, lambda { |status, year = nil|
-    join_with_status_by_tcc('two', status, year)
+  scope :tcc_two, lambda { |status, year = nil, semester = nil|
+    join_with_status_by_tcc('two', status, year, semester)
   }
 
   scope :current_tcc_one, lambda { |status = nil|

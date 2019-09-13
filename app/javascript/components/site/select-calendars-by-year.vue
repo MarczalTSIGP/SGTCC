@@ -76,6 +76,7 @@ export default {
     selectedYear() {
       this.updateYears();
       this.emitUpdateOrientations();
+      this.emitUpdateSelectedYear();
     },
   },
 
@@ -96,6 +97,10 @@ export default {
     async emitUpdateOrientations() {
       const orientations = await this.$axios.post(this.url);
       this.$root.$emit('site-update-orientations', orientations.data);
+    },
+
+    emitUpdateSelectedYear() {
+      this.$root.$emit('site-update-calendar-year', this.selectedYear);
     },
 
     hasYear(year) {

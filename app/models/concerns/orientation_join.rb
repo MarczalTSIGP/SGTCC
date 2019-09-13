@@ -4,9 +4,10 @@ module OrientationJoin
   extend ActiveSupport::Concern
 
   included do
-    def self.join_with_status_by_tcc(tcc, status, year)
+    def self.join_with_status_by_tcc(tcc, status, year, semester)
       condition = { tcc: tcc }
       condition['year'] = year if year.present?
+      condition['semester'] = semester if semester.present?
       join_with_status(joins(:calendar).where(calendars: condition), status)
     end
 

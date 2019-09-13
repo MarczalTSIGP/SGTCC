@@ -55,38 +55,15 @@ export default {
   name: 'OrientationsTable',
 
   props: {
-    data: {
+    orientations: {
       type: Array,
       required: true
     },
   },
 
-  data() {
-    return {
-      orientations: []
-    };
-  },
-
   computed: {
     noResults() {
       return this.orientations.length === 0;
-    },
-  },
-
-  mounted() {
-    this.updateOrientations();
-    this.onUpdateOrientations();
-  },
-
-  methods: {
-    updateOrientations(data = this.data) {
-      this.orientations = data;
-    },
-
-    onUpdateOrientations() {
-      this.$root.$on('site-update-orientations', (data) => {
-        this.updateOrientations(data);
-      });
     },
   },
 };
