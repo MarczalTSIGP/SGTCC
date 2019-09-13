@@ -4,6 +4,12 @@ module OrientationJoin
   extend ActiveSupport::Concern
 
   included do
+    def self.join_with_status_by_tcc(tcc, status, year)
+      condition = { tcc: tcc }
+      condition['year'] = year if year.present?
+      join_with_status(joins(:calendar).where(calendars: condition), status)
+    end
+
     def self.join_with_status(join, status)
       return join if status.blank?
       join.where(status: status)

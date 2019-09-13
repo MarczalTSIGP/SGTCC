@@ -10,9 +10,9 @@ import ProfileImagePreview from '../components/shared/registrations/profile-imag
 import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
 import OrientationCancel from '../components/orientations/orientation-cancel';
 import OrientationRenew from '../components/orientations/orientation-renew';
+import OrientationsPage from '../components/site/orientations-page';
 import OrientationStatus from '../components/orientations/orientation-status';
 import OrientationStatusFilter from '../components/orientations/orientation-status-filter';
-import OrientationsTable from '../components/site/orientations-table';
 import ResponsibleDashboard from '../components/reports/responsible-dashboard';
 import ProfessorDashboard from '../components/reports/professor-dashboard';
 import Search from '../components/shared/search';
@@ -42,9 +42,9 @@ const components = {
   MeetingView,
   OrientationCancel,
   OrientationRenew,
+  OrientationsPage,
   OrientationStatus,
   OrientationStatusFilter,
-  OrientationsTable,
   ProfileImagePreview,
   ProfessorOrientationsReport,
   ResponsibleDashboard,
