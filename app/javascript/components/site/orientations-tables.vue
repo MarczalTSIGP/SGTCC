@@ -4,34 +4,44 @@
       {{ firstSemesterLabel }}
     </h2>
 
-    <orientations-table
-      :orientations="orientations.first_semester"
-    />
+    <div v-show="loading">
+      <loader />
+    </div>
+    <div v-show="!loading">
+      <orientations-table
+        :orientations="orientations.first_semester"
+      />
 
-    <h2 class="page-title text-center">
-      {{ secondSemesterLabel }}
-    </h2>
+      <h2 class="page-title text-center">
+        {{ secondSemesterLabel }}
+      </h2>
 
-    <orientations-table
-      :orientations="orientations.second_semester"
-    />
+      <orientations-table
+        :orientations="orientations.second_semester"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 
 import OrientationsTable from './orientations-table';
+import Loader from '../shared/loader';
 
 export default {
   name: 'OrientationTables',
 
-  components: { OrientationsTable },
+  components: {
+    Loader,
+    OrientationsTable
+  },
 
   data() {
     return {
       year: '',
       firstSemester: 1,
       secondSemester: 2,
+      loading: true,
       orientations: {
         first_semester: [],
         second_semester: []
@@ -63,8 +73,10 @@ export default {
 
     onUpdateOrientations() {
       this.$root.$on('site-update-orientations', (data) => {
+        this.loading = true;
         this.orientations.first_semester = data.first_semester;
         this.orientations.second_semester = data.second_semester;
+        this.loading = false;
       });
     },
   },
