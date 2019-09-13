@@ -25,14 +25,11 @@ class SiteController < ApplicationController
   end
 
   def professors
-    @professors = Professor.all.includes(:professor_type).order(:name)
+    @professors = Professor.all.includes(:scholarity, :professor_type).order(:name)
     @page = Page.find_by(url: 'professores')
   end
 
-  def professor
-    @approved_orientations = @professor.orientations_by_status('APPROVED')
-    @in_progress_orientations = @professor.orientations_by_status('IN_PROGRESS')
-  end
+  def professor; end
 
   def sidebar
     render json: Page.publisheds

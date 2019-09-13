@@ -1,0 +1,28 @@
+<h2 class="page-title mb-3">
+  <%= t("site.pages.professors.orientations.#{tcc}.label") %>
+</h2>
+
+<div>
+  <professors-total-orientations-report
+    :report="<%= @professor.total_orientations_report[tcc.to_sym].to_json %>"
+    title="<%= t("site.pages.professors.orientations.#{tcc}.label") %>" />
+</div>
+
+<% unless in_progress_orientations.empty? %>
+  <h3 class="page-title">
+    <%= t("site.pages.professors.orientations.#{tcc}.in_progress") %>
+  </h3>
+
+  <div id="#{tcc}">
+    <%= render 'site/orientations/table', orientations: orientations %>
+  </div>
+<% end %>
+
+<% unless approved_orientations.empty? %>
+  <h3 class="page-title">
+    <%= t("site.pages.professors.orientations.#{tcc}.approved") %>
+  </h3>
+
+  <%= render 'site/orientations/table', orientations: approved_orientations %>
+<% end %>
+

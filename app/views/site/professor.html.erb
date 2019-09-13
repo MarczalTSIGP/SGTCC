@@ -80,17 +80,14 @@
   </div>
 </div>
 
-<h2 class="page-title">
-  <%= t('site.pages.professors.orientations.in_progress') %>
-</h2>
+<%= render 'site/orientations/card', tcc: 'tcc_one',
+                                     in_progress_orientations: @professor.tcc_one_in_progress_orientations,
+                                     approved_orientations: @professor.tcc_one_approved_orientations %>
 
-<%= render 'site/orientations/table', orientations: @in_progress_orientations %>
 
-<h2 class="page-title">
-  <%= t('site.pages.professors.orientations.approved') %>
-</h2>
-
-<%= render 'site/orientations/table', orientations: @approved_orientations %>
+<%= render 'site/orientations/card', tcc: 'tcc_two',
+                                     in_progress_orientations: @professor.tcc_two_in_progress_orientations,
+                                     approved_orientations: @professor.tcc_two_approved_orientations %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),

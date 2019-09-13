@@ -98,8 +98,14 @@ pt-BR:
     pages:
       professors:
         orientations:
-          in_progress: 'Orientações em andamento'
-          approved: 'Orientações concluídas'
+          tcc_one:
+            label: 'Orientações de TCC 1'
+            in_progress: 'Orientações de TCC 1 em andamento'
+            approved: 'Orientações de TCC 1 concluídas'
+          tcc_two:
+            label: 'Orientações de TCC 2'
+            in_progress: 'Orientações de TCC 2 em andamento'
+            approved: 'Orientações de TCC 2 concluídas'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"

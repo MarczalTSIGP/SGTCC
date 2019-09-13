@@ -12,7 +12,7 @@ describe 'Professor::index', type: :feature, js: true do
     context 'when shows all professors' do
       it 'shows all professors with options' do
         professors.each do |professor|
-          expect(page).to have_contents([professor.name,
+          expect(page).to have_contents([professor.name_with_scholarity,
                                          professor.email,
                                          professor.professor_type.name])
           expect(page).to have_selector(link(professor.lattes))

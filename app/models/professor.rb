@@ -4,6 +4,8 @@ class Professor < ApplicationRecord
   include ProfileImage
   include DocumentFilter
   include ScholarityName
+  include ProfessorOrientationFilter
+  include ProfessorOrientationReport
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -108,13 +110,6 @@ class Professor < ApplicationRecord
     all = (guest_examination_boards.current_semester.search(search).with_relationships +
      orientation_examination_boards.current_semester.search(search).with_relationships)
     all.sort_by(&:date).reverse.uniq
-  end
-
-  def orientations_by_status(status)
-    orientations.where(status: status)
-                .includes(:academic, :calendar, :professor_supervisors,
-                          :orientation_supervisors, :external_member_supervisors)
-                .recent
   end
 
   def self.current_responsible
