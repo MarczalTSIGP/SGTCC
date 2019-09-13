@@ -33,6 +33,7 @@ class SiteController < ApplicationController
   def professor; end
 
   def approved_orientations
+    @orientations = Orientation.tcc_two('APPROVED').with_relationships.recent
     @page = Page.find_by(url: 'tccs-aprovados')
   end
 

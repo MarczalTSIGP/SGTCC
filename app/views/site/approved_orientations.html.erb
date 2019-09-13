@@ -1,1 +1,5 @@
 <% provide(:head_title, @page.menu_title) %>
+
+<div>
+  <orientations-table :data="<%= Orientation.to_json_table(@orientations) %>" />
+</div>
