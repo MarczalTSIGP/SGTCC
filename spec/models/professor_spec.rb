@@ -302,4 +302,74 @@ RSpec.describe Professor, type: :model do
       expect(professor.responsible?).to eq(false)
     end
   end
+
+  # rubocop:disable FactoryBot/CreateList
+  describe '#total_tcc_one_approved_orientations' do
+    let(:professor) { create(:professor) }
+
+    before do
+      5.times { create(:orientation_tcc_one_approved, advisor: professor) }
+    end
+
+    it 'returns the total of orientations approved' do
+      expect(professor.total_tcc_one_approved_orientations).to eq(5)
+    end
+  end
+
+  describe '#total_tcc_two_approved_orientations' do
+    let(:professor) { create(:professor) }
+
+    before do
+      5.times { create(:orientation_tcc_two_approved, advisor: professor) }
+    end
+
+    it 'returns the total of orientations approved' do
+      expect(professor.total_tcc_two_approved_orientations).to eq(5)
+    end
+  end
+
+  describe '#total_tcc_one_in_progress_orientations' do
+    let(:professor) { create(:professor) }
+
+    before do
+      create(:current_orientation_tcc_one, advisor: professor)
+    end
+
+    it 'returns the total of orientations in progress' do
+      expect(professor.total_tcc_one_in_progress_orientations).to eq(1)
+    end
+  end
+
+  describe '#total_tcc_two_in_progress_orientations' do
+    let(:professor) { create(:professor) }
+
+    before do
+      create(:current_orientation_tcc_two, advisor: professor)
+    end
+
+    it 'returns the total of orientations in progress' do
+      expect(professor.total_tcc_two_in_progress_orientations).to eq(1)
+    end
+  end
+
+  describe '#total_orientations_report' do
+    let(:professor) { create(:professor) }
+
+    let(:report) do
+      { tcc_one: { approved: 5, in_progress: 1 },
+        tcc_two: { approved: 5, in_progress: 1 } }
+    end
+
+    before do
+      5.times { create(:orientation_tcc_one_approved, advisor: professor) }
+      5.times { create(:orientation_tcc_two_approved, advisor: professor) }
+      create(:current_orientation_tcc_one, advisor: professor)
+      create(:current_orientation_tcc_two, advisor: professor)
+    end
+
+    it 'returns the total orientations report' do
+      expect(professor.total_orientations_report).to eq(report)
+    end
+  end
+  # rubocop:enable FactoryBot/CreateList
 end

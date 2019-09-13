@@ -1,12 +1,14 @@
-<h2 class="page-title mb-3">
-  <%= t("site.pages.professors.orientations.#{tcc}.label") %>
-</h2>
+<% if in_progress_orientations.present? || approved_orientations.present? %>
+  <h2 class="page-title mb-3">
+    <%= t("site.pages.professors.orientations.#{tcc}.label") %>
+  </h2>
 
-<div>
-  <professors-total-orientations-report
-    :report="<%= @professor.total_orientations_report[tcc.to_sym].to_json %>"
-    title="<%= t("site.pages.professors.orientations.#{tcc}.label") %>" />
-</div>
+  <div>
+    <professors-total-orientations-report
+      :report="<%= @professor.total_orientations_report[tcc.to_sym].to_json %>"
+      title="<%= t("site.pages.professors.orientations.#{tcc}.label") %>" />
+  </div>
+<% end %>
 
 <% unless in_progress_orientations.empty? %>
   <h3 class="page-title">
