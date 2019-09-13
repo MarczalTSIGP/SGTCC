@@ -32,6 +32,14 @@ class SiteController < ApplicationController
 
   def professor; end
 
+  def approved_orientations
+    @page = Page.find_by(url: 'tccs-aprovados')
+  end
+
+  def in_progress_orientations
+    @page = Page.find_by(url: 'tccs-em-andamento')
+  end
+
   def sidebar
     render json: Page.publisheds
   end

@@ -70,7 +70,9 @@ Site.find_or_create_by!(title: 'Site do TCC')
 pages = [
   { menu_title: 'Calendário', fa_icon: 'far fa-calendar-alt', url: 'calendario' },
   { menu_title: 'Bancas de TCC', fa_icon: 'fas fa-file-signature', url: 'bancas-de-tcc' },
-  { menu_title: 'Professores', fa_icon: 'fas fa-chalkboard-teacher', url: 'professores' }
+  { menu_title: 'Professores', fa_icon: 'fas fa-chalkboard-teacher', url: 'professores' },
+  { menu_title: 'TCCs aprovados', fa_icon: 'fas fa-file-code', url: 'tccs-aprovados' },
+  { menu_title: 'TCCs em andamento', fa_icon: 'far fa-file-code', url: 'tccs-em-andamento' }
 ]
 
 pages.each do |page|
