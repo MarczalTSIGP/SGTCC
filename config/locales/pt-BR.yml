@@ -101,11 +101,11 @@ pt-BR:
           tcc_one:
             label: 'Orientações de TCC 1'
             in_progress: 'Orientações de TCC 1 em andamento'
-            approved: 'Orientações de TCC 1 concluídas'
+            approved: 'Orientações de TCC 1 aprovadas'
           tcc_two:
             label: 'Orientações de TCC 2'
             in_progress: 'Orientações de TCC 2 em andamento'
-            approved: 'Orientações de TCC 2 concluídas'
+            approved: 'Orientações de TCC 2 aprovadas'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
