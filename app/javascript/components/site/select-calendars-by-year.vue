@@ -3,6 +3,8 @@
     <div class="input-group-prepend">
       <button
         class="btn btn-outline-primary"
+        :disabled="hasNotPreviousYear"
+        @click="setSelectedYear(previousYear)"
       >
         <i class="fe fe-chevrons-left" />
       </button>
@@ -20,7 +22,11 @@
       </option>
     </select>
     <div class="input-group-append">
-      <button class="btn btn-outline-primary">
+      <button
+        class="btn btn-outline-primary"
+        :disabled="hasNotNextYear"
+        @click="setSelectedYear(nextYear)"
+      >
         <i class="fe fe-chevrons-right" />
       </button>
     </div>
@@ -46,7 +52,9 @@ export default {
 
   data() {
     return {
+      previousYear: '',
       selectedYear: '',
+      nextYear: '',
     };
   },
 
@@ -54,10 +62,19 @@ export default {
     url() {
       return `${this.path}/${this.selectedYear}`;
     },
+
+    hasNotPreviousYear() {
+      return !this.hasYear(this.previousYear);
+    },
+
+    hasNotNextYear() {
+      return !this.hasYear(this.nextYear);
+    },
   },
 
   watch: {
     selectedYear() {
+      this.updateYears();
       this.emitUpdateOrientations();
     },
   },
@@ -67,13 +84,22 @@ export default {
   },
 
   methods: {
-    setSelectedYear() {
-      this.selectedYear = this.years[0];
+    setSelectedYear(year = this.years[0]) {
+      this.selectedYear = year;
+    },
+
+    updateYears() {
+      this.nextYear = parseInt(this.selectedYear) + 1;
+      this.previousYear = parseInt(this.selectedYear) - 1;
     },
 
     async emitUpdateOrientations() {
       const orientations = await this.$axios.post(this.url);
       this.$root.$emit('site-update-orientations', orientations.data);
+    },
+
+    hasYear(year) {
+      return this.years.includes(year.toString());
     },
   },
 };
