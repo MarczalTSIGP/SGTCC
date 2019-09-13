@@ -12,7 +12,12 @@
 
       <tbody>
         <tr v-show="noResults">
-          Nenhuma orientação encontrada
+          <td
+            colspan="5"
+            class="text-center"
+          >
+            Nenhuma orientação encontrada!
+          </td>
         </tr>
         <tr
           v-for="orientation in orientations"
