@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h2 class="page-title text-center">
-      {{ firstSemesterLabel }}
-    </h2>
-
     <div v-show="loading">
       <loader />
     </div>
     <div v-show="!loading">
+      <h2 class="page-title text-center">
+        {{ firstSemesterLabel }}
+      </h2>
+
       <orientations-table
         :orientations="orientations.first_semester"
       />
