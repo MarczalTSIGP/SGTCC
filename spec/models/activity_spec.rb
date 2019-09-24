@@ -34,4 +34,24 @@ RSpec.describe Activity, type: :model do
                                              final_date: final_date))
     end
   end
+
+  describe '#status' do
+    let(:activity) { create(:activity) }
+
+    it 'return expired' do
+      activity.final_date = 1.day.ago
+
+      expect(activity.status).to eq(:expired)
+    end
+
+    it 'return ontime' do
+      activity.final_date = Time.zone.now
+
+      expect(activity.status).to eq(:ontime)
+    end
+
+    it 'return in_the_future' do
+      expect(activity.status).to eq(:in_the_future)
+    end
+  end
 end

@@ -64,6 +64,8 @@ RSpec.describe ExaminationBoard, type: :model do
   end
 
   describe '#distance_of_date' do
+    include ActionView::Helpers::DateHelper
+
     let(:i18n) { 'views.tables.examination_board' }
     let(:date_current) { Date.current }
 

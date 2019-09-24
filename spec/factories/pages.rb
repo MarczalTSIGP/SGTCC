@@ -4,6 +4,7 @@ FactoryBot.define do
     url { Faker::Name.first_name.parameterize }
     content { Faker::Lorem.paragraph }
     fa_icon { 'fas fa-home' }
+    publish { true }
 
     before :create do
       create(:site) if Site.all.empty?

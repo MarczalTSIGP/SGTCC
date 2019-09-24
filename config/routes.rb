@@ -627,5 +627,9 @@ Rails.application.routes.draw do
     end
   end
 
+  #========================================
+  # site
+  #========================================
+  get 'calendario', to: 'site#calendar', as: 'site_calendar'
   get '(:page)', to: 'site#page', as: 'site_page'
 end
