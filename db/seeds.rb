@@ -68,7 +68,7 @@ end
 Site.find_or_create_by!(title: 'Site do TCC')
 
 pages = [
-  { menu_title: 'Atividades do TCC', fa_icon: 'far fa-file-alt', url: 'atividades' }
+  { menu_title: 'Calendário', fa_icon: 'far fa-calendar-alt', url: 'calendario' }
 ]
 
 pages.each do |page|

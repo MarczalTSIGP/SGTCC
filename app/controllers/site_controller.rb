@@ -15,12 +15,12 @@ class SiteController < ApplicationController
 
   def page; end
 
-  def activities
+  def calendar
     @calendar_tcc_one = Calendar.current_by_tcc_one
     @calendar_tcc_two = Calendar.current_by_tcc_two
     @activities_tcc_one = @calendar_tcc_one.activities.includes(:base_activity_type).recent
     @activities_tcc_two = @calendar_tcc_two.activities.includes(:base_activity_type).recent
-    @page = Page.find_by(url: 'atividades')
+    @page = Page.find_by(url: 'calendario')
   end
 
   def sidebar

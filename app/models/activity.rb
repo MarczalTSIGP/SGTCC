@@ -16,4 +16,11 @@ class Activity < ApplicationRecord
            initial_date: I18n.l(initial_date, format: :datetime),
            final_date: I18n.l(final_date, format: :datetime))
   end
+
+  def status
+    return :ontime if final_date.to_date == Date.current
+    return :expired if final_date < Time.zone.now
+
+    :in_the_future
+  end
 end
