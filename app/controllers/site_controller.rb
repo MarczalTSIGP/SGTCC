@@ -25,7 +25,8 @@ class SiteController < ApplicationController
   end
 
   def professors
-    @professors = Professor.all.includes(:scholarity).order(:name)
+    @effective_professors = Professor.effective.includes(:scholarity).order(:name)
+    @temporary_professors = Professor.temporary.includes(:scholarity).order(:name)
     @page = Page.find_by(url: 'professores')
   end
 

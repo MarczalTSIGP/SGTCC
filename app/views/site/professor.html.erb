@@ -52,15 +52,15 @@
   </div>
 </div>
 
-<%= render 'site/orientations/card', orientations_title: 'Orientações em andamento',
-                                     supervisions_title: 'Coorientações em andamento',
+<%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.in_progress'),
+                                     supervisions_title: t('site.pages.professors.supervisions.in_progress'),
                                      tcc_one_orientations: @professor.tcc_one_in_progress,
                                      tcc_two_orientations: @professor.tcc_two_in_progress,
                                      tcc_one_supervisions: @professor.tcc_one_in_progress(@professor.supervisions),
                                      tcc_two_supervisions: @professor.tcc_two_in_progress(@professor.supervisions) %>
 
-<%= render 'site/orientations/card', orientations_title: 'Orientações concluídas',
-                                     supervisions_title: 'Coorientações concluídas',
+<%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.approved'),
+                                     supervisions_title: t('site.pages.professors.supervisions.approved'),
                                      tcc_one_orientations: @professor.tcc_one_approved,
                                      tcc_two_orientations: @professor.tcc_two_approved,
                                      tcc_one_supervisions: @professor.tcc_one_approved(@professor.supervisions),

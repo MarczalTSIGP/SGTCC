@@ -97,15 +97,16 @@ pt-BR:
     all_rights_reserved: "Todos os direitos reservados."
     pages:
       professors:
+        effective: 'Professores efetivos'
+        temporary: 'Professores temporários'
         orientations:
-          tcc_one:
-            label: 'Orientações de TCC 1'
-            in_progress: 'Orientações de TCC 1 em andamento'
-            approved: 'Orientações de TCC 1 aprovadas'
-          tcc_two:
-            label: 'Orientações de TCC 2'
-            in_progress: 'Orientações de TCC 2 em andamento'
-            approved: 'Orientações de TCC 2 aprovadas'
+          in_progress: 'Orientações em andamento'
+          approved: 'Orientações concluídas'
+          tcc_one: 'TCC 1'
+          tcc_two: 'TCC 2'
+        supervisions:
+          in_progress: 'Coorientações em andamento'
+          approved: 'Coorientações concluídas'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
