@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :image do
-    name "MyString"
-    image "MyString"
+    sequence(:name) { Faker::Name.name }
+    sequence(:url) { Faker::Name.name }
   end
 end

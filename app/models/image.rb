@@ -4,4 +4,7 @@ class Image < ApplicationRecord
   mount_uploader :url, ImageUploader
 
   searchable :name
+
+  validates :name,
+            presence: true
 end
