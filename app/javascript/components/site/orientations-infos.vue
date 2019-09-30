@@ -8,7 +8,7 @@
         {{ firstSemesterLabel }}
       </h2>
 
-      <orientations-table
+      <orientations-info
         :orientations="orientations.first_semester"
       />
 
@@ -16,7 +16,7 @@
         {{ secondSemesterLabel }}
       </h2>
 
-      <orientations-table
+      <orientations-info
         :orientations="orientations.second_semester"
       />
     </div>
@@ -25,15 +25,15 @@
 
 <script>
 
-import OrientationsTable from './orientations-table';
+import OrientationsInfo from './orientations-info';
 import Loader from '../shared/loader';
 
 export default {
-  name: 'OrientationTables',
+  name: 'OrientationInfos',
 
   components: {
     Loader,
-    OrientationsTable
+    OrientationsInfo
   },
 
   data() {
@@ -59,7 +59,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.onUpdateOrientations();
     this.onUpdateCalendarYear();
   },

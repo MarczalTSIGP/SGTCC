@@ -11,7 +11,7 @@
     </div>
     <select
       v-model="selectedYear"
-      class="custom-select"
+      class="site-select custom-select"
     >
       <option
         v-for="(year, index) in years"

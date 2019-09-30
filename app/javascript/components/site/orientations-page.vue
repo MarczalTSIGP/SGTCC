@@ -4,20 +4,20 @@
       :years="years"
       :path="path"
     />
-    <orientations-tables />
+    <orientations-infos />
   </div>
 </template>
 
 <script>
 
-import OrientationsTables from './orientations-tables';
+import OrientationsInfos from './orientations-infos';
 import SelectCalendarsByYear from './select-calendars-by-year';
 
 export default {
   name: 'OrientationsPage',
 
   components: {
-    OrientationsTables,
+    OrientationsInfos,
     SelectCalendarsByYear
   },
 
