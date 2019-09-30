@@ -5,7 +5,6 @@ class Professor < ApplicationRecord
   include DocumentFilter
   include ScholarityName
   include ProfessorOrientationFilter
-  include ProfessorOrientationReport
 
   devise :database_authenticatable,
          :rememberable, :validatable,

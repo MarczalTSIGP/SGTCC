@@ -303,73 +303,61 @@ RSpec.describe Professor, type: :model do
     end
   end
 
-  # rubocop:disable FactoryBot/CreateList
-  describe '#total_tcc_one_approved_orientations' do
+  describe '#tcc_one_approved' do
     let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
 
-    before do
-      5.times { create(:orientation_tcc_one_approved, advisor: professor) }
-    end
-
-    it 'returns the total of orientations approved' do
-      expect(professor.total_tcc_one_approved_orientations).to eq(5)
+    it 'returns the tcc one approved' do
+      orientations_approved = professor.orientations.tcc_one('APPROVED')
+      expect(professor.tcc_one_approved).to eq(orientations_approved)
     end
   end
 
-  describe '#total_tcc_two_approved_orientations' do
+  describe '#tcc_two_approved' do
     let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
 
-    before do
-      5.times { create(:orientation_tcc_two_approved, advisor: professor) }
-    end
-
-    it 'returns the total of orientations approved' do
-      expect(professor.total_tcc_two_approved_orientations).to eq(5)
+    it 'returns the tcc two approved' do
+      orientations_approved = professor.orientations.tcc_two('APPROVED')
+      expect(professor.tcc_two_approved).to eq(orientations_approved)
     end
   end
 
-  describe '#total_tcc_one_in_progress_orientations' do
+  describe '#tcc_one_in_progress' do
     let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
 
-    before do
-      create(:current_orientation_tcc_one, advisor: professor)
-    end
-
-    it 'returns the total of orientations in progress' do
-      expect(professor.total_tcc_one_in_progress_orientations).to eq(1)
+    it 'returns the tcc one in progress' do
+      orientations_approved = professor.orientations.tcc_one('IN_PROGRESS')
+      expect(professor.tcc_one_in_progress).to eq(orientations_approved)
     end
   end
 
-  describe '#total_tcc_two_in_progress_orientations' do
+  describe '#tcc_two_in_progress' do
     let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
 
-    before do
-      create(:current_orientation_tcc_two, advisor: professor)
-    end
-
-    it 'returns the total of orientations in progress' do
-      expect(professor.total_tcc_two_in_progress_orientations).to eq(1)
+    it 'returns the tcc two in progress' do
+      orientations_approved = professor.orientations.tcc_two('IN_PROGRESS')
+      expect(professor.tcc_two_in_progress).to eq(orientations_approved)
     end
   end
 
-  describe '#total_orientations_report' do
-    let(:professor) { create(:professor) }
+  describe '#effective' do
+    let(:professor_type) { create(:professor_type, name: 'Efetivo') }
+    let(:professor) { create(:professor, professor_type: professor_type) }
 
-    let(:report) do
-      { tcc_one: { approved: 5, in_progress: 1 },
-        tcc_two: { approved: 5, in_progress: 1 } }
-    end
-
-    before do
-      5.times { create(:orientation_tcc_one_approved, advisor: professor) }
-      5.times { create(:orientation_tcc_two_approved, advisor: professor) }
-      create(:current_orientation_tcc_one, advisor: professor)
-      create(:current_orientation_tcc_two, advisor: professor)
-    end
-
-    it 'returns the total orientations report' do
-      expect(professor.total_orientations_report).to eq(report)
+    it 'returns the effective professors' do
+      expect(Professor.effective).to eq([professor])
     end
   end
-  # rubocop:enable FactoryBot/CreateList
+
+  describe '#temporary' do
+    let(:professor_type) { create(:professor_type, name: 'Temporário') }
+    let(:professor) { create(:professor, professor_type: professor_type) }
+
+    it 'returns the temporary professors' do
+      expect(Professor.temporary).to eq([professor])
+    end
+  end
 end

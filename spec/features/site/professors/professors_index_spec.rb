@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 describe 'Professor::index', type: :feature, js: true do
-  let!(:professors) { create_list(:professor, 25) }
+  let!(:effective_professor_type) { create(:professor_type, name: 'Efetivo') }
+  let!(:temporary_professor_type) { create(:professor_type, name: 'Temporário') }
+  let!(:effective_professor) { create(:professor, professor_type: effective_professor_type) }
+  let!(:temporary_professor) { create(:professor, professor_type: temporary_professor_type) }
+  let(:professors) { [effective_professor, temporary_professor] }
 
   before do
     create(:page, url: 'professores')
@@ -12,9 +16,11 @@ describe 'Professor::index', type: :feature, js: true do
     context 'when shows all professors' do
       it 'shows all professors with options' do
         professors.each do |professor|
+          available_advisor = I18n.t("helpers.boolean.#{professor.available_advisor}")
+
           expect(page).to have_contents([professor.name_with_scholarity,
-                                         professor.email,
-                                         professor.professor_type.name])
+                                         available_advisor,
+                                         professor.email])
           expect(page).to have_selector(link(professor.lattes))
         end
       end
