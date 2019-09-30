@@ -4,7 +4,7 @@
 <div class="card card-profile">
   <div class="card-header"></div>
   <div class="card-body text-center">
-    <img class="card-profile-img" src="<%= @professor.profile_image %>">
+    <img class="card-profile-img text-center" src="<%= @professor.profile_image %>">
     <p>
       <strong>
         <%= Professor.human_attribute_name('name') %>:
@@ -19,33 +19,15 @@
     </p>
     <p>
       <strong>
-        <%= Professor.human_attribute_name('username') %>:
-      </strong>
-      <%= @professor.username %>
-    </p>
-    <p>
-      <strong>
         <%= Professor.human_attribute_name('lattes') %>:
       </strong>
       <%= link_to(@professor.lattes, @professor.lattes, target: '_blank').html_safe %>
     </p>
     <p>
       <strong>
-        <%= Professor.human_attribute_name('is_active') %>:
-      </strong>
-      <%= t("helpers.boolean.#{@professor.is_active}") %>
-    </p>
-    <p>
-      <strong>
         <%= Professor.human_attribute_name('available_advisor') %>:
       </strong>
       <%= t("helpers.boolean.#{@professor.available_advisor}") %>
-    </p>
-    <p>
-      <strong>
-        <%= Professor.human_attribute_name('gender') %>:
-      </strong>
-      <%= t("enums.genders.#{@professor.gender}") %>
     </p>
     <p>
       <strong>
@@ -59,16 +41,6 @@
       </strong>
       <%= @professor.professor_type.name %>
     </p>
-    <% unless @professor.roles.empty? %>
-      <p>
-        <strong>
-          <%= Professor.human_attribute_name('roles') %>:
-        </strong>
-        <% @professor.roles.each do |role| %>
-          <span class="badge badge-primary"><%= role.name %></span>
-        <% end %>
-      </p>
-    <% end %>
     <p>
       <strong>
         <%= Professor.human_attribute_name('working_area') %>:
@@ -80,14 +52,19 @@
   </div>
 </div>
 
-<%= render 'site/orientations/card', tcc: 'tcc_one',
-                                     in_progress_orientations: @professor.tcc_one_in_progress_orientations,
-                                     approved_orientations: @professor.tcc_one_approved_orientations %>
+<%= render 'site/orientations/card', orientations_title: 'Orientações em andamento',
+                                     supervisions_title: 'Coorientações em andamento',
+                                     tcc_one_orientations: @professor.tcc_one_in_progress,
+                                     tcc_two_orientations: @professor.tcc_two_in_progress,
+                                     tcc_one_supervisions: @professor.tcc_one_in_progress(@professor.supervisions),
+                                     tcc_two_supervisions: @professor.tcc_two_in_progress(@professor.supervisions) %>
 
-
-<%= render 'site/orientations/card', tcc: 'tcc_two',
-                                     in_progress_orientations: @professor.tcc_two_in_progress_orientations,
-                                     approved_orientations: @professor.tcc_two_approved_orientations %>
+<%= render 'site/orientations/card', orientations_title: 'Orientações concluídas',
+                                     supervisions_title: 'Coorientações concluídas',
+                                     tcc_one_orientations: @professor.tcc_one_approved,
+                                     tcc_two_orientations: @professor.tcc_two_approved,
+                                     tcc_one_supervisions: @professor.tcc_one_approved(@professor.supervisions),
+                                     tcc_two_supervisions: @professor.tcc_two_approved(@professor.supervisions) %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),

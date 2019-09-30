@@ -3,7 +3,7 @@
     <table-avatar url="<%= professor.profile_image %>" />
   </td>
   <td><%= professor.name_with_scholarity %></td>
-  <td><%= professor.professor_type.name %></td>
+  <td><%= t("helpers.boolean.#{professor.is_active}") %></td>
   <td><%= professor.email %></td>
   <td class="text-center">
     <%= link_to professor.lattes, target: '_blank' do %>

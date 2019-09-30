@@ -4,20 +4,20 @@ module ProfessorOrientationFilter
   extend ActiveSupport::Concern
 
   included do
-    def tcc_one_approved_orientations
-      orientations_included(orientations.tcc_one('APPROVED'))
+    def tcc_one_approved(data = orientations)
+      orientations_included(data.tcc_one('APPROVED'))
     end
 
-    def tcc_two_approved_orientations
-      orientations_included(orientations.tcc_two('APPROVED'))
+    def tcc_two_approved(data = orientations)
+      orientations_included(data.tcc_two('APPROVED'))
     end
 
-    def tcc_one_in_progress_orientations
-      orientations_included(orientations.current_tcc_one('IN_PROGRESS'))
+    def tcc_one_in_progress(data = orientations)
+      orientations_included(data.current_tcc_one('IN_PROGRESS'))
     end
 
-    def tcc_two_in_progress_orientations
-      orientations_included(orientations.current_tcc_two('IN_PROGRESS'))
+    def tcc_two_in_progress(data = orientations)
+      orientations_included(data.current_tcc_two('IN_PROGRESS'))
     end
 
     def orientations_included(data)
