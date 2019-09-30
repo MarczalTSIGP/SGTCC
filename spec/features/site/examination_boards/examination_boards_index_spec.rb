@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::index', type: :feature, js: true do
   before do
-    create(:page, url: 'bancas-de-defesa')
+    create(:page, url: 'bancas-de-tcc')
   end
 
   describe '#index' do
@@ -17,7 +17,7 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
         expect(page).to have_contents([examination_board_tcc_one.orientation.academic.name,
                                        advisor_name,
                                        examination_board_tcc_one.place,
-                                       datetime(examination_board_tcc_one.date)])
+                                       long_date(examination_board_tcc_one.date)])
 
         examination_board_tcc_one.professors.each do |professor|
           expect(page).to have_content(professor.name_with_scholarity)
@@ -37,7 +37,7 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
         expect(page).to have_contents([examination_board_tcc_two.orientation.academic.name,
                                        advisor_name,
                                        examination_board_tcc_two.place,
-                                       datetime(examination_board_tcc_two.date)])
+                                       long_date(examination_board_tcc_two.date)])
 
         examination_board_tcc_two.professors.each do |professor|
           expect(page).to have_content(professor.name_with_scholarity)

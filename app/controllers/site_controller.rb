@@ -31,7 +31,7 @@ class SiteController < ApplicationController
     @examination_boards_tcc_one = examination_board_data(ExaminationBoard.tcc_one)
     @examination_boards_tcc_two = examination_board_data(ExaminationBoard.tcc_two)
 
-    @page = Page.find_by(url: 'bancas-de-defesa')
+    @page = Page.find_by(url: 'bancas-de-tcc')
   end
 
   private
@@ -52,7 +52,8 @@ class SiteController < ApplicationController
   def examination_board_data(data)
     data.includes(external_members: [:scholarity],
                   professors: [:scholarity],
-                  orientation: [:academic, advisor: [:scholarity]])
+                  orientation: [:academic, :orientation_supervisors, :professor_supervisors,
+                                :external_member_supervisors, advisor: [:scholarity]])
         .recent
   end
 end

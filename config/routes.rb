@@ -631,7 +631,7 @@ Rails.application.routes.draw do
   # site
   #========================================
   get 'calendario', to: 'site#calendar', as: 'site_calendar'
-  get 'bancas-de-defesa', to: 'site#examination_boards', as: 'site_examination_boards'
+  get 'bancas-de-tcc', to: 'site#examination_boards', as: 'site_examination_boards'
 
   get '(:page)', to: 'site#page', as: 'site_page'
 end
