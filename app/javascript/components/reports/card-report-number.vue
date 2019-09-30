@@ -1,7 +1,6 @@
 <template>
   <div class="card p-3">
     <a
-      v-if="showLink()"
       :href="redirect"
       class="text-decoration-none"
     >
@@ -19,21 +18,6 @@
         </div>
       </div>
     </a>
-    <span v-else>
-      <div class="d-flex align-items-center">
-        <span :class="`stamp stamp-md bg-${backgroundColor} mr-3`">
-          <i class="fe fe-users" />
-        </span>
-        <div>
-          <h4 class="m-0">
-            {{ number }} <small>{{ title }}</small>
-          </h4>
-          <small class="text-muted">
-            {{ label }}
-          </small>
-        </div>
-      </div>
-    </span>
   </div>
 </template>
 
@@ -55,10 +39,7 @@ export default {
 
     redirect: {
       type: String,
-      required: false,
-      default() {
-        return '#';
-      },
+      required: true
     },
 
     number: {
@@ -69,12 +50,6 @@ export default {
     title: {
       type: String,
       required: true
-    },
-  },
-
-  methods: {
-    showLink() {
-      return this.redirect !== '#';
     },
   },
 };
