@@ -27,6 +27,14 @@
   <%= t('breadcrumbs.site.attached_documents') %>
 <% end %>
 
+<%= active_link_to(responsible_images_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('far', 'images') %>
+  </span>
+  <%= t('breadcrumbs.site.images') %>
+<% end %>
+
 <% if Site.first %>
   <%= active_link_to(edit_responsible_site_path(Site.first),
                      class: 'list-group-item list-group-item-action') do %>

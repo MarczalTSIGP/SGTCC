@@ -1,0 +1,29 @@
+<div class="col-sm-6 col-lg-4">
+  <div class="card p-3">
+    <img src="<%= image.url %>" alt="<%= image.name %>" class="site-images rounded">
+    <div class="d-flex align-items-center px-2">
+      <div>
+        <div><%= image.name %></div>
+      </div>
+      <div class="ml-auto text-muted mt-3">
+        <a
+          href="javascript:void(0)"
+          title="Copiar para área de transferência"
+          v-clipboard:copy="'<%= image.url %>'"
+        >
+          <i class="fe fe-link"></i>
+        </a>
+        <%= link_to(edit_responsible_image_path(image)) do %>
+          <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+        <% end %>
+        <%= link_to responsible_image_path(image),
+          method: :delete,
+          data: { confirm: t('prompt.confirm') },
+          class: 'destroy' do %>
+          <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

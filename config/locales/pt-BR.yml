@@ -102,6 +102,10 @@ pt-BR:
       index: 'Documentos anexados'
       new: 'Novo documento'
       edit: 'Editar documento'
+    images:
+      index: 'Imagens'
+      new: 'Nova imagem'
+      edit: 'Editar imagem'
     academics:
       index: 'Acadêmicos'
       new: 'Novo Acadêmico'
@@ -207,6 +211,7 @@ pt-BR:
       pages: "Páginas"
       menu_order: "Ordenar menu"
       attached_documents: "Documentos anexados"
+      images: "Imagens"
     pages:
       index: "Páginas"
       edit: "Editar página"
@@ -321,6 +326,9 @@ pt-BR:
       attached_document:
         one: "Documento anexado"
         other: "Documentos anexados"
+      image:
+        one: "Imagem"
+        other: "Imagens"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -425,6 +433,8 @@ pt-BR:
         <<: *commons
       attached_document:
         file: "Arquivo"
+      image:
+        url: "Imagem"
         <<: *commons
   placeholders:
     meetings:
