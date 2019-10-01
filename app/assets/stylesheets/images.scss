@@ -1,9 +1,10 @@
 .site-images {
+  height: 180px;
   display: block;
   margin: 0 auto;
 
   @media (min-width: 769px) {
-    height: 300px;
+    height: 250px;
   }
 }
 
