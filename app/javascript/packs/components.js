@@ -1,3 +1,4 @@
+import CopyToClipboard from '../components/shared/copy-to-clipboard';
 import Datetimepicker from '../components/shared/datetimepicker';
 import DocumentStatus from '../components/signatures/document-status';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
@@ -28,6 +29,7 @@ import TermOfExtension from '../components/signatures/documents/term-of-extensio
 import TermOfSubstitution from '../components/signatures/documents/term-of-substitution';
 
 const components = {
+  CopyToClipboard,
   Datetimepicker,
   DocumentStatus,
   ExaminationBoardStatus,

@@ -7,6 +7,7 @@
   </td>
   <td><%= short_date(attached_document.created_at) %></td>
   <td>
+    <copy-to-clipboard value="<%= attached_document.file %>"></copy-to-clipboard>
     <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
     <% end %>
