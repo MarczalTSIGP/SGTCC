@@ -1,3 +1,9 @@
 .site-images {
   max-height: 390px;
+
+  @media (min-width: 769px) {
+    height: 350px;
+  }
 }
+
+

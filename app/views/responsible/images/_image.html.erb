@@ -1,6 +1,8 @@
 <div class="col-sm-6 col-lg-4">
   <div class="card p-3">
-    <img src="<%= image.url %>" alt="<%= image.name %>" class="site-images rounded">
+    <%= link_to(image.url.url) do %>
+      <img src="<%= image.url %>" alt="<%= image.name %>" class="site-images rounded img-fluid">
+    <% end %>
     <div class="d-flex align-items-center px-2">
       <div>
         <div><%= image.name %></div>
