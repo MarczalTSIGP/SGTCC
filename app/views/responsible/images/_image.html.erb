@@ -8,7 +8,7 @@
         <div><%= image.name %></div>
       </div>
       <div class="ml-auto text-muted mt-3">
-        <clipboard-copy value="<%= image.url %>"></clipboard-copy>
+        <copy-to-clipboard value="<%= image.url %>"></copy-to-clipboard>
         <%= link_to(edit_responsible_image_path(image)) do %>
           <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
         <% end %>
