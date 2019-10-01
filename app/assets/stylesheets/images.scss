@@ -1,10 +1,9 @@
 .site-images {
-  max-height: 390px;
   display: block;
   margin: 0 auto;
 
   @media (min-width: 769px) {
-    height: 350px;
+    height: 300px;
   }
 }
 

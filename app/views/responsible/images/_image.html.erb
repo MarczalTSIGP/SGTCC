@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-lg-4">
   <div class="card p-3">
-    <%= link_to(image.url.url) do %>
+    <%= link_to(image.url.url, target: :_blank) do %>
       <img src="<%= image.url %>"
            alt="<%= image.name %>"
            class="site-images rounded img-fluid">
@@ -8,7 +8,7 @@
     <p class="text-center my-2"><%= image.name %></p>
     <div class="d-flex align-items-center px-2">
       <div class="ml-auto text-muted mt-3">
-        <copy-to-clipboard value="<%= image.url %>"></copy-to-clipboard>
+        <copy-to-clipboard value="<%= image_url(image.url) %>"></copy-to-clipboard>
         <%= link_to(edit_responsible_image_path(image)) do %>
           <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
         <% end %>

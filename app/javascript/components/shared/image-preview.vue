@@ -13,7 +13,7 @@
             class="file_preview active"
             :src="imageData"
           >
-          <div :class="`form-group file optional form-group-${imageClass}`">
+          <div class="form-group file optional form-group">
             <input
               :id="inputId"
               :class="`form-control-file is-${imageClass} file optional`"
@@ -36,17 +36,20 @@
       v-show="!imageData"
     >
       <label>
-        <strong>{{ $t('messages.registration.find_image') }} *</strong>
+        <strong>Imagem *</strong>
       </label>
 
-      <input
-        :id="inputId"
-        :class="`form-control-file is-${imageClass} file optional`"
-        accept="image/*"
-        type="file"
-        :name="inputName"
-        @change="previewImage"
-      >
+      <div class="custom-file">
+        <input
+          :id="inputId"
+          class="custom-file-input"
+          accept="image/*"
+          type="file"
+          :name="inputName"
+          @change="previewImage"
+        >
+        <label class="custom-file-label">Selecionar imagem</label>
+      </div>
     </div>
     <div
       v-if="imageHasErrors()"
