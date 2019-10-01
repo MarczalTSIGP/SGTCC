@@ -1,10 +1,18 @@
-<%= simple_form_for [:responsible, @image] do |f| %>
+<%= simple_form_for [:responsible, @image], html: { multipart: true } do |f| %>
   <div class="row form-inputs">
     <div class="col-md-6">
       <%= f.input :name %>
     </div>
     <div class="col-md-6">
-      <%= f.input :url, as: :file %>
+      <strong>
+        <%= f.label "Imagem" %> *
+      </strong><br>
+      <%= f.file_field :url %>
+      <%= f.hidden_field :url_cache %>
+      <br>
+      <div class="my-2">
+        <%= image_tag(@image.url.url) if @image.url? %>
+      </div>
     </div>
   </div>
 
