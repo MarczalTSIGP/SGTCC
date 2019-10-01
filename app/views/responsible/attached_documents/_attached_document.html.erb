@@ -1,0 +1,16 @@
+<tr>
+  <td><%= attached_document.name %></td>
+  <td><%= attached_document.file %></td>
+  <td><%= short_date(attached_document.created_at) %></td>
+  <td>
+    <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_attached_document_path(attached_document),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+    <% end %>
+  </td>
+</tr>
