@@ -64,6 +64,6 @@ class Responsible::ImagesController < Responsible::BaseController
   end
 
   def image_params
-    params.require(:image).permit(:name, :url)
+    params.require(:image).permit(:name, :url, :url_cache)
   end
 end

@@ -4,15 +4,13 @@
       <%= f.input :name %>
     </div>
     <div class="col-md-6">
-      <strong>
-        <%= f.label "Imagem" %> *
-      </strong><br>
-      <%= f.file_field :url %>
+      <image-preview
+        resource="image"
+        name="url"
+        :image-url="<%= @image.url.url.to_json %>"
+        :image-errors="<%= @image.errors[:url] %>">
+      </image-preview>
       <%= f.hidden_field :url_cache %>
-      <br>
-      <div class="my-2">
-        <%= image_tag(@image.url.url) if @image.url? %>
-      </div>
     </div>
   </div>
 
