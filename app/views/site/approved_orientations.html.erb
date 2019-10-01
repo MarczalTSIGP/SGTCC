@@ -1,7 +1,8 @@
 <% provide(:head_title, @page.menu_title) %>
 
 <div>
-  <orientations-page
+  <orientations-approved-page
     path="tccs-aprovados/ano"
-    :years="<%= Site.select_calendar_years.to_json %>" />
+    :years="<%= Site.select_calendar_years.to_json %>"
+  />
 </div>

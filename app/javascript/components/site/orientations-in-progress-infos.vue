@@ -8,16 +8,40 @@
         {{ firstSemesterLabel }}
       </h2>
 
+      <h3 class="page-title">
+        TCC 1
+      </h3>
+
       <orientations-info
-        :orientations="orientations.first_semester"
+        :orientations="orientations.tcc_one.first_semester"
+      />
+
+      <h3 class="page-title">
+        TCC 2
+      </h3>
+
+      <orientations-info
+        :orientations="orientations.tcc_two.first_semester"
       />
 
       <h2 class="page-title text-center">
         {{ secondSemesterLabel }}
       </h2>
 
+      <h3 class="page-title">
+        TCC 1
+      </h3>
+
       <orientations-info
-        :orientations="orientations.second_semester"
+        :orientations="orientations.tcc_one.second_semester"
+      />
+
+      <h3 class="page-title">
+        TCC 2
+      </h3>
+
+      <orientations-info
+        :orientations="orientations.tcc_two.second_semester"
       />
     </div>
   </div>
@@ -29,7 +53,7 @@ import OrientationsInfo from './orientations-info';
 import Loader from '../shared/loader';
 
 export default {
-  name: 'OrientationInfos',
+  name: 'OrientationInProgressInfos',
 
   components: {
     Loader,
@@ -43,8 +67,14 @@ export default {
       secondSemester: 2,
       loading: true,
       orientations: {
-        first_semester: [],
-        second_semester: []
+        tcc_one: {
+          first_semester: [],
+          second_semester: []
+        },
+        tcc_two: {
+          first_semester: [],
+          second_semester: []
+        },
       },
     };
   },
@@ -74,8 +104,11 @@ export default {
     onUpdateOrientations() {
       this.$root.$on('site-update-orientations', (data) => {
         this.loading = true;
-        this.orientations.first_semester = data.first_semester;
-        this.orientations.second_semester = data.second_semester;
+        this.orientations.tcc_one.first_semester = data.tcc_one.first_semester;
+        this.orientations.tcc_one.second_semester = data.tcc_one.second_semester;
+        this.orientations.tcc_two.first_semester = data.tcc_two.first_semester;
+        this.orientations.tcc_two.second_semester = data.tcc_two.second_semester;
+
         this.loading = false;
       });
     },

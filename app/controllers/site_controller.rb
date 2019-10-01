@@ -46,8 +46,11 @@ class SiteController < ApplicationController
   end
 
   def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
-    render_orientations(Orientation.tcc_one(status, year, 'one'),
-                        Orientation.tcc_one(status, year, 'two'))
+    data = { tcc_one: { first_semester: Orientation.tcc_one(status, year, 'one'),
+                        second_semester: Orientation.tcc_one(status, year, 'two') },
+             tcc_two: { first_semester: Orientation.tcc_two(status, year, 'one'),
+                        second_semester: Orientation.tcc_two(status, year, 'two') } }
+    render json: Orientation.to_json_table(data)
   end
 
   def sidebar

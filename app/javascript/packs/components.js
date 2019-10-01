@@ -8,9 +8,10 @@ import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
 import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
+import OrientationsApprovedPage from '../components/site/orientations-approved-page';
 import OrientationCancel from '../components/orientations/orientation-cancel';
 import OrientationRenew from '../components/orientations/orientation-renew';
-import OrientationsPage from '../components/site/orientations-page';
+import OrientationsInProgressPage from '../components/site/orientations-in-progress-page';
 import OrientationStatus from '../components/orientations/orientation-status';
 import OrientationStatusFilter from '../components/orientations/orientation-status-filter';
 import ResponsibleDashboard from '../components/reports/responsible-dashboard';
@@ -40,9 +41,10 @@ const components = {
   FlashMessages,
   FontawesomePicker,
   MeetingView,
+  OrientationsApprovedPage,
   OrientationCancel,
+  OrientationsInProgressPage,
   OrientationRenew,
-  OrientationsPage,
   OrientationStatus,
   OrientationStatusFilter,
   ProfileImagePreview,
