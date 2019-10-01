@@ -1,5 +1,5 @@
 class Responsible::ImagesController < Responsible::BaseController
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_image, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.images.index'),
                  :responsible_images_path
@@ -19,8 +19,6 @@ class Responsible::ImagesController < Responsible::BaseController
   def index
     @images = Image.page(params[:page]).search(params[:term])
   end
-
-  def show; end
 
   def new
     @image = Image.new
