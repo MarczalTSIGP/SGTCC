@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:images', type: :feature, js: true do
+describe 'Image:update', type: :feature, js: true do
   context 'when updates the image' do
     let(:professor) { create(:responsible) }
     let(:site_image) { create(:image) }

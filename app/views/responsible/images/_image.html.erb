@@ -6,13 +6,7 @@
         <div><%= image.name %></div>
       </div>
       <div class="ml-auto text-muted mt-3">
-        <a
-          href="javascript:void(0)"
-          title="Copiar para área de transferência"
-          v-clipboard:copy="'<%= image.url %>'"
-        >
-          <i class="fe fe-link"></i>
-        </a>
+        <clipboard-copy value="<%= image.url %>"></clipboard-copy>
         <%= link_to(edit_responsible_image_path(image)) do %>
           <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
         <% end %>
