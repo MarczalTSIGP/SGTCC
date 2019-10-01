@@ -1,5 +1,5 @@
 class Responsible::AttachedDocumentsController < Responsible::BaseController
-  before_action :set_attached_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_attached_document, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.attached_documents.index'),
                  :responsible_attached_documents_path
@@ -17,10 +17,10 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @attached_documents = AttachedDocument.page(params[:page]).search(params[:term])
+    @attached_documents = AttachedDocument.page(params[:page])
+                                          .search(params[:term])
+                                          .order(created_at: :desc)
   end
-
-  def show; end
 
   def new
     @attached_document = AttachedDocument.new
@@ -43,7 +43,7 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
   def update
     if @attached_document.update(attached_document_params)
       success_update_message
-      redirect_to responsible_attached_document_path(@attached_document)
+      redirect_to responsible_attached_documents_path
     else
       error_message
       render :edit

@@ -90,6 +90,7 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :attached_documents,
+                except: :show,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
