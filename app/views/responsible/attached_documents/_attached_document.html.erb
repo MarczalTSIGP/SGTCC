@@ -1,6 +1,10 @@
 <tr>
   <td><%= attached_document.name %></td>
-  <td><%= attached_document.file %></td>
+  <td>
+    <%= link_to(attached_document.file.url) do %>
+      <%= attached_document.file %>
+    <% end %>
+  </td>
   <td><%= short_date(attached_document.created_at) %></td>
   <td>
     <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
