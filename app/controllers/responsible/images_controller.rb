@@ -17,7 +17,7 @@ class Responsible::ImagesController < Responsible::BaseController
                  only: [:edit]
 
   def index
-    @images = Image.page(params[:page]).search(params[:term])
+    @images = Image.page(params[:page]).search(params[:term]).order(created_at: :desc)
   end
 
   def new

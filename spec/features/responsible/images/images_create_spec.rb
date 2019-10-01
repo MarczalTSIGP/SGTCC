@@ -27,7 +27,7 @@ describe 'Image::create', type: :feature, js: true do
       end
     end
 
-    context 'when academic is not valid' do
+    context 'when image is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
