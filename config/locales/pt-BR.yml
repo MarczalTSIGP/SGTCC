@@ -352,6 +352,7 @@ pt-BR:
         orientation_supervisors: "Coorientadores"
         documents: "Documentos"
         hour: "Hora"
+        available: "Disponível"
       academic:
         ra: "RA"
         <<: *commons

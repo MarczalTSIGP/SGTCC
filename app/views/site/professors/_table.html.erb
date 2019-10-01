@@ -3,14 +3,21 @@
 </div>
 
 <div class="site-table table-striped table-responsive w-100 mt-5">
-  <table class="border border-gray card-table table-vcenter">
+  <table class="border border-gray card-table table-vcenter text-nowrap">
     <thead>
       <tr>
-        <th></th>
-        <th><%= Professor.human_attribute_name('name') %></th>
-        <th><%= Professor.human_attribute_name('email') %></th>
-        <th><%= Professor.human_attribute_name('lattes') %></th>
-        <th class="w-1"><%= Professor.human_attribute_name('available_advisor') %></th>
+        <th colspan="2" class="text-center">
+          <%= Professor.human_attribute_name('name') %>
+        </th>
+        <th>
+          <%= Professor.human_attribute_name('email') %>
+        </th>
+        <th>
+          <%= Professor.human_attribute_name('lattes') %>
+        </th>
+        <th class="w-1" title="<%= Professor.human_attribute_name('available_advisor') %>">
+          <%= Professor.human_attribute_name('available') %>
+        </th>
         <th colspan="3"></th>
       </tr>
     </thead>
