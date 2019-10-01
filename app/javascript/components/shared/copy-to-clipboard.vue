@@ -2,7 +2,7 @@
   <a
     v-clipboard:copy="value"
     href="#"
-    title="Copiar para área de transferência"
+    title="Copiar link para área de transferência"
     @click.prevent="onCopy()"
   >
     <i class="fe fe-link" />
