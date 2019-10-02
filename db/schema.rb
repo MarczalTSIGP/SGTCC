@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_131434) do
+ActiveRecord::Schema.define(version: 2019_10_02_141045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "academic_activities", force: :cascade do |t|
+    t.bigint "academic_id"
+    t.bigint "activity_id"
+    t.string "pdf"
+    t.string "complementary_files"
+    t.string "title"
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_id"], name: "index_academic_activities_on_academic_id"
+    t.index ["activity_id"], name: "index_academic_activities_on_activity_id"
+  end
 
   create_table "academics", force: :cascade do |t|
     t.string "name"
@@ -256,6 +269,8 @@ ActiveRecord::Schema.define(version: 2019_10_02_131434) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "academic_activities", "academics"
+  add_foreign_key "academic_activities", "activities"
   add_foreign_key "activities", "base_activity_types"
   add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"
