@@ -69,7 +69,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
   def activity_params
     params.require(:activity)
-          .permit(:name, :base_activity_type_id, :tcc,
+          .permit(:name, :base_activity_type_id, :tcc, :judgment,
                   :calendar_id, :initial_date, :final_date)
   end
 
