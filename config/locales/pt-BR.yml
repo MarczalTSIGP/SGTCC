@@ -390,6 +390,7 @@ pt-BR:
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
       base_activity:
+        identifier: "Tipo"
         <<: *commons
       activity:
         calendar: "Calendário"

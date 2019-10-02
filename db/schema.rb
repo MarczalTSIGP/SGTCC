@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_141045) do
+ActiveRecord::Schema.define(version: 2019_10_02_142408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,12 +71,11 @@ ActiveRecord::Schema.define(version: 2019_10_02_141045) do
     t.integer "tcc"
     t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
   end
+# Could not dump table "base_activities" because of following StandardError
+#   Unknown type 'base_activity_identifiers' for column 'identifier'
 
-  create_table "base_activity_types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "base_activity_types" because of following StandardError
+#   Unknown type 'base_activity_type_identifiers' for column 'identifier'
 
   create_table "calendars", force: :cascade do |t|
     t.string "year"
