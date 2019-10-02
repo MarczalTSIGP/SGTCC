@@ -43,7 +43,6 @@ professor_responsible.roles << Role.first if professor_responsible.roles.empty?
 
 base_activity_types = [
   'Envio de documento',
-  'Envio de documento com assinatura',
   'Informativa'
 ]
 
