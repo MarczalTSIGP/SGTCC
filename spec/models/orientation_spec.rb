@@ -585,4 +585,17 @@ RSpec.describe Orientation, type: :model do
       expect(Orientation.professors_ranking).to eq(ranking)
     end
   end
+
+  describe '#to_json_table' do
+    let(:orientations) { create_list(:orientation, 2) }
+    let(:orientations_json) do
+      orientations.to_json(methods: [:short_title],
+                           include: [:academic, :supervisors,
+                                     { advisor: { methods: [:name_with_scholarity] } }])
+    end
+
+    it 'returns the orientation to json table' do
+      expect(Orientation.to_json_table(orientations)).to eq(orientations_json)
+    end
+  end
 end

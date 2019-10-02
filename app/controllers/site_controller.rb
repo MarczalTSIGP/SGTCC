@@ -32,6 +32,27 @@ class SiteController < ApplicationController
 
   def professor; end
 
+  def approved_orientations
+    @page = Page.find_by(url: 'tccs-aprovados')
+  end
+
+  def in_progress_orientations
+    @page = Page.find_by(url: 'tccs-em-andamento')
+  end
+
+  def approved_orientations_by_year(status: 'APPROVED', year: params[:year])
+    render_orientations(Orientation.tcc_two(status, year, 'one'),
+                        Orientation.tcc_two(status, year, 'two'))
+  end
+
+  def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
+    data = { tcc_one: { first_semester: Orientation.tcc_one(status, year, 'one'),
+                        second_semester: Orientation.tcc_one(status, year, 'two') },
+             tcc_two: { first_semester: Orientation.tcc_two(status, year, 'one'),
+                        second_semester: Orientation.tcc_two(status, year, 'two') } }
+    render json: Orientation.to_json_table(data)
+  end
+
   def sidebar
     render json: Page.publisheds
   end
@@ -68,5 +89,11 @@ class SiteController < ApplicationController
 
   def set_professor
     @professor = Professor.find(params[:id])
+  end
+
+  def render_orientations(first_semester_data, second_semester_data)
+    data = { first_semester: first_semester_data.with_relationships.recent,
+             second_semester: second_semester_data.with_relationships.recent }
+    render json: Orientation.to_json_table(data)
   end
 end

@@ -638,12 +638,22 @@ Rails.application.routes.draw do
   end
 
   #========================================
-  # site
+  # Site
   #========================================
   get 'calendario', to: 'site#calendar', as: 'site_calendar'
   get 'bancas-de-tcc', to: 'site#examination_boards', as: 'site_examination_boards'
   get 'professores', to: 'site#professors', as: 'site_professors'
   get 'professores/(:id)', to: 'site#professor', as: 'site_professor'
+  get 'tccs-aprovados', to: 'site#approved_orientations', as: 'site_approved_orientations'
+  get 'tccs-em-andamento', to: 'site#in_progress_orientations', as: 'site_in_progress_orientations'
+
+  post 'tccs-aprovados/ano/(:year)',
+       to: 'site#approved_orientations_by_year',
+       as: 'site_approved_orientations_by_year'
+
+  post 'tccs-em-andamento/ano/(:year)',
+       to: 'site#in_progress_orientations_by_year',
+       as: 'site_in_progress_orientations_by_year'
 
   get '(:page)', to: 'site#page', as: 'site_page'
 end

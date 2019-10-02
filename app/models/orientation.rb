@@ -38,12 +38,12 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
-  scope :tcc_one, lambda { |status|
-    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }), status)
+  scope :tcc_one, lambda { |status, year = nil, semester = nil|
+    join_with_status_by_tcc('one', status, year, semester)
   }
 
-  scope :tcc_two, lambda { |status|
-    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }), status)
+  scope :tcc_two, lambda { |status, year = nil, semester = nil|
+    join_with_status_by_tcc('two', status, year, semester)
   }
 
   scope :current_tcc_one, lambda { |status = nil|
@@ -55,8 +55,8 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:advisor, :academic, :calendar, :documents, :meetings,
-             :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
+    includes(:academic, :calendar, :documents, :meetings, :professor_supervisors,
+             :orientation_supervisors, :external_member_supervisors, advisor: [:scholarity])
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
@@ -112,6 +112,12 @@ class Orientation < ApplicationRecord
 
   def academic_with_calendar
     "#{academic.name} (#{academic.ra}) | #{calendar.year_with_semester_and_tcc}"
+  end
+
+  def self.to_json_table(orientations)
+    orientations.to_json(methods: [:short_title],
+                         include: [:academic, :supervisors,
+                                   { advisor: { methods: [:name_with_scholarity] } }])
   end
 
   def self.select_status_data
