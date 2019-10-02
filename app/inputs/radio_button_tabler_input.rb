@@ -13,10 +13,8 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
     template.content_tag(:div, class: 'custom-controls-stacked') do
       collection = options[:collection].to_a
-      first_value = collection.first
-      last_value = collection.last
 
-      concat_tags(first_value, last_value)
+      concat_tags(collection)
     end
   end
 
@@ -39,10 +37,11 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
     end
   end
 
-  def concat_tags(first, last)
+  def concat_tags(collection)
     template.concat div_tag
-    template.concat label_tag(first)
-    template.concat label_tag(last)
+    collection.each do |el|
+      template.concat label_tag(el)
+    end
   end
 
   def label(_wrapper_options)
