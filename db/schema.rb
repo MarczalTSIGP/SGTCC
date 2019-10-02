@@ -63,14 +63,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_144740) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "base_activities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "base_activity_type_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "tcc"
-    t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
-  end
 # Could not dump table "base_activities" because of following StandardError
 #   Unknown type 'base_activity_identifiers' for column 'identifier'
 

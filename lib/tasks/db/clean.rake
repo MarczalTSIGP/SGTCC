@@ -12,6 +12,7 @@ namespace :db do
      ExaminationBoardAttendee,
      ExaminationBoard,
      Orientation,
+     AcademicActivity,
      Academic,
      Institution,
      ExternalMember,
