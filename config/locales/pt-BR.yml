@@ -407,6 +407,8 @@ pt-BR:
       academic_activity:
         title: "Título"
         summary: "Resumo"
+        complementary_files: "Arquivos complementares"
+        pdf: "Documento pdf da atividade"
         <<: *commons
       calendar:
         semester: "Semestre"

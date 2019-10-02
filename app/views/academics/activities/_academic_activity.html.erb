@@ -9,16 +9,10 @@
     </div>
 
     <div class="col-md-6">
-      <label>
-        <strong>Atividade</strong>
-      </label>
-      <br><%= f.file_field :pdf %>
+      <%= f.input :pdf %>
     </div>
     <div class="col-md-6">
-      <label>
-        <strong>Arquivos complementares</strong>
-      </label>
-      <br><%= f.file_field :complementary_files %>
+      <%= f.input :complementary_files %>
     </div>
 
     <%= f.input :activity_id,
