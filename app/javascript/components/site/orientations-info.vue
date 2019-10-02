@@ -7,20 +7,17 @@
     >
       <a href="#">{{ orientation.title }}</a><br>
 
-      <strong>Acadêmico:</strong>
-      {{ orientation.academic.name }}<br>
+      {{ orientation.academic.name }} (acadêmico)<br>
 
-      <strong>Orientador:</strong>
-      {{ orientation.advisor.name }}<br>
+      {{ orientation.advisor.name }} (orientador) <br>
 
-      <strong>Coorientador(es):</strong>
-      {{ supervisorsFormatted(orientation) }}<br>
+      {{ supervisorsFormatted(orientation) }} (coorientadores)<br>
 
-      <strong>Documentos:</strong>
       <a href="#">Proposta</a>,
       <a href="#">Projeto</a>,
       <a href="#">Monografia</a>,
       <a href="#">Arquivos complementares</a>
+      <hr>
     </div>
   </div>
 </template>
@@ -45,10 +42,9 @@ export default {
 
   methods: {
     supervisorsFormatted(orientation) {
-      let supervisors = orientation.supervisors.map((supervisor) => {
+      return orientation.supervisors.map((supervisor) => {
         return supervisor.name;
-      });
-      return supervisors.join(',');
+      }).join(', ');
     },
   },
 };

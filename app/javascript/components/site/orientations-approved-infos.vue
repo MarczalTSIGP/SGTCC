@@ -4,7 +4,7 @@
       <loader />
     </div>
     <div v-show="!loading">
-      <h2 class="page-title text-center">
+      <h2 class="text-center">
         {{ firstSemesterLabel }}
       </h2>
 
@@ -12,7 +12,7 @@
         :orientations="orientations.first_semester"
       />
 
-      <h2 class="page-title text-center">
+      <h2 class="text-center">
         {{ secondSemesterLabel }}
       </h2>
 

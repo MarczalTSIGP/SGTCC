@@ -4,45 +4,49 @@
       <loader />
     </div>
     <div v-show="!loading">
-      <h2 class="page-title text-center">
-        {{ firstSemesterLabel }}
-      </h2>
+      <div v-show="hasTccOneFirstSemester || hasTccTwoFirstSemester">
+        <h2 class="text-center">
+          {{ firstSemesterLabel }}
+        </h2>
 
-      <h3 class="page-title">
-        TCC 1
-      </h3>
+        <div v-show="hasTccOneFirstSemester">
+          <h3>TCC 1</h3>
 
-      <orientations-info
-        :orientations="orientations.tcc_one.first_semester"
-      />
+          <orientations-info
+            :orientations="orientations.tcc_one.first_semester"
+          />
+        </div>
 
-      <h3 class="page-title">
-        TCC 2
-      </h3>
+        <div v-show="hasTccTwoFirstSemester">
+          <h3>TCC 2</h3>
 
-      <orientations-info
-        :orientations="orientations.tcc_two.first_semester"
-      />
+          <orientations-info
+            :orientations="orientations.tcc_two.first_semester"
+          />
+        </div>
+      </div>
 
-      <h2 class="page-title text-center">
-        {{ secondSemesterLabel }}
-      </h2>
+      <div v-show="hasTccOneSecondSemester || hasTccTwoSecondSemester">
+        <h2 class="text-center">
+          {{ secondSemesterLabel }}
+        </h2>
 
-      <h3 class="page-title">
-        TCC 1
-      </h3>
+        <div v-show="hasTccOneSecondSemester">
+          <h3>TCC 1</h3>
 
-      <orientations-info
-        :orientations="orientations.tcc_one.second_semester"
-      />
+          <orientations-info
+            :orientations="orientations.tcc_one.second_semester"
+          />
+        </div>
 
-      <h3 class="page-title">
-        TCC 2
-      </h3>
+        <div v-show="hasTccTwoSecondSemester">
+          <h3>TCC 2</h3>
 
-      <orientations-info
-        :orientations="orientations.tcc_two.second_semester"
-      />
+          <orientations-info
+            :orientations="orientations.tcc_two.second_semester"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -87,6 +91,22 @@ export default {
     secondSemesterLabel() {
       return `${this.year}/${this.secondSemester}`;
     },
+
+    hasTccOneFirstSemester() {
+      return this.isNotEmpty(this.orientations.tcc_one.first_semester);
+    },
+
+    hasTccTwoFirstSemester() {
+      return this.isNotEmpty(this.orientations.tcc_two.first_semester);
+    },
+
+    hasTccOneSecondSemester() {
+      return this.isNotEmpty(this.orientations.tcc_one.second_semester);
+    },
+
+    hasTccTwoSecondSemester() {
+      return this.isNotEmpty(this.orientations.tcc_two.second_semester);
+    },
   },
 
   created() {
@@ -111,6 +131,10 @@ export default {
 
         this.loading = false;
       });
+    },
+
+    isNotEmpty(data) {
+      return data.length > 0;
     },
   },
 };
