@@ -396,6 +396,7 @@ pt-BR:
         initial_date: "Data inicial de entrega"
         final_date: "Data final de entrega"
         judgment: "Parecer"
+        identifier: "Tipo"
         <<: *commons
       calendar:
         semester: "Semestre"
@@ -475,6 +476,11 @@ pt-BR:
       female: 'Feminino'
       M: 'Masculino'
       F: 'Feminino'
+    activity:
+      identifiers:
+        proposal: 'Proposta'
+        project: 'Projeto'
+        monograph: 'Monografia'
     semesters:
       first: '1º'
       second: '2º'

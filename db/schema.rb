@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_115343) do
+ActiveRecord::Schema.define(version: 2019_10_02_121129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,19 +31,8 @@ ActiveRecord::Schema.define(version: 2019_10_02_115343) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
-  create_table "activities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "base_activity_type_id"
-    t.integer "tcc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "calendar_id"
-    t.datetime "initial_date"
-    t.datetime "final_date"
-    t.boolean "judgment", default: false
-    t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
-    t.index ["calendar_id"], name: "index_activities_on_calendar_id"
-  end
+# Could not dump table "activities" because of following StandardError
+#   Unknown type 'activity_identifiers' for column 'identifier'
 
   create_table "assignments", force: :cascade do |t|
     t.bigint "professor_id"

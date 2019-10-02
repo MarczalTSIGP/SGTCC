@@ -11,6 +11,12 @@ class Activity < ApplicationRecord
 
   scope :recent, -> { order(:final_date) }
 
+  enum identifier: {
+    proposal: 'proposal',
+    project: 'project',
+    monograph: 'monograph'
+  }
+
   def deadline
     I18n.t('time.deadline',
            initial_date: I18n.l(initial_date, format: :datetime),
@@ -22,5 +28,15 @@ class Activity < ApplicationRecord
     return :expired if final_date < Time.zone.now
 
     :in_the_future
+  end
+
+  def self.human_identifiers
+    hash = {}
+    identifiers.each_key { |key| hash[I18n.t("enums.activity.identifiers.#{key}")] = key }
+    hash
+  end
+
+  def self.human_tcc_one_identifiers
+    human_identifiers.first(2).to_h
   end
 end

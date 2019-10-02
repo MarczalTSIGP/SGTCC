@@ -70,7 +70,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   def activity_params
     params.require(:activity)
           .permit(:name, :base_activity_type_id, :tcc, :judgment,
-                  :calendar_id, :initial_date, :final_date)
+                  :calendar_id, :initial_date, :final_date, :identifier)
   end
 
   def set_index_breadcrumb

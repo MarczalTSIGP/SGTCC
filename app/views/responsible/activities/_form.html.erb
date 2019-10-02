@@ -35,6 +35,14 @@
       as: :hidden,
       input_html: { value: @calendar.tcc } %>
 
+    <% if @calendar.tcc == 'one' %>
+      <%= f.input :identifier,
+        as: :radio_button_tabler,
+        collection: Activity.human_tcc_one_identifiers %>
+    <% else %>
+      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
+    <% end %>
+
     <%= f.input :judgment, as: :checkbox_tabler %>
 </div>
 
