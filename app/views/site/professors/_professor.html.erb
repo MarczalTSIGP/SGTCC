@@ -2,7 +2,11 @@
   <td class="w-1 border-right-0">
     <table-avatar url="<%= professor.profile_image %>" />
   </td>
-  <td class="border-left-0"><%= professor.name_with_scholarity %></td>
+  <td class="border-left-0">
+    <%= link_to(site_professor_path(professor)) do %>
+      <%= professor.name_with_scholarity %>
+    <% end %>
+  </td>
   <td><%= professor.email %></td>
   <td class="text-center">
     <%= link_to professor.lattes, target: '_blank' do %>
