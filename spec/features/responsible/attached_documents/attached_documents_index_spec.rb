@@ -14,7 +14,6 @@ describe 'AttachedDocument::index', type: :feature, js: true do
         visit responsible_attached_documents_path
         attached_documents.each do |attached_document|
           expect(page).to have_contents([attached_document.name,
-                                         attached_document.file,
                                          short_date(attached_document.created_at)])
         end
       end

@@ -17,6 +17,7 @@ import selectize from '../initializers/selectize';
 import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
+import fileInput from '../initializers/file-input';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
@@ -52,6 +53,7 @@ document.addEventListener('turbolinks:load', () => {
     components,
     mixins: [
       datetimepicker,
+      fileInput,
       markdown,
       menu,
       selectize,

@@ -1,6 +1,7 @@
 import CopyToClipboard from '../components/shared/copy-to-clipboard';
 import Datetimepicker from '../components/shared/datetimepicker';
 import DocumentStatus from '../components/signatures/document-status';
+import FileInput from '../components/shared/file-input';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
@@ -32,6 +33,7 @@ const components = {
   CopyToClipboard,
   Datetimepicker,
   DocumentStatus,
+  FileInput,
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,

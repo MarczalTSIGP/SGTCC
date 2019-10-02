@@ -136,13 +136,6 @@ ActiveRecord::Schema.define(version: 2019_10_01_130912) do
     t.index ["scholarity_id"], name: "index_external_members_on_scholarity_id"
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string "name"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "institutions", force: :cascade do |t|
     t.string "name"
     t.string "trade_name"

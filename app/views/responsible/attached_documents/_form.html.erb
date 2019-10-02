@@ -4,8 +4,13 @@
       <%= f.input :name %>
     </div>
     <div class="col-md-6">
-      <%= f.input :file %>
-      <%= f.hidden_field :file_cache %>
+      <strong><%= f.label :file %></strong>
+      <file-input
+        name="attached_document[file]"
+        id="attached_document_file"
+        label="<%= AttachedDocument.human_attribute_name('file') %>"
+        :errors="<%= @attached_document.errors[:file] %>">
+      </file-input>
     </div>
   </div>
 
