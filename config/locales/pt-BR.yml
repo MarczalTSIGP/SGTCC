@@ -98,6 +98,10 @@ pt-BR:
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
+    attached_documents:
+      index: 'Documentos anexados'
+      new: 'Novo documento'
+      edit: 'Editar documento'
     academics:
       index: 'Acadêmicos'
       new: 'Novo Acadêmico'
@@ -202,6 +206,7 @@ pt-BR:
       configs: "Configurações"
       pages: "Páginas"
       menu_order: "Ordenar menu"
+      attached_documents: "Documentos anexados"
     pages:
       index: "Páginas"
       edit: "Editar página"
@@ -313,6 +318,9 @@ pt-BR:
       page:
         one: "Página"
         other: "Páginas"
+      attached_document:
+        one: "Documento anexado"
+        other: "Documentos anexados"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -414,6 +422,9 @@ pt-BR:
         published: "Publicado"
         publish: "Publicar"
         fa_icon: "Ícone do font awesome"
+        <<: *commons
+      attached_document:
+        file: "Arquivo"
         <<: *commons
   placeholders:
     meetings:

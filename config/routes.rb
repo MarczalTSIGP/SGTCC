@@ -89,6 +89,11 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :attached_documents,
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       get 'examination_boards/tcc_one',
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
@@ -246,6 +251,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'pages#index',
           as: 'pages_search'
+
+      get 'attached_documents/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'attached_documents#index',
+          as: 'attached_documents_search'
     end
 
     namespace :professors do
