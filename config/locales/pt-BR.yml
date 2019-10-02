@@ -395,6 +395,7 @@ pt-BR:
         calendar: "Calendário"
         initial_date: "Data inicial de entrega"
         final_date: "Data final de entrega"
+        final_version: "Versão final"
         judgment: "Parecer"
         identifier: "Tipo"
         <<: *commons

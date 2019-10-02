@@ -31,6 +31,8 @@
       </div>
     </div>
 
+    <%= f.input :judgment, as: :checkbox_tabler %>
+
     <%= f.input :tcc,
       as: :hidden,
       input_html: { value: @calendar.tcc } %>
@@ -43,7 +45,7 @@
       <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
     <% end %>
 
-    <%= f.input :judgment, as: :checkbox_tabler %>
+    <%= f.input :final_version, as: :checkbox_tabler %>
 </div>
 
 <div class="d-flex">
