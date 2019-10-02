@@ -23,6 +23,7 @@ import SignatureStatus from '../components/signatures/signature-status';
 import SignatureConfirmCode from '../components/signatures/signature-confirm-code';
 import SignatureShowTitle from '../components/signatures/signature-show-title';
 import SweetAlertMessages from '../components/shared/sweet-alert-messages';
+import TableAvatar from '../components/site/table-avatar';
 import TermOfCommitment from '../components/signatures/documents/term-of-commitment';
 import TermOfAbandonment from '../components/signatures/documents/term-of-abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term-of-accept-institution';
@@ -55,6 +56,7 @@ const components = {
   SignatureShowTitle,
   SignatureStatus,
   SweetAlertMessages,
+  TableAvatar,
   TermOfCommitment,
   TermOfAbandonment,
   TermOfAcceptInstitution,

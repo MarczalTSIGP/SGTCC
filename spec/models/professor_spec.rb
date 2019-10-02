@@ -302,4 +302,62 @@ RSpec.describe Professor, type: :model do
       expect(professor.responsible?).to eq(false)
     end
   end
+
+  describe '#tcc_one_approved' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
+
+    it 'returns the tcc one approved' do
+      orientations_approved = professor.orientations.tcc_one('APPROVED')
+      expect(professor.tcc_one_approved).to eq(orientations_approved)
+    end
+  end
+
+  describe '#tcc_two_approved' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
+
+    it 'returns the tcc two approved' do
+      orientations_approved = professor.orientations.tcc_two('APPROVED')
+      expect(professor.tcc_two_approved).to eq(orientations_approved)
+    end
+  end
+
+  describe '#tcc_one_in_progress' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
+
+    it 'returns the tcc one in progress' do
+      orientations_approved = professor.orientations.tcc_one('IN_PROGRESS')
+      expect(professor.tcc_one_in_progress).to eq(orientations_approved)
+    end
+  end
+
+  describe '#tcc_two_in_progress' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
+
+    it 'returns the tcc two in progress' do
+      orientations_approved = professor.orientations.tcc_two('IN_PROGRESS')
+      expect(professor.tcc_two_in_progress).to eq(orientations_approved)
+    end
+  end
+
+  describe '#effective' do
+    let(:professor_type) { create(:professor_type, name: 'Efetivo') }
+    let(:professor) { create(:professor, professor_type: professor_type) }
+
+    it 'returns the effective professors' do
+      expect(Professor.effective).to eq([professor])
+    end
+  end
+
+  describe '#temporary' do
+    let(:professor_type) { create(:professor_type, name: 'Temporário') }
+    let(:professor) { create(:professor, professor_type: professor_type) }
+
+    it 'returns the temporary professors' do
+      expect(Professor.temporary).to eq([professor])
+    end
+  end
 end

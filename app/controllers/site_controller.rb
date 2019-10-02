@@ -4,6 +4,7 @@ class SiteController < ApplicationController
   before_action :set_page, only: :page
   before_action :set_pages, only: :index
   before_action :set_site, only: :sidebar
+  before_action :set_professor, only: :professor
 
   def index
     if @pages.present?
@@ -22,6 +23,14 @@ class SiteController < ApplicationController
     @activities_tcc_two = @calendar_tcc_two.activities.includes(:base_activity_type).recent
     @page = Page.find_by(url: 'calendario')
   end
+
+  def professors
+    @effective_professors = Professor.effective.includes(:scholarity).order(:name)
+    @temporary_professors = Professor.temporary.includes(:scholarity).order(:name)
+    @page = Page.find_by(url: 'professores')
+  end
+
+  def professor; end
 
   def sidebar
     render json: Page.publisheds
@@ -55,5 +64,9 @@ class SiteController < ApplicationController
                   orientation: [:academic, :orientation_supervisors, :professor_supervisors,
                                 :external_member_supervisors, advisor: [:scholarity]])
         .recent
+  end
+
+  def set_professor
+    @professor = Professor.find(params[:id])
   end
 end

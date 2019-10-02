@@ -92,7 +92,9 @@
   </div>
 </div>
 
-<professor-orientations-report :professor-id="<%= @professor.id %>" />
+<div>
+  <professor-orientations-report :professor-id="<%= @professor.id %>" />
+</div>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), responsible_professors_path, class: 'btn btn-secondary' %>

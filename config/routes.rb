@@ -642,6 +642,8 @@ Rails.application.routes.draw do
   #========================================
   get 'calendario', to: 'site#calendar', as: 'site_calendar'
   get 'bancas-de-tcc', to: 'site#examination_boards', as: 'site_examination_boards'
+  get 'professores', to: 'site#professors', as: 'site_professors'
+  get 'professores/(:id)', to: 'site#professor', as: 'site_professor'
 
   get '(:page)', to: 'site#page', as: 'site_page'
 end

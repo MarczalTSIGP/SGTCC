@@ -1,0 +1,25 @@
+<div class="text-right mt-3">
+  <%= page_entries_info orientations.page(params[:page]) %>
+</div>
+
+<div class="site-table table-striped mt-3 table-responsive w-100">
+  <table class="border border-gray card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Orientation.human_attribute_name('academic') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('orientation_supervisors') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if orientations.empty? %>
+      </tr>
+      <% orientations.each do |orientation| %>
+        <%= render 'site/orientations/orientation', orientation: orientation %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

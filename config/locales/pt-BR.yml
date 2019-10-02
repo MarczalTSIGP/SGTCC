@@ -95,6 +95,18 @@ pt-BR:
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
+    pages:
+      professors:
+        effective: 'Professores efetivos'
+        temporary: 'Professores temporários'
+        orientations:
+          in_progress: 'Orientações em andamento'
+          approved: 'Orientações concluídas'
+          tcc_one: 'TCC 1'
+          tcc_two: 'TCC 2'
+        supervisions:
+          in_progress: 'Coorientações em andamento'
+          approved: 'Coorientações concluídas'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
@@ -348,6 +360,7 @@ pt-BR:
         orientation_supervisors: "Coorientadores"
         documents: "Documentos"
         hour: "Hora"
+        available: "Disponível"
       academic:
         ra: "RA"
         <<: *commons

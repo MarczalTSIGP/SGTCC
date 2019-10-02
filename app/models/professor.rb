@@ -4,6 +4,7 @@ class Professor < ApplicationRecord
   include ProfileImage
   include DocumentFilter
   include ScholarityName
+  include ProfessorOrientationFilter
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -116,5 +117,13 @@ class Professor < ApplicationRecord
 
   def self.current_coordinator
     joins(:roles).find_by('roles.identifier': :coordinator)
+  end
+
+  def self.effective
+    joins(:professor_type).where(professor_types: { name: 'Efetivo' })
+  end
+
+  def self.temporary
+    joins(:professor_type).where(professor_types: { name: 'Temporário' })
   end
 end
