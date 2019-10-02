@@ -4,4 +4,8 @@ class AcademicActivity < ApplicationRecord
 
   mount_uploader :pdf, PdfUploader
   mount_uploader :complementary_files, ZipUploader
+
+  validates :title, presence: true
+  validates :summary, presence: true
+  validates :pdf, presence: true
 end

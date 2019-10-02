@@ -1,7 +1,8 @@
 class Academics::ActivitiesController < Academics::BaseController
   before_action :set_calendar
-  before_action :set_activity
+  before_action :set_activity, only: [:show, :create, :update]
   before_action :set_index_breadcrumb
+  before_action :set_academic_activity, only: [:show, :update]
 
   def index
     @activities = @calendar.activities.includes(:base_activity_type).recent
@@ -10,7 +11,6 @@ class Academics::ActivitiesController < Academics::BaseController
   def show
     add_breadcrumb I18n.t("breadcrumbs.tcc.#{@calendar.tcc}.show"),
                    academics_calendar_activity_path(@calendar, @activity)
-    @academic_activity = AcademicActivity.new
   end
 
   def create
@@ -25,10 +25,25 @@ class Academics::ActivitiesController < Academics::BaseController
     end
   end
 
+  def update
+    if @academic_activity.update(academic_activity_params)
+      feminine_success_update_message
+      redirect_to academics_calendar_activity_path(@calendar, @activity)
+    else
+      error_message
+      render :show
+    end
+  end
+
   private
 
   def set_activity
     @activity = @calendar.activities.find(params[:id])
+  end
+
+  def set_academic_activity
+    @academic_activity = current_academic.academic_activities.find_by(activity_id: @activity.id)
+    @academic_activity = AcademicActivity.new if @academic_activity.blank?
   end
 
   def set_calendar

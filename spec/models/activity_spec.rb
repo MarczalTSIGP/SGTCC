@@ -12,6 +12,7 @@ RSpec.describe Activity, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:calendar) }
     it { is_expected.to belong_to(:base_activity_type) }
+    it { is_expected.to have_many(:academic_activities).dependent(:destroy) }
   end
 
   describe '#human_tccs' do

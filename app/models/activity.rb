@@ -5,6 +5,8 @@ class Activity < ApplicationRecord
   belongs_to :base_activity_type
   belongs_to :calendar, required: false
 
+  has_many :academic_activities, dependent: :destroy
+
   validates :name, presence: true
   validates :tcc, presence: true
   validates :initial_date, presence: true

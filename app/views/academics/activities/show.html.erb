@@ -18,13 +18,11 @@
   </div>
 </div>
 
-<div class="card border border-info">
-  <div class="card-body">
-    <% if @activity.base_activity_type.send_document? %>
-      <%= render 'academics/activities/academic_activity' %>
-    <% end %>
-  </div>
-</div>
+<% if @activity.base_activity_type.send_document? %>
+  <%= render 'academics/activities/academic_activity',
+    url: @academic_activity.present? ? academics_calendar_activity_files_path(@calendar, @activity)
+                                     : academics_calendar_activity_file_path(@calendar, @activity) %>
+<% end %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),

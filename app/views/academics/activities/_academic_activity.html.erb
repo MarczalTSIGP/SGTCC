@@ -1,33 +1,36 @@
-<%= simple_form_for(@academic_activity,
-                    url: academics_calendar_activity_files_path(@calendar, @activity)) do |f| %>
-  <div class="row">
-    <div class="col-12">
-      <%= f.input :title %>
-    </div>
-    <div class="col-12">
-      <%= f.input :summary %>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <%= simple_form_for(@academic_activity, url: url) do |f| %>
+      <div class="row">
+        <div class="col-12">
+          <%= f.input :title %>
+        </div>
+        <div class="col-12">
+          <%= f.input :summary %>
+        </div>
 
-    <div class="col-md-6">
-      <%= f.input :pdf %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :complementary_files %>
-    </div>
+        <div class="col-md-6">
+          <%= f.input :pdf, hint: 'Arquivo no formato pdf' %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :complementary_files, hint: 'Arquivo no formato .zip' %>
+        </div>
 
-    <%= f.input :activity_id,
-      as: :hidden,
-      input_html: { value: @activity.id } %>
+        <%= f.input :activity_id,
+          as: :hidden,
+          input_html: { value: @activity.id } %>
 
-    <%= f.input :academic_id,
-      as: :hidden,
-      input_html: { value: current_academic.id } %>
+        <%= f.input :academic_id,
+          as: :hidden,
+          input_html: { value: current_academic.id } %>
 
-    <div class="col-12 mt-2">
-      <%= f.button :submit,
-        t('views.buttons.save'),
-        class: 'btn btn-primary float-right' %>
-    </div>
+        <div class="col-12 mt-2">
+          <%= f.button :submit,
+            t('views.buttons.save'),
+            class: 'btn btn-primary float-right' %>
+      </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 

@@ -541,6 +541,10 @@ Rails.application.routes.draw do
            to: 'activities#create',
            as: 'calendar_activity_files'
 
+      patch '/calendars/(:calendar_id)/activities/(:id)',
+            to: 'activities#update',
+            as: 'calendar_activity_file'
+
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
