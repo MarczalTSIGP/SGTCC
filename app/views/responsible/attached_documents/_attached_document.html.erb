@@ -1,13 +1,13 @@
 <tr>
-  <td><%= attached_document.name %></td>
   <td>
-    <%= link_to(attached_document.file.url) do %>
-      <%= attached_document.file %>
+    <%= link_to(attached_document.file.url, target: :_blank) do %>
+      <%= attached_document.name %>
     <% end %>
   </td>
   <td><%= short_date(attached_document.created_at) %></td>
+  <td><%= short_date(attached_document.updated_at) %></td>
   <td>
-    <copy-to-clipboard value="<%= attached_document.file %>"></copy-to-clipboard>
+    <copy-to-clipboard value="<%= asset_url(attached_document.file) %>"></copy-to-clipboard>
     <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
     <% end %>
