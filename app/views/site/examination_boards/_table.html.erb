@@ -1,6 +1,14 @@
-<% examination_boards.each do |examination_board| %>
-  <div class="site-table table-responsive mb-4">
-    <table class="table table-striped table-vcenter">
+<% examination_boards.each_with_index do |examination_board, index| %>
+  <div class="site-table table-responsive mb-4" id="examination-board-table">
+    <table class="table table-vcenter border border-gray">
+      <thead>
+        <tr class="bg-primary">
+          <th colspan="3" class="p-0 text-center text-white">
+            <%= "#{ExaminationBoard.model_name.human} #{index + 1}" %>
+          </th>
+        </tr>
+      </thead>
+
       <tbody>
         <tr>
           <%= render('shared/no_results') if examination_boards.empty? %>
