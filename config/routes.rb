@@ -89,6 +89,11 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :images,
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       resources :attached_documents,
                 except: :show,
                 constraints: { id: /[0-9]+/ },
@@ -256,6 +261,11 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'attached_documents#index',
           as: 'attached_documents_search'
+
+      get 'images/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'images#index',
+          as: 'images_search'
     end
 
     namespace :professors do

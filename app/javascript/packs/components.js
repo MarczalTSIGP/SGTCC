@@ -5,6 +5,7 @@ import FileInput from '../components/shared/file-input';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
+import ImagePreview from '../components/shared/image-preview';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
 import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
@@ -40,6 +41,7 @@ const components = {
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,
+  ImagePreview,
   MeetingView,
   OrientationsApprovedPage,
   OrientationCancel,

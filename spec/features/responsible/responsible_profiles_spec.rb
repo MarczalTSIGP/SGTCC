@@ -47,7 +47,7 @@ describe 'Responsible:profiles', type: :feature, js: true do
         expect(page).to have_message(blank_error_message, in: 'div.professor_name')
         expect(page).to have_message(blank_error_message, in: 'div.professor_lattes')
         expect(page).to have_message(invalid_error_message, in: 'div.professor_email')
-        expect(page).to have_message(profile_image_error_message, in: 'div.professor_profile_image')
+        expect(page).to have_message(image_error_message, in: 'div.professor_profile_image')
         expect(page).to have_message(confirm_password_error_message,
                                      in: 'div.professor_current_password')
       end
