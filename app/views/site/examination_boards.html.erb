@@ -1,0 +1,16 @@
+<% provide(:head_title, @page.menu_title) %>
+
+<h1 class="page-title mb-5">
+  <%= t('breadcrumbs.examination_boards.tcc.one.calendar',
+        calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
+</h1>
+
+<%= render('site/examination_boards/table', examination_boards: @examination_boards_tcc_one) %>
+
+<h1 class="page-title mb-5">
+  <%= t('breadcrumbs.examination_boards.tcc.two.calendar',
+        calendar: Calendar&.current_by_tcc_two.year_with_semester) %>
+</h1>
+
+<%= render('site/examination_boards/table', examination_boards: @examination_boards_tcc_two) %>
+

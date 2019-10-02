@@ -14,4 +14,8 @@ module DateHelper
   def datetime(date)
     I18n.localize(date, format: :datetime)
   end
+
+  def long_date(date)
+    I18n.localize(date, format: :long_without_time)
+  end
 end

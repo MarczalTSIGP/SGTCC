@@ -15,6 +15,16 @@ FactoryBot.define do
       tcc { tccs.last }
     end
 
+    factory :current_examination_board_tcc_one do
+      tcc { tccs.first }
+      orientation { create(:current_orientation_tcc_one) }
+    end
+
+    factory :current_examination_board_tcc_two do
+      tcc { tccs.last }
+      orientation { create(:current_orientation_tcc_two) }
+    end
+
     after :create do |examination_board|
       professors = create_list(:professor, 3)
       external_members = create_list(:external_member, 3)

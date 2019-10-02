@@ -9,6 +9,7 @@ pt-BR:
       datetime: '%d/%m/%Y %-H:%M'
       document: '%d de %B de %Y'
       intl: '%m/%d/%Y'
+      long_without_time: '%A, %-d de %B de %Y'
   views:
     title:
       calendar:
@@ -179,11 +180,13 @@ pt-BR:
       tcc:
         one:
           index: "Bancas de defesa de TCC 1"
+          calendar: "Bancas de defesa de TCC 1 (%{calendar})"
           show: "Visualizar banca de defesa de TCC 1"
           edit: "Editar banca de defesa de TCC 1"
           new: "Nova banca de defesa de TCC 1"
         two:
           index: "Bancas de defesa de TCC 2"
+          calendar: "Bancas de defesa de TCC 2 (%{calendar})"
           show: "Visualizar banca de defesa de TCC 2"
           edit: "Editar banca de defesa de TCC 2"
           new: "Nova banca de defesa de TCC 2"
@@ -334,6 +337,9 @@ pt-BR:
         title: "Título"
         orientation: "Orientação"
         date: "Data"
+        orientation_supervisors: "Coorientadores"
+        documents: "Documentos"
+        hour: "Hora"
       academic:
         ra: "RA"
         <<: *commons
@@ -369,7 +375,6 @@ pt-BR:
       orientation:
         calendar: "Calendário"
         institution: "Instituição externa"
-        orientation_supervisors: "Coorientadores"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"
         renewal_justification: "Justificativa da renovação"
@@ -396,6 +401,7 @@ pt-BR:
       examination_board:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
+        utfpr_members: "Membros da UTFPR"
         orientation: "Orientação"
         evaluators: "Avaliadores"
         place: "Local"
