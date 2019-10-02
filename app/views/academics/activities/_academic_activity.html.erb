@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <%= simple_form_for(@academic_activity, url: url) do |f| %>
+    <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
       <div class="row">
         <div class="col-12">
           <%= f.input :title %>
@@ -10,10 +10,26 @@
         </div>
 
         <div class="col-md-6">
-          <%= f.input :pdf, hint: 'Arquivo no formato pdf' %>
+          <file-input
+            name="academic_activity[pdf]"
+            id="academic_activity_pdf"
+            hint="Arquivo no formato pdf"
+            label="<%= AcademicActivity.human_attribute_name('pdf') %>"
+            :value="<%= @academic_activity.pdf.url.to_json %>"
+            :errors="<%= @academic_activity.errors[:pdf] %>">
+          </file-input>
+          <%= f.hidden_field :pdf_cache %>
         </div>
         <div class="col-md-6">
-          <%= f.input :complementary_files, hint: 'Arquivo no formato .zip' %>
+          <file-input
+            name="academic_activity[complementary_files]"
+            id="academic_activity_complementary_files"
+            hint="Arquivo no formato .zip"
+            label="<%= AcademicActivity.human_attribute_name('complementary_files') %>"
+            :value="<%= @academic_activity.complementary_files.url.to_json %>"
+            :errors="<%= @academic_activity.errors[:complementary_files] %>">
+          </file-input>
+          <%= f.hidden_field :complementary_files_cache %>
         </div>
 
         <%= f.input :activity_id,
