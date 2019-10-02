@@ -9,6 +9,7 @@ module ActivityIdentifier
       project: 'project',
       monograph: 'monograph'
     }
+
     def self.human_identifiers
       hash = {}
       identifiers.each_key { |key| hash[I18n.t("enums.activity.identifiers.#{key}")] = key }
