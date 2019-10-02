@@ -341,6 +341,9 @@ pt-BR:
       image:
         one: "Imagem"
         other: "Imagens"
+      academic_activity:
+        one: "Atividade do acadêmico"
+        other: "Atividades do acadêmico"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -400,6 +403,10 @@ pt-BR:
         final_date: "Data final de entrega"
         judgment: "Parecer"
         identifier: "Tipo"
+        <<: *commons
+      academic_activity:
+        title: "Título"
+        summary: "Resumo"
         <<: *commons
       calendar:
         semester: "Semestre"

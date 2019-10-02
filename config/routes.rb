@@ -537,6 +537,10 @@ Rails.application.routes.draw do
           to: 'activities#index',
           as: 'calendar_activities'
 
+      post '/calendars/(:calendar_id)/activities/(:id)',
+           to: 'activities#create',
+           as: 'calendar_activity_files'
+
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
