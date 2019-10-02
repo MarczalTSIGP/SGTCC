@@ -11,15 +11,21 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <%= f.input :tcc,
           as: :radio_button_tabler,
           collection: BaseActivity.human_tccs %>
       </div>
-      <div class="col-md-6">
-      <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: BaseActivity.human_identifiers %>
+      <div class="col-md-3">
+        <br><%= f.input :judgment, as: :checkbox_tabler %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :identifier,
+          as: :radio_button_tabler,
+          collection: BaseActivity.human_identifiers %>
+      </div>
+      <div class="col-md-3">
+        <br><%= f.input :final_version, as: :checkbox_tabler %>
       </div>
     </div>
   </div>

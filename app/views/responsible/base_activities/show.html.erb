@@ -23,6 +23,12 @@
     </p>
     <p>
       <strong>
+        <%= BaseActivity.human_attribute_name('judgment') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@base_activity.judgment}") %>
+    </p>
+    <p>
+      <strong>
         <%= BaseActivity.human_attribute_name('created_at') %>:
       </strong>
       <%= complete_date(@base_activity.created_at) %>
