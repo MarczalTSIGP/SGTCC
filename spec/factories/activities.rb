@@ -7,6 +7,7 @@ FactoryBot.define do
     final_date { Faker::Date.forward(2) }
     base_activity_type
     calendar
+    judgment { true }
 
     factory :activity_tcc_one do
       tcc { Activity.tccs.values.first }

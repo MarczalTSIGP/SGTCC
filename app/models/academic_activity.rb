@@ -8,4 +8,8 @@ class AcademicActivity < ApplicationRecord
   validates :title, presence: true
   validates :summary, presence: true
   validates :pdf, presence: true
+
+  def update_judgment
+    update(judgment: true)
+  end
 end

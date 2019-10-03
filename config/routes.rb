@@ -323,6 +323,10 @@ Rails.application.routes.draw do
           to: 'orientation_activities#show',
           as: 'orientation_activity'
 
+      patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+            to: 'orientation_activities#update_judgment',
+            as: 'orientation_activity_update_judgment'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
@@ -556,7 +560,9 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
+      patch 'meetings/(:id)/update_viewed',
+            to: 'meetings#update_viewed',
+            as: 'meeting_update_viewed'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'

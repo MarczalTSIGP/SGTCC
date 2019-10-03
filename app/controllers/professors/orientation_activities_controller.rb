@@ -1,8 +1,8 @@
 class Professors::OrientationActivitiesController < Professors::BaseController
   before_action :set_orientation
   before_action :set_calendar
-  before_action :set_activity, only: :show
-  before_action :set_academic_activity, only: :show
+  before_action :set_activity, only: [:show, :update_judgment]
+  before_action :set_academic_activity, only: [:show, :update_judgment]
   before_action :set_breadcrumbs
 
   def index
@@ -18,10 +18,14 @@ class Professors::OrientationActivitiesController < Professors::BaseController
                    professors_orientation_activity_path(@orientation, @activity)
   end
 
+  def update_judgment
+    render json: @academic_activity.update_judgment
+  end
+
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = current_professor.orientations.find(params[:id])
   end
 
   def set_calendar

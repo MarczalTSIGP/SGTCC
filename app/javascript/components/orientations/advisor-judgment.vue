@@ -1,8 +1,8 @@
 <template>
   <div>
     <checkbox-view
-      id="meeting_viewed"
-      name="meeting[viewed]"
+      id="academic_activity_judgment"
+      name="academic_activity[judgment]"
       :url="url"
       :value="value"
       :confirmation-message="confirmMessage"
@@ -13,10 +13,10 @@
 
 <script>
 
-import CheckboxView from '../../shared/checkbox-view';
+import CheckboxView from '../shared/checkbox-view';
 
 export default {
-  name: 'MeetingView',
+  name: 'AdvisorJudgment',
 
   components: { CheckboxView },
 
@@ -34,8 +34,8 @@ export default {
 
   data() {
     return {
-      confirmMessage: 'Você tem certeza que deseja dar ciência nessa reunião?',
-      successMessage: 'Reunião atualizada com sucesso!',
+      confirmMessage: 'Você tem certeza que deseja dar ciência nessa atividade?',
+      successMessage: 'Atividade atualizada com sucesso!',
     };
   },
 };

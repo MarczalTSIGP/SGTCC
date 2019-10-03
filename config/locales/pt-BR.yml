@@ -43,9 +43,8 @@ pt-BR:
       authenticate: 'Autenticar'
       concede: 'Deferir'
       dismiss: 'Indeferir'
+      confirm_judgment: 'Dar ciência'
       orientation:
-        meeting:
-          view: 'Dar ciência'
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
         abandon: 'Desistir da orientação'

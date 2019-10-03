@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_144740) do
     t.string "complementary_files"
     t.string "title"
     t.text "summary"
+    t.boolean "judgment", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["academic_id"], name: "index_academic_activities_on_academic_id"

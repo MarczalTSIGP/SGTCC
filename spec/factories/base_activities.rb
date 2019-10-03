@@ -4,6 +4,7 @@ FactoryBot.define do
     tcc { BaseActivity.tccs.values.sample }
     identifier { BaseActivity.human_identifiers.values.sample }
     base_activity_type
+    judgment { true }
 
     factory :base_activity_tcc_one do
       tcc { BaseActivity.tccs.values.first }

@@ -21,7 +21,7 @@ class Professors::SupervisionActivitiesController < Professors::BaseController
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = current_professor.supervisions.find(params[:id])
   end
 
   def set_calendar

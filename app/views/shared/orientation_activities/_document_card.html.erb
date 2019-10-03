@@ -34,5 +34,8 @@
         <%= @academic_activity.complementary_files_identifier %>
       <% end %>
     </p>
+    <div>
+      <%= yield(:advisor_component) %>
+    </div>
   </div>
 </div>

@@ -24,7 +24,7 @@ class Academics::OrientationActivitiesController < Academics::BaseController
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = current_academic.orientations.find(params[:id])
   end
 
   def set_calendar

@@ -7,6 +7,7 @@ class CreateAcademicActivities < ActiveRecord::Migration[5.2]
       t.string :complementary_files, null: true
       t.string :title
       t.text :summary
+      t.boolean :judgment, default: false
 
       t.timestamps
     end

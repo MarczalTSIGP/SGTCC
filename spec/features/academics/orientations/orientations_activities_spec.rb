@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Orientation::activities', type: :feature, js: true do
-  let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:current_orientation_tcc_one, academic: academic) }
+  let!(:orientation) { create(:current_orientation_tcc_one) }
+  let(:academic) { orientation.academic }
   let(:calendar) { orientation.calendar }
   let(:activities) { orientation.calendar.activities }
   let(:active_link) { academics_calendars_path }
