@@ -1,0 +1,58 @@
+<% provide(:page_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+<% provide(:head_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+
+<div class="card">
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('name') %>:
+      </strong>
+      <%= @activity.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('base_activity_type') %>:
+      </strong>
+      <%= @activity.base_activity_type.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('tcc') %>:
+      </strong>
+      <%= t("enums.tcc.#{@activity.tcc}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('judgment') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@activity.judgment}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('deadline') %>:
+      </strong>
+      <%= @activity.deadline %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('created_at') %>:
+      </strong>
+      <%= complete_date(@activity.created_at) %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('updated_at') %>:
+      </strong>
+      <%= complete_date(@activity.updated_at) %>
+    </p>
+  </div>
+</div>
+
+<% if @academic_activity.present? %>
+  <%= render 'shared/orientation_activities/document_card' %>
+<% end %>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'), back_link, class: 'btn btn-secondary' %>
+</div>
+
