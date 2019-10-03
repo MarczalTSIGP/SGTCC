@@ -64,6 +64,6 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
   end
 
   def attached_document_params
-    params.require(:attached_document).permit(:name, :file)
+    params.require(:attached_document).permit(:name, :file, :file_cache)
   end
 end

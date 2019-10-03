@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-body">
+    <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
+      <div class="row">
+        <div class="col-12">
+          <%= f.input :title %>
+        </div>
+        <div class="col-12">
+          <%= f.input :summary %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :pdf, class: 'font-weight-bold' %>
+          <div>
+            <file-input
+              name="academic_activity[pdf]"
+              id="academic_activity_pdf"
+              hint="<%= t('hints.file.pdf') %>"
+              label="<%= AcademicActivity.human_attribute_name('pdf') %>"
+              :url="<%= @academic_activity.pdf.url.to_json %>"
+              :errors="<%= @academic_activity.errors[:pdf] %>" />
+            </div>
+          <%= f.hidden_field :pdf_cache %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :complementary_files, class: 'font-weight-bold' %>
+          <div>
+            <file-input
+              name="academic_activity[complementary_files]"
+              id="academic_activity_complementary_files"
+              hint="<%= t('hints.file.zip') %>"
+              label="<%= AcademicActivity.human_attribute_name('complementary_files') %>"
+              :url="<%= @academic_activity.complementary_files.url.to_json %>"
+              :errors="<%= @academic_activity.errors[:complementary_files] %>" />
+          </div>
+          <%= f.hidden_field :complementary_files_cache %>
+        </div>
+
+        <%= f.input :activity_id,
+          as: :hidden,
+          input_html: { value: @activity.id } %>
+
+        <%= f.input :academic_id,
+          as: :hidden,
+          input_html: { value: current_academic.id } %>
+
+        <div class="col-12 mt-2">
+          <%= f.button :submit,
+            t('views.buttons.save'),
+            class: 'btn btn-primary float-right' %>
+      </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

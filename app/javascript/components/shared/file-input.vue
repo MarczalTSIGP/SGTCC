@@ -67,7 +67,7 @@ export default {
       }
     },
 
-    value: {
+    url: {
       type: String,
       required: false,
       default() {
@@ -92,7 +92,7 @@ export default {
     },
 
     inputName() {
-      return this.value ? this.getFileName() : this.search;
+      return this.url ? this.getFileName() : this.search;
     },
   },
 
@@ -102,7 +102,7 @@ export default {
     },
 
     getFileName() {
-      return this.value.split('/').pop();
+      return this.url.split('/').pop();
     },
   },
 };

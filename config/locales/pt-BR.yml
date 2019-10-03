@@ -10,6 +10,10 @@ pt-BR:
       document: '%d de %B de %Y'
       intl: '%m/%d/%Y'
       long_without_time: '%A, %-d de %B de %Y'
+  hints:
+    file:
+      pdf: 'Arquivo no formato pdf'
+      zip: 'Arquivo no formato .zip'
   views:
     title:
       calendar:

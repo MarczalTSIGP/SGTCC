@@ -19,7 +19,7 @@
 </div>
 
 <% if @activity.base_activity_type.send_document? %>
-  <%= render 'academics/activities/academic_activity',
+  <%= render 'academics/activities/academic_activity_form',
     url: @academic_activity.present? ? academics_calendar_activity_files_path(@calendar, @activity)
                                      : academics_calendar_activity_file_path(@calendar, @activity) %>
 <% end %>
