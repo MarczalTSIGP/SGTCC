@@ -35,7 +35,7 @@ module ActiveLinkHelper
   end
 
   def orientations_documents_link?(namespace)
-    match_link?("^\/#{namespace}/orientations\/\\d+/documents?(\/\\d+)?$")
+    match_link?("^\/#{namespace}/orientations\/\\d+/(documents|activities)?(\/\\d+)?$")
   end
 
   def supervisions_documents_link?(namespace)

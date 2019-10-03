@@ -16,6 +16,10 @@ pt-BR:
       zip: 'Arquivo no formato .zip'
   views:
     title:
+      activities:
+        send_document:
+          male: 'Envio do acadêmico'
+          female: 'Envio da acadêmica'
       calendar:
         tcc:
           one: "Calendário de Atividades de TCC 1 (%{calendar})"
@@ -247,6 +251,9 @@ pt-BR:
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
         calendar: "Atividades de TCC 2 (%{calendar})"
+    orientation_activities:
+      index: "Atividades da Orientação de TCC (%{calendar})"
+      show: "Visualizar Atividade da Orientação de TCC(%{calendar})"
     orientations:
       index: "Orientações"
       new: "Nova Orientação"

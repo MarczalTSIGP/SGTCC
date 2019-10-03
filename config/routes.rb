@@ -162,6 +162,14 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
