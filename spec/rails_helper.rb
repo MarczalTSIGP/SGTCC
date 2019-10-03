@@ -18,6 +18,7 @@ require 'support/helpers/string'
 require 'support/helpers/flash_message'
 
 require 'support/file_spec_helper'
+require 'support/capybara'
 
 require 'support/matchers/have_flash'
 require 'support/matchers/have_alert'
