@@ -1,4 +1,4 @@
-class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::BaseController
+class ExternalMembers::SupervisionActivitiesController < ExternalMembers::BaseController
   before_action :set_orientation
   before_action :set_calendar
   before_action :set_activity, only: :show
@@ -13,12 +13,9 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   end
 
   def show
-    url = tcc_one_professors_calendar_orientation_activity_path(
-      @calendar, @orientation, @activity
-    )
-
-    add_breadcrumb I18n.t('breadcrumbs.orientation_activities.show',
-                          calendar: @calendar.year_with_semester), url
+    add_breadcrumb I18n.t('breadcrumbs.supervision_activities.show',
+                          calendar: @calendar.year_with_semester),
+                   external_members_supervision_activity_path(@orientation, @activity)
   end
 
   private
@@ -28,7 +25,7 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   end
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = @orientation.calendar
   end
 
   def set_activity
@@ -43,10 +40,10 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   def set_breadcrumbs
     year_with_semester = @calendar.year_with_semester
 
-    add_breadcrumb I18n.t('breadcrumbs.orientations.index', calendar: year_with_semester),
-                   tcc_one_professors_calendar_orientations_path(@calendar)
+    add_breadcrumb I18n.t('breadcrumbs.supervisions.index', calendar: year_with_semester),
+                   external_members_supervisions_tcc_one_path
 
-    add_breadcrumb I18n.t('breadcrumbs.orientation_activities.index', calendar: year_with_semester),
-                   tcc_one_professors_calendar_orientation_activities_path(@calendar, @orientation)
+    add_breadcrumb I18n.t('breadcrumbs.supervision_activities.index', calendar: year_with_semester),
+                   external_members_supervision_activities_path(@orientation)
   end
 end

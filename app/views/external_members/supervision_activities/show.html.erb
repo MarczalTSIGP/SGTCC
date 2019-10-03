@@ -49,12 +49,12 @@
 </div>
 
 <% if @academic_activity.present? %>
-  <%= render 'professors/supervision_activities/document_card' %>
+  <%= render 'external_members/supervision_activities/document_card' %>
 <% end %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    professors_supervision_activities_path(@orientation),
+    external_members_supervision_activities_path(@orientation),
     class: 'btn btn-secondary' %>
 </div>
 
