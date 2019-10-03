@@ -1,16 +1,22 @@
 <% provide(:head_title, @page.menu_title) %>
 
-<h1 class="page-title mb-5">
-  <%= t('breadcrumbs.examination_boards.tcc.one.calendar',
+<h2 class="mb-5">
+  <%= t('breadcrumbs.examination_boards.proposal',
         calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
-</h1>
+</h2>
 
-<%= render('site/examination_boards/table', examination_boards: @examination_boards_tcc_one) %>
+<%= render('site/examination_boards/table', examination_boards: @proposal_examination_boards) %>
 
-<h1 class="page-title mb-5">
-  <%= t('breadcrumbs.examination_boards.tcc.two.calendar',
+<h2 class="mb-5">
+  <%= t('breadcrumbs.examination_boards.project',
+        calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
+</h2>
+
+<%= render('site/examination_boards/table', examination_boards: @project_examination_boards) %>
+
+<h2 class="mb-5">
+  <%= t('breadcrumbs.examination_boards.monograph',
         calendar: Calendar&.current_by_tcc_two.year_with_semester) %>
-</h1>
+</h2>
 
-<%= render('site/examination_boards/table', examination_boards: @examination_boards_tcc_two) %>
-
+<%= render('site/examination_boards/table', examination_boards: @monograph_examination_boards) %>

@@ -36,6 +36,10 @@
       </div>
     </div>
 
+    <%= f.input :identifier,
+        as: :radio_button_tabler,
+        collection: ExaminationBoard.human_tcc_identifiers %>
+
     <%= f.input :tcc,
       as: :hidden,
       input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' } %>

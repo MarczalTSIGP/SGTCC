@@ -92,7 +92,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def examination_board_params
     params.require(:examination_board)
-          .permit(:place, :date, :orientation_id, :tcc,
+          .permit(:place, :date, :orientation_id, :tcc, :identifier,
                   professor_ids: [], external_member_ids: [])
   end
 end

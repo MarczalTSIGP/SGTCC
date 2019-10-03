@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_144740) do
+ActiveRecord::Schema.define(version: 2019_10_03_203113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,15 +102,8 @@ ActiveRecord::Schema.define(version: 2019_10_02_144740) do
     t.index ["professor_id"], name: "index_examination_board_attendees_on_professor_id"
   end
 
-  create_table "examination_boards", force: :cascade do |t|
-    t.datetime "date"
-    t.string "place"
-    t.bigint "orientation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "tcc"
-    t.index ["orientation_id"], name: "index_examination_boards_on_orientation_id"
-  end
+# Could not dump table "examination_boards" because of following StandardError
+#   Unknown type 'examination_board_identifiers' for column 'identifier'
 
   create_table "external_members", force: :cascade do |t|
     t.string "name"

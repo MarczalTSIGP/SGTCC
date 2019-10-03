@@ -204,6 +204,9 @@ pt-BR:
     examination_boards:
       index: "Bancas de defesa"
       recent: "Últimas bancas de defesa"
+      proposal: "Bancas de Proposta de TCC - (%{calendar})"
+      project: "Bancas de Projeto de TCC - (%{calendar})"
+      monograph: "Bancas de Monografia de TCC - (%{calendar})"
       tcc:
         one:
           index: "Bancas de defesa de TCC 1"
@@ -482,6 +485,7 @@ pt-BR:
         orientation: "Orientação"
         evaluators: "Avaliadores"
         place: "Local"
+        identifier: "Tipo"
         <<: *commons
       site:
         <<: *commons
@@ -536,6 +540,10 @@ pt-BR:
     tcc:
       one: '1'
       two: '2'
+      identifiers:
+        proposal: 'Proposta'
+        project: 'Projeto'
+        monograph: 'Monografia'
     tcc_number:
       one: 1
       two: 2

@@ -1,6 +1,7 @@
 class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
+  include TccIdentifier
   include Searchable
   include Tcc
 
@@ -12,6 +13,7 @@ class ExaminationBoard < ApplicationRecord
 
   validates :place, presence: true
   validates :date, presence: true
+  validates :identifier, presence: true
 
   has_many :examination_board_attendees, dependent: :delete_all
 
