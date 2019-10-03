@@ -5,6 +5,10 @@
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
 
+    <%= link_to(professors_orientation_activities_path(orientation)) do %>
+      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
+    <% end %>
+
     <% unless orientation.meetings.empty? %>
       <%= link_to(professors_orientation_meetings_path(orientation)) do %>
         <i class="fe fe-clipboard" data-toggle="tooltip" title="Visualizar reuniões"></i>

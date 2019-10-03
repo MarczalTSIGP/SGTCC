@@ -315,6 +315,14 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
