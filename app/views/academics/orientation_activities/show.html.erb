@@ -49,12 +49,12 @@
 </div>
 
 <% if @academic_activity.present? %>
-  <%= render 'tcc_one_professors/orientation_activities/document_card' %>
+  <%= render 'academics/orientation_activities/document_card' %>
 <% end %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    tcc_one_professors_calendar_orientation_activities_path(@calendar, @orientation),
+    academics_calendar_orientation_activities_path(@calendar, @orientation),
     class: 'btn btn-secondary' %>
 </div>
 
