@@ -11,7 +11,11 @@ FactoryBot.define do
     tcc { tccs.sample }
 
     before :create do
-      create_list(:base_activity, 8)
+      create_list(:base_activity, 4)
+    end
+
+    before :destroy do
+      activities.destroy_all
     end
 
     factory :current_calendar do
