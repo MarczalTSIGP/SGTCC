@@ -254,6 +254,9 @@ pt-BR:
     orientation_activities:
       index: "Atividades da Orientação de TCC (%{calendar})"
       show: "Visualizar Atividade da Orientação de TCC(%{calendar})"
+    supervision_activities:
+      index: "Atividades da Coorientação de TCC (%{calendar})"
+      show: "Visualizar Atividade da Coorientação de TCC(%{calendar})"
     orientations:
       index: "Orientações"
       new: "Nova Orientação"

@@ -352,6 +352,14 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
+      get 'supervisions/(:id)/activities',
+          to: 'supervision_activities#index',
+          as: 'supervision_activities'
+
+      get 'supervisions/(:id)/activities/(:activity_id)',
+          to: 'supervision_activities#show',
+          as: 'supervision_activity'
+
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
           as: 'calendar_activities'

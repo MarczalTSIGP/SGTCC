@@ -39,7 +39,7 @@ module ActiveLinkHelper
   end
 
   def supervisions_documents_link?(namespace)
-    match_link?("^\/#{namespace}/supervisions\/\\d+/documents?(\/\\d+)?$")
+    match_link?("^\/#{namespace}/supervisions\/\\d+/(documents|activities)?(\/\\d+)?$")
   end
 
   def activities_tcc_active_link?(tcc_type, namespace)
