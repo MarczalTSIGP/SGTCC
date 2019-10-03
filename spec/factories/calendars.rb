@@ -10,6 +10,10 @@ FactoryBot.define do
     sequence(:semester) { tccs.first || tccs.last }
     tcc { tccs.sample }
 
+    before :create do
+      create_list(:base_activity, 8)
+    end
+
     factory :current_calendar do
       year { current_year }
       semester { current_semester }
