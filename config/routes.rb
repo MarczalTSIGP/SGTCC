@@ -447,6 +447,14 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'calendar_orientation_document'
 
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'calendar_orientation_activities'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'calendar_orientation_activity'
+
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
           as: 'orientations_current_tcc_one'

@@ -2,8 +2,13 @@
   <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(tcc_one_professors_calendar_orientation_path(@calendar, orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
+
+    <%= link_to(tcc_one_professors_calendar_orientation_activities_path(@calendar, orientation)) do %>
+      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
+    <% end %>
+
     <%= link_to(tcc_one_professors_calendar_orientation_documents_path(@calendar, orientation)) do %>
       <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
     <% end %>
