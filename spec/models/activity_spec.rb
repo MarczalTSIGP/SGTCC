@@ -25,6 +25,13 @@ RSpec.describe Activity, type: :model do
     end
   end
 
+  describe '#human_tcc_one_identifiers' do
+    it 'returns the tcc one identifiers' do
+      hash = Activity.human_identifiers.first(2).to_h
+      expect(Activity.human_tcc_one_identifiers).to eq(hash)
+    end
+  end
+
   describe '#deadline' do
     let(:activity) { create(:activity) }
 

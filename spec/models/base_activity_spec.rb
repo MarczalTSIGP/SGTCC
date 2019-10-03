@@ -96,4 +96,11 @@ RSpec.describe BaseActivity, type: :model do
       expect(BaseActivity.human_tccs).to eq(hash)
     end
   end
+
+  describe '#human_tcc_one_identifiers' do
+    it 'returns the tcc one identifiers' do
+      hash = BaseActivity.human_identifiers.first(2).to_h
+      expect(BaseActivity.human_tcc_one_identifiers).to eq(hash)
+    end
+  end
 end
