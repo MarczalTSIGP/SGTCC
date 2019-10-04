@@ -372,6 +372,10 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      post 'examination_boards/(:id)/minutes',
+           to: 'examination_boards#minutes',
+           as: 'examination_board_minutes'
+
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',

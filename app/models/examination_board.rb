@@ -53,4 +53,10 @@ class ExaminationBoard < ApplicationRecord
     distance_of_time = distance_of_time_in_words(board_date, Time.current)
     I18n.t("#{i18n}.#{status}", distance: distance_of_time)
   end
+
+  def minutes_type
+    return :adpp if proposal?
+    return :adpj if project?
+    :admg
+  end
 end

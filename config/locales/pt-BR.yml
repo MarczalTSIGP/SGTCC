@@ -686,7 +686,9 @@ pt-BR:
       TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
       TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
       TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
-      ADD: 'Termo de Defesa de Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
+      ADPP: 'Termo de Defesa de Proposta Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
+      ADPJ: 'Termo de Defesa de Projeto Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
+      ADMG: 'Termo de Defesa de Monografia Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'

@@ -11,6 +11,12 @@
     </p>
     <p>
       <strong>
+        <%= ExaminationBoard.human_attribute_name('identifier') %>:
+      </strong>
+      <%= t("enums.tcc.identifiers.#{@examination_board.identifier}") %>
+    </p>
+    <p>
+      <strong>
         <%= ExaminationBoard.human_attribute_name('advisor') %>:
       </strong>
       <%= @examination_board.orientation.advisor.name_with_scholarity %>

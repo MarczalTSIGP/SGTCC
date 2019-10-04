@@ -57,7 +57,9 @@ document_types = [
   { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] },
   { name: I18n.t('signatures.documents.TEP'), identifier: DocumentType.identifiers[:tep] },
   { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] },
-  { name: I18n.t('signatures.documents.ADD'), identifier: DocumentType.identifiers[:add] }
+  { name: I18n.t('signatures.documents.ADPP'), identifier: DocumentType.identifiers[:adpp] },
+  { name: I18n.t('signatures.documents.ADPJ'), identifier: DocumentType.identifiers[:adpj] },
+  { name: I18n.t('signatures.documents.ADMG'), identifier: DocumentType.identifiers[:admg] }
 ]
 
 document_types.each do |document_type|

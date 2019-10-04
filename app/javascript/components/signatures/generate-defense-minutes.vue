@@ -12,7 +12,7 @@
       v-if="show"
       class="container"
     >
-      <defense-minutes :document-id="4" />
+      <defense-minutes :document-id="documentId" />
     </div>
   </div>
 </template>
@@ -26,14 +26,27 @@ export default {
 
   components: { DefenseMinutes },
 
+  props: {
+    url: {
+      type: String,
+      required: true
+    },
+  },
+
   data() {
     return {
-      show: true,
+      show: false,
+      documentId: '',
     };
   },
 
   methods: {
-    generate() {
+    async generate() {
+      const response = await this.$axios.post(this.url);
+
+      console.log('response', response);
+
+      this.documentId = response.data;
       this.show = true;
     },
   },

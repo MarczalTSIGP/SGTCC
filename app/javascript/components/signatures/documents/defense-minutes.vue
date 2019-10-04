@@ -26,9 +26,12 @@
           <td>Orientador</td>
           <td>{{ term.advisor.name }}</td>
         </tr>
-        <tr>
-          <td>Coorientador</td>
-          <td>...</td>
+        <tr
+          v-for="(supervisor, index) in supervisors"
+          :key="supervisor.id"
+        >
+          <td>Coorientador {{ index + 1 }}</td>
+          <td>{{ supervisor.name }}</td>
         </tr>
         <tr />
         <tr>
@@ -90,6 +93,12 @@ export default {
     return {
       status: ['Aprovado', 'Aprovado com ressalvas', 'Reprovado', 'Não compareceu']
     };
+  },
+
+  computed: {
+    supervisors() {
+      return this.term.professorSupervisors.concat(this.term.externalMemberSupervisors);
+    },
   },
 };
 </script>
