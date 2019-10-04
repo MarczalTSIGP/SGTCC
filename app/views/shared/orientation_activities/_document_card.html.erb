@@ -26,14 +26,16 @@
         <%= @academic_activity.pdf_identifier %>
       <% end %>
     </p>
-    <p>
-      <strong>
-        <%= AcademicActivity.human_attribute_name('complementary_files') %>:
-      </strong>
-      <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
-        <%= @academic_activity.complementary_files_identifier %>
-      <% end %>
-    </p>
+    <% if @academic_activity.complementary_files.present? %>
+      <p>
+        <strong>
+          <%= AcademicActivity.human_attribute_name('complementary_files') %>:
+        </strong>
+        <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
+          <%= @academic_activity.complementary_files_identifier %>
+        <% end %>
+      </p>
+    <% end %>
     <div>
       <%= yield(:advisor_component) %>
     </div>
