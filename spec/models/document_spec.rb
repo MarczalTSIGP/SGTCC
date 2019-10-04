@@ -205,7 +205,8 @@ RSpec.describe Document, type: :model do
           title: document.document_type.name.upcase, document: document_data,
           academic: academic_data, institution: institution_data,
           professorSupervisors: orientation.professor_supervisors_to_document,
-          externalMemberSupervisors: orientation.external_member_supervisors_to_document }
+          externalMemberSupervisors: orientation.external_member_supervisors_to_document,
+          examination_board: nil }
       end
 
       it 'returns the term json data' do

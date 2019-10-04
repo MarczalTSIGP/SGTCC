@@ -22,6 +22,23 @@ RSpec.describe ExaminationBoard, type: :model do
     end
   end
 
+  describe '#human_tcc_identifiers' do
+    it 'returns the identifiers' do
+      identifiers = ExaminationBoard.identifiers
+      hash = {}
+      identifiers.each_key { |key| hash[I18n.t("enums.tcc.identifiers.#{key}")] = key }
+
+      expect(ExaminationBoard.human_tcc_identifiers).to eq(hash)
+    end
+  end
+
+  describe '#human_tcc_one_identifiers' do
+    it 'returns the tcc one identifiers' do
+      hash = ExaminationBoard.human_tcc_identifiers.first(2).to_h
+      expect(ExaminationBoard.human_tcc_one_identifiers).to eq(hash)
+    end
+  end
+
   describe '#search' do
     let!(:examination_board) { create(:examination_board) }
 
@@ -100,6 +117,68 @@ RSpec.describe ExaminationBoard, type: :model do
 
       it 'retuns the occurred date label' do
         expect(examination_board.distance_of_date).to eq(label)
+      end
+    end
+  end
+
+  describe '#minutes_type' do
+    context 'when the examination board is a proposal' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      it 'retuns the adpp' do
+        expect(examination_board.minutes_type).to eq(:adpp)
+      end
+    end
+
+    context 'when the examination board is a project' do
+      let(:examination_board) { create(:project_examination_board) }
+
+      it 'retuns the adpj' do
+        expect(examination_board.minutes_type).to eq(:adpj)
+      end
+    end
+
+    context 'when the examination board is a monograph' do
+      let(:examination_board) { create(:monograph_examination_board) }
+
+      it 'retuns the admg' do
+        expect(examination_board.minutes_type).to eq(:admg)
+      end
+    end
+  end
+
+  describe '#evaluators_to_document' do
+    let(:examination_board) { create(:examination_board) }
+
+    let(:evaluators_formatted) do
+      examination_board.professors.map do |evaluator|
+        { id: evaluator.id, name: evaluator.name_with_scholarity }
+      end
+    end
+
+    it 'returns the array with evaluators formatted' do
+      expect(examination_board.evaluators_to_document).to match_array(evaluators_formatted)
+    end
+  end
+
+  describe '#available_defense_minutes?' do
+    context 'when the document_available_until is greater than current time' do
+      let(:examination_board) do
+        create(:examination_board, date: Time.current, document_available_until: Time.current + 1)
+      end
+
+      it 'returns true' do
+        expect(examination_board.available_defense_minutes?).to eq(true)
+      end
+    end
+
+    context 'when the document_available_until is less than current time' do
+      let(:examination_board) do
+        create(:examination_board, date: Time.current, document_available_until: Time.current - 1)
+      end
+
+      it 'returns false' do
+        expect(examination_board.available_defense_minutes?).to eq(false)
       end
     end
   end

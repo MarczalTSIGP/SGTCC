@@ -68,7 +68,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def create_defense_minutes
-    examination_board_data = { evaluators: evaluators_to_document,
+    examination_board_data = { id: id, evaluators: evaluators_to_document,
                                date: I18n.l(date, format: :document),
                                time: I18n.l(date, format: :time) }
 
@@ -76,5 +76,9 @@ class ExaminationBoard < ApplicationRecord
                     examination_board: examination_board_data }
 
     DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
+  end
+
+  def available_defense_minutes?
+    (Time.current <= document_available_until)
   end
 end

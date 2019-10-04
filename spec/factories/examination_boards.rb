@@ -9,6 +9,18 @@ FactoryBot.define do
     tcc { tccs.sample }
     orientation
 
+    factory :proposal_examination_board do
+      identifier { :proposal }
+    end
+
+    factory :project_examination_board do
+      identifier { :project }
+    end
+
+    factory :monograph_examination_board do
+      identifier { :monograph }
+    end
+
     factory :examination_board_tcc_one do
       tcc { tccs.first }
     end
