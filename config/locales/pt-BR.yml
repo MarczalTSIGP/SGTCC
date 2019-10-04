@@ -486,6 +486,7 @@ pt-BR:
         evaluators: "Avaliadores"
         place: "Local"
         identifier: "Tipo"
+        document_available_until: "Data e hora limite para assinar a ata de defesa"
         <<: *commons
       site:
         <<: *commons

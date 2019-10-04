@@ -1,5 +1,9 @@
 <%= simple_form_for [:responsible, @examination_board] do |f| %>
   <div class="form-inputs">
+    <%= f.input :identifier,
+        as: :radio_button_tabler,
+        collection: ExaminationBoard.human_tcc_identifiers %>
+
     <%= f.association :orientation,
       label: Academic.model_name.human,
       input_html: { data: 'selectize' },
@@ -9,10 +13,25 @@
       prompt: t('prompt.select.m', name: Academic.model_name.human) %>
 
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-md-6">
+        <%= f.association :professors,
+          input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+      </div>
+      <div class="col-md-6">
+        <%= f.association :external_members,
+          input_html: { data: 'selectize' },
+          collection: ExternalMember.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
         <%= f.input :place %>
       </div>
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <datetimepicker
           name="examination_board[date]"
           id="examination_board_date"
@@ -21,24 +40,13 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.association :professors,
-          input_html: { data: 'selectize' },
-          collection: Professor.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
-      </div>
-      <div class="col-sm-6">
-        <%= f.association :external_members,
-          input_html: { data: 'selectize' },
-          collection: ExternalMember.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
-      </div>
+    <div>
+      <datetimepicker
+        name="examination_board[document_available_until]"
+        id="examination_board_document_available_until"
+        label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
+        datetime="<%= @examination_board.document_available_until %>" />
     </div>
-
-    <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: ExaminationBoard.human_tcc_identifiers %>
 
     <%= f.input :tcc,
       as: :hidden,

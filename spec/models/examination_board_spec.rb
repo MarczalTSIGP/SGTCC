@@ -4,6 +4,7 @@ RSpec.describe ExaminationBoard, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:place) }
     it { is_expected.to validate_presence_of(:date) }
+    it { is_expected.to validate_presence_of(:document_available_until) }
   end
 
   describe 'associations' do

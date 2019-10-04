@@ -37,6 +37,7 @@ module TermJsonData
     end
 
     def examination_board_data
+      return if examination_board.blank?
       { evaluators: examination_board[:evaluators],
         date: examination_board[:date],
         time: examination_board[:time] }

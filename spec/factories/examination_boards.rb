@@ -3,6 +3,8 @@ FactoryBot.define do
 
   factory :examination_board do
     date { Faker::Date.forward(1) }
+    document_available_until { Faker::Date.forward(1) }
+    identifier { ExaminationBoard.human_tcc_identifiers.values.sample }
     place { Faker::Address.community }
     tcc { tccs.sample }
     orientation

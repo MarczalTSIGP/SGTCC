@@ -14,6 +14,7 @@ class ExaminationBoard < ApplicationRecord
   validates :place, presence: true
   validates :date, presence: true
   validates :identifier, presence: true
+  validates :document_available_until, presence: true
 
   has_many :examination_board_attendees, dependent: :delete_all
 
