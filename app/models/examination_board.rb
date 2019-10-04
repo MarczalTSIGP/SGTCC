@@ -67,6 +67,13 @@ class ExaminationBoard < ApplicationRecord
     end
   end
 
+  def can_create_defense_minutes?
+    document = orientation.documents
+                          .joins(:document_type)
+                          .find_by(document_types: { identifier: minutes_type })
+    document.blank?
+  end
+
   def create_defense_minutes
     examination_board_data = { id: id, evaluators: evaluators_to_document,
                                date: I18n.l(date, format: :document),

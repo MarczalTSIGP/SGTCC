@@ -1,5 +1,7 @@
-<generate-defense-minutes
-  url="<%= professors_examination_board_minutes_path(@examination_board) %>">
-</generate-defense-minutes>
+<% if @examination_board.can_create_defense_minutes? %>
+  <generate-defense-minutes
+    url="<%= professors_examination_board_minutes_path(@examination_board) %>">
+  </generate-defense-minutes>
+<% end %>
 
 <%= render 'shared/examination_boards/show', back_url: professors_examination_boards_path %>

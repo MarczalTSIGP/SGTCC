@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="clearfix">
+    <div
+      v-if="!show"
+      class="clearfix"
+    >
       <button
         class="btn btn-outline-primary float-right mb-4"
         @click="generate()"
