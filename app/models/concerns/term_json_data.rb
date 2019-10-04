@@ -37,7 +37,9 @@ module TermJsonData
     end
 
     def examination_board_data
-      { evaluators: examination_board[:evaluators] }
+      { evaluators: examination_board[:evaluators],
+        date: examination_board[:date],
+        time: examination_board[:time] }
     end
   end
 end

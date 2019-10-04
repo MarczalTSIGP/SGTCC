@@ -14,8 +14,6 @@ module Documents::DefenseMinutes
   def save_add
     add_advisor
     add_academic
-    add_professor_supervisors
-    add_external_member_supervisors
     add_evaluators
     create_signatures
   end

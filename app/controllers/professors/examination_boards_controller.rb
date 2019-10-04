@@ -1,6 +1,5 @@
 class Professors::ExaminationBoardsController < Professors::BaseController
   before_action :set_examination_board, only: [:show, :minutes]
-  before_action :set_orientation, only: :minutes
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :professors_examination_boards_path
@@ -16,11 +15,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def minutes
-    evaluators = { evaluators: @examination_board.evaluators_to_document }
-    data_params = { orientation_id: @orientation.id, examination_board: evaluators }
-
-    document = DocumentType.find_by(identifier: @examination_board.minutes_type)
-                           .documents.create!(data_params)
+    document = @examination_board.create_defense_minutes
 
     render json: document.id
   end
@@ -29,9 +24,5 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def set_examination_board
     @examination_board = ExaminationBoard.with_relationships.find(params[:id])
-  end
-
-  def set_orientation
-    @orientation = @examination_board.orientation
   end
 end

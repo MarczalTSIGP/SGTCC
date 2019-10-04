@@ -65,4 +65,15 @@ class ExaminationBoard < ApplicationRecord
       { id: evaluator.id, name: evaluator.name_with_scholarity }
     end
   end
+
+  def create_defense_minutes
+    examination_board_data = { evaluators: evaluators_to_document,
+                               date: I18n.l(date, format: :document),
+                               time: I18n.l(date, format: :time) }
+
+    data_params = { orientation_id: orientation.id,
+                    examination_board: examination_board_data }
+
+    DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
+  end
 end
