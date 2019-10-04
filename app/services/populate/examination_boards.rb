@@ -1,5 +1,6 @@
 class Populate::ExaminationBoards
-  attr_reader :professors, :external_members, :responsible, :orientation_ids, :tccs
+  attr_reader :professors, :external_members, :responsible, :orientation_ids, :tccs,
+              :tcc_two_identifier, :tcc_one_identifiers
 
   def initialize
     @professors = Professor.all
@@ -7,6 +8,8 @@ class Populate::ExaminationBoards
     @responsible = Professor.find_by(username: 'marczal')
     @orientation_ids = Orientation.pluck(:id)
     @tccs = ExaminationBoard.tccs
+    @tcc_two_identifier = ExaminationBoard.human_tcc_identifiers.values.last
+    @tcc_one_identifiers = ExaminationBoard.human_tcc_one_identifiers.values
   end
 
   def populate
@@ -21,7 +24,8 @@ class Populate::ExaminationBoards
         orientation_id: @orientation_ids.sample,
         place: "place#{index}",
         date: Faker::Date.forward(1),
-        tcc: index > 4 ? @tccs[:one] : @tccs[:two]
+        tcc: index > 4 ? @tccs[:one] : @tccs[:two],
+        identifier: index > 4 ? @tcc_one_identifiers.sample : @tcc_two_identifier
       )
       add_guests(examination_board)
     end

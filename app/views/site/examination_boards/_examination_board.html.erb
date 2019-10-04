@@ -1,74 +1,86 @@
 <tr>
-  <td class="text-center">
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('title') %></strong>
   </td>
-  <td colspan="4">
+  <td colspan="4" class="td-center">
     <strong><%= examination_board.orientation.title %></strong>
   </td>
 </tr>
 <tr>
-  <td class="text-center">
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('academic') %></strong>
   </td>
-  <td colspan="4">
+  <td colspan="4" class="td-center">
     <%= examination_board.orientation.academic.name %>
   </td>
 </tr>
 <tr>
-  <td rowspan="2" class="align-middle text-center">
+  <td rowspan="2" class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('orientation') %></strong>
   </td>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('advisor') %></strong>
   </td>
-  <td colspan="4">
-    <%= examination_board.orientation.advisor.name_with_scholarity %>
+  <td colspan="4" class="text-center">
+    <table-name-avatar
+      url="<%= examination_board.orientation.advisor.profile_image %>"
+      name="<%= examination_board.orientation.advisor.name_with_scholarity %>">
+    </table-name-avatar>
   </td>
 </tr>
 <tr>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %></strong>
   </td>
   <td colspan="4">
     <% examination_board.orientation.supervisors.each do |supervisor| %>
-      <%= supervisor.name_with_scholarity %>
+      <table-name-avatar
+        url="<%= supervisor.profile_image %>"
+        name="<%= supervisor.name_with_scholarity %>">
+      </table-name-avatar>
     <% end %>
   </td>
 </tr>
 <tr>
-  <td rowspan="2" class="align-middle text-center">
+  <td rowspan="2" class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('evaluators') %></strong>
   </td>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('utfpr_members') %></strong>
   </td>
   <td colspan="4">
     <% examination_board.professors.each do |professor| %>
-      <%= professor.name_with_scholarity %>
+      <table-name-avatar
+        url="<%= professor.profile_image %>"
+        name="<%= professor.name_with_scholarity %>">
+      </table-name-avatar>
     <% end %>
   </td>
 </tr>
 <tr>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('external_members') %></strong>
   </td>
   <td colspan="4">
     <% examination_board.external_members.each do |external_member| %>
-      <%= external_member.name_with_scholarity %>
+      <table-name-avatar
+        url="<%= external_member.profile_image %>"
+        name="<%= external_member.name_with_scholarity %>">
+      </table-name-avatar>
     <% end %>
   </td>
 </tr>
 <tr>
-  <td class="align-middle text-center">
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
   </td>
   <td colspan="5"></td>
 </tr>
 <tr>
-  <td rowspan="3" class="align-middle text-center">
+  <td rowspan="3" class="td-center">
     <strong><%= ExaminationBoard.model_name.human %></strong>
   </td>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('date') %></strong>
   </td>
   <td colspan="4">
@@ -76,7 +88,7 @@
   </td>
 </tr>
 <tr>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('hour') %></strong>
   </td>
   <td colspan="4">
@@ -84,7 +96,7 @@
   </td>
 </tr>
 <tr>
-  <td>
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('place') %></strong>
   </td>
   <td colspan="4">

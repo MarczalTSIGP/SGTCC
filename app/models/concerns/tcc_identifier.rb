@@ -17,7 +17,7 @@ module TccIdentifier
     end
 
     def self.human_tcc_one_identifiers
-      human_identifiers.first(2).to_h
+      human_tcc_identifiers.first(2).to_h
     end
   end
 end
