@@ -10,6 +10,7 @@ class DocumentType < ApplicationRecord
     tdo: 'tdo',
     tcai: 'tcai',
     tep: 'tep',
-    tso: 'tso'
+    tso: 'tso',
+    add: 'add'
   }
 end

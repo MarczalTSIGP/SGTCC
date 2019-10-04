@@ -56,7 +56,8 @@ document_types = [
   { name: I18n.t('signatures.documents.TDO'), identifier: DocumentType.identifiers[:tdo] },
   { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] },
   { name: I18n.t('signatures.documents.TEP'), identifier: DocumentType.identifiers[:tep] },
-  { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] }
+  { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] },
+  { name: I18n.t('signatures.documents.ADD'), identifier: DocumentType.identifiers[:add] }
 ]
 
 document_types.each do |document_type|
