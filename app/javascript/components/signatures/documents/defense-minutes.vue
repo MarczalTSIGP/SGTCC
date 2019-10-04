@@ -34,9 +34,12 @@
           <td>{{ supervisor.name }}</td>
         </tr>
         <tr />
-        <tr>
-          <td>Avaliador 1</td>
-          <td>...</td>
+        <tr
+          v-for="(evaluator, index) in term.examination_board.evaluators"
+          :key="evaluator.id"
+        >
+          <td>Avaliador {{ index + 1 }}</td>
+          <td>{{ evaluator.name }}</td>
         </tr>
       </tbody>
     </table>

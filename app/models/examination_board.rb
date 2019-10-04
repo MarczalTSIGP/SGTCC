@@ -59,4 +59,10 @@ class ExaminationBoard < ApplicationRecord
     return :adpj if project?
     :admg
   end
+
+  def evaluators_to_document
+    professors.map do |evaluator|
+      { id: evaluator.id, name: evaluator.name_with_scholarity }
+    end
+  end
 end

@@ -6,7 +6,8 @@ class Document < ApplicationRecord
   include DocumentReview
 
   attr_accessor :orientation_id, :advisor_id, :justification,
-                :professor_supervisor_ids, :external_member_supervisor_ids
+                :professor_supervisor_ids, :external_member_supervisor_ids,
+                :examination_board
 
   belongs_to :document_type
 

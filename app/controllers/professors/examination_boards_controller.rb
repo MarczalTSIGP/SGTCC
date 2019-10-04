@@ -16,7 +16,8 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def minutes
-    data_params = { orientation_id: @orientation.id }
+    evaluators = { evaluators: @examination_board.evaluators_to_document }
+    data_params = { orientation_id: @orientation.id, examination_board: evaluators }
 
     document = DocumentType.find_by(identifier: @examination_board.minutes_type)
                            .documents.create!(data_params)

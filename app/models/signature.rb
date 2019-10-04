@@ -5,7 +5,7 @@ class Signature < ApplicationRecord
   enum user_type: {
     advisor: 'AD',
     academic: 'AC',
-    evaluator: 'AV',
+    evaluator: 'EV',
     coordinator: 'CC',
     new_advisor: 'NAD',
     professor_responsible: 'PR',

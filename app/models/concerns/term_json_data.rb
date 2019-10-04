@@ -8,7 +8,8 @@ module TermJsonData
       { orientation: orientation_data, advisor: advisor_data, title: document_type.name.upcase,
         academic: academic_data, institution: institution_data, document: { id: id },
         professorSupervisors: orientation.professor_supervisors_to_document,
-        externalMemberSupervisors: orientation.external_member_supervisors_to_document }
+        externalMemberSupervisors: orientation.external_member_supervisors_to_document,
+        examination_board: examination_board_data }
     end
 
     private
@@ -33,6 +34,10 @@ module TermJsonData
       institution = orientation.institution
       { id: institution&.id, trade_name: institution&.trade_name,
         responsible: institution&.external_member&.name }
+    end
+
+    def examination_board_data
+      { evaluators: examination_board[:evaluators] }
     end
   end
 end

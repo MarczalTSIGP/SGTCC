@@ -24,6 +24,7 @@ export default {
         institution: {},
         professorSupervisors: [],
         externalMemberSupervisors: [],
+        examination_board: []
       },
     };
   },
