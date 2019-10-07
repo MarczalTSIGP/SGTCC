@@ -11,23 +11,21 @@
         Gerar Ata de Defesa
       </button>
     </div>
-    <div
-      v-if="show"
-      class="container"
-    >
-      <defense-minutes :document-id="documentId" />
+    <div v-if="show">
+      <a
+        :href="documentUrl"
+        class="btn btn-outline-primary float-right mb-4"
+      >
+        Visualizar Documento
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 
-import DefenseMinutes from './documents/defense-minutes';
-
 export default {
   name: 'GenerateDefenseMinutes',
-
-  components: { DefenseMinutes },
 
   props: {
     url: {
@@ -40,17 +38,21 @@ export default {
     return {
       show: false,
       documentId: '',
+      documentsUrl: '/professors/documents',
     };
+  },
+
+  computed: {
+    documentUrl() {
+      return `${this.documentsUrl}/${this.documentId}`;
+    },
   },
 
   methods: {
     async generate() {
-      const response = await this.$axios.post(this.url);
-
-      console.log('response', response);
-
-      this.documentId = response.data;
       this.show = true;
+      const response = await this.$axios.post(this.url);
+      this.documentId = response.data;
     },
   },
 };

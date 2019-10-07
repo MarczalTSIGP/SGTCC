@@ -58,12 +58,6 @@ export default {
 
   mixins: [baseTermData],
 
-  data() {
-    return {
-      status: ['Aprovado', 'Aprovado com ressalvas', 'Reprovado', 'Não compareceu']
-    };
-  },
-
   computed: {
     supervisors() {
       return this.term.professorSupervisors.concat(this.term.externalMemberSupervisors);
