@@ -5,6 +5,7 @@
       class="clearfix"
     >
       <button
+        id="generate_defense_minutes"
         class="btn btn-outline-primary float-right mb-4"
         @click="generate()"
       >
@@ -13,6 +14,7 @@
     </div>
     <div v-if="show">
       <a
+        id="view_defense_minutes"
         :href="documentUrl"
         class="btn btn-outline-primary float-right mb-4"
       >

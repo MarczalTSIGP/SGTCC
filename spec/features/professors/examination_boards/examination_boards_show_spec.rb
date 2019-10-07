@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::show', type: :feature do
+describe 'ExaminationBoard::show', type: :feature, js: true do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
 
   before do
+    create(:document_type_adpp)
     login_as(professor, scope: :professor)
     visit professors_examination_board_path(examination_board)
   end
@@ -28,6 +29,19 @@ describe 'ExaminationBoard::show', type: :feature do
         examination_board.external_members.each do |external_member|
           expect(page).to have_content(external_member.name_with_scholarity)
         end
+      end
+    end
+
+    context 'when generates the defense minutes' do
+      it 'shows the view defense minutes button' do
+        find('#generate_defense_minutes').click
+        find('#view_defense_minutes').click
+        document = Document.first
+        expect(page).to have_contents([orientation.title,
+                                       orientation.academic.name,
+                                       orientation.advisor.name_with_scholarity,
+                                       document_date(examination_board.date),
+                                       document_date(document.created_at)])
       end
     end
   end
