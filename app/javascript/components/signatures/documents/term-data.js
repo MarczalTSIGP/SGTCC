@@ -20,7 +20,10 @@ export default {
           label: ''
         },
         title: '',
-        document: {},
+        document: {
+          id: '',
+          created_at: ''
+        },
         institution: {},
         professorSupervisors: [],
         externalMemberSupervisors: [],

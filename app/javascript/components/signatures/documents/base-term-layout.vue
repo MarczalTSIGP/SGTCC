@@ -27,7 +27,7 @@
       <footer>
         <slot name="footer">
           <term-footer
-            :created-at="term.orientation.created_at"
+            :created-at="term.document.created_at"
           />
           <div class="clearfix" />
           <signature-mark :document-id="documentId" />
