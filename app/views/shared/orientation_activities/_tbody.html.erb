@@ -2,9 +2,11 @@
 <td><%= activity.base_activity_type.name %></td>
 <td><%= t("enums.tcc.#{activity.tcc}") %></td>
 <td><%= activity.deadline %></td>
-<td>
-  <% if activity.academic_activity(@orientation).present? %>
-    <%= t("helpers.boolean.#{activity.academic_activity(@orientation).judgment}") %>
-  <% end %>
-</td>
+<% if activity.academic_activity(@orientation).present? %>
+  <td><%= t("helpers.boolean.#{activity.academic_activity(@orientation).judgment}") %></td>
+  <td><%= t("helpers.boolean.true") %></td>
+<% else %>
+  <td></td>
+  <td></td>
+<% end %>
 

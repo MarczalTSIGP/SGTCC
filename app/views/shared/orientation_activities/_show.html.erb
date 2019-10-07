@@ -11,6 +11,18 @@
     </p>
     <p>
       <strong>
+        <%= Activity.human_attribute_name('tcc') %>:
+      </strong>
+      <%= t("enums.tcc.#{@activity.tcc}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('judgment') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@activity.judgment}") %>
+    </p>
+    <p>
+      <strong>
         <%= Activity.human_attribute_name('base_activity_type') %>:
       </strong>
       <%= @activity.base_activity_type.name %>
@@ -27,24 +39,18 @@
       </strong>
       <%= t("helpers.boolean.#{@activity.final_version}") %>
     </p>
-    <p>
-      <strong>
-        <%= Activity.human_attribute_name('tcc') %>:
-      </strong>
-      <%= t("enums.tcc.#{@activity.tcc}") %>
-    </p>
-    <p>
-      <strong>
-        <%= Activity.human_attribute_name('judgment') %>:
-      </strong>
-      <%= t("helpers.boolean.#{@activity.judgment}") %>
-    </p>
     <% if @academic_activity.present? %>
       <p>
         <strong>
           <%= Activity.human_attribute_name('advisor_judgment') %>:
         </strong>
         <%= t("helpers.boolean.#{@academic_activity.judgment}") %>
+      </p>
+      <p>
+        <strong>
+          <%= Activity.human_attribute_name('sent') %>:
+        </strong>
+        <%= t("helpers.boolean.true") %>
       </p>
     <% end %>
     <p>
