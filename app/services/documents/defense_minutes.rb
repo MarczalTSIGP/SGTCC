@@ -19,7 +19,9 @@ module Documents::DefenseMinutes
   end
 
   def add_evaluators
-    @document.examination_board[:evaluators].each do |evaluator|
+    examination_board = @document.examination_board
+    return if examination_board.blank?
+    examination_board[:evaluators].each do |evaluator|
       @signature_users.push([evaluator[:id], 'EV'])
     end
   end

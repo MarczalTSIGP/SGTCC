@@ -182,4 +182,26 @@ RSpec.describe ExaminationBoard, type: :model do
       end
     end
   end
+
+  describe '#can_create_defense_minutes?' do
+    let(:orientation) { create(:orientation) }
+    let(:examination_board) { create(:proposal_examination_board) }
+
+    before do
+      create(:document_adpp, orientation_id: orientation.id)
+    end
+
+    context 'when can create defense minutes' do
+      it 'returns true' do
+        expect(examination_board.can_create_defense_minutes?).to eq(true)
+      end
+    end
+
+    context 'when can not create defense minutes' do
+      it 'returns false' do
+        examination_board.create_defense_minutes
+        expect(examination_board.can_create_defense_minutes?).to eq(false)
+      end
+    end
+  end
 end
