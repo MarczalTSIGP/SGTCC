@@ -99,6 +99,15 @@ class Document < ApplicationRecord
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
   end
 
+  def term_json_data
+    { orientation: orientation_data, advisor: advisor_data, title: document_type.name.upcase,
+      academic: academic_data, institution: institution_data,
+      document: { id: id, created_at: I18n.l(Time.current, format: :document) },
+      professorSupervisors: orientation.professor_supervisors_to_document,
+      externalMemberSupervisors: orientation.external_member_supervisors_to_document,
+      examination_board: examination_board_data }
+  end
+
   def self.by_user(user_id, user_types, status = [true, false])
     conditions = { user_id: user_id, user_type: user_types, status: status }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
