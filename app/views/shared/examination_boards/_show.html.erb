@@ -39,6 +39,12 @@
       </strong>
       <%= complete_date(@examination_board.date) %>
     </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('document_available_until') %>:
+      </strong>
+      <%= complete_date(@examination_board.document_available_until) %>
+    </p>
     <% unless @examination_board.professors.empty? %>
       <p>
         <strong>

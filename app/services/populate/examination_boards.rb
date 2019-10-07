@@ -21,9 +21,8 @@ class Populate::ExaminationBoards
   def create_examination_boards
     10.times do |index|
       examination_board = ExaminationBoard.create!(
-        orientation_id: @orientation_ids.sample,
-        place: "place#{index}",
-        date: Faker::Date.forward(1),
+        orientation_id: @orientation_ids.sample, place: "place#{index}",
+        date: Faker::Date.forward(1), document_available_until: Faker::Date.forward(5),
         tcc: index > 4 ? @tccs[:one] : @tccs[:two],
         identifier: index > 4 ? @tcc_one_identifiers.sample : @tcc_two_identifier
       )
