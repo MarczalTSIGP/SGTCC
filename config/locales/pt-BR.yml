@@ -569,6 +569,8 @@ pt-BR:
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
     not_found_page: 'Página não encontrada!'
+    activities:
+      time_expired: 'Ativida não pode ser enviada, pois o tempo de envio foi excedido!'
     request:
       index: "Solicitação"
     orientation:

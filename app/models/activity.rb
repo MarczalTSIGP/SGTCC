@@ -35,4 +35,8 @@ class Activity < ApplicationRecord
   def identifier_translated
     I18n.t("enums.activity.identifiers.#{identifier}")
   end
+
+  def expired?
+    Time.current > final_date
+  end
 end
