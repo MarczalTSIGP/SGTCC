@@ -42,6 +42,14 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
                                        orientation.advisor.name_with_scholarity,
                                        document_date(examination_board.date),
                                        document_date(document.created_at)])
+
+        orientation.supervisors do |supervisor|
+          expect(page).to have_content(supervisor.name_with_scholarity)
+        end
+
+        examination_board.professors do |professor|
+          expect(page).to have_content(professor.name_with_scholarity)
+        end
       end
     end
   end
