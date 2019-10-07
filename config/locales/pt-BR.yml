@@ -407,7 +407,7 @@ pt-BR:
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
       base_activity:
-        identifier: "Tipo"
+        identifier: "Tipo do documento"
         judgment: "Parecer"
         <<: *commons
       activity:
@@ -416,13 +416,31 @@ pt-BR:
         final_date: "Data final de entrega"
         judgment: "Parecer"
         advisor_judgment: "Professor Orientador (Ciência)"
-        identifier: "Tipo"
+        identifier: "Tipo do documento"
         <<: *commons
       academic_activity:
         title: "Título"
         summary: "Resumo"
         complementary_files: "Arquivos complementares"
         pdf: "Atividade"
+        proposal_title: "Título da Proposta"
+        proposal_summary: "Resumo da Proposta"
+        send_proposal_pdf: "Envio da Proposta"
+        send_proposal_complementary_files: "Envio dos arquivos complementares da Proposta"
+        sent_proposal_pdf: "Proposta"
+        sent_proposal_complementary_files: "Arquivos complementares da Proposta"
+        project_title: "Título do Projeto"
+        project_summary: "Resumo do Projeto"
+        send_project_pdf: "Envio do Projeto"
+        send_project_complementary_files: "Envio dos arquivos complementares do Projeto"
+        sent_project_pdf: "Projeto"
+        sent_project_complementary_files: "Arquivos complementares do Projeto"
+        monograph_title: "Título da Monografia"
+        monograph_summary: "Resumo da Monografia"
+        send_monograph_pdf: "Envio da Monografia"
+        send_monograph_complementary_files: "Envio dos arquivos complementares da Monografia"
+        sent_monograph_pdf: "Monografia"
+        sent_monograph_complementary_files: "Arquivos complementares da Monografia"
         <<: *commons
       calendar:
         semester: "Semestre"

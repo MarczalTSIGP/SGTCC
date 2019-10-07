@@ -27,4 +27,8 @@ class Activity < ApplicationRecord
 
     :in_the_future
   end
+
+  def academic_activity(orientation)
+    AcademicActivity.find_by(activity: id, academic: orientation.academic)
+  end
 end

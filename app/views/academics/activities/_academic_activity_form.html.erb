@@ -3,14 +3,18 @@
     <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
       <div class="row">
         <div class="col-12">
-          <%= f.input :title %>
+          <%= f.input :title,
+            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>
         </div>
         <div class="col-12">
-          <%= f.input :summary %>
+          <%= f.input :summary,
+            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>
         </div>
 
         <div class="col-md-6">
-          <%= f.label :pdf, class: 'font-weight-bold' %>
+          <label class="font-weight-bold">
+            <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_pdf") %> *
+          </label>
           <div>
             <file-input
               name="academic_activity[pdf]"
@@ -23,7 +27,9 @@
           <%= f.hidden_field :pdf_cache %>
         </div>
         <div class="col-md-6">
-          <%= f.label :complementary_files, class: 'font-weight-bold' %>
+          <label class="font-weight-bold">
+            <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_complementary_files") %> *
+          </label>
           <div>
             <file-input
               name="academic_activity[complementary_files]"

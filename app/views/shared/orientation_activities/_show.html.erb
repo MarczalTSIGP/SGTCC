@@ -17,6 +17,18 @@
     </p>
     <p>
       <strong>
+        <%= Activity.human_attribute_name('identifier') %>:
+      </strong>
+      <%= t("enums.activity.identifiers.#{@activity.identifier}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('final_version') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@activity.final_version}") %>
+    </p>
+    <p>
+      <strong>
         <%= Activity.human_attribute_name('tcc') %>:
       </strong>
       <%= t("enums.tcc.#{@activity.tcc}") %>
