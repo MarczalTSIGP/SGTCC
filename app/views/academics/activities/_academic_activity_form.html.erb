@@ -1,9 +1,10 @@
-<% if @activity.expired? %>
+<% if @academic_activity&.pdf&.blank? && @activity.expired? %>
   <div class="alert alert-warning">
     <%= t('flash.activities.time_expired') %>
   </div>
+<% elsif @academic_activity&.pdf&.present? && @activity.expired? %>
+  <%= render 'academics/activities/document_card' %>
 <% else %>
-
 <div class="card">
   <div class="card-body">
     <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
@@ -29,7 +30,7 @@
               label="<%= AcademicActivity.human_attribute_name('pdf') %>"
               :url="<%= @academic_activity.pdf.url.to_json %>"
               :errors="<%= @academic_activity.errors[:pdf] %>" />
-            </div>
+          </div>
           <%= f.hidden_field :pdf_cache %>
         </div>
         <div class="col-md-6">
@@ -47,20 +48,39 @@
           </div>
           <%= f.hidden_field :complementary_files_cache %>
         </div>
-
-        <%= f.input :activity_id,
-          as: :hidden,
-          input_html: { value: @activity.id } %>
-
-        <%= f.input :academic_id,
-          as: :hidden,
-          input_html: { value: current_academic.id } %>
-
-        <div class="col-12 mt-2">
-          <%= f.button :submit,
-            t('views.buttons.save'),
-            class: 'btn btn-primary float-right' %>
       </div>
+
+      <div class="row mt-6">
+        <div class="col-12">
+          <% if @academic_activity.pdf.present? %>
+            <label>
+              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>:
+            </label>
+
+            <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
+              <%= @academic_activity.pdf_identifier %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="col-12">
+          <% if @academic_activity.complementary_files.present? %>
+            <label>
+              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_complementary_files") %>:
+            </label>
+
+            <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
+              <%= @academic_activity.complementary_files_identifier %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= f.input :activity_id, as: :hidden, input_html: { value: @activity.id } %>
+      <%= f.input :academic_id, as: :hidden, input_html: { value: current_academic.id } %>
+
+      <div class="col-12 mt-2">
+        <%= f.button :submit, t('views.buttons.save'), class: 'btn btn-primary float-right' %>
       </div>
     <% end %>
   </div>

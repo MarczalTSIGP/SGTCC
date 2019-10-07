@@ -15,6 +15,32 @@
       </strong>
       <%= @activity.deadline %>
     </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('identifier') %>:
+      </strong>
+      <%= t("enums.activity.identifiers.#{@activity.identifier}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Activity.human_attribute_name('final_version') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@activity.final_version}") %>
+    </p>
+    <% if @academic_activity.present? %>
+      <p>
+        <strong>
+          <%= Activity.human_attribute_name('advisor_judgment') %>:
+        </strong>
+        <%= t("helpers.boolean.#{@academic_activity.judgment}") %>
+      </p>
+      <p>
+        <strong>
+          <%= Activity.human_attribute_name('sent') %>:
+        </strong>
+        <%= t("helpers.boolean.true") %>
+      </p>
+    <% end %>
   </div>
 </div>
 
