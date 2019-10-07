@@ -63,4 +63,44 @@ RSpec.describe Activity, type: :model do
       expect(activity.status).to eq(:in_the_future)
     end
   end
+
+  describe '#academic_activity' do
+    let(:activity) { create(:activity) }
+    let(:orientation) { create(:orientation) }
+
+    let!(:academic_activity) do
+      create(:academic_activity, activity: activity, academic: orientation.academic)
+    end
+
+    it 'returns the academic activity' do
+      expect(activity.academic_activity(orientation)).to eq(academic_activity)
+    end
+  end
+
+  describe '#identifier_translated' do
+    let(:activity) { create(:activity) }
+
+    it 'returns the identifier translated' do
+      identifier_translated = I18n.t("enums.activity.identifiers.#{activity.identifier}")
+      expect(activity.identifier_translated).to eq(identifier_translated)
+    end
+  end
+
+  describe '#expired?' do
+    context 'when time is expired' do
+      let(:activity) { create(:activity, final_date: Time.current - 1) }
+
+      it 'returns true' do
+        expect(activity.expired?).to eq(true)
+      end
+    end
+
+    context 'when time is not expired' do
+      let(:activity) { create(:activity, final_date: Time.current + 3) }
+
+      it 'returns false' do
+        expect(activity.expired?).to eq(false)
+      end
+    end
+  end
 end

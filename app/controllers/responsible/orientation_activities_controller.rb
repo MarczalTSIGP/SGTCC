@@ -33,8 +33,7 @@ class Responsible::OrientationActivitiesController < Responsible::BaseController
   end
 
   def set_academic_activity
-    @academic_activity = AcademicActivity.find_by(activity: @activity.id,
-                                                  academic: @orientation.academic)
+    @academic_activity = @activity.academic_activity(@orientation)
   end
 
   def set_breadcrumbs
