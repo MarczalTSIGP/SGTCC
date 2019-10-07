@@ -27,12 +27,14 @@
       </strong>
       <%= t("helpers.boolean.#{@activity.judgment}") %>
     </p>
-    <p>
-      <strong>
-        <%= Activity.human_attribute_name('advisor_judgment') %>:
-      </strong>
-      <%= t("helpers.boolean.#{@academic_activity.judgment}") %>
-    </p>
+    <% if @academic_activity.present? %>
+      <p>
+        <strong>
+          <%= Activity.human_attribute_name('advisor_judgment') %>:
+        </strong>
+        <%= t("helpers.boolean.#{@academic_activity.judgment}") %>
+      </p>
+    <% end %>
     <p>
       <strong>
         <%= Activity.human_attribute_name('deadline') %>:
