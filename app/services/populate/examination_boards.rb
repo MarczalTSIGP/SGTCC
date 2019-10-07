@@ -21,10 +21,10 @@ class Populate::ExaminationBoards
   def create_examination_boards
     10.times do |index|
       examination_board = ExaminationBoard.create!(
-        orientation_id: @orientation_ids.sample, place: "place#{index}",
-        date: Faker::Date.forward(1), document_available_until: Faker::Date.forward(5),
-        tcc: index > 4 ? @tccs[:one] : @tccs[:two],
-        identifier: index > 4 ? @tcc_one_identifiers.sample : @tcc_two_identifier
+        orientation_id: @orientation_ids.sample,
+        place: "place#{index}", date: Faker::Date.forward(1),
+        document_available_until: Faker::Date.forward(5),
+        tcc: select_tcc(index), identifier: select_identifier(index)
       )
       add_guests(examination_board)
     end
@@ -35,5 +35,13 @@ class Populate::ExaminationBoards
     examination_board.professors << @responsible
     examination_board.external_members << @external_members.sample
     examination_board.save
+  end
+
+  def select_tcc(index)
+    index > 4 ? @tccs[:one] : @tccs[:two]
+  end
+
+  def select_identifier(index)
+    index > 4 ? @tcc_one_identifiers.sample : @tcc_two_identifier
   end
 end

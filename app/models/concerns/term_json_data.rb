@@ -7,8 +7,7 @@ module TermJsonData
     private
 
     def orientation_data
-      { id: orientation.id, title: orientation.title,
-        created_at: I18n.l(orientation.created_at, format: :document) }
+      { id: orientation.id, title: orientation.title }
     end
 
     def advisor_data

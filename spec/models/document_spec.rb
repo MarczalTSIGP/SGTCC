@@ -178,8 +178,7 @@ RSpec.describe Document, type: :model do
       let(:institution) { orientation.institution }
 
       let(:orientation_data) do
-        { id: orientation.id, title: orientation.title,
-          created_at: I18n.l(orientation.created_at, format: :document) }
+        { id: orientation.id, title: orientation.title }
       end
 
       let(:academic_data) do

@@ -52,6 +52,7 @@ class Professors::DocumentsController < Professors::BaseController
   end
 
   def set_show_sign
+    return if @document.blank? || @document&.content&.blank?
     examination_board_json = @document.content['examination_board']
     return if examination_board_json.blank?
     examination_board = ExaminationBoard.find(examination_board_json['id'])
