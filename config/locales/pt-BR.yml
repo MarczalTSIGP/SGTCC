@@ -14,6 +14,10 @@ pt-BR:
     file:
       pdf: 'Arquivo no formato pdf'
       zip: 'Arquivo no formato .zip'
+  titles:
+    show: "Visualizar"
+    edit: "Editar"
+    delete: "Deletar"
   views:
     title:
       activities:

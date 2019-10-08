@@ -35,6 +35,7 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
     context 'when generates the defense minutes' do
       it 'shows the view defense minutes button' do
         find('#generate_defense_minutes').click
+        sleep 2.seconds
         find('#view_defense_minutes').click
         document = Document.first
         expect(page).to have_contents([orientation.title,
