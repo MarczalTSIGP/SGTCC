@@ -418,6 +418,7 @@ pt-BR:
         judgment: "Parecer"
         advisor_judgment: "Professor Orientador (Ciência)"
         identifier: "Tipo do documento"
+        science: "Ciência"
         <<: *commons
       academic_activity:
         title: "Título"
