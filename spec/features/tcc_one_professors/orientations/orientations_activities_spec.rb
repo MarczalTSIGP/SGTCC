@@ -46,11 +46,13 @@ describe 'Orientation::activities', type: :feature, js: true do
                                        complete_date(activity.updated_at),
                                        academic.name,
                                        academic_activity.title,
-                                       academic_activity.summary,
-                                       academic_activity.pdf_identifier,
-                                       academic_activity.complementary_files_identifier])
+                                       academic_activity.summary])
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        link_active = "#{link(active_link)}.active"
+
+        expect(page).to have_selectors([link(academic_activity.pdf.url),
+                                        link(academic_activity.complementary_files.url),
+                                        link_active])
       end
     end
   end
