@@ -2,7 +2,7 @@
   <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(external_members_supervision_path(orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
     <% end %>
 
     <%= link_to(external_members_supervision_activities_path(orientation)) do %>

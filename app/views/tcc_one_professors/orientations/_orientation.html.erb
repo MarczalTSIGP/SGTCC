@@ -2,7 +2,7 @@
   <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(tcc_one_professors_calendar_orientation_path(@calendar, orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
     <% end %>
 
     <%= link_to(tcc_one_professors_calendar_orientation_activities_path(@calendar, orientation)) do %>
