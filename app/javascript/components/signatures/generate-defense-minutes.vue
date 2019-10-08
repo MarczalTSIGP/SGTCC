@@ -12,11 +12,13 @@
         Gerar Ata de Defesa
       </button>
     </div>
-    <div v-if="show">
+    <div v-else>
       <a
         id="view_defense_minutes"
         :href="documentUrl"
         class="btn btn-outline-primary float-right mb-4"
+        :class="isDisabled"
+        :aria-disabled="loading"
       >
         Visualizar Documento
       </a>
@@ -39,6 +41,7 @@ export default {
   data() {
     return {
       show: false,
+      loading: false,
       documentId: '',
       documentsUrl: '/professors/documents',
     };
@@ -48,13 +51,19 @@ export default {
     documentUrl() {
       return `${this.documentsUrl}/${this.documentId}`;
     },
+
+    isDisabled() {
+      return this.loading ? 'is-disabled-link' : '';
+    },
   },
 
   methods: {
     async generate() {
+      this.loading = true;
       this.show = true;
       const response = await this.$axios.post(this.url);
       this.documentId = response.data;
+      this.loading = false;
     },
   },
 };

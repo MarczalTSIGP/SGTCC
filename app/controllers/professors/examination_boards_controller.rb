@@ -15,6 +15,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def minutes
+    return unless @examination_board.can_create_defense_minutes?
     document = @examination_board.create_defense_minutes
 
     render json: document.id
