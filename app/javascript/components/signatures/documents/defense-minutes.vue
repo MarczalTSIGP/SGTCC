@@ -3,8 +3,8 @@
     <p>
       No dia <strong>{{ term.examination_board.date }}</strong>, às {{ term.examination_board.time }} horas, em sessão
       pública nas dependências da Universidade Tecnológica Federal do Paraná Câmpus Guarapuava, ocorreu a banca de defesa
-      da de Trabalho de Conclusão de Curso intitulada: <strong>“{{ term.orientation.title }}”</strong> do acadêmico
-      <strong>{{ term.academic.name }}</strong> sob orientação do professor <strong>{{ term.advisor.name }}</strong>
+      de Trabalho de Conclusão de Curso intitulada: <strong>“{{ term.orientation.title }}”</strong> do(a) acadêmico(a)
+      <strong>{{ term.academic.name }}</strong> sob orientação do(a) professor(a) <strong>{{ term.advisor.name }}</strong>
       do curso de Tecnologia em Sistemas para Internet.
     </p>
 
