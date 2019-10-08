@@ -8,7 +8,7 @@
       :class="inputStatus"
     >
     <label
-      class="custom-file-label"
+      class="custom-file-label text-truncate"
       for="customFile"
     >
       {{ inputName }}

@@ -11,7 +11,7 @@
             label: AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-6">
           <label class="font-weight-bold">
             <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_pdf") %> *
           </label>
@@ -44,26 +44,18 @@
       </div>
 
       <div class="row mt-6">
-        <div class="col-12">
+        <div class="col-md-6">
           <% if @academic_activity.pdf.present? %>
-            <label>
-              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>:
-            </label>
-
             <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
-              <%= @academic_activity.pdf_identifier %>
+              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>
             <% end %>
           <% end %>
         </div>
 
-        <div class="col-12">
+        <div class="col-md-6">
           <% if @academic_activity.complementary_files.present? %>
-            <label>
-              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_complementary_files") %>:
-            </label>
-
             <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
-              <%= @academic_activity.complementary_files_identifier %>
+              <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_complementary_files") %>
             <% end %>
           <% end %>
         </div>
