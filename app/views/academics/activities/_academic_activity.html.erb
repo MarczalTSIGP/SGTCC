@@ -1,0 +1,12 @@
+<% if @academic_activity&.pdf&.blank? && @activity.expired? %>
+  <div class="alert alert-warning">
+    <%= t('flash.activities.time_expired') %>
+  </div>
+<% elsif @academic_activity&.pdf&.present? && @activity.expired? %>
+  <%= render 'academics/activities/document_card' %>
+<% elsif @activity.open? %>
+  <%= render 'academics/activities/academic_activity_form',
+    activity: @activity,
+    academic_activity: @academic_activity,
+    url: url %>
+<% end %>

@@ -103,4 +103,26 @@ RSpec.describe Activity, type: :model do
       end
     end
   end
+
+  describe '#open?' do
+    context 'when activity is open' do
+      let(:activity) do
+        create(:activity, initial_date: Time.current - 1, final_date: Time.current + 1.day)
+      end
+
+      it 'returns true' do
+        expect(activity.open?).to eq(true)
+      end
+    end
+
+    context 'when activity is closed' do
+      let(:activity) do
+        create(:activity, initial_date: Time.current + 1.day, final_date: Time.current + 1.day)
+      end
+
+      it 'returns false' do
+        expect(activity.open?).to eq(false)
+      end
+    end
+  end
 end

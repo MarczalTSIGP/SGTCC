@@ -1,10 +1,3 @@
-<% if @academic_activity&.pdf&.blank? && @activity.expired? %>
-  <div class="alert alert-warning">
-    <%= t('flash.activities.time_expired') %>
-  </div>
-<% elsif @academic_activity&.pdf&.present? && @activity.expired? %>
-  <%= render 'academics/activities/document_card' %>
-<% else %>
 <div class="card">
   <div class="card-body">
     <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
@@ -86,4 +79,3 @@
   </div>
 </div>
 
-<% end %>

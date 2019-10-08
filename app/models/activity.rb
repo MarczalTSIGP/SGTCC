@@ -36,6 +36,10 @@ class Activity < ApplicationRecord
     I18n.t("enums.activity.identifiers.#{identifier}")
   end
 
+  def open?(current_time: Time.current)
+    current_time >= initial_date && current_time <= final_date
+  end
+
   def expired?
     Time.current > final_date
   end
