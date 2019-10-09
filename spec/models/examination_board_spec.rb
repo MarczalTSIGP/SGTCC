@@ -151,7 +151,8 @@ RSpec.describe ExaminationBoard, type: :model do
     let(:examination_board) { create(:examination_board) }
 
     let(:evaluators_formatted) do
-      examination_board.professors.map do |evaluator|
+      evaluators = examination_board.professors + examination_board.external_members
+      evaluators.map do |evaluator|
         { id: evaluator.id, name: evaluator.name_with_scholarity }
       end
     end
