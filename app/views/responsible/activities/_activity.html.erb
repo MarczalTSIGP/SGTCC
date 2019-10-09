@@ -5,7 +5,7 @@
   <td><%= activity.deadline %></td>
   <td>
     <%= link_to(responsible_calendar_activity_path(@calendar, activity)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
     <%= link_to(edit_responsible_calendar_activity_path(@calendar, activity)) do %>
       <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
@@ -14,7 +14,7 @@
       method: :delete,
       data: { confirm: t('prompt.confirm') },
       class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
     <% end %>
   </td>
 </tr>

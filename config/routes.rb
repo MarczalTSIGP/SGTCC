@@ -162,6 +162,14 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
+
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'academics#index',
@@ -307,6 +315,18 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
+
+      patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+            to: 'orientation_activities#update_judgment',
+            as: 'orientation_activity_update_judgment'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
@@ -335,6 +355,14 @@ Rails.application.routes.draw do
       get 'supervisions/(:id)/documents/(:document_id)',
           to: 'supervisions#document',
           as: 'supervision_document'
+
+      get 'supervisions/(:id)/activities',
+          to: 'supervision_activities#index',
+          as: 'supervision_activities'
+
+      get 'supervisions/(:id)/activities/(:activity_id)',
+          to: 'supervision_activities#show',
+          as: 'supervision_activity'
 
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
@@ -422,6 +450,14 @@ Rails.application.routes.draw do
       get 'calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
           to: 'orientations#document',
           as: 'calendar_orientation_document'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'calendar_orientation_activities'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'calendar_orientation_activity'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -524,7 +560,9 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
+      patch 'meetings/(:id)/update_viewed',
+            to: 'meetings#update_viewed',
+            as: 'meeting_update_viewed'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
@@ -537,6 +575,14 @@ Rails.application.routes.draw do
           to: 'activities#index',
           as: 'calendar_activities'
 
+      post '/calendars/(:calendar_id)/activities/(:id)',
+           to: 'activities#create',
+           as: 'calendar_activity_files'
+
+      patch '/calendars/(:calendar_id)/activities/(:id)',
+            to: 'activities#update',
+            as: 'calendar_activity_file'
+
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
@@ -548,6 +594,14 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
           to: 'orientations#document',
           as: 'calendar_orientation_document'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'calendar_orientation_activities'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'calendar_orientation_activity'
 
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -616,6 +670,14 @@ Rails.application.routes.draw do
       get 'supervisions/(:id)/documents/(:document_id)',
           to: 'supervisions#document',
           as: 'supervision_document'
+
+      get 'supervisions/(:id)/activities',
+          to: 'supervision_activities#index',
+          as: 'supervision_activities'
+
+      get 'supervisions/(:id)/activities/(:activity_id)',
+          to: 'supervision_activities#show',
+          as: 'supervision_activity'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',

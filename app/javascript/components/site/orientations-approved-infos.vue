@@ -4,21 +4,25 @@
       <loader />
     </div>
     <div v-show="!loading">
-      <h2 class="text-center">
-        {{ firstSemesterLabel }}
-      </h2>
+      <div v-if="hasTccTwoFirstSemester">
+        <h2 class="text-center">
+          {{ firstSemesterLabel }}
+        </h2>
 
-      <orientations-info
-        :orientations="orientations.first_semester"
-      />
+        <orientations-info
+          :orientations="orientations.first_semester"
+        />
+      </div>
 
-      <h2 class="text-center">
-        {{ secondSemesterLabel }}
-      </h2>
+      <div v-if="hasTccTwoSecondSemester">
+        <h2 class="text-center">
+          {{ secondSemesterLabel }}
+        </h2>
 
-      <orientations-info
-        :orientations="orientations.second_semester"
-      />
+        <orientations-info
+          :orientations="orientations.second_semester"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +61,14 @@ export default {
     secondSemesterLabel() {
       return `${this.year}/${this.secondSemester}`;
     },
+
+    hasTccTwoFirstSemester() {
+      return this.isNotEmpty(this.orientations.first_semester);
+    },
+
+    hasTccTwoSecondSemester() {
+      return this.isNotEmpty(this.orientations.second_semester);
+    },
   },
 
   created() {
@@ -78,6 +90,10 @@ export default {
         this.orientations.second_semester = data.second_semester;
         this.loading = false;
       });
+    },
+
+    isNotEmpty(data) {
+      return data.length > 0;
     },
   },
 };

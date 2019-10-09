@@ -42,13 +42,13 @@ professor_responsible = Professor.create_with(
 professor_responsible.roles << Role.first if professor_responsible.roles.empty?
 
 base_activity_types = [
-  'Envio de documento',
-  'Envio de documento com assinatura',
-  'Informativa'
+  { name: 'Envio de documento', identifier: :send_document },
+  { name: 'Informativa', identifier: :info }
 ]
 
 base_activity_types.each do |base_activity_type|
-  BaseActivityType.find_or_create_by!(name: base_activity_type)
+  BaseActivityType.find_or_create_by!(name: base_activity_type[:name],
+                                      identifier: base_activity_type[:identifier])
 end
 
 document_types = [

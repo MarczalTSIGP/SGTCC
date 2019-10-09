@@ -104,13 +104,10 @@ class Calendar < ApplicationRecord
 
   def create_activity(activity)
     current_time = Time.current
-    activities.create(
-      name: activity.name,
-      tcc: activity.tcc,
-      calendar_id: id,
-      base_activity_type_id: activity.base_activity_type_id,
-      initial_date: current_time,
-      final_date: current_time
-    )
+    activities.create(name: activity.name, tcc: activity.tcc,
+                      calendar_id: id, base_activity_type_id: activity.base_activity_type_id,
+                      judgment: activity.judgment, identifier: activity.identifier,
+                      initial_date: current_time, final_date: current_time,
+                      final_version: activity.final_version)
   end
 end

@@ -14,6 +14,8 @@ class Academic < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :academic_activities, dependent: :delete_all
+
   has_many :examination_boards,
            through: :orientations
 

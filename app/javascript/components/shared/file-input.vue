@@ -8,10 +8,10 @@
       :class="inputStatus"
     >
     <label
-      class="custom-file-label"
+      class="custom-file-label text-truncate"
       for="customFile"
     >
-      Procurar arquivo
+      {{ inputName }}
     </label>
     <div
       v-if="hasErrors()"
@@ -24,6 +24,12 @@
         {{ label + ' ' + error }}
       </p>
     </div>
+    <small
+      v-if="hint"
+      class="form-text text-muted"
+    >
+      {{ hint }}
+    </small>
   </div>
 </template>
 
@@ -52,6 +58,28 @@ export default {
       type: String,
       required: true
     },
+
+    hint: {
+      type: String,
+      required: false,
+      default() {
+        return '';
+      }
+    },
+
+    url: {
+      type: String,
+      required: false,
+      default() {
+        return '';
+      }
+    },
+  },
+
+  data() {
+    return {
+      search: 'Procurar arquivo...',
+    };
   },
 
   computed: {
@@ -62,11 +90,19 @@ export default {
     inputStatus() {
       return this.hasErrors() ? 'is-invalid' : '';
     },
+
+    inputName() {
+      return this.url ? this.getFileName() : this.search;
+    },
   },
 
   methods: {
     hasErrors() {
       return this.errors.length > 0;
+    },
+
+    getFileName() {
+      return this.url.split('/').pop();
     },
   },
 };

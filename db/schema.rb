@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_130912) do
+ActiveRecord::Schema.define(version: 2019_10_02_144740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "academic_activities", force: :cascade do |t|
+    t.bigint "academic_id"
+    t.bigint "activity_id"
+    t.string "pdf"
+    t.string "complementary_files"
+    t.string "title"
+    t.text "summary"
+    t.boolean "judgment", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_id"], name: "index_academic_activities_on_academic_id"
+    t.index ["activity_id"], name: "index_academic_activities_on_activity_id"
+  end
 
   create_table "academics", force: :cascade do |t|
     t.string "name"
@@ -31,18 +45,8 @@ ActiveRecord::Schema.define(version: 2019_10_01_130912) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
-  create_table "activities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "base_activity_type_id"
-    t.integer "tcc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "calendar_id"
-    t.datetime "initial_date"
-    t.datetime "final_date"
-    t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
-    t.index ["calendar_id"], name: "index_activities_on_calendar_id"
-  end
+# Could not dump table "activities" because of following StandardError
+#   Unknown type 'activity_identifiers' for column 'identifier'
 
   create_table "assignments", force: :cascade do |t|
     t.bigint "professor_id"
@@ -60,20 +64,11 @@ ActiveRecord::Schema.define(version: 2019_10_01_130912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "base_activities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "base_activity_type_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "tcc"
-    t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
-  end
+# Could not dump table "base_activities" because of following StandardError
+#   Unknown type 'base_activity_identifiers' for column 'identifier'
 
-  create_table "base_activity_types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "base_activity_types" because of following StandardError
+#   Unknown type 'base_activity_type_identifiers' for column 'identifier'
 
   create_table "calendars", force: :cascade do |t|
     t.string "year"
@@ -266,6 +261,8 @@ ActiveRecord::Schema.define(version: 2019_10_01_130912) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "academic_activities", "academics"
+  add_foreign_key "academic_activities", "activities"
   add_foreign_key "activities", "base_activity_types"
   add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"

@@ -10,8 +10,16 @@ pt-BR:
       document: '%d de %B de %Y'
       intl: '%m/%d/%Y'
       long_without_time: '%A, %-d de %B de %Y'
+  hints:
+    file:
+      pdf: 'Arquivo no formato pdf'
+      zip: 'Arquivo no formato .zip'
   views:
     title:
+      activities:
+        send_document:
+          male: 'Envio do acadêmico'
+          female: 'Envio da acadêmica'
       calendar:
         tcc:
           one: "Calendário de Atividades de TCC 1 (%{calendar})"
@@ -35,9 +43,8 @@ pt-BR:
       authenticate: 'Autenticar'
       concede: 'Deferir'
       dismiss: 'Indeferir'
+      confirm_judgment: 'Dar ciência'
       orientation:
-        meeting:
-          view: 'Dar ciência'
         renew: 'Renovar orientação'
         cancel: 'Cancelar orientação'
         abandon: 'Desistir da orientação'
@@ -243,6 +250,12 @@ pt-BR:
         edit: "Editar Atividade de TCC 2"
         show: "Visualizar Atividade de TCC 2"
         calendar: "Atividades de TCC 2 (%{calendar})"
+    orientation_activities:
+      index: "Atividades da Orientação de TCC (%{calendar})"
+      show: "Visualizar Atividade da Orientação de TCC(%{calendar})"
+    supervision_activities:
+      index: "Atividades da Coorientação de TCC (%{calendar})"
+      show: "Visualizar Atividade da Coorientação de TCC(%{calendar})"
     orientations:
       index: "Orientações"
       new: "Nova Orientação"
@@ -341,6 +354,9 @@ pt-BR:
       image:
         one: "Imagem"
         other: "Imagens"
+      academic_activity:
+        one: "Atividade do acadêmico"
+        other: "Atividades do acadêmico"
     attributes:
       attribute_commons: &commons
         name: "Nome"
@@ -369,6 +385,7 @@ pt-BR:
         documents: "Documentos"
         hour: "Hora"
         available: "Disponível"
+        final_version: "Versão final"
       academic:
         ra: "RA"
         <<: *commons
@@ -390,11 +407,42 @@ pt-BR:
         trade_name: "Nome fantasia"
         external_member: "Responsável da instituição"
       base_activity:
+        identifier: "Tipo do documento"
+        judgment: "Parecer"
         <<: *commons
       activity:
+        sent: "Enviada"
         calendar: "Calendário"
         initial_date: "Data inicial de entrega"
         final_date: "Data final de entrega"
+        judgment: "Parecer"
+        advisor_judgment: "Professor Orientador (Ciência)"
+        identifier: "Tipo do documento"
+        science: "Ciência"
+        <<: *commons
+      academic_activity:
+        title: "Título"
+        summary: "Resumo"
+        complementary_files: "Arquivos complementares"
+        pdf: "Atividade"
+        proposal_title: "Título da Proposta"
+        proposal_summary: "Resumo da Proposta"
+        send_proposal_pdf: "Envio da Proposta"
+        send_proposal_complementary_files: "Envio dos arquivos complementares da Proposta"
+        sent_proposal_pdf: "Proposta"
+        sent_proposal_complementary_files: "Arquivos complementares da Proposta"
+        project_title: "Título do Projeto"
+        project_summary: "Resumo do Projeto"
+        send_project_pdf: "Envio do Projeto"
+        send_project_complementary_files: "Envio dos arquivos complementares do Projeto"
+        sent_project_pdf: "Projeto"
+        sent_project_complementary_files: "Arquivos complementares do Projeto"
+        monograph_title: "Título da Monografia"
+        monograph_summary: "Resumo da Monografia"
+        send_monograph_pdf: "Envio da Monografia"
+        send_monograph_complementary_files: "Envio dos arquivos complementares da Monografia"
+        sent_monograph_pdf: "Monografia"
+        sent_monograph_complementary_files: "Arquivos complementares da Monografia"
         <<: *commons
       calendar:
         semester: "Semestre"
@@ -474,6 +522,11 @@ pt-BR:
       female: 'Feminino'
       M: 'Masculino'
       F: 'Feminino'
+    activity:
+      identifiers:
+        proposal: 'Proposta'
+        project: 'Projeto'
+        monograph: 'Monografia'
     semesters:
       first: '1º'
       second: '2º'
@@ -517,6 +570,8 @@ pt-BR:
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
     not_found_page: 'Página não encontrada!'
+    activities:
+      time_expired: 'Ativida não pode ser enviada, pois o tempo de envio foi excedido!'
     request:
       index: "Solicitação"
     orientation:
