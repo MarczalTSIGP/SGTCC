@@ -28,10 +28,10 @@ class Signature < ApplicationRecord
     return Academic if user_type == 'academic'
 
     if user_type == 'external_member_supervisor' || user_type == 'external_member_evaluator'
-      return ExternalMember
+      ExternalMember
+    else
+      Professor
     end
-
-    Professor
   end
 
   def user

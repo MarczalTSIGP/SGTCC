@@ -16,5 +16,20 @@ FactoryBot.define do
     factory :activity_tcc_two do
       tcc { Activity.tccs.values.last }
     end
+
+    factory :proposal_activity do
+      tcc { Activity.tccs.values.first }
+      identifier { :proposal }
+    end
+
+    factory :project_activity do
+      tcc { Activity.tccs.values.first }
+      identifier { :project }
+    end
+
+    factory :monograph_activity do
+      tcc { Activity.tccs.values.last }
+      identifier { :monograph }
+    end
   end
 end

@@ -38,7 +38,7 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
         sleep 2.seconds
         find('#view_defense_minutes').click
         document = Document.first
-        expect(page).to have_contents([orientation.title,
+        expect(page).to have_contents([examination_board.academic_document_title,
                                        orientation.academic.name,
                                        orientation.advisor.name_with_scholarity,
                                        document_date(examination_board.date),
