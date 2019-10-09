@@ -7,6 +7,7 @@ class Orientation < ApplicationRecord
   include OrientationDocuments
   include OrientationReport
   include OrientationValidation
+  include UsersToDocument
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -96,18 +97,12 @@ class Orientation < ApplicationRecord
     calendar.tcc == 'two'
   end
 
-  def supervisors_to_document(supervisors)
-    supervisors.map do |supervisor|
-      { id: supervisor.id, name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
-    end
-  end
-
   def professor_supervisors_to_document
-    supervisors_to_document(professor_supervisors)
+    users_to_document(professor_supervisors)
   end
 
   def external_member_supervisors_to_document
-    supervisors_to_document(external_member_supervisors)
+    users_to_document(external_member_supervisors)
   end
 
   def academic_with_calendar

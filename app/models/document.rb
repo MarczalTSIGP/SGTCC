@@ -81,12 +81,12 @@ class Document < ApplicationRecord
 
   def select_professor_supervisors
     professors = Professor.find(professor_supervisor_ids)
-    Orientation.new.supervisors_to_document(professors)
+    Orientation.new.users_to_document(professors)
   end
 
   def select_external_members
     external_members = ExternalMember.find(external_member_supervisor_ids)
-    Orientation.new.supervisors_to_document(external_members)
+    Orientation.new.users_to_document(external_members)
   end
 
   def signature_by_user(user_id, user_types)

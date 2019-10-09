@@ -183,4 +183,33 @@ RSpec.describe ExaminationBoard, type: :model do
       end
     end
   end
+
+  describe '#create_defense_minutes' do
+    context 'when create the defense minutes' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      before do
+        create(:document_type_adpp)
+      end
+
+      it 'returns the document created' do
+        expect(examination_board.create_defense_minutes).to eq(Document.last)
+      end
+    end
+  end
+
+  describe '#defense_minutes' do
+    context 'when returns the defense minutes' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      before do
+        create(:document_type_adpp)
+      end
+
+      it 'returns the defense minutes document' do
+        defense_minutes = examination_board.create_defense_minutes
+        expect(examination_board.defense_minutes).to eq(defense_minutes)
+      end
+    end
+  end
 end

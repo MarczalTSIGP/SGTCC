@@ -1,6 +1,7 @@
 class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
+  include UsersToDocument
   include TccIdentifier
   include Searchable
   include Tcc
@@ -59,12 +60,6 @@ class ExaminationBoard < ApplicationRecord
     return :adpp if proposal?
     return :adpj if project?
     :admg
-  end
-
-  def users_to_document(users)
-    users.map do |user|
-      { id: user.id, name: user.name_with_scholarity }
-    end
   end
 
   def evaluators_object

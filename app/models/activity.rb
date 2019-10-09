@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-  include ActivityIdentifier
+  include TccIdentifier
   include Tcc
 
   belongs_to :base_activity_type
