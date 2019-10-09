@@ -147,18 +147,18 @@ RSpec.describe ExaminationBoard, type: :model do
     end
   end
 
-  describe '#evaluators_to_document' do
+  describe '#users_to_document' do
     let(:examination_board) { create(:examination_board) }
+    let(:professors) { examination_board.professors }
 
-    let(:evaluators_formatted) do
-      evaluators = examination_board.professors + examination_board.external_members
-      evaluators.map do |evaluator|
-        { id: evaluator.id, name: evaluator.name_with_scholarity }
+    let(:professors_formatted) do
+      professors.map do |professor|
+        { id: professor.id, name: professor.name_with_scholarity }
       end
     end
 
     it 'returns the array with evaluators formatted' do
-      expect(examination_board.evaluators_to_document).to match_array(evaluators_formatted)
+      expect(examination_board.users_to_document(professors)).to match_array(professors_formatted)
     end
   end
 
@@ -180,28 +180,6 @@ RSpec.describe ExaminationBoard, type: :model do
 
       it 'returns false' do
         expect(examination_board.available_defense_minutes?).to eq(false)
-      end
-    end
-  end
-
-  describe '#can_create_defense_minutes?' do
-    let(:orientation) { create(:orientation) }
-    let(:examination_board) { create(:proposal_examination_board) }
-
-    before do
-      create(:document_adpp, orientation_id: orientation.id)
-    end
-
-    context 'when can create defense minutes' do
-      it 'returns true' do
-        expect(examination_board.can_create_defense_minutes?).to eq(true)
-      end
-    end
-
-    context 'when can not create defense minutes' do
-      it 'returns false' do
-        examination_board.create_defense_minutes
-        expect(examination_board.can_create_defense_minutes?).to eq(false)
       end
     end
   end
