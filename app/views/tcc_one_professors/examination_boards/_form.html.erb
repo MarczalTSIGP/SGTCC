@@ -15,12 +15,14 @@
     <div class="row">
       <div class="col-sm-6">
         <%= f.association :professors,
+          label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
           input_html: { data: 'selectize' },
           collection: Professor.all.order(:name),
           prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
       </div>
       <div class="col-sm-6">
         <%= f.association :external_members,
+          label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
           input_html: { data: 'selectize' },
           collection: ExternalMember.all.order(:name),
           prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
