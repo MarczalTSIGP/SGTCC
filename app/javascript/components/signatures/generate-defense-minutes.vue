@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="!show"
+      v-if="!show && canGenerate"
       class="clearfix"
     >
       <button
@@ -20,7 +20,7 @@
         :class="isDisabled"
         :aria-disabled="loading"
       >
-        Visualizar Documento
+        Visualizar Ata de Defesa
       </a>
     </div>
   </div>
@@ -32,9 +32,22 @@ export default {
   name: 'GenerateDefenseMinutes',
 
   props: {
-    url: {
+    generateUrl: {
       type: String,
       required: true
+    },
+
+    canGenerate: {
+      type: Boolean,
+      required: true
+    },
+
+    document: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      },
     },
   },
 
@@ -57,13 +70,23 @@ export default {
     },
   },
 
+  created() {
+    this.setDocumentId();
+  },
+
   methods: {
     async generate() {
       this.loading = true;
       this.show = true;
-      const response = await this.$axios.post(this.url);
+      const response = await this.$axios.post(this.generateUrl);
       this.documentId = response.data;
       this.loading = false;
+    },
+
+    setDocumentId() {
+      if (this.document !== null) {
+        this.documentId = this.document.id;
+      }
     },
   },
 };

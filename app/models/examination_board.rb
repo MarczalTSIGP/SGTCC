@@ -89,4 +89,10 @@ class ExaminationBoard < ApplicationRecord
   def available_defense_minutes?
     (Time.current <= document_available_until)
   end
+
+  def defense_minutes
+    document_type = DocumentType.find_by(identifier: minutes_type)
+    orientation.documents.where(document_type_id: document_type.id)
+               .find_by("content -> 'examination_board' ->> 'id' = ?", id.to_s)
+  end
 end

@@ -1,8 +1,4 @@
-<% if @examination_board.can_create_defense_minutes? %>
-  <generate-defense-minutes
-    url="<%= professors_examination_board_minutes_path(@examination_board) %>">
-  </generate-defense-minutes>
-<% end %>
+<%= render 'shared/examination_boards/generate_defense_minutes' %>
 
 <%= provide(:edit_button) do %>
   <%= link_to t('simple_form.buttons.edit'),
