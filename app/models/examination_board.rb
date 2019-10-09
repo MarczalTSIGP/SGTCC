@@ -62,7 +62,8 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def evaluators_to_document
-    professors.map do |evaluator|
+    evaluators = professors + external_members
+    evaluators.map do |evaluator|
       { id: evaluator.id, name: evaluator.name_with_scholarity }
     end
   end
