@@ -61,22 +61,19 @@ class ExaminationBoard < ApplicationRecord
     :admg
   end
 
-  def evaluators_to_document
-    evaluators = professors + external_members
-    evaluators.map do |evaluator|
-      { id: evaluator.id, name: evaluator.name_with_scholarity }
+  def users_to_document(users)
+    users.map do |user|
+      { id: user.id, name: user.name_with_scholarity }
     end
   end
 
-  def can_create_defense_minutes?
-    document = orientation.documents
-                          .joins(:document_type)
-                          .find_by(document_types: { identifier: minutes_type })
-    document.blank?
+  def evaluators_object
+    { professors: users_to_document(professors),
+      external_members: users_to_document(external_members) }
   end
 
   def create_defense_minutes
-    examination_board_data = { id: id, evaluators: evaluators_to_document,
+    examination_board_data = { id: id, evaluators: evaluators_object,
                                date: I18n.l(date, format: :document),
                                time: I18n.l(date, format: :time) }
 

@@ -1,5 +1,5 @@
-<generate-defense-minutes
-  generate-url="<%= professors_examination_board_minutes_path(@examination_board) %>"
-  :can-generate="<%= @examination_board.can_create_defense_minutes? %>"
-  :document="<%= @examination_board.defense_minutes.to_json %>" />
-</generate-defense-minutes>
+<% if @examination_board.defense_minutes.blank? %>
+  <generate-defense-minutes
+    url="<%= professors_examination_board_minutes_path(@examination_board) %>" />
+  </generate-defense-minutes>
+<% end %>

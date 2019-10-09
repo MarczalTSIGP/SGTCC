@@ -37,7 +37,7 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
 
   def set_signature
     @signature = @document.signature_by_user(current_external_member.id,
-                                             :external_member_supervisor)
+                                             current_external_member.user_types)
   end
 
   def can_view

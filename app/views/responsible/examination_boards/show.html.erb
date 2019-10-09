@@ -6,4 +6,6 @@
     class: 'btn btn-primary ml-auto' %>
 <% end %>
 
-<%= render 'shared/examination_boards/show', back_url: responsible_examination_boards_path %>
+<%= render 'shared/examination_boards/show',
+  back_url: responsible_examination_boards_path,
+  resource: 'professors' %>

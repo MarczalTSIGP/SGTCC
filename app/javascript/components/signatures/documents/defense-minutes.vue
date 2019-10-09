@@ -35,7 +35,7 @@
         </tr>
         <tr />
         <tr
-          v-for="(evaluator, index) in term.examination_board.evaluators"
+          v-for="(evaluator, index) in evaluators"
           :key="evaluator.id"
         >
           <td>Avaliador {{ index + 1 }}</td>
@@ -60,7 +60,19 @@ export default {
 
   computed: {
     supervisors() {
-      return this.term.professorSupervisors.concat(this.term.externalMemberSupervisors);
+      const term = this.term;
+      return term.professorSupervisors.concat(term.externalMemberSupervisors);
+    },
+
+    evaluators() {
+      const examination_board = this.term.examination_board;
+
+      if (examination_board.hasOwnProperty('evaluators')) {
+        const evaluators = examination_board.evaluators;
+        return evaluators.professors.concat(evaluators.external_members);
+      }
+
+      return [];
     },
   },
 };

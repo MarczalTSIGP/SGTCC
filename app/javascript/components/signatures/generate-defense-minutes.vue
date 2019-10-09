@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="!show && canGenerate"
+      v-if="!show"
       class="clearfix"
     >
       <button
@@ -32,22 +32,9 @@ export default {
   name: 'GenerateDefenseMinutes',
 
   props: {
-    generateUrl: {
+    url: {
       type: String,
       required: true
-    },
-
-    canGenerate: {
-      type: Boolean,
-      required: true
-    },
-
-    document: {
-      type: Object,
-      required: false,
-      default() {
-        return {};
-      },
     },
   },
 
@@ -70,23 +57,13 @@ export default {
     },
   },
 
-  created() {
-    this.setDocumentId();
-  },
-
   methods: {
     async generate() {
       this.loading = true;
       this.show = true;
-      const response = await this.$axios.post(this.generateUrl);
+      const response = await this.$axios.post(this.url);
       this.documentId = response.data;
       this.loading = false;
-    },
-
-    setDocumentId() {
-      if (this.document !== null) {
-        this.documentId = this.document.id;
-      }
     },
   },
 };

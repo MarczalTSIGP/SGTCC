@@ -1,6 +1,12 @@
 <% provide(:page_title, @title) %>
 <% provide(:head_title, @title) %>
 
+<% if @examination_board.defense_minutes.present? %>
+  <%= link_to 'Visualizar Ata de Defesa',
+    send("#{resource}_document_path", @examination_board.defense_minutes),
+    class: 'btn btn-outline-primary float-right mb-4' %>
+<% end %>
+
 <div class="card">
   <div class="card-body">
     <p>

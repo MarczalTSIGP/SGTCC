@@ -14,15 +14,16 @@ module Documents::DefenseMinutes
   def save_add
     add_advisor
     add_academic
-    add_evaluators
+    add_evaluators('professors', 'PV')
+    add_evaluators('external_members', 'EMV')
     create_signatures
   end
 
-  def add_evaluators
+  def add_evaluators(evaluators, user_type)
     examination_board = @document.examination_board
     return if examination_board.blank?
-    examination_board[:evaluators].each do |evaluator|
-      @signature_users.push([evaluator[:id], 'EV'])
+    examination_board[:evaluators][evaluators.to_sym].each do |evaluator|
+      @signature_users.push([evaluator[:id], user_type])
     end
   end
 end
