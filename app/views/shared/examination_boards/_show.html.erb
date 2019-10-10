@@ -94,6 +94,8 @@
     identifier: @examination_board.academic_activity.activity.identifier %>
 <% end %>
 
+<%= render 'shared/examination_boards/note_form' %>
+
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>

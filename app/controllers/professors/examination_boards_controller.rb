@@ -1,5 +1,6 @@
 class Professors::ExaminationBoardsController < Professors::BaseController
   before_action :set_examination_board, only: [:show, :minutes]
+  before_action :set_examination_board_note, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :professors_examination_boards_path
@@ -25,5 +26,10 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def set_examination_board
     @examination_board = ExaminationBoard.with_relationships.find(params[:id])
+  end
+
+  def set_examination_board_note
+    @examination_board_note = @examination_board.find_note_by_professor(current_professor)
+    @examination_board_note = ExaminationBoard.new if @examination_board_note.blank?
   end
 end

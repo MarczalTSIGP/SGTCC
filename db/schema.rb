@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_191641) do
+ActiveRecord::Schema.define(version: 2019_10_10_143250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,19 @@ ActiveRecord::Schema.define(version: 2019_10_04_191641) do
     t.index ["examination_board_id"], name: "index_examination_board_attendees_on_examination_board_id"
     t.index ["external_member_id"], name: "index_examination_board_attendees_on_external_member_id"
     t.index ["professor_id"], name: "index_examination_board_attendees_on_professor_id"
+  end
+
+  create_table "examination_board_notes", force: :cascade do |t|
+    t.bigint "examination_board_id"
+    t.bigint "professor_id"
+    t.bigint "external_member_id"
+    t.integer "note"
+    t.string "appointment_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["examination_board_id"], name: "index_examination_board_notes_on_examination_board_id"
+    t.index ["external_member_id"], name: "index_examination_board_notes_on_external_member_id"
+    t.index ["professor_id"], name: "index_examination_board_notes_on_professor_id"
   end
 
 # Could not dump table "examination_boards" because of following StandardError
@@ -265,6 +278,9 @@ ActiveRecord::Schema.define(version: 2019_10_04_191641) do
   add_foreign_key "examination_board_attendees", "examination_boards"
   add_foreign_key "examination_board_attendees", "external_members"
   add_foreign_key "examination_board_attendees", "professors"
+  add_foreign_key "examination_board_notes", "examination_boards"
+  add_foreign_key "examination_board_notes", "external_members"
+  add_foreign_key "examination_board_notes", "professors"
   add_foreign_key "examination_boards", "orientations"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"

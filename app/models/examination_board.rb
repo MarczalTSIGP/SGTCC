@@ -18,6 +18,7 @@ class ExaminationBoard < ApplicationRecord
   validates :document_available_until, presence: true
 
   has_many :examination_board_attendees, dependent: :delete_all
+  has_many :examination_board_notes, dependent: :delete_all
 
   has_many :professors, class_name: 'Professor',
                         foreign_key: :professor_id,
@@ -95,5 +96,9 @@ class ExaminationBoard < ApplicationRecord
     document_type = DocumentType.find_by(identifier: minutes_type)
     orientation.documents.where(document_type_id: document_type.id)
                .find_by("content -> 'examination_board' ->> 'id' = ?", id.to_s)
+  end
+
+  def find_note_by_professor(professor)
+    examination_board_notes.find_by(professor_id: professor.id)
   end
 end

@@ -352,6 +352,9 @@ pt-BR:
       examination_board:
         one: "Banca de defesa"
         other: "Bancas de defesa"
+      examination_board_note:
+        one: "Nota da banca de defesa"
+        other: "Notas da banca de defesa"
       site:
         one: "Site"
       page:
@@ -499,6 +502,9 @@ pt-BR:
         identifier: "Tipo"
         document_available_until: "Data e hora limite para assinar a ata de defesa"
         <<: *commons
+      examination_board_note:
+        note: "Nota"
+        appointment_file: "Arquivo com os apontamentos"
       site:
         <<: *commons
       page:
