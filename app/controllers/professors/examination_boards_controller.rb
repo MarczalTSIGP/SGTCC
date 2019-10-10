@@ -30,6 +30,6 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def set_examination_board_note
     @examination_board_note = @examination_board.find_note_by_professor(current_professor)
-    @examination_board_note = ExaminationBoard.new if @examination_board_note.blank?
+    @examination_board_note = ExaminationBoardNote.new if @examination_board_note.blank?
   end
 end

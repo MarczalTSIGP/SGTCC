@@ -28,6 +28,9 @@ pt-BR:
         tcc:
           one: "Calendário de Atividades de TCC 1 (%{calendar})"
           two: "Calendário de Atividades de TCC 2 (%{calendar})"
+      notes:
+        male: 'Avaliação do acadêmico'
+        female: 'Avaliação da acadêmica'
     tabs:
       tcc:
         one: 'TCC 1'

@@ -380,6 +380,10 @@ Rails.application.routes.draw do
            to: 'examination_board_notes#create',
            as: 'examination_board_notes'
 
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
+
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',
@@ -668,6 +672,14 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      post 'examination_boards/(:id)/notes',
+           to: 'examination_board_notes#create',
+           as: 'examination_board_notes'
+
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
 
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 

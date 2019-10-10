@@ -101,4 +101,16 @@ class ExaminationBoard < ApplicationRecord
   def find_note_by_professor(professor)
     examination_board_notes.find_by(professor_id: professor.id)
   end
+
+  def find_note_by_external_member(external_member)
+    examination_board_notes.find_by(external_member_id: external_member.id)
+  end
+
+  def professor_evaluator?(professor)
+    professors.find_by(id: professor.id).present?
+  end
+
+  def external_member_evaluator?(external_member)
+    external_members.find_by(id: external_member.id).present?
+  end
 end

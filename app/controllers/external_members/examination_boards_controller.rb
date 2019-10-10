@@ -1,5 +1,6 @@
 class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseController
   before_action :set_examination_board, only: :show
+  before_action :set_examination_board_note, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :external_members_examination_boards_path
@@ -24,5 +25,12 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
     @examination_board = current_external_member.examination_boards
                                                 .with_relationships
                                                 .find(params[:id])
+  end
+
+  def set_examination_board_note
+    @examination_board_note = @examination_board.find_note_by_external_member(
+      current_external_member
+    )
+    @examination_board_note = ExaminationBoardNote.new if @examination_board_note.blank?
   end
 end

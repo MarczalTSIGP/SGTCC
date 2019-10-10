@@ -1,4 +1,4 @@
-class Professors::ExaminationBoardNotesController < Professors::BaseController
+class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseController
   before_action :set_examination_board, only: [:create, :update]
   before_action :set_examination_board_note, only: :update
 
@@ -7,20 +7,20 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
 
     if @examination_board_note.save
       feminine_success_create_message
-      redirect_to professors_examination_board_path(@examination_board)
+      redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
-      render 'professors/examination_boards/show'
+      render 'external_members/examination_boards/show'
     end
   end
 
   def update
     if @examination_board_note.update(examination_board_note_params)
       feminine_success_update_message
-      redirect_to professors_examination_board_path(@examination_board)
+      redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
-      render 'professors/examination_boards/show'
+      render 'external_members/examination_boards/show'
     end
   end
 
@@ -37,6 +37,6 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
   def examination_board_note_params
     params.require(:examination_board_note)
           .permit(:note, :appointment_file, :appointment_file_cache,
-                  :professor_id, :examination_board_id)
+                  :external_member_id, :examination_board_id)
   end
 end

@@ -5,6 +5,12 @@ class ExaminationBoardNote < ApplicationRecord
 
   mount_uploader :appointment_file, FileUploader
 
-  validates :note, presence: true
-  validates :appointment_file, presence: true
+  validates :note,
+            presence: true,
+            numericality: { only_integer: true,
+                            greater_than: 0,
+                            less_than_or_equal_to: 100 }
+
+  validates :appointment_file,
+            presence: true
 end
