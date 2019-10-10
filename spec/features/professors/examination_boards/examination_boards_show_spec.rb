@@ -7,6 +7,7 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
 
   before do
     create(:document_type_adpp)
+    examination_board.professors << professor
     login_as(professor, scope: :professor)
     visit professors_examination_board_path(examination_board)
   end
