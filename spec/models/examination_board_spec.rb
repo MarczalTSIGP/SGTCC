@@ -4,6 +4,7 @@ RSpec.describe ExaminationBoard, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:place) }
     it { is_expected.to validate_presence_of(:date) }
+    it { is_expected.to validate_presence_of(:document_available_until) }
   end
 
   describe 'associations' do
@@ -18,6 +19,23 @@ RSpec.describe ExaminationBoard, type: :model do
     it 'is expected to have many external members' do
       is_expected.to have_many(:external_members).through(:examination_board_attendees)
                                                  .dependent(:destroy)
+    end
+  end
+
+  describe '#human_tcc_identifiers' do
+    it 'returns the identifiers' do
+      identifiers = ExaminationBoard.identifiers
+      hash = {}
+      identifiers.each_key { |key| hash[I18n.t("enums.tcc.identifiers.#{key}")] = key }
+
+      expect(ExaminationBoard.human_tcc_identifiers).to eq(hash)
+    end
+  end
+
+  describe '#human_tcc_one_identifiers' do
+    it 'returns the tcc one identifiers' do
+      hash = ExaminationBoard.human_tcc_identifiers.first(2).to_h
+      expect(ExaminationBoard.human_tcc_one_identifiers).to eq(hash)
     end
   end
 
@@ -99,6 +117,98 @@ RSpec.describe ExaminationBoard, type: :model do
 
       it 'retuns the occurred date label' do
         expect(examination_board.distance_of_date).to eq(label)
+      end
+    end
+  end
+
+  describe '#minutes_type' do
+    context 'when the examination board is a proposal' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      it 'retuns the adpp' do
+        expect(examination_board.minutes_type).to eq(:adpp)
+      end
+    end
+
+    context 'when the examination board is a project' do
+      let(:examination_board) { create(:project_examination_board) }
+
+      it 'retuns the adpj' do
+        expect(examination_board.minutes_type).to eq(:adpj)
+      end
+    end
+
+    context 'when the examination board is a monograph' do
+      let(:examination_board) { create(:monograph_examination_board) }
+
+      it 'retuns the admg' do
+        expect(examination_board.minutes_type).to eq(:admg)
+      end
+    end
+  end
+
+  describe '#users_to_document' do
+    let(:examination_board) { create(:examination_board) }
+    let(:professors) { examination_board.professors }
+
+    let(:professors_formatted) do
+      professors.map do |professor|
+        { id: professor.id, name: professor.name_with_scholarity }
+      end
+    end
+
+    it 'returns the array with evaluators formatted' do
+      expect(examination_board.users_to_document(professors)).to match_array(professors_formatted)
+    end
+  end
+
+  describe '#available_defense_minutes?' do
+    context 'when the document_available_until is greater than current time' do
+      let(:examination_board) do
+        create(:examination_board, date: Time.current, document_available_until: Time.current + 1)
+      end
+
+      it 'returns true' do
+        expect(examination_board.available_defense_minutes?).to eq(true)
+      end
+    end
+
+    context 'when the document_available_until is less than current time' do
+      let(:examination_board) do
+        create(:examination_board, date: Time.current, document_available_until: Time.current - 1)
+      end
+
+      it 'returns false' do
+        expect(examination_board.available_defense_minutes?).to eq(false)
+      end
+    end
+  end
+
+  describe '#create_defense_minutes' do
+    context 'when create the defense minutes' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      before do
+        create(:document_type_adpp)
+      end
+
+      it 'returns the document created' do
+        expect(examination_board.create_defense_minutes).to eq(Document.last)
+      end
+    end
+  end
+
+  describe '#defense_minutes' do
+    context 'when returns the defense minutes' do
+      let(:examination_board) { create(:proposal_examination_board) }
+
+      before do
+        create(:document_type_adpp)
+      end
+
+      it 'returns the defense minutes document' do
+        defense_minutes = examination_board.create_defense_minutes
+        expect(examination_board.defense_minutes).to eq(defense_minutes)
       end
     end
   end

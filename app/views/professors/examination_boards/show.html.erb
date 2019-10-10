@@ -1,1 +1,5 @@
-<%= render 'shared/examination_boards/show', back_url: professors_examination_boards_path %>
+<%= render 'shared/examination_boards/generate_defense_minutes' %>
+
+<%= render 'shared/examination_boards/show',
+  back_url: professors_examination_boards_path,
+  resource: 'professors' %>

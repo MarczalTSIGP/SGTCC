@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module ActivityIdentifier
+module TccIdentifier
   extend ActiveSupport::Concern
 
   included do
@@ -10,14 +10,14 @@ module ActivityIdentifier
       monograph: 'monograph'
     }
 
-    def self.human_identifiers
+    def self.human_tcc_identifiers
       hash = {}
-      identifiers.each_key { |key| hash[I18n.t("enums.activity.identifiers.#{key}")] = key }
+      identifiers.each_key { |key| hash[I18n.t("enums.tcc.identifiers.#{key}")] = key }
       hash
     end
 
     def self.human_tcc_one_identifiers
-      human_identifiers.first(2).to_h
+      human_tcc_identifiers.first(2).to_h
     end
   end
 end

@@ -182,4 +182,40 @@ RSpec.describe Academic, type: :model do
       expect(academic).to eql(Academic.find_through_ra("a#{academic.ra}"))
     end
   end
+
+  describe '#proposal' do
+    let(:academic) { create(:academic) }
+
+    let!(:proposal) do
+      create(:proposal_academic_activity, academic: academic)
+    end
+
+    it 'returns the proposal document' do
+      expect(academic.proposal).to eq(proposal)
+    end
+  end
+
+  describe '#project' do
+    let(:academic) { create(:academic) }
+
+    let!(:project) do
+      create(:project_academic_activity, academic: academic)
+    end
+
+    it 'returns the project document' do
+      expect(academic.project).to eq(project)
+    end
+  end
+
+  describe '#monograph' do
+    let(:academic) { create(:academic) }
+
+    let!(:monograph) do
+      create(:monograph_academic_activity, academic: academic)
+    end
+
+    it 'returns the monograph document' do
+      expect(academic.monograph).to eq(monograph)
+    end
+  end
 end

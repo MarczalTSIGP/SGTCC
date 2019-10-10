@@ -1,6 +1,6 @@
 class BaseActivity < ApplicationRecord
-  include ActivityIdentifier
   include Searchable
+  include TccIdentifier
   include Tcc
 
   searchable name: { unaccent: true }, relationships: {

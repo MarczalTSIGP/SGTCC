@@ -1,6 +1,12 @@
 <% provide(:page_title, @title) %>
 <% provide(:head_title, @title) %>
 
+<% if @examination_board.defense_minutes.present? %>
+  <%= link_to 'Visualizar Ata de Defesa',
+    send("#{resource}_document_path", @examination_board.defense_minutes),
+    class: 'btn btn-outline-primary float-right mb-4' %>
+<% end %>
+
 <div class="card">
   <div class="card-body">
     <p>
@@ -8,6 +14,12 @@
         <%= ExaminationBoard.human_attribute_name('orientation') %>:
       </strong>
       <%= @examination_board.orientation.title %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('identifier') %>:
+      </strong>
+      <%= t("enums.tcc.identifiers.#{@examination_board.identifier}") %>
     </p>
     <p>
       <strong>
@@ -32,6 +44,12 @@
         <%= ExaminationBoard.human_attribute_name('date') %>:
       </strong>
       <%= complete_date(@examination_board.date) %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('document_available_until') %>:
+      </strong>
+      <%= complete_date(@examination_board.document_available_until) %>
     </p>
     <% unless @examination_board.professors.empty? %>
       <p>

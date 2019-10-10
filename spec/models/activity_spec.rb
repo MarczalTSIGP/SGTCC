@@ -27,7 +27,7 @@ RSpec.describe Activity, type: :model do
 
   describe '#human_tcc_one_identifiers' do
     it 'returns the tcc one identifiers' do
-      hash = Activity.human_identifiers.first(2).to_h
+      hash = Activity.human_tcc_identifiers.first(2).to_h
       expect(Activity.human_tcc_one_identifiers).to eq(hash)
     end
   end

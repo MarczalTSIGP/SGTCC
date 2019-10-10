@@ -1,8 +1,10 @@
 import AdvisorJudgment from '../components/orientations/advisor-judgment';
 import CopyToClipboard from '../components/shared/copy-to-clipboard';
 import Datetimepicker from '../components/shared/datetimepicker';
+import DefenseMinutes from '../components/signatures/documents/defense-minutes';
 import DocumentStatus from '../components/signatures/document-status';
 import FileInput from '../components/shared/file-input';
+import GenerateDefenseMinutes from '../components/signatures/generate-defense-minutes';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
@@ -28,6 +30,7 @@ import SignatureConfirmCode from '../components/signatures/signature-confirm-cod
 import SignatureShowTitle from '../components/signatures/signature-show-title';
 import SweetAlertMessages from '../components/shared/sweet-alert-messages';
 import TableAvatar from '../components/site/table-avatar';
+import TableNameAvatar from '../components/site/table-name-avatar';
 import TermOfCommitment from '../components/signatures/documents/term-of-commitment';
 import TermOfAbandonment from '../components/signatures/documents/term-of-abandonment';
 import TermOfAcceptInstitution from '../components/signatures/documents/term-of-accept-institution';
@@ -38,8 +41,10 @@ const components = {
   AdvisorJudgment,
   CopyToClipboard,
   Datetimepicker,
+  DefenseMinutes,
   DocumentStatus,
   FileInput,
+  GenerateDefenseMinutes,
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,
@@ -65,6 +70,7 @@ const components = {
   SignatureStatus,
   SweetAlertMessages,
   TableAvatar,
+  TableNameAvatar,
   TermOfCommitment,
   TermOfAbandonment,
   TermOfAcceptInstitution,

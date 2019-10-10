@@ -6,7 +6,8 @@ class Document < ApplicationRecord
   include DocumentReview
 
   attr_accessor :orientation_id, :advisor_id, :justification,
-                :professor_supervisor_ids, :external_member_supervisor_ids
+                :professor_supervisor_ids, :external_member_supervisor_ids,
+                :examination_board
 
   belongs_to :document_type
 
@@ -80,12 +81,12 @@ class Document < ApplicationRecord
 
   def select_professor_supervisors
     professors = Professor.find(professor_supervisor_ids)
-    Orientation.new.supervisors_to_document(professors)
+    Orientation.new.users_to_document(professors)
   end
 
   def select_external_members
     external_members = ExternalMember.find(external_member_supervisor_ids)
-    Orientation.new.supervisors_to_document(external_members)
+    Orientation.new.users_to_document(external_members)
   end
 
   def signature_by_user(user_id, user_types)
@@ -96,6 +97,15 @@ class Document < ApplicationRecord
 
   def pending_signature_by_user(user_id, user_types)
     signatures.find_by(user_id: user_id, user_type: user_types, status: false)
+  end
+
+  def term_json_data
+    { orientation: orientation_data, advisor: advisor_data, title: document_type.name.upcase,
+      academic: academic_data, institution: institution_data,
+      document: { id: id, created_at: I18n.l(Time.current, format: :document) },
+      professorSupervisors: orientation.professor_supervisors_to_document,
+      externalMemberSupervisors: orientation.external_member_supervisors_to_document,
+      examination_board: examination_board_data }
   end
 
   def self.by_user(user_id, user_types, status = [true, false])

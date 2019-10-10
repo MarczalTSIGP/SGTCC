@@ -1,5 +1,5 @@
 class Professors::ExaminationBoardsController < Professors::BaseController
-  before_action :set_examination_board, only: :show
+  before_action :set_examination_board, only: [:show, :minutes]
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :professors_examination_boards_path
@@ -12,6 +12,13 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   def show
     @title = I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.show")
     add_breadcrumb @title, professors_examination_board_path
+  end
+
+  def minutes
+    return if @examination_board.defense_minutes.present?
+    document = @examination_board.create_defense_minutes
+
+    render json: document.id
   end
 
   private

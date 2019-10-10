@@ -58,8 +58,9 @@ class SiteController < ApplicationController
   end
 
   def examination_boards
-    @examination_boards_tcc_one = examination_board_data(ExaminationBoard.tcc_one)
-    @examination_boards_tcc_two = examination_board_data(ExaminationBoard.tcc_two)
+    @proposal_examination_boards = examination_board_data(ExaminationBoard.proposal)
+    @project_examination_boards = examination_board_data(ExaminationBoard.project)
+    @monograph_examination_boards = examination_board_data(ExaminationBoard.monograph)
 
     @page = Page.find_by(url: 'bancas-de-tcc')
   end

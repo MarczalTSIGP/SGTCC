@@ -1,7 +1,11 @@
+<%= render 'shared/examination_boards/generate_defense_minutes' %>
+
 <%= provide(:edit_button) do %>
   <%= link_to t('simple_form.buttons.edit'),
     edit_responsible_examination_board_path,
     class: 'btn btn-primary ml-auto' %>
 <% end %>
 
-<%= render 'shared/examination_boards/show', back_url: responsible_examination_boards_path %>
+<%= render 'shared/examination_boards/show',
+  back_url: responsible_examination_boards_path,
+  resource: 'professors' %>

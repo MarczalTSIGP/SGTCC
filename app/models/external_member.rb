@@ -69,8 +69,13 @@ class ExternalMember < ApplicationRecord
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
   end
 
+  def user_types
+    types = Signature.user_types
+    user_types = [types[:external_member_supervisor], types[:external_member_evaluator]]
+    user_types
+  end
+
   def documents(status = [true, false])
-    user_types = Signature.user_types[:external_member_supervisor]
     Document.from(Document.by_user(id, user_types, status), :documents).recent
   end
 end

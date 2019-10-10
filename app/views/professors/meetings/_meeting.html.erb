@@ -1,19 +1,8 @@
 <tr>
   <%= render 'shared/meetings/tbody', meeting: meeting %>
   <td>
-    <%= link_to(professors_meeting_path(meeting)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
-    <% end %>
-    <% if meeting.can_update? %>
-      <%= link_to(edit_professors_meeting_path(meeting)) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
-      <% end %>
-      <%= link_to professors_meeting_path(meeting),
-        method: :delete,
-        data: { confirm: t('prompt.confirm') },
-        class: 'destroy' do %>
-        <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
-      <% end %>
-    <% end %>
+    <%= render 'shared/links',
+      resource_link: professors_meeting_path(meeting),
+      edit_link: edit_professors_meeting_path(meeting) %>
   </td>
 </tr>

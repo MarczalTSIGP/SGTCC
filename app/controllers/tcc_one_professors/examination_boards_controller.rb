@@ -92,7 +92,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def examination_board_params
     params.require(:examination_board)
-          .permit(:place, :date, :orientation_id, :tcc,
-                  professor_ids: [], external_member_ids: [])
+          .permit(:place, :date, :orientation_id, :tcc, :identifier,
+                  :document_available_until, professor_ids: [], external_member_ids: [])
   end
 end

@@ -8,17 +8,8 @@
   </td>
   <td><%= short_date(external_member.created_at) %></td>
   <td>
-    <%= link_to(responsible_external_member_path(external_member)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
-    <% end %>
-    <%= link_to(edit_responsible_external_member_path(external_member)) do %>
-      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
-    <% end %>
-    <%= link_to responsible_external_member_path(external_member),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
-    <% end %>
+    <%= render 'shared/links',
+      resource_link: responsible_external_member_path(external_member),
+      edit_link: edit_responsible_external_member_path(external_member) %>
   </td>
 </tr>

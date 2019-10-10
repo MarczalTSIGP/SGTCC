@@ -4,7 +4,7 @@ class Populate::BaseActivities
   def initialize
     @tccs = BaseActivity.tccs.values
     @base_activity_type_ids = BaseActivityType.pluck(:id)
-    @identifiers = BaseActivity.human_identifiers.values
+    @identifiers = BaseActivity.human_tcc_identifiers.values
     @tcc_one_identifiers = BaseActivity.human_tcc_one_identifiers.values
   end
 
