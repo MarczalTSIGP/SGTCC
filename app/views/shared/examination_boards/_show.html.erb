@@ -2,7 +2,7 @@
 <% provide(:head_title, @title) %>
 
 <% if @examination_board.defense_minutes.present? %>
-  <%= link_to 'Visualizar Ata de Defesa',
+  <%= link_to t('views.buttons.defense_minutes.view'),
     send("#{resource}_document_path", @examination_board.defense_minutes),
     class: 'btn btn-outline-primary float-right mb-4' %>
 <% end %>
@@ -88,8 +88,13 @@
   </div>
 </div>
 
+<% if @examination_board.academic_activity.present? %>
+  <%= render 'shared/examination_boards/academic_activity',
+    academic_activity: @examination_board.academic_activity,
+    identifier: @examination_board.academic_activity.activity.identifier %>
+<% end %>
+
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
-

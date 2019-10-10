@@ -54,6 +54,8 @@ pt-BR:
         abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
+      defense_minutes:
+        view: 'Visualizar Ata de Defesa'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
