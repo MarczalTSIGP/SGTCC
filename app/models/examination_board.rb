@@ -1,6 +1,7 @@
 class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
+  include ExaminationBoardEvaluatorSign
   include UsersToDocument
   include TccIdentifier
   include Searchable
