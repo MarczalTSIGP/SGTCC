@@ -53,5 +53,24 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
         end
       end
     end
+
+    context 'when show the academic activity' do
+      let(:academic) { orientation.academic }
+      let(:academic_activity) { examination_board.academic_activity }
+
+      before do
+        create(:proposal_academic_activity, academic: academic)
+        visit professors_examination_board_path(examination_board)
+      end
+
+      it 'shows the academic activity' do
+        expect(page).to have_contents([academic.name,
+                                       academic_activity.title,
+                                       academic_activity.summary])
+
+        expect(page).to have_selectors([link(academic_activity.pdf.url),
+                                        link(academic_activity.complementary_files.url)])
+      end
+    end
   end
 end

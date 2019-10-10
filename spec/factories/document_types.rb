@@ -32,5 +32,15 @@ FactoryBot.define do
       name { I18n.t('signatures.documents.ADPP') }
       identifier { DocumentType.identifiers[:adpp] }
     end
+
+    factory :document_type_adpj do
+      name { I18n.t('signatures.documents.ADPJ') }
+      identifier { DocumentType.identifiers[:adpj] }
+    end
+
+    factory :document_type_admg do
+      name { I18n.t('signatures.documents.ADMG') }
+      identifier { DocumentType.identifiers[:admg] }
+    end
   end
 end
