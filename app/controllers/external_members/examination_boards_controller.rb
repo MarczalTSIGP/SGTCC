@@ -1,6 +1,7 @@
 class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseController
   before_action :set_examination_board, only: :show
   before_action :set_examination_board_note, only: :show
+  before_action :set_can_edit_note, only: :show
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :external_members_examination_boards_path
@@ -32,5 +33,13 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
       current_external_member
     )
     @examination_board_note = ExaminationBoardNote.new if @examination_board_note.blank?
+  end
+
+  def set_can_edit_note
+    @can_edit_note = true
+
+    @can_edit_note = false if @examination_board.external_member_evaluator_sign?(
+      current_external_member
+    )
   end
 end

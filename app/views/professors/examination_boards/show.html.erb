@@ -1,10 +1,12 @@
 <%= render 'shared/examination_boards/generate_defense_minutes' %>
 
-<%= render 'shared/examination_boards/note_form',
-  namespace: 'professors',
-  evaluator: @examination_board.professor_evaluator?(current_professor),
-  create_url: professors_examination_board_notes_path(@examination_board),
-  update_url: professors_examination_board_note_path(@examination_board, @examination_board_note) %>
+<% if @can_edit_note %>
+  <%= render 'shared/examination_boards/note_form',
+    namespace: 'professors',
+    evaluator: @examination_board.professor_evaluator?(current_professor),
+    create_url: professors_examination_board_notes_path(@examination_board),
+    update_url: professors_examination_board_note_path(@examination_board, @examination_board_note) %>
+<% end %>
 
 <%= render 'shared/examination_boards/show',
   back_url: professors_examination_boards_path,

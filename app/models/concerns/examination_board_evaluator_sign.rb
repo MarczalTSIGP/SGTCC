@@ -5,6 +5,7 @@ module ExaminationBoardEvaluatorSign
 
   included do
     def evaluator_sign?(user, user_type)
+      return false if defense_minutes.blank?
       defense_minutes.signatures.find_by(user_type: user_type, user_id: user.id).status
     end
 
@@ -13,11 +14,12 @@ module ExaminationBoardEvaluatorSign
     end
 
     def professor_evaluator_sign?(professor)
-      evaluator_sign?(professor, :professor_evaluator)
+      advisor?(professor) ? advisor_sign? : evaluator_sign?(professor, :professor_evaluator)
     end
 
     def external_member_evaluator_sign?(external_member)
-      evaluator_sign?(external_member, :external_member_evaluator)
+      external_member_evaluator?(external_member) &&
+        evaluator_sign?(external_member, :external_member_evaluator)
     end
   end
 end

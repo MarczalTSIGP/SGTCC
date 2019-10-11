@@ -2,13 +2,12 @@ require 'rails_helper'
 
 describe 'ExaminationBoardNote::create', type: :feature, js: true do
   let(:professor) { create(:professor) }
-  let(:orientation) { create(:orientation) }
+  let(:orientation) { create(:orientation, advisor: professor) }
   let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
   let(:resource_name) { ExaminationBoardNote.model_name.human }
 
   before do
     create(:document_type_adpp)
-    examination_board.professors << professor
     login_as(professor, scope: :professor)
     visit professors_examination_board_path(examination_board)
   end

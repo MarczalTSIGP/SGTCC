@@ -107,8 +107,12 @@ class ExaminationBoard < ApplicationRecord
     examination_board_notes.find_by(external_member_id: external_member.id)
   end
 
+  def advisor?(professor)
+    orientation.advisor.id == professor.id
+  end
+
   def professor_evaluator?(professor)
-    professors.find_by(id: professor.id).present?
+    professors.find_by(id: professor.id).present? || advisor?(professor)
   end
 
   def external_member_evaluator?(external_member)

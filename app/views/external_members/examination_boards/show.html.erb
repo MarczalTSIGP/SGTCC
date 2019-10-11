@@ -1,8 +1,10 @@
-<%= render 'shared/examination_boards/note_form',
-  namespace: 'external_members',
-  evaluator: @examination_board.external_member_evaluator?(current_external_member),
-  create_url: external_members_examination_board_notes_path(@examination_board),
-  update_url: external_members_examination_board_note_path(@examination_board, @examination_board_note) %>
+<% if @can_edit_note %>
+  <%= render 'shared/examination_boards/note_form',
+    namespace: 'external_members',
+    evaluator: @examination_board.external_member_evaluator?(current_external_member),
+    create_url: external_members_examination_board_notes_path(@examination_board),
+    update_url: external_members_examination_board_note_path(@examination_board, @examination_board_note) %>
+<% end %>
 
 
 <%= render 'shared/examination_boards/show',

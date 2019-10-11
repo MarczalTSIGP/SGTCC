@@ -1,6 +1,7 @@
 class Professors::ExaminationBoardNotesController < Professors::BaseController
   before_action :set_examination_board, only: [:create, :update]
   before_action :set_examination_board_note, only: :update
+  before_action :can_edit_note, only: [:create, :update]
 
   def create
     @examination_board_note = ExaminationBoardNote.new(examination_board_note_params)
@@ -38,5 +39,11 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
     params.require(:examination_board_note)
           .permit(:note, :appointment_file, :appointment_file_cache,
                   :professor_id, :examination_board_id)
+  end
+
+  def can_edit_note
+    return unless @examination_board.professor_evaluator_sign?(current_professor)
+    flash[:alert] = I18n.t('flash.examination_board_note.errors.edit')
+    redirect_to professors_examination_board_path(@examination_board)
   end
 end
