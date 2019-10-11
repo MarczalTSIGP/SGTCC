@@ -57,7 +57,7 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
       end
     end
 
-    context 'when show the academic activity' do
+    context 'when shows the academic activity' do
       let(:academic) { orientation.academic }
       let(:academic_activity) { examination_board.academic_activity }
 
