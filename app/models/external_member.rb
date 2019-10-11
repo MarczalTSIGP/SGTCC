@@ -40,6 +40,10 @@ class ExternalMember < ApplicationRecord
            through: :examination_board_attendees,
            source: :examination_board
 
+  has_many :all_documents,
+           through: :supervisions,
+           source: :documents
+
   validates :name,
             presence: true
 

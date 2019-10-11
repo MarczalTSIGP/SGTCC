@@ -35,14 +35,18 @@ class Professor < ApplicationRecord
            through: :professor_supervisors,
            source: :orientation
 
+  has_many :supervision_examination_boards,
+           through: :supervisions,
+           source: :examination_boards
+
+  has_many :all_documents,
+           through: :supervisions,
+           source: :documents
+
   has_many :meetings, through: :orientations
 
   has_many :orientation_examination_boards,
            through: :orientations,
-           source: :examination_boards
-
-  has_many :supervision_examination_boards,
-           through: :supervisions,
            source: :examination_boards
 
   has_many :examination_board_attendees,

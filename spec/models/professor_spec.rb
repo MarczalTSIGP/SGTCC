@@ -54,6 +54,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
+    it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
     it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }

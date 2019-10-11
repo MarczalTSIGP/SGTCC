@@ -34,6 +34,7 @@ RSpec.describe ExternalMember, type: :model do
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
     it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
+    it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(em_fk) }
     it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
