@@ -5,16 +5,10 @@ module SituationEnum
 
   included do
     enum situation: {
-      approved: I18n.t('enums.situation.approved'),
-      reproved: I18n.t('enums.situation.reproved'),
-      not_appear: I18n.t('enums.situation.not_appear'),
-      under_evaluation: I18n.t('enums.situation.under_evaluation')
+      approved: 'approved',
+      reproved: 'reproved',
+      not_appear: 'not_appear',
+      under_evaluation: 'under_evaluation'
     }
-
-    def self.human_situations
-      hash = {}
-      situations.each_key { |key| hash[I18n.t("enums.situation.#{key}")] = key }
-      hash
-    end
   end
 end

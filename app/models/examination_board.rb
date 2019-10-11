@@ -78,25 +78,22 @@ class ExaminationBoard < ApplicationRecord
     academic_activity&.title
   end
 
-  def examination_board_data(status)
-    status = status.presence || situation
-
+  def examination_board_data
     { id: id, evaluators: evaluators_object,
       document_title: academic_document_title,
       date: I18n.l(date, format: :document),
       time: I18n.l(date, format: :time),
-      situation: status }
+      situation: situation_translated }
   end
 
-  def create_defense_minutes(status)
-    data_params = { orientation_id: orientation.id,
-                    examination_board: examination_board_data(status) }
-
+  def create_defense_minutes
+    data_params = { orientation_id: orientation.id, examination_board: examination_board_data }
     DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
   end
 
   def create_non_attendance_defense_minutes
-    create_defense_minutes(ExaminationBoard.situations[:not_appear])
+    update(situation: :not_appear)
+    create_defense_minutes
   end
 
   def available_defense_minutes?
@@ -143,9 +140,7 @@ class ExaminationBoard < ApplicationRecord
     examination_board_notes.sum(&:note) / evaluators_number
   end
 
-  def situation
-    situations = ExaminationBoard.situations
-    return situations[:under_evaluation] if final_note.blank?
-    final_note >= 60 ? situations[:approved] : situations[:reproved]
+  def situation_translated
+    I18n.t("enums.situation.#{situation}")
   end
 end

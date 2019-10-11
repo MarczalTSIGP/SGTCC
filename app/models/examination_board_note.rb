@@ -16,6 +16,9 @@ class ExaminationBoardNote < ApplicationRecord
 
   after_save do
     if examination_board.all_evaluated?
+      status = examination_board.final_note >= 60 ? :approved : :reproved
+      examination_board.update(situation: status,
+                               final_note: examination_board.final_note)
       examination_board.create_defense_minutes
     end
   end
