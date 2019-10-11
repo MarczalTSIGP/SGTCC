@@ -33,28 +33,6 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
       end
     end
 
-    context 'when generates the defense minutes' do
-      it 'shows the view defense minutes button' do
-        find('#generate_defense_minutes').click
-        sleep 2.seconds
-        find('#view_defense_minutes').click
-        document = Document.first
-        expect(page).to have_contents([examination_board.academic_document_title,
-                                       orientation.academic.name,
-                                       orientation.advisor.name_with_scholarity,
-                                       document_date(examination_board.date),
-                                       document_date(document.created_at)])
-
-        orientation.supervisors do |supervisor|
-          expect(page).to have_content(supervisor.name_with_scholarity)
-        end
-
-        examination_board.professors do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
-      end
-    end
-
     context 'when show the academic activity' do
       let(:academic) { orientation.academic }
       let(:academic_activity) { examination_board.academic_activity }

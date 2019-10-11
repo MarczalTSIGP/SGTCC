@@ -372,10 +372,6 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
-      post 'examination_boards/(:id)/minutes',
-           to: 'examination_boards#minutes',
-           as: 'examination_board_minutes'
-
       post 'examination_boards/(:id)/notes',
            to: 'examination_board_notes#create',
            as: 'examination_board_notes'

@@ -4,7 +4,6 @@ import Datetimepicker from '../components/shared/datetimepicker';
 import DefenseMinutes from '../components/signatures/documents/defense-minutes';
 import DocumentStatus from '../components/signatures/document-status';
 import FileInput from '../components/shared/file-input';
-import GenerateDefenseMinutes from '../components/signatures/generate-defense-minutes';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
@@ -44,7 +43,6 @@ const components = {
   DefenseMinutes,
   DocumentStatus,
   FileInput,
-  GenerateDefenseMinutes,
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,

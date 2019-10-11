@@ -16,13 +16,6 @@ class Professors::ExaminationBoardsController < Professors::BaseController
     add_breadcrumb @title, professors_examination_board_path
   end
 
-  def minutes
-    return if @examination_board.defense_minutes.present?
-    document = @examination_board.create_defense_minutes
-
-    render json: document.id
-  end
-
   private
 
   def set_examination_board

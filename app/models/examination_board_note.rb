@@ -13,4 +13,10 @@ class ExaminationBoardNote < ApplicationRecord
 
   validates :appointment_file,
             presence: true
+
+  after_save do
+    if examination_board.all_evaluated?
+      examination_board.create_defense_minutes
+    end
+  end
 end
