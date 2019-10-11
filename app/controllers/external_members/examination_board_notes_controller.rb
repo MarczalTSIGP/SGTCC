@@ -42,7 +42,9 @@ class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseCo
   end
 
   def can_edit_note
+    @can_edit_note = true
     return unless @examination_board.external_member_evaluator_sign?(current_external_member)
+    @can_edit_note = false
     flash[:alert] = I18n.t('flash.examination_board_note.errors.edit')
     redirect_to external_members_examination_board_path(@examination_board)
   end

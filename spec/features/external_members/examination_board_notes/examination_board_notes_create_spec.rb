@@ -35,5 +35,27 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
                                      in: 'div.examination_board_note_appointment_file')
       end
     end
+
+    context 'when the note cant be updated' do
+      before do
+        examination_board.create_defense_minutes
+        em_signature = examination_board.defense_minutes
+                                        .signatures
+                                        .find_by(user_id: external_member.id,
+                                                 user_type: :external_member_evaluator)
+        em_signature.sign
+      end
+
+      it 'redirect to the examination board page' do
+        attributes = attributes_for(:examination_board_note)
+        fill_in 'examination_board_note_note', with: attributes[:note]
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+        submit_form('input[name="commit"]')
+
+        expect(page).to have_current_path external_members_examination_board_path(examination_board)
+        expect(page).to have_flash(:warning,
+                                   text: I18n.t('flash.examination_board_note.errors.edit'))
+      end
+    end
   end
 end
