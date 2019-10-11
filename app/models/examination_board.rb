@@ -135,11 +135,6 @@ class ExaminationBoard < ApplicationRecord
     examination_board_notes.size == evaluators_number
   end
 
-  def final_note
-    return unless all_evaluated?
-    examination_board_notes.sum(&:note) / evaluators_number
-  end
-
   def situation_translated
     I18n.t("enums.situation.#{situation}")
   end

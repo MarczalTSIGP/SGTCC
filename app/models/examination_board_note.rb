@@ -16,10 +16,19 @@ class ExaminationBoardNote < ApplicationRecord
 
   after_save do
     if examination_board.all_evaluated?
-      status = examination_board.final_note >= 60 ? :approved : :reproved
-      examination_board.update(situation: status,
-                               final_note: examination_board.final_note)
+      examination_board.update(situation: status(final_note),
+                               final_note: final_note)
       examination_board.create_defense_minutes
     end
+  end
+
+  private
+
+  def final_note
+    examination_board.examination_board_notes.sum(&:note) / examination_board.evaluators_number
+  end
+
+  def status(final_note)
+    final_note >= 60 ? :approved : :reproved
   end
 end
