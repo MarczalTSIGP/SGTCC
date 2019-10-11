@@ -13,10 +13,34 @@
 
       {{ supervisorsFormatted(orientation) }} (coorientadores)<br>
 
-      <a href="#">Proposta</a>,
-      <a href="#">Projeto</a>,
-      <a href="#">Monografia</a>,
-      <a href="#">Arquivos complementares</a>
+      <a
+        v-if="orientation.academic.final_proposal"
+        :href="orientation.academic.final_proposal.pdf.url"
+        target="_blank"
+      >
+        Proposta
+      </a>
+      <a
+        v-if="orientation.academic.final_project"
+        :href="orientation.academic.final_project.pdf.url"
+        target="_blank"
+      >
+        , Projeto
+      </a>
+      <a
+        v-if="orientation.academic.final_monograph"
+        :href="orientation.academic.final_monograph.pdf.url"
+        target="_blank"
+      >
+        , Monografia
+      </a>
+      <a
+        v-if="orientation.academic.final_monograph"
+        :href="orientation.academic.final_monograph.complementary_files.url"
+        target="_blank"
+      >
+        , Arquivos complementares
+      </a>
       <hr>
     </div>
   </div>
