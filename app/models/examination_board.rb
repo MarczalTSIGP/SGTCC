@@ -3,6 +3,7 @@ class ExaminationBoard < ApplicationRecord
   include ActionView::Helpers::DateHelper
   include ExaminationBoardEvaluatorSign
   include UsersToDocument
+  include SituationEnum
   include TccIdentifier
   include Searchable
   include Tcc
@@ -117,5 +118,25 @@ class ExaminationBoard < ApplicationRecord
 
   def external_member_evaluator?(external_member)
     external_members.find_by(id: external_member.id).present?
+  end
+
+  def evaluators_number
+    advisor = 1
+    professors.size + external_members.size + advisor
+  end
+
+  def all_evaluated?
+    examination_board_notes.size == evaluators_number
+  end
+
+  def final_note
+    return unless all_evaluated?
+    examination_board_notes.sum(&:note) / evaluators_number
+  end
+
+  def situation
+    situations = ExaminationBoard.situations
+    return situations[:under_evaluation] if final_note.blank?
+    final_note >= 60 ? situations[:approved] : situations[:reproved]
   end
 end

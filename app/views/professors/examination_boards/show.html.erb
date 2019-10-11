@@ -1,7 +1,7 @@
 <%= render 'shared/examination_boards/generate_defense_minutes' %>
 
 <% if @can_edit_note %>
-  <%= render 'shared/examination_boards/note_form',
+  <%= render 'shared/examination_boards/evaluator_note_form',
     namespace: 'professors',
     evaluator: @examination_board.professor_evaluator?(current_professor),
     create_url: professors_examination_board_notes_path(@examination_board),

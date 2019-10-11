@@ -31,6 +31,9 @@ pt-BR:
       notes:
         male: 'Avaliação do acadêmico'
         female: 'Avaliação da acadêmica'
+      academic_situation:
+        male: 'Situação do acadêmico'
+        female: 'Situação da acadêmica'
     tabs:
       tcc:
         one: 'TCC 1'
@@ -504,6 +507,8 @@ pt-BR:
         place: "Local"
         identifier: "Tipo"
         document_available_until: "Data e hora limite para assinar a ata de defesa"
+        final_note: "Nota final"
+        situation: "Situação"
         <<: *commons
       examination_board_note:
         note: "Nota"
@@ -552,6 +557,11 @@ pt-BR:
         proposal: 'Proposta'
         project: 'Projeto'
         monograph: 'Monografia'
+    situation:
+      approved: 'Aprovado'
+      reproved: 'Reprovado'
+      not_appear: 'Não compareceu'
+      under_evaluation: 'Sob avaliação'
     semesters:
       first: '1º'
       second: '2º'

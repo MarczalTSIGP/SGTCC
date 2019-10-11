@@ -94,7 +94,11 @@
     identifier: @examination_board.academic_activity.activity.identifier %>
 <% end %>
 
-<%= yield(:note_form) %>
+<% if @examination_board.final_note.blank? %>
+  <%= yield(:evaluator_note_form) %>
+<% else %>
+  <%= render 'shared/examination_boards/final_note' %>
+<% end %>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
