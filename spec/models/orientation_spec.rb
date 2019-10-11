@@ -588,9 +588,12 @@ RSpec.describe Orientation, type: :model do
 
   describe '#to_json_table' do
     let(:orientations) { create_list(:orientation, 2) }
+    let(:academic_methods) { [:final_proposal, :final_project, :final_monograph] }
+
     let(:orientations_json) do
       orientations.to_json(methods: [:short_title],
-                           include: [:academic, :supervisors,
+                           include: [:supervisors,
+                                     { academic: { methods: academic_methods } },
                                      { advisor: { methods: [:name_with_scholarity] } }])
     end
 

@@ -32,11 +32,13 @@ FactoryBot.define do
     factory :current_examination_board_tcc_one do
       tcc { tccs.first }
       orientation { create(:current_orientation_tcc_one) }
+      identifier { :proposal }
     end
 
     factory :current_examination_board_tcc_two do
       tcc { tccs.last }
       orientation { create(:current_orientation_tcc_two) }
+      identifier { :monograph }
     end
 
     after :create do |examination_board|
