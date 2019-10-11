@@ -364,6 +364,14 @@ Rails.application.routes.draw do
           to: 'supervision_activities#show',
           as: 'supervision_activity'
 
+      get 'supervisions/examination_boards',
+          to: 'supervision_examination_boards#index',
+          as: 'supervision_examination_boards'
+
+      get 'supervisions/examination_boards/(:id)',
+          to: 'supervision_examination_boards#show',
+          as: 'supervision_examination_board'
+
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
           as: 'calendar_activities'

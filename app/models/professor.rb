@@ -41,6 +41,10 @@ class Professor < ApplicationRecord
            through: :orientations,
            source: :examination_boards
 
+  has_many :supervision_examination_boards,
+           through: :supervisions,
+           source: :examination_boards
+
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
            foreign_key: :professor_id,
@@ -110,6 +114,10 @@ class Professor < ApplicationRecord
     all = (guest_examination_boards.current_semester.search(search).with_relationships +
      orientation_examination_boards.current_semester.search(search).with_relationships)
     all.sort_by(&:date).reverse.uniq
+  end
+
+  def current_semester_supervision_examination_boards
+    supervision_examination_boards.current_semester.with_relationships
   end
 
   def self.current_responsible

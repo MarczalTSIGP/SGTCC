@@ -57,6 +57,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
     it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
+    it { is_expected.to have_many(:supervision_examination_boards).through(:supervisions) }
   end
 
   describe '#human_genders' do
