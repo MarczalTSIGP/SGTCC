@@ -1,9 +1,5 @@
 <%= simple_form_for [:responsible, @examination_board] do |f| %>
   <div class="form-inputs">
-    <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: ExaminationBoard.human_tcc_identifiers %>
-
     <%= f.association :orientation,
       label: Academic.model_name.human,
       input_html: { data: 'selectize' },
@@ -50,9 +46,8 @@
         datetime="<%= @examination_board.document_available_until %>" />
     </div>
 
-    <%= f.input :tcc,
-      as: :hidden,
-      input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' } %>
+    <%= f.hidden_field :tcc, value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' %>
+    <%= f.hidden_field :identifier, value: :monograph %>
   </div>
 
   <div class="d-flex">

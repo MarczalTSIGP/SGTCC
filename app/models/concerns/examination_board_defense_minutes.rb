@@ -20,10 +20,10 @@ module ExaminationBoardDefenseMinutes
 
     def defense_minutes
       document_type = DocumentType.find_by(identifier: minutes_type)
+      return if document_type.blank?
 
-      orientation.documents
-                 .where(document_type_id: document_type.id)
-                 .find_by("content -> 'examination_board' ->> 'id' = ?", id.to_s)
+      condition = "content -> 'examination_board' ->> 'id' = ?"
+      orientation.documents.where(document_type_id: document_type.id).find_by(condition, id.to_s)
     end
   end
 end

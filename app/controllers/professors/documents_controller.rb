@@ -42,7 +42,9 @@ class Professors::DocumentsController < Professors::BaseController
   private
 
   def set_document
-    @document = current_professor.all_documents.find_by(id: params[:id])
+    id = params[:id]
+    @document = current_professor.documents.find_by(id: id)
+    @document = current_professor.all_documents.find_by(id: id) if @document.blank?
   end
 
   def set_document_for_responsible
