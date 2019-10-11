@@ -31,17 +31,12 @@ class Professor < ApplicationRecord
            inverse_of: :professor_supervisor,
            dependent: :restrict_with_error
 
-  has_many :supervisions,
-           through: :professor_supervisors,
-           source: :orientation
+  has_many :supervisions, through: :professor_supervisors, source: :orientation
+  has_many :all_documents, through: :supervisions, source: :documents
 
   has_many :supervision_examination_boards,
            through: :supervisions,
            source: :examination_boards
-
-  has_many :all_documents,
-           through: :supervisions,
-           source: :documents
 
   has_many :meetings, through: :orientations
 
