@@ -67,10 +67,12 @@ class ExaminationBoard < ApplicationRecord
       external_members: users_to_document(external_members) }
   end
 
+  def academic_activity
+    orientation.academic.find_document_by_identifier_and_final_version(identifier, false)
+  end
+
   def academic_document_title
-    academic_document = orientation.academic
-                                   .find_document_by_identifier_and_final_version(identifier, false)
-    academic_document&.title
+    academic_activity&.title
   end
 
   def create_defense_minutes

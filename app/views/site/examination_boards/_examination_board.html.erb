@@ -74,7 +74,19 @@
   <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
   </td>
-  <td colspan="5"></td>
+  <td colspan="5" class="td-center">
+    <% if examination_board.academic_activity %>
+      <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
+        <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
+      <% end %>
+
+      <% if examination_board.academic_activity.complementary_files.present? %>
+        <%= link_to(examination_board.academic_activity.complementary_files.url, target: :_blank) do %>
+          <%= AcademicActivity.human_attribute_name('complementary_files') %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
 </tr>
 <tr>
   <td rowspan="3" class="td-center">
