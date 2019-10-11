@@ -78,17 +78,25 @@ class ExaminationBoard < ApplicationRecord
     academic_activity&.title
   end
 
-  def create_defense_minutes
-    examination_board_data = { id: id, evaluators: evaluators_object,
-                               document_title: academic_document_title,
-                               date: I18n.l(date, format: :document),
-                               time: I18n.l(date, format: :time),
-                               situation: situation }
+  def examination_board_data(status)
+    status = status.presence || situation
 
+    { id: id, evaluators: evaluators_object,
+      document_title: academic_document_title,
+      date: I18n.l(date, format: :document),
+      time: I18n.l(date, format: :time),
+      situation: status }
+  end
+
+  def create_defense_minutes(status)
     data_params = { orientation_id: orientation.id,
-                    examination_board: examination_board_data }
+                    examination_board: examination_board_data(status) }
 
     DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
+  end
+
+  def create_non_attendance_defense_minutes
+    create_defense_minutes(ExaminationBoard.situations[:not_appear])
   end
 
   def available_defense_minutes?

@@ -7,6 +7,7 @@ import FileInput from '../components/shared/file-input';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
+import GenerateNonAttendanceDefenseMinutes from '../components/examination-boards/generate-non-attendance-defense-minutes';
 import ImagePreview from '../components/shared/image-preview';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
@@ -46,6 +47,7 @@ const components = {
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,
+  GenerateNonAttendanceDefenseMinutes,
   ImagePreview,
   MeetingView,
   OrientationsApprovedPage,
