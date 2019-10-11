@@ -82,7 +82,8 @@ class ExaminationBoard < ApplicationRecord
     examination_board_data = { id: id, evaluators: evaluators_object,
                                document_title: academic_document_title,
                                date: I18n.l(date, format: :document),
-                               time: I18n.l(date, format: :time) }
+                               time: I18n.l(date, format: :time),
+                               situation: situation }
 
     data_params = { orientation_id: orientation.id,
                     examination_board: examination_board_data }

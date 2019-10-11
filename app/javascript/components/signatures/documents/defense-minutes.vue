@@ -71,6 +71,23 @@
         </tr>
       </tbody>
     </table>
+
+    <table class="table table-vcenter table-bordered">
+      <thead class="text-center">
+        <tr>
+          <th colspan="2">
+            Situação
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center">
+            {{ term.examination_board.situation }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </base-term-layout>
 </template>
 
