@@ -40,12 +40,13 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
         sleep 2.seconds
         find('#view_defense_minutes').click
         document = Document.first
+        examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,
                                        orientation.academic.name,
                                        orientation.advisor.name_with_scholarity,
                                        document_date(examination_board.date),
                                        document_date(document.created_at),
-                                       ExaminationBoard.situations[:not_appear]])
+                                       examination_board.situation_translated])
 
         orientation.supervisors do |supervisor|
           expect(page).to have_content(supervisor.name_with_scholarity)

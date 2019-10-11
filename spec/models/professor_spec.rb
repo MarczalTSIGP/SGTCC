@@ -361,4 +361,14 @@ RSpec.describe Professor, type: :model do
       expect(Professor.temporary).to eq([professor])
     end
   end
+
+  describe '#current_semester_supervision_examination_boards' do
+    let(:examination_board) { create(:examination_board) }
+    let(:professor) { examination_board.professors.first }
+
+    it 'returns the supervision by current semester' do
+      supervisions = professor.supervision_examination_boards.current_semester.with_relationships
+      expect(professor.current_semester_supervision_examination_boards).to eq(supervisions)
+    end
+  end
 end

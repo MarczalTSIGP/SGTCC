@@ -56,22 +56,11 @@ class Professor < ApplicationRecord
            through: :examination_board_attendees,
            source: :examination_board
 
-  validates :name,
-            presence: true
-
-  validates :gender,
-            presence: true
-
-  validates :working_area,
-            presence: true
-
-  validates :username,
-            presence: true,
-            uniqueness: { case_sensitive: false }
-
-  validates :lattes,
-            presence: true,
-            format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :name, presence: true
+  validates :gender, presence: true
+  validates :working_area, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :lattes, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
 
   validates :email,
             presence: true,

@@ -2,6 +2,7 @@ class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
   include ExaminationBoardEvaluatorSign
+  include ExaminationBoardDefenseMinutes
   include UsersToDocument
   include SituationEnum
   include TccIdentifier
@@ -84,26 +85,6 @@ class ExaminationBoard < ApplicationRecord
       date: I18n.l(date, format: :document),
       time: I18n.l(date, format: :time),
       situation: situation_translated }
-  end
-
-  def create_defense_minutes
-    data_params = { orientation_id: orientation.id, examination_board: examination_board_data }
-    DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
-  end
-
-  def create_non_attendance_defense_minutes
-    update(situation: :not_appear)
-    create_defense_minutes
-  end
-
-  def available_defense_minutes?
-    (Time.current <= document_available_until)
-  end
-
-  def defense_minutes
-    document_type = DocumentType.find_by(identifier: minutes_type)
-    orientation.documents.where(document_type_id: document_type.id)
-               .find_by("content -> 'examination_board' ->> 'id' = ?", id.to_s)
   end
 
   def find_note_by_professor(professor)
