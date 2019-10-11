@@ -27,14 +27,25 @@
       </strong>
       <%= @examination_board.orientation.advisor.name_with_scholarity %>
     </p>
-    <% unless @examination_board.orientation.supervisors.empty? %>
+    <% unless @examination_board.orientation.professor_supervisors.empty? %>
       <p>
         <strong>
-          <%= ExaminationBoard.human_attribute_name('supervisors') %>:
+          <%= Orientation.human_attribute_name('professor_supervisors') %>:
         </strong>
         <br>
-        <% @examination_board.orientation.supervisors.each do |supervisor| %>
-          <%= supervisor.name_with_scholarity %><br>
+        <% @examination_board.orientation.professor_supervisors.each do |supervisor| %>
+          <%= supervisor.name %><br>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @examination_board.orientation.external_member_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('external_member_supervisors') %>:
+        </strong>
+        <br>
+        <% @examination_board.orientation.external_member_supervisors.each do |supervisor| %>
+          <%= supervisor.name %><br>
         <% end %>
       </p>
     <% end %>

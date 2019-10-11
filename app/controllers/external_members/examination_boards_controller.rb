@@ -7,12 +7,8 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
                  :external_members_examination_boards_path
 
   def index
-    @examination_boards = current_external_member.examination_boards
-                                                 .current_semester
-                                                 .search(params[:term])
-                                                 .page(params[:page])
-                                                 .order(:tcc, created_at: :desc)
-                                                 .with_relationships
+    data = current_external_member.current_examination_boards(params[:term])
+    @examination_boards = Kaminari.paginate_array(data).page(params[:page])
   end
 
   def show
@@ -23,9 +19,14 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   private
 
   def set_examination_board
-    @examination_board = current_external_member.examination_boards
-                                                .with_relationships
-                                                .find(params[:id])
+    @examination_board = current_semester(current_external_member.examination_boards)
+    return if @examination_board.present?
+    @examination_board = current_semester(current_external_member.supervision_examination_boards)
+  end
+
+  def current_semester(data)
+    return if data.blank?
+    data.current_semester.with_relationships.find(params[:id])
   end
 
   def set_examination_board_note
