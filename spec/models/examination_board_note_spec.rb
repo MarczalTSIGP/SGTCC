@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe ExaminationBoardNote, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:note) }
-    it { is_expected.to validate_presence_of(:appointment_file) }
   end
 
   describe 'associations' do
@@ -13,7 +12,7 @@ RSpec.describe ExaminationBoardNote, type: :model do
   end
 
   describe '#after_save' do
-    let(:examination_board) { create(:proposal_examination_board) }
+    let!(:examination_board) { create(:proposal_examination_board) }
     let(:professor) { examination_board.orientation.advisor }
     let(:note) { 90 }
 

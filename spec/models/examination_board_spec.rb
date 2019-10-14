@@ -166,7 +166,8 @@ RSpec.describe ExaminationBoard, type: :model do
   describe '#available_defense_minutes?' do
     context 'when the document_available_until is greater than current time' do
       let(:examination_board) do
-        create(:examination_board, date: Time.current, document_available_until: Time.current + 1)
+        create(:examination_board, date: Time.current,
+                                   document_available_until: Time.current + 1.day)
       end
 
       it 'returns true' do
@@ -176,7 +177,8 @@ RSpec.describe ExaminationBoard, type: :model do
 
     context 'when the document_available_until is less than current time' do
       let(:examination_board) do
-        create(:examination_board, date: Time.current, document_available_until: Time.current - 1)
+        create(:examination_board, date: Time.current,
+                                   document_available_until: Time.current - 1.day)
       end
 
       it 'returns false' do

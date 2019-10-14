@@ -31,8 +31,6 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.examination_board_note_note')
-        expect(page).to have_message(blank_error_message,
-                                     in: 'div.examination_board_note_appointment_file')
       end
     end
 
