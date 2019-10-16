@@ -110,6 +110,8 @@
     identifier: @examination_board.academic_activity.activity.identifier %>
 <% end %>
 
+<%= yield(:appointment_files) %>
+
 <% if @examination_board.final_note.blank? %>
   <%= yield(:evaluator_note_form) %>
 <% else %>
@@ -128,7 +130,7 @@
   </div>
 <% end %>
 
-<%= render 'shared/examination_boards/generate_defense_minutes' %>
+<%= yield(:generate_defense_minutes) %>
 
 <div class="d-flex mt-6">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>

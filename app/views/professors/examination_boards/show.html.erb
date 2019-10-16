@@ -1,3 +1,7 @@
+<%= provide(:generate_defense_minutes) do %>
+  <%= render 'shared/examination_boards/generate_defense_minutes' %>
+<% end %>
+
 <% if @can_edit_note %>
   <%= render 'shared/examination_boards/evaluator_note_form',
     namespace: 'professors',
