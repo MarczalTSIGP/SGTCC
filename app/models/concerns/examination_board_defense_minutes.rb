@@ -10,7 +10,7 @@ module ExaminationBoardDefenseMinutes
     end
 
     def create_non_attendance_defense_minutes
-      update(situation: :not_appear)
+      update(situation: :not_appear, final_note: 0)
       create_defense_minutes
     end
 
