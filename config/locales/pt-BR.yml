@@ -493,6 +493,7 @@ pt-BR:
         document_type: "Tipo do documento"
         professor_supervisor_ids: "Novos Coorientadores da UTFPR"
         external_member_supervisor_ids: "Novos Coorientadores externos"
+        all_signed: "Todos assinaram"
         <<: *commons
       meeting:
         content: "Conteúdo"
