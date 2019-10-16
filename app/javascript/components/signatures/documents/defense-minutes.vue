@@ -82,7 +82,7 @@
       </thead>
       <tbody>
         <tr>
-          <td class="text-center">
+          <td>
             {{ term.examination_board.situation }}
           </td>
         </tr>
