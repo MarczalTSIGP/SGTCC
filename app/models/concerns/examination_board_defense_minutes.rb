@@ -4,6 +4,11 @@ module ExaminationBoardDefenseMinutes
   extend ActiveSupport::Concern
 
   included do
+    def can_create_defense_minutes?(professor)
+      has_roles = advisor?(professor) || professor.responsible?
+      defense_minutes.blank? && has_roles
+    end
+
     def create_defense_minutes
       data_params = { orientation_id: orientation.id, examination_board: examination_board_data }
       DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
