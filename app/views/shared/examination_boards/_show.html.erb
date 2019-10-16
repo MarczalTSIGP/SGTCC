@@ -117,24 +117,18 @@
 <% end %>
 
 <% if @examination_board.defense_minutes.present? %>
-  <div class="border border-primary rounded p-4 clearfix">
+  <div class="border border-primary rounded p-4">
     <div class="m-3">
-      <div class="float-left">
-        <strong>
-          Visualizar Ata de Defesa
-        </strong>
-        <p>
-          Visualizar documento gerado desta banca de defesa.
-        </p>
-      </div>
+      <strong>Visualizar Ata de Defesa</strong>
+      <p>Visualizar documento gerado desta banca de defesa.</p>
       <%= link_to t('views.buttons.defense_minutes.view'),
         send("#{resource}_document_path", @examination_board.defense_minutes),
-        class: 'btn btn-outline-primary btn-sm float-right' %>
+        class: 'btn btn-outline-primary btn-sm btn-block' %>
     </div>
   </div>
 <% end %>
 
-<%= render 'shared/examination_boards/non_attendance_defense_minutes' %>
+<%= render 'shared/examination_boards/generate_defense_minutes' %>
 
 <div class="d-flex mt-6">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>

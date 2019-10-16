@@ -380,6 +380,10 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      post 'examination_boards/(:id)/defense_minutes',
+           to: 'examination_boards#defense_minutes',
+           as: 'examination_board_defense_minutes'
+
       post 'examination_boards/(:id)/non_attendance_defense_minutes',
            to: 'examination_boards#non_attendance_defense_minutes',
            as: 'examination_board_non_attendance_defense_minutes'

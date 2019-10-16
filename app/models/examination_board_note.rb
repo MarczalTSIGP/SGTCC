@@ -15,7 +15,6 @@ class ExaminationBoardNote < ApplicationRecord
     if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
       examination_board.update(situation: status(final_note),
                                final_note: final_note)
-      examination_board.create_defense_minutes
     end
   end
 

@@ -1,4 +1,8 @@
 <% if @examination_board.defense_minutes.blank? %>
+  <generate-defense-minutes
+    url="<%= professors_examination_board_defense_minutes_path(@examination_board) %>" />
+  </generate-defense-minutes>
+
   <generate-non-attendance-defense-minutes
     url="<%= professors_examination_board_non_attendance_defense_minutes_path(@examination_board) %>" />
   </generate-non-attendance-defense-minutes>
