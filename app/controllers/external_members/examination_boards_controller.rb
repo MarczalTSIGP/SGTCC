@@ -38,9 +38,6 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
 
   def set_can_edit_note
     @can_edit_note = true
-
-    @can_edit_note = false if @examination_board.external_member_evaluator_sign?(
-      current_external_member
-    )
+    @can_edit_note = false if @examination_board.defense_minutes.present?
   end
 end

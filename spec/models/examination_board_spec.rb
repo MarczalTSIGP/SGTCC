@@ -318,89 +318,31 @@ RSpec.describe ExaminationBoard, type: :model do
     end
   end
 
-  describe '#advisor_sign?' do
-    let(:examination_board) { create(:proposal_examination_board) }
-    let(:professor) { examination_board.orientation.advisor }
-
-    before do
-      create(:document_type_adpp)
-      examination_board.create_defense_minutes
-    end
-
-    context 'when advisor already signed' do
-      before do
-        advisor_signature = examination_board.defense_minutes.signatures
-                                             .find_by(user_id: professor.id,
-                                                      user_type: :advisor)
-        advisor_signature.sign
-      end
+  describe '.can_create_defense_minutes?' do
+    context 'when is the advisor' do
+      let(:examination_board) { create(:examination_board) }
+      let(:professor) { examination_board.orientation.advisor }
 
       it 'returns true' do
-        expect(examination_board.advisor_sign?).to eq(true)
+        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
       end
     end
 
-    context 'when the advisor not signed' do
-      it 'returns false' do
-        expect(examination_board.advisor_sign?).to eq(false)
-      end
-    end
-  end
-
-  describe '#professor_evaluator_sign?' do
-    let(:examination_board) { create(:proposal_examination_board) }
-    let(:professor) { examination_board.professors.first }
-
-    before do
-      create(:document_type_adpp)
-      examination_board.create_defense_minutes
-    end
-
-    context 'when the professor evaluator already signed' do
-      before do
-        professor_signature = examination_board.defense_minutes.signatures
-                                               .find_by(user_id: professor.id,
-                                                        user_type: :professor_evaluator)
-        professor_signature.sign
-      end
+    context 'when is the responsible' do
+      let(:examination_board) { create(:examination_board) }
+      let(:professor) { create(:responsible) }
 
       it 'returns true' do
-        expect(examination_board.professor_evaluator_sign?(professor)).to eq(true)
+        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
       end
     end
 
-    context 'when the professor evaluator not signed' do
+    context 'when can not create' do
+      let(:professor) { create(:professor) }
+      let(:examination_board) { create(:examination_board) }
+
       it 'returns false' do
-        expect(examination_board.professor_evaluator_sign?(professor)).to eq(false)
-      end
-    end
-  end
-
-  describe '#external_member_evaluator_sign?' do
-    let(:examination_board) { create(:proposal_examination_board) }
-    let(:external_member) { examination_board.external_members.first }
-
-    before do
-      create(:document_type_adpp)
-      examination_board.create_defense_minutes
-    end
-
-    context 'when the external member evaluator already signed' do
-      before do
-        em_signature = examination_board.defense_minutes.signatures
-                                        .find_by(user_id: external_member.id,
-                                                 user_type: :external_member_evaluator)
-        em_signature.sign
-      end
-
-      it 'returns true' do
-        expect(examination_board.external_member_evaluator_sign?(external_member)).to eq(true)
-      end
-    end
-
-    context 'when the external member evaluator not signed' do
-      it 'returns false' do
-        expect(examination_board.external_member_evaluator_sign?(external_member)).to eq(false)
+        expect(examination_board.can_create_defense_minutes?(professor)).to eq(false)
       end
     end
   end

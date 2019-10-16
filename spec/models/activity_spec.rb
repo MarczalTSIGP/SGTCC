@@ -32,6 +32,14 @@ RSpec.describe Activity, type: :model do
     end
   end
 
+  describe '#human_tcc_two_identifier' do
+    it 'returns the tcc two identifier' do
+      hash = {}
+      hash[I18n.t('enums.tcc.identifiers.monograph')] = 'monograph'
+      expect(Activity.human_tcc_two_identifier).to eq(hash)
+    end
+  end
+
   describe '#deadline' do
     let(:activity) { create(:activity) }
 

@@ -1,7 +1,6 @@
 class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
-  include ExaminationBoardEvaluatorSign
   include ExaminationBoardDefenseMinutes
   include UsersToDocument
   include SituationEnum

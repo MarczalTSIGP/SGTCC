@@ -43,7 +43,7 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
 
   def can_edit_note
     @can_edit_note = true
-    return unless @examination_board.professor_evaluator_sign?(current_professor)
+    return if @examination_board.defense_minutes.blank?
     @can_edit_note = false
     flash[:alert] = I18n.t('flash.examination_board_note.errors.edit')
     redirect_to professors_examination_board_path(@examination_board)

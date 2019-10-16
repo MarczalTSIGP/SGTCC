@@ -43,6 +43,6 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def set_can_edit_note
     @can_edit_note = true
-    @can_edit_note = false if @examination_board.professor_evaluator_sign?(current_professor)
+    @can_edit_note = false if @examination_board.defense_minutes.present?
   end
 end
