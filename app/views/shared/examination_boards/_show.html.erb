@@ -111,12 +111,9 @@
 <% end %>
 
 <%= yield(:appointment_files) %>
+<%= yield(:evaluator_note_form) %>
 
-<% if @examination_board.final_note.blank? %>
-  <%= yield(:evaluator_note_form) %>
-<% else %>
-  <%= render 'shared/examination_boards/final_note' %>
-<% end %>
+<%= render 'shared/examination_boards/final_note' if @examination_board.final_note.present? %>
 
 <% if @examination_board.defense_minutes.present? %>
   <div class="border border-primary rounded p-4">

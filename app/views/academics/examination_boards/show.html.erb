@@ -1,27 +1,5 @@
-<%= provide(:appointment_files) do %>
-  <div class="card">
-    <div class="card-header font-weight-bold">
-      <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>:
-    </div>
-    <div class="card-body">
-      <% @examination_board.examination_board_notes.each do |examination_board_note| %>
-        <p>
-          <strong>
-            <%= Professor.model_name.human %>:
-          </strong>
-          <%= examination_board_note.professor.name_with_scholarity %>
-        </p>
-        <p>
-          <strong>
-            <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>:
-          </strong>
-          <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
-            <%= examination_board_note.appointment_file_identifier %>
-          <% end %>
-        </p>
-      <% end %>
-    </div>
-  </div>
+<% if @examination_board.examination_board_notes.present? %>
+  <%= render 'academics/examination_boards/appointment_files' %>
 <% end %>
 
 <%= render 'shared/examination_boards/show',

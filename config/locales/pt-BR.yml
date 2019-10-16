@@ -635,7 +635,7 @@ pt-BR:
           not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
     examination_board_note:
       errors:
-        edit: 'Não é possível editar nota, pois o documento já foi assinado!'
+        edit: 'Não é possível editar nota, pois a Ata de Defesa já foi gerada!'
   json:
     messages:
       invalid_code: 'Código inválido!'

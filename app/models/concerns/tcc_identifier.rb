@@ -19,11 +19,5 @@ module TccIdentifier
     def self.human_tcc_one_identifiers
       human_tcc_identifiers.first(2).to_h
     end
-
-    def self.human_tcc_two_identifier
-      hash = {}
-      hash[I18n.t('enums.tcc.identifiers.monograph')] = 'monograph'
-      hash
-    end
   end
 end
