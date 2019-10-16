@@ -1,12 +1,6 @@
 <% provide(:page_title, @title) %>
 <% provide(:head_title, @title) %>
 
-<% if @examination_board.defense_minutes.present? %>
-  <%= link_to t('views.buttons.defense_minutes.view'),
-    send("#{resource}_document_path", @examination_board.defense_minutes),
-    class: 'btn btn-outline-primary float-right mb-4' %>
-<% end %>
-
 <div class="card">
   <div class="card-body">
     <p>
@@ -122,7 +116,27 @@
   <%= render 'shared/examination_boards/final_note' %>
 <% end %>
 
-<div class="d-flex">
+<% if @examination_board.defense_minutes.present? %>
+  <div class="border border-primary rounded p-4 clearfix">
+    <div class="m-3">
+      <div class="float-left">
+        <strong>
+          Visualizar Ata de Defesa
+        </strong>
+        <p>
+          Visualizar documento gerado desta banca de defesa.
+        </p>
+      </div>
+      <%= link_to t('views.buttons.defense_minutes.view'),
+        send("#{resource}_document_path", @examination_board.defense_minutes),
+        class: 'btn btn-outline-primary btn-sm float-right' %>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'shared/examination_boards/non_attendance_defense_minutes' %>
+
+<div class="d-flex mt-6">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
