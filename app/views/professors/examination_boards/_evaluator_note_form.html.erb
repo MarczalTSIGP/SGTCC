@@ -9,7 +9,7 @@
     <%= simple_form_for(@examination_board_note, url: url, html: { multipart: true }) do |f| %>
       <div class="row form-inputs">
         <div class="col-md-6">
-          <%= f.input :note %>
+          <%= f.input :note, hint: t('hints.note.between') %>
         </div>
         <div class="col-md-6">
           <%= f.label :appointment_file, class: 'font-weight-bold' %>
