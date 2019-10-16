@@ -31,13 +31,9 @@
       </div>
     </div>
 
-    <% if @calendar.tcc == 'one' %>
-      <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: Activity.human_tcc_one_identifiers %>
-    <% else %>
-      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
-    <% end %>
+    <%= f.input :identifier,
+      as: :radio_button_tabler,
+      collection: @calendar.tcc == 'one' ? Activity.human_tcc_one_identifiers : Activity.human_tcc_two_identifier %>
 
     <%= f.input :judgment, as: :checkbox_tabler %>
     <%= f.input :final_version, as: :checkbox_tabler %>
