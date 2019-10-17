@@ -68,7 +68,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def academic_activity
-    orientation.academic.find_document_by_identifier_and_final_version(identifier, false)
+    orientation.find_document_by_identifier_and_final_version(identifier, false)
   end
 
   def academic_document_title

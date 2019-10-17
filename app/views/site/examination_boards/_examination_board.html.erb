@@ -3,7 +3,15 @@
     <strong><%= ExaminationBoard.human_attribute_name('title') %></strong>
   </td>
   <td colspan="4" class="td-center">
-    <strong><%= examination_board.orientation.title %></strong>
+    <strong><%= examination_board.academic_activity&.title %></strong>
+  </td>
+</tr>
+<tr>
+  <td class="td-center">
+    <strong><%= ExaminationBoard.human_attribute_name('summary') %></strong>
+  </td>
+  <td colspan="4" class="td-center">
+    <strong><%= examination_board.academic_activity&.summary %></strong>
   </td>
 </tr>
 <tr>
@@ -74,7 +82,7 @@
   <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
   </td>
-  <td colspan="5" class="td-center">
+  <td colspan="5">
     <% if examination_board.academic_activity %>
       <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
         <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>

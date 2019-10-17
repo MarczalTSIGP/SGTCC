@@ -8,7 +8,7 @@ module AcademicDocuments
       condition = { identifier: identifier, final_version: final_version }
 
       academic_activities.joins(:activity)
-                         .find_by(activities: condition)
+                         .find_by(academic_id: academic.id, activities: condition)
     end
 
     def proposal

@@ -3,7 +3,6 @@ class Academic < ApplicationRecord
   include Searchable
   include ProfileImage
   include DocumentFilter
-  include AcademicDocuments
 
   searchable :ra, :email, name: { unaccent: true }
 

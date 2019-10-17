@@ -372,6 +372,7 @@ pt-BR:
         username: "Usuário institucional"
         password: "Senha"
         current_password: "Senha atual"
+        summary: "Resumo"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"
         created_at: "Criado em"
@@ -429,7 +430,6 @@ pt-BR:
         <<: *commons
       academic_activity:
         title: "Título"
-        summary: "Resumo"
         complementary_files: "Arquivos complementares"
         proposal: "Proposta"
         project: "Projeto"
