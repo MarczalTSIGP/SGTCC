@@ -1,14 +1,37 @@
 <tr>
   <td><%= orientation.academic.name %></td>
   <td>
-    <span data-toggle="tooltip" title="<%= orientation.title %>">
-      <%= orientation.short_title %>
+    <span data-toggle="tooltip" title="<%= orientation.document_title %>">
+      <%= orientation.document_title %>
     </span>
   </td>
   <td><%= orientation.advisor.name_with_scholarity %></td>
   <td>
     <% orientation.supervisors.each do |supervisor| %>
       <p class="m-0"><%= supervisor.name %></p>
+    <% end %>
+  </td>
+  <td>
+    <% if orientation.final_proposal.present? %>
+      <%= link_to(orientation.final_proposal.pdf.url, target: :_blank) do %>
+        <%= AcademicActivity.human_attribute_name('proposal') %><br>
+      <% end %>
+    <% end %>
+
+    <% if orientation.final_project.present? %>
+      <%= link_to(orientation.final_project.pdf.url, target: :_blank) do %>
+        <%= AcademicActivity.human_attribute_name('project') %><br>
+      <% end %>
+    <% end %>
+
+    <% if orientation.final_monograph.present? %>
+      <%= link_to(orientation.final_monograph.pdf.url, target: :_blank) do %>
+        <%= AcademicActivity.human_attribute_name('monograph') %><br>
+      <% end %>
+
+      <%= link_to(orientation.final_monograph.complementary_files.url, target: :_blank) do %>
+        <%= AcademicActivity.human_attribute_name('complementary_files') %><br>
+      <% end %>
     <% end %>
   </td>
 </tr>

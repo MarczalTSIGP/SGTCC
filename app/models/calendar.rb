@@ -8,6 +8,7 @@ class Calendar < ApplicationRecord
 
   has_many :activities, dependent: :restrict_with_error
   has_many :orientations, dependent: :restrict_with_error
+  has_many :academic_activities, through: :activities, source: :academic_activities
 
   validates :tcc, presence: true
   validates :semester, presence: true

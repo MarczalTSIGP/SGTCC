@@ -7,6 +7,8 @@ class Orientation < ApplicationRecord
   include OrientationDocuments
   include OrientationReport
   include OrientationValidation
+  include AcademicDocuments
+  include AcademicDocumentsInfo
   include UsersToDocument
 
   searchable :status, title: { unaccent: true }, relationships: {
@@ -26,6 +28,7 @@ class Orientation < ApplicationRecord
   has_many :documents, -> { select('DISTINCT ON (documents.id) documents.*') }, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
+  has_many :academic_activities, through: :academic, source: :academic_activities
   has_many :professor_supervisors, class_name: 'Professor',
                                    foreign_key: :professor_supervisor_id,
                                    through: :orientation_supervisors,
@@ -110,8 +113,9 @@ class Orientation < ApplicationRecord
   end
 
   def self.to_json_table(orientations)
-    orientations.to_json(methods: [:short_title],
-                         include: [:academic, :supervisors,
+    orientations.to_json(methods: [:short_title, :final_proposal, :final_project, :final_monograph,
+                                   :document_title, :document_summary],
+                         include: [:supervisors, :academic,
                                    { advisor: { methods: [:name_with_scholarity] } }])
   end
 

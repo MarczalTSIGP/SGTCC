@@ -24,7 +24,7 @@ describe 'Professors::show', type: :feature do
     context 'when shows the approved orientations' do
       it 'show the tcc one orientations' do
         professor.tcc_one_approved.each do |orientation|
-          expect(page).to have_contents([orientation.short_title,
+          expect(page).to have_contents([orientation.document_title,
                                          orientation.advisor.name,
                                          orientation.academic.name])
         end
@@ -32,7 +32,7 @@ describe 'Professors::show', type: :feature do
 
       it 'show the tcc two orientations' do
         professor.tcc_two_approved.each do |orientation|
-          expect(page).to have_contents([orientation.short_title,
+          expect(page).to have_contents([orientation.document_title,
                                          orientation.advisor.name,
                                          orientation.academic.name])
         end
@@ -42,7 +42,7 @@ describe 'Professors::show', type: :feature do
     context 'when shows the in progress orientations' do
       it 'show the tcc one orientations' do
         professor.tcc_one_in_progress.each do |orientation|
-          expect(page).to have_contents([orientation.short_title,
+          expect(page).to have_contents([orientation.document_title,
                                          orientation.advisor.name,
                                          orientation.academic.name])
         end
@@ -50,7 +50,7 @@ describe 'Professors::show', type: :feature do
 
       it 'show the tcc two orientations' do
         professor.tcc_two_in_progress.each do |orientation|
-          expect(page).to have_contents([orientation.short_title,
+          expect(page).to have_contents([orientation.document_title,
                                          orientation.advisor.name,
                                          orientation.academic.name])
         end
