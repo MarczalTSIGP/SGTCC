@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Orientation::index', type: :feature do
-  describe '#index', js: true do
+describe 'Orientation::index', type: :feature, js: true do
+  describe '#index' do
     before do
       create(:page, url: 'tccs-em-andamento')
       create(:page, url: 'tccs-aprovados')
@@ -23,7 +23,7 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'shows all the approved orientations' do
-        expect(page).to have_contents([orientation.title,
+        expect(page).to have_contents([orientation.document_title,
                                        orientation.advisor.name,
                                        orientation.academic.name])
 
@@ -49,7 +49,7 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'shows all the in progress orientations' do
-        expect(page).to have_contents([orientation.short_title,
+        expect(page).to have_contents([orientation.document_title,
                                        orientation.advisor.name,
                                        orientation.academic.name])
 
