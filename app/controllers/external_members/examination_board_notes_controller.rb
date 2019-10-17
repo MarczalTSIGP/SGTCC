@@ -36,7 +36,8 @@ class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseCo
   end
 
   def examination_board_note_params
-    params.require(:examination_board_note).permit(:note, :external_member_id, :examination_board_id)
+    params.require(:examination_board_note)
+          .permit(:note, :external_member_id, :examination_board_id)
   end
 
   def can_edit_note
