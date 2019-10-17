@@ -396,6 +396,14 @@ Rails.application.routes.draw do
             to: 'examination_board_notes#update',
             as: 'examination_board_note'
 
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
+
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
           to: 'examination_boards#index',
@@ -692,6 +700,14 @@ Rails.application.routes.draw do
       patch 'examination_boards/(:id)/notes/(:note_id)',
             to: 'examination_board_notes#update',
             as: 'examination_board_note'
+
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
 
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 

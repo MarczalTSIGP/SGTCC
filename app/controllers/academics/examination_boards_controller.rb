@@ -22,7 +22,8 @@ class Academics::ExaminationBoardsController < Academics::BaseController
   def set_examination_board
     @examination_board = current_academic.examination_boards
                                          .with_relationships
-                                         .includes(examination_board_notes: [:professor])
+                                         .includes(examination_board_notes: [:professor,
+                                                                             :external_member])
                                          .find(params[:id])
   end
 end

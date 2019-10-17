@@ -6,6 +6,11 @@
     update_url: external_members_examination_board_note_path(@examination_board, @examination_board_note) %>
 <% end %>
 
+<%= provide(:appointment_file_form) do %>
+  <%= render 'external_members/examination_boards/appointment_file_form',
+    url: (@examination_board_note&.appointment_file&.url&.blank? ? external_members_examination_board_files_path(@examination_board)
+      : external_members_examination_board_file_path(@examination_board, @examination_board_note)) %>
+<% end %>
 
 <%= render 'shared/examination_boards/show',
   back_url: external_members_examination_boards_path,

@@ -7,8 +7,8 @@
       <% @examination_board.examination_board_notes.each do |examination_board_note| %>
         <% if examination_board_note.appointment_file.present? %>
           <p>
-            <strong><%= Professor.model_name.human %>:</strong>
-            <%= examination_board_note.professor.name_with_scholarity %>
+            <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
+            <%= examination_board_note.evaluator.name_with_scholarity %>
           </p>
           <p>
             <strong>

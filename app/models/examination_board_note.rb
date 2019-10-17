@@ -19,6 +19,10 @@ class ExaminationBoardNote < ApplicationRecord
     end
   end
 
+  def evaluator
+    professor || external_member
+  end
+
   private
 
   def final_note

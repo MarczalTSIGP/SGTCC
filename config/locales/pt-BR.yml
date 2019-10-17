@@ -520,6 +520,7 @@ pt-BR:
         situation: "Situação"
         <<: *commons
       examination_board_note:
+        evaluator: "Avaliador"
         note: "Nota"
         appointment_file: "Arquivo com os apontamentos"
         appointments: "Apontamentos"

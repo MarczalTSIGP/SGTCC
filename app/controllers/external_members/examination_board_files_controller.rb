@@ -1,13 +1,12 @@
-class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseController
+class ExternalMembers::ExaminationBoardFilesController < ExternalMembers::BaseController
   before_action :set_examination_board, only: [:create, :update]
   before_action :set_examination_board_note, only: :update
-  before_action :can_edit_note, only: [:create, :update]
 
   def create
     @examination_board_note = ExaminationBoardNote.new(examination_board_note_params)
 
     if @examination_board_note.save
-      feminine_success_create_message
+      success_create_message
       redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
@@ -17,7 +16,7 @@ class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseCo
 
   def update
     if @examination_board_note.update(examination_board_note_params)
-      feminine_success_update_message
+      success_update_message
       redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
@@ -36,14 +35,12 @@ class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseCo
   end
 
   def examination_board_note_params
-    params.require(:examination_board_note).permit(:note, :external_member_id, :examination_board_id)
+    params.require(:examination_board_note)
+          .permit(:appointment_file, :appointment_file_cache,
+                  :external_member_id, :examination_board_id)
   end
 
-  def can_edit_note
-    @can_edit_note = true
-    return if @examination_board.defense_minutes.blank?
-    @can_edit_note = false
-    flash[:alert] = I18n.t('flash.examination_board_note.errors.edit')
-    redirect_to external_members_examination_board_path(@examination_board)
+  def model_human
+    ExaminationBoardNote.human_attribute_name('appointment_file')
   end
 end

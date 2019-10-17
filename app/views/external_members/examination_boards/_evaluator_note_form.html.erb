@@ -6,39 +6,16 @@
     <%= @examination_board.orientation.academic.name %>
   </div>
   <div class="card-body">
-    <%= simple_form_for(@examination_board_note, url: url, html: { multipart: true }) do |f| %>
-      <div class="row form-inputs">
-        <div class="col-md-6">
-          <%= f.input :note, hint: t('hints.note.between') %>
-        </div>
-        <div class="col-md-6">
-          <%= f.label :appointment_file, class: 'font-weight-bold' %>
-          <file-input
-            name="examination_board_note[appointment_file]"
-            id="examination_board_note_appointment_file"
-            label="<%= ExaminationBoardNote.human_attribute_name('appointment_file') %>"
-            :url="<%= @examination_board_note.appointment_file.url.to_json %>"
-            :errors="<%= @examination_board_note.errors[:appointment_file] %>">
-          </file-input>
-          <%= f.hidden_field :appointment_file_cache %>
-
-          <% if @examination_board_note.appointment_file.present? %>
-            <div class="mt-4">
-              <%= link_to(@examination_board_note.appointment_file.url, target: :_blank) do %>
-                <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+    <%= simple_form_for(@examination_board_note, url: url) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :note, hint: t('hints.note.between') %>
       </div>
 
       <%= f.hidden_field :external_member_id, value: current_external_member.id %>
       <%= f.hidden_field :examination_board_id, value: @examination_board.id %>
 
       <div class="d-flex mt-4">
-        <%= f.button :submit,
-          t('views.buttons.save'),
-          class: 'btn btn-primary ml-auto' %>
+        <%= f.button :submit, t('views.buttons.save'), class: 'btn btn-primary ml-auto' %>
       </div>
     <% end %>
   </div>
