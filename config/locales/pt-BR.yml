@@ -598,6 +598,7 @@ pt-BR:
         ABANDONED: 'abandonada'
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
+        REPROVED: 'reprovada'
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'

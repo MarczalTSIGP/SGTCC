@@ -13,8 +13,9 @@ class ExaminationBoardNote < ApplicationRecord
 
   after_save do
     if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
-      examination_board.update(situation: status(final_note),
-                               final_note: final_note)
+      status = status(final_note)
+      examination_board.update(situation: status, final_note: final_note)
+      examination_board.orientation.update(status: status.to_s.upcase)
     end
   end
 
