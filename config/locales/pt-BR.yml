@@ -640,6 +640,9 @@ pt-BR:
       professors:
         requests:
           not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
+    examination_board:
+      edit:
+        defense_minutes: 'Banca de defesa não pode ser alterada, pois a Ata de Defesa já foi gerada'
     examination_board_note:
       errors:
         edit: 'Não é possível editar nota, pois a Ata de Defesa já foi gerada!'

@@ -5,7 +5,7 @@
       input_html: { data: 'selectize' },
       value_method: :id,
       label_method: :academic_with_calendar,
-      collection: Orientation.current_tcc_two.includes(:academic, :calendar).order_by_academic,
+      collection: Orientation.all.includes(:academic, :calendar).order_by_academic,
       prompt: t('prompt.select.m', name: Academic.model_name.human) %>
 
     <div class="row">
