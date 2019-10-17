@@ -596,7 +596,8 @@ RSpec.describe Orientation, type: :model do
 
     let(:orientations_json) do
       orientations.to_json(methods: orientation_methods,
-                           include: [:supervisors, :academic,
+                           include: [:academic,
+                                     { supervisors: { methods: [:name_with_scholarity] } },
                                      { advisor: { methods: [:name_with_scholarity] } }])
     end
 
@@ -641,6 +642,15 @@ RSpec.describe Orientation, type: :model do
 
     it 'returns the monograph document' do
       expect(orientation.monograph).to eq(monograph)
+    end
+  end
+
+  describe '.document_tcc_one' do
+    let(:orientation) { create(:orientation_tcc_one) }
+    let!(:document) { create(:proposal_academic_activity, academic: orientation.academic) }
+
+    it 'returns the document tcc one' do
+      expect(orientation.document_tcc_one).to eq(document)
     end
   end
 end

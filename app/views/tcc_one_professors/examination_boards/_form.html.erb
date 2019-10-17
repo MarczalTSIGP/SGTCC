@@ -1,6 +1,6 @@
 <%= simple_form_for [:tcc_one_professors, @examination_board] do |f| %>
   <div class="form-inputs">
-    <% if @examination_board&.orientation&.calendar.tcc == 'one' %>
+    <% if @examination_board&.orientation.blank? || @examination_board&.orientation&.calendar&.tcc == 'one' %>
       <%= f.input :identifier,
         as: :radio_button_tabler,
         collection: Activity.human_tcc_one_identifiers %>

@@ -22,7 +22,8 @@ class Professors::ExaminationBoardsController < Professors::BaseController
     if @examination_board.defense_minutes.present?
       render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
     elsif !@examination_board.all_evaluated?
-      render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'), status: :error }
+      render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'),
+                     status: :error }
     else
       document = @examination_board.create_defense_minutes
       render json: { message: I18n.t('json.messages.defense_minutes.success'),
