@@ -13,6 +13,7 @@
           :id="id"
           type="button"
           :class="`btn btn-outline-${colorType} btn-sm btn-block`"
+          :disabled="canGenerate"
           @click="confirmGenerate()"
         >
           Gerar Ata de Defesa
@@ -108,6 +109,14 @@ export default {
       type: String,
       required: true
     },
+
+    canGenerate: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      },
+    },
   },
 
   data() {
@@ -132,10 +141,16 @@ export default {
   methods: {
     async generate() {
       this.loading = true;
-      this.show = true;
       const response = await this.$axios.post(this.url);
-      this.documentId = response.data;
-      this.loading = false;
+
+      if (response.data.status == 'success') {
+        this.show = true;
+        this.showSuccessMessage(response.data.message);
+        this.documentId = response.data.id;
+        this.loading = false;
+      } else {
+        this.showErrorMessage(response.data.message);
+      }
     },
 
     async confirmGenerate() {

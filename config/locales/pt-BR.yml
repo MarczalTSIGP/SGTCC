@@ -640,6 +640,11 @@ pt-BR:
     messages:
       invalid_code: 'Código inválido!'
       empty_fields: 'Preencha todos os campos!'
+      defense_minutes:
+        existent: 'Ata de Defesa já foi gerada, recarregue a página'
+        not_evaluated: 'Ata de Defesa só pode ser gerada após todos os avaliadores
+          atribuírem a nota para o acadêmico!'
+        success: 'Ata de Defesa gerada com sucesso!'
       documents:
         success:
           update: 'Documento atualizado com sucesso!'

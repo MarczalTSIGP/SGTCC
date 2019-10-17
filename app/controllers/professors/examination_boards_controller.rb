@@ -19,15 +19,25 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def defense_minutes
-    return if @examination_board.defense_minutes.present?
-    document = @examination_board.create_defense_minutes
-    render json: document.id
+    if @examination_board.defense_minutes.present?
+      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
+    elsif !@examination_board.all_evaluated?
+      render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'), status: :error }
+    else
+      document = @examination_board.create_defense_minutes
+      render json: { message: I18n.t('json.messages.defense_minutes.success'),
+                     status: :success, id: document.id }
+    end
   end
 
   def non_attendance_defense_minutes
-    return if @examination_board.defense_minutes.present?
-    document = @examination_board.create_non_attendance_defense_minutes
-    render json: document.id
+    if @examination_board.defense_minutes.present?
+      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
+    else
+      document = @examination_board.create_non_attendance_defense_minutes
+      render json: { message: I18n.t('json.messages.defense_minutes.success'),
+                     status: :success, id: document.id }
+    end
   end
 
   private
