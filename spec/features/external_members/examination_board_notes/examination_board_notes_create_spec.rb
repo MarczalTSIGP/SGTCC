@@ -19,7 +19,7 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
-        submit_form('input[name="commit"]')
+        submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path external_members_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('create.f'))
@@ -28,7 +28,7 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
 
     context 'when the note is not valid' do
       it 'show errors' do
-        submit_form('input[name="commit"]')
+        submit_form('input[id="examination_board_note_button"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.examination_board_note_note')
       end
@@ -48,7 +48,7 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
-        submit_form('input[name="commit"]')
+        submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path external_members_examination_board_path(examination_board)
         expect(page).to have_flash(:warning,

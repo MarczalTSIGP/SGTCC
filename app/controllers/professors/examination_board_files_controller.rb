@@ -1,6 +1,7 @@
 class Professors::ExaminationBoardFilesController < Professors::BaseController
   before_action :set_examination_board, only: [:create, :update]
   before_action :set_examination_board_note, only: :update
+  before_action :can_edit_note, only: [:create, :update]
 
   def create
     @examination_board_note = ExaminationBoardNote.new(examination_board_note_params)
@@ -42,5 +43,11 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
 
   def model_human
     ExaminationBoardNote.human_attribute_name('appointment_file')
+  end
+
+  def can_edit_note
+    @can_edit_note = true
+    return if @examination_board.defense_minutes.blank?
+    @can_edit_note = false
   end
 end

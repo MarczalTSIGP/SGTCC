@@ -35,9 +35,10 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
 
     context 'when generates the non attendance defense minutes' do
       it 'shows the view defense minutes button' do
-        find('#generate_defense_minutes').click
+        find('#generate_non_attendance_defense_minutes').click
         first('.swal-button--danger').click
         sleep 2.seconds
+        first('.swal-button--confirm').click
         find('#view_defense_minutes').click
         document = Document.first
         examination_board.reload
