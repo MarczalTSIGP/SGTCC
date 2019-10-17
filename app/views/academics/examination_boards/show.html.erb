@@ -1,4 +1,6 @@
-<% if @examination_board.examination_board_notes.present? %>
+<%= render 'academics/examination_boards/evaluated_status' %>
+
+<% if @examination_board.appointments? %>
   <%= render 'academics/examination_boards/appointment_files' %>
 <% end %>
 

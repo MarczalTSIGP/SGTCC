@@ -22,15 +22,11 @@ class ExaminationBoard < ApplicationRecord
   has_many :examination_board_attendees, dependent: :delete_all
   has_many :examination_board_notes, dependent: :delete_all
 
-  has_many :professors, class_name: 'Professor',
-                        foreign_key: :professor_id,
-                        through: :examination_board_attendees,
-                        dependent: :destroy
+  has_many :professors, class_name: 'Professor', foreign_key: :professor_id,
+                        through: :examination_board_attendees, dependent: :destroy
 
-  has_many :external_members, class_name: 'ExternalMember',
-                              foreign_key: :external_member_id,
-                              through: :examination_board_attendees,
-                              dependent: :destroy
+  has_many :external_members, class_name: 'ExternalMember', foreign_key: :external_member_id,
+                              through: :examination_board_attendees, dependent: :destroy
 
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
@@ -39,8 +35,7 @@ class ExaminationBoard < ApplicationRecord
   scope :recent, -> { order(:date) }
 
   scope :with_relationships, lambda {
-    includes(external_members: [:scholarity],
-             professors: [:scholarity],
+    includes(external_members: [:scholarity], professors: [:scholarity],
              orientation: [:academic, :calendar, advisor: [:scholarity]])
   }
 
@@ -79,10 +74,8 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def examination_board_data
-    { id: id, evaluators: evaluators_object,
-      document_title: academic_document_title,
-      date: I18n.l(date, format: :document),
-      time: I18n.l(date, format: :time),
+    { id: id, evaluators: evaluators_object, document_title: academic_document_title,
+      date: I18n.l(date, format: :document), time: I18n.l(date, format: :time),
       situation: situation_translated }
   end
 
@@ -112,10 +105,22 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def all_evaluated?
-    examination_board_notes.size == evaluators_number
+    examination_board_notes.size == evaluators_number || final_note.present?
   end
 
   def situation_translated
     I18n.t("enums.situation.#{situation}")
+  end
+
+  def appointments?
+    examination_board_notes.where.not(appointment_file: nil).present?
+  end
+
+  def evaluators_size(advisor_size: 1)
+    advisor_size + professors.size + external_members.size
+  end
+
+  def number_to_evaluate
+    evaluators_size - examination_board_notes.size
   end
 end

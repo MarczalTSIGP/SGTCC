@@ -23,11 +23,6 @@ module ExaminationBoardDefenseMinutes
       (Time.current <= document_available_until)
     end
 
-    def all_evaluated?(advisor_size: 1)
-      evaluators_size = advisor_size + professors.size + external_members.size
-      examination_board_notes.size == evaluators_size
-    end
-
     def defense_minutes
       document_type = DocumentType.find_by(identifier: minutes_type)
       return if document_type.blank?

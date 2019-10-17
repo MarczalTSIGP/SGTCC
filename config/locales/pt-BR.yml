@@ -16,6 +16,11 @@ pt-BR:
       zip: 'Arquivo no formato .zip'
     note:
       between: 'O valor da nota deve ser entre 1-100'
+  messages:
+    examination_board:
+      evaluated_status:
+        one: "Faltam %{number} professor para avaliar."
+        other: "Faltam %{number} professores para avaliarem."
   titles:
     show: "Visualizar"
     edit: "Editar"
@@ -517,6 +522,7 @@ pt-BR:
       examination_board_note:
         note: "Nota"
         appointment_file: "Arquivo com os apontamentos"
+        appointments: "Apontamentos"
       site:
         <<: *commons
       page:
