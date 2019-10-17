@@ -28,7 +28,7 @@
 
       {{ orientation.academic.name }} (acadêmico)<br>
 
-      {{ orientation.advisor.name }} (orientador) <br>
+      {{ orientation.advisor.name_with_scholarity }} (orientador) <br>
 
       <span v-if="orientation.supervisors.length > 0">
         {{ supervisorsFormatted(orientation) }} (coorientadores)<br>
@@ -69,7 +69,7 @@ export default {
   methods: {
     supervisorsFormatted(orientation) {
       return orientation.supervisors.map((supervisor) => {
-        return supervisor.name;
+        return supervisor.name_with_scholarity;
       }).join(', ');
     },
 

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="show"
-    class="border border-danger rounded p-4"
+    class="border border-primary rounded p-4"
   >
     <div class="float-left">
       <strong>Salvar documento em PDF</strong>
@@ -10,7 +10,7 @@
 
     <button
       id="signature_download_button"
-      class="btn btn-outline-danger float-right mb-2"
+      class="btn btn-outline-primary float-right mb-2"
       @click="downloadPdf()"
     >
       Salvar em PDF

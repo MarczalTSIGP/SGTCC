@@ -46,10 +46,11 @@ class SiteController < ApplicationController
   end
 
   def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
-    data = { tcc_one: { first_semester: Orientation.tcc_one(status, year, 'one'),
-                        second_semester: Orientation.tcc_one(status, year, 'two') },
-             tcc_two: { first_semester: Orientation.tcc_two(status, year, 'one'),
-                        second_semester: Orientation.tcc_two(status, year, 'two') } }
+    tcc_one = { first_semester: orientations_data(Orientation.tcc_one(status, year, 'one')),
+                second_semester: orientations_data(Orientation.tcc_one(status, year, 'two')) }
+    tcc_two = { first_semester: orientations_data(Orientation.tcc_two(status, year, 'one')),
+                second_semester: orientations_data(Orientation.tcc_two(status, year, 'two')) }
+    data = { tcc_one: tcc_one, tcc_two: tcc_two }
     render json: Orientation.to_json_table(data)
   end
 
@@ -86,6 +87,12 @@ class SiteController < ApplicationController
                   orientation: [:academic, :orientation_supervisors, :professor_supervisors,
                                 :external_member_supervisors, advisor: [:scholarity]])
         .recent
+  end
+
+  def orientations_data(data)
+    data.includes(:academic, :calendar, :documents,
+                  :orientation_supervisors, :external_member_supervisors,
+                  :professor_supervisors, :advisor)
   end
 
   def set_professor
