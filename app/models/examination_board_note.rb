@@ -3,7 +3,7 @@ class ExaminationBoardNote < ApplicationRecord
   belongs_to :professor, optional: true
   belongs_to :external_member, optional: true
 
-  mount_uploader :appointment_file, FileUploader
+  mount_uploader :appointment_file, AppointmentFileUploader
 
   validates :note,
             presence: true,
@@ -23,7 +23,20 @@ class ExaminationBoardNote < ApplicationRecord
     professor || external_member
   end
 
+  def appointment_filename(orientation: examination_board.orientation)
+    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    identifier = I18n.t("enums.tcc.identifiers.#{examination_board.identifier}")
+    academic_initials = name_initials(orientation.academic.name)
+    evaluator_initials = name_initials(evaluator.name)
+    "GP_COINT_#{calendar}_#{identifier}_#{academic_initials}_APONTAMENTOS_#{evaluator_initials}"
+      .upcase
+  end
+
   private
+
+  def name_initials(complete_name)
+    complete_name.split.map { |name| name[0, 1] }.join
+  end
 
   def final_note
     examination_board.examination_board_notes.sum(&:note) / evaluators_number
