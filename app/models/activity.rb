@@ -32,6 +32,10 @@ class Activity < ApplicationRecord
     AcademicActivity.find_by(activity: id, academic: orientation.academic)
   end
 
+  def find_academic_activity_by_academic(academic)
+    academic_activities.find_by(academic: academic)
+  end
+
   def identifier_translated
     I18n.t("enums.activity.identifiers.#{identifier}")
   end

@@ -3,6 +3,24 @@
   <td><%= activity.base_activity_type.name %></td>
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= activity.deadline %></td>
+  <% if activity.find_academic_activity_by_academic(current_academic).present? %>
+    <td>
+      <%= t("helpers.boolean.#{activity.find_academic_activity_by_academic(current_academic).judgment}") %>
+    </td>
+    <td>
+      <%= t("helpers.boolean.true") %>
+    </td>
+  <% elsif activity.base_activity_type.info? %>
+    <td>-</td>
+    <td>-</td>
+  <% else %>
+    <td>
+      <%= t("helpers.boolean.false") %>
+    </td>
+    <td>
+      <%= t("helpers.boolean.false") %>
+    </td>
+  <% end %>
   <td>
     <%= link_to(academics_calendar_activity_path(@calendar, activity)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
