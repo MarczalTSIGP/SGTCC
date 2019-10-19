@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-header">
+    <strong>
+      <%= t("views.title.academic_situation.#{@examination_board.orientation.academic.gender}") %>:
+    </strong>
+    <span class="ml-1">
+      <%= @examination_board.orientation.academic.name %>
+    </span>
+  </div>
+  <div class="card-body">
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('final_note') %>:
+      </strong>
+      <%= @examination_board.final_note %>
+    </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('status') %>:
+      </strong>
+      <%= @examination_board.situation_translated %>
+    </p>
+  </div>
+</div>

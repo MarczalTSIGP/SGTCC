@@ -1,7 +1,9 @@
 class ExaminationBoard < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::DateHelper
+  include ExaminationBoardDefenseMinutes
   include UsersToDocument
+  include SituationEnum
   include TccIdentifier
   include Searchable
   include Tcc
@@ -18,16 +20,13 @@ class ExaminationBoard < ApplicationRecord
   validates :document_available_until, presence: true
 
   has_many :examination_board_attendees, dependent: :delete_all
+  has_many :examination_board_notes, dependent: :delete_all
 
-  has_many :professors, class_name: 'Professor',
-                        foreign_key: :professor_id,
-                        through: :examination_board_attendees,
-                        dependent: :destroy
+  has_many :professors, class_name: 'Professor', foreign_key: :professor_id,
+                        through: :examination_board_attendees, dependent: :destroy
 
-  has_many :external_members, class_name: 'ExternalMember',
-                              foreign_key: :external_member_id,
-                              through: :examination_board_attendees,
-                              dependent: :destroy
+  has_many :external_members, class_name: 'ExternalMember', foreign_key: :external_member_id,
+                              through: :examination_board_attendees, dependent: :destroy
 
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
@@ -36,8 +35,7 @@ class ExaminationBoard < ApplicationRecord
   scope :recent, -> { order(:date) }
 
   scope :with_relationships, lambda {
-    includes(external_members: [:scholarity],
-             professors: [:scholarity],
+    includes(external_members: [:scholarity], professors: [:scholarity],
              orientation: [:academic, :calendar, advisor: [:scholarity]])
   }
 
@@ -75,25 +73,54 @@ class ExaminationBoard < ApplicationRecord
     academic_activity&.title
   end
 
-  def create_defense_minutes
-    examination_board_data = { id: id, evaluators: evaluators_object,
-                               document_title: academic_document_title,
-                               date: I18n.l(date, format: :document),
-                               time: I18n.l(date, format: :time) }
-
-    data_params = { orientation_id: orientation.id,
-                    examination_board: examination_board_data }
-
-    DocumentType.find_by(identifier: minutes_type).documents.create!(data_params)
+  def examination_board_data
+    { id: id, evaluators: evaluators_object, document_title: academic_document_title,
+      date: I18n.l(date, format: :document), time: I18n.l(date, format: :time),
+      situation: situation_translated }
   end
 
-  def available_defense_minutes?
-    (Time.current <= document_available_until)
+  def find_note_by_professor(professor)
+    examination_board_notes.find_by(professor_id: professor.id)
   end
 
-  def defense_minutes
-    document_type = DocumentType.find_by(identifier: minutes_type)
-    orientation.documents.where(document_type_id: document_type.id)
-               .find_by("content -> 'examination_board' ->> 'id' = ?", id.to_s)
+  def find_note_by_external_member(external_member)
+    examination_board_notes.find_by(external_member_id: external_member.id)
+  end
+
+  def advisor?(professor)
+    orientation.advisor.id == professor.id
+  end
+
+  def professor_evaluator?(professor)
+    professors.find_by(id: professor.id).present? || advisor?(professor)
+  end
+
+  def external_member_evaluator?(external_member)
+    external_members.find_by(id: external_member.id).present?
+  end
+
+  def evaluators_number
+    advisor = 1
+    professors.size + external_members.size + advisor
+  end
+
+  def all_evaluated?
+    examination_board_notes.size == evaluators_number || final_note.present?
+  end
+
+  def situation_translated
+    I18n.t("enums.situation.#{situation}")
+  end
+
+  def appointments?
+    examination_board_notes.where.not(appointment_file: nil).present?
+  end
+
+  def evaluators_size(advisor_size: 1)
+    advisor_size + professors.size + external_members.size
+  end
+
+  def number_to_evaluate
+    evaluators_size - examination_board_notes.size
   end
 end

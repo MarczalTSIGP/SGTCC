@@ -7,6 +7,7 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
 
   before do
     create(:document_type_adpp)
+    examination_board.professors << professor
     login_as(professor, scope: :professor)
     visit professors_examination_board_path(examination_board)
   end
@@ -32,17 +33,21 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
       end
     end
 
-    context 'when generates the defense minutes' do
+    context 'when generates the non attendance defense minutes' do
       it 'shows the view defense minutes button' do
-        find('#generate_defense_minutes').click
+        find('#generate_non_attendance_defense_minutes').click
+        first('.swal-button--danger').click
         sleep 2.seconds
+        first('.swal-button--confirm').click
         find('#view_defense_minutes').click
         document = Document.first
+        examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,
                                        orientation.academic.name,
                                        orientation.advisor.name_with_scholarity,
                                        document_date(examination_board.date),
-                                       document_date(document.created_at)])
+                                       document_date(document.created_at),
+                                       examination_board.situation_translated])
 
         orientation.supervisors do |supervisor|
           expect(page).to have_content(supervisor.name_with_scholarity)
@@ -51,6 +56,25 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
         examination_board.professors do |professor|
           expect(page).to have_content(professor.name_with_scholarity)
         end
+      end
+    end
+
+    context 'when shows the academic activity' do
+      let(:academic) { orientation.academic }
+      let(:academic_activity) { examination_board.academic_activity }
+
+      before do
+        create(:proposal_academic_activity, academic: academic)
+        visit professors_examination_board_path(examination_board)
+      end
+
+      it 'shows the academic activity' do
+        expect(page).to have_contents([academic.name,
+                                       academic_activity.title,
+                                       academic_activity.summary])
+
+        expect(page).to have_selectors([link(academic_activity.pdf.url),
+                                        link(academic_activity.complementary_files.url)])
       end
     end
   end

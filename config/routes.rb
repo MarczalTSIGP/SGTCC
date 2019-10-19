@@ -364,6 +364,14 @@ Rails.application.routes.draw do
           to: 'supervision_activities#show',
           as: 'supervision_activity'
 
+      get 'supervisions/examination_boards',
+          to: 'supervision_examination_boards#index',
+          as: 'supervision_examination_boards'
+
+      get 'supervisions/examination_boards/(:id)',
+          to: 'supervision_examination_boards#show',
+          as: 'supervision_examination_board'
+
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
           as: 'calendar_activities'
@@ -372,9 +380,29 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
-      post 'examination_boards/(:id)/minutes',
-           to: 'examination_boards#minutes',
-           as: 'examination_board_minutes'
+      post 'examination_boards/(:id)/defense_minutes',
+           to: 'examination_boards#defense_minutes',
+           as: 'examination_board_defense_minutes'
+
+      post 'examination_boards/(:id)/non_attendance_defense_minutes',
+           to: 'examination_boards#non_attendance_defense_minutes',
+           as: 'examination_board_non_attendance_defense_minutes'
+
+      post 'examination_boards/(:id)/notes',
+           to: 'examination_board_notes#create',
+           as: 'examination_board_notes'
+
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
+
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
 
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -664,6 +692,22 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      post 'examination_boards/(:id)/notes',
+           to: 'examination_board_notes#create',
+           as: 'examination_board_notes'
+
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
+
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
 
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 

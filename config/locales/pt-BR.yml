@@ -14,6 +14,13 @@ pt-BR:
     file:
       pdf: 'Arquivo no formato pdf'
       zip: 'Arquivo no formato .zip'
+    note:
+      between: 'O valor da nota deve ser entre 1-100'
+  messages:
+    examination_board:
+      evaluated_status:
+        one: "Faltam %{number} professor para avaliar."
+        other: "Faltam %{number} professores para avaliarem."
   titles:
     show: "Visualizar"
     edit: "Editar"
@@ -28,6 +35,12 @@ pt-BR:
         tcc:
           one: "Calendário de Atividades de TCC 1 (%{calendar})"
           two: "Calendário de Atividades de TCC 2 (%{calendar})"
+      notes:
+        male: 'Avaliação do acadêmico'
+        female: 'Avaliação da acadêmica'
+      academic_situation:
+        male: 'Situação do acadêmico'
+        female: 'Situação da acadêmica'
     tabs:
       tcc:
         one: 'TCC 1'
@@ -54,6 +67,8 @@ pt-BR:
         abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
+      defense_minutes:
+        view: 'Visualizar Ata de Defesa'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -350,6 +365,9 @@ pt-BR:
       examination_board:
         one: "Banca de defesa"
         other: "Bancas de defesa"
+      examination_board_note:
+        one: "Nota da banca de defesa"
+        other: "Notas da banca de defesa"
       site:
         one: "Site"
       page:
@@ -380,7 +398,7 @@ pt-BR:
         working_area: "Área de atuação"
         is_active: "Ativo no sistema"
         scholarity: "Escolaridade"
-        base_activity_type: "Tipo"
+        base_activity_type: "Tipo da atividade"
         academic: "Acadêmico"
         advisor: "Orientador"
         role: "Papel"
@@ -390,6 +408,7 @@ pt-BR:
         orientation: "Orientação"
         date: "Data"
         orientation_supervisors: "Coorientadores"
+        supervisors: "Coorientadores"
         documents: "Documentos"
         hour: "Hora"
         available: "Disponível"
@@ -479,6 +498,7 @@ pt-BR:
         document_type: "Tipo do documento"
         professor_supervisor_ids: "Novos Coorientadores da UTFPR"
         external_member_supervisor_ids: "Novos Coorientadores externos"
+        all_signed: "Todos assinaram"
         <<: *commons
       meeting:
         content: "Conteúdo"
@@ -490,13 +510,20 @@ pt-BR:
         external_members: "Membros externos"
         external_member_evaluators: "Membros externos (Avaliadores)"
         utfpr_members: "Membros da UTFPR"
-        utfpr_evaluators: "Membros da UTFPR (Avaliadores)"
+        utfpr_evaluators: "Professores da UTFPR (Avaliadores)"
         orientation: "Orientação"
         evaluators: "Avaliadores"
         place: "Local"
         identifier: "Tipo"
         document_available_until: "Data e hora limite para assinar a ata de defesa"
+        final_note: "Nota final"
+        situation: "Situação"
         <<: *commons
+      examination_board_note:
+        evaluator: "Avaliador"
+        note: "Nota"
+        appointment_file: "Arquivo com os apontamentos"
+        appointments: "Apontamentos"
       site:
         <<: *commons
       page:
@@ -541,6 +568,11 @@ pt-BR:
         proposal: 'Proposta'
         project: 'Projeto'
         monograph: 'Monografia'
+    situation:
+      approved: 'Aprovado'
+      reproved: 'Reprovado'
+      not_appear: 'Não compareceu'
+      under_evaluation: 'Sob avaliação'
     semesters:
       first: '1º'
       second: '2º'
@@ -567,6 +599,7 @@ pt-BR:
         ABANDONED: 'abandonada'
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
+        REPROVED: 'reprovada'
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
@@ -608,10 +641,21 @@ pt-BR:
       professors:
         requests:
           not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
+    examination_board:
+      edit:
+        defense_minutes: 'Banca de defesa não pode ser alterada, pois a Ata de Defesa já foi gerada'
+    examination_board_note:
+      errors:
+        edit: 'Não é possível editar nota, pois a Ata de Defesa já foi gerada!'
   json:
     messages:
       invalid_code: 'Código inválido!'
       empty_fields: 'Preencha todos os campos!'
+      defense_minutes:
+        existent: 'Ata de Defesa já foi gerada, recarregue a página'
+        not_evaluated: 'Ata de Defesa só pode ser gerada após todos os avaliadores
+          atribuírem a nota para o acadêmico!'
+        success: 'Ata de Defesa gerada com sucesso!'
       documents:
         success:
           update: 'Documento atualizado com sucesso!'
@@ -700,9 +744,9 @@ pt-BR:
       TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
       TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
       TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
-      ADPP: 'Ata de Defesa de Proposta Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
-      ADPJ: 'Ata de Defesa de Projeto Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
-      ADMG: 'Ata de Defesa de Monografia Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet'
+      ADPP: 'Ata de Defesa de Proposta Trabalho de Conclusão de Curso'
+      ADPJ: 'Ata de Defesa de Projeto Trabalho de Conclusão de Curso'
+      ADMG: 'Ata de Defesa de Monografia Trabalho de Conclusão de Curso'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'

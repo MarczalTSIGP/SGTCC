@@ -32,7 +32,9 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   private
 
   def set_document
-    @document = current_external_member.documents.find_by(id: params[:id])
+    id = params[:id]
+    @document = current_external_member.documents.find_by(id: id)
+    @document = current_external_member.all_documents.find_by(id: id) if @document.blank?
   end
 
   def set_signature

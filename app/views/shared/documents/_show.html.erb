@@ -3,36 +3,32 @@
   <signature-show-title />
 <% end %>
 
-<div class="clearfix mb-4">
-  <div class="float-right ml-2">
-    <signature-download-button
-      head-title="<%= t('breadcrumbs.documents.show') %>"
-      document-title="<%= @document.filename %>" />
-  </div>
-
-  <% unless @signature&.status || @not_show_sign_button %>
-    <div>
-      <signature-confirm
-        label="<%= label %>"
-        url="<%= confirm_url %>" />
-    </div>
-
-    <div class="float-right">
-      <signature-button
-        show-title="<%= t('breadcrumbs.signatures.TCO.show',
-                           academic: @document.orientation.academic.name) %>" />
-    </div>
-  <% end %>
-</div>
-
 <div class="container">
   <div>
     <%= render 'shared/documents/component', document: @document %>
   </div>
-  <div>
-    <signature-status
-      url="<%= document_status_path(@document) %>" />
+
+  <div class="mb-4">
+    <% unless @signature&.status || @not_show_sign_button %>
+      <signature-confirm
+        label="<%= label %>"
+        url="<%= confirm_url %>">
+      </signature-confirm>
+
+      <signature-button
+        show-title="<%= t('breadcrumbs.signatures.TCO.show',
+                          academic: @document.orientation.academic.name) %>">
+      </signature-button>
+    <% end %>
+
+    <signature-download-button
+      head-title="<%= t('breadcrumbs.documents.show') %>"
+      document-title="<%= @document.filename %>">
+    </signature-download-button>
   </div>
+
+  <signature-status url="<%= document_status_path(@document) %>">
+  </signature-status>
 </div>
 
 <div class="d-flex">

@@ -1,4 +1,20 @@
-<%= render 'shared/examination_boards/generate_defense_minutes' %>
+<%= provide(:generate_defense_minutes) do %>
+  <%= render 'shared/examination_boards/generate_defense_minutes' %>
+<% end %>
+
+<%= provide(:appointment_file_form) do %>
+  <%= render 'professors/examination_boards/appointment_file_form',
+    url: (@examination_board_note&.appointment_file&.url&.blank? ? professors_examination_board_files_path(@examination_board)
+      : professors_examination_board_file_path(@examination_board, @examination_board_note)) %>
+<% end %>
+
+<% if @can_edit_note %>
+  <%= render 'shared/examination_boards/evaluator_note_form',
+    namespace: 'professors',
+    evaluator: @examination_board.professor_evaluator?(current_professor),
+    create_url: professors_examination_board_notes_path(@examination_board),
+    update_url: professors_examination_board_note_path(@examination_board, @examination_board_note) %>
+<% end %>
 
 <%= render 'shared/examination_boards/show',
   back_url: professors_examination_boards_path,

@@ -4,10 +4,11 @@ import Datetimepicker from '../components/shared/datetimepicker';
 import DefenseMinutes from '../components/signatures/documents/defense-minutes';
 import DocumentStatus from '../components/signatures/document-status';
 import FileInput from '../components/shared/file-input';
-import GenerateDefenseMinutes from '../components/signatures/generate-defense-minutes';
 import ExaminationBoardStatus from '../components/examination-boards/examination-board-status';
 import FlashMessages from '../components/shared/flash-messages';
 import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
+import GenerateDefenseMinutes from '../components/examination-boards/generate-defense-minutes';
+import GenerateNonAttendanceDefenseMinutes from '../components/examination-boards/generate-non-attendance-defense-minutes';
 import ImagePreview from '../components/shared/image-preview';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
@@ -44,10 +45,11 @@ const components = {
   DefenseMinutes,
   DocumentStatus,
   FileInput,
-  GenerateDefenseMinutes,
   ExaminationBoardStatus,
   FlashMessages,
   FontawesomePicker,
+  GenerateDefenseMinutes,
+  GenerateNonAttendanceDefenseMinutes,
   ImagePreview,
   MeetingView,
   OrientationsApprovedPage,

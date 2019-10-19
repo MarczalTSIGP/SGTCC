@@ -54,9 +54,11 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
+    it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
     it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
+    it { is_expected.to have_many(:supervision_examination_boards).through(:supervisions) }
   end
 
   describe '#human_genders' do
@@ -358,6 +360,16 @@ RSpec.describe Professor, type: :model do
 
     it 'returns the temporary professors' do
       expect(Professor.temporary).to eq([professor])
+    end
+  end
+
+  describe '#current_semester_supervision_examination_boards' do
+    let(:examination_board) { create(:examination_board) }
+    let(:professor) { examination_board.professors.first }
+
+    it 'returns the supervision by current semester' do
+      supervisions = professor.supervision_examination_boards.current_semester.with_relationships
+      expect(professor.current_semester_supervision_examination_boards).to eq(supervisions)
     end
   end
 end

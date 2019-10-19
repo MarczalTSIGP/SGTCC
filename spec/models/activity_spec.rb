@@ -125,4 +125,14 @@ RSpec.describe Activity, type: :model do
       end
     end
   end
+
+  describe '.find_academic_activity_by_academic' do
+    !let(:academic_activity) { create(:academic_activity) }
+
+    it 'returns the academic activity' do
+      activity = academic_activity.activity
+      academic = academic_activity.academic
+      expect(activity.find_academic_activity_by_academic(academic)).to eq(academic_activity)
+    end
+  end
 end

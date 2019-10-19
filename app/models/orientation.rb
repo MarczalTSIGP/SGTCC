@@ -115,7 +115,7 @@ class Orientation < ApplicationRecord
   def self.to_json_table(orientations)
     orientations.to_json(methods: [:short_title, :final_proposal, :final_project, :final_monograph,
                                    :document_title, :document_summary],
-                         include: [:supervisors, :academic,
+                         include: [:academic, { supervisors: { methods: [:name_with_scholarity] } },
                                    { advisor: { methods: [:name_with_scholarity] } }])
   end
 

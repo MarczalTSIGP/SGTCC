@@ -31,7 +31,8 @@ module TermJsonData
       return if examination_board.blank?
       { id: examination_board[:id], evaluators: examination_board[:evaluators],
         document_title: examination_board[:document_title],
-        date: examination_board[:date], time: examination_board[:time] }
+        date: examination_board[:date], time: examination_board[:time],
+        situation: examination_board[:situation] }
     end
   end
 end
