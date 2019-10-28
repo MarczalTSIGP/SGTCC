@@ -1,0 +1,9 @@
+<%= simple_form_for(@site, url: responsible_site_path) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :title %>
+  </div>
+
+  <div class="d-flex">
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

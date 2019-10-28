@@ -1,3 +1,7 @@
+.custom-file-input ~ .custom-file-label::after {
+  content: "Procurar";
+}
+
 @media (max-width: 767px) {
   #select-activity-calendar {
     margin-top: 10px;

@@ -1,0 +1,8 @@
+<tr>
+  <%= render 'shared/orientation_activities/tbody', activity: activity %>
+  <td>
+    <%= link_to(professors_orientation_activity_path(@orientation, activity)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
+    <% end %>
+  </td>
+</tr>

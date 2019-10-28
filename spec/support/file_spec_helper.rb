@@ -8,6 +8,10 @@ module FileSpecHelper
       File.open(Dir[path_to('images')].sample)
     end
 
+    def zip
+      File.open(Dir[path_to('zips')].sample)
+    end
+
     private
 
     def path_to(folder)

@@ -21,6 +21,7 @@ RSpec.describe Academic, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:examination_boards).through(:orientations) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:academic_activities).dependent(:delete_all) }
   end
 
   describe '#human_genders' do

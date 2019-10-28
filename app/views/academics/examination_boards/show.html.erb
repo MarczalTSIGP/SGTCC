@@ -1,1 +1,9 @@
-<%= render 'shared/examination_boards/show', back_url: academics_examination_boards_path %>
+<%= render 'academics/examination_boards/evaluated_status' %>
+
+<% if @examination_board.appointments? %>
+  <%= render 'academics/examination_boards/appointment_files' %>
+<% end %>
+
+<%= render 'shared/examination_boards/show',
+  back_url: academics_examination_boards_path,
+  resource: 'academics' %>

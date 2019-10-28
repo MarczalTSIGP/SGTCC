@@ -34,6 +34,7 @@ RSpec.describe ExternalMember, type: :model do
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
     it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
+    it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(em_fk) }
     it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
@@ -170,6 +171,28 @@ RSpec.describe ExternalMember, type: :model do
     it 'is equal name with scholarity' do
       name_with_scholarity = "#{external_member.scholarity.abbr} #{external_member.name}"
       expect(external_member.name_with_scholarity).to eq(name_with_scholarity)
+    end
+  end
+
+  describe '#current_examination_boards' do
+    let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
+    let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
+    let(:external_member) { orientation_tcc_one.external_member_supervisors.first }
+
+    let(:examination_board_tcc_two) do
+      create(:examination_board_tcc_two, orientation: orientation_tcc_two)
+    end
+
+    before do
+      create(:examination_board_tcc_one, orientation: orientation_tcc_one)
+      examination_board_tcc_two.external_members << external_member
+    end
+
+    it 'returns the current examination_boards' do
+      examination_boards = (external_member.examination_boards.current_semester +
+                            external_member.supervision_examination_boards.current_semester)
+      expect(external_member.current_examination_boards).to match_array(examination_boards)
+      expect(external_member.current_examination_boards.count).to eq(2)
     end
   end
 end

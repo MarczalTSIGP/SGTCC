@@ -1,5 +1,6 @@
 class BaseActivity < ApplicationRecord
   include Searchable
+  include TccIdentifier
   include Tcc
 
   searchable name: { unaccent: true }, relationships: {
@@ -10,6 +11,7 @@ class BaseActivity < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :tcc, presence: true
+  validates :identifier, presence: true
 
   def self.by_tcc(type, term)
     search(term).order(:name)

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
-  root to: 'home#index'
+  root to: 'site#index'
 
   get 'documents/images',
       to: 'documents#images',
@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   post 'documents/(:id)/code', to: 'documents#code', as: 'document_code'
   post 'documents/(:id)/data', to: 'documents#data', as: 'document_data'
   post 'documents/(:id)/request', to: 'documents#request_data', as: 'document_request'
+
+  post '/sidebar', to: 'site#sidebar', as: 'site_sidebar'
 
   #========================================
   # Responsible
@@ -79,6 +81,24 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
+      resources :site,
+                only: [:edit, :update],
+                constraints: { id: /[0-9]+/ }
+
+      resources :pages,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      resources :images,
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
+      resources :attached_documents,
+                except: :show,
+                constraints: { id: /[0-9]+/ },
+                concerns: :paginatable
+
       get 'examination_boards/tcc_one',
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
@@ -112,6 +132,9 @@ Rails.application.routes.draw do
 
       get 'reports', to: 'dashboard#report', as: 'reports'
 
+      get 'site/pages/order', to: 'pages#order', as: 'pages_order'
+      put 'site/sidebar/update', to: 'pages#update_order', as: 'update_sidebar'
+
       get 'professors/available',
           to: 'professors#available',
           as: 'professors_available'
@@ -138,6 +161,14 @@ Rails.application.routes.draw do
       get 'orientations/(:id)/documents/(:document_id)',
           to: 'orientations#document',
           as: 'orientation_document'
+
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
 
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -228,6 +259,21 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^\/]+} },
           to: 'professors#tcc_two',
           as: 'professor_orientations_search_tcc_two'
+
+      get 'pages/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'pages#index',
+          as: 'pages_search'
+
+      get 'attached_documents/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'attached_documents#index',
+          as: 'attached_documents_search'
+
+      get 'images/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^\/]+} },
+          to: 'images#index',
+          as: 'images_search'
     end
 
     namespace :professors do
@@ -269,6 +315,18 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
+      get 'orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'orientation_activities'
+
+      get 'orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'orientation_activity'
+
+      patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+            to: 'orientation_activities#update_judgment',
+            as: 'orientation_activity_update_judgment'
+
       get 'orientations/tcc_one', to: 'orientations#tcc_one', as: 'orientations_tcc_one'
       get 'orientations/tcc_two', to: 'orientations#tcc_two', as: 'orientations_tcc_two'
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
@@ -298,6 +356,22 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
+      get 'supervisions/(:id)/activities',
+          to: 'supervision_activities#index',
+          as: 'supervision_activities'
+
+      get 'supervisions/(:id)/activities/(:activity_id)',
+          to: 'supervision_activities#show',
+          as: 'supervision_activity'
+
+      get 'supervisions/examination_boards',
+          to: 'supervision_examination_boards#index',
+          as: 'supervision_examination_boards'
+
+      get 'supervisions/examination_boards/(:id)',
+          to: 'supervision_examination_boards#show',
+          as: 'supervision_examination_board'
+
       get 'calendars/:calendar_id/activities',
           to: 'activities#index',
           as: 'calendar_activities'
@@ -305,6 +379,30 @@ Rails.application.routes.draw do
       get 'calendars/:calendar_id/activities/:id',
           to: 'activities#show',
           as: 'calendar_activity'
+
+      post 'examination_boards/(:id)/defense_minutes',
+           to: 'examination_boards#defense_minutes',
+           as: 'examination_board_defense_minutes'
+
+      post 'examination_boards/(:id)/non_attendance_defense_minutes',
+           to: 'examination_boards#non_attendance_defense_minutes',
+           as: 'examination_board_non_attendance_defense_minutes'
+
+      post 'examination_boards/(:id)/notes',
+           to: 'examination_board_notes#create',
+           as: 'examination_board_notes'
+
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
+
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
 
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -384,6 +482,14 @@ Rails.application.routes.draw do
       get 'calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
           to: 'orientations#document',
           as: 'calendar_orientation_document'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'calendar_orientation_activities'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'calendar_orientation_activity'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
@@ -486,7 +592,9 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      put 'meetings/(:id)/update_viewed', to: 'meetings#update_viewed', as: 'meeting_update_viewed'
+      patch 'meetings/(:id)/update_viewed',
+            to: 'meetings#update_viewed',
+            as: 'meeting_update_viewed'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
@@ -499,6 +607,14 @@ Rails.application.routes.draw do
           to: 'activities#index',
           as: 'calendar_activities'
 
+      post '/calendars/(:calendar_id)/activities/(:id)',
+           to: 'activities#create',
+           as: 'calendar_activity_files'
+
+      patch '/calendars/(:calendar_id)/activities/(:id)',
+            to: 'activities#update',
+            as: 'calendar_activity_file'
+
       get '/calendars/(:calendar_id)/activities/(:id)',
           to: 'activities#show',
           as: 'calendar_activity'
@@ -510,6 +626,14 @@ Rails.application.routes.draw do
       get '/calendars/(:calendar_id)/orientations/(:id)/documents/(:document_id)',
           to: 'orientations#document',
           as: 'calendar_orientation_document'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+          to: 'orientation_activities#index',
+          as: 'calendar_orientation_activities'
+
+      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+          to: 'orientation_activities#show',
+          as: 'calendar_orientation_activity'
 
       get 'examination_boards/search/(:term)/(page/:page)',
           constraints: { term: %r{[^\/]+} },
@@ -569,6 +693,22 @@ Rails.application.routes.draw do
           to: 'activities#show',
           as: 'calendar_activity'
 
+      post 'examination_boards/(:id)/notes',
+           to: 'examination_board_notes#create',
+           as: 'examination_board_notes'
+
+      patch 'examination_boards/(:id)/notes/(:note_id)',
+            to: 'examination_board_notes#update',
+            as: 'examination_board_note'
+
+      post 'examination_boards/(:id)/files',
+           to: 'examination_board_files#create',
+           as: 'examination_board_files'
+
+      patch 'examination_boards/(:id)/files/(:note_id)',
+            to: 'examination_board_files#update',
+            as: 'examination_board_file'
+
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
       get 'supervisions/(:id)/documents',
@@ -578,6 +718,14 @@ Rails.application.routes.draw do
       get 'supervisions/(:id)/documents/(:document_id)',
           to: 'supervisions#document',
           as: 'supervision_document'
+
+      get 'supervisions/(:id)/activities',
+          to: 'supervision_activities#index',
+          as: 'supervision_activities'
+
+      get 'supervisions/(:id)/activities/(:activity_id)',
+          to: 'supervision_activities#show',
+          as: 'supervision_activity'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',
@@ -608,4 +756,24 @@ Rails.application.routes.draw do
           as: 'examination_boards_search'
     end
   end
+
+  #========================================
+  # Site
+  #========================================
+  get 'calendario', to: 'site#calendar', as: 'site_calendar'
+  get 'bancas-de-tcc', to: 'site#examination_boards', as: 'site_examination_boards'
+  get 'professores', to: 'site#professors', as: 'site_professors'
+  get 'professores/(:id)', to: 'site#professor', as: 'site_professor'
+  get 'tccs-aprovados', to: 'site#approved_orientations', as: 'site_approved_orientations'
+  get 'tccs-em-andamento', to: 'site#in_progress_orientations', as: 'site_in_progress_orientations'
+
+  post 'tccs-aprovados/ano/(:year)',
+       to: 'site#approved_orientations_by_year',
+       as: 'site_approved_orientations_by_year'
+
+  post 'tccs-em-andamento/ano/(:year)',
+       to: 'site#in_progress_orientations_by_year',
+       as: 'site_in_progress_orientations_by_year'
+
+  get '(:page)', to: 'site#page', as: 'site_page'
 end

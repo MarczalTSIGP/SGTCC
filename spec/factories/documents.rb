@@ -36,6 +36,10 @@ FactoryBot.define do
       request { new_orientation }
     end
 
+    factory :document_adpp do
+      document_type { create(:document_type_adpp) }
+    end
+
     before :create do
       create(:responsible)
       create(:coordinator)

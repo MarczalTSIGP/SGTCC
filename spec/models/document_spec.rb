@@ -178,8 +178,7 @@ RSpec.describe Document, type: :model do
       let(:institution) { orientation.institution }
 
       let(:orientation_data) do
-        { id: orientation.id, title: orientation.title,
-          created_at: I18n.l(orientation.created_at, format: :document) }
+        { id: orientation.id, title: orientation.title }
       end
 
       let(:academic_data) do
@@ -197,7 +196,7 @@ RSpec.describe Document, type: :model do
       end
 
       let(:document_data) do
-        { id: document.id }
+        { id: document.id, created_at: I18n.l(Time.current, format: :document) }
       end
 
       let(:term_json_data) do
@@ -205,7 +204,8 @@ RSpec.describe Document, type: :model do
           title: document.document_type.name.upcase, document: document_data,
           academic: academic_data, institution: institution_data,
           professorSupervisors: orientation.professor_supervisors_to_document,
-          externalMemberSupervisors: orientation.external_member_supervisors_to_document }
+          externalMemberSupervisors: orientation.external_member_supervisors_to_document,
+          examination_board: nil }
       end
 
       it 'returns the term json data' do

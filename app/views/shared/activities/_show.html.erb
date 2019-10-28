@@ -23,6 +23,12 @@
     </p>
     <p>
       <strong>
+        <%= Activity.human_attribute_name('judgment') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@activity.judgment}") %>
+    </p>
+    <p>
+      <strong>
         <%= Activity.human_attribute_name('deadline') %>:
       </strong>
       <%= @activity.deadline %>

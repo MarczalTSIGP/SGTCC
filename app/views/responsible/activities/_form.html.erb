@@ -1,9 +1,17 @@
 <%= simple_form_for(@activity, url: yield(:path)) do |f| %>
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.association :base_activity_type,
-      input_html: { data: 'selectize' },
-      prompt: t('prompt.select.m', name: 'tipo') %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :name %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.association :base_activity_type,
+          input_html: { data: 'selectize' },
+          prompt: t('prompt.select.m', name: 'tipo') %>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-sm-6">
@@ -22,6 +30,17 @@
           datetime="<%= @activity.final_date %>" />
       </div>
     </div>
+
+    <% if @calendar.tcc == 'one' %>
+      <%= f.input :identifier,
+        as: :radio_button_tabler,
+        collection: Activity.human_tcc_one_identifiers %>
+    <% else %>
+      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
+    <% end %>
+
+    <%= f.input :judgment, as: :checkbox_tabler %>
+    <%= f.input :final_version, as: :checkbox_tabler %>
 
     <%= f.input :tcc,
       as: :hidden,

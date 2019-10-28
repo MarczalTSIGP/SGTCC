@@ -2,8 +2,13 @@
   <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(external_members_supervision_path(orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
     <% end %>
+
+    <%= link_to(external_members_supervision_activities_path(orientation)) do %>
+      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
+    <% end %>
+
     <%= link_to(external_members_supervision_documents_path(orientation)) do %>
       <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
     <% end %>

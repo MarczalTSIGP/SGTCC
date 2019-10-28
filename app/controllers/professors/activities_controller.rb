@@ -4,7 +4,7 @@ class Professors::ActivitiesController < Professors::BaseController
   before_action :set_index_breadcrumb, only: [:index, :show]
 
   def index
-    @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
+    @activities = @calendar.activities.includes(:base_activity_type).recent
   end
 
   def show

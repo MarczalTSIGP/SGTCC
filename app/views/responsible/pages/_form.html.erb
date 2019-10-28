@@ -1,0 +1,27 @@
+<%= simple_form_for [:responsible, @page] do |f| %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.input :menu_title %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.input :url, placeholder: t('placeholders.page.url') %>
+      </div>
+      <div class="col-sm-4">
+        <fontawesome-picker
+          :icon="<%= @page&.fa_icon.to_json %>"
+          :errors="<%= @page.errors[:fa_icon] %>" />
+      </div>
+    </div>
+    <%= f.input :publish, as: :checkbox_tabler %>
+    <%= f.input :content, input_html: { class: 'markdown-editor' } %>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
+      responsible_pages_path,
+      class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

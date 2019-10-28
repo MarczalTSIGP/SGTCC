@@ -2,7 +2,7 @@
   <%= render 'shared/examination_boards/tbody', examination_board: examination_board %>
   <td>
     <%= link_to(professors_examination_board_path(examination_board)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
     <% end %>
   </td>
 </tr>

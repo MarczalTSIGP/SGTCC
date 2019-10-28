@@ -1,0 +1,16 @@
+<div class="site-table table-responsive mb-4 examination-board-table">
+  <table class="table table-vcenter border border-gray">
+    <thead>
+      <tr class="bg-primary">
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if examination_boards.empty? %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

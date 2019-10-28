@@ -1,12 +1,21 @@
 <template>
-  <div v-if="show">
+  <div
+    v-if="show"
+    class="border border-primary rounded p-4 mb-2"
+  >
+    <div class="float-left">
+      <strong>Assinar documento</strong>
+      <p>Este documento será assinado eletronicamente.</p>
+    </div>
     <button
       id="signature_button"
-      class="btn btn-outline-primary"
+      class="btn btn-outline-primary float-right mb-2"
       @click="emitOpenLoginConfirmation()"
     >
       Assinar documento
     </button>
+    <div class="clearfix" />
+    <hr class="m-0">
   </div>
 </template>
 

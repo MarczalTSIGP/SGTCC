@@ -12,12 +12,15 @@ namespace :db do
      ExaminationBoardAttendee,
      ExaminationBoard,
      Orientation,
+     AcademicActivity,
      Academic,
      Institution,
      ExternalMember,
      BaseActivity,
+     BaseActivityType,
      Activity,
-     Calendar].each(&:delete_all)
+     Calendar,
+     Page].each(&:delete_all)
 
     Professor.where.not(username: 'marczal').destroy_all
   end

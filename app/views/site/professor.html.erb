@@ -1,0 +1,73 @@
+<% provide(:page_title, t('breadcrumbs.professors.show')) %>
+<% provide(:head_title, t('breadcrumbs.professors.show')) %>
+
+<div class="card card-profile">
+  <div class="card-header"></div>
+  <div class="card-body">
+    <img class="card-profile-img d-block mx-auto" src="<%= @professor.profile_image %>">
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('name') %>:
+      </strong>
+      <%= @professor.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('email') %>:
+      </strong>
+      <%= @professor.email %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('lattes') %>:
+      </strong>
+      <%= link_to(@professor.lattes, @professor.lattes, target: '_blank').html_safe %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('available_advisor') %>:
+      </strong>
+      <%= t("helpers.boolean.#{@professor.available_advisor}") %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('scholarity') %>:
+      </strong>
+      <%= @professor.scholarity.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('professor_type') %>:
+      </strong>
+      <%= @professor.professor_type.name %>
+    </p>
+    <p>
+      <strong>
+        <%= Professor.human_attribute_name('working_area') %>:
+      </strong>
+      <div class="form-fieldset">
+        <vue-simple-markdown source="<%= @professor.working_area %>" />
+      </div>
+    </p>
+  </div>
+</div>
+
+<%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.in_progress'),
+                                     supervisions_title: t('site.pages.professors.supervisions.in_progress'),
+                                     tcc_one_orientations: @professor.tcc_one_in_progress,
+                                     tcc_two_orientations: @professor.tcc_two_in_progress,
+                                     tcc_one_supervisions: @professor.tcc_one_in_progress(@professor.supervisions),
+                                     tcc_two_supervisions: @professor.tcc_two_in_progress(@professor.supervisions) %>
+
+<%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.approved'),
+                                     supervisions_title: t('site.pages.professors.supervisions.approved'),
+                                     tcc_one_orientations: @professor.tcc_one_approved,
+                                     tcc_two_orientations: @professor.tcc_two_approved,
+                                     tcc_one_supervisions: @professor.tcc_one_approved(@professor.supervisions),
+                                     tcc_two_supervisions: @professor.tcc_two_approved(@professor.supervisions) %>
+
+<div class="d-flex">
+  <%= link_to t('simple_form.buttons.back'),
+    site_professors_path,
+    class: 'btn btn-secondary' %>
+</div>
