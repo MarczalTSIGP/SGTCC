@@ -92,9 +92,9 @@ $ cp config/appplication.yml.example config/application.yml
 Nesse arquivo é preciso alterar o **username** e o **password** conforme seu usuário e senha do PostgreSQL
 ```
 database: &database
-	db.username: postgres
-	db.password: postgres
-	db.host: localhost
+  db.username: postgres
+  db.password: postgres
+  db.host: localhost
 ```
 
 **6. Configurar o envio de emails**
