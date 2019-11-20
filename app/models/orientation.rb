@@ -5,6 +5,7 @@ class Orientation < ApplicationRecord
   include OrientationJoin
   include OrientationOption
   include OrientationDocuments
+  include OrientationTcoTcai
   include OrientationReport
   include OrientationValidation
   include AcademicDocuments
@@ -29,10 +30,8 @@ class Orientation < ApplicationRecord
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
   has_many :academic_activities, through: :academic, source: :academic_activities
-  has_many :professor_supervisors, class_name: 'Professor',
-                                   foreign_key: :professor_supervisor_id,
-                                   through: :orientation_supervisors,
-                                   dependent: :destroy
+  has_many :professor_supervisors, class_name: 'Professor', foreign_key: :professor_supervisor_id,
+                                   through: :orientation_supervisors, dependent: :destroy
 
   has_many :external_member_supervisors, class_name: 'ExternalMember',
                                          foreign_key: :external_member_supervisor_id,

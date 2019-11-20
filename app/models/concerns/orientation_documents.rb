@@ -4,28 +4,29 @@ module OrientationDocuments
   extend ActiveSupport::Concern
 
   included do
-    after_save do
-      params = { orientation_id: id }
-
-      DocumentType.find_by(identifier: :tco).documents.create!(params) unless tco?
-
-      if institution.present? && !tcai?
-        DocumentType.find_by(identifier: :tcai).documents.create!(params)
-      end
+    def find_document_by_document_type(document_type)
+      documents.find_by(document_type_id: document_type)
     end
 
-    after_update do
-      document_ids = signatures.pluck(:document_id)
-      signatures.destroy_all
-      Document.delete(document_ids)
+    def tco
+      find_document_by_document_type(DocumentType.tco)
+    end
+
+    def tcai
+      find_document_by_document_type(DocumentType.tcai)
     end
 
     def tco?
-      documents.find_by(document_type_id: DocumentType.tco).present?
+      tco.present?
     end
 
     def tcai?
-      documents.find_by(document_type_id: DocumentType.tcai).present?
+      tcai.present?
+    end
+
+    def destroy_document(document)
+      document.signatures.destroy_all
+      document.delete
     end
   end
 end
