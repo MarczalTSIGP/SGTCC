@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :orientation do
     title { Faker::Lorem.sentence(3) }
     advisor { create(:professor) }
-    calendar
+    calendar { create(:calendar_tcc_one) }
     academic
     institution
     renewal_justification { Faker::Lorem.sentence(3) }
