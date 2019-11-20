@@ -82,11 +82,7 @@ class SiteController < ApplicationController
   end
 
   def examination_board_data(data)
-    data.includes(external_members: [:scholarity],
-                  professors: [:scholarity],
-                  orientation: [:academic, :orientation_supervisors, :professor_supervisors,
-                                :external_member_supervisors, advisor: [:scholarity]])
-        .recent
+    data.current_semester.site_with_relationships
   end
 
   def orientations_data(data)

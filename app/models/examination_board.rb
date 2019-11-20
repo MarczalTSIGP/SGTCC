@@ -39,6 +39,12 @@ class ExaminationBoard < ApplicationRecord
              orientation: [:academic, :calendar, advisor: [:scholarity]])
   }
 
+  scope :site_with_relationships, lambda {
+    includes(external_members: [:scholarity], professors: [:scholarity],
+             orientation: [:academic, :orientation_supervisors, :professor_supervisors,
+                           :external_member_supervisors, advisor: [:scholarity]]).recent
+  }
+
   def status
     current_date = Date.current.to_s
     board_date = Date.parse(date.to_s).to_s
