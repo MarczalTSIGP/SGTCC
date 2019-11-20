@@ -15,7 +15,7 @@ da UTFPR Câmpus Guarapuava.
 ## Índice
 * [Sobre](#sobre)
 * [Tecnologias](#tecnologias)
-* [Instalação local](#instalacao-local)
+* [Instalação local](#instalação-local)
 * [Rodando os testes](#rodando-os-testes)
 
 ## Sobre
