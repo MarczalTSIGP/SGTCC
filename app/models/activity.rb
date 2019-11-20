@@ -11,7 +11,6 @@ class Activity < ApplicationRecord
   validates :tcc, presence: true
   validates :initial_date, presence: true
   validates :final_date, presence: true
-  validates :identifier, presence: true
 
   scope :recent, -> { order(:final_date) }
 

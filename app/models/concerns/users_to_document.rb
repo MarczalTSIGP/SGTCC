@@ -9,5 +9,10 @@ module UsersToDocument
         { id: user.id, name: user.name_with_scholarity }
       end
     end
+
+    def evaluators_object
+      { professors: users_to_document(professors),
+        external_members: users_to_document(external_members) }
+    end
   end
 end
