@@ -126,7 +126,7 @@ RSpec.describe Activity, type: :model do
   end
 
   describe '.find_academic_activity_by_academic' do
-    !let(:academic_activity) { create(:academic_activity) }
+    let!(:academic_activity) { create(:academic_activity) }
 
     it 'returns the academic activity' do
       activity = academic_activity.activity

@@ -66,11 +66,6 @@ class ExaminationBoard < ApplicationRecord
     :admg
   end
 
-  def evaluators_object
-    { professors: users_to_document(professors),
-      external_members: users_to_document(external_members) }
-  end
-
   def academic_activity
     orientation.find_document_by_identifier_and_final_version(identifier, false)
   end

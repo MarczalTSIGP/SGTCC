@@ -11,6 +11,7 @@ describe 'Orientation::index', type: :feature, js: true do
       let!(:orientation) { create(:orientation_tcc_two_approved) }
       let(:academic) { orientation.academic }
       let(:activity) { create(:monograph_activity, final_version: true) }
+      let(:calendar) { orientation.calendar.year }
 
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)
@@ -23,6 +24,7 @@ describe 'Orientation::index', type: :feature, js: true do
       end
 
       it 'shows all the approved orientations' do
+        find(".site-select option[value='#{calendar}']").select_option
         expect(page).to have_contents([orientation.document_title,
                                        orientation.advisor.name,
                                        orientation.academic.name])
@@ -37,6 +39,7 @@ describe 'Orientation::index', type: :feature, js: true do
       let!(:orientation) { create(:orientation_tcc_one) }
       let(:academic) { orientation.academic }
       let(:activity) { create(:proposal_activity, final_version: true) }
+      let(:calendar) { orientation.calendar.year }
 
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)
@@ -49,6 +52,8 @@ describe 'Orientation::index', type: :feature, js: true do
       end
 
       it 'shows all the in progress orientations' do
+        find(".site-select option[value='#{calendar}']").select_option
+
         expect(page).to have_contents([orientation.document_title,
                                        orientation.advisor.name,
                                        orientation.academic.name])
