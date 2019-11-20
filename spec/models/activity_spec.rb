@@ -6,7 +6,6 @@ RSpec.describe Activity, type: :model do
     it { is_expected.to validate_presence_of(:tcc) }
     it { is_expected.to validate_presence_of(:initial_date) }
     it { is_expected.to validate_presence_of(:final_date) }
-    it { is_expected.to validate_presence_of(:identifier) }
   end
 
   describe 'associations' do
