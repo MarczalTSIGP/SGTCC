@@ -35,16 +35,16 @@
     <% end %>
   <% end %>
 
-  <%= active_link_to(external_members_calendars_path,
-		     active: external_members_calendars_active_link?,
-		     class: 'list-group-item list-group-item-action') do %>
-    <span class="icon mr-2">
-      <%= icon('far', 'calendar-plus') %>
-    </span>
-    <%= t('breadcrumbs.calendars.index') %>
-  <% end %>
-
   <% if current_external_member.supervisions.any? %>
+    <%= active_link_to(external_members_calendars_path,
+		       active: external_members_calendars_active_link?,
+		       class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+        <%= icon('far', 'calendar-plus') %>
+      </span>
+      <%= t('breadcrumbs.calendars.index') %>
+    <% end %>
+
     <div class="pt-2">
       <%= render 'layouts/external_members/supervisor_menu' %>
     </div>
