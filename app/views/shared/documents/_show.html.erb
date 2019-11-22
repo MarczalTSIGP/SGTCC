@@ -16,7 +16,7 @@
       </signature-confirm>
 
       <signature-button
-        show-title="<%= t('breadcrumbs.signatures.TCO.show',
+        show-title="<%= t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
                           academic: @document.orientation.academic.name) %>">
       </signature-button>
     <% end %>
