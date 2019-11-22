@@ -17,8 +17,8 @@ namespace :db do
      Institution,
      ExternalMember,
      BaseActivity,
-     BaseActivityType,
      Activity,
+     BaseActivityType,
      Calendar,
      Page].each(&:delete_all)
 
