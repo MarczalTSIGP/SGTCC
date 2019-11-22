@@ -35,8 +35,7 @@ class ExaminationBoard < ApplicationRecord
   scope :recent, -> { order(:date) }
 
   scope :with_relationships, lambda {
-    includes(external_members: [:scholarity], professors: [:scholarity],
-             orientation: [:academic, :calendar, advisor: [:scholarity]])
+    includes(orientation: [:academic, :calendar, advisor: [:scholarity]])
   }
 
   scope :site_with_relationships, lambda {
