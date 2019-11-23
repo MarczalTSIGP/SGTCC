@@ -245,8 +245,22 @@ pt-BR:
       pendings: "Assinaturas Pendentes"
       signeds: "Assinaturas Assinadas"
       title: "%{type} %{academic} %{calendar}"
-      TCO:
-        show: "Assinatura do Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso de %{academic}"
+      tco:
+        show: "Assinatura do Termo de Compromisso de Orientação de TCC de %{academic}"
+      tdo:
+        show: "Assinatura do Termo de Desistência de Orientação de TCC pelo(a) Professor(a) Orientador(a)"
+      tcai:
+        show: 'Assinatura de Compromisso e Aceite de Realização de TCC em Instituição de %{academic}'
+      tep:
+        show: "Assinatura do Termo de Solicitação de Extensão do Prazo de TCC"
+      tso:
+        show: "Assinatura do Termo de Substituição de Orientação de TCC"
+      adpp:
+        show: "Assinatura da Ata de Defesa de Projeto de TCC de %{academic}"
+      adpj:
+        show: "Assinatura da Ata de Defesa de Projeto de TCC de %{academic}"
+      admg:
+        show: 'Assinatura da Ata de Defesa de Monografia de TCC de %{academic}'
     site:
       configs: "Configurações"
       pages: "Páginas"
@@ -532,6 +546,7 @@ pt-BR:
         published: "Publicado"
         publish: "Publicar"
         fa_icon: "Ícone do font awesome"
+        content: "Conteúdo"
         <<: *commons
       attached_document:
         file: "Arquivo"
@@ -728,6 +743,7 @@ pt-BR:
           professor_supervisor: 'Coorientador da UTFPR'
           professor_responsible: 'Professor responsável'
           external_member_supervisor: 'Coorientador externo'
+          responsible_institution: 'Responsável de instituição'
         female:
           academic: 'Acadêmica'
           advisor: 'Orientadora'
@@ -738,15 +754,16 @@ pt-BR:
           professor_supervisor: 'Coorientadora da UTFPR'
           professor_responsible: 'Professora responsável'
           external_member_supervisor: 'Coorientadora externa'
+          responsible_institution: 'Responsável de instituição'
     documents:
       TCO: 'Termo de Compromisso de Orientação de Trabalho de Conclusão de Curso'
       TCAI: 'Termo de Compromisso e Aceite de Realização de TCC em Instituição'
       TDO: 'Termo de Desistência de Orientação de Trabalho de Conclusão de Curso pelo(a) Professor(a) Orientador(a)'
       TEP: 'Termo de Solicitação de Extensão do Prazo de Trabalho de Conclusão de Curso'
       TSO: 'Termo de Substituição de Orientação de Trabalho de Conclusão de Curso'
-      ADPP: 'Ata de Defesa de Proposta Trabalho de Conclusão de Curso'
-      ADPJ: 'Ata de Defesa de Projeto Trabalho de Conclusão de Curso'
-      ADMG: 'Ata de Defesa de Monografia Trabalho de Conclusão de Curso'
+      ADPP: 'Ata de Defesa de Proposta de Trabalho de Conclusão de Curso'
+      ADPJ: 'Ata de Defesa de Projeto de Trabalho de Conclusão de Curso'
+      ADMG: 'Ata de Defesa de Monografia de Trabalho de Conclusão de Curso'
     register: 'Documento assinado eletronicamente por %{name}, %{role}, em %{date}, às %{time}, conforme
       horário oficial de Brasília, com fundamento no art. 6º, § 1º, do Decreto nº 8.539, de
       8 de outubro de 2015 .'
