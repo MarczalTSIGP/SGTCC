@@ -8,6 +8,7 @@
   <div class="sidebar-menu">
     <%= render 'layouts/professors/professor_menu' %>
   </div>
+
   <% if current_professor.professor_supervisors.present? %>
     <div class="sidebar-menu">
       <%= render 'layouts/professors/supervisor_menu' %>

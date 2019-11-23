@@ -88,7 +88,9 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def set_examination_board_with_relationships
-    @examination_board = ExaminationBoard.with_relationships.find(params[:id])
+    @examination_board = ExaminationBoard.includes(external_members: [:scholarity],
+                                                   professors: [:scholarity])
+                                         .find(params[:id])
   end
 
   def examination_board_params

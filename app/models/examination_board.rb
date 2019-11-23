@@ -35,8 +35,13 @@ class ExaminationBoard < ApplicationRecord
   scope :recent, -> { order(:date) }
 
   scope :with_relationships, lambda {
+    includes(orientation: [:academic, :calendar, advisor: [:scholarity]])
+  }
+
+  scope :site_with_relationships, lambda {
     includes(external_members: [:scholarity], professors: [:scholarity],
-             orientation: [:academic, :calendar, advisor: [:scholarity]])
+             orientation: [:academic, :orientation_supervisors, :professor_supervisors,
+                           :external_member_supervisors, advisor: [:scholarity]]).recent
   }
 
   def status
@@ -58,11 +63,6 @@ class ExaminationBoard < ApplicationRecord
     return :adpp if proposal?
     return :adpj if project?
     :admg
-  end
-
-  def evaluators_object
-    { professors: users_to_document(professors),
-      external_members: users_to_document(external_members) }
   end
 
   def academic_activity

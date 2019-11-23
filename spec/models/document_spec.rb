@@ -196,7 +196,7 @@ RSpec.describe Document, type: :model do
       end
 
       let(:document_data) do
-        { id: document.id, created_at: I18n.l(Time.current, format: :document) }
+        { id: document.id, created_at: I18n.l(document.created_at, format: :document) }
       end
 
       let(:term_json_data) do

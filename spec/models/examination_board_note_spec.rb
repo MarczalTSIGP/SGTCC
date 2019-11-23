@@ -12,12 +12,12 @@ RSpec.describe ExaminationBoardNote, type: :model do
   end
 
   describe '#after_save' do
-    let!(:examination_board) { create(:proposal_examination_board) }
+    let!(:examination_board) { create(:project_examination_board) }
     let(:professor) { examination_board.orientation.advisor }
     let(:note) { 90 }
 
     before do
-      create(:document_type_adpp)
+      create(:document_type_adpj)
       examination_board.professors.destroy_all
       examination_board.external_members.destroy_all
     end
@@ -32,8 +32,36 @@ RSpec.describe ExaminationBoardNote, type: :model do
       end
 
       it 'update the examination board and create defense minutes' do
-        expect(ExaminationBoard.first.final_note).to eq(note)
-        expect(ExaminationBoard.first.situation).to eq('approved')
+        expect(examination_board.final_note).to eq(note)
+        expect(examination_board.situation).to eq('approved')
+      end
+
+      it 'update the orientation status' do
+        expect(examination_board.orientation.status).to eq(Orientation.statuses.key('APPROVED'))
+      end
+    end
+
+    context 'when creates the defense minutes and academic is approved and its proposal' do
+      let!(:examination_board) { create(:proposal_examination_board) }
+      let(:professor) { examination_board.orientation.advisor }
+      let(:note) { 60 }
+
+      before do
+        create(:document_type_adpp)
+        examination_board.professors.destroy_all
+        examination_board.external_members.destroy_all
+        create(:examination_board_note, examination_board: examination_board,
+                                        professor: professor,
+                                        note: note)
+      end
+
+      it 'update the examination board and create defense minutes' do
+        expect(examination_board.final_note).to eq(note)
+        expect(examination_board.situation).to eq('approved')
+      end
+
+      it 'not update the orientation status' do
+        expect(examination_board.orientation.status).to eq(Orientation.statuses.key('IN_PROGRESS'))
       end
     end
 
@@ -47,8 +75,8 @@ RSpec.describe ExaminationBoardNote, type: :model do
       end
 
       it 'update the examination board and create defense minutes' do
-        expect(ExaminationBoard.first.final_note).to eq(note)
-        expect(ExaminationBoard.first.situation).to eq('reproved')
+        expect(examination_board.final_note).to eq(note)
+        expect(examination_board.situation).to eq('reproved')
       end
     end
   end

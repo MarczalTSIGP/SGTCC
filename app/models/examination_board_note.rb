@@ -15,7 +15,11 @@ class ExaminationBoardNote < ApplicationRecord
     if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
       status = status(final_note)
       examination_board.update(situation: status, final_note: final_note)
-      examination_board.orientation.update(status: status.to_s.upcase)
+      if examination_board.identifier != ExaminationBoard.identifiers[:proposal]
+        # rubocop:disable Rails/SkipsModelValidations
+        examination_board.orientation.update_column(:status, status.to_s.upcase)
+        # rubocop:enable Rails/SkipsModelValidations
+      end
     end
   end
 
