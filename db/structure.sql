@@ -126,7 +126,8 @@ CREATE TABLE public.academic_activities (
     summary text,
     judgment boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    additional_instructions text
 );
 
 
@@ -2001,6 +2002,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191004191641'),
 ('20191010143250'),
 ('20191011133414'),
-('20191011133608');
+('20191011133608'),
+('20191125224723');
 
 
