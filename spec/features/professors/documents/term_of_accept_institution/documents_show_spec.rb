@@ -53,7 +53,7 @@ describe 'Signature::show', type: :feature, js: true do
                                        scholarity_with_name(orientation.advisor),
                                        role,
                                        signature_code_message(document),
-                                       document_date(document.created_at)])
+                                       document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))

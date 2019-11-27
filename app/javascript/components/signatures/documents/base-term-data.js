@@ -25,7 +25,7 @@ export default {
             name: ''
           },
           professorSupervisors: [],
-          externalMemberSupervisors: [],
+          externalMemberSupervisors: []
         },
         requester: {
           justification: '',

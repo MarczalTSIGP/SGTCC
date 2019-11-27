@@ -20,8 +20,6 @@ describe 'BaseActivity::create', type: :feature, js: true do
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label('1', in: 'base_activity_tcc')
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
-        click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
-                       in: 'base_activity_identifier')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
@@ -33,8 +31,6 @@ describe 'BaseActivity::create', type: :feature, js: true do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label('2', in: 'base_activity_tcc')
-        click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
-                       in: 'base_activity_identifier')
         selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
 
         submit_form('input[name="commit"]')

@@ -5,7 +5,7 @@ class ExternalMembers::ActivitiesController < ExternalMembers::BaseController
   def index
     add_calendar_index_breadcrumb
     add_activities_index_breadcrumb
-    @activities = @calendar.activities.includes(:base_activity_type).recent
+    @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
   end
 
   def show

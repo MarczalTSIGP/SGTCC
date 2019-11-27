@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
     send("#{resource_name.to_s.pluralize}_root_path")
   end
 
-  def not_found
-    raise ActionController::RoutingError, 'Not Found'
-  end
-
   private
 
   def after_sign_out_path_for(*)

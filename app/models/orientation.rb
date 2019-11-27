@@ -5,12 +5,8 @@ class Orientation < ApplicationRecord
   include OrientationJoin
   include OrientationOption
   include OrientationDocuments
-  include OrientationTcoTcai
   include OrientationReport
   include OrientationValidation
-  include AcademicDocuments
-  include AcademicDocumentsInfo
-  include UsersToDocument
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendar: { fields: [:year] },
@@ -29,9 +25,10 @@ class Orientation < ApplicationRecord
   has_many :documents, -> { select('DISTINCT ON (documents.id) documents.*') }, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
-  has_many :academic_activities, through: :academic, source: :academic_activities
-  has_many :professor_supervisors, class_name: 'Professor', foreign_key: :professor_supervisor_id,
-                                   through: :orientation_supervisors, dependent: :destroy
+  has_many :professor_supervisors, class_name: 'Professor',
+                                   foreign_key: :professor_supervisor_id,
+                                   through: :orientation_supervisors,
+                                   dependent: :destroy
 
   has_many :external_member_supervisors, class_name: 'ExternalMember',
                                          foreign_key: :external_member_supervisor_id,
@@ -41,12 +38,12 @@ class Orientation < ApplicationRecord
   validates :title, presence: true
   validate :validates_supervisor_ids
 
-  scope :tcc_one, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc('one', status, year, semester)
+  scope :tcc_one, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:one] }), status)
   }
 
-  scope :tcc_two, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc('two', status, year, semester)
+  scope :tcc_two, lambda { |status|
+    join_with_status(joins(:calendar).where(calendars: { tcc: Calendar.tccs[:two] }), status)
   }
 
   scope :current_tcc_one, lambda { |status = nil|
@@ -58,8 +55,8 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:academic, :calendar, :documents, :meetings, :professor_supervisors,
-             :orientation_supervisors, :external_member_supervisors, advisor: [:scholarity])
+    includes(:advisor, :academic, :calendar, :documents, :meetings,
+             :professor_supervisors, :orientation_supervisors, :external_member_supervisors)
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
@@ -99,23 +96,22 @@ class Orientation < ApplicationRecord
     calendar.tcc == 'two'
   end
 
+  def supervisors_to_document(supervisors)
+    supervisors.map do |supervisor|
+      { id: supervisor.id, name: "#{supervisor.scholarity.abbr} #{supervisor.name}" }
+    end
+  end
+
   def professor_supervisors_to_document
-    users_to_document(professor_supervisors)
+    supervisors_to_document(professor_supervisors)
   end
 
   def external_member_supervisors_to_document
-    users_to_document(external_member_supervisors)
+    supervisors_to_document(external_member_supervisors)
   end
 
   def academic_with_calendar
     "#{academic.name} (#{academic.ra}) | #{calendar.year_with_semester_and_tcc}"
-  end
-
-  def self.to_json_table(orientations)
-    orientations.to_json(methods: [:short_title, :final_proposal, :final_project, :final_monograph,
-                                   :document_title, :document_summary],
-                         include: [:academic, { supervisors: { methods: [:name_with_scholarity] } },
-                                   { advisor: { methods: [:name_with_scholarity] } }])
   end
 
   def self.select_status_data

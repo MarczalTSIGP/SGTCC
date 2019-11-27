@@ -1,5 +1,0 @@
-<% if @page %>
-  <% provide(:head_title, @page.menu_title) %>
-
-  <vue-simple-markdown source="<%= @page.content %>" />
-<% end %>

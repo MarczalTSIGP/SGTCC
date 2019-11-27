@@ -54,11 +54,9 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
-    it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
     it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
-    it { is_expected.to have_many(:supervision_examination_boards).through(:supervisions) }
   end
 
   describe '#human_genders' do
@@ -302,74 +300,6 @@ RSpec.describe Professor, type: :model do
 
     it 'returns false' do
       expect(professor.responsible?).to eq(false)
-    end
-  end
-
-  describe '#tcc_one_approved' do
-    let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
-
-    it 'returns the tcc one approved' do
-      orientations_approved = professor.orientations.tcc_one('APPROVED')
-      expect(professor.tcc_one_approved).to eq(orientations_approved)
-    end
-  end
-
-  describe '#tcc_two_approved' do
-    let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
-
-    it 'returns the tcc two approved' do
-      orientations_approved = professor.orientations.tcc_two('APPROVED')
-      expect(professor.tcc_two_approved).to eq(orientations_approved)
-    end
-  end
-
-  describe '#tcc_one_in_progress' do
-    let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
-
-    it 'returns the tcc one in progress' do
-      orientations_approved = professor.orientations.tcc_one('IN_PROGRESS')
-      expect(professor.tcc_one_in_progress).to eq(orientations_approved)
-    end
-  end
-
-  describe '#tcc_two_in_progress' do
-    let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
-
-    it 'returns the tcc two in progress' do
-      orientations_approved = professor.orientations.tcc_two('IN_PROGRESS')
-      expect(professor.tcc_two_in_progress).to eq(orientations_approved)
-    end
-  end
-
-  describe '#effective' do
-    let(:professor_type) { create(:professor_type, name: 'Efetivo') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
-
-    it 'returns the effective professors' do
-      expect(Professor.effective).to eq([professor])
-    end
-  end
-
-  describe '#temporary' do
-    let(:professor_type) { create(:professor_type, name: 'Temporário') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
-
-    it 'returns the temporary professors' do
-      expect(Professor.temporary).to eq([professor])
-    end
-  end
-
-  describe '#current_semester_supervision_examination_boards' do
-    let(:examination_board) { create(:examination_board) }
-    let(:professor) { examination_board.professors.first }
-
-    it 'returns the supervision by current semester' do
-      supervisions = professor.supervision_examination_boards.current_semester.with_relationships
-      expect(professor.current_semester_supervision_examination_boards).to eq(supervisions)
     end
   end
 end

@@ -24,7 +24,6 @@ require 'support/matchers/have_flash'
 require 'support/matchers/have_alert'
 require 'support/matchers/have_message'
 require 'support/matchers/have_contents'
-require 'support/matchers/have_selectors'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

@@ -12,9 +12,4 @@ class OrientationSupervisor < ApplicationRecord
              foreign_key: 'external_member_supervisor_id',
              inverse_of: :external_member_supervisors,
              optional: true
-
-  has_many :examination_boards,
-           class_name: 'ExaminationBoard',
-           through: :orientation,
-           source: :examination_board
 end

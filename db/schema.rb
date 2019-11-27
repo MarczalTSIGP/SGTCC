@@ -10,25 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_133608) do
+ActiveRecord::Schema.define(version: 2019_08_16_174008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
-
-  create_table "academic_activities", force: :cascade do |t|
-    t.bigint "academic_id"
-    t.bigint "activity_id"
-    t.string "pdf"
-    t.string "complementary_files"
-    t.string "title"
-    t.text "summary"
-    t.boolean "judgment", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["academic_id"], name: "index_academic_activities_on_academic_id"
-    t.index ["activity_id"], name: "index_academic_activities_on_activity_id"
-  end
 
   create_table "academics", force: :cascade do |t|
     t.string "name"
@@ -45,8 +31,18 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.index ["reset_password_token"], name: "index_academics_on_reset_password_token", unique: true
   end
 
-# Could not dump table "activities" because of following StandardError
-#   Unknown type 'activity_identifiers' for column 'identifier'
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "base_activity_type_id"
+    t.integer "tcc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "calendar_id"
+    t.datetime "initial_date"
+    t.datetime "final_date"
+    t.index ["base_activity_type_id"], name: "index_activities_on_base_activity_type_id"
+    t.index ["calendar_id"], name: "index_activities_on_calendar_id"
+  end
 
   create_table "assignments", force: :cascade do |t|
     t.bigint "professor_id"
@@ -57,18 +53,20 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.index ["role_id"], name: "index_assignments_on_role_id"
   end
 
-  create_table "attached_documents", force: :cascade do |t|
+  create_table "base_activities", force: :cascade do |t|
     t.string "name"
-    t.string "file"
+    t.bigint "base_activity_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tcc"
+    t.index ["base_activity_type_id"], name: "index_base_activities_on_base_activity_type_id"
+  end
+
+  create_table "base_activity_types", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-# Could not dump table "base_activities" because of following StandardError
-#   Unknown type 'base_activity_identifiers' for column 'identifier'
-
-# Could not dump table "base_activity_types" because of following StandardError
-#   Unknown type 'base_activity_type_identifiers' for column 'identifier'
 
   create_table "calendars", force: :cascade do |t|
     t.string "year"
@@ -102,21 +100,15 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.index ["professor_id"], name: "index_examination_board_attendees_on_professor_id"
   end
 
-  create_table "examination_board_notes", force: :cascade do |t|
-    t.bigint "examination_board_id"
-    t.bigint "professor_id"
-    t.bigint "external_member_id"
-    t.integer "note"
-    t.string "appointment_file"
+  create_table "examination_boards", force: :cascade do |t|
+    t.datetime "date"
+    t.string "place"
+    t.bigint "orientation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["examination_board_id"], name: "index_examination_board_notes_on_examination_board_id"
-    t.index ["external_member_id"], name: "index_examination_board_notes_on_external_member_id"
-    t.index ["professor_id"], name: "index_examination_board_notes_on_professor_id"
+    t.integer "tcc"
+    t.index ["orientation_id"], name: "index_examination_boards_on_orientation_id"
   end
-
-# Could not dump table "examination_boards" because of following StandardError
-#   Unknown type 'examination_board_identifiers' for column 'identifier'
 
   create_table "external_members", force: :cascade do |t|
     t.string "name"
@@ -135,13 +127,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.datetime "remember_created_at"
     t.index ["reset_password_token"], name: "index_external_members_on_reset_password_token", unique: true
     t.index ["scholarity_id"], name: "index_external_members_on_scholarity_id"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "name"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -191,17 +176,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.index ["advisor_id"], name: "index_orientations_on_advisor_id"
     t.index ["calendar_id"], name: "index_orientations_on_calendar_id"
     t.index ["institution_id"], name: "index_orientations_on_institution_id"
-  end
-
-  create_table "pages", force: :cascade do |t|
-    t.string "menu_title"
-    t.text "content"
-    t.string "url"
-    t.string "fa_icon"
-    t.integer "order"
-    t.boolean "publish", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "professor_types", force: :cascade do |t|
@@ -261,14 +235,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
     t.index ["orientation_id"], name: "index_signatures_on_orientation_id"
   end
 
-  create_table "sites", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "academic_activities", "academics"
-  add_foreign_key "academic_activities", "activities"
   add_foreign_key "activities", "base_activity_types"
   add_foreign_key "activities", "calendars"
   add_foreign_key "assignments", "professors"
@@ -278,9 +244,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
   add_foreign_key "examination_board_attendees", "examination_boards"
   add_foreign_key "examination_board_attendees", "external_members"
   add_foreign_key "examination_board_attendees", "professors"
-  add_foreign_key "examination_board_notes", "examination_boards"
-  add_foreign_key "examination_board_notes", "external_members"
-  add_foreign_key "examination_board_notes", "professors"
   add_foreign_key "examination_boards", "orientations"
   add_foreign_key "external_members", "scholarities"
   add_foreign_key "institutions", "external_members"

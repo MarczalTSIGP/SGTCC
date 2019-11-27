@@ -96,7 +96,6 @@ export default {
       const $ = window.jQuery;
 
       $(this.datetimepicker_id_hash).datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
         icons: {
           time: 'fe fe-clock'
         },
@@ -106,7 +105,7 @@ export default {
 
     setValue() {
       this.value = this.datetime !== ''
-        ? moment(this.datetime, 'YYYY-MM-DD HH:mm')
+        ? moment(this.datetime, 'YYYY-MM-DD hh:mm')
         : moment().format();
     },
 
@@ -114,7 +113,7 @@ export default {
       const $ = window.jQuery;
 
       $(this.datetimepicker_id_hash).on('change.datetimepicker', (e) => {
-        this.value = moment(e.date).format('DD/MM/YYYY HH:mm');
+        this.value = moment(e.date).format('DD/MM/YYYY hh:mm');
       });
     },
   },

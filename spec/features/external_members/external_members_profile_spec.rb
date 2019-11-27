@@ -38,7 +38,7 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
       expect(page).to have_message(invalid_error_message, in: 'div.external_member_email')
       expect(page).to have_message(confirm_password_error_message,
                                    in: 'div.external_member_current_password')
-      expect(page).to have_message(image_error_message,
+      expect(page).to have_message(profile_image_error_message,
                                    in: 'div.external_member_profile_image')
     end
   end

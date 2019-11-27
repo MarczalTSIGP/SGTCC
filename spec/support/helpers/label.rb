@@ -16,8 +16,8 @@ module Helpers
       I18n.t('reports.professors.label.unavailable')
     end
 
-    def confirm_judgment_label
-      I18n.t('views.buttons.confirm_judgment')
+    def meeting_view_label
+      I18n.t('views.buttons.orientation.meeting.view')
     end
 
     def concede_label

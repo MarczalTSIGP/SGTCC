@@ -17,12 +17,7 @@ export default {
   name: 'ExaminationBoardStatus',
 
   props: {
-    status: {
-      type: String,
-      required: true
-    },
-
-    label: {
+    date: {
       type: String,
       required: true
     },
@@ -31,6 +26,9 @@ export default {
   data() {
     return {
       badgeType: 'default',
+      label: 'Ocorreu',
+      examinationDate: '',
+      dateNow: '',
     };
   },
 
@@ -49,21 +47,28 @@ export default {
     },
   },
 
-  beforeMount() {
+  created() {
+    this.updateDates();
     this.setBadgeType();
   },
 
   methods: {
     setBadgeType() {
-      switch(this.status) {
-      case 'today':
+      if (this.examinationDate === this.dateNow) {
         this.badgeType = 'primary';
-        break;
-      case 'next' :
+        this.label = 'Hoje';
+      } else if (this.examinationDate > this.dateNow) {
         this.badgeType = 'warning';
+        this.label = 'Próxima';
       }
     },
+
+    updateDates() {
+      this.examinationDate = new Date(this.date).toLocaleDateString();
+      this.dateNow = new Date(Date.now()).toLocaleDateString();
+    },
   },
+
 };
 
 </script>

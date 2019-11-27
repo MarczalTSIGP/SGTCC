@@ -4,8 +4,17 @@
   <td><%= institution.cnpj.formatted %></td>
   <td><%= short_date(institution.created_at) %></td>
   <td>
-    <%= render 'shared/links',
-      resource_link: responsible_institution_path(institution),
-      edit_link: edit_responsible_institution_path(institution) %>
+    <%= link_to(responsible_institution_path(institution)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_institution_path(institution)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_institution_path(institution),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
   </td>
 </tr>

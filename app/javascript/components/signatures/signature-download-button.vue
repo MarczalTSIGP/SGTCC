@@ -1,23 +1,13 @@
 <template>
-  <div
-    v-if="show"
-    class="border border-primary rounded p-4"
-  >
-    <div class="float-left">
-      <strong>Salvar documento em PDF</strong>
-      <p>Este documento será salvo no formato PDF.</p>
-    </div>
-
+  <div>
     <button
+      v-if="show"
       id="signature_download_button"
-      class="btn btn-outline-primary float-right mb-2"
+      class="btn btn-outline-danger"
       @click="downloadPdf()"
     >
       Salvar em PDF
     </button>
-
-    <div class="clearfix" />
-    <hr class="m-0">
   </div>
 </template>
 

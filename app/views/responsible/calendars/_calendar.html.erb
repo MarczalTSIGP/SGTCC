@@ -3,8 +3,17 @@
   <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>
-    <%= render 'shared/links',
-      resource_link: responsible_calendar_path(calendar),
-      edit_link: edit_responsible_calendar_path(calendar) %>
+    <%= link_to(responsible_calendar_path(calendar)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+    <% end %>
+    <%= link_to(edit_responsible_calendar_path(calendar)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+    <% end %>
+    <%= link_to responsible_calendar_path(calendar),
+      method: :delete,
+      data: { confirm: t('prompt.confirm') },
+      class: 'destroy' do %>
+      <i class="fe fe-trash" data-toggle="tooltip" title="Delete"></i>
+    <% end %>
   </td>
 </tr>

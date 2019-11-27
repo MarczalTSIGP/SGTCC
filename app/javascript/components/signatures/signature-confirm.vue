@@ -17,7 +17,6 @@
           id="login_confirmation"
           v-model="login"
           type="text"
-          autocomplete="off"
           class="form-control"
         >
       </div>

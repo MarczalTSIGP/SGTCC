@@ -3,23 +3,9 @@ FactoryBot.define do
 
   factory :examination_board do
     date { Faker::Date.forward(1) }
-    document_available_until { Faker::Date.forward(1) }
-    identifier { ExaminationBoard.human_tcc_identifiers.values.sample }
     place { Faker::Address.community }
     tcc { tccs.sample }
     orientation
-
-    factory :proposal_examination_board do
-      identifier { :proposal }
-    end
-
-    factory :project_examination_board do
-      identifier { :project }
-    end
-
-    factory :monograph_examination_board do
-      identifier { :monograph }
-    end
 
     factory :examination_board_tcc_one do
       tcc { tccs.first }
@@ -27,18 +13,6 @@ FactoryBot.define do
 
     factory :examination_board_tcc_two do
       tcc { tccs.last }
-    end
-
-    factory :current_examination_board_tcc_one do
-      tcc { tccs.first }
-      orientation { create(:current_orientation_tcc_one) }
-      identifier { :proposal }
-    end
-
-    factory :current_examination_board_tcc_two do
-      tcc { tccs.last }
-      orientation { create(:current_orientation_tcc_two) }
-      identifier { :monograph }
     end
 
     after :create do |examination_board|

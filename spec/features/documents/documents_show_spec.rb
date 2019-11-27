@@ -31,7 +31,7 @@ describe 'Document::show', type: :feature, js: true do
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
                                        signature_code_message(document),
-                                       document_date(document.created_at)])
+                                       document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))

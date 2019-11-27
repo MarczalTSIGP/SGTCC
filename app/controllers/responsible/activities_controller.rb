@@ -4,7 +4,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   before_action :set_index_breadcrumb, only: [:index, :show, :new, :edit]
 
   def index
-    @activities = @calendar.activities.includes(:base_activity_type).recent
+    @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
   end
 
   def show
@@ -69,8 +69,8 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
   def activity_params
     params.require(:activity)
-          .permit(:name, :base_activity_type_id, :tcc, :judgment,
-                  :final_version, :calendar_id, :initial_date, :final_date, :identifier)
+          .permit(:name, :base_activity_type_id, :tcc,
+                  :calendar_id, :initial_date, :final_date)
   end
 
   def set_index_breadcrumb

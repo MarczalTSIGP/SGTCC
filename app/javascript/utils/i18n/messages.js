@@ -2,8 +2,7 @@ export const messages = {
   'pt-BR': {
     messages: {
       registration: {
-        edit_image: 'Clique na imagem para alterá-la',
-        find_image: 'Selecionar imagem'
+        edit_image: 'Clique na imagem para alterá-la'
       },
       search: 'Procurar...',
     },

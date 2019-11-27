@@ -19,7 +19,7 @@
     </p>
     <div>
       <meeting-view
-        url="<%= academics_meeting_update_viewed_path(@meeting) %>"
+        :id="<%= @meeting.id %>"
         :value="<%= @meeting.viewed %>" />
     </div>
   </div>

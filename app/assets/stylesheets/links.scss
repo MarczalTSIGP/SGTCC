@@ -1,9 +1,0 @@
-.is-disabled-link {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-a[aria-disabled="true"] {
-  pointer-events: none;
-  text-decoration: none;
-}

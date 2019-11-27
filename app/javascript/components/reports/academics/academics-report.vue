@@ -12,7 +12,7 @@
 
     <div class="col-md-3 col-sm-12">
       <card-report-number
-        label="Em orientação"
+        label="Com orientações em andamento"
         background-color="primary"
         :number="academics.orientations.all.in_progress"
         :title="title"

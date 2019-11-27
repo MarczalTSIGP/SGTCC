@@ -12,7 +12,13 @@ describe 'Activity::show', type: :feature do
   describe '#show' do
     context 'when shows the activity' do
       it 'shows the activity' do
-        expect(page).to have_contents([activity.name, activity.deadline])
+        tcc = I18n.t("enums.tcc.#{activity.tcc}")
+        expect(page).to have_contents([activity.name,
+                                       activity.base_activity_type.name,
+                                       activity.deadline,
+                                       tcc,
+                                       complete_date(activity.created_at),
+                                       complete_date(activity.updated_at)])
       end
     end
   end

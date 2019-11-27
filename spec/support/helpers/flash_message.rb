@@ -32,7 +32,7 @@ module Helpers
       I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes')
     end
 
-    def image_error_message
+    def profile_image_error_message
       I18n.t('errors.messages.extension_whitelist_error', extension: '"pdf"',
                                                           allowed_types: 'jpg, jpeg, gif, png')
     end

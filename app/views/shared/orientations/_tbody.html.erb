@@ -6,6 +6,11 @@
   </span>
 </td>
 <td><%= orientation.advisor.name %></td>
+<td>
+  <% orientation.supervisors.each do |supervisor| %>
+    <p class="m-0"><%= supervisor.name %></p>
+  <% end %>
+</td>
 <td class="text-center">
   <span data-toggle="tooltip" title="<%= orientation.status %>">
     <orientation-status

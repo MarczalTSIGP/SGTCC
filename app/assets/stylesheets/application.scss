@@ -17,23 +17,20 @@
 **************************************************************/
 @import "config/tabler";
 
+
 /*************************************************************
 * Customizations
 **************************************************************/
 @import "customizations/simple_form_bootstrap";
-@import "customizations/simplemde";
 @import "customizations/bootstrap";
 @import "customizations/icons";
 
 /*************************************************************
 * Apps stylesheets
 **************************************************************/
-@import "fontawesome/fontawesome-picker";
 @import "lib/image_preview";
 @import "errors/errors";
 @import "sidebar";
 @import "inputs";
-@import "links";
 @import "document";
 @import "components";
-@import "images";

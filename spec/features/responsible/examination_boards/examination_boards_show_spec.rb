@@ -2,11 +2,9 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::show', type: :feature do
   let(:responsible) { create(:responsible) }
-  let(:orientation) { create(:orientation_tcc_two) }
-  let!(:examination_board) { create(:monograph_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:examination_board) }
 
   before do
-    create(:document_type_admg)
     login_as(responsible, scope: :professor)
     visit responsible_examination_board_path(examination_board)
   end
@@ -29,25 +27,6 @@ describe 'ExaminationBoard::show', type: :feature do
         examination_board.external_members.each do |external_member|
           expect(page).to have_content(external_member.name_with_scholarity)
         end
-      end
-    end
-
-    context 'when shows the academic activity' do
-      let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
-
-      before do
-        create(:monograph_academic_activity, academic: academic)
-        visit responsible_examination_board_path(examination_board)
-      end
-
-      it 'shows the academic activity' do
-        expect(page).to have_contents([academic.name,
-                                       academic_activity.title,
-                                       academic_activity.summary])
-
-        expect(page).to have_selectors([link(academic_activity.pdf.url),
-                                        link(academic_activity.complementary_files.url)])
       end
     end
   end

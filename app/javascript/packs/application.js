@@ -4,7 +4,6 @@ import TurbolinksAdapter from 'vue-turbolinks';
 import VueSwal from 'vue-swal';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import VueSimpleMarkdown from 'vue-simple-markdown';
-import VueClipboard from 'vue-clipboard2';
 import 'babel-polyfill';
 
 import {axios} from '../utils/axios/axios-config';
@@ -17,14 +16,12 @@ import selectize from '../initializers/selectize';
 import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
-import fileInput from '../initializers/file-input';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
 Vue.use(VueI18n);
 Vue.use(VueSwal);
 Vue.use(VueSimpleMarkdown);
-Vue.use(VueClipboard);
 
 const options = {
   name: '_blank',
@@ -53,7 +50,6 @@ document.addEventListener('turbolinks:load', () => {
     components,
     mixins: [
       datetimepicker,
-      fileInput,
       markdown,
       menu,
       selectize,

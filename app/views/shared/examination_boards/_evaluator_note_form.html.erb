@@ -1,7 +1,0 @@
-<% if evaluator %>
-  <% provide(:evaluator_note_form) do %>
-    <%= render "#{namespace}/examination_boards/evaluator_note_form",
-      url: @examination_board_note&.note&.present? ? update_url : create_url %>
-  <% end %>
-<% end %>
-

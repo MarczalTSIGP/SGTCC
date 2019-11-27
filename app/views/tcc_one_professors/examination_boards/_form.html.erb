@@ -1,37 +1,12 @@
 <%= simple_form_for [:tcc_one_professors, @examination_board] do |f| %>
   <div class="form-inputs">
-    <% if @examination_board&.orientation.blank? || @examination_board&.orientation&.calendar&.tcc == 'one' %>
-      <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: Activity.human_tcc_one_identifiers %>
-    <% else %>
-      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
-    <% end %>
-
     <%= f.association :orientation,
       label: Academic.model_name.human,
       input_html: { data: 'selectize' },
       value_method: :id,
       label_method: :academic_with_calendar,
-      collection: Orientation.all.includes(:academic, :calendar).order_by_academic,
+      collection: Orientation.current_tcc_one.includes(:academic, :calendar).order_by_academic,
       prompt: t('prompt.select.f', name: Academic.model_name.human) %>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.association :professors,
-          label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
-          input_html: { data: 'selectize' },
-          collection: Professor.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
-      </div>
-      <div class="col-sm-6">
-        <%= f.association :external_members,
-          label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
-          input_html: { data: 'selectize' },
-          collection: ExternalMember.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
-      </div>
-    </div>
 
     <div class="row">
       <div class="col-sm-6">
@@ -46,12 +21,19 @@
       </div>
     </div>
 
-    <div>
-      <datetimepicker
-        name="examination_board[document_available_until]"
-        id="examination_board_document_available_until"
-        label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
-        datetime="<%= @examination_board.document_available_until %>" />
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :professors,
+          input_html: { data: 'selectize' },
+          collection: Professor.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :external_members,
+          input_html: { data: 'selectize' },
+          collection: ExternalMember.all.order(:name),
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+      </div>
     </div>
 
     <%= f.input :tcc,

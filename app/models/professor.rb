@@ -4,7 +4,6 @@ class Professor < ApplicationRecord
   include ProfileImage
   include DocumentFilter
   include ScholarityName
-  include ProfessorOrientationFilter
 
   devise :database_authenticatable,
          :rememberable, :validatable,
@@ -31,12 +30,9 @@ class Professor < ApplicationRecord
            inverse_of: :professor_supervisor,
            dependent: :restrict_with_error
 
-  has_many :supervisions, through: :professor_supervisors, source: :orientation
-  has_many :all_documents, through: :supervisions, source: :documents
-
-  has_many :supervision_examination_boards,
-           through: :supervisions,
-           source: :examination_boards
+  has_many :supervisions,
+           through: :professor_supervisors,
+           source: :orientation
 
   has_many :meetings, through: :orientations
 
@@ -55,11 +51,22 @@ class Professor < ApplicationRecord
            through: :examination_board_attendees,
            source: :examination_board
 
-  validates :name, presence: true
-  validates :gender, presence: true
-  validates :working_area, presence: true
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :lattes, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :name,
+            presence: true
+
+  validates :gender,
+            presence: true
+
+  validates :working_area,
+            presence: true
+
+  validates :username,
+            presence: true,
+            uniqueness: { case_sensitive: false }
+
+  validates :lattes,
+            presence: true,
+            format: { with: URI::DEFAULT_PARSER.make_regexp }
 
   validates :email,
             presence: true,
@@ -80,8 +87,7 @@ class Professor < ApplicationRecord
 
   def user_types
     types = Signature.user_types
-    user_types = [types[:advisor], types[:new_advisor],
-                  types[:professor_supervisor], types[:professor_evaluator]]
+    user_types = [types[:advisor], types[:new_advisor], types[:professor_supervisor]]
     user_types.push(types[:professor_responsible]) if role?(:responsible)
     user_types.push(types[:coordinator]) if role?(:coordinator)
     user_types
@@ -104,23 +110,11 @@ class Professor < ApplicationRecord
     all.sort_by(&:date).reverse.uniq
   end
 
-  def current_semester_supervision_examination_boards
-    supervision_examination_boards.current_semester.with_relationships
-  end
-
   def self.current_responsible
     joins(:roles).find_by('roles.identifier': :responsible)
   end
 
   def self.current_coordinator
     joins(:roles).find_by('roles.identifier': :coordinator)
-  end
-
-  def self.effective
-    joins(:professor_type).where(professor_types: { name: 'Efetivo' })
-  end
-
-  def self.temporary
-    joins(:professor_type).where(professor_types: { name: 'Temporário' })
   end
 end

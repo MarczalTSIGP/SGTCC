@@ -15,12 +15,6 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
-  describe 'associations' do
-    it { is_expected.to have_many(:activities).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:academic_activities).through(:activities) }
-  end
-
   describe 'when year' do
     let(:calendar) { build(:calendar) }
 
@@ -43,6 +37,11 @@ RSpec.describe Calendar, type: :model do
       calendar = create(:calendar_tcc_one)
       expect(calendar.activities).not_to be_empty
     end
+  end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:activities).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
   end
 
   describe '#search' do
