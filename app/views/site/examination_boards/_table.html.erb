@@ -1,0 +1,22 @@
+<% if examination_boards.empty? %>
+  <%= render 'site/examination_boards/empty_table', examination_boards: examination_boards %>
+<% else %>
+  <% examination_boards.each_with_index do |examination_board, index| %>
+    <div class="site-table table-responsive mb-4 examination-board-table">
+      <table class="table table-vcenter border border-gray">
+        <thead>
+          <tr class="bg-primary">
+            <th colspan="3" class="p-0 text-center text-white">
+              <%= "#{ExaminationBoard.model_name.human} #{index + 1}" %>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= render('site/examination_boards/examination_board',
+                     examination_board: examination_board) %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+<% end %>

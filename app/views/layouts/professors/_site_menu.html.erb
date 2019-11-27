@@ -1,0 +1,46 @@
+<span class="sidebar-heading">
+  <%= icon('fas', 'sliders-h', class: 'mr-2') %>
+  <%= t('views.sidebar.site') %>
+</span>
+
+<%= active_link_to(responsible_pages_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'pencil-alt') %>
+  </span>
+  <%= t('breadcrumbs.site.pages') %>
+<% end %>
+
+<%= active_link_to(responsible_pages_order_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('fas', 'sort') %>
+  </span>
+  <%= t('breadcrumbs.site.menu_order') %>
+<% end %>
+
+<%= active_link_to(responsible_images_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('far', 'images') %>
+  </span>
+  <%= t('breadcrumbs.site.images') %>
+<% end %>
+
+<%= active_link_to(responsible_attached_documents_path,
+                   class: 'list-group-item list-group-item-action') do %>
+  <span class="icon mr-2">
+    <%= icon('far', 'folder-open') %>
+  </span>
+  <%= t('breadcrumbs.site.attached_documents') %>
+<% end %>
+
+<% if Site.first %>
+  <%= active_link_to(edit_responsible_site_path(Site.first),
+                     class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'cogs') %>
+    </span>
+    <%= t('breadcrumbs.site.configs') %>
+  <% end %>
+<% end %>

@@ -1,4 +1,5 @@
 class Documents::SaveSignatures
+  include DefenseMinutes
   attr_reader :document, :signature_users
 
   def initialize(document)
@@ -91,7 +92,7 @@ class Documents::SaveSignatures
   end
 
   def add_responsible_institution
-    @signature_users.push([@orientation.institution.external_member.id, 'ES'])
+    @signature_users.push([@orientation.institution.external_member.id, 'RI'])
   end
 
   def add_coordinator

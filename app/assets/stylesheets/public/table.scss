@@ -1,0 +1,18 @@
+.site-table {
+  font-size: 14px;
+}
+
+.examination-board-table {
+  font-size: 12px;
+
+  table {
+    td {
+      padding: 0.40rem 0.20rem;
+    }
+
+    td.td-center {
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+}

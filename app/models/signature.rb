@@ -9,7 +9,10 @@ class Signature < ApplicationRecord
     new_advisor: 'NAD',
     professor_responsible: 'PR',
     professor_supervisor: 'PS',
-    external_member_supervisor: 'ES'
+    external_member_supervisor: 'ES',
+    professor_evaluator: 'PV',
+    external_member_evaluator: 'EMV',
+    responsible_institution: 'RI'
   }, _prefix: :user_type
 
   scope :by_document_type, lambda { |document_type_id|
@@ -24,8 +27,14 @@ class Signature < ApplicationRecord
 
   def user_table
     return Academic if user_type == 'academic'
-    return ExternalMember if user_type == 'external_member_supervisor'
-    Professor
+
+    ems = %w[external_member_supervisor external_member_evaluator responsible_institution]
+
+    if ems.include? user_type
+      ExternalMember
+    else
+      Professor
+    end
   end
 
   def user

@@ -4,6 +4,7 @@ RSpec.describe BaseActivity, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:tcc) }
+    it { is_expected.to validate_presence_of(:identifier) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
   end
 
@@ -93,6 +94,13 @@ RSpec.describe BaseActivity, type: :model do
       hash = {}
       tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
       expect(BaseActivity.human_tccs).to eq(hash)
+    end
+  end
+
+  describe '#human_tcc_one_identifiers' do
+    it 'returns the tcc one identifiers' do
+      hash = BaseActivity.human_tcc_identifiers.first(2).to_h
+      expect(BaseActivity.human_tcc_one_identifiers).to eq(hash)
     end
   end
 end

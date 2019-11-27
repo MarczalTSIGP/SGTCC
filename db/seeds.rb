@@ -42,13 +42,13 @@ professor_responsible = Professor.create_with(
 professor_responsible.roles << Role.first if professor_responsible.roles.empty?
 
 base_activity_types = [
-  'Envio de documento',
-  'Envio de documento com assinatura',
-  'Informativa'
+  { name: 'Envio de documento', identifier: :send_document },
+  { name: 'Informativa', identifier: :info }
 ]
 
 base_activity_types.each do |base_activity_type|
-  BaseActivityType.find_or_create_by!(name: base_activity_type)
+  BaseActivityType.find_or_create_by!(name: base_activity_type[:name],
+                                      identifier: base_activity_type[:identifier])
 end
 
 document_types = [
@@ -56,11 +56,29 @@ document_types = [
   { name: I18n.t('signatures.documents.TDO'), identifier: DocumentType.identifiers[:tdo] },
   { name: I18n.t('signatures.documents.TCAI'), identifier: DocumentType.identifiers[:tcai] },
   { name: I18n.t('signatures.documents.TEP'), identifier: DocumentType.identifiers[:tep] },
-  { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] }
+  { name: I18n.t('signatures.documents.TSO'), identifier: DocumentType.identifiers[:tso] },
+  { name: I18n.t('signatures.documents.ADPP'), identifier: DocumentType.identifiers[:adpp] },
+  { name: I18n.t('signatures.documents.ADPJ'), identifier: DocumentType.identifiers[:adpj] },
+  { name: I18n.t('signatures.documents.ADMG'), identifier: DocumentType.identifiers[:admg] }
 ]
 
 document_types.each do |document_type|
   DocumentType.find_or_create_by!(
     name: document_type[:name], identifier: document_type[:identifier]
   )
+end
+
+Site.find_or_create_by!(title: 'Site do TCC')
+
+pages = [
+  { menu_title: 'Calendário', fa_icon: 'far fa-calendar-alt', url: 'calendario' },
+  { menu_title: 'Bancas de TCC', fa_icon: 'fas fa-file-signature', url: 'bancas-de-tcc' },
+  { menu_title: 'Professores', fa_icon: 'fas fa-chalkboard-teacher', url: 'professores' },
+  { menu_title: 'TCCs aprovados', fa_icon: 'fas fa-file-code', url: 'tccs-aprovados' },
+  { menu_title: 'TCCs em andamento', fa_icon: 'far fa-file-code', url: 'tccs-em-andamento' }
+]
+
+pages.each do |page|
+  Page.find_or_create_by!(menu_title: page[:menu_title], fa_icon: page[:fa_icon],
+                          url: page[:url], content: '.', publish: true)
 end

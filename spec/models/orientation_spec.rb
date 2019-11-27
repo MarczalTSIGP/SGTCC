@@ -12,6 +12,7 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to belong_to(:institution) }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
     it { is_expected.to have_many(:documents).through(:signatures) }
+    it { is_expected.to have_many(:academic_activities).through(:academic) }
     it { is_expected.to have_many(:meetings).dependent(:destroy) }
     it { is_expected.to have_many(:examination_boards).dependent(:destroy) }
     it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
@@ -583,6 +584,73 @@ RSpec.describe Orientation, type: :model do
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse[0..4]
       expect(Orientation.professors_ranking).to eq(ranking)
+    end
+  end
+
+  describe '#to_json_table' do
+    let(:orientations) { create_list(:orientation, 2) }
+    let(:orientation_methods) do
+      [:short_title, :final_proposal, :final_project, :final_monograph,
+       :document_title, :document_summary]
+    end
+
+    let(:orientations_json) do
+      orientations.to_json(methods: orientation_methods,
+                           include: [:academic,
+                                     { supervisors: { methods: [:name_with_scholarity] } },
+                                     { advisor: { methods: [:name_with_scholarity] } }])
+    end
+
+    it 'returns the orientation to json table' do
+      expect(Orientation.to_json_table(orientations)).to eq(orientations_json)
+    end
+  end
+
+  describe '.proposal' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    let!(:proposal) do
+      create(:proposal_academic_activity, academic: academic)
+    end
+
+    it 'returns the proposal document' do
+      expect(orientation.proposal).to eq(proposal)
+    end
+  end
+
+  describe '.project' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    let!(:project) do
+      create(:project_academic_activity, academic: academic)
+    end
+
+    it 'returns the project document' do
+      expect(orientation.project).to eq(project)
+    end
+  end
+
+  describe '.monograph' do
+    let(:orientation) { create(:orientation) }
+    let(:academic) { orientation.academic }
+
+    let!(:monograph) do
+      create(:monograph_academic_activity, academic: academic)
+    end
+
+    it 'returns the monograph document' do
+      expect(orientation.monograph).to eq(monograph)
+    end
+  end
+
+  describe '.document_tcc_one' do
+    let(:orientation) { create(:orientation_tcc_one) }
+    let!(:document) { create(:proposal_academic_activity, academic: orientation.academic) }
+
+    it 'returns the document tcc one' do
+      expect(orientation.document_tcc_one).to eq(document)
     end
   end
 end

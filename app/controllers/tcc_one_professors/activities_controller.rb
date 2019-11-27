@@ -4,7 +4,7 @@ class TccOneProfessors::ActivitiesController < TccOneProfessors::BaseController
   before_action :set_index_breadcrumb
 
   def index
-    @activities = @calendar.activities.includes(:base_activity_type).order(:final_date)
+    @activities = @calendar.activities.includes(:base_activity_type).recent
   end
 
   def show

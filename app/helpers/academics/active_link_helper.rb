@@ -22,6 +22,6 @@ module Academics::ActiveLinkHelper
   end
 
   def academics_calendar_orientation_documents_active_link?
-    match_link?('^\/academics/calendars/\\d+/orientations\/\\d+/documents?(\/\\d+)?$')
+    match_link?('^\/academics/calendars/\\d+/orientations\/\\d+/(documents|activities)?(\/\\d+)?$')
   end
 end

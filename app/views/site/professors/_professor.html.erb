@@ -1,0 +1,22 @@
+<tr>
+  <td class="w-1 border-right-0">
+    <table-avatar url="<%= professor.profile_image %>" />
+  </td>
+  <td class="border-left-0">
+    <%= link_to(site_professor_path(professor)) do %>
+      <%= professor.name_with_scholarity %>
+    <% end %>
+  </td>
+  <td><%= professor.email %></td>
+  <td class="text-center">
+    <%= link_to professor.lattes, target: '_blank' do %>
+      <%= icon('fas', 'external-link-alt', 'data-toggle' => 'tooltip', title: 'lattes') %>
+    <% end %>
+  </td>
+  <td><%= t("helpers.boolean.#{professor.available_advisor}") %></td>
+  <td class="text-center">
+    <%= link_to(site_professor_path(professor)) do %>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar detalhes do professor"></i>
+    <% end %>
+  </td>
+</tr>

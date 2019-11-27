@@ -11,10 +11,38 @@
     </p>
     <p>
       <strong>
+        <%= ExaminationBoard.human_attribute_name('identifier') %>:
+      </strong>
+      <%= t("enums.tcc.identifiers.#{@examination_board.identifier}") %>
+    </p>
+    <p>
+      <strong>
         <%= ExaminationBoard.human_attribute_name('advisor') %>:
       </strong>
       <%= @examination_board.orientation.advisor.name_with_scholarity %>
     </p>
+    <% unless @examination_board.orientation.professor_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('professor_supervisors') %>:
+        </strong>
+        <br>
+        <% @examination_board.orientation.professor_supervisors.each do |supervisor| %>
+          <%= supervisor.name %><br>
+        <% end %>
+      </p>
+    <% end %>
+    <% unless @examination_board.orientation.external_member_supervisors.empty? %>
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('external_member_supervisors') %>:
+        </strong>
+        <br>
+        <% @examination_board.orientation.external_member_supervisors.each do |supervisor| %>
+          <%= supervisor.name %><br>
+        <% end %>
+      </p>
+    <% end %>
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('academic') %>:
@@ -33,10 +61,16 @@
       </strong>
       <%= complete_date(@examination_board.date) %>
     </p>
+    <p>
+      <strong>
+        <%= ExaminationBoard.human_attribute_name('document_available_until') %>:
+      </strong>
+      <%= complete_date(@examination_board.document_available_until) %>
+    </p>
     <% unless @examination_board.professors.empty? %>
       <p>
         <strong>
-          <%= ExaminationBoard.human_attribute_name('professors') %>:
+          <%= ExaminationBoard.human_attribute_name('utfpr_evaluators') %>:
         </strong>
         <br>
         <% @examination_board.professors.each do |professor| %>
@@ -47,7 +81,7 @@
     <% unless @examination_board.external_members.empty? %>
       <p>
         <strong>
-          <%= ExaminationBoard.human_attribute_name('external_members') %>:
+          <%= ExaminationBoard.human_attribute_name('external_member_evaluators') %>:
         </strong>
         <br>
         <% @examination_board.external_members.each do |external_member| %>
@@ -70,8 +104,34 @@
   </div>
 </div>
 
-<div class="d-flex">
+<% if @examination_board.academic_activity.present? %>
+  <%= render 'shared/examination_boards/academic_activity',
+    academic_activity: @examination_board.academic_activity,
+    identifier: @examination_board.academic_activity.activity.identifier %>
+<% end %>
+
+<%= yield(:evaluated_status) %>
+<%= yield(:appointment_files) %>
+<%= yield(:evaluator_note_form) %>
+
+<%= render 'shared/examination_boards/final_note' if @examination_board.final_note.present? %>
+
+<% if @examination_board.defense_minutes.present? %>
+  <div class="border border-primary rounded p-4">
+    <div class="m-3">
+      <strong>Visualizar Ata de Defesa</strong>
+      <p>Visualizar documento gerado desta banca de defesa.</p>
+      <%= link_to t('views.buttons.defense_minutes.view'),
+        send("#{resource}_document_path", @examination_board.defense_minutes),
+        class: 'btn btn-outline-primary btn-sm btn-block' %>
+    </div>
+  </div>
+<% end %>
+
+<%= yield(:generate_defense_minutes) %>
+<%= yield(:appointment_file_form) %>
+
+<div class="d-flex mt-6">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
-

@@ -25,6 +25,10 @@ class ExternalMember < ApplicationRecord
            through: :external_member_supervisors,
            source: :orientation
 
+  has_many :supervision_examination_boards,
+           through: :supervisions,
+           source: :examination_boards
+
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
            foreign_key: :external_member_id,
@@ -35,6 +39,10 @@ class ExternalMember < ApplicationRecord
   has_many :examination_boards,
            through: :examination_board_attendees,
            source: :examination_board
+
+  has_many :all_documents,
+           through: :supervisions,
+           source: :documents
 
   validates :name,
             presence: true
@@ -69,8 +77,20 @@ class ExternalMember < ApplicationRecord
     current_supervision_by_calendar(Calendar.current_by_tcc_two)
   end
 
+  def user_types
+    types = Signature.user_types
+    user_types = [types[:external_member_supervisor], types[:external_member_evaluator],
+                  types[:responsible_institution]]
+    user_types
+  end
+
   def documents(status = [true, false])
-    user_types = Signature.user_types[:external_member_supervisor]
     Document.from(Document.by_user(id, user_types, status), :documents).recent
+  end
+
+  def current_examination_boards(term = nil)
+    all = (examination_boards.current_semester.search(term).with_relationships +
+     supervision_examination_boards.current_semester.search(term).with_relationships)
+    all.sort_by(&:date).reverse.uniq
   end
 end

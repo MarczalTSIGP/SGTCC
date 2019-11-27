@@ -2,7 +2,11 @@
   <%= render('shared/orientations/tbody', orientation: orientation) %>
   <td>
     <%= link_to(professors_supervision_path(orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Show"></i>
+      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
+    <% end %>
+
+    <%= link_to(professors_supervision_activities_path(orientation)) do %>
+      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
     <% end %>
 
     <%= link_to(professors_supervision_documents_path(orientation)) do %>

@@ -4,26 +4,15 @@ export default {
   data() {
     return {
       term: {
-        orientation: {
-          id: '',
-          title: '',
-          created_at: '',
-        },
-        academic: {
-          id: '',
-          name: '',
-          ra: '',
-        },
-        advisor: {
-          id: '',
-          name: '',
-          label: ''
-        },
+        orientation: { id: '', title: '' },
+        academic: { id: '', name: '', ra: '' },
+        advisor: { id: '', name: '', label: '' },
         title: '',
-        document: {},
+        document: { id: '', created_at: '' },
         institution: {},
         professorSupervisors: [],
         externalMemberSupervisors: [],
+        examination_board: []
       },
     };
   },
