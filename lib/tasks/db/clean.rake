@@ -10,6 +10,7 @@ namespace :db do
      DocumentType,
      Meeting,
      ExaminationBoardAttendee,
+     ExaminationBoardNote,
      ExaminationBoard,
      Orientation,
      AcademicActivity,
