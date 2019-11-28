@@ -6,9 +6,16 @@
           <%= f.input :title,
             label: AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>
         </div>
+
         <div class="col-12">
           <%= f.input :summary,
             label: AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>
+        </div>
+
+        <div class="col-12">
+          <%= f.input :additional_instructions,
+            input_html: { class: 'markdown-editor' },
+            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
         </div>
 
         <div class="col-md-6 mb-6">

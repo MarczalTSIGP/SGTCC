@@ -32,7 +32,7 @@
         <%= Page.human_attribute_name('content') %>:
       </strong>
       <div class="form-fieldset">
-        <vue-simple-markdown source="<%= @page.content %>" />
+        <markdown-reader content="<%= @page.content %>" />
       </div>
     </p>
     <p>

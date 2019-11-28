@@ -11,7 +11,7 @@
       <b>Motivos da desistência</b>: <br>
       <span>
         <div class="ml-4">
-          <vue-simple-markdown :source="request.requester.justification" />
+          <markdown-reader :content="request.requester.justification" />
         </div>
       </span>
     </p>
@@ -30,11 +30,12 @@
 import baseTermData from './base-term-data';
 import BaseTermLayout from './base-term-layout';
 import DocumentReview from '../document-review';
+import MarkdownReader from '../../shared/markdown-reader';
 
 export default {
   name: 'TermOfAbandonment',
 
-  components: { BaseTermLayout, DocumentReview },
+  components: { BaseTermLayout, DocumentReview, MarkdownReader },
 
   mixins: [baseTermData],
 

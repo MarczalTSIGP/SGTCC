@@ -1,28 +1,26 @@
 export default {
   mounted() {
-    this.initScroll();
+    this.moveScrollToActiveLinkPosition();
+    this.addClickEventToAllLinksToGetScrollPosition();
   },
 
   methods: {
-    initScroll() {
+    moveScrollToActiveLinkPosition() {
       const $ = window.jQuery;
-      const linkActive = $('a.list-group-item.list-group-item-action.active');
+      var position = parseInt(localStorage.getItem('scroll_top_position')) || 0;
 
-      if (linkActive.length > 0) {
-        const top = linkActive.offset().top;
-
-        if (top >= 474) {
-          this.moveScrollToActiveLinkPosition(top);
-        }
-      }
+      $('.sidebar').scrollTop(position);
+      $('.sidebar').css('overflow', 'auto');
     },
 
-    moveScrollToActiveLinkPosition(position) {
+    addClickEventToAllLinksToGetScrollPosition() {
       const $ = window.jQuery;
 
-      $('.sidebar').animate({
-        scrollTop: position
-      }, 2000);
-    },
+      $('body').on('click', 'a', function() {
+        let scrollTop = $('.sidebar').scrollTop();
+
+        localStorage.setItem('scroll_top_position', scrollTop);
+      });
+    }
   },
 };
