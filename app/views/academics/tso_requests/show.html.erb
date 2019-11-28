@@ -45,8 +45,8 @@
       <strong>
         <%= Document.human_attribute_name('justification') %>:
       </strong>
-      <vue-simple-markdown
-        source="<%= @document.request['requester']['justification'] %>" />
+      <markdown-reader
+        content="<%= @document.request['requester']['justification'] %>" />
     </p>
     <p>
       <strong>

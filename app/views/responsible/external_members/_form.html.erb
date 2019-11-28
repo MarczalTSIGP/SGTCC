@@ -1,30 +1,30 @@
 <%= simple_form_for [:responsible, @external_member] do |f| %>
   <div class="form-inputs">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.input :name %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.input :email %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.association :scholarity,
           input_html: { data: 'selectize' },
           prompt: t('prompt.select.f', name: ExternalMember.human_attribute_name('scholarity')) %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.input :personal_page %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.input :password, autocomplete: "off" %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.input :password_confirmation %>
       </div>
     </div>

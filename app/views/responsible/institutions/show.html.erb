@@ -33,7 +33,7 @@
         <%= Institution.human_attribute_name('working_area') %>:
       </strong>
       <div class="form-fieldset w-50">
-        <vue-simple-markdown source="<%= @institution.working_area %>" />
+        <markdown-reader content="<%= @institution.working_area %>" />
       </div>
     </p>
     <% end %>

@@ -23,7 +23,7 @@
         <strong>
           <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>:
         </strong>
-        <vue-simple-markdown source="<%= @academic_activity.additional_instructions %>" />
+        <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
       </p>
     <% end %>
     <p>
