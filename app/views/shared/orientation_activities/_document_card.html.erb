@@ -18,14 +18,6 @@
       </strong>
       <%= @academic_activity.summary %>
     </p>
-    <% if @academic_activity.additional_instructions.present? %>
-      <p>
-        <strong>
-          <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>:
-        </strong>
-        <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
-      </p>
-    <% end %>
     <p>
       <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
         <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>
@@ -43,3 +35,19 @@
     </div>
   </div>
 </div>
+
+<% if @academic_activity.additional_instructions.present? %>
+  <div class="card">
+    <div class="card-header">
+      <strong class="mr-1">
+        <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
+      </strong>
+    </div>
+
+    <div class="card-body">
+      <p>
+        <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
+      </p>
+    </div>
+  </div>
+<% end %>
