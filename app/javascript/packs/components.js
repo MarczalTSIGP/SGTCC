@@ -10,6 +10,7 @@ import FontawesomePicker from '../components/fontawesome/fontawesome-picker';
 import GenerateDefenseMinutes from '../components/examination-boards/generate-defense-minutes';
 import GenerateNonAttendanceDefenseMinutes from '../components/examination-boards/generate-non-attendance-defense-minutes';
 import ImagePreview from '../components/shared/image-preview';
+import MarkdownReader from '../components/shared/markdown-reader';
 import MeetingView from '../components/orientations/meetings/meeting-view';
 import ProfileImagePreview from '../components/shared/registrations/profile-image-preview';
 import ProfessorOrientationsReport from '../components/reports/professors/professors-orientations-report';
@@ -51,6 +52,7 @@ const components = {
   GenerateDefenseMinutes,
   GenerateNonAttendanceDefenseMinutes,
   ImagePreview,
+  MarkdownReader,
   MeetingView,
   OrientationsApprovedPage,
   OrientationCancel,

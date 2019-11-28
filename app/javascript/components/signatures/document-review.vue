@@ -23,9 +23,7 @@
     <p>
       <b>Parecer:</b>
     </p>
-    <div>
-      <vue-simple-markdown :source="request.judgment.responsible.justification" />
-    </div>
+    <markdown-reader :content="request.judgment.responsible.justification" />
   </div>
   <div v-else>
     <p>
@@ -38,11 +36,12 @@
 <script>
 
 import DocumentJudgment from './document-judgment';
+import MarkdownReader from '../shared/markdown-reader';
 
 export default {
   name: 'DocumentReview',
 
-  components: { DocumentJudgment },
+  components: { DocumentJudgment, MarkdownReader },
 
   props: {
     documentId: {
