@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
