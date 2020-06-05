@@ -11,11 +11,13 @@
       <% end %>
     <% end %>
 
-    <%= link_to tcc_one_professors_examination_board_path(examination_board),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+    <% unless examination_board.defense_minutes.present? %>
+      <%= link_to tcc_one_professors_examination_board_path(examination_board),
+        method: :delete,
+        data: { confirm: t('prompt.confirm') },
+        class: 'destroy' do %>
+        <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+      <% end %>
     <% end %>
   </td>
 </tr>
