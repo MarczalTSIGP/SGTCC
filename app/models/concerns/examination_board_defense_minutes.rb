@@ -30,5 +30,9 @@ module ExaminationBoardDefenseMinutes
       condition = "content -> 'examination_board' ->> 'id' = ?"
       orientation.documents.where(document_type_id: document_type.id).find_by(condition, id.to_s)
     end
+
+    def edition_disabled?
+      defense_minutes.present?
+    end
   end
 end

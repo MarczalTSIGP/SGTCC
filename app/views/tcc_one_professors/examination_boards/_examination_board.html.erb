@@ -5,10 +5,8 @@
       <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
     <% end %>
 
-    <% if examination_board.defense_minutes.blank? %>
-      <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
-      <% end %>
+    <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
+      <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
     <% end %>
 
     <%= link_to tcc_one_professors_examination_board_path(examination_board),

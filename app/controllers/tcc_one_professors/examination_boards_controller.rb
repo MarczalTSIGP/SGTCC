@@ -1,7 +1,6 @@
 class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseController
   before_action :set_examination_board, only: [:edit, :update, :destroy]
   before_action :set_examination_board_with_relationships, only: :show
-  before_action :can_edit, only: :update
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :tcc_one_professors_examination_boards_tcc_one_path,
@@ -97,11 +96,5 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
     params.require(:examination_board)
           .permit(:place, :date, :orientation_id, :tcc, :identifier,
                   :document_available_until, professor_ids: [], external_member_ids: [])
-  end
-
-  def can_edit
-    return if @examination_board.defense_minutes.blank?
-    flash[:alert] = I18n.t('flash.examination_board.edit.defense_minutes')
-    redirect_to tcc_one_professors_examination_board_path(@examination_board)
   end
 end
