@@ -39,7 +39,7 @@ script:
   - bundle exec rails webpacker:compile
   - yarn run lint
   - bundle exec rubocop
-  - bundle exec rspec
+  - travis_wait 30 bundle exec rspec
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 cache:
