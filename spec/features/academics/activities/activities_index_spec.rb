@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature, js: true do
+describe 'Activity::index', type: :feature do
   let(:academic) { create(:academic) }
 
   describe '#index' do

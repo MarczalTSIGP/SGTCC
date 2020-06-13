@@ -1,12 +1,11 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::index', type: :feature, js: true do
-  let(:academic) { create(:academic) }
-  let!(:orientation) { create(:orientation, academic: academic) }
+describe 'ExaminationBoard::index', type: :feature do
+  let!(:orientation) { create(:orientation) }
   let!(:examination_board) { create(:examination_board_tcc_one, orientation: orientation) }
 
   before do
-    login_as(academic, scope: :academic)
+    login_as(orientation.academic, scope: :academic)
     visit academics_root_path
   end
 
@@ -18,13 +17,6 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
                                        examination_board.place,
                                        datetime(examination_board.date)])
 
-        examination_board.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
-
-        examination_board.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
-        end
       end
     end
   end

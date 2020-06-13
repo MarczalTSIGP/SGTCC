@@ -6,12 +6,13 @@ FactoryBot.define do
   tcc_two = tccs.last
 
   factory :calendar do
-    sequence(:year) { |n| Faker::Number.number(4) || "20#{n}" }
+    sequence(:year) { |n| Faker::Number.unique.number(digits: 4) || "20#{n}" }
     sequence(:semester) { tccs.first || tccs.last }
     tcc { tccs.sample }
 
     before :create do
-      create_list(:base_activity, 4)
+      create_list(:base_activity_tcc_one, 2)
+      create_list(:base_activity_tcc_two, 2)
     end
 
     before :destroy do

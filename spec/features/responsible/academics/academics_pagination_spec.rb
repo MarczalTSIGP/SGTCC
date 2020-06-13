@@ -13,7 +13,7 @@ describe 'Academics::pagination', type: :feature, js: true do
     context 'when finds the last academic on second page' do
       it 'finds the last academic' do
         academic = Academic.order(:name).last
-        click_link(2)
+        click_link('2')
         expect(page).to have_contents([academic.name,
                                        academic.email,
                                        academic.ra,

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'Supervision::activities', type: :feature, js: true do
-  let!(:external_member) { create(:external_member) }
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+describe 'Supervision::activities', type: :feature do
+  let(:external_member) { create(:external_member) }
+  let(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
   let(:activities) { orientation.calendar.activities }
   let(:active_link) { external_members_supervisions_tcc_one_path }
@@ -10,11 +10,14 @@ describe 'Supervision::activities', type: :feature, js: true do
   before do
     orientation.external_member_supervisors << external_member
     login_as(external_member, scope: :external_member)
-    visit external_members_supervision_activities_path(orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation activities' do
+      before do
+        visit external_members_supervision_activities_path(orientation)
+      end
+
       it 'shows all the activites' do
         activities.each do |activity|
           expect(page).to have_contents([activity.name,
@@ -27,8 +30,7 @@ describe 'Supervision::activities', type: :feature, js: true do
     end
 
     context 'when show the activity by orientation' do
-      let(:activity) { activities.first }
-
+      let!(:activity) { activities.first }
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)
       end

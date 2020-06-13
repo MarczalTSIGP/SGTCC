@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature, js: true do
-  let(:academic) { create(:academic) }
-  let!(:orientation) { create(:orientation, academic: academic) }
+describe 'Document::index', type: :feature do
+  let!(:orientation) { create(:orientation) }
 
   before do
-    login_as(academic, scope: :academic)
+    login_as(orientation.academic, scope: :academic)
     visit academics_root_path
   end
 

@@ -14,7 +14,10 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
       fill_in 'external_member_name', with: attributes[:name]
       fill_in 'external_member_email', with: attributes[:email]
       fill_in 'external_member_personal_page', with: attributes[:personal_page]
+
+      page.execute_script("$('#external_member_profile_image').css('opacity', '1')")
       attach_file 'external_member_profile_image', FileSpecHelper.image.path
+
       fill_in 'external_member_current_password', with: external_member.password
       submit_form('input[name="commit"]')
 
@@ -30,7 +33,10 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
       fill_in 'external_member_name', with: ''
       fill_in 'external_member_email', with: 'email'
       fill_in 'external_member_current_password', with: external_member.password
+
+      page.execute_script("$('#external_member_profile_image').css('opacity', '1')")
       attach_file 'external_member_profile_image', FileSpecHelper.pdf.path
+
       submit_form('input[name="commit"]')
 
       expect(page).to have_flash(:danger, text: default_error_message)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::show', type: :feature, js: true do
+describe 'ExaminationBoard::show', type: :feature do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
@@ -33,13 +33,19 @@ describe 'ExaminationBoard::show', type: :feature, js: true do
       end
     end
 
-    context 'when generates the non attendance defense minutes' do
+    context 'when generates the non attendance defense minutes', js: true do
       it 'shows the view defense minutes button' do
         find('#generate_non_attendance_defense_minutes').click
-        first('.swal-button--danger').click
-        sleep 2.seconds
-        first('.swal-button--confirm').click
+        expect(page).to have_alert(text: 'Você tem certeza que deseja gerar a Ata de Defesa')
+
+        find('.swal-button--confirm',  match: :first).click # confirmation
+        expect(page).to have_alert(text: 'Ata de Defesa gerada com sucesso!')
+
+        find('.swal-button--confirm',  match: :first).click # success message
+        expect(page).to have_link(text: 'Visualizar Ata de Defesa')
+
         find('#view_defense_minutes').click
+
         document = Document.first
         examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,

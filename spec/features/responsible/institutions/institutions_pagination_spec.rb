@@ -13,7 +13,7 @@ describe 'Institution::pagination', type: :feature, js: true do
     context 'when finds the last institution on second page' do
       it 'finds the last institution' do
         institution = Institution.order(:trade_name).last
-        click_link(2)
+        click_link('2')
         expect(page).to have_contents([institution.external_member.name,
                                        institution.trade_name,
                                        institution.cnpj.formatted,
