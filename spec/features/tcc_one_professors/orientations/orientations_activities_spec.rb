@@ -2,12 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::activities', type: :feature do
   let!(:professor) { create(:professor_tcc_one) }
-  # let!(:calendar) { create(:current_calendar_tcc_one) }
-  # let!(:orientation) { create(:orientation, calendar: calendar) }
-  # let(:academic) { orientation.academic }
-  # let(:activities) { orientation.calendar.activities }
-  let(:orientation) { create(:current_orientation_tcc_two)}
-  # let(:active_link) { tcc_one_professors_calendar_orientations_path(orientation.calendar) }
+  let(:orientation) { create(:current_orientation_tcc_two) }
 
   before do
     login_as(professor, scope: :professor)
@@ -33,7 +28,8 @@ describe 'Orientation::activities', type: :feature do
       end
 
       before do
-        visit tcc_one_professors_calendar_orientation_activity_path(orientation.calendar, orientation, activity)
+        visit tcc_one_professors_calendar_orientation_activity_path(orientation.calendar,
+                                                                    orientation, activity)
       end
 
       it 'shows the activity' do

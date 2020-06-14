@@ -15,10 +15,10 @@ describe 'Meeting::view', type: :feature, js: true do
     context 'when mark as viewed the meeting' do
       it 'shows success message' do
         click_on_label(confirm_judgment_label, in: 'meeting_viewed')
-        find(".swal-button--danger", match: :first).click
+        find('.swal-button--danger', match: :first).click
         # expect(page).to have_alert(text: message('update.f'))
         expect(page).to have_selector('div.swal-text', text: message('update.f'))
-        find(".swal-button--confirm", match: :first).click
+        find('.swal-button--confirm', match: :first).click
       end
     end
   end

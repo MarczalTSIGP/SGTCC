@@ -38,21 +38,20 @@ describe 'ExaminationBoard::show', type: :feature do
         find('#generate_non_attendance_defense_minutes').click
         expect(page).to have_alert(text: 'Você tem certeza que deseja gerar a Ata de Defesa')
 
-        find('.swal-button--confirm',  match: :first).click # confirmation
+        find('.swal-button--confirm', match: :first).click # confirmation
         expect(page).to have_alert(text: 'Ata de Defesa gerada com sucesso!')
 
-        find('.swal-button--confirm',  match: :first).click # success message
+        find('.swal-button--confirm', match: :first).click # success message
         expect(page).to have_link(text: 'Visualizar Ata de Defesa')
 
         find('#view_defense_minutes').click
 
-        document = Document.first
         examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,
                                        orientation.academic.name,
                                        orientation.advisor.name_with_scholarity,
                                        document_date(examination_board.date),
-                                       document_date(document.created_at),
+                                       document_date(Document.first.created_at),
                                        examination_board.situation_translated])
 
         orientation.supervisors do |supervisor|

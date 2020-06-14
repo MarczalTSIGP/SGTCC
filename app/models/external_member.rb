@@ -31,7 +31,6 @@ class ExternalMember < ApplicationRecord
 
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
-           foreign_key: :external_member_id,
            inverse_of: :external_member,
            source: :examination_board,
            dependent: :destroy

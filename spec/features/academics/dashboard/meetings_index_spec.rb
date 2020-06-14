@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'Meeting::index', type: :feature do
   let(:orientation) { create(:orientation) }
-  let!(:meetings) { create_list(:meeting, 3, orientation: orientation) }
 
   before do
+    create_list(:meeting, 3, orientation: orientation)
     login_as(orientation.academic, scope: :academic)
     visit academics_root_path
   end

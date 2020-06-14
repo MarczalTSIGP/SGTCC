@@ -1,7 +1,6 @@
-require: rubocop-rspec
-
-Rails:
-  Enabled: true
+require:
+  - rubocop-rspec
+  - rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.4
@@ -24,6 +23,9 @@ AllCops:
     - 'bin/webpack'
     - 'bin/webpack-dev-server'
 
+Bundler/OrderedGems:
+  Enabled: false
+
 Style/SignalException:
   Exclude:
     - 'config/initializers/ldap_authenticatable.rb'
@@ -34,9 +36,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Bundler/OrderedGems:
-  Enabled: false
-
 Style/ClassAndModuleChildren:
   Enabled: false
 
@@ -45,22 +44,6 @@ Rails/LexicallyScopedActionFilter:
 
 Style/SymbolArray:
   EnforcedStyle: brackets
-
-Metrics/LineLength:
-  Max: 100
-  Exclude:
-    - 'config/environments/production.rb'
-    - 'config/initializers/backtrace_silencers.rb'
-    - 'config/initializers/content_security_policy.rb'
-
-Bundler/OrderedGems:
-  Enabled: false
-
-Metrics/MethodLength:
-  Exclude:
-
-Metrics/AbcSize:
-  Exclude:
 
 Style/MixinUsage:
   Exclude:
@@ -85,15 +68,50 @@ Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
 
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/FormatString:
+  EnforcedStyle: 'percent'
+
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'config/environments/production.rb'
+    - 'config/initializers/backtrace_silencers.rb'
+    - 'config/initializers/content_security_policy.rb'
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'config/environments/production.rb'
 
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: false
 
-Style/FormatString:
-  EnforcedStyle: 'percent'
 
 Metrics/BlockLength:
   Exclude:
@@ -102,8 +120,17 @@ Metrics/BlockLength:
     - 'lib/tasks/populate.rake'
     - 'config/routes.rb'
 
+Metrics/MethodLength:
+  Exclude:
+
+Metrics/AbcSize:
+  Exclude:
+
+
+
 Naming/VariableNumber:
   EnforcedStyle: non_integer
+
 
 RSpec/MultipleExpectations:
   Max: 2
@@ -112,3 +139,26 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 20
+
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: false
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+
+Lint/RaiseException:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: false

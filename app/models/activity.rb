@@ -3,7 +3,7 @@ class Activity < ApplicationRecord
   include Tcc
 
   belongs_to :base_activity_type
-  belongs_to :calendar, required: false
+  belongs_to :calendar, optional: true
 
   has_many :academic_activities, dependent: :destroy
 

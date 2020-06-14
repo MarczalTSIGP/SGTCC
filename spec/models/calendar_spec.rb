@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Calendar, type: :model do
   describe 'validates' do
-    subject { create(:calendar) }
+    subject(:calendar) { create(:calendar) }
 
     it { is_expected.to validate_presence_of(:year) }
     it { is_expected.to validate_presence_of(:tcc) }
@@ -11,7 +11,8 @@ RSpec.describe Calendar, type: :model do
     it 'validates uniqueness of year' do
       msg = I18n.t('activerecord.errors.models.calendar.attributes.year')
       scp = [:semester, :tcc]
-      is_expected.to validate_uniqueness_of(:year).with_message(msg).scoped_to(scp).case_insensitive
+      expect(calendar).to validate_uniqueness_of(:year).with_message(msg)
+                                                       .scoped_to(scp).case_insensitive
     end
   end
 
@@ -50,7 +51,7 @@ RSpec.describe Calendar, type: :model do
 
     context 'when finds calendar by attributes' do
       it 'returns calendar by year' do
-        results_search = Calendar.search(calendar.year)
+        results_search = described_class.search(calendar.year)
         expect(calendar.year).to eq(results_search.first.year)
       end
     end
@@ -58,9 +59,9 @@ RSpec.describe Calendar, type: :model do
     context 'when returns calendars ordered by year' do
       it 'returns ordered' do
         create_list(:calendar, 3)
-        calendars_ordered = Calendar.order(year: :desc)
+        calendars_ordered = described_class.order(year: :desc)
         calendar = calendars_ordered.first
-        results_search = Calendar.search.order(year: :desc)
+        results_search = described_class.search.order(year: :desc)
         expect(calendar.year).to eq(results_search.first.year)
       end
     end
@@ -72,14 +73,14 @@ RSpec.describe Calendar, type: :model do
 
     context 'when finds calendar by tcc one' do
       it 'returns calendar by tcc one' do
-        results_search = Calendar.search_by_tcc_one(1, calendar_tcc_one.year)
+        results_search = described_class.search_by_tcc_one(1, calendar_tcc_one.year)
         expect(calendar_tcc_one.year).to eq(results_search.first.year)
       end
     end
 
     context 'when finds calendar by tcc two' do
       it 'returns calendar by tcc two' do
-        results_search = Calendar.search_by_tcc_two(1, calendar_tcc_two.year)
+        results_search = described_class.search_by_tcc_two(1, calendar_tcc_two.year)
         expect(calendar_tcc_two.year).to eq(results_search.first.year)
       end
     end
@@ -88,13 +89,13 @@ RSpec.describe Calendar, type: :model do
   describe '#current_by_tcc' do
     it 'returns the current calendar by tcc one' do
       calendar = create(:current_calendar_tcc_one)
-      current_calendar = Calendar.current_by_tcc_one
+      current_calendar = described_class.current_by_tcc_one
       expect(calendar).to eq(current_calendar)
     end
 
     it 'returns the current calendar by tcc two' do
       calendar = create(:current_calendar_tcc_two)
-      current_calendar = Calendar.current_by_tcc_two
+      current_calendar = described_class.current_by_tcc_two
       expect(calendar).to eq(current_calendar)
     end
   end
@@ -121,11 +122,11 @@ RSpec.describe Calendar, type: :model do
   describe '#select_data' do
     it 'returns the calendar data for select' do
       create(:current_calendar_tcc_one)
-      tcc_one = Calendar.tccs[:one]
-      expected_data = Calendar.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
+      tcc_one = described_class.tccs[:one]
+      expected_data = described_class.where(tcc: tcc_one).order(created_at: :desc).map do |calendar|
         [calendar.id, calendar.year_with_semester]
       end
-      expect(Calendar.select_data(tcc_one)).to eq(expected_data)
+      expect(described_class.select_data(tcc_one)).to eq(expected_data)
     end
   end
 
@@ -133,10 +134,10 @@ RSpec.describe Calendar, type: :model do
     it 'returns the calendar data for orientation select' do
       create(:current_calendar_tcc_one)
       create(:current_calendar_tcc_two)
-      expected_data = Calendar.all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+      expected_data = described_class.all.order({ year: :desc }, :tcc, :semester).map do |calendar|
         [calendar.id, calendar.year_with_semester_and_tcc]
       end
-      expect(Calendar.select_for_orientation).to eq(expected_data)
+      expect(described_class.select_for_orientation).to eq(expected_data)
     end
   end
 
@@ -145,7 +146,7 @@ RSpec.describe Calendar, type: :model do
       current_calendar = create(:current_calendar_tcc_one, semester: 1)
       next_calendar = create(:current_calendar_tcc_one, semester: 2)
 
-      expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
+      expect(described_class.next_semester(current_calendar)).to eq(next_calendar)
     end
 
     it 'returns the next year' do
@@ -153,7 +154,7 @@ RSpec.describe Calendar, type: :model do
       next_year = current_calendar.year.to_i + 1
       next_calendar = create(:current_calendar_tcc_one, semester: 1, year: next_year)
 
-      expect(Calendar.next_semester(current_calendar)).to eq(next_calendar)
+      expect(described_class.next_semester(current_calendar)).to eq(next_calendar)
     end
   end
 
@@ -162,7 +163,7 @@ RSpec.describe Calendar, type: :model do
       current_calendar = create(:current_calendar_tcc_one, semester: 2)
       previous_calendar = create(:current_calendar_tcc_one, semester: 1)
 
-      expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
+      expect(described_class.previous_semester(current_calendar)).to eq(previous_calendar)
     end
 
     it 'returns the previous year' do
@@ -170,51 +171,51 @@ RSpec.describe Calendar, type: :model do
       previous_year = current_calendar.year.to_i - 1
       previous_calendar = create(:current_calendar_tcc_one, semester: 2, year: previous_year)
 
-      expect(Calendar.previous_semester(current_calendar)).to eq(previous_calendar)
+      expect(described_class.previous_semester(current_calendar)).to eq(previous_calendar)
     end
   end
 
   describe '#human_semesters' do
     it 'returns the semesters' do
-      semesters = Calendar.semesters
+      semesters = described_class.semesters
       hash = {}
       semesters.each_key { |key| hash[I18n.t("enums.semester.#{key}")] = key }
-      expect(Calendar.human_semesters).to eq(hash)
+      expect(described_class.human_semesters).to eq(hash)
     end
   end
 
   describe '#human_tccs' do
     it 'returns the tccs' do
-      tccs = Calendar.tccs
+      tccs = described_class.tccs
       hash = {}
       tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
-      expect(Calendar.human_tccs).to eq(hash)
+      expect(described_class.human_tccs).to eq(hash)
     end
   end
 
   describe '#current_by_tcc_one?' do
     it 'returns the value if the calendar is the current by tcc one' do
       calendar = create(:current_calendar_tcc_one)
-      expect(Calendar.current_by_tcc_one?(calendar)).to eq(true)
+      expect(described_class.current_by_tcc_one?(calendar)).to eq(true)
     end
   end
 
   describe '#current_by_tcc_two?' do
     it 'returns the value if the calendar is the current by tcc two' do
       calendar = create(:current_calendar_tcc_two)
-      expect(Calendar.current_by_tcc_two?(calendar)).to eq(true)
+      expect(described_class.current_by_tcc_two?(calendar)).to eq(true)
     end
   end
 
   describe '#current_calendar?' do
     it 'returns true for the current calendar' do
       calendar = create(:current_calendar_tcc_two)
-      expect(Calendar.current_calendar?(calendar)).to eq(true)
+      expect(described_class.current_calendar?(calendar)).to eq(true)
     end
 
     it 'returns false for the current calendar' do
       calendar = create(:calendar)
-      expect(Calendar.current_calendar?(calendar)).to eq(false)
+      expect(described_class.current_calendar?(calendar)).to eq(false)
     end
   end
 
@@ -223,7 +224,7 @@ RSpec.describe Calendar, type: :model do
       let!(:calendar_semester_one) { create(:current_calendar_tcc_two, semester: 'one') }
 
       it 'returns the calendar' do
-        expect(Calendar.by_first_year_and_tcc('two')).to eq(calendar_semester_one)
+        expect(described_class.by_first_year_and_tcc('two')).to eq(calendar_semester_one)
       end
     end
 
@@ -231,7 +232,7 @@ RSpec.describe Calendar, type: :model do
       let!(:calendar_semester_two) { create(:current_calendar_tcc_two, semester: 'two') }
 
       it 'returns the calendar' do
-        expect(Calendar.by_first_year_and_tcc('two')).to eq(calendar_semester_two)
+        expect(described_class.by_first_year_and_tcc('two')).to eq(calendar_semester_two)
       end
     end
   end
@@ -252,7 +253,7 @@ RSpec.describe Calendar, type: :model do
         total.push(calendar.orientations.where(status: status).size)
       end
       report = { years: years, total: total }
-      expect(Calendar.orientations_report_by_status(status)).to eq(report)
+      expect(described_class.orientations_report_by_status(status)).to eq(report)
     end
   end
 end

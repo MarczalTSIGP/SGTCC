@@ -30,7 +30,8 @@ describe 'Orientation::destroy', type: :feature, js: true do
 
       it 'redirect to the orientations page' do
         # TODO: need a request test to test the controller answer
-        expect(page).not_to have_selector(:css, "a[href='#{responsible_orientation_path(orientation)}'][data-method='delete']")
+        href = "a[href='#{responsible_orientation_path(orientation)}'][data-method='delete']"
+        expect(page).not_to have_selector(:css, href)
       end
     end
   end

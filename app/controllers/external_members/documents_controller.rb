@@ -44,6 +44,7 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
 
   def can_view
     return if @document.present?
+
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to external_members_documents_pending_path
   end

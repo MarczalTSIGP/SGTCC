@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Orientation, type: :model do
+  subject(:orientation) { described_class.new }
+
   describe 'validates' do
     it { is_expected.to validate_presence_of(:title) }
   end
@@ -18,13 +20,13 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to have_many(:orientation_supervisors).dependent(:delete_all) }
 
     it 'is expected to have many professor supervisors' do
-      is_expected.to have_many(:professor_supervisors).through(:orientation_supervisors)
-                                                      .dependent(:destroy)
+      expect(orientation).to have_many(:professor_supervisors).through(:orientation_supervisors)
+                                                              .dependent(:destroy)
     end
 
     it 'is expected to have many external member supervisors' do
-      is_expected.to have_many(:external_member_supervisors).through(:orientation_supervisors)
-                                                            .dependent(:destroy)
+      expect(orientation).to have_many(:external_member_supervisors)
+        .through(:orientation_supervisors).dependent(:destroy)
     end
   end
 
@@ -44,10 +46,10 @@ RSpec.describe Orientation, type: :model do
 
   describe '#select_status_data' do
     it 'returns the select status data' do
-      status_data = Orientation.statuses.map do |index, field|
+      status_data = described_class.statuses.map do |index, field|
         [field, index.capitalize]
       end.sort!
-      expect(Orientation.select_status_data).to eq(status_data)
+      expect(described_class.select_status_data).to eq(status_data)
     end
   end
 
@@ -194,17 +196,17 @@ RSpec.describe Orientation, type: :model do
     end
 
     it 'returns the orientations by tcc one' do
-      orientations_tcc_one = Orientation.joins(:calendar)
-                                        .where(calendars: { tcc: Calendar.tccs[:one] })
-                                        .page(1)
-      expect(Orientation.by_tcc_one(1, '', 'IN_PROGRESS')).to match_array(orientations_tcc_one)
+      orientations_tcc_one = described_class.joins(:calendar)
+                                            .where(calendars: { tcc: Calendar.tccs[:one] })
+                                            .page(1)
+      expect(described_class.by_tcc_one(1, '', 'IN_PROGRESS')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the orientations by tcc two' do
-      orientations_tcc_two = Orientation.joins(:calendar)
-                                        .where(calendars: { tcc: Calendar.tccs[:two] })
-                                        .page(1)
-      expect(Orientation.by_tcc_two(1, '')).to match_array(orientations_tcc_two)
+      orientations_tcc_two = described_class.joins(:calendar)
+                                            .where(calendars: { tcc: Calendar.tccs[:two] })
+                                            .page(1)
+      expect(described_class.by_tcc_two(1, '')).to match_array(orientations_tcc_two)
     end
   end
 
@@ -218,20 +220,20 @@ RSpec.describe Orientation, type: :model do
       query = { tcc: Calendar.tccs[:one],
                 year: Calendar.current_year,
                 semester: Calendar.current_semester }
-      orientations_tcc_one = Orientation.joins(:calendar)
-                                        .where(calendars: query)
-                                        .page(1)
-      expect(Orientation.by_current_tcc_one(1, '')).to match_array(orientations_tcc_one)
+      orientations_tcc_one = described_class.joins(:calendar)
+                                            .where(calendars: query)
+                                            .page(1)
+      expect(described_class.by_current_tcc_one(1, '')).to match_array(orientations_tcc_one)
     end
 
     it 'returns the current orientations by tcc two' do
       query = { tcc: Calendar.tccs[:two],
                 year: Calendar.current_year,
                 semester: Calendar.current_semester }
-      orientations_tcc_two = Orientation.joins(:calendar)
-                                        .where(calendars: query)
-                                        .page(1)
-      expect(Orientation.by_current_tcc_two(1, '')).to match_array(orientations_tcc_two)
+      orientations_tcc_two = described_class.joins(:calendar)
+                                            .where(calendars: query)
+                                            .page(1)
+      expect(described_class.by_current_tcc_two(1, '')).to match_array(orientations_tcc_two)
     end
   end
 
@@ -240,38 +242,38 @@ RSpec.describe Orientation, type: :model do
 
     context 'when finds orientation by attributes' do
       it 'returns orientation by title' do
-        results_search = Orientation.search(orientation.title)
+        results_search = described_class.search(orientation.title)
         expect(orientation.title).to eq(results_search.first.title)
       end
 
       it 'returns orientation by academic name' do
-        results_search = Orientation.search(orientation.academic.name)
+        results_search = described_class.search(orientation.academic.name)
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by academic ra' do
-        results_search = Orientation.search(orientation.academic.ra)
+        results_search = described_class.search(orientation.academic.ra)
         expect(orientation.academic.ra).to eq(results_search.first.academic.ra)
       end
 
       it 'returns orientation by advisor name' do
-        results_search = Orientation.search(orientation.advisor.name)
+        results_search = described_class.search(orientation.advisor.name)
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
 
       it 'returns orientation by calendar year' do
-        results_search = Orientation.search(orientation.calendar.year)
+        results_search = described_class.search(orientation.calendar.year)
         expect(orientation.calendar.year).to eq(results_search.first.calendar.year)
       end
 
       it 'returns orientation by institution name' do
-        results_search = Orientation.search(orientation.institution.name)
+        results_search = described_class.search(orientation.institution.name)
         expect(orientation.institution.name).to eq(results_search.first.institution.name)
       end
 
       it 'returns orientation by institution trade name' do
         trade_name = orientation.institution.trade_name
-        results_search = Orientation.search(trade_name)
+        results_search = described_class.search(trade_name)
         expect(trade_name).to eq(results_search.first.institution.trade_name)
       end
     end
@@ -279,21 +281,21 @@ RSpec.describe Orientation, type: :model do
     context 'when finds orientation with accents' do
       it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema de Gestão')
-        results_search = Orientation.search('Sistema de Gestao')
+        results_search = described_class.search('Sistema de Gestao')
         expect(orientation.title).to eq(results_search.first.title)
       end
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'João')
         orientation = create(:orientation, academic: academic)
-        results_search = Orientation.search(academic.name)
+        results_search = described_class.search(academic.name)
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Júlio')
         orientation = create(:orientation, advisor: advisor)
-        results_search = Orientation.search(advisor.name)
+        results_search = described_class.search(advisor.name)
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
     end
@@ -301,21 +303,21 @@ RSpec.describe Orientation, type: :model do
     context 'when finds orientation on search term with accents' do
       it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema de Gestao')
-        results_search = Orientation.search('Sistema de Gestão')
+        results_search = described_class.search('Sistema de Gestão')
         expect(orientation.title).to eq(results_search.first.title)
       end
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'Joao')
         orientation = create(:orientation, academic: academic)
-        results_search = Orientation.search('João')
+        results_search = described_class.search('João')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Julio')
         orientation = create(:orientation, advisor: advisor)
-        results_search = Orientation.search('Júlio')
+        results_search = described_class.search('Júlio')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
     end
@@ -323,41 +325,41 @@ RSpec.describe Orientation, type: :model do
     context 'when finds orientation ignoring the case sensitive' do
       it 'returns orientation by title' do
         orientation = create(:orientation, title: 'Sistema')
-        results_search = Orientation.search('sistema')
+        results_search = described_class.search('sistema')
         expect(orientation.title).to eq(results_search.first.title)
       end
 
       it 'returns orientation by title on search term' do
         orientation = create(:orientation, title: 'sistema')
-        results_search = Orientation.search('SISTEMA')
+        results_search = described_class.search('SISTEMA')
         expect(orientation.title).to eq(results_search.first.title)
       end
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'Joao')
         orientation = create(:orientation, academic: academic)
-        results_search = Orientation.search('joao')
+        results_search = described_class.search('joao')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by academic name on search term' do
         academic = create(:academic, name: 'joao')
         orientation = create(:orientation, academic: academic)
-        results_search = Orientation.search('JOAO')
+        results_search = described_class.search('JOAO')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Julio')
         orientation = create(:orientation, advisor: advisor)
-        results_search = Orientation.search('julio')
+        results_search = described_class.search('julio')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
 
       it 'returns orientation by advisor name on search term' do
         advisor = create(:professor, name: 'julio')
         orientation = create(:orientation, advisor: advisor)
-        results_search = Orientation.search('JULIO')
+        results_search = described_class.search('JULIO')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
     end
@@ -583,7 +585,7 @@ RSpec.describe Orientation, type: :model do
         [professor.name_with_scholarity, professor.orientations.size]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse[0..4]
-      expect(Orientation.professors_ranking).to eq(ranking)
+      expect(described_class.professors_ranking).to eq(ranking)
     end
   end
 
@@ -602,7 +604,7 @@ RSpec.describe Orientation, type: :model do
     end
 
     it 'returns the orientation to json table' do
-      expect(Orientation.to_json_table(orientations)).to eq(orientations_json)
+      expect(described_class.to_json_table(orientations)).to eq(orientations_json)
     end
   end
 

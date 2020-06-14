@@ -40,6 +40,7 @@ class Academics::DocumentsController < Academics::BaseController
 
   def can_view
     return if @document.present?
+
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to academics_documents_pending_path
   end

@@ -76,6 +76,7 @@ class Orientation < ApplicationRecord
   def renew(justification)
     next_calendar = Calendar.next_semester(calendar)
     return false if next_calendar.blank?
+
     update(renewal_justification: justification, status: 'RENEWED')
     new_orientation = dup
     new_orientation.calendar = next_calendar

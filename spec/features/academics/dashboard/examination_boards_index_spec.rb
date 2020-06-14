@@ -16,7 +16,6 @@ describe 'ExaminationBoard::index', type: :feature do
                                        examination_board.orientation.advisor.name_with_scholarity,
                                        examination_board.place,
                                        datetime(examination_board.date)])
-
       end
     end
   end

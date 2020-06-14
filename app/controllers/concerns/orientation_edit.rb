@@ -13,6 +13,7 @@ module OrientationEdit
 
   def can_edit(url)
     return if @orientation.can_be_edited?
+
     flash[:alert] = I18n.t('flash.orientation.edit.signed')
     redirect_to url
   end

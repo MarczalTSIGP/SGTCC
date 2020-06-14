@@ -16,7 +16,9 @@ describe 'Activity::destroy', type: :feature, js: true do
         click_on_destroy_link(responsible_calendar_activity_path(activity.calendar, activity))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_selector(:css, "a[href='#{responsible_calendar_activity_path(activity.calendar, activity)}']")
+
+        href = "a[href='#{responsible_calendar_activity_path(activity.calendar, activity)}']"
+        expect(page).not_to have_selector(:css, href)
       end
     end
   end
