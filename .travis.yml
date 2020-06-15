@@ -54,7 +54,7 @@ script:
   - bundle exec rails webpacker:compile
   - yarn run lint
   - bundle exec rubocop
-  - travis_wait bundle exec rspec --format documentation
+  - bundle exec rspec --format documentation
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
