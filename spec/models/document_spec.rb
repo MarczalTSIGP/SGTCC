@@ -356,7 +356,6 @@ RSpec.describe Document, type: :model do
     end
 
     before do
-      orientation.signatures << Signature.all
       orientation.signatures.each { |s| s.update(status: true) }
     end
 
