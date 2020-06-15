@@ -311,8 +311,8 @@ RSpec.describe Document, type: :model do
 
   describe '#mark' do
     let(:orientation) { create(:orientation) }
-    let(:signatures) { orientation.signatures }
-    let(:document) { signatures.first.document }
+    let(:document) { orientation.signatures.first.document }
+    let(:signatures) { document.signatures }
 
     let(:professor_signature_signed) do
       signatures.where(user_type: :advisor).first
@@ -356,7 +356,7 @@ RSpec.describe Document, type: :model do
     end
 
     before do
-      orientation.signatures.each { |s| s.update(status: true) }
+      document.signatures.each { |s| s.update(status: true) }
     end
 
     it 'returns the signatures mark' do
