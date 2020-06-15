@@ -1,12 +1,33 @@
+sudo: required
+dist: trusty
+language: ruby
+rvm:
+  - 2.5.3
+
 env:
   global:
     - CC_TEST_REPORTER_ID=0bdc7cf0256747d51c968c18502f27c34c50afd1a3dfd136ddc6e6ffc51b8c1d
+
+cache:
+  bundler: true
+  directories:
+    - node_modules # NPM packages
+  yarn: true
+
+
 addons:
   postgresql: 9.6
   chrome: stable
   apt:
     update: true
+
 before_script:
+  - wget http://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - rm chromedriver_linux64.zip
+  - sudo mv -f chromedriver /usr/local/bin/
+  - sudo chmod +x /usr/local/bin/chromedriver
+  - google-chrome-stable --headless --no-sandbox
   - sudo apt-get update
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH=$HOME/.yarn/bin:$PATH
@@ -18,15 +39,13 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-dist: trusty
-language: ruby
-rvm:
-  - 2.5.3
+
 install:
   - bundle install
   - nvm install node
   - npm install -g node-gyp
   - node -v
+
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - rm yarn.lock
@@ -35,10 +54,7 @@ script:
   - bundle exec rails webpacker:compile
   - yarn run lint
   - bundle exec rubocop
-  - bundle exec rspec --format documentation
+  - travis_wait bundle exec rspec --format documentation
+
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-cache:
-  yarn: true
-  directories:
-    - node_modules
