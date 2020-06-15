@@ -48,7 +48,8 @@ describe 'Document::show', type: :feature, js: true do
 
     context 'when the not found document' do
       before do
-        visit confirm_document_code_path('343445')
+        code = (Time.now.to_i + 2.days.to_i)
+        visit confirm_document_code_path(code)
       end
 
       it 'redirect to the signature document page' do

@@ -22,12 +22,6 @@ addons:
     update: true
 
 before_script:
-  - wget http://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip
-  - rm chromedriver_linux64.zip
-  - sudo mv -f chromedriver /usr/local/bin/
-  - sudo chmod +x /usr/local/bin/chromedriver
-  - google-chrome-stable --headless --no-sandbox
   - sudo apt-get update
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH=$HOME/.yarn/bin:$PATH
