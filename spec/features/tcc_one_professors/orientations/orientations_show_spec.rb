@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::show', type: :feature do
   let(:professor) { create(:professor_tcc_one) }
-  let(:orientation) { create(:current_orientation_tcc_one) }
+  let!(:orientation) { create(:current_orientation_tcc_one) }
 
   before do
     login_as(professor, scope: :professor)

@@ -12,7 +12,7 @@ RSpec.describe Site, type: :model do
     end
 
     it 'returns the calendar years' do
-      expect(Site.select_calendar_years).to eq(%w[2019 2018])
+      expect(described_class.select_calendar_years).to eq(%w[2019 2018])
     end
   end
 end

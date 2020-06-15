@@ -13,7 +13,7 @@ describe 'ExternalMember::pagination', type: :feature, js: true do
     context 'when finds the last external member on second page' do
       it 'finds the last external member' do
         external_member = ExternalMember.order(:name).last
-        click_link(2)
+        click_link('2')
         expect(page).to have_contents([external_member.name,
                                        external_member.email,
                                        short_date(external_member.created_at)])

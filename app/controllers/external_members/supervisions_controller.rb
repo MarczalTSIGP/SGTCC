@@ -85,6 +85,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
 
   def current_tcc_index_link
     return external_members_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
+
     external_members_supervisions_tcc_two_path
   end
 

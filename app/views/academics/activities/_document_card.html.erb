@@ -38,3 +38,19 @@
     <% end %>
   </div>
 </div>
+
+<% if @academic_activity.additional_instructions.present? %>
+  <div class="card">
+    <div class="card-header">
+      <strong class="mr-1">
+        <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
+      </strong>
+    </div>
+
+    <div class="card-body">
+      <p>
+        <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
+      </p>
+    </div>
+  </div>
+<% end %>

@@ -17,8 +17,9 @@ describe 'Image::create', type: :feature, js: true do
       it 'create an image' do
         attributes = attributes_for(:image)
         fill_in 'image_name', with: attributes[:name]
-        attach_file 'image_url', FileSpecHelper.image.path
 
+        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        attach_file 'image_url', FileSpecHelper.image.path
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_images_path

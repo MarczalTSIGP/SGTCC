@@ -9,11 +9,13 @@ module Responsible::ActiveLinkHelper
 
   def responsible_orientations_tcc_one_active_link?
     return orientations_tcc_one_active_link?('responsible') if @calendar.blank?
+
     responsible_orientations_show_or_edit_link? && Calendar.current_by_tcc_one?(@calendar)
   end
 
   def responsible_orientations_tcc_two_active_link?
     return orientations_tcc_two_active_link?('responsible') if @calendar.blank?
+
     responsible_orientations_show_or_edit_link? && Calendar.current_by_tcc_two?(@calendar)
   end
 

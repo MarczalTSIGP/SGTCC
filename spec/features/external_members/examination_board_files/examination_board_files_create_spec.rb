@@ -20,6 +20,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
         fill_in 'examination_board_note_note', with: attributes[:note]
         submit_form('input[id="examination_board_note_button"]')
 
+        page.execute_script("$('.custom-file-input').css('opacity', '1')")
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_file_button"]')
 

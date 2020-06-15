@@ -10,20 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
 -- Name: unaccent; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -110,7 +96,7 @@ CREATE TYPE public.examination_board_situations AS ENUM (
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: academic_activities; Type: TABLE; Schema: public; Owner: -
@@ -126,7 +112,8 @@ CREATE TABLE public.academic_activities (
     summary text,
     judgment boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    additional_instructions text
 );
 
 
@@ -2001,6 +1988,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191004191641'),
 ('20191010143250'),
 ('20191011133414'),
-('20191011133608');
+('20191011133608'),
+('20191125224723');
 
 

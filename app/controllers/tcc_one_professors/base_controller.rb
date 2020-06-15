@@ -9,6 +9,7 @@ class TccOneProfessors::BaseController < ActionController::Base
 
   def authorized
     return if current_professor.role?('tcc_one')
+
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_root_path
   end

@@ -101,6 +101,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def can_edit
     return if @examination_board.defense_minutes.blank?
+
     flash[:alert] = I18n.t('flash.examination_board.edit.defense_minutes')
     redirect_to tcc_one_professors_examination_board_path(@examination_board)
   end

@@ -24,6 +24,7 @@ module DocumentSignature
     end
 
     return false if login != params[:login]
+
     current_user.valid_password?(pwd)
   end
 end

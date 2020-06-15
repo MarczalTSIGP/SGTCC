@@ -55,8 +55,10 @@ class Professors::DocumentsController < Professors::BaseController
 
   def set_show_sign
     return if @document.blank? || @document&.content&.blank?
+
     examination_board_json = @document.content['examination_board']
     return if examination_board_json.blank?
+
     examination_board = ExaminationBoard.find(examination_board_json['id'])
     @not_show_sign_button = true unless examination_board.available_defense_minutes?
   end
@@ -67,6 +69,7 @@ class Professors::DocumentsController < Professors::BaseController
 
   def can_view
     return if @document.present?
+
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_documents_pending_path
   end

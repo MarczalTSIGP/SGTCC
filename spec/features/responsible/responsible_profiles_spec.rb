@@ -17,7 +17,7 @@ describe 'Responsible:profiles', type: :feature, js: true do
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_lattes', with: attributes[:lattes]
 
-        attach_file 'professor_profile_image', FileSpecHelper.image.path
+        attach_file 'professor_profile_image', FileSpecHelper.image.path, visible: false
         fill_in 'professor_current_password', with: professor.password
 
         submit_form('input[name="commit"]')
@@ -40,7 +40,7 @@ describe 'Responsible:profiles', type: :feature, js: true do
         fill_in 'professor_email', with: 'email'
         fill_in 'professor_lattes', with: ''
         fill_in 'professor_current_password', with: professor.password
-        attach_file 'professor_profile_image', FileSpecHelper.pdf.path
+        attach_file 'professor_profile_image', FileSpecHelper.pdf.path, visible: false
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: default_error_message)

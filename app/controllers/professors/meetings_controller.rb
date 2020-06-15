@@ -86,6 +86,7 @@ class Professors::MeetingsController < Professors::BaseController
 
   def can_update(action)
     return if @meeting.can_update?
+
     flash[:alert] = I18n.t("flash.orientation.meeting.errors.#{action}")
     redirect_to professors_meetings_path
   end

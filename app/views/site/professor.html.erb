@@ -46,7 +46,7 @@
         <%= Professor.human_attribute_name('working_area') %>:
       </strong>
       <div class="form-fieldset">
-        <vue-simple-markdown source="<%= @professor.working_area %>" />
+        <markdown-reader content="<%= @professor.working_area %>" />
       </div>
     </p>
   </div>

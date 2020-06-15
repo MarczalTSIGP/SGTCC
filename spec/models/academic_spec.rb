@@ -26,11 +26,11 @@ RSpec.describe Academic, type: :model do
 
   describe '#human_genders' do
     it 'returns the genders' do
-      genders = Academic.genders
+      genders = described_class.genders
       hash = {}
       genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
 
-      expect(Academic.human_genders).to eq(hash)
+      expect(described_class.human_genders).to eq(hash)
     end
   end
 
@@ -61,17 +61,17 @@ RSpec.describe Academic, type: :model do
 
     context 'when finds academic by attributes' do
       it 'returns academic by name' do
-        results_search = Academic.search(academic.name)
+        results_search = described_class.search(academic.name)
         expect(academic.name).to eq(results_search.first.name)
       end
 
       it 'returns academic by email' do
-        results_search = Academic.search(academic.email)
+        results_search = described_class.search(academic.email)
         expect(academic.email).to eq(results_search.first.email)
       end
 
       it 'returns academic by ra' do
-        results_search = Academic.search(academic.ra)
+        results_search = described_class.search(academic.ra)
         expect(academic.ra).to eq(results_search.first.ra)
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name with accents' do
       it 'returns academic' do
         academic = create(:academic, name: 'João')
-        results_search = Academic.search('Joao')
+        results_search = described_class.search('Joao')
         expect(academic.name).to eq(results_search.first.name)
       end
     end
@@ -87,7 +87,7 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name on search term with accents' do
       it 'returns academic' do
         academic = create(:academic, name: 'Joao')
-        results_search = Academic.search('João')
+        results_search = described_class.search('João')
         expect(academic.name).to eq(results_search.first.name)
       end
     end
@@ -95,13 +95,13 @@ RSpec.describe Academic, type: :model do
     context 'when finds academic by name ignoring the case sensitive' do
       it 'returns academic by attribute' do
         academic = create(:academic, name: 'Ana')
-        results_search = Academic.search('an')
+        results_search = described_class.search('an')
         expect(academic.name).to eq(results_search.first.name)
       end
 
       it 'returns academic by search term' do
         academic = create(:academic, name: 'ana')
-        results_search = Academic.search('AN')
+        results_search = described_class.search('AN')
         expect(academic.name).to eq(results_search.first.name)
       end
     end
@@ -109,10 +109,10 @@ RSpec.describe Academic, type: :model do
     context 'when returns academics ordered by name' do
       it 'returns ordered' do
         create_list(:academic, 30)
-        academics_ordered = Academic.order(:name)
+        academics_ordered = described_class.order(:name)
         academic = academics_ordered.first
-        results_search = Academic.search.order(:name)
-        expect(academic.name). to eq(results_search.first.name)
+        results_search = described_class.search.order(:name)
+        expect(academic.name).to eq(results_search.first.name)
       end
     end
   end
@@ -175,11 +175,11 @@ RSpec.describe Academic, type: :model do
     let!(:academic) { create(:academic) }
 
     it 'find by ra without a' do
-      expect(academic).to eql(Academic.find_through_ra(academic.ra))
+      expect(academic).to eql(described_class.find_through_ra(academic.ra))
     end
 
     it 'find by ra with a' do
-      expect(academic).to eql(Academic.find_through_ra("a#{academic.ra}"))
+      expect(academic).to eql(described_class.find_through_ra("a#{academic.ra}"))
     end
   end
 end

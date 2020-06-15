@@ -228,7 +228,7 @@ RSpec.describe Document, type: :model do
       document = DocumentType.find_by(identifier: :tdo).documents.new(params)
       document.request = { requester: { id: professor.id, name: professor.name,
                                         type: 'advisor', justification: 'justification' } }
-      expect(Document.new_tdo(professor, params).to_json).to eq(document.to_json)
+      expect(described_class.new_tdo(professor, params).to_json).to eq(document.to_json)
     end
   end
 
@@ -249,7 +249,7 @@ RSpec.describe Document, type: :model do
       document = DocumentType.find_by(identifier: :tep).documents.new(params)
       document.request = { requester: { id: academic.id, name: academic.name,
                                         type: 'academic', justification: 'justification' } }
-      expect(Document.new_tep(academic, params).to_json).to eq(document.to_json)
+      expect(described_class.new_tep(academic, params).to_json).to eq(document.to_json)
     end
   end
 
@@ -285,7 +285,7 @@ RSpec.describe Document, type: :model do
     it 'returns true' do
       document = DocumentType.find_by(identifier: :tso).documents.new(params)
       document.request = { requester: requester_data, new_orientation: new_orientation_data }
-      expect(Document.new_tso(academic, params).to_json).to eq(document.to_json)
+      expect(described_class.new_tso(academic, params).to_json).to eq(document.to_json)
     end
   end
 
@@ -311,8 +311,8 @@ RSpec.describe Document, type: :model do
 
   describe '#mark' do
     let(:orientation) { create(:orientation) }
-    let(:signatures) { orientation.signatures }
-    let(:document) { signatures.first.document }
+    let(:document) { orientation.signatures.first.document }
+    let(:signatures) { document.signatures }
 
     let(:professor_signature_signed) do
       signatures.where(user_type: :advisor).first
@@ -356,8 +356,7 @@ RSpec.describe Document, type: :model do
     end
 
     before do
-      orientation.signatures << Signature.all
-      orientation.signatures.each { |s| s.update(status: true) }
+      document.signatures.each { |s| s.update(status: true) }
     end
 
     it 'returns the signatures mark' do
@@ -406,7 +405,7 @@ RSpec.describe Document, type: :model do
   describe '#signature_by_user' do
     let!(:academic) { create(:academic) }
     let!(:orientation) { create(:orientation, academic: academic) }
-    let(:document) { Document.first }
+    let(:document) { described_class.first }
 
     context 'when returns the pending signature' do
       let(:pending_signature) do
@@ -495,7 +494,7 @@ RSpec.describe Document, type: :model do
       end
     end
 
-    context 'when the document is not signed' do
+    context 'when the document is signed' do
       before do
         document.signatures.each(&:sign)
       end

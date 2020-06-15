@@ -11,7 +11,7 @@
 # </div>
 class RadioButtonTablerInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
-    template.content_tag(:div, class: 'custom-controls-stacked') do
+    template.tag.div(class: 'custom-controls-stacked') do
       collection = options[:collection].to_a
 
       concat_tags(collection)
@@ -19,19 +19,19 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
   end
 
   def div_tag
-    template.content_tag(:div, class: 'form-label') do
+    template.tag.div(class: 'form-label') do
       options[:field_name] ||= object.class.human_attribute_name(attribute_name)
     end
   end
 
   def span_tag(title)
-    template.content_tag(:span, class: 'custom-control-label') do
+    template.tag.span(class: 'custom-control-label') do
       title
     end
   end
 
   def label_tag(value)
-    template.content_tag(:label, class: 'custom-control custom-radio custom-control-inline') do
+    template.tag.label(class: 'custom-control custom-radio custom-control-inline') do
       template.concat @builder.radio_button(attribute_name, value[1], class: 'custom-control-input')
       template.concat span_tag(value[0])
     end

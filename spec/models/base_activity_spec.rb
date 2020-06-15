@@ -17,13 +17,13 @@ RSpec.describe BaseActivity, type: :model do
 
     context 'when finds base_activity by attributes' do
       it 'returns base activity by name' do
-        results_search = BaseActivity.search(base_activity.name)
+        results_search = described_class.search(base_activity.name)
         expect(base_activity.name).to eq(results_search.first.name)
       end
 
       it 'returns base activity by base activity type name' do
         base_activity_type_name = base_activity.base_activity_type.name
-        results_search = BaseActivity.search(base_activity_type_name)
+        results_search = described_class.search(base_activity_type_name)
         expect(base_activity_type_name).to eq(results_search.first.base_activity_type.name)
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe BaseActivity, type: :model do
     context 'when finds base_activity by name with accents' do
       it 'returns base_activity' do
         base_activity = create(:base_activity, name: 'Atividade do João')
-        results_search = BaseActivity.search('Atividade do Joao')
+        results_search = described_class.search('Atividade do Joao')
         expect(base_activity.name).to eq(results_search.first.name)
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe BaseActivity, type: :model do
     context 'when finds base_activity by name on search term with accents' do
       it 'returns base_activity' do
         base_activity = create(:base_activity, name: 'Atividade do Joao')
-        results_search = BaseActivity.search('Atividade do João')
+        results_search = described_class.search('Atividade do João')
         expect(base_activity.name).to eq(results_search.first.name)
       end
     end
@@ -47,13 +47,13 @@ RSpec.describe BaseActivity, type: :model do
     context 'when finds base_activity by name ignoring the case sensitive' do
       it 'returns base_activity by attribute' do
         base_activity = create(:base_activity, name: 'Ativ')
-        results_search = BaseActivity.search('ativ')
+        results_search = described_class.search('ativ')
         expect(base_activity.name).to eq(results_search.first.name)
       end
 
       it 'returns base_activity by search term' do
         base_activity = create(:base_activity, name: 'ativ')
-        results_search = BaseActivity.search('ATIV')
+        results_search = described_class.search('ATIV')
         expect(base_activity.name).to eq(results_search.first.name)
       end
     end
@@ -61,10 +61,10 @@ RSpec.describe BaseActivity, type: :model do
     context 'when returns base_activitys ordered by name' do
       it 'returns ordered' do
         create_list(:base_activity, 30)
-        base_activities_ordered = BaseActivity.order(:name)
+        base_activities_ordered = described_class.order(:name)
         base_activity = base_activities_ordered.first
-        results_search = BaseActivity.search.order(:name)
-        expect(base_activity.name). to eq(results_search.first.name)
+        results_search = described_class.search.order(:name)
+        expect(base_activity.name).to eq(results_search.first.name)
       end
     end
   end
@@ -75,14 +75,14 @@ RSpec.describe BaseActivity, type: :model do
 
     context 'when finds base_activity by tcc one' do
       it 'returns base_activity by tcc one' do
-        results_search = BaseActivity.by_tcc_one(base_activity_tcc_one.name)
+        results_search = described_class.by_tcc_one(base_activity_tcc_one.name)
         expect(base_activity_tcc_one.name).to eq(results_search.first.name)
       end
     end
 
     context 'when finds base_activity by tcc two' do
       it 'returns base_activity by tcc two' do
-        results_search = BaseActivity.by_tcc_two(base_activity_tcc_two.name)
+        results_search = described_class.by_tcc_two(base_activity_tcc_two.name)
         expect(base_activity_tcc_two.name).to eq(results_search.first.name)
       end
     end
@@ -90,17 +90,17 @@ RSpec.describe BaseActivity, type: :model do
 
   describe '#human_tccs' do
     it 'returns the tccs' do
-      tccs = BaseActivity.tccs
+      tccs = described_class.tccs
       hash = {}
       tccs.each_key { |key| hash[I18n.t("enums.tcc.#{key}")] = key }
-      expect(BaseActivity.human_tccs).to eq(hash)
+      expect(described_class.human_tccs).to eq(hash)
     end
   end
 
   describe '#human_tcc_one_identifiers' do
     it 'returns the tcc one identifiers' do
-      hash = BaseActivity.human_tcc_identifiers.first(2).to_h
-      expect(BaseActivity.human_tcc_one_identifiers).to eq(hash)
+      hash = described_class.human_tcc_identifiers.first(2).to_h
+      expect(described_class.human_tcc_one_identifiers).to eq(hash)
     end
   end
 end
