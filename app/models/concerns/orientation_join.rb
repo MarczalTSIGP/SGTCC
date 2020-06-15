@@ -13,6 +13,7 @@ module OrientationJoin
 
     def self.join_with_status(join, status)
       return join if status.blank?
+
       join.where(status: status)
     end
 

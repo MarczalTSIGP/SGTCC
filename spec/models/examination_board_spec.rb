@@ -8,35 +8,37 @@ RSpec.describe ExaminationBoard, type: :model do
   end
 
   describe 'associations' do
+    subject(:examination_board) { described_class.new }
+
     it { is_expected.to belong_to(:orientation) }
     it { is_expected.to have_many(:examination_board_attendees).dependent(:delete_all) }
     it { is_expected.to have_many(:examination_board_notes).dependent(:delete_all) }
 
     it 'is expected to have many professors' do
-      is_expected.to have_many(:professors).through(:examination_board_attendees)
-                                           .dependent(:destroy)
+      expect(examination_board).to have_many(:professors).through(:examination_board_attendees)
+                                                         .dependent(:destroy)
     end
 
     it 'is expected to have many external members' do
-      is_expected.to have_many(:external_members).through(:examination_board_attendees)
-                                                 .dependent(:destroy)
+      expect(examination_board).to have_many(:external_members)
+        .through(:examination_board_attendees).dependent(:destroy)
     end
   end
 
   describe '#human_tcc_identifiers' do
     it 'returns the identifiers' do
-      identifiers = ExaminationBoard.identifiers
+      identifiers = described_class.identifiers
       hash = {}
       identifiers.each_key { |key| hash[I18n.t("enums.tcc.identifiers.#{key}")] = key }
 
-      expect(ExaminationBoard.human_tcc_identifiers).to eq(hash)
+      expect(described_class.human_tcc_identifiers).to eq(hash)
     end
   end
 
   describe '#human_tcc_one_identifiers' do
     it 'returns the tcc one identifiers' do
-      hash = ExaminationBoard.human_tcc_identifiers.first(2).to_h
-      expect(ExaminationBoard.human_tcc_one_identifiers).to eq(hash)
+      hash = described_class.human_tcc_identifiers.first(2).to_h
+      expect(described_class.human_tcc_one_identifiers).to eq(hash)
     end
   end
 
@@ -45,12 +47,12 @@ RSpec.describe ExaminationBoard, type: :model do
 
     context 'when finds examination_board by attributes' do
       it 'returns examination_board by orientation title' do
-        results_search = ExaminationBoard.search(examination_board.orientation.title)
+        results_search = described_class.search(examination_board.orientation.title)
         expect(examination_board.orientation.title).to eq(results_search.first.orientation.title)
       end
 
       it 'returns examination_board by place' do
-        results_search = ExaminationBoard.search(examination_board.place)
+        results_search = described_class.search(examination_board.place)
         expect(examination_board.place).to eq(results_search.first.place)
       end
     end
@@ -356,7 +358,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
     end
 
-    context 'when has not appointments' do
+    context 'when has appointments' do
       let!(:examination_board) { create(:examination_board) }
 
       before do

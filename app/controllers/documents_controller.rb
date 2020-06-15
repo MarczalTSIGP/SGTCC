@@ -58,6 +58,7 @@ class DocumentsController < ApplicationController
 
   def can_show
     return if @document.present? && @document&.all_signed?
+
     error_document_not_found_message
     redirect_to document_path
   end

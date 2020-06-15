@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 describe 'Document::show', type: :feature, js: true do
-  let(:academic) { create(:academic) }
-  let(:orientation) { create(:orientation, academic: academic) }
-  let(:document) { Document.first }
+  let(:orientation) { create(:orientation) }
+  let(:document) { orientation.documents.first }
 
   before do
-    orientation.signatures << Signature.all
-    login_as(academic, scope: :academic)
+    login_as(orientation.academic, scope: :academic)
   end
 
   describe '#show' do
@@ -40,7 +38,7 @@ describe 'Document::show', type: :feature, js: true do
       end
 
       it 'shows the document of the term of commitment' do
-        role = signature_role(academic.gender, 'academic')
+        role = signature_role(orientation.academic.gender, 'academic')
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
                                        orientation.academic.ra,
@@ -67,8 +65,8 @@ describe 'Document::show', type: :feature, js: true do
 
     context 'when the document cant be viewed' do
       before do
-        create(:orientation)
-        visit academics_document_path(Document.last)
+        orientation_not_authorized = create(:orientation)
+        visit academics_document_path(orientation_not_authorized.documents.last)
       end
 
       it 'redirect to the documents pending page' do

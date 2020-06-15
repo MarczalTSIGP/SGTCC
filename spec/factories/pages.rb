@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :page do
     sequence(:menu_title) { |n| "Page #{n}" }
-    url { Faker::Name.first_name.parameterize }
+    url { Faker::Name.unique.first_name.parameterize }
     content { Faker::Lorem.paragraph }
     fa_icon { 'fas fa-home' }
     publish { true }

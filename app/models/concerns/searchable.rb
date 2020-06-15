@@ -51,6 +51,7 @@ module Searchable
     def query_from_options(field, table)
       field.map do |name, options|
         next if name.eql?(:relationships)
+
         query_from_unaccent(options, name, table)
       end.join(' OR ')
     end
@@ -62,6 +63,7 @@ module Searchable
     def query_from_string(field, table = nil)
       table = table ? table.to_s.pluralize : model_name.plural
       return query_from_options(field, table) if field.is_a?(Hash)
+
       query_ilike(field, table)
     end
   end
@@ -70,6 +72,7 @@ module Searchable
     def self.search(term = nil)
       return all if term.blank?
       return search_joins(term) if hash_joins
+
       where_search(query_search, term)
     end
 

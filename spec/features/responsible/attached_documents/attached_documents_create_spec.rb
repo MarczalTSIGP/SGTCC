@@ -17,7 +17,7 @@ describe 'AttachedDocuments::create', type: :feature, js: true do
       it 'create an attached_document' do
         attributes = attributes_for(:attached_document)
         fill_in 'attached_document_name', with: attributes[:name]
-        attach_file 'attached_document_file', FileSpecHelper.pdf.path
+        attach_file 'attached_document_file', FileSpecHelper.pdf.path, visible: false
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_attached_documents_path

@@ -22,6 +22,7 @@ module Documents::DefenseMinutes
   def add_evaluators(evaluators, user_type)
     examination_board = @document.examination_board
     return if examination_board.blank?
+
     examination_board[:evaluators][evaluators.to_sym].each do |evaluator|
       @signature_users.push([evaluator[:id], user_type])
     end

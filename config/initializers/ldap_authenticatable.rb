@@ -8,6 +8,7 @@ if SGTCC::LDAP.enable?
       class LdapAuthenticatable < Authenticatable
         def authenticate!
           return authenticate_professor if params[:professor]
+
           authenticate_academic
         end
 

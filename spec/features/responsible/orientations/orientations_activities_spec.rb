@@ -4,7 +4,7 @@ describe 'Orientation::activities', type: :feature, js: true do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation) }
   let(:academic) { orientation.academic }
-  let(:activities) { orientation.calendar.activities }
+  let!(:activities) { orientation.calendar.activities }
   let(:active_link) { responsible_orientations_tcc_one_path }
 
   before do
@@ -26,8 +26,7 @@ describe 'Orientation::activities', type: :feature, js: true do
     end
 
     context 'when show the activity by orientation' do
-      let(:activity) { activities.first }
-
+      let!(:activity) { activities.first }
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)
       end

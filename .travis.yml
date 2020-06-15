@@ -1,11 +1,26 @@
+sudo: required
+dist: xenial
+language: ruby
+rvm:
+  - 2.5.3
+
 env:
   global:
     - CC_TEST_REPORTER_ID=0bdc7cf0256747d51c968c18502f27c34c50afd1a3dfd136ddc6e6ffc51b8c1d
+
+cache:
+  bundler: true
+  directories:
+    - node_modules # NPM packages
+  yarn: true
+
+
 addons:
   postgresql: 9.6
-  firefox: '65.0'
+  chrome: stable
   apt:
     update: true
+
 before_script:
   - sudo apt-get update
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
@@ -18,19 +33,13 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
-dist: trusty
-language: ruby
-rvm:
-  - 2.5.3
+
 install:
   - bundle install
   - nvm install node
   - npm install -g node-gyp
   - node -v
+
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - rm yarn.lock
@@ -39,10 +48,7 @@ script:
   - bundle exec rails webpacker:compile
   - yarn run lint
   - bundle exec rubocop
-  - travis_wait 30 bundle exec rspec
+  - bundle exec rspec --format documentation
+
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-cache:
-  yarn: true
-  directories:
-    - node_modules

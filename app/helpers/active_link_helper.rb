@@ -51,6 +51,7 @@ module ActiveLinkHelper
     calendar = @calendar || @orientation&.calendar
     current_calendar_tcc_one = Calendar.current_by_tcc_one
     return true if calendar.blank? || current_calendar_tcc_one.blank?
+
     calendar.id == current_calendar_tcc_one.id
   end
 
@@ -58,6 +59,7 @@ module ActiveLinkHelper
     calendar = @calendar || @orientation&.calendar
     current_calendar_tcc_two = Calendar.current_by_tcc_two
     return true if calendar.blank? || current_calendar_tcc_two.blank?
+
     calendar.id == current_calendar_tcc_two.id
   end
 
@@ -78,6 +80,7 @@ module ActiveLinkHelper
 
   def supervisions_active_link?(namespace)
     return true if supervisions_tcc_one_or_two_active_link?(namespace)
+
     supervisions_show_link?(namespace) && supervisions_current_calendar_link?
   end
 

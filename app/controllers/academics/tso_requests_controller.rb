@@ -98,6 +98,7 @@ class Academics::TsoRequestsController < Academics::BaseController
 
   def can_change
     return unless @document.academic_signed?(current_academic)
+
     flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
     redirect_to academics_tso_requests_path
   end

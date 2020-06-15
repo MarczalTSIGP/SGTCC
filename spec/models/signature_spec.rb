@@ -10,7 +10,7 @@ RSpec.describe Signature, type: :model do
     let(:orientation) { create(:orientation) }
 
     before do
-      orientation.signatures << Signature.all
+      orientation.signatures << described_class.all
     end
 
     it 'returns the new status of the signature' do
@@ -24,7 +24,7 @@ RSpec.describe Signature, type: :model do
     let(:orientation) { create(:orientation) }
 
     before do
-      orientation.signatures << Signature.all
+      orientation.signatures << described_class.all
     end
 
     context 'when returns the user of the signature' do
@@ -58,7 +58,7 @@ RSpec.describe Signature, type: :model do
       let(:signatures) { orientation.signatures }
 
       before do
-        orientation.signatures << Signature.all
+        orientation.signatures << described_class.all
       end
 
       it 'returns the Academic table' do

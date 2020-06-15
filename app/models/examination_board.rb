@@ -48,6 +48,7 @@ class ExaminationBoard < ApplicationRecord
     current_date = Date.current.to_s
     board_date = Date.parse(date.to_s).to_s
     return 'today' if board_date == current_date
+
     board_date > current_date ? 'next' : 'occurred'
   end
 
@@ -55,6 +56,7 @@ class ExaminationBoard < ApplicationRecord
     i18n = 'views.tables.examination_board'
     board_date = I18n.l(date, format: :datetime)
     return I18n.t("#{i18n}.today", time: I18n.l(date, format: :time)) if status == 'today'
+
     distance_of_time = distance_of_time_in_words(board_date, Time.current)
     I18n.t("#{i18n}.#{status}", distance: distance_of_time)
   end
@@ -62,6 +64,7 @@ class ExaminationBoard < ApplicationRecord
   def minutes_type
     return :adpp if proposal?
     return :adpj if project?
+
     :admg
   end
 

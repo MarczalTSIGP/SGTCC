@@ -51,7 +51,7 @@ RSpec.describe Meeting, type: :model do
     context 'when returns meetings order by academics name and date' do
       it 'returns the meetings ordered' do
         order_by = 'academics.name ASC, meetings.date DESC'
-        meetings_ordered = Meeting.joins(orientation: [:academic]).order(order_by)
+        meetings_ordered = described_class.joins(orientation: [:academic]).order(order_by)
         expect(professor.meetings.recent).to match_array(meetings_ordered)
       end
     end

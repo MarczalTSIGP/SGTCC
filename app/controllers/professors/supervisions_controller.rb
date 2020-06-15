@@ -76,6 +76,7 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def current_tcc_index_link
     return professors_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
+
     professors_supervisions_tcc_two_path
   end
 

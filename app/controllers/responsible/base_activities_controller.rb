@@ -81,6 +81,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
 
   def tcc_url
     return responsible_base_activities_tcc_one_path if @base_activity.tcc == 'one'
+
     responsible_base_activities_tcc_two_path
   end
 end

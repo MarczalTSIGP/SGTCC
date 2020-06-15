@@ -10,6 +10,7 @@ class Responsible::BaseController < ActionController::Base
 
   def authorized
     return if current_professor.role?('responsible')
+
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_root_path
   end

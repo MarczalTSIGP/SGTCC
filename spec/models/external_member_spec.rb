@@ -29,23 +29,22 @@ RSpec.describe ExternalMember, type: :model do
 
   describe 'associations' do
     ems_fk = 'external_member_supervisor_id'
-    em_fk = 'external_member_id'
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
     it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
     it { is_expected.to have_many(:all_documents).through(:supervisions) }
-    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(em_fk) }
+    it { is_expected.to have_many(:examination_board_attendees) }
     it { is_expected.to have_many(:examination_boards).through(:examination_board_attendees) }
   end
 
   describe '#human_genders' do
     it 'returns the genders' do
-      genders = ExternalMember.genders
+      genders = described_class.genders
       hash = {}
       genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
 
-      expect(ExternalMember.human_genders).to eq(hash)
+      expect(described_class.human_genders).to eq(hash)
     end
   end
 
@@ -54,12 +53,12 @@ RSpec.describe ExternalMember, type: :model do
 
     context 'when finds external member by attributes' do
       it 'returns external member by name' do
-        results_search = ExternalMember.search(external_member.name)
+        results_search = described_class.search(external_member.name)
         expect(external_member.name).to eq(results_search.first.name)
       end
 
       it 'returns external member by email' do
-        results_search = ExternalMember.search(external_member.email)
+        results_search = described_class.search(external_member.email)
         expect(external_member.email).to eq(results_search.first.email)
       end
     end
@@ -67,7 +66,7 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name with accents' do
       it 'returns external member' do
         external_member = create(:external_member, name: 'João')
-        results_search = ExternalMember.search('Joao')
+        results_search = described_class.search('Joao')
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
@@ -75,7 +74,7 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name on search term with accents' do
       it 'returns external member' do
         external_member = create(:external_member, name: 'Joao')
-        results_search = ExternalMember.search('João')
+        results_search = described_class.search('João')
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
@@ -83,13 +82,13 @@ RSpec.describe ExternalMember, type: :model do
     context 'when finds external member by name ignoring the case sensitive' do
       it 'returns external member by attribute' do
         external_member = create(:external_member, name: 'Ana')
-        results_search = ExternalMember.search('an')
+        results_search = described_class.search('an')
         expect(external_member.name).to eq(results_search.first.name)
       end
 
       it 'returns external member by search term' do
         external_member = create(:external_member, name: 'ana')
-        results_search = ExternalMember.search('AN')
+        results_search = described_class.search('AN')
         expect(external_member.name).to eq(results_search.first.name)
       end
     end
@@ -97,10 +96,10 @@ RSpec.describe ExternalMember, type: :model do
     context 'when returns external members ordered by name' do
       it 'returns ordered' do
         create_list(:external_member, 30)
-        external_members_ordered = ExternalMember.order(:name)
+        external_members_ordered = described_class.order(:name)
         external_member = external_members_ordered.first
-        results_search = ExternalMember.search.order(:name)
-        expect(external_member.name). to eq(results_search.first.name)
+        results_search = described_class.search.order(:name)
+        expect(external_member.name).to eq(results_search.first.name)
       end
     end
   end
@@ -122,7 +121,7 @@ RSpec.describe ExternalMember, type: :model do
     end
   end
 
-  describe '#current_supervision_tcc_one' do
+  describe '#current_supervision_tcc_two' do
     let(:external_member) { create(:external_member) }
     let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
     let(:orientation_tcc_two) { create(:orientation, calendar: calendar_tcc_two) }

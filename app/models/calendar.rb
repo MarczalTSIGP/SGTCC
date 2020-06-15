@@ -46,11 +46,13 @@ class Calendar < ApplicationRecord
 
   def self.previous_semester(calendar)
     return search_by_semester(calendar, 1) if calendar.semester == 'two'
+
     search_by_second_semester_previous_year(calendar)
   end
 
   def self.next_semester(calendar)
     return search_by_semester(calendar, 2) if calendar.semester == 'one'
+
     search_by_first_semester_next_year(calendar)
   end
 
@@ -82,6 +84,7 @@ class Calendar < ApplicationRecord
     first_year = minimum('year')
     first_calendar = find_by(year: first_year, semester: 'one', tcc: tcc)
     return first_calendar if first_calendar.present?
+
     find_by(year: first_year, semester: 'two', tcc: tcc)
   end
 
@@ -89,6 +92,7 @@ class Calendar < ApplicationRecord
     calendar = by_first_year_and_tcc('two')
     loop do
       break if calendar.blank?
+
       years.push(calendar.year_with_semester)
       total.push(calendar.orientations.where(status: status).size)
       calendar = next_semester(calendar)

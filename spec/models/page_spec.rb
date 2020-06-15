@@ -22,8 +22,8 @@ RSpec.describe Page, type: :model do
     end
 
     it 'returns the pages published' do
-      pages = Page.where(publish: true).order(:order)
-      expect(Page.publisheds).to eq(pages)
+      pages = described_class.where(publish: true).order(:order)
+      expect(described_class.publisheds).to eq(pages)
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Page, type: :model do
     it 'returns the update menu order' do
       array.push(first_page)
       array.push(second_page)
-      expect(Page.update_menu_order(data)).to match_array(pages)
+      expect(described_class.update_menu_order(data)).to match_array(pages)
     end
   end
 end

@@ -9,9 +9,14 @@ module Helpers
       find('div.selectize-dropdown-content .option', text: name).click
     end
 
-    def accept_alert
-      alert = page.driver.browser.switch_to.alert
-      alert.accept
+    # def accept_alert
+    #   page.driver.browser.accept_alert
+    # end
+
+    def fill_in_simple_mde(markdown)
+      script = "var CodeMirror = document.querySelector('.CodeMirror').CodeMirror;"
+      script += "CodeMirror.getDoc().setValue('#{markdown}');"
+      page.execute_script(script)
     end
   end
 end

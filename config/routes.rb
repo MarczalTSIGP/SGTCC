@@ -171,107 +171,107 @@ Rails.application.routes.draw do
           as: 'orientation_activity'
 
       get 'academics/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'academics#index',
           as: 'academics_search'
 
       get 'professors/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'professors#index',
           as: 'professors_search'
 
       get 'professors/available/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'professors#available',
           as: 'professors_available_search'
 
       get 'professors/unavailable/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'professors#unavailable',
           as: 'professors_unavailable_search'
 
       get 'external_members/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'external_members#index',
           as: 'external_members_search'
 
       get 'institutions/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'institutions#index',
           as: 'institutions_search'
 
       get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
       get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'
 
       get 'orientations/current_tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#current_tcc_one',
           as: 'orientations_search_current_tcc_one'
 
       get 'orientations/current_tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#current_tcc_two',
           as: 'orientations_search_current_tcc_two'
 
       get 'orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#tcc_one',
           as: 'orientations_search_tcc_one'
 
       get 'orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
 
       get 'base_activities/tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'base_activities#tcc_one',
           as: 'base_activities_search_tcc_one'
 
       get 'base_activities/tcc_two/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'base_activities#tcc_two',
           as: 'base_activities_search_tcc_two'
 
       get 'calendars/tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
 
       get 'calendars/tcc_two/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'calendars#tcc_two',
           as: 'calendars_search_tcc_two'
 
       get 'professors/(:id)/orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'professors#tcc_one',
           as: 'professor_orientations_search_tcc_one'
 
       get 'professors/(:id)/orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'professors#tcc_two',
           as: 'professor_orientations_search_tcc_two'
 
       get 'pages/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'pages#index',
           as: 'pages_search'
 
       get 'attached_documents/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'attached_documents#index',
           as: 'attached_documents_search'
 
       get 'images/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'images#index',
           as: 'images_search'
     end
@@ -405,37 +405,37 @@ Rails.application.routes.draw do
             as: 'examination_board_file'
 
       get 'examination_boards/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#index',
           as: 'examination_boards_search'
 
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#history',
           as: 'orientations_search_history'
 
       get 'orientations/tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#tcc_one',
           as: 'orientations_search_tcc_one'
 
       get 'orientations/tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#tcc_two',
           as: 'orientations_search_tcc_two'
 
       get 'supervisions/history/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#history',
           as: 'supervisions_search_history'
 
       get 'supervisions/tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#tcc_one',
           as: 'supervisions_search_tcc_one'
 
       get 'supervisions/tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
     end
@@ -458,12 +458,12 @@ Rails.application.routes.draw do
       get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
 
       get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
       get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'
 
@@ -504,12 +504,12 @@ Rails.application.routes.draw do
           as: 'calendar_activity'
 
       get 'calendars/(:calendar_id)/orientations/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'orientations#by_calendar',
           as: 'calendar_orientations_search'
 
       get 'calendars/tcc_one/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'calendars#tcc_one',
           as: 'calendars_search_tcc_one'
     end
@@ -636,7 +636,7 @@ Rails.application.routes.draw do
           as: 'calendar_orientation_activity'
 
       get 'examination_boards/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#index',
           as: 'examination_boards_search'
     end
@@ -736,22 +736,22 @@ Rails.application.routes.draw do
           as: 'supervisions_tcc_two'
 
       get 'supervisions/history/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#history',
           as: 'supervisions_search_history'
 
       get 'supervisions/tcc_one/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#tcc_one',
           as: 'supervisions_search_tcc_one'
 
       get 'supervisions/tcc_two/(:status)/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
 
       get 'examination_boards/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^\/]+} },
+          constraints: { term: %r{[^/]+} },
           to: 'examination_boards#index',
           as: 'examination_boards_search'
     end
