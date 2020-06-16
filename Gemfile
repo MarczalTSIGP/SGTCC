@@ -9,7 +9,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
