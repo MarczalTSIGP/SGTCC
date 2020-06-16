@@ -65,7 +65,7 @@ group :test do
   # gem 'database_cleaner', '~> 1.8.5'
   gem 'database_cleaner-active_record'
   gem 'guard-rspec', require: false
-  gem 'simplecov', require: false
+  gem 'simplecov', '0.17.1', require: false
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers', '~> 3.1'
 end
