@@ -21,12 +21,18 @@
       </strong>
       <%= @orientation.title %>
     </p>
-    <p>
-      <strong>
-        <%= Orientation.human_attribute_name('calendar') %>:
-      </strong>
-      <%= @orientation.calendar.year_with_semester_and_tcc %>
-    </p>
+    <div class="d-flex flex-row">
+      <p>
+        <strong>
+          <%= Orientation.human_attribute_name('calendars', count: @orientation.calendars.count) %>:
+        </strong>
+      </p>
+      <ul class="ml-1 comma-list">
+        <% @orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>
+          <li class="<%= 'text-muted' unless calendar.current? %>"><%= calendar.year_with_semester_and_tcc %></li>
+        <% end %>
+      </ul>
+    </div>
     <p>
       <strong>
         <%= Orientation.human_attribute_name('academic') %>:

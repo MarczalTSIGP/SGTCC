@@ -1,8 +1,6 @@
 <tr>
-  <%= render 'shared/orientation_activities/tbody', activity: activity %>
   <td>
-    <%= link_to(external_members_supervision_activity_path(@orientation, activity)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-    <% end %>
+    <%= link_to(activity.name, external_members_supervision_calendar_activity_path(@orientation, @calendar, activity)) %>
   </td>
+  <%= render 'shared/orientation_activities/tbody', activity: activity %>
 </tr>

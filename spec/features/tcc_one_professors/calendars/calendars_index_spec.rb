@@ -22,14 +22,18 @@ describe 'Calendar::index', type: :feature, js: true do
     end
 
     it 'shows the orientations by calendar' do
-      orientation = create(:orientation, calendar: current_calendar_tcc_one)
+      orientation = create(:orientation, calendars: [current_calendar_tcc_one])
       index_url = tcc_one_professors_calendar_orientations_path(current_calendar_tcc_one)
       visit index_url
 
-      expect(page).to have_contents([orientation.short_title,
-                                     orientation.advisor.name,
-                                     orientation.academic.name,
-                                     orientation.calendar.year_with_semester_and_tcc])
+      expect(page).to have_content(orientation.short_title)
+      expect(page).to have_content(orientation.advisor.name)
+      expect(page).to have_content(orientation.academic.name)
+
+      orientation.calendars.each do |calendar|
+        expect(page).to have_content(calendar.year_with_semester_and_tcc)
+      end
+
       expect(page).to have_selector("a[href='#{index_url}'].active")
     end
   end

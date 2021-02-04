@@ -6,13 +6,13 @@ describe 'Orientation::documents', type: :feature, js: true do
 
   before do
     login_as(professor, scope: :professor)
-    visit tcc_one_professors_calendar_orientation_documents_path(orientation.calendar, orientation)
+    visit tcc_one_professors_calendar_orientation_documents_path(orientation.current_calendar, orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation documents' do
       let(:active_link) do
-        tcc_one_professors_calendar_orientations_path(orientation.calendar)
+        tcc_one_professors_calendar_orientations_path(orientation.current_calendar)
       end
 
       it 'shows all the documents' do
@@ -27,11 +27,11 @@ describe 'Orientation::documents', type: :feature, js: true do
 
     context 'when show the document by orientation' do
       let(:document) { orientation.documents.first }
-      let(:active_link) { tcc_one_professors_calendar_orientations_path(orientation.calendar) }
+      let(:active_link) { tcc_one_professors_calendar_orientations_path(orientation.current_calendar) }
 
       before do
         visit tcc_one_professors_calendar_orientation_document_path(
-          orientation.calendar, orientation, document
+          orientation.current_calendar, orientation, document
         )
       end
 

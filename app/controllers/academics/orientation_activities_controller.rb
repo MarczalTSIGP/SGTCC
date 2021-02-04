@@ -6,10 +6,9 @@ class Academics::OrientationActivitiesController < Academics::BaseController
   before_action :set_breadcrumbs
 
   def index
-    @activities = @orientation.calendar
-                              .activities
-                              .includes(:base_activity_type)
-                              .page(params[:page])
+    @activities = @calendar.activities
+                           .includes(:base_activity_type)
+                           .page(params[:page])
   end
 
   def show
@@ -40,12 +39,10 @@ class Academics::OrientationActivitiesController < Academics::BaseController
   end
 
   def set_breadcrumbs
-    calendar = @orientation.calendar
-
     add_breadcrumb I18n.t('breadcrumbs.calendars.index'), academics_calendars_path
 
     add_breadcrumb I18n.t('breadcrumbs.orientation_activities.index',
-                          calendar: calendar.year_with_semester),
-                   academics_calendar_orientation_activities_path(calendar, @orientation)
+                          calendar: @calendar.year_with_semester),
+                   academics_calendar_orientation_activities_path(@calendar, @orientation)
   end
 end

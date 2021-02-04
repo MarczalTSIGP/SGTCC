@@ -11,7 +11,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
                  :responsible_examination_boards_tcc_two_path,
                  only: :tcc_two
 
-  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.two.new'),
+  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.new'),
                  :new_responsible_examination_board_path,
                  only: [:new]
 

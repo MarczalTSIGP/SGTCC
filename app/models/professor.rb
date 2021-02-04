@@ -92,7 +92,7 @@ class Professor < ApplicationRecord
 
   def orientations_to_form
     order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
-    orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
+    orientations.includes(:academic, :calendars).order(order_by).map do |orientation|
       [orientation.id, orientation.academic_with_calendar]
     end
   end

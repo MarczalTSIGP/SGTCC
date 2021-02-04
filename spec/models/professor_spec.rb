@@ -225,7 +225,7 @@ RSpec.describe Professor, type: :model do
 
     it 'is equal professor request data' do
       order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
-      data = professor.orientations.includes(:academic, :calendar)
+      data = professor.orientations.includes(:academic, :calendars)
                       .order(order_by).map do |orientation|
                         [orientation.id, orientation.academic_with_calendar]
                       end

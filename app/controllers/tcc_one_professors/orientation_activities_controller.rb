@@ -6,10 +6,9 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   before_action :set_breadcrumbs
 
   def index
-    @activities = @orientation.calendar
-                              .activities
-                              .includes(:base_activity_type)
-                              .page(params[:page])
+    @activities = @calendar.activities
+                           .includes(:base_activity_type)
+                           .page(params[:page])
   end
 
   def show

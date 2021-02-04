@@ -8,7 +8,8 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:calendar) }
+    it { is_expected.to have_many(:orientation_calendars).dependent(:destroy) }
+    it { is_expected.to have_many(:calendars).through(:orientation_calendars) }
     it { is_expected.to belong_to(:academic) }
     it { is_expected.to belong_to(:advisor).class_name('Professor') }
     it { is_expected.to belong_to(:institution) }
@@ -191,49 +192,40 @@ RSpec.describe Orientation, type: :model do
   end
 
   describe '#by_tcc' do
-    before do
-      create_list(:orientation, 5)
-    end
+    let!(:tcc_one_orientations) { create_list(:orientation_tcc_one, 5) }
+    let!(:tcc_two_orientations) { create_list(:orientation_tcc_two, 5) }
 
     it 'returns the orientations by tcc one' do
-      orientations_tcc_one = described_class.joins(:calendar)
-                                            .where(calendars: { tcc: Calendar.tccs[:one] })
-                                            .page(1)
-      expect(described_class.by_tcc_one(1, '', 'IN_PROGRESS')).to match_array(orientations_tcc_one)
+      tcc_one_orientations_found = described_class.by_tcc_one(1, '', 'IN_PROGRESS')
+
+      expect(tcc_one_orientations_found.count).to eq(tcc_one_orientations.count)
+      expect(tcc_one_orientations_found).to match_array(tcc_one_orientations)
     end
 
     it 'returns the orientations by tcc two' do
-      orientations_tcc_two = described_class.joins(:calendar)
-                                            .where(calendars: { tcc: Calendar.tccs[:two] })
-                                            .page(1)
-      expect(described_class.by_tcc_two(1, '')).to match_array(orientations_tcc_two)
+      tcc_two_orientations_found = described_class.by_tcc_two(1, '', 'IN_PROGRESS')
+
+      expect(tcc_two_orientations_found.count).to eq(tcc_two_orientations.count)
+      expect(tcc_two_orientations_found).to match_array(tcc_two_orientations)
     end
   end
 
   describe '#by_current_tcc' do
-    before do
-      create(:current_orientation_tcc_one)
-      create(:current_orientation_tcc_two)
-    end
+    let!(:current_tcc_one_orientation) { create(:current_orientation_tcc_one) }
+    let!(:current_tcc_two_orientation) { create(:current_orientation_tcc_two) }
 
     it 'returns the current orientations by tcc one' do
-      query = { tcc: Calendar.tccs[:one],
-                year: Calendar.current_year,
-                semester: Calendar.current_semester }
-      orientations_tcc_one = described_class.joins(:calendar)
-                                            .where(calendars: query)
-                                            .page(1)
-      expect(described_class.by_current_tcc_one(1, '')).to match_array(orientations_tcc_one)
+      current_tcc_one_orientations_found = described_class.by_current_tcc_one(1, '')
+
+      expect(current_tcc_one_orientations_found.count).to eq(1)
+      expect(current_tcc_one_orientations_found).to match_array(current_tcc_one_orientation)
     end
 
     it 'returns the current orientations by tcc two' do
-      query = { tcc: Calendar.tccs[:two],
-                year: Calendar.current_year,
-                semester: Calendar.current_semester }
-      orientations_tcc_two = described_class.joins(:calendar)
-                                            .where(calendars: query)
-                                            .page(1)
-      expect(described_class.by_current_tcc_two(1, '')).to match_array(orientations_tcc_two)
+      current_tcc_two_orientations_found = described_class.by_current_tcc_two(1, '')
+
+      expect(current_tcc_two_orientations_found.count).to eq(1)
+      expect(current_tcc_two_orientations_found).to match_array(current_tcc_two_orientation)
     end
   end
 
@@ -262,19 +254,24 @@ RSpec.describe Orientation, type: :model do
       end
 
       it 'returns orientation by calendar year' do
-        results_search = described_class.search(orientation.calendar.year)
-        expect(orientation.calendar.year).to eq(results_search.first.calendar.year)
+        year = orientation.calendars.first.year
+
+        results_search = described_class.search(year)
+        expect(results_search).to include(orientation)
       end
 
       it 'returns orientation by institution name' do
-        results_search = described_class.search(orientation.institution.name)
-        expect(orientation.institution.name).to eq(results_search.first.institution.name)
+        name = orientation.institution.name
+
+        results_search = described_class.search(name)
+        expect(results_search).to include(orientation)
       end
 
       it 'returns orientation by institution trade name' do
         trade_name = orientation.institution.trade_name
+
         results_search = described_class.search(trade_name)
-        expect(trade_name).to eq(results_search.first.institution.trade_name)
+        expect(results_search).to include(orientation)
       end
     end
 
@@ -369,33 +366,14 @@ RSpec.describe Orientation, type: :model do
     context 'when the orientation is renewed' do
       let!(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
       let!(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
-      let!(:orientation) { create(:orientation_renewed, calendar: calendar) }
-      let(:new_orientation) { orientation.dup }
-      let(:renewed_orientation) do
-        orientation.renew(orientation.renewal_justification)
-      end
+      let!(:orientation) { create(:orientation) }
 
-      it 'is equal calendar' do
-        new_orientation.calendar = next_calendar
-        expect(renewed_orientation.calendar).to eq(new_orientation.calendar)
-      end
+      it 'added new calendar' do
+        orientation.calendars.clear
+        orientation.calendars << calendar
 
-      it 'is equal title' do
-        expect(renewed_orientation.title).to eq(new_orientation.title)
-      end
-
-      it 'is equal justification' do
-        expect(renewed_orientation.renewal_justification).to eq(
-          new_orientation.renewal_justification
-        )
-      end
-
-      it 'is equal academic' do
-        expect(renewed_orientation.academic).to eq(new_orientation.academic)
-      end
-
-      it 'is equal advisor' do
-        expect(renewed_orientation.advisor).to eq(new_orientation.advisor)
+        orientation.renew('Justification')
+        expect(orientation.calendars.last).to eq(next_calendar)
       end
     end
   end
@@ -567,11 +545,10 @@ RSpec.describe Orientation, type: :model do
   describe '#academic_with_calendar' do
     let(:orientation) { create(:orientation) }
     let(:academic) { orientation.academic }
-    let(:calendar) { orientation.calendar }
 
     it 'is equal academic with calendar' do
       academic_with_ra = "#{academic.name} (#{academic.ra})"
-      academic_with_calendar = "#{academic_with_ra} | #{calendar.year_with_semester_and_tcc}"
+      academic_with_calendar = "#{academic_with_ra} | #{orientation.current_calendar.year_with_semester_and_tcc}"
       expect(orientation.academic_with_calendar).to eq(academic_with_calendar)
     end
   end
@@ -585,7 +562,7 @@ RSpec.describe Orientation, type: :model do
         [professor.name_with_scholarity, professor.orientations.size]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse[0..4]
-      expect(described_class.professors_ranking).to eq(ranking)
+      expect(described_class.professors_ranking).to match_array(ranking)
     end
   end
 

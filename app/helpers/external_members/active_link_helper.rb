@@ -5,13 +5,13 @@ module ExternalMembers::ActiveLinkHelper
   end
 
   def external_members_activities_tcc_one_active_link?
-    activities_tcc_active_link?('one', 'external_members') &&
-      calendar_equal_current_calendar_tcc_one?
+    activities_tcc_active_link?('one', 'external_members') # &&
+    #  calendar_equal_current_calendar_tcc_one?
   end
 
   def external_members_activities_tcc_two_active_link?
-    activities_tcc_active_link?('two', 'external_members') &&
-      calendar_equal_current_calendar_tcc_two?
+    activities_tcc_active_link?('two', 'external_members') # &&
+    #  calendar_equal_current_calendar_tcc_two?
   end
 
   def external_members_supervisions_active_link?
@@ -20,7 +20,8 @@ module ExternalMembers::ActiveLinkHelper
   end
 
   def external_members_supervisions_history_active_link?
-    supervisions_history_active_link?('external_members')
+    # TODO:
+    #supervisions_history_active_link?('external_members')
   end
 
   def external_members_documents_pending_active_link?

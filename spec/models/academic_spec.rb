@@ -35,24 +35,20 @@ RSpec.describe Academic, type: :model do
   end
 
   describe '#current_orientation' do
-    it 'returns the current orientation by tcc one' do
-      academic = create(:academic)
-      calendar = create(:current_calendar_tcc_one)
-      create(:orientation, calendar: calendar, academic: academic)
-      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
-        orientation.calendar.id == Calendar.current_by_tcc_one.id
-      end
-      expect(academic.current_orientation_tcc_one).to eq(current_orientation)
+    it 'returns the current orientation when it is tcc one' do
+      orientation = create(:current_orientation_tcc_one)
+      academic = orientation.academic
+      expect(academic.current_orientation.tcc_one?).to be true
+      expect(academic.current_orientation).to eq(orientation)
     end
 
-    it 'returns the current orientation by tcc two' do
-      academic = create(:academic)
-      calendar = create(:current_calendar_tcc_two)
-      create(:orientation, calendar: calendar, academic: academic)
-      current_orientation = academic.orientations.includes(:calendar).select do |orientation|
-        orientation.calendar.id == Calendar.current_by_tcc_two.id
-      end
-      expect(academic.current_orientation_tcc_two).to eq(current_orientation)
+    it 'returns the current orientation when it is tcc two' do
+      orientation = create(:previous_orientation_tcc_one)
+      academic = orientation.academic
+      current_orientation = create(:current_orientation_tcc_two, academic: academic)
+
+      expect(academic.current_orientation.tcc_two?).to be true
+      expect(academic.current_orientation).to eq(current_orientation)
     end
   end
 

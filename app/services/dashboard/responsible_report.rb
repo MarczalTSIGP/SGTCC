@@ -25,7 +25,7 @@ class Dashboard::ResponsibleReport
   def academics_orientations(status, tcc = nil)
     conditions = { status: status }
     conditions['calendars'] = { tcc: tcc } if tcc.present?
-    Academic.joins(orientations: [:calendar])
+    Academic.joins(orientations: [:calendars])
             .where(orientations: conditions).size
   end
 

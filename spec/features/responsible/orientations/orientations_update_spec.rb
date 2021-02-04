@@ -22,7 +22,7 @@ describe 'Orientation::update', type: :feature do
         fill_in 'orientation_title', with: attributes[:title]
         supervisor = professors.first
         external_member_supervisor = external_members.last
-        selectize(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_id')
+        selectize(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_ids')
         selectize(academic.name, from: 'orientation_academic_id')
         selectize(advisor.name, from: 'orientation_advisor_id')
         selectize(external_member_supervisor.name,

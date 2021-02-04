@@ -20,8 +20,13 @@ module OrientationOption
       tcos = signatures.by_document_type(DocumentType.tco)
       tcais = signatures.by_document_type(DocumentType.tcai)
 
-      tcos.where(status: true).count < tcos.count &&
-        tcais.where(status: true).count < tcais.count
+      all_signed_tco = tcos.where(status: true).count < tcos.count
+
+      tcais_to_sign = tcais.count
+      return all_signed_tco unless tcais_to_sign.positive?
+
+      all_signed_tcai = tcais.where(status: true).count < tcais_to_sign
+      all_signed_tco && all_signed_tcai
     end
   end
 end

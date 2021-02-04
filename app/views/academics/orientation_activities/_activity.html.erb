@@ -1,8 +1,6 @@
 <tr>
-  <%= render 'shared/orientation_activities/tbody', activity: activity %>
   <td>
-    <%= link_to(academics_calendar_orientation_activity_path(@calendar, @orientation, activity)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-    <% end %>
+    <%= link_to(activity.name, academics_calendar_orientation_activity_path(@calendar, @orientation, activity)) %>
   </td>
+  <%= render 'shared/orientation_activities/tbody', activity: activity %>
 </tr>

@@ -23,7 +23,8 @@ module ActiveLinkHelper
     tccs = '(tcc_one|tcc_two)'
     search = '((\/\\w+)?/search(/\\w+)?|((\/\\w+)?/search/page/\\d+))?'
     regex = "^#{namespace}(\/(#{tccs}#{search}|new|\\d+|\\d+/edit))?$"
-    match_link?(regex) && !Calendar.current_calendar?(@calendar)
+
+    match_link?(regex)
   end
 
   def orientations_tcc_one_active_link?(namespace)
@@ -35,16 +36,16 @@ module ActiveLinkHelper
   end
 
   def orientations_documents_link?(namespace)
-    match_link?("^\/#{namespace}/orientations\/\\d+/(documents|activities)?(\/\\d+)?$")
+    match_link?("^\/#{namespace}/orientations\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$")
   end
 
   def supervisions_documents_link?(namespace)
-    match_link?("^\/#{namespace}/supervisions\/\\d+/(documents|activities)?(\/\\d+)?$")
+    match_link?("^\/#{namespace}/supervisions\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$")
   end
 
   def activities_tcc_active_link?(tcc_type, namespace)
     is_equal_tcc_type = @calendar && @calendar.tcc == tcc_type
-    match_link?("/#{namespace}/calendars/\\d+/activities") && is_equal_tcc_type
+    (match_link?("/#{namespace}/calendars/\\d+/activities") && is_equal_tcc_type)
   end
 
   def calendar_equal_current_calendar_tcc_one?
@@ -74,14 +75,14 @@ module ActiveLinkHelper
   end
 
   def supervisions_current_calendar_link?
-    calendar = @orientation&.calendar
+    calendar = @orientation&.current_calendar
     Calendar.current_by_tcc_one?(calendar) || Calendar.current_by_tcc_two?(calendar)
   end
 
   def supervisions_active_link?(namespace)
     return true if supervisions_tcc_one_or_two_active_link?(namespace)
 
-    supervisions_show_link?(namespace) && supervisions_current_calendar_link?
+    supervisions_show_link?(namespace) # && supervisions_current_calendar_link?
   end
 
   def supervisions_history_active_link?(namespace)

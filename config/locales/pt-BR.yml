@@ -227,6 +227,7 @@ pt-BR:
       project: "Bancas de Projeto de TCC - (%{calendar})"
       monograph: "Bancas de Monografia de TCC - (%{calendar})"
       tcc:
+        new: "Nova banca de defesa de TCC"
         one:
           index: "Bancas de defesa de TCC 1"
           calendar: "Bancas de defesa de TCC 1 (%{calendar})"
@@ -497,7 +498,9 @@ pt-BR:
         year_semester: "Ano / Semestre"
         <<: *commons
       orientation:
-        calendar: "Calendário"
+        calendars:
+          one: "Calendário"
+          other: "Calendários"
         institution: "Instituição externa"
         professor_supervisors: "Coorientadores da UTFPR"
         external_member_supervisors: "Coorientadores externos"

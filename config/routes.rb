@@ -162,13 +162,14 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
-      get 'orientations/(:id)/activities',
+      get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities',
           to: 'orientation_activities#index',
-          as: 'orientation_activities'
+          as: 'orientation_calendar_activities'
 
-      get 'orientations/(:id)/activities/(:activity_id)',
+      # get 'orientations/(:id)/activities/(:activity_id)',
+      get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities/(:id)',
           to: 'orientation_activities#show',
-          as: 'orientation_activity'
+          as: 'orientation_calendar_activity'
 
       get 'academics/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
@@ -315,15 +316,18 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'orientation_document'
 
-      get 'orientations/(:id)/activities',
+      # get 'orientations/(:id)/activities',
+      get 'orientations/:orientation_id/calendars/:calendar_id/activities',
           to: 'orientation_activities#index',
-          as: 'orientation_activities'
+          as: 'orientation_calendar_activities'
 
-      get 'orientations/(:id)/activities/(:activity_id)',
+      # get 'orientations/(:id)/activities/(:activity_id)',
+      get 'orientations/:orientation_id/calendars/:calendar_id/activities/:id',
           to: 'orientation_activities#show',
-          as: 'orientation_activity'
+          as: 'orientation_calendar_activity'
 
-      patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+      #patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+      patch 'orientations/:orientation_id/calendars/:calendar_id/activities/:id',
             to: 'orientation_activities#update_judgment',
             as: 'orientation_activity_update_judgment'
 
@@ -356,13 +360,15 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
-      get 'supervisions/(:id)/activities',
+      #get 'supervisions/(:id)/activities',
+      get 'supervisions/:orientation_id/calendars/:calendar_id/activities',
           to: 'supervision_activities#index',
-          as: 'supervision_activities'
+          as: 'supervision_calendar_activities'
 
-      get 'supervisions/(:id)/activities/(:activity_id)',
+      #get 'supervisions/(:id)/activities/(:activity_id)',
+      get 'supervisions/:orientation_id/calendars/:calendar_id/activities/:id',
           to: 'supervision_activities#show',
-          as: 'supervision_activity'
+          as: 'supervision_calendar_activity'
 
       get 'supervisions/examination_boards',
           to: 'supervision_examination_boards#index',
@@ -719,13 +725,16 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
-      get 'supervisions/(:id)/activities',
+      #get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities',
+      #get 'supervisions/(:id)/activities',
+      get 'supervisions/:supervision_id/calendars/:calendar_id/activities',
           to: 'supervision_activities#index',
-          as: 'supervision_activities'
+          as: 'supervision_calendar_activities'
 
-      get 'supervisions/(:id)/activities/(:activity_id)',
+      get 'supervisions/:supervision_id/calendars/:calendar_id/activities/:id',
+      #get 'supervisions/(:id)/activities/(:activity_id)',
           to: 'supervision_activities#show',
-          as: 'supervision_activity'
+          as: 'supervision_calendar_activity'
 
       get 'supervisions/tcc_one',
           to: 'supervisions#tcc_one',

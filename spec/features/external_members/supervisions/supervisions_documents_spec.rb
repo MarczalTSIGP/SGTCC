@@ -16,10 +16,11 @@ describe 'Supervision::documents', type: :feature, js: true do
 
       it 'shows all the documents' do
         orientation.documents.each do |document|
-          expect(page).to have_contents([document.orientation.short_title,
-                                         document.orientation.academic.name,
-                                         document.document_type.identifier.upcase])
+          expect(page).to have_content(document.orientation.short_title)
+          expect(page).to have_content(document.orientation.academic.name)
+          expect(page).to have_content(document.document_type.identifier.upcase)
         end
+
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end

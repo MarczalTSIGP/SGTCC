@@ -1,10 +1,10 @@
-<% if @activity.judgment %>
+<% if @activity.judgment && @academic_activity %>
   <%= provide(:advisor_component) do %>
     <advisor-judgment
-      url="<%= professors_orientation_activity_update_judgment_path(@orientation, @activity) %>"
+      url="<%= professors_orientation_activity_update_judgment_path(@orientation, @calendar, @activity) %>"
       :value="<%= @academic_activity.judgment %>" />
   <% end %>
 <% end %>
 
 <%= render 'shared/orientation_activities/show',
-  back_link: professors_orientation_activities_path(@orientation) %>
+  back_link: professors_orientation_calendar_activities_path(@orientation, @calendar) %>

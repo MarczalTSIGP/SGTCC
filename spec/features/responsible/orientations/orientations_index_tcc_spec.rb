@@ -13,11 +13,16 @@ describe 'Orientation::current_tcc', type: :feature do
 
         visit responsible_orientations_current_tcc_one_path
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        within('table tbody tr:nth-child(1)') do
+          expect(page).to have_content(orientation.short_title)
+          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_content(orientation.academic.ra)
+
+          orientation.calendars.each do |calendar|
+            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          end
+        end
       end
     end
 
@@ -27,11 +32,16 @@ describe 'Orientation::current_tcc', type: :feature do
 
         visit responsible_orientations_current_tcc_two_path
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        within('table tbody tr:nth-child(1)') do
+          expect(page).to have_content(orientation.short_title)
+          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_content(orientation.academic.ra)
+
+          orientation.calendars.each do |calendar|
+            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          end
+        end
       end
     end
   end
