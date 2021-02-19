@@ -1,8 +1,6 @@
 <tr>
-  <%= render 'shared/orientation_activities/tbody', activity: activity %>
   <td>
-    <%= link_to(tcc_one_professors_calendar_orientation_activity_path(@calendar, @orientation, activity)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-    <% end %>
+    <%= link_to(activity.name, tcc_one_professors_calendar_orientation_activity_path(@calendar, @orientation, activity)) %>
   </td>
+  <%= render 'shared/orientation_activities/tbody', activity: activity %>
 </tr>

@@ -18,12 +18,6 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <%= f.association :calendar,
-          label: false,
-          selected: @orientation.calendar ? @orientation.calendar.id : Calendar.current_by_tcc_one.id,
-          input_html: { class: 'd-none' } %>
-      </div>
-      <div class="col-sm-6">
         <%= f.association :advisor,
           label: false,
           selected: @orientation.advisor ? @orientation.advisor.id : current_professor.id,

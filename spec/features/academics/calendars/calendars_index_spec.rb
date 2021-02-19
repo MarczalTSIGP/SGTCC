@@ -12,13 +12,13 @@ describe 'Calendar::index', type: :feature do
       it 'shows all tcc 1 calendars with options' do
         index_url = academics_calendars_path
         visit index_url
-        calendar = orientation.calendar
 
-        expect(page).to have_contents([calendar.year_with_semester,
-                                       I18n.t("enums.tcc.#{calendar.tcc}"),
-                                       orientation.title,
-                                       orientation.advisor.name,
-                                       short_date(calendar.created_at)])
+        orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester)
+          expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
+          expect(page).to have_content(orientation.title)
+          expect(page).to have_content(orientation.advisor.name)
+        end
 
         orientation.supervisors.each do |supervisor|
           expect(page).to have_content(supervisor.name)

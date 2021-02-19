@@ -10,7 +10,7 @@ module DocumentByType
     end
 
     def self.new_tep(academic, params = {})
-      params[:orientation_id] = academic.current_orientation_tcc_two.first.id
+      params[:orientation_id] = academic.current_orientation.id
       document = DocumentType.find_by(identifier: :tep).documents.new(params)
       new_request(academic, 'academic', document)
     end

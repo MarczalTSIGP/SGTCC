@@ -395,7 +395,7 @@ RSpec.describe Document, type: :model do
       it 'returns the document file_name' do
         document_type = signature.document.document_type.identifier
         academic_name = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-        calendar = orientation.calendar.year_with_semester.tr('/', '_')
+        calendar = orientation.current_calendar.year_with_semester.tr('/', '_')
         document_filename = "SGTCC_#{document_type}_#{academic_name}_#{calendar}".upcase
         expect(signature.document.filename).to eq(document_filename)
       end

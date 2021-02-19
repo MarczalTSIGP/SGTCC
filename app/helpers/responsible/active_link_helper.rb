@@ -1,6 +1,10 @@
 module Responsible::ActiveLinkHelper
   def responsible_orientations_active_link?
-    orientations_active_link?('responsible') || orientations_documents_link?('responsible')
+    activities = "^\/responsible\/orientations\/\\d+\/calendars\/\\d+\/activities(\/\\d+)?$"
+
+    (orientations_active_link?('responsible') && !@calendar&.current?) ||
+      orientations_documents_link?('responsible') ||
+      match_link?(activities)
   end
 
   def responsible_orientations_show_or_edit_link?

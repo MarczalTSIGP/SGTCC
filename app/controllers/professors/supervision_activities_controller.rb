@@ -6,30 +6,29 @@ class Professors::SupervisionActivitiesController < Professors::BaseController
   before_action :set_breadcrumbs
 
   def index
-    @activities = @orientation.calendar
-                              .activities
-                              .includes(:base_activity_type)
-                              .page(params[:page])
+    @activities = @calendar.activities
+                           .includes(:base_activity_type)
+                           .page(params[:page])
   end
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.supervision_activities.show',
                           calendar: @calendar.year_with_semester),
-                   professors_supervision_activity_path(@orientation, @activity)
+                   professors_supervision_calendar_activity_path(@orientation, @calendar, @activity)
   end
 
   private
 
   def set_orientation
-    @orientation = current_professor.supervisions.find(params[:id])
+    @orientation = current_professor.supervisions.find(params[:orientation_id])
   end
 
   def set_calendar
-    @calendar = @orientation.calendar
+    @calendar = @orientation.calendars.find(params[:calendar_id])
   end
 
   def set_activity
-    @activity = @calendar.activities.find_by(id: params[:activity_id])
+    @activity = @calendar.activities.find(params[:id])
   end
 
   def set_academic_activity
@@ -43,6 +42,6 @@ class Professors::SupervisionActivitiesController < Professors::BaseController
                    professors_supervisions_tcc_one_path
 
     add_breadcrumb I18n.t('breadcrumbs.supervision_activities.index', calendar: year_with_semester),
-                   professors_supervision_activities_path(@orientation)
+                   professors_supervision_calendar_activities_path(@orientation, @calendar)
   end
 end

@@ -105,13 +105,14 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def set_calendar
-    @calendar = @orientation.calendar
+    @calendar = @orientation.current_calendar
   end
 
   def orientation_params
     params.require(:orientation)
-          .permit(:title, :calendar_id, :academic_id, :advisor_id, :institution_id,
-                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
+          .permit(:title, :academic_id, :advisor_id, :institution_id,
+                  calendar_ids: [], professor_supervisor_ids: [],
+                  external_member_supervisor_ids: [])
   end
 
   def set_document_orientation_breadcrumb

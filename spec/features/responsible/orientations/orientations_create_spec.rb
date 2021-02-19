@@ -23,7 +23,7 @@ describe 'Orientation::create', type: :feature do
       it 'create an orientation' do
         attributes = attributes_for(:orientation)
         fill_in 'orientation_title', with: attributes[:title]
-        selectize(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_id')
+        selectize(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_ids')
         selectize(academic.name, from: 'orientation_academic_id')
         selectize(professor.name, from: 'orientation_advisor_id')
         submit_form('input[name="commit"]')
@@ -39,7 +39,7 @@ describe 'Orientation::create', type: :feature do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
         expect(page).to have_message(blank_error_message, in: 'div.orientation_title')
-        expect(page).to have_message(required_error_message, in: 'div.orientation_calendar')
+        expect(page).to have_message(blank_error_message, in: 'div.orientation_calendars')
         expect(page).to have_message(required_error_message, in: 'div.orientation_academic')
         expect(page).to have_message(required_error_message, in: 'div.orientation_advisor')
       end

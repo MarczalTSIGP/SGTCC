@@ -6,8 +6,10 @@ class Calendar < ApplicationRecord
 
   searchable :year
 
+  has_many :orientation_calendars, dependent: :restrict_with_error
+  has_many :orientations, through: :orientation_calendars
+
   has_many :activities, dependent: :restrict_with_error
-  has_many :orientations, dependent: :restrict_with_error
   has_many :academic_activities, through: :activities, source: :academic_activities
 
   validates :tcc, presence: true
@@ -26,6 +28,10 @@ class Calendar < ApplicationRecord
 
   def year_with_semester_and_tcc
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
+  end
+
+  def current?
+    Calendar.current_calendar?(self)
   end
 
   def self.start_date

@@ -15,20 +15,27 @@ describe 'Orientation::search', type: :feature do
         fill_in 'term', with: first_orientation.title
         first('#search').click
 
-        expect(page).to have_contents([first_orientation.short_title,
-                                       first_orientation.advisor.name,
-                                       first_orientation.academic.name,
-                                       first_orientation.academic.ra,
-                                       first_orientation.calendar.year_with_semester_and_tcc])
+        expect(page).to have_content(first_orientation.short_title)
+        expect(page).to have_content(first_orientation.advisor.name)
+        expect(page).to have_content(first_orientation.academic.name)
+        expect(page).to have_content(first_orientation.academic.ra)
+
+        first_orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        end
       end
 
       it 'finds the orientation by status' do
         selectize(orientation_in_progress_option, from: 'orientation_status')
-        expect(page).to have_contents([first_orientation.short_title,
-                                       first_orientation.advisor.name,
-                                       first_orientation.academic.name,
-                                       first_orientation.academic.ra,
-                                       first_orientation.calendar.year_with_semester_and_tcc])
+
+        expect(page).to have_content(first_orientation.short_title)
+        expect(page).to have_content(first_orientation.advisor.name)
+        expect(page).to have_content(first_orientation.academic.name)
+        expect(page).to have_content(first_orientation.academic.ra)
+
+        first_orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        end
       end
     end
 

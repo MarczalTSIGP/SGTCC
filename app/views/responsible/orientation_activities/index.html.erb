@@ -1,1 +1,11 @@
+<ul class="nav nav-tabs">
+  <% @orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>
+    <li class="nav-item">
+      <%= active_link_to(responsible_orientation_calendar_activities_path(@orientation, calendar), class: 'nav-link') do %>
+        <%= calendar.year_with_semester_and_tcc %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
 <%= render 'shared/orientation_activities/table', namespace: 'responsible/orientation_activities' %>

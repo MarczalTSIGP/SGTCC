@@ -30,7 +30,7 @@ class Document < ApplicationRecord
 
   def filename
     academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    calendar = orientation.current_calendar.year_with_semester.tr('/', '_')
     "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
   end
 

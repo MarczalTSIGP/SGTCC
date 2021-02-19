@@ -4,13 +4,14 @@ describe 'Supervision::activities', type: :feature, js: true do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
-  let(:activities) { orientation.calendar.activities }
+  let(:calendar) { orientation.current_calendar }
+  let(:activities) { calendar.activities }
   let(:active_link) { professors_supervisions_tcc_one_path }
 
   before do
     orientation.professor_supervisors << professor
     login_as(professor, scope: :professor)
-    visit professors_supervision_activities_path(orientation)
+    visit professors_supervision_calendar_activities_path(orientation, calendar)
   end
 
   describe '#index' do
@@ -34,7 +35,7 @@ describe 'Supervision::activities', type: :feature, js: true do
       end
 
       before do
-        visit professors_supervision_activity_path(orientation, activity)
+        visit professors_supervision_calendar_activity_path(orientation, calendar, activity)
       end
 
       it 'shows the activity' do

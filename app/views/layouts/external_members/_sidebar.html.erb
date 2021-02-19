@@ -13,8 +13,8 @@
     <%= t('breadcrumbs.homepage') %>
   <% end %>
 
-  <% if current_external_member.current_supervision_tcc_one.any? %>
-    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_one.id),
+  <% if current_external_member.current_supervision_tcc_one %>
+    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_one),
 		       active: external_members_activities_tcc_one_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
@@ -24,8 +24,8 @@
     <% end %>
   <% end %>
 
-  <% if current_external_member.current_supervision_tcc_two.any? %>
-    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_two.id),
+  <% if current_external_member.current_supervision_tcc_two %>
+    <%= active_link_to(external_members_calendar_activities_path(Calendar.current_by_tcc_two),
 		       active: external_members_activities_tcc_two_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">

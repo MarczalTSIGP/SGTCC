@@ -86,7 +86,7 @@ class SiteController < ApplicationController
   end
 
   def orientations_data(data)
-    data.includes(:academic, :calendar, :documents,
+    data.includes(:academic, :calendars, :documents,
                   :orientation_supervisors, :external_member_supervisors,
                   :professor_supervisors, :advisor)
   end

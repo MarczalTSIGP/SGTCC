@@ -37,7 +37,7 @@ module Searchable
     end
 
     def join_keys
-      joins(hash_joins.keys) if hash_joins
+      left_joins(hash_joins.keys) if hash_joins
     end
 
     def query_unnacent_ilike(name, table = model_name.plural)

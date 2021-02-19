@@ -1,5 +1,9 @@
-<% provide(:page_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
 <% provide(:head_title, t("breadcrumbs.tcc.#{@calendar.tcc}.show")) %>
+<% provide :page_title do %>
+  <%= t("breadcrumbs.tcc.#{@calendar.tcc}.show") %>
+  <%= @calendar.year_with_semester %>
+  <p class="h6">Acadêmico: <%= @orientation.academic.name %></p>
+<% end %>
 
 <div class="card">
   <div class="card-body">
@@ -27,12 +31,14 @@
       </strong>
       <%= @activity.base_activity_type.name %>
     </p>
-    <p>
-      <strong>
-        <%= Activity.human_attribute_name('identifier') %>:
-      </strong>
-      <%= t("enums.activity.identifiers.#{@activity.identifier}") %>
-    </p>
+    <% if @activity.identifier.present? %>
+      <p>
+        <strong>
+          <%= Activity.human_attribute_name('identifier') %>:
+        </strong>
+        <%= t("enums.activity.identifiers.#{@activity.identifier}") %>
+      </p>
+    <% end %>
     <p>
       <strong>
         <%= Activity.human_attribute_name('final_version') %>:

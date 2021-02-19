@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.3'
+ruby '~> 2.5'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
@@ -20,7 +20,6 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'exception_notification'
 gem 'font-awesome-sass'
-gem 'htmlbeautifier'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
@@ -59,6 +58,8 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
   gem 'bullet'
+  gem 'erb_lint', require: false
+  gem 'htmlbeautifier'
 end
 
 group :test do
@@ -68,6 +69,7 @@ group :test do
   gem 'simplecov', '0.17.1', require: false
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'capybara-screenshot'
 end
 
 group :production do

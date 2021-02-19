@@ -707,6 +707,38 @@ ALTER SEQUENCE public.meetings_id_seq OWNED BY public.meetings.id;
 
 
 --
+-- Name: orientation_calendars; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orientation_calendars (
+    id bigint NOT NULL,
+    calendar_id bigint,
+    orientation_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: orientation_calendars_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orientation_calendars_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orientation_calendars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orientation_calendars_id_seq OWNED BY public.orientation_calendars.id;
+
+
+--
 -- Name: orientation_supervisors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -746,7 +778,6 @@ ALTER SEQUENCE public.orientation_supervisors_id_seq OWNED BY public.orientation
 CREATE TABLE public.orientations (
     id bigint NOT NULL,
     title character varying,
-    calendar_id bigint,
     academic_id bigint,
     advisor_id bigint,
     institution_id bigint,
@@ -1148,6 +1179,13 @@ ALTER TABLE ONLY public.meetings ALTER COLUMN id SET DEFAULT nextval('public.mee
 
 
 --
+-- Name: orientation_calendars id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orientation_calendars ALTER COLUMN id SET DEFAULT nextval('public.orientation_calendars_id_seq'::regclass);
+
+
+--
 -- Name: orientation_supervisors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1352,6 +1390,14 @@ ALTER TABLE ONLY public.institutions
 
 ALTER TABLE ONLY public.meetings
     ADD CONSTRAINT meetings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orientation_calendars orientation_calendars_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orientation_calendars
+    ADD CONSTRAINT orientation_calendars_pkey PRIMARY KEY (id);
 
 
 --
@@ -1575,6 +1621,20 @@ CREATE INDEX index_meetings_on_orientation_id ON public.meetings USING btree (or
 
 
 --
+-- Name: index_orientation_calendars_on_calendar_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orientation_calendars_on_calendar_id ON public.orientation_calendars USING btree (calendar_id);
+
+
+--
+-- Name: index_orientation_calendars_on_orientation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orientation_calendars_on_orientation_id ON public.orientation_calendars USING btree (orientation_id);
+
+
+--
 -- Name: index_orientation_supervisors_on_external_member_supervisor_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1607,13 +1667,6 @@ CREATE INDEX index_orientations_on_academic_id ON public.orientations USING btre
 --
 
 CREATE INDEX index_orientations_on_advisor_id ON public.orientations USING btree (advisor_id);
-
-
---
--- Name: index_orientations_on_calendar_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_orientations_on_calendar_id ON public.orientations USING btree (calendar_id);
 
 
 --
@@ -1726,14 +1779,6 @@ ALTER TABLE ONLY public.base_activities
 
 ALTER TABLE ONLY public.signatures
     ADD CONSTRAINT fk_rails_2ecb9ebbce FOREIGN KEY (document_id) REFERENCES public.documents(id);
-
-
---
--- Name: orientations fk_rails_304a7fe5f8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.orientations
-    ADD CONSTRAINT fk_rails_304a7fe5f8 FOREIGN KEY (calendar_id) REFERENCES public.calendars(id);
 
 
 --
@@ -1989,6 +2034,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191010143250'),
 ('20191011133414'),
 ('20191011133608'),
-('20191125224723');
+('20191125224723'),
+('20200710170737');
 
 

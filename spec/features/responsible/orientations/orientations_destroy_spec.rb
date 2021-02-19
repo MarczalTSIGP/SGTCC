@@ -13,6 +13,8 @@ describe 'Orientation::destroy', type: :feature, js: true do
   describe '#destroy' do
     context 'when orientation is destroyed' do
       it 'show the success message' do
+        find('table.table tbody a[data-toggle="dropdown"] i').click
+
         click_on_destroy_link(responsible_orientation_path(orientation))
         accept_confirm
 
@@ -30,6 +32,7 @@ describe 'Orientation::destroy', type: :feature, js: true do
 
       it 'redirect to the orientations page' do
         # TODO: need a request test to test the controller answer
+        find('table.table tbody a[data-toggle="dropdown"] i').click
         href = "a[href='#{responsible_orientation_path(orientation)}'][data-method='delete']"
         expect(page).not_to have_selector(:css, href)
       end

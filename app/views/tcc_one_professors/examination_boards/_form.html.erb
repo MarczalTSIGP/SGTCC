@@ -1,19 +1,15 @@
 <%= simple_form_for [:tcc_one_professors, @examination_board] do |f| %>
   <div class="form-inputs">
-    <% if @examination_board&.orientation.blank? || @examination_board&.orientation&.calendar&.tcc == 'one' %>
-      <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: Activity.human_tcc_one_identifiers %>
-    <% else %>
-      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
-    <% end %>
+    <%= f.input :identifier,
+      as: :radio_button_tabler,
+      collection: Activity.human_tcc_one_identifiers %>
 
     <%= f.association :orientation,
       label: Academic.model_name.human,
       input_html: { data: 'selectize' },
       value_method: :id,
       label_method: :academic_with_calendar,
-      collection: Orientation.all.includes(:academic, :calendar).order_by_academic,
+      collection: Orientation.all.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
       prompt: t('prompt.select.f', name: Academic.model_name.human) %>
 
     <div class="row">

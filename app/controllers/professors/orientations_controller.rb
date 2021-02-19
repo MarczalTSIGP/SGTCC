@@ -43,12 +43,13 @@ class Professors::OrientationsController < Professors::BaseController
 
   def edit
     add_index_breadcrumb
-    @title = edit_orientation_calendar_title(@orientation.calendar)
+    @title = edit_orientation_calendar_title(@orientation.current_calendar)
     add_breadcrumb @title, edit_professors_orientation_path
   end
 
   def create
     @orientation = Orientation.new(orientation_params)
+    @orientation.calendars = [Calendar.current_by_tcc_one]
 
     if @orientation.save
       feminine_success_create_message
@@ -97,12 +98,12 @@ class Professors::OrientationsController < Professors::BaseController
 
   def orientation_params
     params.require(:orientation)
-          .permit(:title, :calendar_id, :academic_id, :advisor_id, :institution_id,
+          .permit(:title, :academic_id, :advisor_id, :institution_id,
                   professor_supervisor_ids: [], external_member_supervisor_ids: [])
   end
 
   def add_index_breadcrumb
-    calendar = @orientation.calendar
+    calendar = @orientation.current_calendar
     @back_url = professors_orientations_history_path
     if Calendar.current_calendar?(calendar)
       @back_url = current_tcc_index_link
@@ -112,7 +113,7 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def current_tcc_index_link
-    return professors_orientations_tcc_one_path if @orientation.calendar.tcc == 'one'
+    return professors_orientations_tcc_one_path if @orientation.tcc_one?
 
     professors_orientations_tcc_two_path
   end

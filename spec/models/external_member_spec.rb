@@ -106,35 +106,21 @@ RSpec.describe ExternalMember, type: :model do
 
   describe '#current_supervision_tcc_one' do
     let(:external_member) { create(:external_member) }
-    let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
-    let(:orientation_tcc_one) { create(:orientation, calendar: calendar_tcc_one) }
-
-    before do
-      orientation_tcc_one.external_member_supervisors << external_member
-    end
+    let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
 
     it 'returns the current supervision by tcc one' do
-      current_supervision = external_member.supervisions.includes(:calendar).select do |supervision|
-        supervision.calendar.id == Calendar.current_by_tcc_one.id
-      end
-      expect(external_member.current_supervision_tcc_one).to eq(current_supervision)
+      orientation_tcc_one.external_member_supervisors << external_member
+      expect(external_member.current_supervision_tcc_one).to eq(orientation_tcc_one)
     end
   end
 
   describe '#current_supervision_tcc_two' do
     let(:external_member) { create(:external_member) }
-    let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
-    let(:orientation_tcc_two) { create(:orientation, calendar: calendar_tcc_two) }
-
-    before do
-      orientation_tcc_two.external_member_supervisors << external_member
-    end
+    let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
 
     it 'returns the current supervision by tcc two' do
-      current_supervision = external_member.supervisions.includes(:calendar).select do |supervision|
-        supervision.calendar.id == Calendar.current_by_tcc_two.id
-      end
-      expect(external_member.current_supervision_tcc_two).to eq(current_supervision)
+      orientation_tcc_two.external_member_supervisors << external_member
+      expect(external_member.current_supervision_tcc_two).to eq(orientation_tcc_two)
     end
   end
 
