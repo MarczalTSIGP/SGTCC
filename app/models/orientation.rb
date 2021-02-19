@@ -61,8 +61,9 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:academic, :calendars, :orientation_calendars, :documents, :meetings, :professor_supervisors,
-             :orientation_supervisors, :external_member_supervisors, advisor: [:scholarity])
+    includes(:academic, :calendars, :orientation_calendars, :documents, :meetings,
+             :professor_supervisors, :orientation_supervisors,
+             :external_member_supervisors, advisor: [:scholarity])
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }

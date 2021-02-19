@@ -33,7 +33,9 @@ describe 'Orientation::activities', type: :feature, js: true do
       end
 
       before do
-        visit professors_orientation_calendar_activity_path(orientation, orientation.current_calendar, activity)
+        visit professors_orientation_calendar_activity_path(orientation,
+                                                            orientation.current_calendar,
+                                                            activity)
       end
 
       it 'shows the activity' do

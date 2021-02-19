@@ -18,7 +18,9 @@ class Responsible::OrientationActivitiesController < Responsible::BaseController
 
     add_breadcrumb I18n.t('breadcrumbs.orientation_activities.show',
                           calendar: @calendar.year_with_semester),
-                          responsible_orientation_calendar_activity_path(@orientation, @calendar, @activity)
+                   responsible_orientation_calendar_activity_path(@orientation,
+                                                                  @calendar,
+                                                                  @activity)
   end
 
   private

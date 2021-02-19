@@ -36,11 +36,13 @@ module ActiveLinkHelper
   end
 
   def orientations_documents_link?(namespace)
-    match_link?("^\/#{namespace}/orientations\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$")
+    regex = "^\/#{namespace}/orientations\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$"
+    match_link?(regex)
   end
 
   def supervisions_documents_link?(namespace)
-    match_link?("^\/#{namespace}/supervisions\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$")
+    regex = "^\/#{namespace}/supervisions\/\\d+/(documents|(calendars/\\d+/activities))?(\/\\d+)?$"
+    match_link?(regex)
   end
 
   def activities_tcc_active_link?(tcc_type, namespace)

@@ -63,7 +63,8 @@ class ExternalMember < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   def current_supervision_by_calendar(calendar)
-    supervisions.includes(:calendars).find_by(calendars: { year: calendar&.year, semester: calendar&.semester })
+    supervisions.includes(:calendars).find_by(calendars: { year: calendar&.year,
+                                                           semester: calendar&.semester })
   end
 
   def current_supervision_tcc_one

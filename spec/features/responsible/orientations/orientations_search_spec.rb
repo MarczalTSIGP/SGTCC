@@ -40,15 +40,14 @@ describe 'Orientation::search', type: :feature do
         orientation = create(:orientation_renewed, calendars: [calendar])
         selectize(orientation_renewed_option, from: 'orientation_status')
 
-
         within('table tbody tr:nth-child(1)') do
           expect(page).to have_content(orientation.short_title)
           expect(page).to have_content(orientation.advisor.name)
           expect(page).to have_content(orientation.academic.name)
           expect(page).to have_content(orientation.academic.ra)
 
-          orientation.calendars.each do |calendar|
-            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          orientation.calendars.each do |cal|
+            expect(page).to have_content(cal.year_with_semester_and_tcc)
           end
         end
         # expect(page).to have_contents([orientation.short_title,

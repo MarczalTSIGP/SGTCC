@@ -14,7 +14,9 @@ class ExternalMembers::SupervisionActivitiesController < ExternalMembers::BaseCo
   def show
     add_breadcrumb I18n.t('breadcrumbs.supervision_activities.show',
                           calendar: @calendar.year_with_semester),
-                   external_members_supervision_calendar_activity_path(@orientation, @calendar, @activity)
+                   external_members_supervision_calendar_activity_path(@orientation,
+                                                                       @calendar,
+                                                                       @activity)
   end
 
   private

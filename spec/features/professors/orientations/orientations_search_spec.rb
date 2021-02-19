@@ -36,7 +36,6 @@ describe 'Orientation::search', type: :feature do
         first_orientation.calendars.each do |calendar|
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
-
       end
     end
 

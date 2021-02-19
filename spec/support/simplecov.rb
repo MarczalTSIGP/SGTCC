@@ -1,12 +1,12 @@
-#require 'simplecov'
-#require 'simplecov-console'
+# require 'simplecov'
+# require 'simplecov-console'
 # SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter
 #                       .new([
 #                              SimpleCov::Formatter::HTMLFormatter,
 #                              SimpleCov::Formatter::Console
 #                            ])
 #
-#SimpleCov.start 'rails' do
+# SimpleCov.start 'rails' do
 #  minimum_coverage 90
 #  refuse_coverage_drop
 #
@@ -21,4 +21,4 @@
 #  add_filter 'app/controllers/concerns/ldap_authentication.rb'
 #  add_filter 'app/controllers/concerns/document_signature.rb'
 #  add_filter 'app/services/populate'
-#end
+# end

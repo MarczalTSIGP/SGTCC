@@ -5,8 +5,14 @@ describe 'Orientation::show', type: :feature do
   let(:orientation) { create(:orientation, advisor: professor) }
   let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
   let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
-  let(:orientation_tcc_one) { create(:orientation, advisor: professor, calendars: [calendar_tcc_one]) }
-  let(:orientation_tcc_two) { create(:orientation, advisor: professor, calendars: [calendar_tcc_two]) }
+  let(:orientation_tcc_one) do
+    create(:orientation, advisor: professor,
+                         calendars: [calendar_tcc_one])
+  end
+  let(:orientation_tcc_two) do
+    create(:orientation, advisor: professor,
+                         calendars: [calendar_tcc_two])
+  end
 
   before do
     login_as(professor, scope: :professor)
@@ -54,16 +60,16 @@ describe 'Orientation::show', type: :feature do
 
   private
 
-  def expect_contents_of(o)
-    expect(page).to have_content(o.title)
-    expect(page).to have_content(o.academic.name)
-    expect(page).to have_content(o.advisor.name)
+  def expect_contents_of(orientation)
+    expect(page).to have_content(orientation.title)
+    expect(page).to have_content(orientation.academic.name)
+    expect(page).to have_content(orientation.advisor.name)
 
-    o.calendars.each do |calendar|
+    orientation.calendars.each do |calendar|
       expect(page).to have_content(calendar.year_with_semester_and_tcc)
     end
 
-    expect(page).to have_content(complete_date(o.created_at))
-    expect(page).to have_content(complete_date(o.updated_at))
+    expect(page).to have_content(complete_date(orientation.created_at))
+    expect(page).to have_content(complete_date(orientation.updated_at))
   end
 end

@@ -125,8 +125,11 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Exclude:
+    - spec/features/professors/supervisions/supervisions_show_spec.rb
+    - spec/features/professors/orientations/orientations_show_spec.rb
 
-
+Metrics/ClassLength:
+  Max: 110
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer

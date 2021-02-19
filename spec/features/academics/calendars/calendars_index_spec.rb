@@ -13,7 +13,6 @@ describe 'Calendar::index', type: :feature do
         index_url = academics_calendars_path
         visit index_url
 
-
         orientation.calendars.each do |calendar|
           expect(page).to have_content(calendar.year_with_semester)
           expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))

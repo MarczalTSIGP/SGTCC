@@ -326,7 +326,7 @@ Rails.application.routes.draw do
           to: 'orientation_activities#show',
           as: 'orientation_calendar_activity'
 
-      #patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
+      # patch 'orientations/(:id)/activities/(:activity_id)/update_judgment',
       patch 'orientations/:orientation_id/calendars/:calendar_id/activities/:id',
             to: 'orientation_activities#update_judgment',
             as: 'orientation_activity_update_judgment'
@@ -360,12 +360,12 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
-      #get 'supervisions/(:id)/activities',
+      # get 'supervisions/(:id)/activities',
       get 'supervisions/:orientation_id/calendars/:calendar_id/activities',
           to: 'supervision_activities#index',
           as: 'supervision_calendar_activities'
 
-      #get 'supervisions/(:id)/activities/(:activity_id)',
+      # get 'supervisions/(:id)/activities/(:activity_id)',
       get 'supervisions/:orientation_id/calendars/:calendar_id/activities/:id',
           to: 'supervision_activities#show',
           as: 'supervision_calendar_activity'
@@ -725,14 +725,14 @@ Rails.application.routes.draw do
           to: 'supervisions#document',
           as: 'supervision_document'
 
-      #get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities',
-      #get 'supervisions/(:id)/activities',
+      # get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities',
+      # get 'supervisions/(:id)/activities',
       get 'supervisions/:supervision_id/calendars/:calendar_id/activities',
           to: 'supervision_activities#index',
           as: 'supervision_calendar_activities'
 
       get 'supervisions/:supervision_id/calendars/:calendar_id/activities/:id',
-      #get 'supervisions/(:id)/activities/(:activity_id)',
+          # get 'supervisions/(:id)/activities/(:activity_id)',
           to: 'supervision_activities#show',
           as: 'supervision_calendar_activity'
 

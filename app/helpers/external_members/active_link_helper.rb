@@ -20,8 +20,8 @@ module ExternalMembers::ActiveLinkHelper
   end
 
   def external_members_supervisions_history_active_link?
-    # TODO:
-    #supervisions_history_active_link?('external_members')
+    # TODO: rubocop:disable Style/CommentAnnotation
+    # supervisions_history_active_link?('external_members')
   end
 
   def external_members_documents_pending_active_link?

@@ -6,7 +6,8 @@ describe 'Orientation::activities', type: :feature, js: true do
 
   before do
     login_as(responsible, scope: :professor)
-    visit responsible_orientation_calendar_activities_path(orientation, orientation.current_calendar)
+    visit responsible_orientation_calendar_activities_path(orientation,
+                                                           orientation.current_calendar)
   end
 
   describe '#index' do
@@ -56,16 +57,17 @@ describe 'Orientation::activities', type: :feature, js: true do
     end
   end
 
-  context '#show' do
+  describe '#show' do
     let!(:activity) { orientation.current_calendar.activities.first }
     let!(:academic) { orientation.academic }
     let!(:academic_activity) do
       create(:academic_activity, academic: academic, activity: activity)
     end
 
-
     before do
-      visit responsible_orientation_calendar_activity_path(orientation, orientation.current_calendar, activity)
+      visit responsible_orientation_calendar_activity_path(orientation,
+                                                           orientation.current_calendar,
+                                                           activity)
     end
 
     it 'shows the activity' do
@@ -91,12 +93,15 @@ describe 'Orientation::activities', type: :feature, js: true do
         oi = I18n.t('breadcrumbs.orientations.index', calendar: calendar.year_with_semester)
         expect(page).to have_link(oi, href: responsible_orientations_tcc_one_path)
 
-
         oai = I18n.t('breadcrumbs.orientation_activities.index',
                      calendar: calendar.year_with_semester)
-        expect(page).to have_link(oai, href: responsible_orientation_calendar_activities_path(orientation, orientation.current_calendar))
 
-        oas = I18n.t('breadcrumbs.orientation_activities.show', calendar: orientation.current_calendar.year_with_semester)
+        path = responsible_orientation_calendar_activities_path(orientation,
+                                                                orientation.current_calendar)
+        expect(page).to have_link(oai, href: path)
+
+        oas = I18n.t('breadcrumbs.orientation_activities.show',
+                     calendar: orientation.current_calendar.year_with_semester)
         expect(page).to have_content(oas)
       end
 
@@ -104,13 +109,11 @@ describe 'Orientation::activities', type: :feature, js: true do
       expect(page).to have_link(href: academic_activity.complementary_files.url)
     end
 
-
     it 'academic name' do
       within('#main-card > div.card-header') do
         expect(page).to have_content(orientation.academic.name)
       end
     end
-
   end
 
   private

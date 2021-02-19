@@ -6,7 +6,8 @@ describe 'Orientation::activities', type: :feature do
 
   before do
     login_as(professor, scope: :professor)
-    visit tcc_one_professors_calendar_orientation_activities_path(orientation.current_calendar, orientation)
+    visit tcc_one_professors_calendar_orientation_activities_path(orientation.current_calendar,
+                                                                  orientation)
   end
 
   describe '#index' do

@@ -33,42 +33,9 @@ class Academic < ApplicationRecord
             format: { with: Devise.email_regexp },
             uniqueness: { case_sensetive: false }
 
-  #def current_orientation_by_calendar(calendar)
-  #  orientations.includes(:calendar).select do |orientation|
-  #    orientation.calendar&.id == calendar&.id
-  #  end
-  #end
-
-  # def current_orientation_tcc_one
-    # orientations.includes('calendars').find_by(calendars: {
-    #   year: Calendar.current_year,
-    #   semester:  Calendar.current_semester,
-    #   tcc: :one
-    # })
-    # current_orientation.current_calendar.eql?(Calendar.current_by_tcc_one)
-    # current_orientation_by_calendar(Calendar.current_by_tcc_one)
-  # end
-
-  # def current_orientation_tcc_two
-    # current_orientation_by_calendar(Calendar.current_by_tcc_two)
-    # current_orientation.current_calendar.eql?(Calendar.current_by_tcc_one)
-    # orientations.includes('calendars').find_by(calendars: {
-    #   year: Calendar.current_year,
-    #   semester:  Calendar.current_semester,
-    #   tcc: :two
-    # })
-    # orientations.joins(:calendars).find_by(calendars: { year: Calendar.current_year, semester: Calendar.current_semester, tcc: :two })
-  # end
-
   def current_orientation
-    #orientation = current_orientation_tcc_one | current_orientation_tcc_two
-    # orientations.last
-    # orientations.includes(:calendars).find_by(calendars: {
-    #   year: Calendar.current_year,
-    #   semester:  Calendar.current_semester
-    # }).references(:calendars)
-
-    orientations.joins(:calendars).find_by(calendars: { year: Calendar.current_year, semester: Calendar.current_semester })
+    orientations.joins(:calendars).find_by(calendars: { year: Calendar.current_year,
+                                                        semester: Calendar.current_semester })
   end
 
   def documents(status = [true, false], document_type = nil, query: {})
