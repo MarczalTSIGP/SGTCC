@@ -33,7 +33,7 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def show
     add_index_breadcrumb
-    add_breadcrumb show_supervision_calendar_title(@orientation.calendar),
+    add_breadcrumb show_supervision_calendar_title(@orientation.current_calendar),
                    professors_supervision_path(@orientation)
   end
 
@@ -65,7 +65,7 @@ class Professors::SupervisionsController < Professors::BaseController
   end
 
   def add_index_breadcrumb
-    calendar = @orientation.calendar
+    calendar = @orientation.current_calendar
     @back_url = professors_supervisions_history_path
     if Calendar.current_calendar?(calendar)
       @back_url = current_tcc_index_link
@@ -75,12 +75,13 @@ class Professors::SupervisionsController < Professors::BaseController
   end
 
   def current_tcc_index_link
-    return professors_supervisions_tcc_one_path if @orientation.calendar.tcc == 'one'
+    return professors_supervisions_tcc_one_path if @orientation.tcc_one?
+
     professors_supervisions_tcc_two_path
   end
 
   def set_orientation_document_breadcrumb
-    add_breadcrumb supervision_calendar_title(@orientation.calendar), current_tcc_index_link
+    add_breadcrumb supervision_calendar_title(@orientation.current_calendar), current_tcc_index_link
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    professors_supervision_documents_path(@orientation)
   end

@@ -11,7 +11,7 @@ describe 'Orientation::index', type: :feature, js: true do
       let!(:orientation) { create(:orientation_tcc_two_approved) }
       let(:academic) { orientation.academic }
       let(:activity) { create(:monograph_activity, final_version: true) }
-      let(:calendar) { orientation.calendar.year }
+      let(:calendar) { orientation.current_calendar.year }
 
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)
@@ -39,7 +39,7 @@ describe 'Orientation::index', type: :feature, js: true do
       let!(:orientation) { create(:orientation_tcc_one) }
       let(:academic) { orientation.academic }
       let(:activity) { create(:proposal_activity, final_version: true) }
-      let(:calendar) { orientation.calendar.year }
+      let(:calendar) { orientation.current_calendar.year }
 
       let!(:academic_activity) do
         create(:academic_activity, academic: academic, activity: activity)

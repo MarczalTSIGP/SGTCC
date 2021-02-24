@@ -12,7 +12,8 @@ describe 'Activity::index', type: :feature, js: true do
       it 'shows all activities for tcc one with options' do
         calendar = create(:current_calendar_tcc_one)
         activity = create(:activity_tcc_one, calendar: calendar)
-        orientation = create(:orientation, calendar: calendar)
+
+        orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
 
         index_url = external_members_calendar_activities_path(calendar)
@@ -28,7 +29,7 @@ describe 'Activity::index', type: :feature, js: true do
       it 'shows all activities for tcc two with options' do
         calendar = create(:current_calendar_tcc_two)
         activity = create(:activity_tcc_two, calendar: calendar)
-        orientation = create(:orientation, calendar: calendar)
+        orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
 
         index_url = external_members_calendar_activities_path(calendar)

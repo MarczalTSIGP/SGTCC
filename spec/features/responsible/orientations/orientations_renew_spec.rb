@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Orientation::renew', type: :feature do
   let(:responsible) { create(:responsible) }
   let(:calendar) { create(:calendar_tcc_two, semester: 1) }
-  let(:current_orientation_tcc_two) { create(:orientation, calendar: calendar) }
+  let(:current_orientation_tcc_two) { create(:orientation, calendars: [calendar]) }
   let(:resource_name) { Orientation.model_name.human }
 
   before do

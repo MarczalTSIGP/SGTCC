@@ -48,6 +48,7 @@ class ExternalMembers::ExaminationBoardFilesController < ExternalMembers::BaseCo
   def can_edit_note
     @can_edit_note = true
     return if @examination_board.defense_minutes.blank?
+
     @can_edit_note = false
   end
 end

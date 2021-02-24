@@ -16,23 +16,45 @@ describe 'Orientation::search', type: :feature do
         fill_in 'term', with: orientation.title
         first('#search').click
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        # expect(page).to have_contents([orientation.short_title,
+        #                                orientation.advisor.name,
+        #                                orientation.academic.name,
+        #                                orientation.academic.ra,
+        #                                orientation.calendar.year_with_semester_and_tcc])
+
+        within('table tbody tr:nth-child(1)') do
+          expect(page).to have_content(orientation.short_title)
+          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_content(orientation.academic.ra)
+
+          orientation.calendars.each do |calendar|
+            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          end
+        end
       end
 
       it 'finds the orientation by status' do
         visit responsible_orientations_tcc_two_path
         calendar = create(:current_calendar_tcc_two)
-        orientation = create(:orientation_renewed, calendar: calendar)
+        orientation = create(:orientation_renewed, calendars: [calendar])
         selectize(orientation_renewed_option, from: 'orientation_status')
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.calendar.year_with_semester_and_tcc])
+
+        within('table tbody tr:nth-child(1)') do
+          expect(page).to have_content(orientation.short_title)
+          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_content(orientation.academic.ra)
+
+          orientation.calendars.each do |cal|
+            expect(page).to have_content(cal.year_with_semester_and_tcc)
+          end
+        end
+        # expect(page).to have_contents([orientation.short_title,
+        #                                orientation.advisor.name,
+        #                                orientation.academic.name,
+        #                                orientation.academic.ra,
+        #                                orientation.calendar.year_with_semester_and_tcc])
       end
     end
 

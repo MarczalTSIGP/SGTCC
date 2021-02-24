@@ -4,7 +4,8 @@ module OrientationRenew
   def renew
     orientation = Orientation.find(params[:id])
     orientation_renewed = orientation.renew(params['orientation']['renewal_justification'])
-    return success_renew_json_message(orientation_renewed) if orientation_renewed
+    return success_renew_json_message(orientation) if orientation_renewed
+
     error_renew_json_message
   end
 

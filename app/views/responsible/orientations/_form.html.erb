@@ -3,7 +3,7 @@
     <%= f.input :title %>
     <div class="row">
       <div class="col-sm-6">
-        <%= f.association :calendar,
+        <%= f.association :calendars,
           input_html: { data: 'selectize' },
           collection: Calendar.select_for_orientation,
           label_method: :second,

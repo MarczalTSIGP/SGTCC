@@ -22,14 +22,6 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
                                          examination_board.orientation.advisor.name_with_scholarity,
                                          examination_board.place,
                                          datetime(examination_board.date)])
-
-          examination_board.professors.each do |professor|
-            expect(page).to have_content(professor.name_with_scholarity)
-          end
-
-          examination_board.external_members.each do |external_member|
-            expect(page).to have_content(external_member.name_with_scholarity)
-          end
         end
       end
     end
@@ -45,14 +37,6 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
                                          examination_board.orientation.advisor.name,
                                          examination_board.place,
                                          datetime(examination_board.date)])
-
-          examination_board.professors.each do |professor|
-            expect(page).to have_content(professor.name)
-          end
-
-          examination_board.external_members.each do |external_member|
-            expect(page).to have_content(external_member.name)
-          end
         end
       end
     end

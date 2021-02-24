@@ -7,7 +7,7 @@ describe 'Orientation::documents', type: :feature, js: true do
 
   before do
     login_as(academic, scope: :academic)
-    visit academics_calendar_orientation_documents_path(orientation.calendar, orientation)
+    visit academics_calendar_orientation_documents_path(orientation.current_calendar, orientation)
   end
 
   describe '#index' do
@@ -27,7 +27,7 @@ describe 'Orientation::documents', type: :feature, js: true do
 
       before do
         visit academics_calendar_orientation_document_path(
-          orientation.calendar, orientation, document
+          orientation.current_calendar, orientation, document
         )
       end
 

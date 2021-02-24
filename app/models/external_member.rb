@@ -31,7 +31,6 @@ class ExternalMember < ApplicationRecord
 
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
-           foreign_key: :external_member_id,
            inverse_of: :external_member,
            source: :examination_board,
            dependent: :destroy
@@ -64,9 +63,8 @@ class ExternalMember < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   def current_supervision_by_calendar(calendar)
-    supervisions.includes(:calendar).select do |supervision|
-      supervision.calendar&.id == calendar&.id
-    end
+    supervisions.includes(:calendars).find_by(calendars: { year: calendar&.year,
+                                                           semester: calendar&.semester })
   end
 
   def current_supervision_tcc_one

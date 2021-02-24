@@ -3,7 +3,13 @@ class Academics::CalendarsController < Academics::BaseController
                  :academics_calendars_path
 
   def index
-    orientations = current_academic.orientations.with_relationships.recent
-    @orientations = orientations.page(params[:page])
+    @orientations = current_academic.orientations.includes(:calendars,
+                                                           :orientation_calendars,
+                                                           :advisor,
+                                                           :professor_supervisors,
+                                                           :orientation_supervisors,
+                                                           :external_member_supervisors)
+    # @orientations = orientations.page(params[:page])
+    # @calendars = current_academic.calendars.order year: :desc, semester: :desc
   end
 end

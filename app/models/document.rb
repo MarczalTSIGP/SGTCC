@@ -30,7 +30,7 @@ class Document < ApplicationRecord
 
   def filename
     academic = I18n.transliterate(orientation.academic.name.tr(' ', '_'))
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    calendar = orientation.current_calendar.year_with_semester.tr('/', '_')
     "SGTCC_#{document_type.identifier}_#{academic}_#{calendar}".upcase
   end
 
@@ -55,6 +55,7 @@ class Document < ApplicationRecord
     new_request = request
     justification = params[:justification]
     return true if justification.blank?
+
     new_request['requester']['justification'] = justification
     update_attribute(:request, new_request)
   end
@@ -92,6 +93,7 @@ class Document < ApplicationRecord
   def signature_by_user(user_id, user_types)
     pending_signature = pending_signature_by_user(user_id, user_types)
     return pending_signature if pending_signature.present?
+
     signatures.find_by(user_id: user_id, user_type: user_types, status: true)
   end
 

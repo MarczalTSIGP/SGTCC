@@ -45,7 +45,6 @@ RSpec.describe Professor, type: :model do
 
   describe 'associations' do
     professor_sfk = 'professor_supervisor_id'
-    professor_fk = 'professor_id'
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:roles).through(:assignments) }
@@ -55,7 +54,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
     it { is_expected.to have_many(:all_documents).through(:supervisions) }
-    it { is_expected.to have_many(:examination_board_attendees).with_foreign_key(professor_fk) }
+    it { is_expected.to have_many(:examination_board_attendees) }
     it { is_expected.to have_many(:guest_examination_boards).through(:examination_board_attendees) }
     it { is_expected.to have_many(:orientation_examination_boards).through(:orientations) }
     it { is_expected.to have_many(:supervision_examination_boards).through(:supervisions) }
@@ -63,11 +62,11 @@ RSpec.describe Professor, type: :model do
 
   describe '#human_genders' do
     it 'returns the genders' do
-      genders = Professor.genders
+      genders = described_class.genders
       hash = {}
       genders.each_key { |key| hash[I18n.t("enums.genders.#{key}")] = key }
 
-      expect(Professor.human_genders).to eq(hash)
+      expect(described_class.human_genders).to eq(hash)
     end
   end
 
@@ -89,27 +88,27 @@ RSpec.describe Professor, type: :model do
 
     context 'when finds professor by attributes' do
       it 'returns professor by name' do
-        results_search = Professor.search(professor.name)
+        results_search = described_class.search(professor.name)
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by email' do
-        results_search = Professor.search(professor.email)
+        results_search = described_class.search(professor.email)
         expect(professor.email).to eq(results_search.first.email)
       end
 
       it 'returns professor by username' do
-        results_search = Professor.search(professor.username)
+        results_search = described_class.search(professor.username)
         expect(professor.username).to eq(results_search.first.username)
       end
 
       it 'returns professor by role name' do
-        results_search = Professor.search(responsible.roles.first.name)
+        results_search = described_class.search(responsible.roles.first.name)
         expect(responsible.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by role identifier' do
-        results_search = Professor.search(responsible.roles.first.identifier)
+        results_search = described_class.search(responsible.roles.first.identifier)
         expect(responsible.name).to eq(results_search.first.name)
       end
     end
@@ -117,7 +116,7 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name with accents' do
       it 'returns professor' do
         professor = create(:responsible, name: 'João')
-        results_search = Professor.search('Joao')
+        results_search = described_class.search('Joao')
         expect(professor.name).to eq(results_search.first.name)
       end
     end
@@ -125,7 +124,7 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name on search term with accents' do
       it 'returns professor' do
         professor = create(:responsible, name: 'Joao')
-        results_search = Professor.search('João')
+        results_search = described_class.search('João')
         expect(professor.name).to eq(results_search.first.name)
       end
     end
@@ -133,13 +132,13 @@ RSpec.describe Professor, type: :model do
     context 'when finds professor by name ignoring the case sensitive' do
       it 'returns professor by attribute' do
         professor = create(:professor_tcc_one, name: 'Ana')
-        results_search = Professor.search('an')
+        results_search = described_class.search('an')
         expect(professor.name).to eq(results_search.first.name)
       end
 
       it 'returns professor by search term' do
         professor = create(:professor_tcc_one, name: 'ana')
-        results_search = Professor.search('AN')
+        results_search = described_class.search('AN')
         expect(professor.name).to eq(results_search.first.name)
       end
     end
@@ -147,10 +146,10 @@ RSpec.describe Professor, type: :model do
     context 'when returns professors ordered by name' do
       it 'returns ordered' do
         create_list(:professor_tcc_one, 30)
-        professors_ordered = Professor.order(:name)
+        professors_ordered = described_class.order(:name)
         professor = professors_ordered.first
-        results_search = Professor.search.order(:name)
-        expect(professor.name). to eq(results_search.first.name)
+        results_search = described_class.search.order(:name)
+        expect(professor.name).to eq(results_search.first.name)
       end
     end
   end
@@ -226,7 +225,7 @@ RSpec.describe Professor, type: :model do
 
     it 'is equal professor request data' do
       order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
-      data = professor.orientations.includes(:academic, :calendar)
+      data = professor.orientations.includes(:academic, :calendars)
                       .order(order_by).map do |orientation|
                         [orientation.id, orientation.academic_with_calendar]
                       end
@@ -240,8 +239,8 @@ RSpec.describe Professor, type: :model do
     end
 
     it 'is equal current responsible' do
-      responsible = Professor.joins(:roles).find_by('roles.identifier': :responsible)
-      expect(Professor.current_responsible).to eq(responsible)
+      responsible = described_class.joins(:roles).find_by('roles.identifier': :responsible)
+      expect(described_class.current_responsible).to eq(responsible)
     end
   end
 
@@ -251,8 +250,8 @@ RSpec.describe Professor, type: :model do
     end
 
     it 'is equal current coordinator' do
-      coordinator = Professor.joins(:roles).find_by('roles.identifier': :coordinator)
-      expect(Professor.current_coordinator).to eq(coordinator)
+      coordinator = described_class.joins(:roles).find_by('roles.identifier': :coordinator)
+      expect(described_class.current_coordinator).to eq(coordinator)
     end
   end
 
@@ -280,15 +279,6 @@ RSpec.describe Professor, type: :model do
         professor.orientation_examination_boards)
       expect(professor.examination_boards).to match_array(examination_boards)
       expect(professor.examination_boards.count).to eq(2)
-    end
-  end
-
-  describe '#name_with_scholarity' do
-    let(:professor) { create(:professor) }
-
-    it 'is equal name with scholarity' do
-      name_with_scholarity = "#{professor.scholarity.abbr} #{professor.name}"
-      expect(professor.name_with_scholarity).to eq(name_with_scholarity)
     end
   end
 
@@ -350,7 +340,7 @@ RSpec.describe Professor, type: :model do
     let(:professor) { create(:professor, professor_type: professor_type) }
 
     it 'returns the effective professors' do
-      expect(Professor.effective).to eq([professor])
+      expect(described_class.effective).to eq([professor])
     end
   end
 
@@ -359,7 +349,7 @@ RSpec.describe Professor, type: :model do
     let(:professor) { create(:professor, professor_type: professor_type) }
 
     it 'returns the temporary professors' do
-      expect(Professor.temporary).to eq([professor])
+      expect(described_class.temporary).to eq([professor])
     end
   end
 

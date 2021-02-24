@@ -21,11 +21,13 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   def set_examination_board
     @examination_board = current_semester(current_external_member.examination_boards)
     return if @examination_board.present?
+
     @examination_board = current_semester(current_external_member.supervision_examination_boards)
   end
 
   def current_semester(data)
     return if data.blank?
+
     data.current_semester.with_relationships.find(params[:id])
   end
 

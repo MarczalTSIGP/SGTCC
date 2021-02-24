@@ -46,7 +46,6 @@ class Professor < ApplicationRecord
 
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
-           foreign_key: :professor_id,
            inverse_of: :professor,
            source: :examination_board,
            dependent: :destroy
@@ -93,7 +92,7 @@ class Professor < ApplicationRecord
 
   def orientations_to_form
     order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
-    orientations.includes(:academic, :calendar).order(order_by).map do |orientation|
+    orientations.includes(:academic, :calendars).order(order_by).map do |orientation|
       [orientation.id, orientation.academic_with_calendar]
     end
   end

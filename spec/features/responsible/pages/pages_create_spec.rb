@@ -20,7 +20,7 @@ describe 'Page::create', type: :feature, js: true do
         fill_in 'page_menu_title', with: attributes[:menu_title]
         fill_in 'page_url', with: attributes[:url]
         fill_in 'page_fa_icon', with: attributes[:fa_icon]
-        find('.fa-bold').click
+        find('.fa-bold').click ## fill markdown editor
 
         submit_form('input[name="commit"]')
 

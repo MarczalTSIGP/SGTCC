@@ -12,12 +12,14 @@ module Breadcrumb
 
   def current_responsible_tcc_index_path
     return responsible_orientations_current_tcc_one_path if @calendar.tcc == 'one'
+
     responsible_orientations_current_tcc_two_path
   end
 
   def responsible_tcc_index_path
     return current_responsible_tcc_index_path if Calendar.current_calendar?(@calendar)
     return responsible_orientations_tcc_one_path if @calendar.tcc == 'one'
+
     responsible_orientations_tcc_two_path
   end
 end

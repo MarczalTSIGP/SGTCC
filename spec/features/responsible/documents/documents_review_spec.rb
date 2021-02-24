@@ -18,12 +18,12 @@ describe 'Document::review', type: :feature, js: true do
     context 'when the document is reviewed' do
       it 'shows success message' do
         click_on_label(concede_label, in: 'document_judgment')
-        find('.fa-bold').click
-
+        fill_in_simple_mde('Hakuna Matata')
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
+
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
-        expect(page).to have_contents([conceded_label, '**'])
+        expect(page).to have_contents([conceded_label, 'Hakuna Matata'])
       end
     end
 
@@ -56,12 +56,12 @@ describe 'Document::review', type: :feature, js: true do
       it 'shows success message' do
         find('#edit_button_judgment').click
         click_on_label(dismiss_label, in: 'document_judgment')
-        find('.fa-bold').click
+        fill_in_simple_mde('Hakuna Matata')
 
         find('button[id="save_document_judgment"]', text: save_button).click
         expect(page).to have_alert(text: message('update.m'))
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
-        expect(page).to have_contents([dismissed_label, '**justi'])
+        expect(page).to have_contents([dismissed_label, 'Hakuna Matata'])
       end
     end
 

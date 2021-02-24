@@ -5,10 +5,8 @@
     <%= link_to(tcc_one_professors_calendar_activities_path(calendar)) do %>
       <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
     <% end %>
-    <% if calendar.orientations.any? %>
-      <%= link_to(tcc_one_professors_calendar_orientations_path(calendar)) do %>
-        <i class="fas fa-file-alt" data-toggle="tooltip" title="Visualizar orientações"></i>
-      <% end %>
+    <%= link_to(tcc_one_professors_calendar_orientations_path(calendar)) do %>
+      <i class="fas fa-file-alt" data-toggle="tooltip" title="Visualizar orientações"></i>
     <% end %>
   </td>
 </tr>

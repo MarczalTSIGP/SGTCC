@@ -13,7 +13,7 @@ describe 'Professor::pagination', type: :feature, js: true do
     context 'when finds the last professor on second page' do
       it 'finds the last professor' do
         professor = Professor.order(:name).last
-        click_link(2)
+        click_link('2')
         expect(page).to have_contents([professor.name,
                                        professor.email,
                                        professor.username,

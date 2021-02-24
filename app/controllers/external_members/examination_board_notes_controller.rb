@@ -43,6 +43,7 @@ class ExternalMembers::ExaminationBoardNotesController < ExternalMembers::BaseCo
   def can_edit_note
     @can_edit_note = true
     return if @examination_board.defense_minutes.blank?
+
     @can_edit_note = false
     flash[:alert] = I18n.t('flash.examination_board_note.errors.edit')
     redirect_to external_members_examination_board_path(@examination_board)

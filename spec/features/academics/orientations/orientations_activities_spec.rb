@@ -3,24 +3,26 @@ require 'rails_helper'
 describe 'Orientation::activities', type: :feature, js: true do
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
-  let(:calendar) { orientation.calendar }
-  let(:activities) { orientation.calendar.activities }
+  let(:calendar) { orientation.current_calendar }
+  let(:activities) { calendar.activities }
   let(:active_link) { academics_calendars_path }
 
   before do
     login_as(academic, scope: :academic)
-    visit academics_calendar_orientation_activities_path(calendar, orientation)
   end
 
   describe '#index' do
     context 'when shows all the orientation activities' do
       it 'shows all the activites' do
+        visit academics_calendar_orientation_activities_path(calendar, orientation)
+
         activities.each do |activity|
-          expect(page).to have_contents([activity.name,
-                                         activity.base_activity_type.name,
-                                         I18n.t("enums.tcc.#{activity.tcc}"),
-                                         activity.deadline])
+          expect(page).to have_content(activity.name)
+          expect(page).to have_content(activity.base_activity_type.name)
+          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
+          expect(page).to have_content(activity.deadline)
         end
+
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end
     end

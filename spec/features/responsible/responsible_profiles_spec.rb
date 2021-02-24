@@ -13,15 +13,14 @@ describe 'Responsible:profiles', type: :feature, js: true do
       it 'updates responsible' do
         attributes = attributes_for(:professor)
 
-        fill_in 'professor_name', with: attributes[:name]
+        fill_in 'professor_name', with: attributes[:name], fill_options: { clear: :backspace }
         fill_in 'professor_email', with: attributes[:email]
         fill_in 'professor_lattes', with: attributes[:lattes]
 
-        attach_file 'professor_profile_image', FileSpecHelper.image.path
-        fill_in 'professor_current_password', with: professor.password
+        attach_file 'professor_profile_image', FileSpecHelper.image.path, visible: false
+        fill_in 'professor_current_password', with: 'password'
 
         submit_form('input[name="commit"]')
-
         expect(page).to have_current_path edit_professor_registration_path
         expect(page).to have_flash(:info, text: registrations_updated_message)
 
@@ -39,8 +38,8 @@ describe 'Responsible:profiles', type: :feature, js: true do
         fill_in 'professor_name', with: ''
         fill_in 'professor_email', with: 'email'
         fill_in 'professor_lattes', with: ''
-        fill_in 'professor_current_password', with: professor.password
-        attach_file 'professor_profile_image', FileSpecHelper.pdf.path
+        fill_in 'professor_current_password', with: 'password'
+        attach_file 'professor_profile_image', FileSpecHelper.pdf.path, visible: false
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: default_error_message)

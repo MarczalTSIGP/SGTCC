@@ -1,28 +1,36 @@
 <tr>
-  <%= render('shared/orientations/tbody', orientation: orientation) %>
-  <td>
-    <%= link_to(professors_orientation_path(orientation)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-    <% end %>
+  <td class="text-center">
+    <div class="item-action dropdown">
+      <a data-toggle="dropdown" class="icon" ><i class="fe fe-more-horizontal"></i></a>
+      <div class="dropdown-menu dropdown-menu-right" x-placement="top-end">
 
-    <%= link_to(professors_orientation_activities_path(orientation)) do %>
-      <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
-    <% end %>
+        <%= link_to(professors_orientation_path(orientation), class: 'dropdown-item') do %>
+          <i class="fe fe-search"></i> Detalhes da orientação
+        <% end %>
 
-    <% unless orientation.meetings.empty? %>
-      <%= link_to(professors_orientation_meetings_path(orientation)) do %>
-        <i class="fe fe-clipboard" data-toggle="tooltip" title="Visualizar reuniões"></i>
-      <% end %>
-    <% end %>
+        <%= link_to(professors_orientation_calendar_activities_path(orientation, orientation.current_calendar), class: 'dropdown-item') do %>
+          <i class="far fa-file-alt"></i> Visualizar atividades
+        <% end %>
 
-    <%= link_to(professors_orientation_documents_path(orientation)) do %>
-      <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
-    <% end %>
+        <%= link_to(professors_orientation_documents_path(orientation), class: 'dropdown-item') do %>
+          <i class="fe fe-file"></i> Visualizar documentos
+        <% end %>
 
-    <% if orientation.can_be_edited? %>
-      <%= link_to(edit_professors_orientation_path(orientation)) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
-      <% end %>
-    <% end %>
+        <% unless orientation.meetings.empty? %>
+          <%= link_to(professors_orientation_meetings_path(orientation), class: 'dropdown-item') do %>
+            <i class="fe fe-clipboard"></i> Visualizar reuniões
+          <% end %>
+        <% end %>
+
+        <% if orientation.can_be_edited? %>
+          <%= link_to(edit_professors_orientation_path(orientation), class: 'dropdown-item') do %>
+            <i class="fe fe-edit"></i> Editar
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
   </td>
-</tr>
+
+  <%= render('shared/orientations/tbody', orientation: orientation) %>
+ </tr>

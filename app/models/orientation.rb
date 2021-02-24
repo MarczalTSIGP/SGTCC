@@ -13,16 +13,18 @@ class Orientation < ApplicationRecord
   include UsersToDocument
 
   searchable :status, title: { unaccent: true }, relationships: {
-    calendar: { fields: [:year] },
+    calendars: { fields: [:year] },
     academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
     institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
     advisor: { table_name: 'professors', fields: [name: { unaccent: true }] }
   }
 
-  belongs_to :calendar
   belongs_to :academic
   belongs_to :advisor, class_name: 'Professor', inverse_of: :orientations
   belongs_to :institution, optional: true
+
+  has_many :orientation_calendars, dependent: :destroy
+  has_many :calendars, through: :orientation_calendars
 
   has_many :orientation_supervisors, dependent: :delete_all
   has_many :signatures, dependent: :destroy
@@ -40,6 +42,7 @@ class Orientation < ApplicationRecord
 
   validates :title, presence: true
   validate :validates_supervisor_ids
+  validates :calendars, presence: true
 
   scope :tcc_one, lambda { |status, year = nil, semester = nil|
     join_with_status_by_tcc('one', status, year, semester)
@@ -58,8 +61,9 @@ class Orientation < ApplicationRecord
   }
 
   scope :with_relationships, lambda {
-    includes(:academic, :calendar, :documents, :meetings, :professor_supervisors,
-             :orientation_supervisors, :external_member_supervisors, advisor: [:scholarity])
+    includes(:academic, :calendars, :orientation_calendars, :documents, :meetings,
+             :professor_supervisors, :orientation_supervisors,
+             :external_member_supervisors, advisor: [:scholarity])
   }
 
   scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
@@ -74,13 +78,11 @@ class Orientation < ApplicationRecord
   end
 
   def renew(justification)
-    next_calendar = Calendar.next_semester(calendar)
+    next_calendar = Calendar.next_semester(calendars.last)
     return false if next_calendar.blank?
+
+    calendars << next_calendar
     update(renewal_justification: justification, status: 'RENEWED')
-    new_orientation = dup
-    new_orientation.calendar = next_calendar
-    new_orientation.save
-    new_orientation
   end
 
   def cancel(justification)
@@ -91,12 +93,26 @@ class Orientation < ApplicationRecord
     !canceled? && !abandoned?
   end
 
-  def calendar_tcc_one?
-    calendar.tcc == 'one'
+  def current_calendar
+    calendars.last
   end
 
+  # TODO: Refactored and Remove
+  def calendar_tcc_one?
+    current_calendar.tcc == 'one'
+  end
+
+  # TODO: Refactore and Remove
   def calendar_tcc_two?
-    calendar.tcc == 'two'
+    current_calendar.tcc == 'two'
+  end
+
+  def tcc_one?
+    current_calendar.tcc.eql?('one')
+  end
+
+  def tcc_two?
+    current_calendar.tcc.eql?('two')
   end
 
   def professor_supervisors_to_document
@@ -108,7 +124,7 @@ class Orientation < ApplicationRecord
   end
 
   def academic_with_calendar
-    "#{academic.name} (#{academic.ra}) | #{calendar.year_with_semester_and_tcc}"
+    "#{academic.name} (#{academic.ra}) | #{current_calendar.year_with_semester_and_tcc}"
   end
 
   def self.to_json_table(orientations)

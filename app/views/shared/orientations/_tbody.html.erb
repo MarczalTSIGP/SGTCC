@@ -14,4 +14,10 @@
       status="<%= Orientation.statuses[orientation.status] %>" />
   </span>
 </td>
-<td><%= orientation.calendar.year_with_semester_and_tcc %></td>
+<td>
+  <ul class="list-unstyled">
+    <% orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>
+      <li class="<%= 'text-muted' unless calendar.current? %>"><%= calendar.year_with_semester_and_tcc %></li>
+    <% end %>
+  </ul>
+</td>

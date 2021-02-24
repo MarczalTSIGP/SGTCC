@@ -15,10 +15,14 @@ describe 'Orientation::index', type: :feature do
         index_url = professors_orientations_tcc_one_path
         visit index_url
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        expect(page).to have_content(orientation.short_title)
+        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_content(orientation.academic.name)
+
+        orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        end
+
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
@@ -30,10 +34,14 @@ describe 'Orientation::index', type: :feature do
         index_url = professors_orientations_tcc_two_path
         visit index_url
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        expect(page).to have_content(orientation.short_title)
+        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_content(orientation.academic.name)
+
+        orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        end
+
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end
@@ -45,10 +53,14 @@ describe 'Orientation::index', type: :feature do
         index_url = professors_orientations_history_path
         visit index_url
 
-        expect(page).to have_contents([orientation.short_title,
-                                       orientation.advisor.name,
-                                       orientation.academic.name,
-                                       orientation.calendar.year_with_semester_and_tcc])
+        expect(page).to have_content(orientation.short_title)
+        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_content(orientation.academic.name)
+
+        orientation.calendars.each do |calendar|
+          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        end
+
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
     end

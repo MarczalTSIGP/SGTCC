@@ -1,31 +1,27 @@
-<% provide(:page_title, t("views.title.calendar.tcc.#{@calendar.tcc}", calendar: @calendar.year_with_semester)) %>
 <% provide(:head_title, t("views.title.calendar.tcc.#{@calendar.tcc}", calendar: @calendar.year_with_semester)) %>
+<% provide :page_title do %>
+  <%= t("views.title.calendar.tcc.#{@calendar.tcc}", calendar: @calendar.year_with_semester) %>
+  <p class="h6">Acadêmico: <%= @orientation.academic.name %></p>
+<% end %>
 
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
-        <th colspan="7" class="text-center">
-          <%= @orientation.academic.name %>
-        </th>
-      </tr>
-      <tr>
         <th><%= Activity.human_attribute_name('name') %></th>
-        <th><%= Activity.human_attribute_name('base_activity_type') %></th>
         <th><%= Activity.human_attribute_name('tcc') %></th>
-        <th><%= Activity.human_attribute_name('deadline') %></th>
         <th title="<%= Activity.human_attribute_name('advisor_judgment') %>">
           <%= Activity.human_attribute_name('science') %>
         </th>
         <th><%= Activity.human_attribute_name('sent') %></th>
-        <th colspan="3"></th>
+        <th><%= Activity.human_attribute_name('deadline') %></th>
+        <th><%= Activity.human_attribute_name('base_activity_type') %></th>
       </tr>
     </thead>
 
     <tbody>
-      <tr>
-        <%= render('shared/no_results') if @activities.empty? %>
-      </tr>
+      <%= render('shared/no_results') if @activities.empty? %>
+
       <% @activities.each do |activity| %>
         <%= render "#{namespace}/activity", activity: activity %>
       <% end %>

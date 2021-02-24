@@ -9,7 +9,7 @@ describe 'TsoRequest::update', type: :feature, js: true do
 
   let!(:new_orientation) do
     { advisor: { id: advisor.id, name: advisor.name },
-      professorSupervisors:  [{ id: supervisor.id, name: supervisor.name }],
+      professorSupervisors: [{ id: supervisor.id, name: supervisor.name }],
       externalMemberSupervisors: [] }
   end
 

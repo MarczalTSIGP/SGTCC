@@ -4,7 +4,7 @@ class Meeting < ApplicationRecord
   validates :content,
             presence: true
 
-  scope :with_relationship, -> { includes(orientation: [:academic, :calendar]) }
+  scope :with_relationship, -> { includes(orientation: [:academic, :calendars]) }
   scope :not_viewed, -> { where(viewed: false) }
 
   scope :recent, lambda {

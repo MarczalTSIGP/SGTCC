@@ -4,12 +4,12 @@ describe 'Orientation::activities', type: :feature, js: true do
   let!(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:academic) { orientation.academic }
-  let(:activities) { orientation.calendar.activities }
+  let(:activities) { orientation.current_calendar.activities }
   let(:active_link) { professors_orientations_tcc_one_path }
 
   before do
     login_as(professor, scope: :professor)
-    visit professors_orientation_activities_path(orientation)
+    visit professors_orientation_calendar_activities_path(orientation, orientation.current_calendar)
   end
 
   describe '#index' do
@@ -33,7 +33,9 @@ describe 'Orientation::activities', type: :feature, js: true do
       end
 
       before do
-        visit professors_orientation_activity_path(orientation, activity)
+        visit professors_orientation_calendar_activity_path(orientation,
+                                                            orientation.current_calendar,
+                                                            activity)
       end
 
       it 'shows the activity' do

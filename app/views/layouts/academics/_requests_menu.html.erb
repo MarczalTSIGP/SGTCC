@@ -4,7 +4,7 @@
     <%= t('views.sidebar.requests') %>
   </span>
 
-  <% if current_academic.current_orientation_tcc_two.present? %>
+  <% if current_academic.current_orientation&.tcc_two? %>
     <%= active_link_to(academics_tep_requests_path,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">

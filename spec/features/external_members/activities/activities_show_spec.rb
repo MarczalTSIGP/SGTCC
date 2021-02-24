@@ -4,7 +4,7 @@ describe 'Activity::show', type: :feature do
   let(:external_member) { create(:external_member) }
   let!(:calendar) { create(:current_calendar_tcc_one) }
   let!(:activity) { create(:activity_tcc_one, calendar: calendar) }
-  let!(:orientation) { create(:orientation, calendar: calendar) }
+  let!(:orientation) { create(:orientation, calendars: [calendar]) }
 
   before do
     orientation.external_member_supervisors << external_member

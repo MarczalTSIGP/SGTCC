@@ -5,7 +5,7 @@ module OrientationTcoTcai
 
   included do
     after_save do
-      if calendar_tcc_one?
+      if tcc_one?
         params = { orientation_id: id }
         create_tco(params) unless tco?
         create_tcai(params) unless tcai?
@@ -13,8 +13,10 @@ module OrientationTcoTcai
     end
 
     after_update do
-      destroy_document(tco) if tco?
-      destroy_document(tcai) if tcai?
+      if tcc_one?
+        destroy_document(tco) if tco?
+        destroy_document(tcai) if tcai?
+      end
     end
 
     def create_tco(params)

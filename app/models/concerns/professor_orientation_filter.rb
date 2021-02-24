@@ -22,7 +22,7 @@ module ProfessorOrientationFilter
 
     def orientations_included(data)
       data.includes(
-        :academic, :calendar, :professor_supervisors,
+        :academic, :calendars, :professor_supervisors,
         :orientation_supervisors, :external_member_supervisors
       ).recent
     end

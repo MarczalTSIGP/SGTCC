@@ -13,7 +13,10 @@ describe 'Responsible:profiles', type: :feature, js: true do
       attributes = attributes_for(:academic)
       fill_in 'academic_name', with: attributes[:name]
       fill_in 'academic_email', with: attributes[:email]
+
+      page.execute_script("$('#academic_profile_image').css('opacity', '1')")
       attach_file 'academic_profile_image', FileSpecHelper.image.path
+
       fill_in 'academic_current_password', with: academic.password
       submit_form('input[name="commit"]')
 
@@ -30,7 +33,10 @@ describe 'Responsible:profiles', type: :feature, js: true do
       fill_in 'academic_name', with: ''
       fill_in 'academic_email', with: 'email'
       fill_in 'academic_current_password', with: academic.password
+
+      page.execute_script("$('#academic_profile_image').css('opacity', '1')")
       attach_file 'academic_profile_image', FileSpecHelper.pdf.path
+
       submit_form('input[name="commit"]')
 
       expect(page).to have_flash(:danger, text: default_error_message)

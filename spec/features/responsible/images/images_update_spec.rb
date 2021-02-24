@@ -15,8 +15,9 @@ describe 'Image:update', type: :feature, js: true do
         attributes = attributes_for(:image)
 
         fill_in 'image_name', with: attributes[:name]
-        attach_file 'image_url', FileSpecHelper.image.path
 
+        page.execute_script("$('#image_url').css('opacity','1')")
+        attach_file 'image_url', FileSpecHelper.image.path
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_images_path
@@ -27,6 +28,8 @@ describe 'Image:update', type: :feature, js: true do
     context 'when data is not valid' do
       it 'does not update' do
         fill_in 'image_name', with: ''
+
+        page.execute_script("$('#image_url').css('opacity','1')")
         attach_file 'image_url', FileSpecHelper.pdf.path
         submit_form('input[name="commit"]')
 

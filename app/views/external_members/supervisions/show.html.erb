@@ -1,10 +1,10 @@
 <% provide(:page_title) do %>
-  <%= t("breadcrumbs.supervisions.tcc.#{@orientation.calendar.tcc}.show",
-        calendar: @orientation.calendar.year_with_semester) %>
+  <%= t("breadcrumbs.supervisions.tcc.#{@calendar.tcc}.show",
+        calendar: @calendar.year_with_semester) %>
 <% end %>
 <% provide(:head_title) do %>
-  <%= t("breadcrumbs.supervisions.tcc.#{@orientation.calendar.tcc}.show",
-        calendar: @orientation.calendar.year_with_semester) %>
+  <%= t("breadcrumbs.supervisions.tcc.#{@calendar.tcc}.show",
+        calendar: @calendar.year_with_semester) %>
 <% end %>
 
 <%= render('shared/orientations/show', back_url: @back_url) %>

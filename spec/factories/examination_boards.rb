@@ -2,8 +2,8 @@ FactoryBot.define do
   tccs = ExaminationBoard.tccs.values
 
   factory :examination_board do
-    date { Faker::Date.forward(1) }
-    document_available_until { Faker::Date.forward(1) }
+    date { Faker::Date.forward(days: 1) }
+    document_available_until { Faker::Date.forward(days: 1) }
     identifier { ExaminationBoard.human_tcc_identifiers.values.sample }
     place { Faker::Address.community }
     tcc { tccs.sample }

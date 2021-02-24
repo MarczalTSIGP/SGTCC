@@ -28,7 +28,7 @@ class ExaminationBoardNote < ApplicationRecord
   end
 
   def appointment_filename(orientation: examination_board.orientation)
-    calendar = orientation.calendar.year_with_semester.tr('/', '_')
+    calendar = orientation.current_calendar.year_with_semester.tr('/', '_')
     identifier = I18n.t("enums.tcc.identifiers.#{examination_board.identifier}")
     academic_initials = name_initials(orientation.academic.name)
     evaluator_initials = name_initials(evaluator.name)
