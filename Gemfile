@@ -13,7 +13,7 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'carrierwave-i18n'
 gem 'cpf_cnpj'
 gem 'devise'
