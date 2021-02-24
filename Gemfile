@@ -32,6 +32,7 @@ gem 'sassc-rails'
 gem 'validators'
 gem 'webpacker', '5.1.1'
 gem 'net-ldap'
+gem 'mechanize'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
