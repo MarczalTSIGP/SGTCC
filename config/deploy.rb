@@ -13,7 +13,7 @@ set :keep_releases,   3
 set :puma_threads,    [4, 16] # Min and Max threads per worker
 
 set :nvm_type, :user
-set :nvm_node, 'v11.10.0'
+set :nvm_node, 'v14.5.0'
 
 # === Cluster mode ===
 

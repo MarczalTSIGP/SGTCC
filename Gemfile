@@ -30,7 +30,8 @@ gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
 gem 'validators'
-gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+# gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 
 group :development, :test do
