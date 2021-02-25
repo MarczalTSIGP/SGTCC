@@ -618,6 +618,7 @@ pt-BR:
       status:
         RENEWED: 'renovada'
         APPROVED: 'aprovada'
+        AP_TCC_ONE_IP_TCC_TWO: 'Aprovada em TCC 1, em andamento no TCC 2'
         ABANDONED: 'abandonada'
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
@@ -625,6 +626,7 @@ pt-BR:
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
+          AP_TCC_ONE_IP_TCC_TWO: 'Aprovada em TCC 1, em andamento no TCC 2' 
           ABANDONED: 'Abandonada'
           CANCELED: 'Cancelada'
           IN_PROGRESS: 'Em andamento'
