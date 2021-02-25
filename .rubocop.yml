@@ -114,6 +114,7 @@ Layout/IndentationStyle:
 
 
 Metrics/BlockLength:
+  Max: 30
   Exclude:
     - 'config/environments/development.rb'
     - 'spec/**/*'

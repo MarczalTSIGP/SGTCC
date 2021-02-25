@@ -44,7 +44,8 @@ export default {
         ABANDONED: 'secondary',
         REPROVED: 'danger',
         CANCELED: 'secondary',
-        IN_PROGRESS: 'primary'
+        IN_PROGRESS: 'primary', 
+        AP_TCC_ONE_IP_TCC_TWO:'combined'
       },
       statusLabel: '',
     };

@@ -7,6 +7,7 @@ module OrientationStatus
     enum status: {
       "#{I18n.t('enums.orientation.status.IN_PROGRESS')}": 'IN_PROGRESS',
       "#{I18n.t('enums.orientation.status.APPROVED')}": 'APPROVED',
+      "#{I18n.t('enums.orientation.status.AP_TCC_ONE_IP_TCC_TWO')}": 'AP_TCC_ONE_IP_TCC_TWO',
       "#{I18n.t('enums.orientation.status.RENEWED')}": 'RENEWED',
       "#{I18n.t('enums.orientation.status.CANCELED')}": 'CANCELED',
       "#{I18n.t('enums.orientation.status.REPROVED')}": 'REPROVED'

@@ -43,11 +43,9 @@ module SGTCC
       form = page.forms[0]
       form.field_with(id: 'username').value = user
       form.field_with(id: 'password').value = pwd
-      form.submit
+      resp = form.submit
 
-      result = mechanize.get ARGV[0]
-
-      result.title.eql?('Painel')
+      resp.title.eql?('Painel')
     end
 
     private_class_method :base_authenticate
