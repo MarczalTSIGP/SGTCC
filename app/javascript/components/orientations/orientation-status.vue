@@ -45,7 +45,7 @@ export default {
         REPROVED: 'danger',
         CANCELED: 'secondary',
         IN_PROGRESS: 'primary', 
-        AP_TCC_ONE_IP_TCC_TWO:'combined'
+        APPROVED_TCC_ONE:'info'
       },
       statusLabel: '',
     };
