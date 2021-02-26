@@ -95,6 +95,10 @@ export default {
       return this.term.institution.responsible !== null && this.term.institution.trade_name !== null;
     },
 
+    hasObs() {
+      return this.term.document.obs !== undefined;
+    },
+
     onUpdateRequest() {
       this.$root.$on('update-json-request', () => {
         this.setRequest();
