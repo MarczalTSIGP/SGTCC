@@ -22,6 +22,7 @@
             {{ term.title }}
           </h4>
         </div>
+        <slot />
       </main>
       <footer>
         <slot name="footer">
@@ -31,11 +32,11 @@
           <div class="clearfix" />
           <signature-mark :document-id="documentId" />
         </slot>
-        <p v-if="hasObs()" class="fs-6 mt-5">
+      </footer>
+      <p v-if="hasObs()" class="fs-6 mt-5">
             <strong>Observação: </strong>
             {{ term.document.obs }}
-        </p>
-      </footer>
+      </p>
     </div>
   </div>
 </template>
