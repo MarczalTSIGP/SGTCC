@@ -1384,8 +1384,8 @@ codemirror-spell-checker@*:
     typo-js "*"
 
 codemirror@*:
-  version "5.48.2"
-  resolved "https://registry.npmjs.org/codemirror/-/codemirror-5.48.2.tgz"
+  version "5.65.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.2.tgz#5799a70cb3d706e10f60e267245e3a75205d3dd9"
 
 collection-visit@^1.0.0:
   version "1.0.0"
