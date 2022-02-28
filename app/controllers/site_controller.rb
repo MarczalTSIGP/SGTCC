@@ -36,23 +36,29 @@ class SiteController < ApplicationController
     @page = Page.find_by(url: 'tccs-aprovados')
   end
 
-  def in_progress_orientations
-    @page = Page.find_by(url: 'tccs-em-andamento')
+  def approved_tcc_one_orientations
+    @page = Page.find_by(url: 'tccs-aprovados-em-tcc-um')
   end
 
-  def approved_orientations_by_year(status: 'APPROVED', year: params[:year])
-    render_orientations(Orientation.tcc_two(status, year, 'one'),
-                        Orientation.tcc_two(status, year, 'two'))
+  def in_tcc_one_orientations
+    @page = Page.find_by(url: 'tccs-em-tcc-um')
   end
 
-  def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
-    tcc_one = { first_semester: orientations_data(Orientation.tcc_one(status, year, 'one')),
-                second_semester: orientations_data(Orientation.tcc_one(status, year, 'two')) }
-    tcc_two = { first_semester: orientations_data(Orientation.tcc_two(status, year, 'one')),
-                second_semester: orientations_data(Orientation.tcc_two(status, year, 'two')) }
-    data = { tcc_one: tcc_one, tcc_two: tcc_two }
-    render json: Orientation.to_json_table(data)
-  end
+  #   render_orientations(Orientation.tcc_two(status, year, 'one'),
+  #                       Orientation.tcc_two(status, year, 'two'))
+  # end
+
+  # def in_progress_orientations_by_year(status: 'IN_PROGRESS', year: params[:year])
+  #   tcc_one = { first_semester: orientations_data(Orientation.tcc_one(status, year, 'one')),
+  #               second_semester: orientations_data(Orientation.tcc_one(status, year, 'two')) }
+
+  #   status = 'APPROVED_TCC_ONE'
+  #   tcc_two = { first_semester: orientations_data(Orientation.tcc_two(status, year, 'one')),
+  #               second_semester: orientations_data(Orientation.tcc_two(status, year, 'two')) }
+
+  #   data = { tcc_one: tcc_one, tcc_two: tcc_two }
+  #   render json: Orientation.to_json_table(data)
+  # end
 
   def sidebar
     render json: Page.publisheds
@@ -85,19 +91,19 @@ class SiteController < ApplicationController
     data.current_semester.site_with_relationships
   end
 
-  def orientations_data(data)
-    data.includes(:academic, :calendars, :documents,
-                  :orientation_supervisors, :external_member_supervisors,
-                  :professor_supervisors, :advisor)
-  end
+  # def orientations_data(data)
+  #   data.includes(:academic, :calendars, :documents,
+  #                 :orientation_supervisors, :external_member_supervisors,
+  #                 :professor_supervisors, :advisor)
+  # end
 
   def set_professor
     @professor = Professor.find(params[:id])
   end
 
-  def render_orientations(first_semester_data, second_semester_data)
-    data = { first_semester: first_semester_data.with_relationships.recent,
-             second_semester: second_semester_data.with_relationships.recent }
-    render json: Orientation.to_json_table(data)
-  end
+  # def render_orientations(first_semester_data, second_semester_data)
+  #   data = { first_semester: first_semester_data.with_relationships.recent,
+  #            second_semester: second_semester_data.with_relationships.recent }
+  #   render json: Orientation.to_json_table(data)
+  # end
 end

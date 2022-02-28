@@ -6,9 +6,9 @@ import VueHtmlToPaper from 'vue-html-to-paper';
 import VueClipboard from 'vue-clipboard2';
 import 'babel-polyfill';
 
-import {axios} from '../utils/axios/axios-config';
-import {messages} from '../utils/i18n/messages';
-import {components} from './components';
+import { axios } from '../utils/axios/axios-config';
+import { messages } from '../utils/i18n/messages';
+import { components } from './components';
 
 import menu from '../initializers/menu';
 import markdown from '../initializers/markdown-editor';

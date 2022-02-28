@@ -8,7 +8,7 @@ describe 'Supervision::index', type: :feature do
   end
 
   describe '#index', js: true do
-    context 'when shows all the supervisions ' do
+    context 'when shows all the supervisions' do
       it 'shows all the supervisions' do
         orientation = create(:current_orientation_tcc_one)
         orientation.professor_supervisors << professor

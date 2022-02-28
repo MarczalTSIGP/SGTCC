@@ -4,7 +4,7 @@ RSpec.describe DateHelper, type: :helper do
   describe '#complete_date' do
     it 'shows complete date' do
       date = Time.zone.now
-      converted_date = I18n.localize(date, format: :long)
+      converted_date = I18n.l(date, format: :long)
       expect(helper.complete_date(date)).to eql(converted_date)
     end
   end
@@ -12,7 +12,7 @@ RSpec.describe DateHelper, type: :helper do
   describe '#short_date' do
     it 'shows short date' do
       date = Time.zone.now
-      converted_date = I18n.localize(date, format: :short)
+      converted_date = I18n.l(date, format: :short)
       expect(helper.short_date(date)).to eql(converted_date)
     end
   end
@@ -20,7 +20,7 @@ RSpec.describe DateHelper, type: :helper do
   describe '#document_date' do
     it 'shows document date' do
       date = Time.zone.now
-      converted_date = I18n.localize(date, format: :document)
+      converted_date = I18n.l(date, format: :document)
       expect(helper.document_date(date)).to eql(converted_date)
     end
   end

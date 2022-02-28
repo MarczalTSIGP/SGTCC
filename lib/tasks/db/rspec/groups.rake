@@ -3,7 +3,7 @@ namespace :rspec do
     desc 'Run all tests, even those usually excluded.'
 
     task list: :environment do
-      system('rspec ' + index_specs.concat(dashboard_specs).join(' '))
+      system("rspec #{index_specs.concat(dashboard_specs).join(' ')}")
     end
 
     private

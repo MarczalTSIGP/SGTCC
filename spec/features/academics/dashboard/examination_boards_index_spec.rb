@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ExaminationBoard::index', type: :feature do
-  let!(:orientation) { create(:orientation) }
+  let!(:orientation) { create(:current_orientation_tcc_one) }
   let!(:examination_board) { create(:examination_board_tcc_one, orientation: orientation) }
 
   before do

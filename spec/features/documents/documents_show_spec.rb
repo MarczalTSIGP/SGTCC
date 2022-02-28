@@ -48,7 +48,7 @@ describe 'Document::show', type: :feature, js: true do
 
     context 'when the not found document' do
       before do
-        code = (Time.now.to_i + 2.days.to_i)
+        code = 3.days.from_now.to_i
         visit confirm_document_code_path(code)
       end
 

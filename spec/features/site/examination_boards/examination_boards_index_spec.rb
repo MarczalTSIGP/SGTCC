@@ -12,7 +12,10 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
     context 'when shows all the examination boards of the tcc one calendar' do
       let(:orientation) { examination_board_tcc_one.orientation }
       let(:academic) { orientation.academic }
-      let!(:academic_activity) { create(:proposal_academic_activity, academic: academic) }
+      let!(:academic_activity) do
+        create(:proposal_academic_activity, academic: academic,
+                                            calendar: orientation.calendars.first)
+      end
 
       before do
         visit site_examination_boards_path
@@ -41,7 +44,10 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
     context 'when shows all the examination boards of the tcc two calendar' do
       let(:orientation) { examination_board_tcc_two.orientation }
       let(:academic) { orientation.academic }
-      let!(:academic_activity) { create(:monograph_academic_activity, academic: academic) }
+      let!(:academic_activity) do
+        create(:monograph_academic_activity, academic: academic,
+                                             calendar: orientation.calendars.first)
+      end
 
       before do
         visit site_examination_boards_path

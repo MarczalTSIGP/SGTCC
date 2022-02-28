@@ -69,7 +69,8 @@ describe 'ExaminationBoard::show', type: :feature do
       let(:academic_activity) { examination_board.academic_activity }
 
       before do
-        create(:proposal_academic_activity, academic: academic)
+        create(:proposal_academic_activity, academic: academic,
+                                            calendar: orientation.calendars.first)
         visit professors_examination_board_path(examination_board)
       end
 

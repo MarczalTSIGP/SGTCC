@@ -11,7 +11,7 @@ describe 'ExternalMember:profiles', type: :feature, js: true do
 
     it 'updates with success when the data are valid' do
       attributes = attributes_for(:external_member)
-      fill_in 'external_member_name', with: attributes[:name]
+      fill_in 'external_member_name', with: attributes[:name], fill_options: { clear: :backspace }
       fill_in 'external_member_email', with: attributes[:email]
       fill_in 'external_member_personal_page', with: attributes[:personal_page]
 

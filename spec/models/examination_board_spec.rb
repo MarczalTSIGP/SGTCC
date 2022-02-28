@@ -169,7 +169,7 @@ RSpec.describe ExaminationBoard, type: :model do
     context 'when the document_available_until is greater than current time' do
       let(:examination_board) do
         create(:examination_board, date: Time.current,
-                                   document_available_until: Time.current + 1.day)
+                                   document_available_until: 1.day.from_now)
       end
 
       it 'returns true' do
@@ -180,7 +180,7 @@ RSpec.describe ExaminationBoard, type: :model do
     context 'when the document_available_until is less than current time' do
       let(:examination_board) do
         create(:examination_board, date: Time.current,
-                                   document_available_until: Time.current - 1.day)
+                                   document_available_until: 1.day.ago)
       end
 
       it 'returns false' do
