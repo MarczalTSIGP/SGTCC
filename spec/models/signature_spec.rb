@@ -36,19 +36,18 @@ RSpec.describe Signature, type: :model do
         signatures.where(user_type: :external_member_supervisor).first
       end
 
-      let(:professor) { professor_signature.user }
-      let(:academic) { academic_signature.user }
-      let(:external_member) { external_member_signature.user }
-
       it 'returns the Professor user' do
+        professor = professor_signature.user
         expect(professor_signature.user).to eq(Professor.find(professor.id))
       end
 
       it 'returns the Academic user' do
+        academic = academic_signature.user
         expect(academic_signature.user).to eq(Academic.find(academic.id))
       end
 
       it 'returns the External Member user' do
+        external_member = external_member_signature.user
         expect(external_member_signature.user).to eq(ExternalMember.find(external_member.id))
       end
     end

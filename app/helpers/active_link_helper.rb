@@ -94,11 +94,11 @@ module ActiveLinkHelper
 
   def documents_pending_active_link?(namespace)
     match_link?("/#{namespace}/documents/pending") ||
-      match_link?("/#{namespace}/documents/(\\d+)") && @signature&.status == false
+      (match_link?("/#{namespace}/documents/(\\d+)") && @signature&.status == false)
   end
 
   def documents_signed_active_link?(namespace)
     match_link?("/#{namespace}/documents/signed") ||
-      match_link?("/#{namespace}/documents/(\\d+)") && @signature&.status == true
+      (match_link?("/#{namespace}/documents/(\\d+)") && @signature&.status == true)
   end
 end

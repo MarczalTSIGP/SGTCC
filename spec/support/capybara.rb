@@ -6,7 +6,7 @@ Capybara.register_driver :chrome do |app|
 end
 
 # Chrome headless driver
-Capybara.register_driver :headless_chrome do |app|
+Capybara.register_driver :selenium do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL' })
   opts = Selenium::WebDriver::Chrome::Options.new
 
@@ -20,8 +20,9 @@ end
 # Switch between :chrome / :headless_chrome to see tests run in chrome
 case ENV['HEADLESS']
 when 'true', 1, nil
-  Capybara.current_driver = :headless_chrome
-  Capybara.javascript_driver = :headless_chrome
+  # Capybara.current_driver = :headless_chrome
+  Capybara.default_driver = :selenium
+  Capybara.javascript_driver = :selenium
 else
   Capybara.current_driver = :chrome
   Capybara.javascript_driver = :chrome

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5'
+ruby '2.7.2'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.7'
@@ -33,13 +33,14 @@ gem 'validators'
 gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
+gem 'jsonapi-serializer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 3.32'
+  gem 'capybara', '3.32'
   gem 'factory_bot_rails'
   # gem 'geckodriver-helper'
-  gem 'webdrivers', '~> 4.0'
+  gem 'webdrivers', '4.4.1'
   # gem 'apparition'
   gem 'faker', '~>2.12.0'
   gem 'rspec-rails', '~> 3.7'
@@ -71,6 +72,8 @@ group :development do
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
+  gem 'solargraph'
+  gem 'yard'
 end
 
 group :test do
@@ -81,9 +84,6 @@ group :test do
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara-screenshot'
-end
-
-group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

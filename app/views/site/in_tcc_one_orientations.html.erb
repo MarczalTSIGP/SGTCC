@@ -1,0 +1,9 @@
+
+<% provide(:head_title, @page.menu_title) %>
+
+<div>
+  <orientations-page
+      :title="'<%= @page.menu_title %>'"  
+      :path="'<%= api_v1_orientations_in_tcc_one_path %>'"
+  />
+</div>

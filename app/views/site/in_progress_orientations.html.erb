@@ -1,8 +1,0 @@
-<% provide(:head_title, @page.menu_title) %>
-
-<div>
-  <orientations-in-progress-page
-    path="tccs-em-andamento/ano"
-    :years="<%= Site.select_calendar_years.to_json %>"
-  />
-</div>

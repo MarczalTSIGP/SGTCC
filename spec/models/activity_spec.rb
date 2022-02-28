@@ -106,7 +106,7 @@ RSpec.describe Activity, type: :model do
   describe '#open?' do
     context 'when activity is open' do
       let(:activity) do
-        create(:activity, initial_date: Time.current - 1, final_date: Time.current + 1.day)
+        create(:activity, initial_date: Time.current - 1, final_date: 1.day.from_now)
       end
 
       it 'returns true' do
@@ -116,7 +116,7 @@ RSpec.describe Activity, type: :model do
 
     context 'when activity is closed' do
       let(:activity) do
-        create(:activity, initial_date: Time.current + 1.day, final_date: Time.current + 1.day)
+        create(:activity, initial_date: 1.day.from_now, final_date: 1.day.from_now)
       end
 
       it 'returns false' do

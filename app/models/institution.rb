@@ -3,7 +3,7 @@ class Institution < ApplicationRecord
   include CNPJFormatter
 
   searchable :cnpj, name: { unaccent: true }, trade_name: { unaccent: true }, relationships: {
-    external_member: { fields: [:email, name: { unaccent: true }] }
+    external_member: { fields: [:email, { name: { unaccent: true } }] }
   }
 
   belongs_to :external_member

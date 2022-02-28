@@ -242,17 +242,18 @@ RSpec.describe Calendar, type: :model do
     let!(:first_calendar) { create(:current_calendar_tcc_two, semester: 'one') }
     let!(:second_calendar) { create(:current_calendar_tcc_two, semester: 'two') }
 
-    let(:years) { [] }
-    let(:total) { [] }
-
     let(:calendars) { [first_calendar, second_calendar] }
     let(:status) { 'APPROVED' }
 
     it 'returns the list of approved orientations' do
+      years = []
+      total = []
+
       calendars.each do |calendar|
         years.push(calendar.year_with_semester)
         total.push(calendar.orientations.where(status: status).size)
       end
+
       report = { years: years, total: total }
       expect(described_class.orientations_report_by_status(status)).to eq(report)
     end

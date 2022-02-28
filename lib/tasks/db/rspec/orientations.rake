@@ -3,7 +3,7 @@ namespace :rspec do
     desc 'Run all orientations tests'
 
     task index: :environment do
-      system('bundle exec rspec ' + index_specs.join(' '))
+      system("bundle exec rspec #{index_specs.join(' ')}")
     end
 
     private

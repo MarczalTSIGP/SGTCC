@@ -37,7 +37,8 @@ describe 'ExaminationBoard::show', type: :feature do
       let(:academic_activity) { examination_board.academic_activity }
 
       before do
-        create(:monograph_academic_activity, academic: academic)
+        create(:monograph_academic_activity, academic: academic,
+                                             calendar: orientation.calendars.first)
         visit responsible_examination_board_path(examination_board)
       end
 
