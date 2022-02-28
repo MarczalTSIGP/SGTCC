@@ -626,7 +626,7 @@ pt-BR:
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
-          APPROVED_TCC_ONE: 'Aprovada em TCC 1' 
+          APPROVED_TCC_ONE: 'Aprovada em TCC 1'
           ABANDONED: 'Abandonada'
           CANCELED: 'Cancelada'
           IN_PROGRESS: 'Em andamento'

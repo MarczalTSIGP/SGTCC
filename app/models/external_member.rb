@@ -77,9 +77,8 @@ class ExternalMember < ApplicationRecord
 
   def user_types
     types = Signature.user_types
-    user_types = [types[:external_member_supervisor], types[:external_member_evaluator],
-                  types[:responsible_institution]]
-    user_types
+    [types[:external_member_supervisor], types[:external_member_evaluator],
+     types[:responsible_institution]]
   end
 
   def documents(status = [true, false])

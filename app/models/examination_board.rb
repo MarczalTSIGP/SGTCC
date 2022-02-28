@@ -32,16 +32,16 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
   scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
-  scope :recent, -> { order(:date) }
+  scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {
-    includes(orientation: [:academic, :calendars, advisor: [:scholarity]])
+    includes(orientation: [:academic, :calendars, { advisor: [:scholarity] }])
   }
 
   scope :site_with_relationships, lambda {
     includes(external_members: [:scholarity], professors: [:scholarity],
              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
-                           :external_member_supervisors, advisor: [:scholarity]]).recent
+                           :external_member_supervisors, { advisor: [:scholarity] }]).recent
   }
 
   def status
@@ -69,7 +69,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def academic_activity
-    orientation.find_document_by_identifier_and_final_version(identifier, false)
+    orientation.send(identifier)
   end
 
   def academic_document_title

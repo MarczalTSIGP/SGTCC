@@ -1,21 +1,21 @@
 module DateHelper
   def complete_date(date)
-    I18n.localize(date, format: :long)
+    I18n.l(date, format: :long)
   end
 
   def short_date(date)
-    I18n.localize(date, format: :short)
+    I18n.l(date, format: :short)
   end
 
   def document_date(date)
-    I18n.localize(date, format: :document)
+    I18n.l(date, format: :document)
   end
 
   def datetime(date)
-    I18n.localize(date, format: :datetime)
+    I18n.l(date, format: :datetime)
   end
 
   def long_date(date)
-    I18n.localize(date, format: :long_without_time)
+    I18n.l(date, format: :long_without_time)
   end
 end

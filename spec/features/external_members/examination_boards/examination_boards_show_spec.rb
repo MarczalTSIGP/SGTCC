@@ -38,7 +38,8 @@ describe 'ExaminationBoard::show', type: :feature do
       let(:academic_activity) { examination_board.academic_activity }
 
       before do
-        create(:project_academic_activity, academic: academic)
+        create(:project_academic_activity, academic: academic,
+                                           calendar: orientation.calendars.first)
         visit external_members_examination_board_path(examination_board)
       end
 

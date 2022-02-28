@@ -23,7 +23,8 @@ describe 'Supervision::activities', type: :feature do
         activities.each do |activity|
           expect(page).to have_content(activity.name)
           expect(page).to have_content(activity.base_activity_type.name)
-          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"), activity.deadline)
+          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
+          expect(page).to have_content(activity.deadline)
         end
         expect(page).to have_selector("a[href='#{active_link}'].active")
       end

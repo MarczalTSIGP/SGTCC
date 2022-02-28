@@ -37,7 +37,8 @@ RSpec.describe ExaminationBoardNote, type: :model do
       end
 
       it 'update the orientation status' do
-        expect(examination_board.orientation.status).to eq(Orientation.statuses.key('APPROVED'))
+        status = Orientation.statuses.key('APPROVED_TCC_ONE')
+        expect(examination_board.orientation.status).to eq(status)
       end
     end
 
