@@ -419,6 +419,7 @@ RSpec.describe Orientation, type: :model do
     before do
       orientation.signatures << Signature.all
     end
+    # rubocop:disable RSpec/MultipleMemoizedHelpers
 
     context 'when is the tco signature' do
       let(:document_tco) { signatures.first.document }
@@ -541,6 +542,7 @@ RSpec.describe Orientation, type: :model do
       end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 
   describe '#academic_with_calendar' do
     let(:orientation) { create(:orientation) }
@@ -585,51 +587,121 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '.proposal' do
-    let(:orientation) { create(:orientation) }
-    let(:academic) { orientation.academic }
+  describe 'academic activities documents' do
+    # Simulates a orientation with two tcc two calendars
+    # and sends files in both.
+    # Must consider the last one the correct.
+    describe '.proposal' do
+      let(:previous_calendar) { create(:previous_calendar_tcc_one) }
+      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
 
-    let!(:proposal) do
-      create(:proposal_academic_activity, academic: academic)
+      let(:orientation) { create(:orientation_tcc_one) }
+      let(:orientation_two) { create(:orientation_tcc_one) }
+      let!(:academic_activity_two) do
+        activity_two = create(:proposal_activity, calendar: current_calendar)
+        create(:academic_activity, activity: activity_two, academic: orientation.academic)
+      end
+
+      before do
+        orientation.calendars = [previous_calendar, current_calendar]
+        activity_one = create(:project_activity, calendar: previous_calendar)
+        create(:academic_activity, activity: activity_one, academic: orientation.academic)
+      end
+
+      it 'returns the proposal document' do
+        expect(orientation.proposal).to eq(academic_activity_two)
+        expect(orientation_two.proposal).to be_nil
+      end
+
+      it 'returns the final version of proposal document' do
+        academic_activity_two.activity.update(final_version: true)
+
+        expect(orientation.final_proposal).to eq(academic_activity_two)
+        expect(orientation_two.proposal).to be_nil
+      end
     end
 
-    it 'returns the proposal document' do
-      expect(orientation.proposal).to eq(proposal)
+    describe '.project' do
+      let(:previous_calendar) { create(:previous_calendar_tcc_one) }
+      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
+
+      let(:orientation) { create(:orientation_tcc_one) }
+      let!(:academic_activity_two) do
+        activity_two = create(:project_activity, calendar: current_calendar)
+        create(:academic_activity, activity: activity_two, academic: orientation.academic)
+      end
+
+      before do
+        orientation.calendars = [previous_calendar, current_calendar]
+        activity_one = create(:project_activity, calendar: previous_calendar)
+        create(:academic_activity, activity: activity_one, academic: orientation.academic)
+      end
+
+      it 'returns the project document' do
+        expect(orientation.project).to eq(academic_activity_two)
+      end
+
+      it 'returns the final version of project document' do
+        academic_activity_two.activity.update(final_version: true)
+        expect(orientation.final_project).to eq(academic_activity_two)
+      end
     end
-  end
 
-  describe '.project' do
-    let(:orientation) { create(:orientation) }
-    let(:academic) { orientation.academic }
+    describe '.monograph' do
+      let(:previous_calendar) { create(:previous_calendar_tcc_two) }
+      let(:current_calendar)  { create(:current_calendar_tcc_two)  }
 
-    let!(:project) do
-      create(:project_academic_activity, academic: academic)
-    end
+      let(:orientation) { create(:orientation_tcc_two) }
+      let!(:academic_activity) do
+        activity_two = create(:monograph_activity, calendar: current_calendar)
+        create(:academic_activity, activity: activity_two, academic: orientation.academic)
+      end
 
-    it 'returns the project document' do
-      expect(orientation.project).to eq(project)
-    end
-  end
+      before do
+        orientation.calendars = [previous_calendar, current_calendar]
+        activity_one = create(:monograph_activity, calendar: previous_calendar)
+        create(:academic_activity, activity: activity_one, academic: orientation.academic)
+      end
 
-  describe '.monograph' do
-    let(:orientation) { create(:orientation) }
-    let(:academic) { orientation.academic }
+      it 'returns the monograph document' do
+        expect(orientation.monograph).to eq(academic_activity)
+      end
 
-    let!(:monograph) do
-      create(:monograph_academic_activity, academic: academic)
-    end
-
-    it 'returns the monograph document' do
-      expect(orientation.monograph).to eq(monograph)
+      it 'returns the final version of monograph document' do
+        academic_activity.activity.update(final_version: true)
+        expect(orientation.final_monograph).to eq(academic_activity)
+      end
     end
   end
 
   describe '.document_tcc_one' do
-    let(:orientation) { create(:orientation_tcc_one) }
-    let!(:document) { create(:proposal_academic_activity, academic: orientation.academic) }
-
     it 'returns the document tcc one' do
+      orientation = create(:orientation_tcc_one)
+      document = create(:proposal_academic_activity, academic: orientation.academic)
+      orientation.calendars = [document.activity.calendar]
+
       expect(orientation.document_tcc_one).to eq(document)
+    end
+  end
+
+  describe '#by_status' do
+    before do
+      create(:orientation, status: described_class.statuses.key('IN_PROGRESS'))
+      create(:orientation, status: described_class.statuses.key('APPROVED_TCC_ONE'))
+      create(:orientation, status: described_class.statuses.key('APPROVED'))
+      create(:orientation, status: described_class.statuses.key('CANCELLED'))
+    end
+
+    it 'return in progress orientations' do
+      expect(described_class.in_tcc_one.count).to eq(1)
+    end
+
+    it 'return approved in tcc one orientations' do
+      expect(described_class.approved_tcc_one.count).to eq(1)
+    end
+
+    it 'return approved orientations' do
+      expect(described_class.approved.count).to eq(1)
     end
   end
 end

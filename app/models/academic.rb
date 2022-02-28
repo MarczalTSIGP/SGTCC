@@ -56,6 +56,6 @@ class Academic < ApplicationRecord
   def self.find_through_ra(academic_register)
     return Academic.find_by(ra: academic_register) unless academic_register.chr.eql?('a')
 
-    Academic.find_by(ra: academic_register[1..-1])
+    Academic.find_by(ra: academic_register[1..])
   end
 end

@@ -23,7 +23,7 @@ describe 'Activity::document', type: :feature, js: true do
         fill_in 'academic_activity_title', with: attributes[:title]
         fill_in 'academic_activity_summary', with: attributes[:summary]
 
-        expect(page).to have_css('.custom-file-input', visible: false)
+        expect(page).to have_css('.custom-file-input', visible: :hidden)
         page.execute_script("$('.custom-file-input').css('opacity', '1')")
         attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path
         attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path

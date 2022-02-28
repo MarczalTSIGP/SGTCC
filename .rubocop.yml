@@ -3,7 +3,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.4
+  NewCops: enable
+  TargetRubyVersion: 2.7
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   # DisabledByDefault: true
@@ -120,6 +121,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'lib/tasks/populate.rake'
     - 'config/routes.rb'
+    - 'lib/tasks/migrate/orientation.rake'
 
 Metrics/MethodLength:
   Exclude:
@@ -130,6 +132,7 @@ Metrics/AbcSize:
     - spec/features/professors/orientations/orientations_show_spec.rb
 
 Metrics/ClassLength:
+  Enabled: false
   Max: 110
 
 Naming/VariableNumber:
@@ -140,9 +143,15 @@ RSpec/MultipleExpectations:
   Max: 2
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/controllers/api/v1/orientations_controller_spec.rb'
 
 RSpec/ExampleLength:
   Max: 20
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - 'spec/models/document_spec.rb'
+    - 'spec/features/**/*'
 
 
 Rails/UniqueValidationWithoutIndex:
@@ -153,6 +162,15 @@ Rails/ApplicationController:
 
 Rails/HelperInstanceVariable:
   Enabled: false
+
+Rails/SquishedSQLHeredocs:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Exclude:
+    - 'db/migrate/20190816174008_update_user_type_limit_from_signatures.rb'
+    - 'db/migrate/20190715175442_change_content_from_documents.rb'
+    - 'db/migrate/20190411194740_change_tcc_to_be_integer_in_base_activities.rb'
 
 
 Lint/DeprecatedOpenSSLConstant:

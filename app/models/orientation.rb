@@ -8,7 +8,6 @@ class Orientation < ApplicationRecord
   include OrientationTcoTcai
   include OrientationReport
   include OrientationValidation
-  include AcademicDocuments
   include AcademicDocumentsInfo
   include UsersToDocument
 
@@ -28,10 +27,15 @@ class Orientation < ApplicationRecord
 
   has_many :orientation_supervisors, dependent: :delete_all
   has_many :signatures, dependent: :destroy
-  has_many :documents, -> { select('DISTINCT ON (documents.id) documents.*') }, through: :signatures
+  has_many :documents, lambda {
+                         select('DISTINCT ON (documents.id) documents.*')
+                       }, through: :signatures
   has_many :meetings, dependent: :destroy
   has_many :examination_boards, dependent: :destroy
+
   has_many :academic_activities, through: :academic, source: :academic_activities
+  has_many :activities, through: :academic_activities, source: :activity
+
   has_many :professor_supervisors, class_name: 'Professor', foreign_key: :professor_supervisor_id,
                                    through: :orientation_supervisors, dependent: :destroy
 
@@ -66,7 +70,9 @@ class Orientation < ApplicationRecord
              :external_member_supervisors, advisor: [:scholarity])
   }
 
-  scope :recent, -> { order('calendars.year DESC, calendars.semester ASC, title, academics.name') }
+  scope :recent, lambda {
+                   order('calendars.year DESC, calendars.semester ASC, title, academics.name')
+                 }
   scope :order_by_academic, -> { order('academics.name') }
 
   def short_title
@@ -127,6 +133,61 @@ class Orientation < ApplicationRecord
     "#{academic.name} (#{academic.ra}) | #{current_calendar.year_with_semester_and_tcc}"
   end
 
+  # Acadmic activities documents
+  #-------------------------------
+  def monograph(options = { final_version: false })
+    conditions = { identifier: :monograph,
+                   final_version: options[:final_version] }
+
+    find_academic_activity(conditions)
+  end
+
+  def final_monograph
+    monograph(final_version: true)
+  end
+
+  def project(options = { final_version: false })
+    conditions = { identifier: :project,
+                   final_version: options[:final_version] }
+
+    find_academic_activity(conditions)
+  end
+
+  def final_project
+    project(final_version: true)
+  end
+
+  def proposal(options = { final_version: false })
+    conditions = { identifier: :proposal,
+                   final_version: options[:final_version] }
+
+    find_academic_activity(conditions)
+  end
+
+  def final_proposal
+    proposal(final_version: true)
+  end
+
+  private
+
+  def find_academic_activity(conditions = {})
+    academic_activities.joins(:activity)
+                       .includes(activity: :calendar)
+                       .where(activities: {
+                                identifier: conditions[:identifier],
+                                final_version: conditions[:final_version],
+                                calendar_id: [calendars.pluck(:id)]
+                              })
+                       .order('calendars.year DESC, calendars.semester DESC')
+                       .try(:first)
+  end
+  # END Acadmic activities documents CONTEXT
+  #-------------------------------
+
+  public
+
+  # Class methods
+  #----------------------------------------
   def self.to_json_table(orientations)
     orientations.to_json(methods: [:short_title, :final_proposal, :final_project, :final_monograph,
                                    :document_title, :document_summary],
@@ -137,4 +198,28 @@ class Orientation < ApplicationRecord
   def self.select_status_data
     statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
+
+  def self.approved
+    by_status('APPROVED')
+  end
+
+  def self.approved_tcc_one
+    by_status('APPROVED_TCC_ONE')
+  end
+
+  def self.in_tcc_one
+    by_status('IN_PROGRESS')
+  end
+
+  def self.by_status(status)
+    where(status: status).includes(:academic,
+                                   :professor_supervisors,
+                                   :orientation_supervisors,
+                                   :external_member_supervisors,
+                                   :examination_boards,
+                                   advisor: [:scholarity],
+                                   professor_supervisors: [:scholarity])
+                         .order('examination_boards.date DESC')
+  end
+  private_class_method :by_status
 end

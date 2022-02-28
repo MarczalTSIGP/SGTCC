@@ -1,5 +1,9 @@
 FactoryBot.define do
   factory :academic_activity do
+    transient do
+      calendar { nil }
+    end
+
     academic
     activity
     pdf { File.open(FileSpecHelper.pdf.path) }
@@ -17,6 +21,13 @@ FactoryBot.define do
 
     factory :monograph_academic_activity do
       activity { create(:monograph_activity) }
+    end
+
+    after(:create) do |academic_activity, evaluator|
+      if evaluator.calendar
+        activity = academic_activity.activity
+        activity.update(calendar_id: evaluator.calendar.id)
+      end
     end
   end
 end
