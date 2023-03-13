@@ -16,7 +16,7 @@ class Populate::Academics
       Academic.create!(
         name: Faker::Name.name,
         email: Faker::Internet.email,
-        ra: Faker::Number.number(7),
+        ra: Faker::Number.number(digits: 7),
         gender: @genders.sample,
         password: '123456',
         password_confirmation: '123456'
