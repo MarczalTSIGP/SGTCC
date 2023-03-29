@@ -71,14 +71,20 @@ end
 Site.find_or_create_by!(title: 'Site do TCC')
 
 pages = [
-  { menu_title: 'Calendário', fa_icon: 'far fa-calendar-alt', url: 'calendario' },
-  { menu_title: 'Bancas de TCC', fa_icon: 'fas fa-file-signature', url: 'bancas-de-tcc' },
+  { menu_title: 'O TCC', fa_icon: 'fas fa-home', url: 'o-tcc', content: '### O TCC' },
   { menu_title: 'Professores', fa_icon: 'fas fa-chalkboard-teacher', url: 'professores' },
+  { menu_title: 'Calendário', fa_icon: 'far fa-calendar-alt', url: 'calendario', content: '# O TCC' },
+  { menu_title: 'Bancas de TCC', fa_icon: 'fas fa-file-signature', url: 'bancas-de-tcc' },
   { menu_title: 'TCCs aprovados', fa_icon: 'fas fa-file-code', url: 'tccs-aprovados' },
-  { menu_title: 'TCCs em andamento', fa_icon: 'far fa-file-code', url: 'tccs-em-andamento' }
+  { menu_title: 'TCCs aprovados em TCC 1', fa_icon: 'far fa-file-code', url: 'tccs-aprovados-em-tcc-um' },
+  { menu_title: 'TCCs em TCC 1', fa_icon: 'far fa-file-code', url: 'tccs-em-tcc-um' },
+  { menu_title: 'Documentos', fa_icon: 'fas fa-book', url: 'documentos', content: '### Documentos referentes ao TCC de TSI' },
+  { menu_title: 'Ajuda', fa_icon: 'far fa-question-circle', url: 'ajuda', content: 'Eventuais dúvidas devem ser esclarecidas com o **Prof. Diego Marczal**, responsável pelo TCC do curso de TSI da UTFPR câmpus Guarapuava.' }
 ]
 
 pages.each do |page|
   Page.find_or_create_by!(menu_title: page[:menu_title], fa_icon: page[:fa_icon],
-                          url: page[:url], content: '.', publish: true)
+                          url: page[:url],
+                          content: page[:content] ? page[:content] : '.',
+                          publish: true)
 end
