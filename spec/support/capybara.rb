@@ -27,6 +27,7 @@ end
 
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
+end
 
 Capybara.disable_animation = true
 Capybara.server_host = '0.0.0.0'
