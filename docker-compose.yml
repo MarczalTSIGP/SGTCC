@@ -49,14 +49,18 @@ services:
       SELENIUM_HOST: selenium
       SELENIUM_PORT: 4444
       TEST_APP_HOST: tests
+      # https://github.com/DatabaseCleaner/database_cleaner#safeguards
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
     shm_size: "2gb" #set shared memory
     depends_on:
       - db
+      - selenium
 
   selenium:
     image: selenium/standalone-chrome-debug:latest
     volumes:
       - ./test/samples:/var/www/sgtcc/test/samples
+      - /dev/shm:/dev/shm
     ports:
       - 4444:4444
       - 5900:5900
