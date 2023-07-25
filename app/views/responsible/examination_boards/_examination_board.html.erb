@@ -1,10 +1,8 @@
 <tr>
-  <%= render 'shared/examination_boards/tbody', examination_board: examination_board %>
+  <%= render 'shared/examination_boards/tbody',
+              examination_board: examination_board,
+              link_path_to_show: responsible_examination_board_path(examination_board) %>
   <td>
-    <%= link_to(responsible_examination_board_path(examination_board)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
-    <% end %>
-
     <% if examination_board.defense_minutes.blank? %>
       <%= link_to(edit_responsible_examination_board_path(examination_board)) do %>
         <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>

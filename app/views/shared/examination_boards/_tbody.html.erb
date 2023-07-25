@@ -5,7 +5,9 @@
 </td>
 <td>
   <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
-    <%= examination_board.orientation.academic_with_calendar %>
+    <%= link_to(link_path_to_show) do %>
+      <%= examination_board.orientation.academic_with_calendar %>
+    <% end %>
   </span>
 </td>
 <td><%= examination_board.place %></td>
