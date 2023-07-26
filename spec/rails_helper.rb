@@ -7,7 +7,6 @@ require File.expand_path('../../config/environment', __FILE__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
-require 'capybara-screenshot/rspec'
 require 'support/shoulda'
 require 'support/database_cleaner'
 require 'support/helpers/form'
@@ -19,7 +18,6 @@ require 'support/helpers/string'
 require 'support/helpers/flash_message'
 
 require 'support/file_spec_helper'
-require 'support/capybara'
 
 require 'support/matchers/have_flash'
 require 'support/matchers/have_alert'
@@ -35,6 +33,12 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  
+  config.before(:all, type: :feature) do
+    require 'support/capybara'
+    require 'capybara-screenshot/rspec'
+  end
+
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature

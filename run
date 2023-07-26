@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+# https://github.com/nickjj/docker-rails-example/blob/main/run
+
+set -o errexit
+set -o pipefail
+
+DC="${DC:-exec}"
+
+# If we're running in CI we need to disable TTY allocation for docker compose
+# commands that enable it by default, such as exec and run.
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
+# -----------------------------------------------------------------------------
+# Helper functions start with _ and aren't listed in this script's help menu.
+# -----------------------------------------------------------------------------
+
+function _dc {
+  docker compose "${DC}" ${TTY} "${@}"
+}
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Docker functions.
+# -----------------------------------------------------------------------------
+
+function dc {
+  docker compose "${@}"
+}
+
+function ps {
+  dc ps "${@}"
+}
+
+function up {
+  dc up "${@}"
+}
+# -----------------------------------------------------------------------------
+
+function cmd {
+  # Run any command you want in the web container
+  _dc web "${@}"
+}
+
+function rails {
+  # Run any Rails commands
+  cmd rails "${@}"
+}
+
+function linters {
+  # Run any Rails commands
+  cmd bundle exec rubocop --parallel
+  cmd bundle exec brakeman --ignore-config config/brakeman.ignore
+  # cmd bundle exec rubycritic --no-browser
+}
+
+function rspec {
+  _dc tests bundle exec rspec "${@}"
+}
+
+function shell {
+  # Start a shell session in the web container
+  cmd bash "${@}"
+}
+
+function psql {
+  # Connect to PostgreSQL with psql
+  # shellcheck disable=SC1091
+ _dc db psql -U postgres "${@}"
+}
+
+function help {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-help}"
