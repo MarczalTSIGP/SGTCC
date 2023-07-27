@@ -37,10 +37,12 @@ gem 'jsonapi-serializer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '3.32'
   gem 'factory_bot_rails'
   # gem 'geckodriver-helper'
-  gem 'webdrivers', '4.4.1'
+  gem 'selenium-webdriver'
+  gem 'capybara', '3.32'
+  gem 'webdrivers'
+
   # gem 'apparition'
   gem 'faker', '~>2.12.0'
   gem 'rspec-rails', '~> 3.7'
