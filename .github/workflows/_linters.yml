@@ -2,6 +2,11 @@ name: Tests
 
 on:
   workflow_call:
+    secrets:
+      MAIL_USERNAME:
+        required: true
+      MAIL_PASSWORD:
+        required: true
 
 jobs:
   linters:
