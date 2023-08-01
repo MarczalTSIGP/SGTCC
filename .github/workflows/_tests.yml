@@ -96,9 +96,9 @@ jobs:
           yarn install
           yarn install --check-files
     
-      - name: Compile Webpacker
+      - name: Compile assets
         run: |
-          bundle exec rails webpacker:compile
+          bundle exec rails assets:precompile
 
       - name: Run tests
         env:

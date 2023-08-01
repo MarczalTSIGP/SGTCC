@@ -69,6 +69,8 @@ function cmd {
 # -----------------------------------------------------------------------------
 # Rails commands.
 # -----------------------------------------------------------------------------
+# rails assets:clean       # Remove old compiled assets
+# rails assets:clobber     # Remove compiled assets
 
 function rails {
   # Run any Rails commands
