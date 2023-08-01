@@ -69,6 +69,7 @@ jobs:
 
       - name: Install libpq-dev for postgres
         run: |
+          apt-get update
           apt-get -yqq install libpq-dev
           apt-get install --yes --no-install-recommends postgresql-client
 
