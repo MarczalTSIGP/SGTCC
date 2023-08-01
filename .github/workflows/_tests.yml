@@ -69,7 +69,9 @@ jobs:
 
       - name: Install libpq-dev for postgres
         run: |
-          apt-get update
+          add-apt-repository main
+          add-apt-repository universe
+          apt-get update -qq
           apt install lsb-core
           echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" >>  /etc/apt/sources.list.d/pgdg.list
           sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
