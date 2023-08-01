@@ -37,7 +37,7 @@ jobs:
               database: &database
                 db.username: postgres
                 db.password: postgres
-                db.host: postgres://postgres:@db
+                db.host: db 
 
               mailer: &mailer
                 mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
@@ -108,6 +108,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:@db
           COVERAGE: true
         run: |
           bundle exec rails db:create
