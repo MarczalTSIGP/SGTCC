@@ -79,6 +79,27 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.24.1
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install yarn and dependencies
+        run: |
+          npm install -g yarn
+          yarn install
+          yarn install --check-files
+    
+      - name: Compile Webpacker
+        run: |
+          bundle exec rails webpacker:compile
+
       - name: Run tests
         env:
           RAILS_ENV: test
