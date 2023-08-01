@@ -110,5 +110,5 @@ jobs:
           RAILS_ENV: test
           COVERAGE: true
         run: |
-          bundle exec rails db:prepare
+          bundle exec rails db:create
           bundle exec rails rspec spec/models
