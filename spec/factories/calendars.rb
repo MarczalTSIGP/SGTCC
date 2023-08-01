@@ -6,6 +6,9 @@ FactoryBot.define do
   tcc_two = tccs.last
 
   factory :calendar do
+    extend FactoryBotEnhancements
+    change_factory_to_find_or_create
+
     sequence(:year) { |n| Faker::Number.unique.number(digits: 4) || "20#{n}" }
     sequence(:semester) { tccs.first || tccs.last }
     tcc { tccs.sample }
