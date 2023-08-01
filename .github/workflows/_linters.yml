@@ -3,9 +3,9 @@ name: Tests
 on:
   workflow_call:
     secrets:
-      MAIL_USERNAME:
+      MAILER_USERNAME:
         required: true
-      MAIL_PASSWORD:
+      MAILER_PASSWORD:
         required: true
 
 jobs:
