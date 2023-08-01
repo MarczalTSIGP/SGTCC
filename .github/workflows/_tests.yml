@@ -68,7 +68,9 @@ jobs:
           " > config/application.yml
 
       - name: Install libpq-dev for postgres
-        run: apt-get -yqq install libpq-dev
+        run: |
+          apt-get -yqq install libpq-dev
+          apt-get install --yes --no-install-recommends postgresql-client
 
       - name: Cache bundle gems
         uses: actions/cache@v3
@@ -112,4 +114,5 @@ jobs:
           COVERAGE: true
         run: |
           bundle exec rails db:create
+          bundle exec rails db:migrate
           bundle exec rspec spec/models
