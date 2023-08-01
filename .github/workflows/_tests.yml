@@ -56,6 +56,11 @@ jobs:
               ldap: &ldap
                 ldap.on: 'false'
 
+              development:
+                <<: *database
+                <<: *mailer
+                <<: *ldap
+
               test:
                 <<: *database
                 <<: *mailer
