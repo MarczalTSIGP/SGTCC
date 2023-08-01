@@ -112,4 +112,4 @@ jobs:
           COVERAGE: true
         run: |
           bundle exec rails db:create
-          bundle exec rails rspec spec/models
+          bundle exec rspec spec/models
