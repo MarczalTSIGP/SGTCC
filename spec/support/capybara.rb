@@ -5,6 +5,7 @@ def chrome_options
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
   options.add_argument('--disable-gpu')
+  options.add_argument('--window-size=1366,768')
   options.add_argument('--headless') unless ENV['LAUNCH_BROWSER']
   options
 end
@@ -19,8 +20,7 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app,
                                  browser: :remote,
                                  url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
-                                 options: chrome_options
-                                )
+                                 options: chrome_options)
 end
 
 Capybara.default_driver = :chrome

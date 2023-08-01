@@ -33,7 +33,6 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  
   config.before(:all, type: :feature) do
     require 'support/capybara'
     require 'capybara-screenshot/rspec'

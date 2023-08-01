@@ -1,17 +1,39 @@
 #!/usr/bin/env bash
 # https://github.com/nickjj/docker-rails-example/blob/main/run
 
+# The set -o errexit (or the equivalent set -e) instruction in shell script
+# is used to enable the error handling option, also known as "exit-on-error" or "errexit mode."
+# When this option is enabled, the script will automatically terminate its execution
+# (or exit with an error code) if any command in the script returns a non-zero exit code (indicating an error).
+# This helps make scripts more robust and secure by ensuring that any unexpected failure
+# in a command immediately halts the script's execution.
 set -o errexit
+
+# The set -o pipefail option in shell script is used to set the exit status of a pipeline to the value of the last (rightmost)
+# command that exits with a non-zero status, or to zero if all commands in the pipeline exit successfully.
+#
+# Using set -o pipefail can be beneficial when you need to ensure that the entire pipeline
+# behaves as expected, and you want to detect and handle failures accurately throughout the pipeline.
 set -o pipefail
 
+# Define a variable with default value as exec
+# The - is a convention to default values.
+# To override
+# DC="run --rm" ./run
 DC="${DC:-exec}"
 
 # If we're running in CI we need to disable TTY allocation for docker compose
 # commands that enable it by default, such as exec and run.
+#
+# This statement tests whether the script is being executed in a terminal or if
+# the output has been redirected to some other place (e.g., a file).
+# It can be used to control the script's behavior based on the context in which it is being executed.
 TTY=""
 if [[ ! -t 1 ]]; then
   TTY="-T"
 fi
+
+echo ${DC}
 
 # -----------------------------------------------------------------------------
 # Helper functions start with _ and aren't listed in this script's help menu.
@@ -37,38 +59,61 @@ function ps {
 function up {
   dc up "${@}"
 }
-# -----------------------------------------------------------------------------
 
 function cmd {
   # Run any command you want in the web container
   _dc web "${@}"
 }
 
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Rails commands.
+# -----------------------------------------------------------------------------
+
 function rails {
   # Run any Rails commands
   cmd rails "${@}"
 }
 
-function linters {
-  # Run any Rails commands
-  cmd bundle exec rubocop --parallel
-  cmd bundle exec brakeman --ignore-config config/brakeman.ignore
-  # cmd bundle exec rubycritic --no-browser
+function rubocop {
+  cmd bundle exec rubocop --parallel "${@}"
 }
 
+function linters {
+  cmd bundle exec rubocop --parallel
+  cmd bundle exec brakeman --ignore-config config/brakeman.ignore
+}
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Rails tests commands.
+# -----------------------------------------------------------------------------
 function rspec {
   _dc tests bundle exec rspec "${@}"
 }
+
+function rspec:browser {
+  docker compose exec -e LAUNCH_BROWSER=TRUE tests bundle exec rspec "${@}"
+}
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Sheel commands.
+# -----------------------------------------------------------------------------
 
 function shell {
   # Start a shell session in the web container
   cmd bash "${@}"
 }
 
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Database commands.
+# -----------------------------------------------------------------------------
 function psql {
   # Connect to PostgreSQL with psql
   # shellcheck disable=SC1091
- _dc db psql -U postgres "${@}"
+  _dc db psql -U postgres "${@}"
 }
 
 function help {

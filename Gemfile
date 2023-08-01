@@ -38,7 +38,6 @@ gem 'jsonapi-serializer'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
-  # gem 'geckodriver-helper'
   gem 'selenium-webdriver'
   gem 'capybara', '3.32'
   gem 'webdrivers'
@@ -46,7 +45,6 @@ group :development, :test do
   # gem 'apparition'
   gem 'faker', '~>2.12.0'
   gem 'rspec-rails', '~> 3.7'
-  # gem 'selenium-webdriver'
 end
 
 group :development do
