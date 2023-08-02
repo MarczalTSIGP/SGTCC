@@ -2,9 +2,6 @@ name: CI
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-  push:
-    branches:
-      - "@MarczalTSIGP/188/setup-ci"
 
 jobs:
   tests:

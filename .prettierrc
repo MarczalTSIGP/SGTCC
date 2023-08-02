@@ -1,4 +1,11 @@
 {
-  "singleQuote": true,
-  "singleAttributePerLine": true
+  "overrides": [
+    {
+      "files": "*.vue",
+      "options": {
+        "singleQuote": true,
+        "singleAttributePerLine": true
+      }
+    }
+  ]
 }
