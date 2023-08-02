@@ -1,5 +1,3 @@
-<td><%= meeting.orientation.academic_with_calendar %></td>
-<td><%= short_date(meeting.date) %></td>
+<td><%= link_to academics_meeting_path(meeting) do %><%= meeting.orientation.academic_with_calendar %><% end %>
+  </td><td><%= short_date(meeting.date) %></td>
 <td><%= t("helpers.boolean.#{meeting.viewed}") %></td>
-
-

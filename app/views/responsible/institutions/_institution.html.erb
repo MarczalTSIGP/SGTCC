@@ -1,7 +1,7 @@
 <tr>
-  <td><%= institution.external_member.name %></td>
-  <td><%= institution.trade_name %></td>
+  <td><%= link_to institution.trade_name, responsible_institution_path(institution) %></td>
   <td><%= institution.cnpj.formatted %></td>
+  <td><%= institution.external_member.name %></td>
   <td><%= short_date(institution.created_at) %></td>
   <td>
     <%= render 'shared/links',

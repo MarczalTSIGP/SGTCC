@@ -1,7 +1,8 @@
 <% orientation.calendars.each do |calendar| %>
   <tr>
-    <td><%= calendar.year_with_semester %></td>
-    <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
+    <td><%= link_to academics_calendar_activities_path(calendar) do %><%= calendar.year_with_semester %>
+      <% end %>
+    </td>    <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
     <td>
       <span data-toggle="tooltip" title="<%= orientation.title %>">
         <%= orientation.short_title %>
@@ -14,10 +15,6 @@
       <% end %>
     </td>
     <td>
-      <%= link_to(academics_calendar_activities_path(calendar)) do %>
-        <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-      <% end %>
-
       <%= link_to(academics_calendar_orientation_activities_path(calendar, orientation)) do %>
         <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
       <% end %>
