@@ -87,6 +87,7 @@ function eslint {
 function linters {
   cmd bundle exec rubocop --parallel
   cmd bundle exec brakeman --ignore-config config/brakeman.ignore
+  eslint
 }
 
 # -----------------------------------------------------------------------------
