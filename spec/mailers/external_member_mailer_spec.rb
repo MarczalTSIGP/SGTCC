@@ -20,7 +20,7 @@ describe ExternalMemberMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq([ENV['mailer.from']])
+      expect(mail.from).to eq([ENV.fetch('mailer.from', nil)])
     end
 
     it 'assigns @name and @password' do

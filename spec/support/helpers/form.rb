@@ -5,7 +5,7 @@ module Helpers
     end
 
     def selectize(name, options = {})
-      find("\##{options[:from]}-selectized").click
+      find("##{options[:from]}-selectized").click
       find('div.selectize-dropdown-content .option', text: name, exact_text: true).click
     end
 
