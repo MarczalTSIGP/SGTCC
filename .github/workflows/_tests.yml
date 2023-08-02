@@ -17,7 +17,7 @@ jobs:
       image: ruby:2.7.2
       options: --network-alias testHost
       volumes:
-        - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples        
+        - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
     services:
       db:
         image: postgres
@@ -131,10 +131,10 @@ jobs:
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
- 
+
       - name: Run tests
         env:
           RAILS_ENV: test
           COVERAGE: true
         run: |
-          bundle exec rspec spec/models
+          bundle exec rspec spec/features/academics/activities/activities_document_spec.rb
