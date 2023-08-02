@@ -686,10 +686,10 @@ RSpec.describe Orientation, type: :model do
 
   describe '#by_status' do
     before do
-      create(:orientation, status: described_class.statuses.key('IN_PROGRESS'))
-      create(:orientation, status: described_class.statuses.key('APPROVED_TCC_ONE'))
-      create(:orientation, status: described_class.statuses.key('APPROVED'))
-      create(:orientation, status: described_class.statuses.key('CANCELLED'))
+      create(:orientation) # IN_PROGRESS
+      create(:orientation_tcc_one_approved)
+      create(:orientation_tcc_two_approved)
+      create(:orientation_canceled)
     end
 
     it 'return in progress orientations' do

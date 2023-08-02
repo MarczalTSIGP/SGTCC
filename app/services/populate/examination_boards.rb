@@ -22,8 +22,8 @@ class Populate::ExaminationBoards
     10.times do |index|
       examination_board = ExaminationBoard.create!(
         orientation_id: @orientation_ids.sample,
-        place: "place#{index}", date: Faker::Date.forward(1),
-        document_available_until: Faker::Date.forward(5),
+        place: "place#{index}", date: Faker::Date.forward(days: 1),
+        document_available_until: Faker::Date.forward(days: 5),
         tcc: select_tcc(index), identifier: select_identifier(index)
       )
       add_guests(examination_board)
