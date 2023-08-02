@@ -69,12 +69,12 @@ jobs:
 
       - name: Install libpq-dev for postgres
         run: |
-          apt update
-          apt install lsb-core
+          apt-get update
+          apt-get install lsb-release
           sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
           wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null
-          apt update -qq
-          apt install -y postgresql-client
+          apt-get update -qq
+          apt-get install -y postgresql-client-15
 
       - name: Cache bundle gems
         uses: actions/cache@v3
