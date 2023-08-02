@@ -1,0 +1,17 @@
+name: CI
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tests:
+    uses: ./.github/workflows/_tests.yml
+    secrets:
+      MAILER_USERNAME: ${{ secrets.MAILER_USERNAME }}
+      MAILER_PASSWORD: ${{ secrets.MAILER_PASSWORD }}
+
+  code_quality:
+    uses: ./.github/workflows/_linters.yml
+    secrets:
+      MAILER_USERNAME: ${{ secrets.MAILER_USERNAME }}
+      MAILER_PASSWORD: ${{ secrets.MAILER_PASSWORD }}

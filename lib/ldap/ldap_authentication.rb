@@ -23,10 +23,10 @@ module SGTCC
 
       ldap = Net::LDAP.new
 
-      ldap.host = ENV['ldap.host']
-      ldap.port = ENV['ldap.port']
+      ldap.host = ENV.fetch('ldap.host', nil)
+      ldap.port = ENV.fetch('ldap.port', nil)
 
-      base = ENV["ldap.base.#{base}"]
+      base = ENV.fetch("ldap.base.#{base}", nil)
       ldap.authenticate "uid=#{user},#{base}", pwd
 
       return true if ldap.bind
