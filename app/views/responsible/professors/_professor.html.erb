@@ -1,5 +1,5 @@
 <tr>
-  <td><%= professor.name %></td>
+  <td><%= link_to professor.name, responsible_professor_path(professor) %></td>
   <td><%= professor.email %></td>
   <td>
     <%= link_to professor.lattes, target: '_blank' do %>

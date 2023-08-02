@@ -1,7 +1,4 @@
-<td>
-  <span data-toggle="tooltip" title="<%= document.orientation.title %>">
-    <%= document.orientation.short_title %>
-  </span>
+<td><%= link_to academics_document_path(document) do %><%= document.orientation.short_title %><% end %>
 </td>
 <td><%= document.orientation.academic.name %></td>
 <td>
@@ -13,4 +10,3 @@
   <%= t("helpers.boolean.#{document.all_signed?}") %>
 </td>
 <td><%= short_date(document.created_at) %></td>
-
