@@ -26,29 +26,28 @@
       </main>
       <footer>
         <slot name="footer">
-          <term-footer
-            :created-at="term.document.created_at"
-          />
+          <term-footer :created-at="term.document.created_at" />
           <div class="clearfix" />
           <signature-mark :document-id="documentId" />
         </slot>
       </footer>
-      <p v-if="hasObs()" class="fs-6 mt-5">
-            <strong>Observação: </strong>
-            {{ term.document.obs }}
+      <p
+        v-if="hasObs()"
+        class="fs-6 mt-5"
+      >
+        <strong>Observação: </strong>
+        {{ term.document.obs }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
-
 import baseTermData from './base-term-data';
 
 export default {
   name: 'BaseTermLayout',
 
-  mixins: [baseTermData],
+  mixins: [baseTermData]
 };
-
 </script>

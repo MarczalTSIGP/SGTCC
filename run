@@ -67,14 +67,21 @@ function cmd {
 # -----------------------------------------------------------------------------
 # Rails commands.
 # -----------------------------------------------------------------------------
+# rails assets:clean       # Remove old compiled assets
+# rails assets:clobber     # Remove compiled assets
 
 function rails {
   # Run any Rails commands
   cmd rails "${@}"
 }
 
-function rubocop {
-  cmd bundle exec rubocop --parallel "${@}"
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Linters commands.
+# -----------------------------------------------------------------------------
+function eslint {
+  FILES_PATH="${@:-app/javascript}"
+  cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
 }
 
 function linters {

@@ -8,7 +8,7 @@
       {{ orientation.attributes.title }}
     </a>
 
-    <br />
+    <br>
 
     <div
       v-show="orientation.attributes.summary"
@@ -22,39 +22,39 @@
       </div>
     </div>
 
-    {{ orientation.attributes.academic.name }} (acadêmico)<br />
-    {{ orientation.attributes.advisor.name }} (orientador) <br />
+    {{ orientation.attributes.academic.name }} (acadêmico)<br>
+    {{ orientation.attributes.advisor.name }} (orientador) <br>
 
     <span v-if="orientation.attributes.supervisors.size > 0">
-      {{ orientation.attributes.supervisors.names }} (coorientadores)<br />
+      {{ orientation.attributes.supervisors.names }} (coorientadores)<br>
     </span>
- 
+
     <span v-if="orientation.attributes.approved_date">
-      {{ orientation.attributes.approved_date }} (data de aprovação) <br />
+      {{ orientation.attributes.approved_date }} (data de aprovação) <br>
     </span>
 
     <a
-        v-for="document in orientation.attributes.documents"
-        :key="document.name"
-        :href="document.url"
-        target="_blank"
-        class="btn btn-outline-primary btn-sm mt-2 mr-2"
-      >
-        {{ document.name }}
+      v-for="document in orientation.attributes.documents"
+      :key="document.name"
+      :href="document.url"
+      target="_blank"
+      class="btn btn-outline-primary btn-sm mt-2 mr-2"
+    >
+      {{ document.name }}
     </a>
-    <hr />
+    <hr>
   </div>
 </template>
 
 <script>
 export default {
-  name: "OrientationDetails",
+  name: 'OrientationDetails',
 
   props: {
     orientation: {
       type: Object,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
