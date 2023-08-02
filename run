@@ -33,8 +33,6 @@ if [[ ! -t 1 ]]; then
   TTY="-T"
 fi
 
-echo ${DC}
-
 # -----------------------------------------------------------------------------
 # Helper functions start with _ and aren't listed in this script's help menu.
 # -----------------------------------------------------------------------------
@@ -77,8 +75,13 @@ function rails {
   cmd rails "${@}"
 }
 
-function rubocop {
-  cmd bundle exec rubocop --parallel "${@}"
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Linters commands.
+# -----------------------------------------------------------------------------
+function eslint {
+  FILES_PATH="${@:-app/javascript}"
+  cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
 }
 
 function linters {
