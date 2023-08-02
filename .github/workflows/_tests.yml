@@ -136,5 +136,8 @@ jobs:
         env:
           RAILS_ENV: test
           COVERAGE: true
+          SELENIUM_HOST: selenium
+          SELENIUM_PORT: 4444
+          TEST_APP_HOST: testHost
         run: |
           bundle exec rspec spec/features/academics/activities/activities_document_spec.rb
