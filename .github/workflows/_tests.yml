@@ -11,8 +11,13 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    env:
+      FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
       image: ruby:2.7.2
+      options: --network-alias testHost
+      volumes:
+        - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples        
     services:
       db:
         image: postgres
@@ -26,6 +31,13 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
+      selenium:
+        image: selenium/standalone-chrome-debug:latest
+        ports: ["4444:4444"]
+        volumes:
+          - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -113,11 +125,16 @@ jobs:
         run: |
           bundle exec rails assets:precompile
 
+      - name: Prepare database
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+ 
       - name: Run tests
         env:
           RAILS_ENV: test
           COVERAGE: true
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
           bundle exec rspec spec/models
