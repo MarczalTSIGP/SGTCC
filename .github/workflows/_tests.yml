@@ -1,0 +1,143 @@
+name: Tests
+
+on:
+  workflow_call:
+    secrets:
+      MAILER_USERNAME:
+        required: true
+      MAILER_PASSWORD:
+        required: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    env:
+      FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
+    container:
+      image: ruby:2.7.2
+      options: --network-alias testHost
+      volumes:
+        - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
+    services:
+      db:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      selenium:
+        image: selenium/standalone-chrome-debug:latest
+        ports: ["4444:4444"]
+        volumes:
+          - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup application.yml
+        run: |
+          echo "
+              database: &database
+                db.username: postgres
+                db.password: postgres
+                db.host: db 
+
+              mailer: &mailer
+                mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
+                mailer.host: localhost
+                mailer.host.port: '3000'
+                mailer.smtp: 'smtp.mailtrap.io'
+                mailer.smtp.port: '2525'
+                mailer.smtp.domain: 'smtp.mailtrap.io'
+                mailer.smtp.username: '{{ secrets.MAILER_USERNAME }}'
+                mailer.smtp.password: '${{ secrets.MAILER_PASSWORD }}'
+                mailer.smtp.authentication: 'cram_md5'
+                mailer.exception.prefix: '[SGTCC]'
+                mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
+                mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
+
+              ldap: &ldap
+                ldap.on: 'false'
+
+              development:
+                <<: *database
+                <<: *mailer
+                <<: *ldap
+
+              test:
+                <<: *database
+                <<: *mailer
+                <<: *ldap
+          " > config/application.yml
+
+      - name: Install libpq-dev for postgres
+        run: |
+          apt-get update
+          apt-get install -y lsb-release
+          echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" >>  /etc/apt/sources.list.d/pgdg.list
+          sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          apt-get install wget ca-certificates
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+          apt-get update -qq
+          apt-get install -y postgresql-client
+
+      - name: Cache bundle gems
+        uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install bundle gems
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.24.1
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install yarn and dependencies
+        run: |
+          npm install -g yarn
+          yarn install
+          yarn install --check-files
+
+      - name: Compile assets
+        run: |
+          bundle exec rails assets:precompile
+
+      - name: Prepare database
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          COVERAGE: true
+          SELENIUM_HOST: selenium
+          SELENIUM_PORT: 4444
+          TEST_APP_HOST: testHost
+        run: |
+          bundle exec rspec

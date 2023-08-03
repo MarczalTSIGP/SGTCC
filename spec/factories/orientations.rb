@@ -61,8 +61,8 @@ FactoryBot.define do
     end
 
     factory :orientation_tcc_one_approved do
-      after(:create) do |orientation|
-        calendar = create(:calendar_tcc_one)
+      before(:create) do |orientation|
+        calendar = create(:previous_calendar_tcc_one)
         activity = create(:activity, calendar: calendar, identifier: :project,
                                      final_version: true)
         create(:academic_activity, activity: activity, academic: orientation.academic)
