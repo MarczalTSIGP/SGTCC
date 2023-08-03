@@ -31,7 +31,7 @@ class Populate::Orientations
     increment_index
     orientation = Orientation.create!(
       title: "Orientation #{@index}",
-      calendar_id: calendar_id,
+      calendar_ids: [calendar_id],
       advisor_id: @professor_ids.sample,
       academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample,

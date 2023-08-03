@@ -1,5 +1,5 @@
 <template>
- <div>
+  <div>
     <div v-show="loading">
       <loader />
     </div>
@@ -13,57 +13,54 @@
       </div>
 
       <div
-          v-for="orientation in orientations"
-          :key="orientation.id"
-          class="mb-4"
-       >
-         <div>
-           <orientation-details :orientation="orientation" />
-         </div>
-       </div>
-     </div>
+        v-for="orientation in orientations"
+        :key="orientation.id"
+        class="mb-4"
+      >
+        <div>
+          <orientation-details :orientation="orientation" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
-import Loader from '../shared/loader'
-import OrientationDetails from "./orientation-details.vue";
+import Loader from '../shared/loader';
+import OrientationDetails from './orientation-details.vue';
 
 export default {
-  name: "OrientationsPage",
+  name: 'OrientationsPage',
 
   components: {
     Loader,
-    OrientationDetails,
+    OrientationDetails
   },
 
   props: {
     title: {
-      type: String, 
-      required: true,
-    }, 
-    path: {
-      type: String, 
-      required: true,
+      type: String,
+      required: true
     },
-  },
-
-  async mounted () {
-    await this
-      .$axios
-      .get(this.path)
-      .then(response => (this.orientations = response.data.data))
-      this.loading = false;
-  },
-
-  data () {
-    return { 
-      loading: true,
-      title: '',
-      orientations: [] 
+    path: {
+      type: String,
+      required: true
     }
   },
 
+  data() {
+    return {
+      loading: true,
+      title: '',
+      orientations: []
+    };
+  },
+
+  async mounted() {
+    await this.$axios
+      .get(this.path)
+      .then(response => (this.orientations = response.data.data));
+    this.loading = false;
+  }
 };
 </script>
