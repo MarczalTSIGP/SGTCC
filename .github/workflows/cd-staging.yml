@@ -45,8 +45,8 @@ jobs:
                 mailer.smtp: 'in-v3.mailjet.com'
                 mailer.smtp.port: '587'
                 mailer.smtp.domain: 'staging.tcc.tsi.pro.br'
-                mailer.smtp.username: '<%= ENV['MAILER_USERNAME'] %>
-                mailer.smtp.password: '<%= ENV['MAILER_PASSWORD'] %>
+                mailer.smtp.username: '<%= ENV['MAILER_USERNAME'] %>'
+                mailer.smtp.password: '<%= ENV['MAILER_PASSWORD'] %>'
                 mailer.smtp.authentication: 'plain'
                 mailer.exception.prefix: '[SGTCC]'
                 mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
@@ -72,21 +72,21 @@ jobs:
             dmarczal/sgtcc-staging:${{github.run_number}}
             dmarczal/sgtcc-staging:latest
 
-  # deploy:
-  #   name: "Deploy Image to Staging"
-  #   needs: [build]
-  #   runs-on: ubuntu-latest
+  deploy:
+    name: "Deploy Image to Staging"
+    needs: [build]
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: VPS - Pull Image and Run App Containters
-  #       uses: appleboy/ssh-action@v0.1.10
-  #       with:
-  #         host: ${{ vars.REMOTE_HOST }}
-  #         username: ${{ vars.REMOTE_USER }}
-  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         script: |
-  #           cd ${{ vars.REMOTE_TARGET }}
-  #           docker compose pull web
-  #           docker compose up -d --no-deps
-  #           docker compose exec web bundle exec db:migrate
-  #           docker compose exec web bundle exec db:seed
+    steps:
+      - name: VPS - Update App Image
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ vars.REMOTE_HOST }}
+          username: ${{ vars.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ vars.REMOTE_TARGET }}
+            docker compose pull web
+            docker compose up -d --no-deps
+            docker compose exec web bundle exec db:migrate
+            docker compose exec web bundle exec db:seed
