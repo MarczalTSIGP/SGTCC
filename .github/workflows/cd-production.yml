@@ -1,0 +1,106 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release Tag'
+        required: true
+
+jobs:
+
+  release:
+    name: "Create Release"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ inputs.release }}
+
+  build:
+    name: "Build Image to Deploy to production"
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.1.0
+        with:
+          ref: ${{ inputs.release }}
+
+      - name: Autenticação no Docker Hub
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PWD}}
+
+      - name: Setup application.yml
+        run: |
+          echo "
+              database: &database
+                db.username: postgres
+                db.password: postgres
+                db.host: db 
+
+              mailer: &mailer
+                mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
+                mailer.host: 'tcc.tsi.pro.br'
+                mailer.host.port: '80'
+                mailer.smtp: 'in-v3.mailjet.com'
+                mailer.smtp.port: '587'
+                mailer.smtp.domain: 'tcc.tsi.pro.br'
+                mailer.smtp.username: <%= ENV['MAILER_USERNAME'] %>
+                mailer.smtp.password: <%= ENV['MAILER_PASSWORD'] %>
+                mailer.smtp.authentication: 'plain'
+                mailer.exception.prefix: '[SGTCC]'
+                mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
+                mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
+
+              ldap: &ldap
+                ldap.on: 'true'
+                ldap.by: 'moodle'
+
+              production:
+                <<: *database
+                <<: *mailer
+                <<: *ldap
+          " > config/application.yml
+
+      - name: Build the Docker Image
+        uses: docker/build-push-action@v3.2.0
+        with:
+          context: ./
+          file: ./deploy/Dockerfile
+          push: true
+          tags: |
+            dmarczal/sgtcc-production:${{github.run_number}}
+            dmarczal/sgtcc-production:latest
+
+  # deploy:
+  #   name: "Deploy to Production"
+  #   needs: [build]
+  #   runs-on: ubuntu-latest
+  #   environment: production
+
+  #   steps:
+  #     - name: Install openconnect
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y openconnect
+
+  #     - name: Connect to VPN
+  #       run: |
+  #         echo ${{ secrets.VPN_PASSWD }} | sudo openconnect --protocol=${{ vars.VPN_PROTOCOL }} ${{ vars.VPN_HOST }} -u ${{ vars.VPN_USERNAME }} --passwd-on-stdin --background
+  #         
+  #     - name: Connect to VPS and Update Image
+  #       uses: appleboy/ssh-action@v0.1.10
+  #       with:
+  #         host: ${{ vars.REMOTE_HOST }}
+  #         username: ${{ vars.REMOTE_USER }}
+  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         script: |
+  #           cd ${{ vars.REMOTE_TARGET }}
+  #           ls
+  #           # docker compose pull app
+  #           # docker compose up -d --no-deps
+  #           # docker compose exec app bundle exec rails db:migrate
+  #           # docker compose exec app bundle exec rails db:seed
