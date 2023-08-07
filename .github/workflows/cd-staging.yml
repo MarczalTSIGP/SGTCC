@@ -37,5 +37,5 @@ jobs:
           file: ./deploy/Dockerfile
           push: true
           tags: |
-            sgtcc/sgtcc-staging:${{github.run_number}}
+            dmarczal/sgtcc-staging:${{github.run_number}}
             dmarczal/sgtcc-staging:latest
