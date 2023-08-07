@@ -45,8 +45,8 @@ jobs:
                 mailer.smtp: 'in-v3.mailjet.com'
                 mailer.smtp.port: '587'
                 mailer.smtp.domain: 'staging.tcc.tsi.pro.br'
-                mailer.smtp.username: '<%= ENV['MAILER_USERNAME'] %>'
-                mailer.smtp.password: '<%= ENV['MAILER_PASSWORD'] %>'
+                mailer.smtp.username: <%= ENV['MAILER_USERNAME'] %>
+                mailer.smtp.password: <%= ENV['MAILER_PASSWORD'] %>
                 mailer.smtp.authentication: 'plain'
                 mailer.exception.prefix: '[SGTCC]'
                 mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
