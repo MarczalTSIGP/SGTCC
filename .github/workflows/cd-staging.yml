@@ -1,7 +1,7 @@
 name: Deploy to Staging
 on:
   push:
-    branches: ['d/cd/setup-cd-to-staging']
+    branches: ['@d/cd/setup-cd-to-staging']
 
 jobs:
   # tests:
