@@ -58,6 +58,10 @@ function up {
   dc up "${@}"
 }
 
+function dcr {
+  dc run --rm "${@}"
+}
+
 function cmd {
   # Run any command you want in the web container
   _dc web "${@}"

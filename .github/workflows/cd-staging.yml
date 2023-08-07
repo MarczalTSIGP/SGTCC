@@ -1,0 +1,41 @@
+name: Deploy to Staging
+on:
+  push:
+    branches: ['d/cd/setup-cd-to-staging']
+
+jobs:
+  # tests:
+  #   uses: ./.github/workflows/_tests.yml
+  #   secrets:
+  #     MAILER_USERNAME: ${{ secrets.MAILER_USERNAME }}
+  #     MAILER_PASSWORD: ${{ secrets.MAILER_PASSWORD }}
+
+  # code_quality:
+  #   uses: ./.github/workflows/_linters.yml
+  #   secrets:
+  #     MAILER_USERNAME: ${{ secrets.MAILER_USERNAME }}
+  #     MAILER_PASSWORD: ${{ secrets.MAILER_PASSWORD }}
+
+  deploy:
+    name: "Deploy to Staging"
+    # needs: [tests, code_quality]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.1.0
+
+      - name: Autenticação no Docker Hub
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PWD}}
+
+      - name: Construção da imagem Docker
+        uses: docker/build-push-action@v3.2.0
+        with:
+          context: ./
+          file: ./deploy/Dockerfile
+          push: true
+          tags: |
+            sgtcc/sgtcc-staging:${{github.run_number}}
+            dmarczal/sgtcc-staging:latest
