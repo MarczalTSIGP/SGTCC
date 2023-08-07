@@ -1,5 +1,4 @@
-<td><%= link_to academics_document_path(document) do %><%= document.orientation.short_title %><% end %>
-</td>
+<td><%= link_to document.orientation.short_title, academics_document_path(document) %></td>
 <td><%= document.orientation.academic.name %></td>
 <td>
   <span data-toggle="tooltip" title="<%= document.document_type.name %>">

@@ -14,8 +14,8 @@ describe 'Meeting::index', type: :feature, js: true do
       it 'shows all meetings with options' do
         visit academics_meetings_path
         academic.meetings.each do |meeting|
-          expect(page).to have_contents([meeting.orientation.academic_with_calendar,
-                                         short_date(meeting.date)])
+          expect(page).to have_link(meeting.orientation.academic_with_calendar, href: academics_orientation_path(meeting.orientation))
+          expect(page).to have_content(short_date(meeting.date))
         end
       end
     end

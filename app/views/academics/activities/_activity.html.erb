@@ -1,8 +1,6 @@
 <tr>
-<td>
-  <%= link_to academics_calendar_activity_path(@calendar, activity) do %><%= activity.name %>
-  <% end %>
-  </td>  <td><%= activity.base_activity_type.name %></td>
+<td><%= link_to activity.name, academics_calendar_activity_path(@calendar, activity) %></td>
+  <td><%= activity.base_activity_type.name %></td>
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= activity.deadline %></td>
   <% if activity.find_academic_activity_by_academic(current_academic).present? %>

@@ -17,7 +17,7 @@ describe 'Orientation::activities', type: :feature, js: true do
         visit academics_calendar_orientation_activities_path(calendar, orientation)
 
         activities.each do |activity|
-          expect(page).to have_content(activity.name)
+          expect(page).to have_link(activity.name, href: academics_calendar_orientation_activity_path(calendar, orientation, activity))
           expect(page).to have_content(activity.base_activity_type.name)
           expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
           expect(page).to have_content(activity.deadline)
