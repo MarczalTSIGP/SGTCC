@@ -88,5 +88,5 @@ jobs:
             cd ${{ vars.REMOTE_TARGET }}
             docker compose pull app
             docker compose up -d --no-deps
-            docker compose exec app bundle exec db:migrate
-            docker compose exec app bundle exec db:seed
+            docker compose exec app bundle exec rails db:migrate
+            docker compose exec app bundle exec rails db:seed
