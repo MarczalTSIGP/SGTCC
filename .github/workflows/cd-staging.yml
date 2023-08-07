@@ -16,8 +16,8 @@ jobs:
   #     MAILER_USERNAME: ${{ secrets.MAILER_USERNAME }}
   #     MAILER_PASSWORD: ${{ secrets.MAILER_PASSWORD }}
 
-  deploy:
-    name: "Deploy to Staging"
+  build:
+    name: "Build Deploy Image to Staging"
     # needs: [tests, code_quality]
     runs-on: ubuntu-latest
 
@@ -30,6 +30,38 @@ jobs:
           username: ${{secrets.DOCKERHUB_USER}}
           password: ${{secrets.DOCKERHUB_PWD}}
 
+      - name: Setup application.yml
+        run: |
+          echo "
+              database: &database
+                db.username: postgres
+                db.password: postgres
+                db.host: db 
+
+              mailer: &mailer
+                mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
+                mailer.host: 'staging.tcc.tsi.pro.br'
+                mailer.host.port: '80'
+                mailer.smtp: 'in-v3.mailjet.com'
+                mailer.smtp.port: '587'
+                mailer.smtp.domain: 'staging.tcc.tsi.pro.br'
+                mailer.smtp.username: '<%= ENV['MAILER_USERNAME'] %>
+                mailer.smtp.password: '<%= ENV['MAILER_PASSWORD'] %>
+                mailer.smtp.authentication: 'plain'
+                mailer.exception.prefix: '[SGTCC]'
+                mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
+                mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
+
+              ldap: &ldap
+                ldap.on: 'true'
+                ldap.by: 'moodle'
+
+              production:
+                <<: *database
+                <<: *mailer
+                <<: *ldap
+          " > config/application.yml
+
       - name: Construção da imagem Docker
         uses: docker/build-push-action@v3.2.0
         with:
@@ -39,3 +71,22 @@ jobs:
           tags: |
             dmarczal/sgtcc-staging:${{github.run_number}}
             dmarczal/sgtcc-staging:latest
+
+  # deploy:
+  #   name: "Deploy Image to Staging"
+  #   needs: [build]
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: VPS - Pull Image and Run App Containters
+  #       uses: appleboy/ssh-action@v0.1.10
+  #       with:
+  #         host: ${{ vars.REMOTE_HOST }}
+  #         username: ${{ vars.REMOTE_USER }}
+  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         script: |
+  #           cd ${{ vars.REMOTE_TARGET }}
+  #           docker compose pull web
+  #           docker compose up -d --no-deps
+  #           docker compose exec web bundle exec db:migrate
+  #           docker compose exec web bundle exec db:seed
