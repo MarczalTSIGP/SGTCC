@@ -24,8 +24,9 @@ describe 'Document::show', type: :feature, js: true do
         expect(page).to have_alert(text: document_authenticated_message)
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
 
-        expect(page).to have_contents([orientation.title,
-                                       orientation.academic.name,
+        expect(page).to have_link(orientation.title, 
+                href: academics_calendar_orientation_document_path(orientation.current_calendar, orientation, document))
+        expect(page).to have_contents([orientation.academic.name,
                                        orientation.academic.ra,
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,

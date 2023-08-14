@@ -16,7 +16,7 @@ describe 'Orientation::current_tcc', type: :feature do
         within('table tbody tr:nth-child(1)') do
           expect(page).to have_content(orientation.short_title)
           expect(page).to have_content(orientation.advisor.name)
-          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_link(orientation.academic.name, href: responsible_orientation_path(orientation))
           expect(page).to have_content(orientation.academic.ra)
 
           orientation.calendars.each do |calendar|

@@ -1,5 +1,5 @@
 <tr>
-  <%= render 'shared/documents/tbody', document: document %>
+  <%= render 'shared/documents/tbody', document: document, show_path: professors_document_path(document) %>
   <td>
     <% unless document.professor_signed?(current_professor) %>
       <%= link_to(edit_professors_request_path(document)) do %>

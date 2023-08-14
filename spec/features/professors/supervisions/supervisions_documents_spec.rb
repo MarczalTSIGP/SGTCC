@@ -16,8 +16,9 @@ describe 'Supervision::documents', type: :feature, js: true do
 
       it 'shows all the documents' do
         orientation.documents.each do |document|
+          expect(page).to have_link(document.orientation.academic.name,
+                                    href: professors_supervision_document_path(orientation, document))
           expect(page).to have_contents([document.orientation.short_title,
-                                         document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
         end
         expect(page).to have_selector("a[href='#{active_link}'].active")

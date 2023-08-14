@@ -14,8 +14,9 @@ describe 'Orientation::activities', type: :feature do
     context 'when shows all the orientation activities' do
       it 'shows all the activites' do
         orientation.current_calendar.activities.each do |activity|
-          expect(page).to have_contents([activity.name,
-                                         activity.base_activity_type.name,
+          expect(page).to have_link(activity.name, 
+                                  href: tcc_one_professors_calendar_orientation_activity_path(orientation.current_calendar, orientation, activity))
+          expect(page).to have_contents([activity.base_activity_type.name,
                                          I18n.t("enums.tcc.#{activity.tcc}"),
                                          activity.deadline])
         end
@@ -34,6 +35,7 @@ describe 'Orientation::activities', type: :feature do
       end
 
       it 'shows the activity' do
+
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,
                                        activity.deadline,

@@ -16,7 +16,7 @@ describe 'Supervision::documents', type: :feature, js: true do
 
       it 'shows all the documents' do
         orientation.documents.each do |document|
-          expect(page).to have_content(document.orientation.short_title)
+          expect(page).to have_link(document.orientation.short_title, href: external_members_supervision_document_path(orientation, document))
           expect(page).to have_content(document.orientation.academic.name)
           expect(page).to have_content(document.document_type.identifier.upcase)
         end

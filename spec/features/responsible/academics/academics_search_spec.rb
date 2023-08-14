@@ -17,8 +17,8 @@ describe 'Academics::search', type: :feature, js: true do
         fill_in 'term', with: academic.name
         first('#search').click
 
-        expect(page).to have_contents([academic.name,
-                                       academic.email,
+        expect(page).to have_link(academic.name, href: responsible_academic_path(academic))
+        expect(page).to have_contents([academic.email,
                                        academic.ra,
                                        short_date(academic.created_at)])
       end

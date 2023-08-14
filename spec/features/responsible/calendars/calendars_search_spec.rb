@@ -16,8 +16,8 @@ describe 'Calendar::search', type: :feature, js: true do
 
         fill_in 'term', with: calendar.year
         first('#search').click
-        expect(page).to have_contents([calendar.year_with_semester,
-                                       I18n.t("enums.tcc.#{calendar.tcc}"),
+        expect(page).to have_link(calendar.year_with_semester, href: responsible_calendar_path(calendar))
+        expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
                                        short_date(calendar.created_at)])
       end
     end

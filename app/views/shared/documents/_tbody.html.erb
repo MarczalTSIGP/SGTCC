@@ -1,9 +1,9 @@
-<<<<<<< HEAD
-<td><%= link_to document.orientation.short_title, academics_document_path(document) %></td>
-=======
-<td><%= link_to academics_document_path(document) do %><%= document.orientation.short_title %><% end %>
+<td>
+  <span data-toggle="tooltip" title="<%= document.orientation.title %>">
+    <%= link_to document.orientation.short_title, show_path %>
+  </span>
 </td>
->>>>>>> 520c03b6a9b218475c2b05d56fca6662d80efb82
+
 <td><%= document.orientation.academic.name %></td>
 <td>
   <span data-toggle="tooltip" title="<%= document.document_type.name %>">

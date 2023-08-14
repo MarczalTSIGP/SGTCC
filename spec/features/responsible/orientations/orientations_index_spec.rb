@@ -18,7 +18,7 @@ describe 'Orientation::index', type: :feature do
         orientations.each_with_index do |orientation, index|
           pos = index + 1
           within("table tbody tr:nth-child(#{pos})") do
-            expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_link(orientation.academic.name, href: responsible_orientation_path(orientation))
             expect(page).to have_content(orientation.academic.ra)
             expect(page).to have_content(orientation.short_title)
             expect(page).to have_content(orientation.advisor.name)

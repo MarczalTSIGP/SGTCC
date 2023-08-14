@@ -15,8 +15,8 @@ describe 'Activity::index', type: :feature, js: true do
         index_url = tcc_one_professors_calendar_activities_path(calendar_tcc_one)
         visit index_url
 
-        expect(page).to have_contents([activity.name,
-                                       activity.base_activity_type.name,
+        expect(page).to have_link(activity.name, href: tcc_one_professors_calendar_activity_path(calendar_tcc_one, activity))
+        expect(page).to have_contents([activity.base_activity_type.name,
                                        I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
         expect(page).to have_selector("a[href='#{index_url}'].active")

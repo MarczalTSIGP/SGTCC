@@ -18,8 +18,7 @@ describe 'Supervision::index', type: :feature, js: true do
 
         expect(page).to have_content(orientation.short_title)
         expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_content(orientation.academic.name)
-
+        expect(page).to have_link(orientation.academic.name, href: external_members_supervision_path(orientation))
         orientation.calendars.each do |calendar|
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
@@ -38,8 +37,7 @@ describe 'Supervision::index', type: :feature, js: true do
 
         expect(page).to have_content(orientation.short_title)
         expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_content(orientation.academic.name)
-
+        expect(page).to have_link(orientation.academic.name, href: external_members_supervision_path(orientation))
         orientation.calendars.each do |calendar|
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
