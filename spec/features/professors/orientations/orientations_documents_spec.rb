@@ -17,8 +17,8 @@ describe 'Orientation::documents', type: :feature, js: true do
       end
 
       it 'shows all the documents' do
-        orientation.documents.each do |document|
-          expect(page).to have_link(document.orientation.short_title, href: professors_orientation_document_path(orientation, document))
+        orientation.documents.each do |document|          
+          expect(page).to have_link(document.orientation.short_title, href: professors_document_path(document))
           expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
         end

@@ -13,7 +13,7 @@ describe 'AttachedDocument::index', type: :feature, js: true do
       it 'shows all attached_documents with options' do
         visit responsible_attached_documents_path
         attached_documents.each do |attached_document|
-          expect(page).to have_link(attached_document.name, href: esponsible_attached_document_path(attached_document))
+          expect(page).to have_link(attached_document.name, href: attached_document.file.url)
           expect(page).to have_contents([short_date(attached_document.created_at)])
         end
       end

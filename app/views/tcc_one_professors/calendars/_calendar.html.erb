@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to t("enums.semester.#{calendar.year_with_semester}"), tcc_one_professors_calendar_activities_path(calendar) %>
+    <%= link_to ("enums.semester.#{calendar.year_with_semester}"), tcc_one_professors_calendar_activities_path(calendar) %>
   </td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>
