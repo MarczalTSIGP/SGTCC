@@ -1,4 +1,3 @@
-
 def chrome_options
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument('--no-default-browser-check')
