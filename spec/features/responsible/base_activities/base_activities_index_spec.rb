@@ -16,7 +16,8 @@ describe 'BaseActivity::index', type: :feature, js: true do
         visit index_url
 
         base_activities.each do |base_activity|
-          expect(page).to have_link(base_activity.name, href: responsible_base_activity_path(base_activity))
+          expect(page).to have_link(base_activity.name,
+                                    href: responsible_base_activity_path(base_activity))
           expect(page).to have_contents([I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
@@ -33,7 +34,8 @@ describe 'BaseActivity::index', type: :feature, js: true do
         visit index_url
 
         base_activities.each do |base_activity|
-          expect(page).to have_link(base_activity.name, href: responsible_base_activity_path(base_activity))
+          expect(page).to have_link(base_activity.name,
+                                    href: responsible_base_activity_path(base_activity))
           expect(page).to have_contents([I18n.t("enums.tcc.#{base_activity.tcc}"),
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])

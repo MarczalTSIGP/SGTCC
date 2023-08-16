@@ -18,8 +18,10 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
 
       it 'shows all the examination boards of the tcc one with options' do
         examination_boards_tcc_one.each do |examination_board|
-          expect(page).to have_link(examination_board.orientation.academic_with_calendar, 
-            href: tcc_one_professors_examination_board_path(examination_board))
+          expect(page).to have_link(
+            examination_board.orientation.academic_with_calendar,
+            href: tcc_one_professors_examination_board_path(examination_board)
+          )
 
           expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
                                          examination_board.place,
@@ -35,10 +37,12 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
 
       it 'shows all the examination boards of the tcc two with options' do
         examination_boards_tcc_two.each do |examination_board|
-          expect(page).to have_link(examination_board.orientation.academic_with_calendar, 
-            href: tcc_one_professors_examination_board_path(examination_board))
+          expect(page).to have_link(examination_board.orientation.academic_with_calendar,
+                                    href: tcc_one_professors_examination_board_path(
+                                      examination_board
+                                    ))
 
-            expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
+          expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
                                          examination_board.place,
                                          datetime(examination_board.date)])
         end

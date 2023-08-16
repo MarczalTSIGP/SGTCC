@@ -13,7 +13,8 @@ describe 'Institution::index', type: :feature, js: true do
     context 'when shows all institutions' do
       it 'shows all institutions with options' do
         institutions.each do |institution|
-          expect(page).to have_link(institution.trade_name, href: responsible_institution_path(institution))
+          expect(page).to have_link(institution.trade_name,
+                                    href: responsible_institution_path(institution))
           expect(page).to have_contents([institution.cnpj.formatted,
                                          short_date(institution.created_at)])
         end

@@ -21,8 +21,10 @@ describe 'Supervision::activities', type: :feature do
 
       it 'shows all the activites' do
         activities.each do |activity|
-          expect(page).to have_link(activity.name, 
-            href: external_members_supervision_calendar_activity_path(orientation, orientation.current_calendar, activity))
+          expect(page).to have_link(activity.name,
+                                    href: external_members_supervision_calendar_activity_path(
+                                      orientation, orientation.current_calendar, activity
+                                    ))
           expect(page).to have_content(activity.base_activity_type.name)
           expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
           expect(page).to have_content(activity.deadline)

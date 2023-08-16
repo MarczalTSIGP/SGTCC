@@ -18,7 +18,8 @@ describe 'Document::index', type: :feature do
         visit index_url
 
         documents.each do |document|
-          expect(page).to have_link(document.orientation.short_title, href: academics_document_path(document))
+          expect(page).to have_link(document.orientation.short_title,
+                                    href: academics_document_path(document))
           expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
           expect(page).to have_selector("a[href='#{index_url}'].active")
@@ -38,7 +39,8 @@ describe 'Document::index', type: :feature do
         visit index_url
 
         documents.each do |document|
-          expect(page).to have_link(document.orientation.short_title, href: academics_document_path(document))
+          expect(page).to have_link(document.orientation.short_title,
+                                    href: academics_document_path(document))
           expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
           expect(page).to have_selector("a[href='#{index_url}'].active")

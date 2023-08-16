@@ -17,7 +17,8 @@ describe 'Activity::index', type: :feature do
         index_url = academics_calendar_activities_path(calendar)
         visit index_url
 
-        expect(page).to have_link(activity.name, href: academics_calendar_activity_path(calendar, activity))
+        expect(page).to have_link(activity.name,
+                                  href: academics_calendar_activity_path(calendar, activity))
         expect(page).to have_content(activity.base_activity_type.name)
         expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
         expect(page).to have_content(activity.deadline)
@@ -32,7 +33,8 @@ describe 'Activity::index', type: :feature do
         index_url = academics_calendar_activities_path(calendar)
         visit index_url
 
-        expect(page).to have_link(activity.name, href: academics_calendar_activity_path(calendar, activity))
+        expect(page).to have_link(activity.name,
+                                  href: academics_calendar_activity_path(calendar, activity))
         expect(page).to have_content(activity.base_activity_type.name)
         expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
         expect(page).to have_content(activity.deadline)

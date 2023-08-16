@@ -15,7 +15,6 @@ def app_host
   app = "http://#{ENV.fetch('TEST_APP_HOST', nil)}"
   port = Capybara.current_session.server.port
   "#{app}:#{port}"
-
 end
 
 Capybara.register_driver :chrome do |app|
