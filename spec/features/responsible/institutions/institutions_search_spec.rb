@@ -20,6 +20,7 @@ describe 'Institution::search', type: :feature, js: true do
         expect(page).to have_link(institution.trade_name,
                                   href: responsible_institution_path(institution))
         expect(page).to have_contents([institution.cnpj.formatted,
+                                       institution.external_member.name,
                                        short_date(institution.created_at)])
       end
     end

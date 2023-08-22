@@ -37,7 +37,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432
     networks:
       - app-network
 
@@ -71,6 +71,7 @@ volumes:
   pgdata:
     driver: local
   bundle_path:
+
 
 networks:
   app-network:

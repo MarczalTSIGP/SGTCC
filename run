@@ -84,8 +84,12 @@ function eslint {
   cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
 }
 
+function rubocop {
+  cmd bundle exec rubocop --parallel "${@}"
+}
+
 function linters {
-  cmd bundle exec rubocop --parallel
+  rubocop
   cmd bundle exec brakeman --ignore-config config/brakeman.ignore
   eslint
 }
