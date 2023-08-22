@@ -18,8 +18,12 @@ describe 'Supervision::activities', type: :feature, js: true do
     context 'when shows all the orientation activities' do
       it 'shows all the activites' do
         activities.each do |activity|
-          expect(page).to have_contents([activity.name,
-                                         activity.base_activity_type.name,
+          expect(page).to have_link(activity.name,
+                                    href: professors_supervision_calendar_activity_path(
+                                      orientation, calendar, activity
+                                    ))
+
+          expect(page).to have_contents([activity.base_activity_type.name,
                                          I18n.t("enums.tcc.#{activity.tcc}"),
                                          activity.deadline])
         end

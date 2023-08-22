@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Document::index', type: :feature, js: true do
-  let(:professor_tcc_one) { create(:professor) }
+  let(:professor_tcc_one) { create(:professor_tcc_one) }
   let!(:orientation) { create(:orientation, advisor: professor_tcc_one) }
 
   before do
@@ -13,8 +13,12 @@ describe 'Document::index', type: :feature, js: true do
     context 'when shows all the pending documents' do
       it 'shows all the documents' do
         orientation.documents.each do |document|
-          expect(page).to have_contents([document.orientation.short_title,
-                                         document.orientation.academic.name,
+          expect(page).to have_link(document.orientation.short_title,
+                                    href: tcc_one_professors_calendar_orientation_documents_path(
+                                      document.orientation.current_calendar, document.orientation
+                                    ))
+
+          expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
         end
       end

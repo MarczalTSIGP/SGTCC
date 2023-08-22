@@ -17,7 +17,8 @@ describe 'Orientation::search', type: :feature do
 
         expect(page).to have_content(first_orientation.short_title)
         expect(page).to have_content(first_orientation.advisor.name)
-        expect(page).to have_content(first_orientation.academic.name)
+        expect(page).to have_link(first_orientation.academic.name,
+                                  href: professors_orientation_path(first_orientation))
         expect(page).to have_content(first_orientation.academic.ra)
 
         first_orientation.calendars.each do |calendar|

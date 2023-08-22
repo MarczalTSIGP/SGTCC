@@ -1,5 +1,5 @@
 <tr>
-  <td><%= activity.name %></td>
+  <td><%= link_to activity.name, academics_calendar_activity_path(@calendar, activity) %></td>
   <td><%= activity.base_activity_type.name %></td>
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= activity.deadline %></td>
@@ -21,9 +21,4 @@
       <%= t("helpers.boolean.false") %>
     </td>
   <% end %>
-  <td>
-    <%= link_to(academics_calendar_activity_path(@calendar, activity)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="<%= t('titles.show') %>"></i>
-    <% end %>
-  </td>
 </tr>

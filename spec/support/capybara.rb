@@ -25,6 +25,11 @@ Capybara.register_driver :chrome do |app|
                                  options: chrome_options)
 end
 
+# Necessary to correct working of screenshot
+Capybara::Screenshot.register_driver(:chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
 

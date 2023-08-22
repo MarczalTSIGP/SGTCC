@@ -15,8 +15,8 @@ describe 'Professor::search', type: :feature, js: true do
         fill_in 'term', with: responsible.name
         first('#search').click
 
-        expect(page).to have_contents([responsible.name,
-                                       responsible.email,
+        expect(page).to have_link(responsible.name, href: responsible_professor_path(responsible))
+        expect(page).to have_contents([responsible.email,
                                        short_date(responsible.created_at)])
         expect(page).to have_selector(link(responsible.lattes))
       end

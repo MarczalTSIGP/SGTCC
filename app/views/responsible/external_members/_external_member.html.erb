@@ -1,5 +1,5 @@
 <tr>
-  <td><%= external_member.name %></td>
+  <td><%= link_to external_member.name, responsible_external_member_path(external_member) %></td>
   <td><%= external_member.email %></td>
   <td>
     <%= link_to external_member.personal_page, target: '_blank' do %>

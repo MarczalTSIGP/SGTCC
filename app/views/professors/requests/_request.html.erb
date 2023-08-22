@@ -1,9 +1,6 @@
 <tr>
-  <%= render 'shared/documents/tbody', document: document %>
+  <%= render 'shared/documents/tbody', document: document, show_path: professors_document_path(document) %>
   <td>
-    <%= link_to(professors_document_path(document)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar"></i>
-    <% end %>
     <% unless document.professor_signed?(current_professor) %>
       <%= link_to(edit_professors_request_path(document)) do %>
         <i class="fe fe-edit" data-toggle="tooltip" title="Editar solicitação"></i>

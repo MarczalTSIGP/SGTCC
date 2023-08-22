@@ -10,3 +10,11 @@ body {
   box-shadow: inset 0 0 0 4px #5eba00, inset 0 0 0 10px #467fcf;
   color: transparent;
 }
+
+table.no-table-padding-horizontal {
+  td:first-child,
+  th:first-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

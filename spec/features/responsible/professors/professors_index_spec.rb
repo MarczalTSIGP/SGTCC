@@ -14,8 +14,8 @@ describe 'Professor::index', type: :feature, js: true do
       it 'shows all professors with options' do
         visit responsible_professors_path
         professors.each do |professor|
-          expect(page).to have_contents([professor.name,
-                                         professor.email,
+          expect(page).to have_link(professor.name, href: responsible_professor_path(professor))
+          expect(page).to have_contents([professor.email,
                                          short_date(professor.created_at)])
           expect(page).to have_selector(link(professor.lattes))
         end
@@ -27,8 +27,8 @@ describe 'Professor::index', type: :feature, js: true do
         visit responsible_professors_available_path
 
         Professor.available_advisor.each do |professor|
-          expect(page).to have_contents([professor.name,
-                                         professor.email,
+          expect(page).to have_link(professor.name, href: responsible_professor_path(professor))
+          expect(page).to have_contents([professor.email,
                                          short_date(professor.created_at)])
           expect(page).to have_selector(link(professor.lattes))
         end
@@ -40,8 +40,8 @@ describe 'Professor::index', type: :feature, js: true do
         visit responsible_professors_unavailable_path
 
         Professor.unavailable_advisor.each do |professor|
-          expect(page).to have_contents([professor.name,
-                                         professor.email,
+          expect(page).to have_link(professor.name, href: responsible_professor_path(professor))
+          expect(page).to have_contents([professor.email,
                                          short_date(professor.created_at)])
           expect(page).to have_selector(link(professor.lattes))
         end

@@ -17,9 +17,12 @@ describe 'Activity::index', type: :feature do
         index_url = professors_calendar_activities_path(calendar_tcc_one)
         visit index_url
 
-        expect(page).to have_contents([activity.name,
-                                       activity.base_activity_type.name,
+        expect(page).to have_link(activity.name,
+                                  href: professors_calendar_activity_path(calendar_tcc_one,
+                                                                          activity))
+        expect(page).to have_contents([activity.base_activity_type.name,
                                        activity.deadline])
+
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
 
@@ -29,8 +32,10 @@ describe 'Activity::index', type: :feature do
         index_url = professors_calendar_activities_path(calendar_tcc_two)
         visit index_url
 
-        expect(page).to have_contents([activity.name,
-                                       activity.base_activity_type.name,
+        expect(page).to have_link(activity.name,
+                                  href: professors_calendar_activity_path(calendar_tcc_two,
+                                                                          activity))
+        expect(page).to have_contents([activity.base_activity_type.name,
                                        activity.deadline])
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end

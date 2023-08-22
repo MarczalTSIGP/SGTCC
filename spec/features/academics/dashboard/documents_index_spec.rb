@@ -12,8 +12,9 @@ describe 'Document::index', type: :feature do
     context 'when shows all the pending documents' do
       it 'shows all the documents' do
         orientation.documents.each do |document|
-          expect(page).to have_contents([document.orientation.short_title,
-                                         document.orientation.academic.name,
+          expect(page).to have_link(document.orientation.short_title,
+                                    href: academics_document_path(document))
+          expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
         end
       end

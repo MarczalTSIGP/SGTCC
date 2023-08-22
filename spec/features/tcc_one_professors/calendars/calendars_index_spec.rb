@@ -15,8 +15,9 @@ describe 'Calendar::index', type: :feature, js: true do
       visit index_url
 
       calendars.each do |calendar|
-        expect(page).to have_contents([calendar.year_with_semester,
-                                       short_date(calendar.created_at)])
+        expect(page).to have_link(calendar.year_with_semester,
+                                  href: tcc_one_professors_calendar_activities_path(calendar))
+        expect(page).to have_contents([short_date(calendar.created_at)])
       end
       expect(page).to have_selector("a[href='#{index_url}'].active")
     end
