@@ -1,5 +1,5 @@
 <tr>
-  <%= render 'shared/meetings/tbody', meeting: meeting %>
+  <%= render 'shared/meetings/tbody', meeting: meeting, show_path: professors_meeting_path(meeting) %>
   <td>
     <%= render 'shared/links',
       resource_link: professors_meeting_path(meeting),

@@ -19,8 +19,9 @@ describe 'Activity::index', type: :feature, js: true do
         index_url = external_members_calendar_activities_path(calendar)
         visit index_url
 
-        expect(page).to have_contents([activity.name,
-                                       activity.base_activity_type.name,
+        expect(page).to have_link(activity.name,
+                                  href: external_members_calendar_activity_path(calendar, activity))
+        expect(page).to have_contents([activity.base_activity_type.name,
                                        I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
         expect(page).to have_selector("a[href='#{index_url}'].active")

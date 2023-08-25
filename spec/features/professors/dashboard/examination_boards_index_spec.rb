@@ -16,8 +16,9 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
     context 'when shows the examination boards' do
       it 'shows the examination boards' do
         examination_boards.each do |examination_board|
-          expect(page).to have_contents([examination_board.orientation.academic_with_calendar,
-                                         examination_board.orientation.advisor.name_with_scholarity,
+          expect(page).to have_link(examination_board.orientation.academic_with_calendar,
+                                    href: professors_examination_board_path(examination_board))
+          expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
                                          examination_board.place,
                                          datetime(examination_board.date)])
         end

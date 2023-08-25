@@ -72,6 +72,7 @@ volumes:
     driver: local
   bundle_path:
 
+
 networks:
   app-network:
     driver: bridge

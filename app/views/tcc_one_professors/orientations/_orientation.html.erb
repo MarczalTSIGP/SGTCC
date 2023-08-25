@@ -16,7 +16,7 @@
           <i class="fe fe-file"></i> Visualizar documentos
         <% end %>
 
-        <%= render('shared/orientations/tbody', orientation: orientation) %>
+        <%= render('shared/orientations/tbody', orientation: orientation, show_path: tcc_one_professors_calendar_orientation_path(@calendar, orientation)) %>
       </div>
     </div>
   </td>

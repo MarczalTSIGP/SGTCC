@@ -15,8 +15,9 @@ describe 'Calendar::index', type: :feature, js: true do
         visit index_url
 
         calendars.each do |calendar|
-          expect(page).to have_contents([calendar.year_with_semester,
-                                         I18n.t("enums.tcc.#{calendar.tcc}"),
+          expect(page).to have_link(calendar.year_with_semester,
+                                    href: responsible_calendar_path(calendar))
+          expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
                                          short_date(calendar.created_at)])
         end
         expect(page).to have_selector("a[href='#{index_url}'].active")
@@ -28,8 +29,9 @@ describe 'Calendar::index', type: :feature, js: true do
         visit index_url
 
         calendars.each do |calendar|
-          expect(page).to have_contents([calendar.year_with_semester,
-                                         I18n.t("enums.tcc.#{calendar.tcc}"),
+          expect(page).to have_link(calendar.year_with_semester,
+                                    href: responsible_calendar_path(calendar))
+          expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
                                          short_date(calendar.created_at)])
         end
         expect(page).to have_selector("a[href='#{index_url}'].active")

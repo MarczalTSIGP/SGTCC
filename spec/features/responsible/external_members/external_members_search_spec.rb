@@ -17,8 +17,9 @@ describe 'ExternalMember::search', type: :feature, js: true do
         fill_in 'term', with: external_member.name
         first('#search').click
 
-        expect(page).to have_contents([external_member.name,
-                                       external_member.email,
+        expect(page).to have_link(external_member.name,
+                                  href: responsible_external_member_path(external_member))
+        expect(page).to have_contents([external_member.email,
                                        short_date(external_member.created_at)])
         expect(page).to have_selector(link(external_member.personal_page))
       end

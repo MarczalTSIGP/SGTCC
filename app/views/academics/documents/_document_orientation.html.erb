@@ -1,8 +1,3 @@
 <tr>
-  <%= render 'shared/documents/tbody', document: document %>
-  <td>
-    <%= link_to(academics_calendar_orientation_document_path(@calendar, document.orientation, document)) do %>
-      <i class="fe fe-search" data-toggle="tooltip" title="Visualizar documento"></i>
-    <% end %>
-  </td>
+  <%= render 'shared/documents/tbody', document: document, orientation: @orientation, show_path: academics_calendar_orientation_document_path(@orientation.current_calendar, @orientation, document) %>
 </tr>

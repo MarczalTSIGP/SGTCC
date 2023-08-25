@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  app:
+    restart: always
+    image: dmarczal/sgtcc-staging:latest
+    command: >
+      bash -c "
+        rm -f tmp/pids/server.pid &&
+        bundle exec rails s -p 3000 -b '0.0.0.0'
+        " # Removing server.pid is technically a cleanup script
+    ports:
+      - 3002:3000
+    env_file: .env
+    volumes:
+      - ./uploads:/app/public/uploads
+      - ./log:/app/log
+      - /dev/shm:/dev/shm
+    tmpfs:
+      - /tmp
+    depends_on:
+      - db
+    networks:
+      - sgtcc-network
+
+  db:
+    image: postgres
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sgtcc-network
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  sgtcc-network:
+    driver: bridge

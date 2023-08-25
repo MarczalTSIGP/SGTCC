@@ -14,7 +14,8 @@ describe 'Calendar::index', type: :feature do
         visit index_url
 
         orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester)
+          expect(page).to have_link(calendar.year_with_semester,
+                                    href: academics_calendar_activities_path(calendar))
           expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
           expect(page).to have_content(orientation.title)
           expect(page).to have_content(orientation.advisor.name)
