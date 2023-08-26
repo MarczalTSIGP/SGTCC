@@ -1,9 +1,9 @@
 <tr>
-  <td class="text-center">
-    <div class="item-action dropdown">
-      <a data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-horizontal"></i></a>
+  <td> 
+      <div class="dropdown">
+      <%= link_to orientation.academic.name, external_members_supervision_path(orientation), class: 'academic-name-link', 'data-toggle': 'dropdown' %>
       <div class="dropdown-menu dropdown-menu-right" x-placement="top-end">
-
+      
         <%= link_to(external_members_supervision_path(orientation), class: 'dropdown-item') do %>
           <i class="fe fe-search"></i> Detalhes da orientação
         <% end %>
@@ -16,8 +16,7 @@
           <i class="fe fe-file"></i> Visualizar documentos
         <% end %>
       </div>
-    </div>
   </td>
 
-  <%= render('shared/orientations/tbody', orientation: orientation, show_path: external_members_supervision_path(orientation)) %>
+  <%= render('shared/orientations/tbody', orientation: orientation) %>
 </tr>
