@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 import ProfessorsRanking from './professors/professors-ranking';
 import ProfessorsReport from './professors/professors-report';
 import OrientationsReport from './orientations/orientations-report';
@@ -32,7 +31,7 @@ export default {
     AcademicsReport,
     OrientationsReport,
     ProfessorsRanking,
-    ProfessorsReport
+    ProfessorsReport,
   },
 
   data() {
@@ -55,5 +54,4 @@ export default {
     },
   },
 };
-
 </script>
