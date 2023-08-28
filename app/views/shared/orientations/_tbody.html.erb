@@ -1,11 +1,4 @@
-<td><%= orientation.academic.ra %></td>
-<td>
-  <span data-toggle="tooltip" title="<%= orientation.title %>">
-    <%= orientation.short_title %>
-  </span>
-</td>
-<td><%= orientation.advisor.name %></td>
-<td class="text-center">
+<td style="position: relative; left: 20px;">
   <span data-toggle="tooltip" title="<%= orientation.status %>">
     <orientation-status
       :index="true"
@@ -13,6 +6,14 @@
       status="<%= Orientation.statuses[orientation.status] %>" />
   </span>
 </td>
+<td><%= link_to orientation.academic.name, show_path %></td>
+<td><%= orientation.academic.ra %></td>
+<td>
+  <span data-toggle="tooltip" title="<%= orientation.title %>">
+    <%= orientation.short_title %>
+  </span>
+</td>
+<td><%= orientation.advisor.name %></td>
 <td>
   <ul class="list-unstyled">
     <% orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>

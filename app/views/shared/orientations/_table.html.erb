@@ -2,11 +2,12 @@
   <table class="table card-table table-vcenter text-nowrap">
     <thead>
       <tr>
+        <th>#</th>
+        <th><%= Orientation.human_attribute_name('status') %></th>
         <th><%= Orientation.human_attribute_name('academic') %></th>
         <th><%= Orientation.human_attribute_name('ra') %></th>
         <th><%= Orientation.human_attribute_name('title') %></th>
         <th><%= Orientation.human_attribute_name('advisor') %></th>
-        <th><%= Orientation.human_attribute_name('status') %></th>
         <th><%= Orientation.human_attribute_name('calendars') %></th>
       </tr>
     </thead>

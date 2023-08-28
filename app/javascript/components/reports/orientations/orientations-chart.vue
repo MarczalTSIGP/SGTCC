@@ -17,23 +17,22 @@
 </template>
 
 <script>
-
 import VueApexCharts from 'vue-apexcharts';
 
 export default {
   name: 'OrientationChart',
 
-  components: { 'apexchart': VueApexCharts },
+  components: { apexchart: VueApexCharts },
 
   props: {
     data: {
       type: Object,
-      required: true
+      required: true,
     },
 
     title: {
       type: String,
-      required: true
+      required: true,
     },
   },
 
@@ -56,22 +55,24 @@ export default {
           },
         },
         dataLabels: {
-          formatter: (val, { seriesIndex, w}) => {
+          formatter: (val, { seriesIndex, w }) => {
             return w.config.series[seriesIndex];
           },
         },
-        responsive: [{
-          breakpoint: 1000,
-          options: {
-            chart: {
-              width: 200
+        responsive: [
+          {
+            breakpoint: 1000,
+            options: {
+              chart: {
+                width: 200,
+              },
+              legend: {
+                position: 'bottom',
+              },
             },
-            legend: {
-              position: 'bottom',
-            },
-          }
-        }]
-      }
+          },
+        ],
+      },
     };
   },
 
@@ -84,10 +85,12 @@ export default {
     setSeries() {
       const orientations = this.data;
 
-      this.series = [orientations.in_progress,
+      this.series = [
+        orientations.in_progress,
         orientations.approved,
         orientations.renewed,
-        orientations.canceled];
+        orientations.canceled,
+      ];
     },
 
     setTitle() {
@@ -95,5 +98,4 @@ export default {
     },
   },
 };
-
 </script>

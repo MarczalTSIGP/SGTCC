@@ -33,20 +33,19 @@
 </template>
 
 <script>
-
 import CardReportNumber from '../card-report-number';
 
 export default {
   name: 'ProfessorsReport',
 
   components: {
-    CardReportNumber
+    CardReportNumber,
   },
 
   props: {
     professors: {
       type: Object,
-      required: true
+      required: true,
     },
   },
 
@@ -56,5 +55,4 @@ export default {
     };
   },
 };
-
 </script>
