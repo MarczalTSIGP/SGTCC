@@ -47,3 +47,5 @@ yarn-debug.log*
 .yarn-integrity
 
 reload.sh
+
+/htmlbeautifier

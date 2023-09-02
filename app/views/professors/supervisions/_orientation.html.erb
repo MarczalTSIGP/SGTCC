@@ -1,23 +1,23 @@
 <tr>
-  <td class="text-left">  
-       <div class="dropdown">
+   <td class="text-left">
+      <div class="dropdown">
          <%= link_to orientation.academic.name, professors_supervision_path(orientation), class: 'academic-name-link', 'data-toggle': 'dropdown' %>
          <div class="dropdown-menu dropdown-menu-right" x-placement="top-end">
 
-        <%= link_to(professors_supervision_path(orientation), class: 'dropdown-item') do %>
-          <i class="fe fe-search"></i> Detalhes da orientação
-        <% end %>
+            <%= link_to(professors_supervision_path(orientation), class: 'dropdown-item') do %>
+               <i class="fe fe-search"></i> Detalhes da orientação
+            <% end %>
 
-        <%= link_to(professors_supervision_calendar_activities_path(orientation, orientation.current_calendar), class: 'dropdown-item') do %>
-          <i class="far fa-file-alt"></i> Visualizar atividades
-        <% end %>
+            <%= link_to(professors_supervision_calendar_activities_path(orientation, orientation.current_calendar), class: 'dropdown-item') do %>
+               <i class="far fa-file-alt"></i> Visualizar atividades
+            <% end %>
 
-        <%= link_to(professors_supervision_documents_path(orientation), class: 'dropdown-item') do %>
-          <i class="fe fe-file"></i> Visualizar documentos
-        <% end %>
+            <%= link_to(professors_supervision_documents_path(orientation), class: 'dropdown-item') do %>
+               <i class="fe fe-file"></i> Visualizar documentos
+            <% end %>
+
+         </div>
       </div>
-    </div>
-  </td>
-
-  <%= render('shared/orientations/tbody', orientation: orientation) %>
+   </td>
+   <%= render('shared/orientations/tbody', orientation: orientation) %>
 </tr>

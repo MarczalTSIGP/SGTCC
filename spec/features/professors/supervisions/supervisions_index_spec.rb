@@ -26,6 +26,15 @@ describe 'Supervision::index', type: :feature do
         end
 
         expect(page).to have_selector("a[href='#{index_url}'].active")
+
+        find('.academic-name-link').click
+        expect(page).to have_link('Detalhes da orientação',
+                                  href: professors_supervision_path(orientation))
+        expect(page).to have_link('Visualizar atividades',
+                                  href: professors_supervision_calendar_activities_path(orientation,
+                                                                                        orientation.current_calendar))
+        expect(page).to have_link('Visualizar documentos',
+                                  href: professors_supervision_documents_path(orientation))
       end
     end
 
