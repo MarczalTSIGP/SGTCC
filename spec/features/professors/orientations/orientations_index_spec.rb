@@ -34,7 +34,8 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'clicks on academic name and shows "Detalhes da orientação" link' do
-        find('.academic-name-link').click
+        orientation_link = "a[href='#{professors_orientation_path(orientation)}']"
+        find(orientation_link).click
 
         expect(page).to have_link(
           'Detalhes da orientação',
@@ -43,7 +44,8 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'clicks on academic name and shows "Visualizar atividades" link' do
-        find('.academic-name-link').click
+        orientation_link = "a[href='#{professors_orientation_path(orientation)}']"
+        find(orientation_link).click
 
         expect(page).to have_link(
           'Visualizar atividades',
@@ -54,7 +56,8 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'clicks on academic name and shows "Visualizar documentos" link' do
-        find('.academic-name-link').click
+        orientation_link = "a[href='#{professors_orientation_path(orientation)}']"
+        find(orientation_link).click
 
         expect(page).to have_link(
           'Visualizar documentos',
@@ -63,7 +66,8 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'clicks on academic name and shows "Visualizar reuniões" link if available' do
-        find('.academic-name-link').click
+        orientation_link = "a[href='#{professors_orientation_path(orientation)}']"
+        find(orientation_link).click
 
         if orientation.meetings.any?
           expect(page).to have_link(
@@ -76,7 +80,8 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'clicks on academic name and shows "Editar" link if allowed' do
-        find('.academic-name-link').click
+        orientation_link = "a[href='#{professors_orientation_path(orientation)}']"
+        find(orientation_link).click
 
         if orientation.can_be_edited?
           expect(page).to have_link(

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Orientation::index', type: :feature do
   before do
     professor = create(:professor_tcc_one)
@@ -27,7 +29,11 @@ describe 'Orientation::index', type: :feature do
       end
 
       it 'shows links for more details' do
-        find('.academic-name-link').click
+        academic_link = page.find(
+          "a[href='#{tcc_one_professors_calendar_orientation_path(orientation)}']"
+        )
+        academic_link.click
+
         expect(page).to have_link('Detalhes',
                                   href: tcc_one_professors_calendar_orientation_path(
                                     orientation.current_calendar, orientation

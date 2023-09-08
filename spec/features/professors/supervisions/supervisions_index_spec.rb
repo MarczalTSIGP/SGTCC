@@ -36,7 +36,9 @@ describe 'Supervision::index', type: :feature do
     end
 
     it 'has links for details, activities, and documents' do
-      find('.academic-name-link').click
+      orientation_link = "a[href='#{professors_supervision_path(orientation)}']"
+      find(orientation_link).click
+
       expect(page).to have_link(
         'Detalhes da orientação',
         href: professors_supervision_path(orientation)
