@@ -7,46 +7,72 @@ describe 'Supervision::index', type: :feature do
     login_as(professor, scope: :professor)
   end
 
-  describe '#index', js: true do
-    context 'when shows all the supervisions of tcc one calendar' do
-      it 'shows all the supervisions of tcc one with options' do
-        orientation = create(:current_orientation_tcc_one)
-        orientation.professor_supervisors << professor
+  context 'when shows all the supervisions of tcc one calendar' do
+    let(:orientation) { create(:current_orientation_tcc_one) }
+    let(:index_url) { professors_supervisions_tcc_one_path }
 
-        index_url = professors_supervisions_tcc_one_path
-        visit index_url
+    before do
+      orientation.professor_supervisors << professor
+      visit index_url
+    end
 
-        expect(page).to have_content(orientation.short_title)
-        expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_link(orientation.academic.name,
-                                  href: professors_supervision_path(orientation))
+    it 'shows the orientation information' do
+      expect(page).to have_content(orientation.short_title)
+      expect(page).to have_content(orientation.advisor.name)
+      expect(page).to have_link(
+        orientation.academic.name,
+        href: professors_supervision_path(orientation)
+      )
+    end
 
-        orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
-        end
-
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+    it 'shows the calendar information' do
+      orientation.calendars.each do |calendar|
+        expect(page).to have_content(calendar.year_with_semester_and_tcc)
       end
     end
 
-    context 'when shows all the supervisions of tcc two calendar' do
-      it 'shows all the supervisions of tcc two with options' do
-        orientation = create(:current_orientation_tcc_two)
-        orientation.professor_supervisors << professor
+    it 'displays active link' do
+      expect(page).to have_selector("a[href='#{index_url}'].active")
+    end
 
-        index_url = professors_supervisions_tcc_two_path
-        visit index_url
+    it 'has links for details, activities, and documents' do
+      orientation_link = "a[href='#{professors_supervision_path(orientation)}']"
+      find(orientation_link).click
 
-        expect(page).to have_content(orientation.short_title)
-        expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_content(orientation.academic.name)
+      expect(page).to have_link(
+        'Detalhes da orientação',
+        href: professors_supervision_path(orientation)
+      )
+      expect(page).to have_link(
+        'Visualizar atividades',
+        href: professors_supervision_calendar_activities_path(
+          orientation, orientation.current_calendar
+        )
+      )
+      expect(page).to have_link(
+        'Visualizar documentos',
+        href: professors_supervision_documents_path(orientation)
+      )
+    end
+  end
 
-        orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
-        end
+  context 'when shows all the supervisions of tcc two calendar' do
+    it 'shows all the supervisions of tcc two with options' do
+      orientation = create(:current_orientation_tcc_two)
+      orientation.professor_supervisors << professor
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+      index_url = professors_supervisions_tcc_two_path
+      visit index_url
+
+      expect(page).to have_content(orientation.short_title)
+      expect(page).to have_content(orientation.advisor.name)
+      expect(page).to have_content(orientation.academic.name)
+
+      orientation.calendars.each do |calendar|
+        expect(page).to have_content(calendar.year_with_semester_and_tcc)
       end
+
+      expect(page).to have_selector("a[href='#{index_url}'].active")
     end
   end
 end

@@ -11,10 +11,10 @@ body {
   color: transparent;
 }
 
-table.no-table-padding-horizontal {
-  td:first-child,
-  th:first-child {
-    padding-left: 0;
-    padding-right: 0;
+.table-responsive {
+  min-height: 200px;
+
+  .table tr td ul {
+    margin-bottom: 0;
   }
 }
