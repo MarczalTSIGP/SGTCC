@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="load"
-    class="row"
-  >
+  <div v-if="load" class="row">
     <div class="col-12">
       <academics-report :academics="report.academics" />
     </div>
@@ -31,14 +28,14 @@ export default {
     AcademicsReport,
     OrientationsReport,
     ProfessorsRanking,
-    ProfessorsReport,
+    ProfessorsReport
   },
 
   data() {
     return {
       url: '/responsible/reports',
       load: false,
-      report: {},
+      report: {}
     };
   },
 
@@ -51,7 +48,7 @@ export default {
       const report = await this.$axios.get(this.url);
       this.report = report.data;
       this.load = true;
-    },
-  },
+    }
+  }
 };
 </script>
