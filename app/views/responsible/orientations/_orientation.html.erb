@@ -1,49 +1,49 @@
 <tr>
-   <td class="text-left">
-      <div class="dropdown">
-         <%= link_to orientation.academic.name, responsible_orientation_path(orientation), 'data-toggle': 'dropdown' %>
-         <div class="dropdown-menu dropdown-menu-right" x-placement="top-end">
+   <%= render('shared/orientations/tbody', orientation: orientation) do %>
+      <td class="text-left">
+         <div class="dropdown">
+            <%= link_to orientation.academic.name, responsible_orientation_path(orientation), 'data-toggle': 'dropdown' %>
+            <div class="dropdown-menu ]dropdown-menu-right" x-placement="top-end">
 
-            <%= link_to(responsible_orientation_path(orientation), class: 'dropdown-item') do %>
-               <i class="dropdown-icon fa fa-info"></i> Detalhes da orientação
-            <% end %>
-
-            <%= link_to(responsible_orientation_calendar_activities_path(orientation, orientation.current_calendar), class: 'dropdown-item') do %>
-               <i class="dropdown-icon far fa-file-alt"></i> Atividades da orientação
-            <% end %>
-
-            <% unless orientation.meetings.empty? %>
-               <%= link_to(professors_orientation_meetings_path(orientation), class: 'dropdown-item') do %>
-                  <i class="dropdown-icon fe fe-clipboard"></i> Reuniões da orientação
+               <%= link_to(responsible_orientation_path(orientation), class: 'dropdown-item') do %>
+                  <i class="dropdown-icon fa fa-info"></i> Detalhes da orientação
                <% end %>
-            <% end %>
-            <% unless orientation.documents.empty? %>
-               <%= link_to(responsible_orientation_documents_path(orientation), class: 'dropdown-item') do %>
-                  <i class="dropdown-icon fe fe-file"></i> Documentos da orientação
+
+               <%= link_to(responsible_orientation_calendar_activities_path(orientation, orientation.current_calendar), class: 'dropdown-item') do %>
+                  <i class="dropdown-icon far fa-file-alt"></i> Atividades da orientação
                <% end %>
-            <% end %>
 
-            <% if orientation.can_be_edited? || orientation.can_be_destroyed? %>
-               <div class="dropdown-divider"></div>
-            <% end %>
-
-            <% if orientation.can_be_edited? %>
-               <%= link_to(edit_responsible_orientation_path(orientation), class: 'dropdown-item') do %>
-                  <i class="dropdown-icon fe fe-edit"></i> Editar
+               <% unless orientation.meetings.empty? %>
+                  <%= link_to(professors_orientation_meetings_path(orientation), class: 'dropdown-item') do %>
+                     <i class="dropdown-icon fe fe-clipboard"></i> Reuniões da orientação
+                  <% end %>
                <% end %>
-            <% end %>
+               <% unless orientation.documents.empty? %>
+                  <%= link_to(responsible_orientation_documents_path(orientation), class: 'dropdown-item') do %>
+                     <i class="dropdown-icon fe fe-file"></i> Documentos da orientação
+                  <% end %>
+               <% end %>
 
-            <% if orientation.can_be_destroyed? %>
-               <%= link_to responsible_orientation_path(orientation),
+               <% if orientation.can_be_edited? || orientation.can_be_destroyed? %>
+                  <div class="dropdown-divider"></div>
+               <% end %>
+
+               <% if orientation.can_be_edited? %>
+                  <%= link_to(edit_responsible_orientation_path(orientation), class: 'dropdown-item') do %>
+                     <i class="dropdown-icon fe fe-edit"></i> Editar
+                  <% end %>
+               <% end %>
+
+               <% if orientation.can_be_destroyed? %>
+                  <%= link_to responsible_orientation_path(orientation),
             method: :delete,
             data: { confirm: t('prompt.confirm') },
             class: 'destroy dropdown-item' do %>
-                  <i class="dropdown-icon fe fe-trash"></i> Remover
+                     <i class="dropdown-icon fe fe-trash"></i> Remover
+                  <% end %>
                <% end %>
-            <% end %>
-
+            </div>
          </div>
-      </div>
-   </td>
-   <%= render('shared/orientations/tbody', orientation: orientation) %>
+      </td>
+   <% end %>
 </tr>

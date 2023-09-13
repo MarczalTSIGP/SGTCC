@@ -77,7 +77,7 @@ const components = {
   TermOfAbandonment,
   TermOfAcceptInstitution,
   TermOfExtension,
-  TermOfSubstitution,
+  TermOfSubstitution
 };
 
 export { components };
