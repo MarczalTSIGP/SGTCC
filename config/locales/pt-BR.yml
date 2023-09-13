@@ -15,7 +15,7 @@ pt-BR:
       pdf: 'Arquivo no formato pdf'
       zip: 'Arquivo no formato .zip'
     note:
-      between: 'O valor da nota deve ser entre 1-100'
+      between: 'O valor da nota deve ser entre 0-100'
   messages:
     examination_board:
       evaluated_status:
