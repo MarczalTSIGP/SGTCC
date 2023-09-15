@@ -10,19 +10,18 @@
 </template>
 
 <script>
-
 import VueApexCharts from 'vue-apexcharts';
 
 export default {
   name: 'OrientationLineChart',
 
-  components: { 'apexchart': VueApexCharts },
+  components: { apexchart: VueApexCharts },
 
   props: {
     data: {
       type: Array,
       required: true
-    },
+    }
   },
 
   data() {
@@ -42,9 +41,9 @@ export default {
             show: false
           }
         },
-        colors: ['#00E396', '#ecf0f1', '#008FFB','#FEB019', '#FF4560'],
+        colors: ['#00E396', '#ecf0f1', '#008FFB', '#FEB019', '#FF4560'],
         dataLabels: {
-          enabled: true,
+          enabled: true
         },
         stroke: {
           curve: 'smooth'
@@ -58,7 +57,7 @@ export default {
           row: {
             colors: ['#f3f3f3', 'transparent'],
             opacity: 0.5
-          },
+          }
         },
         markers: {
           size: 6
@@ -74,9 +73,9 @@ export default {
             text: 'Nº de orientações'
           },
           labels: {
-            formatter: function (val) {
+            formatter: function(val) {
               return parseInt(val);
-            },
+            }
           },
           tickAmount: 3,
           min: 0,
@@ -101,7 +100,7 @@ export default {
 
   methods: {
     setSeries() {
-      this.series = this.data.map((item) => {
+      this.series = this.data.map(item => {
         return { name: item.label, data: item.data.total };
       });
     },
@@ -123,14 +122,14 @@ export default {
     getAllValues() {
       let values = [];
 
-      this.data.forEach((item) => {
-        item.data.total.forEach((value) => {
+      this.data.forEach(item => {
+        item.data.total.forEach(value => {
           values.push(value);
         });
       });
 
       return values;
-    },
-  },
+    }
+  }
 };
 </script>

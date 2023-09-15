@@ -9,10 +9,7 @@
         :series="series"
       />
     </div>
-    <a
-      ref="redirect"
-      href="#"
-    />
+    <a ref="redirect" href="#" />
   </div>
 </template>
 
@@ -27,13 +24,13 @@ export default {
   props: {
     data: {
       type: Object,
-      required: true,
+      required: true
     },
 
     title: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
@@ -42,7 +39,7 @@ export default {
       chartOptions: {
         labels: ['Em andamento', 'Aprovadas', 'Renovadas', 'Canceladas'],
         legend: {
-          position: 'right',
+          position: 'right'
         },
         title: {},
         chart: {
@@ -51,28 +48,28 @@ export default {
               const link = this.$refs.redirect;
               link.href = this.data.links[seriesIndex];
               link.click();
-            },
-          },
+            }
+          }
         },
         dataLabels: {
           formatter: (val, { seriesIndex, w }) => {
             return w.config.series[seriesIndex];
-          },
+          }
         },
         responsive: [
           {
             breakpoint: 1000,
             options: {
               chart: {
-                width: 200,
+                width: 200
               },
               legend: {
-                position: 'bottom',
-              },
-            },
-          },
-        ],
-      },
+                position: 'bottom'
+              }
+            }
+          }
+        ]
+      }
     };
   },
 
@@ -89,13 +86,13 @@ export default {
         orientations.in_progress,
         orientations.approved,
         orientations.renewed,
-        orientations.canceled,
+        orientations.canceled
       ];
     },
 
     setTitle() {
       this.chartOptions.title.text = `${this.data.total} ${this.title}`;
-    },
-  },
+    }
+  }
 };
 </script>
