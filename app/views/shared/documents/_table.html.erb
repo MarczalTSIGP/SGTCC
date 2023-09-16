@@ -16,7 +16,7 @@
 
     <tbody>
       <tr>
-        <%= render('shared/no_results') if @documents.empty? %>
+        <%= render('shared/no_results') if @documents.empty? %> 
       </tr>
       <%= render partial: 'document', collection: @documents %>
     </tbody>
