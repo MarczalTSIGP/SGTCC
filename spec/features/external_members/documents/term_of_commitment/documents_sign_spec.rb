@@ -9,7 +9,7 @@ describe 'Document::sign', type: :feature, js: true do
 
   before do
     login_as(external_member, scope: :external_member)
-    visit external_members_document_path(Document.first)
+    visit external_members_document_path(orientation.tco)
   end
 
   describe '#sign' do

@@ -7,7 +7,7 @@ describe 'Document::sign', type: :feature, js: true do
 
   before do
     login_as(professor, scope: :professor)
-    visit professors_document_path(Document.first)
+    visit professors_document_path(orientation.tco)
   end
 
   describe '#sign' do
