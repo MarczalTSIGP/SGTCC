@@ -1,29 +1,61 @@
-module Responsible::OrientationsHelper 
+module Responsible::OrientationsHelper
   def dropdown_links(orientation)
     dropdown_links = []
-    dropdown_links << { name: :details, path: responsible_orientation_path(orientation) }
-    dropdown_links << { name: :activities, path: responsible_orientation_calendar_activities_path(orientation, orientation.current_calendar) }
-    
-    if orientation.meetings.present?
-      dropdown_links << { name: :meetings, path: professors_orientation_meetings_path(orientation) } 
-    end
 
-    if orientation.documents.empty?
-      dropdown_links << { name: :documents, path: responsible_orientation_documents_path(orientation) } 
-    end
+    dropdown_links << details_link(orientation)
+    dropdown_links << activities_link(orientation)
+    dropdown_links << meetings_link(orientation)
+    dropdown_links << documents_link(orientation)
+    dropdown_links << divider_link(orientation)
+    dropdown_links << edit_link(orientation)
+    dropdown_links << delete_link(orientation)
 
-    if (orientation.can_be_edited? || orientation.can_be_destroyed?)
-      dropdown_links << { name: :divider }
-    end
-
-    if orientation.can_be_edited?
-        dropdown_links << { name: :edit, path: edit_responsible_orientation_path(orientation) }
-    end
-    
-    if orientation.can_be_destroyed?
-      dropdown_links << { name: :delete, path: responsible_orientation_path(orientation) }
-    end
-    
     dropdown_links
+  end
+
+  private
+
+  def details_link(orientation)
+    { name: :details, path: responsible_orientation_path(orientation) }
+  end
+
+  def activities_link(orientation)
+    {
+      name: :activities,
+      path: responsible_orientation_calendar_activities_path(
+        orientation,
+        orientation.current_calendar
+      )
+    }
+  end
+
+  def meetings_link(orientation)
+    return if orientation.meetings.blank?
+
+    { name: :meetings, path: professors_orientation_meetings_path(orientation) }
+  end
+
+  def documents_link(orientation)
+    return if orientation.documents.blank?
+
+    { name: :documents, path: responsible_orientation_documents_path(orientation) }
+  end
+
+  def divider_link(orientation)
+    return unless orientation.can_be_edited? || orientation.can_be_destroyed?
+
+    { name: :divider }
+  end
+
+  def edit_link(orientation)
+    return unless orientation.can_be_edited?
+
+    { name: :edit, path: edit_responsible_orientation_path(orientation) }
+  end
+
+  def delete_link(orientation)
+    return unless orientation.can_be_destroyed?
+
+    { name: :delete, path: responsible_orientation_path(orientation) }
   end
 end
