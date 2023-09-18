@@ -1,23 +1,6 @@
 <tr>
-  <td class="text-center">
-    <div class="item-action dropdown">
-      <a data-toggle="dropdown" class="icon" ><i class="fe fe-more-horizontal"></i></a>
-      <div class="dropdown-menu dropdown-menu-right" x-placement="top-end">
-
-        <%= link_to(tcc_one_professors_calendar_orientation_path(@calendar, orientation), class: 'dropdown-item') do %>
-          <i class="fe fe-search"></i> Detalhes
-        <% end %>
-
-        <%= link_to(tcc_one_professors_calendar_orientation_activities_path(@calendar, orientation), class: 'dropdown-item') do %>
-          <i class="far fa-file-alt"></i> Visualizar atividades
-        <% end %>
-
-        <%= link_to(tcc_one_professors_calendar_orientation_documents_path(@calendar, orientation), class: 'dropdown-item') do %>
-          <i class="fe fe-file"></i> Visualizar documentos
-        <% end %>
-
-        <%= render('shared/orientations/tbody', orientation: orientation, show_path: tcc_one_professors_calendar_orientation_path(@calendar, orientation)) %>
-      </div>
-    </div>
-  </td>
+  <%= render('shared/orientations/tbody',
+              orientation: orientation,
+              show_path: tcc_one_professors_calendar_orientation_path(@calendar, orientation),
+              dropdown_links: dropdown_links(orientation))  %>
 </tr>
