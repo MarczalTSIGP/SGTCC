@@ -39,7 +39,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   def update
     if @activity.update(activity_params)
       feminine_success_update_message
-      redirect_to responsible_calendar_activity_path(@calendar, @activity)
+      redirect_to responsible_calendar_activities_path
     else
       error_message
       render :edit
