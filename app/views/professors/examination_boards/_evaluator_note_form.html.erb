@@ -8,7 +8,7 @@
    <div class="card-body">
       <%= simple_form_for(@examination_board_note, url: url) do |f| %>
          <div class="form-inputs">
-            <%= f.input :note, as: :range, hint: t('hints.note.between') %>
+            <%= f.input :note, as: :range_tabler, hint: t('hints.note.between') %>
          </div>
 
          <%= f.hidden_field :professor_id, value: current_professor.id %>
@@ -23,3 +23,13 @@
       <% end %>
    </div>
 </div>
+
+<script type="application/javascript">
+  const label = $('span.range-label').text() + ' ';
+  $(document).ready(function() {
+    $('#examination_board_note_note').on('input', function() {
+      $('span.range-label').text(label + $(this).val());
+    });
+  });
+
+</script>
