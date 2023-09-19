@@ -1,23 +1,22 @@
 class RangeTablerInput < SimpleForm::Inputs::Base
 
   def input(_wrapper_options)
-    template.concat span_tag
-    template.tag.label(class: 'custom-range') do
-      template.concat @builder.range_field(attribute_name, class: 'custom-range')
-    end
+    @builder.range_field(attribute_name, class: 'form-control-range')
   end
 
-  def span_tag
-    options[:field_name] ||= object.class.human_attribute_name(attribute_name)
-
-    template.tag.span(class: 'form-label range-label') do
-      options[:field_name]
+  def range_display
+    template.tag.p(class: 'range-display') do
+      ''
     end
   end
-
 
   def label(_wrapper_options)
-    ''
+    options[:field_name] ||= object.class.human_attribute_name(attribute_name)
+
+    template.tag.label(class: 'form-label range-label') do
+      template.concat options[:field_name] + ": " + object.note.to_s
+      template.concat range_display
+    end
   end
 
 end

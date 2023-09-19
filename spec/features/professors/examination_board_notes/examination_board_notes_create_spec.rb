@@ -14,9 +14,13 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
 
   describe '#created' do
     context 'when the note is valid' do
-      it 'create an note' do
+      it 'create a note with a random value on the slider' do
         attributes = attributes_for(:examination_board_note)
-        fill_in 'examination_board_note_note', with: attributes[:note]
+
+        random_note = rand(0..1)
+
+        find('#examination_board_note_note').set(random_note)
+
         submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path professors_examination_board_path(examination_board)
@@ -24,13 +28,13 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
       end
     end
 
-    context 'when the note is not valid' do
-      it 'show errors' do
-        submit_form('input[id="examination_board_note_button"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.examination_board_note_note')
-      end
-    end
+    # context 'when the note is not valid' do
+    #   it 'show errors' do
+    #     submit_form('input[id="examination_board_note_button"]')
+    #     expect(page).to have_flash(:danger, text: errors_message)
+    #     expect(page).to have_message(blank_error_message, in: 'div.examination_board_note_note')
+    #   end
+    # end
 
     context 'when the note cant be updated' do
       before do
@@ -44,12 +48,15 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
 
       it 'redirect to the examination board page' do
         attributes = attributes_for(:examination_board_note)
-        fill_in 'examination_board_note_note', with: attributes[:note]
+
+        random_note = rand(0..1)
+
+        find('#examination_board_note_note').set(random_note)
+
         submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path professors_examination_board_path(examination_board)
-        expect(page).to have_flash(:warning,
-                                   text: I18n.t('flash.examination_board_note.errors.edit'))
+        expect(page).to have_flash(:warning, text: I18n.t('flash.examination_board_note.errors.edit'))
       end
     end
   end
