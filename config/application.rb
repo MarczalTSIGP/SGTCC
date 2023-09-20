@@ -28,6 +28,8 @@ module SistemaGestaoTcc
 
     config.active_record.schema_format = :sql
 
+    config.action_controller.include_all_helpers = false
+
     ENV.update YAML.load_file('config/application.yml')[Rails.env]
   end
 end
