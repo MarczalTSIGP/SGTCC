@@ -2,5 +2,5 @@
   <%= render('shared/orientations/tbody',
               orientation: orientation,
               show_path: professors_orientation_path(orientation),
-              dropdown_links: dropdown_links(orientation))  %>
+              dropdown_links: Orientations::Links::ProfessorsService.perform(orientation))  %>
 </tr>

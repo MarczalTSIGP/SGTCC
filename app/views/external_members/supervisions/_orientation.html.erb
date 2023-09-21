@@ -2,5 +2,5 @@
   <%= render('shared/orientations/tbody',
               orientation: orientation,
               show_path: external_members_supervision_path(orientation),
-              dropdown_links: dropdown_links(orientation))  %>
+              dropdown_links: Orientations::Links::ExternalMembersService.perform(orientation))  %>
 </tr>
