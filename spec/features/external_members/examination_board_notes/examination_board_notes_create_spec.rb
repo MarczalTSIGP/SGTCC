@@ -27,14 +27,6 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
       end
     end
 
-    # context 'when the note is not valid' do
-    #   it 'show errors' do
-    #     submit_form('input[id="examination_board_note_button"]')
-    #     expect(page).to have_flash(:danger, text: errors_message)
-    #     expect(page).to have_message(blank_error_message, in: 'div.examination_board_note_note')
-    #   end
-    # end
-
     context 'when the note cant be updated' do
       before do
         examination_board.create_defense_minutes
