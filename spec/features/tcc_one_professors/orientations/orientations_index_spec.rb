@@ -29,7 +29,8 @@ describe 'Orientation::index', type: :feature do
 
       it 'shows links for more details' do
         academic_link = page.find(
-          "a[href='#{tcc_one_professors_calendar_orientation_path(orientation.current_calendar, orientation)}']"
+          "a[href='#{tcc_one_professors_calendar_orientation_path(orientation.current_calendar,
+                                                                  orientation)}']"
         )
         academic_link.click
 
