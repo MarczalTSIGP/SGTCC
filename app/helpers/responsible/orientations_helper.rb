@@ -1,2 +1,0 @@
-module Responsible::OrientationsHelper
-end

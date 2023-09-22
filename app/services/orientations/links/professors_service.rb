@@ -22,7 +22,7 @@ class Orientations::Links::ProfessorsService < Orientations::Links::BaseService
   end
 
   def documents
-    return unless @orientation.documents.empty?
+    return if @orientation.documents.empty?
 
     @links << { name: :documents,
                 path: @route.professors_orientation_documents_path(@orientation) }

@@ -1,4 +1,4 @@
-class Supervison::Links::ProfessorsService < Orientations::Links::BaseService
+class Orientations::Links::SupervisionService < Orientations::Links::BaseService
   def setup_links
     details
     activities
@@ -20,7 +20,7 @@ class Supervison::Links::ProfessorsService < Orientations::Links::BaseService
   end
 
   def documents
-    return unless @orientation.documents.empty?
+    return if @orientation.documents.empty?
 
     @links << { name: :documents,
                 path: @route.professors_supervision_documents_path(@orientation) }

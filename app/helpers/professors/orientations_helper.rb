@@ -1,2 +1,0 @@
-module Professors::OrientationsHelper
-end

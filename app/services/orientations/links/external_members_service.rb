@@ -24,7 +24,7 @@ class Orientations::Links::ExternalMembersService < Orientations::Links::BaseSer
   end
 
   def documents
-    return unless @orientation.documents.empty?
+    return if @orientation.documents.empty?
 
     @links << {
       name: :documents,

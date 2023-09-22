@@ -26,7 +26,7 @@ class Orientations::Links::TccOneProfessorsService < Orientations::Links::BaseSe
   end
 
   def documents
-    return unless @orientation.documents.empty?
+    return if @orientation.documents.empty?
 
     @links << {
       name: :documents,
