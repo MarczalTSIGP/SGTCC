@@ -9,7 +9,10 @@
         :series="series"
       />
     </div>
-    <a ref="redirect" href="#" />
+    <a
+      ref="redirect"
+      href="#"
+    />
   </div>
 </template>
 

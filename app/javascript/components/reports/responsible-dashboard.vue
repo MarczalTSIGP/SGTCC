@@ -1,5 +1,8 @@
 <template>
-  <div v-if="load" class="row">
+  <div
+    v-if="load"
+    class="row"
+  >
     <div class="col-12">
       <academics-report :academics="report.academics" />
     </div>
