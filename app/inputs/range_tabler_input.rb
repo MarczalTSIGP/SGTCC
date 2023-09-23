@@ -1,7 +1,6 @@
 class RangeTablerInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
-    default_value = object[attribute_name] || 0
-    @builder.range_field(attribute_name, class: 'form-control-range', value: default_value)
+    @builder.range_field(attribute_name, class: 'form-control-range', value: 50, max: 100, min: 0)
   end
 
   def range_display
