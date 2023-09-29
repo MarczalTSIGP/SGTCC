@@ -1,22 +1,33 @@
 <% provide(:head_title, @page.menu_title) %>
 
 <h2 class="mb-5">
-  <%= t('breadcrumbs.examination_boards.proposal',
-        calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
+  <%= t('site.pages.examination_boards.defense', calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
 </h2>
 
-<%= render('site/examination_boards/table', examination_boards: @proposal_examination_boards) %>
+<ul class="nav nav-tabs" id="tabs" role="tablist">
+  <% tab_data = [
+    { id: 'proposal', label: 'Proposta', examination_boards: @proposal_examination_boards },
+    { id: 'project', label: 'Projeto', examination_boards: @project_examination_boards },
+    { id: 'monograph', label: 'Monografia', examination_boards: @monograph_examination_boards }
+  ] %>
 
-<h2 class="mb-5">
-  <%= t('breadcrumbs.examination_boards.project',
-        calendar: Calendar&.current_by_tcc_one.year_with_semester) %>
-</h2>
+  <% tab_data.each do |tab| %>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if tab[:id] == 'proposal' %>"
+                          id="<%= tab[:id] %>-tab" data-toggle="tab"
+                          href="#<%= tab[:id] %>" role="tab"
+                          aria-controls="<%= tab[:id] %>" aria-selected="<%= tab[:id] == 'proposal' %>">
+      <%= tab[:label] %>
+      </a>
+    </li>
+  <% end %>
+</ul>
 
-<%= render('site/examination_boards/table', examination_boards: @project_examination_boards) %>
-
-<h2 class="mb-5">
-  <%= t('breadcrumbs.examination_boards.monograph',
-        calendar: Calendar&.current_by_tcc_two.year_with_semester) %>
-</h2>
-
-<%= render('site/examination_boards/table', examination_boards: @monograph_examination_boards) %>
+<div class="tab-content" id="tabContent">
+  <% tab_data.each do |tab| %>
+    <div class="tab-pane fade <%= ' show active' if tab[:id] == 'proposal' %>"
+                              id="<%= tab[:id] %>" role="tabpanel" aria-labelledby="<%= tab[:id] %>-tab">
+      <%= render('site/examination_boards/table', examination_boards: tab[:examination_boards]) %>
+    </div>
+  <% end %>
+</div>
