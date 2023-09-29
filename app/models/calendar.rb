@@ -113,15 +113,28 @@ class Calendar < ApplicationRecord
 
   def clone_base_activities
     base_activities = BaseActivity.where(tcc: tcc)
-    base_activities.each { |base_activity| create_activity(base_activity) }
+    interval =  tcc == 1  ? 10.days : 30.days
+    month = Calendar.current_semester == 'one' ? 'mar' : 'aug'
+    initial_date = Time.zone.parse("#{month} 01 00:00:00 #{Calendar.current_year}")
+    final_date = initial_date + interval  + 23.hours + 59.minutes
+    base_activities.each do |base_activity| 
+      create_activity(base_activity, initial_date, final_date) 
+      initial_date += interval + 1.days
+      final_date = initial_date + interval + 23.hours + 59.minutes
+    end
   end
 
-  def create_activity(activity)
-    current_time = Time.current
-    activities.create(name: activity.name, tcc: activity.tcc,
-                      calendar_id: id, base_activity_type_id: activity.base_activity_type_id,
-                      judgment: activity&.judgment, identifier: activity&.identifier,
-                      initial_date: current_time, final_date: current_time,
-                      final_version: activity&.final_version)
+  def create_activity(activity, initial_date, final_date)
+    activities.create(
+      name: activity.name,
+      tcc: activity.tcc,
+      calendar_id: id,
+      base_activity_type_id: activity.base_activity_type_id,
+      judgment: activity&.judgment,
+      identifier: activity&.identifier,
+      initial_date: initial_date,
+      final_date: final_date,
+      final_version: activity&.final_version
+      )
   end
 end
