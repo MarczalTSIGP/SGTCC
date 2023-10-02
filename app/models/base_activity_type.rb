@@ -3,6 +3,8 @@ class BaseActivityType < ApplicationRecord
 
   has_many :base_activities, dependent: :destroy
 
+  validates :identifier, presence: true
+
   enum identifier: {
     send_document: 'send_document',
     info: 'info'

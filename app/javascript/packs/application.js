@@ -17,6 +17,7 @@ import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
 import fileInput from '../initializers/file-input';
+import hideShowFields from '../initializers/hide-show-fields';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
@@ -56,7 +57,8 @@ document.addEventListener('turbolinks:load', () => {
       menu,
       selectize,
       sidebarScroll,
-      tooltip
+      tooltip,
+      hideShowFields
     ],
   });
 });
