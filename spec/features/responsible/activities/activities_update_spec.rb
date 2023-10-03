@@ -21,11 +21,10 @@ describe 'Activity::update', type: :feature, js: true do
         selectize(attributes[:base_activity_type].name, from: 'activity_base_activity_type_id')
         submit_form('input[name="commit"]')
 
-        current_path = responsible_calendar_activity_path(activity.calendar, activity)
+        current_path = responsible_calendar_activities_path(activity.calendar)
         expect(page).to have_current_path current_path
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_contents([attributes[:name],
-                                       attributes[:base_activity_type].name])
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
     end
 

@@ -29,7 +29,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
 
     if @activity.save
       feminine_success_create_message
-      redirect_to responsible_calendar_activities_path
+      redirect_to responsible_calendar_activities_path(@calendar)
     else
       error_message
       render :new
@@ -39,7 +39,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
   def update
     if @activity.update(activity_params)
       feminine_success_update_message
-      redirect_to responsible_calendar_activity_path(@calendar, @activity)
+      redirect_to responsible_calendar_activities_path(@calendar)
     else
       error_message
       render :edit
