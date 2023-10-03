@@ -41,7 +41,7 @@ export default {
     return {
       series: [],
       chartOptions: {
-        labels: ['Em andamento', 'Aprovadas', 'Renovadas', 'Canceladas'],
+        labels: ['Em andamento', 'Aprovadas', 'Canceladas'],
         legend: {
           position: 'right',
         },
@@ -86,7 +86,6 @@ export default {
 
       this.series = [orientations.in_progress,
         orientations.approved,
-        orientations.renewed,
         orientations.canceled];
     },
 
