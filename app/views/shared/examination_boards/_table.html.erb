@@ -19,7 +19,7 @@
       <tr>
         <%= render('shared/no_results') if @examination_boards.empty? %>
       </tr>
-      <%= render @examination_boards %>
+      <%= render partial: "#{namespace}/examination_boards/examination_board", collection: @examination_boards %>
     </tbody>
   </table>
 </div>
