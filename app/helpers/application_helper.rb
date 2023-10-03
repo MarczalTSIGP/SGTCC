@@ -6,4 +6,8 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  def namespace
+    controller.class.parent.to_s.underscore.downcase
+  end
 end
