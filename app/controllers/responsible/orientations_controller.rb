@@ -1,6 +1,5 @@
 class Responsible::OrientationsController < Responsible::BaseController
   include Breadcrumb
-  include OrientationRenew
   include OrientationCancel
   include OrientationEdit
   include OrientationDestroy

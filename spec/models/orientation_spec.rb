@@ -77,13 +77,6 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '#renewed?' do
-    it 'returns if the orientation is renewed?' do
-      orientation = create(:orientation_renewed)
-      expect(orientation.renewed?).to eq(true)
-    end
-  end
-
   describe '#approved?' do
     it 'returns if the orientation is approved?' do
       orientation = create(:orientation_approved)
@@ -119,31 +112,11 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '#can_be_renewed?' do
-    it 'returns true' do
-      professor = create(:responsible)
-      orientation = create(:orientation_tcc_two)
-      expect(orientation.can_be_renewed?(professor)).to eq(true)
-    end
-
-    it 'returns false' do
-      professor = create(:professor)
-      orientation = create(:orientation_tcc_one)
-      expect(orientation.can_be_renewed?(professor)).to eq(false)
-    end
-  end
-
   describe '#can_be_canceled?' do
     it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
       expect(orientation.can_be_canceled?(professor)).to eq(true)
-    end
-
-    it 'returns false' do
-      professor = create(:responsible)
-      orientation = create(:orientation_canceled)
-      expect(orientation.can_be_renewed?(professor)).to eq(false)
     end
   end
 
@@ -358,22 +331,6 @@ RSpec.describe Orientation, type: :model do
         orientation = create(:orientation, advisor: advisor)
         results_search = described_class.search('JULIO')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
-      end
-    end
-  end
-
-  describe '#renew' do
-    context 'when the orientation is renewed' do
-      let!(:calendar) { create(:calendar_tcc_two, year: 2019, semester: 1) }
-      let!(:next_calendar) { create(:calendar_tcc_two, year: 2019, semester: 2) }
-      let!(:orientation) { create(:orientation) }
-
-      it 'added new calendar' do
-        orientation.calendars.clear
-        orientation.calendars << calendar
-
-        orientation.renew('Justification')
-        expect(orientation.calendars.last).to eq(next_calendar)
       end
     end
   end

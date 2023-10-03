@@ -49,7 +49,6 @@ class Dashboard::ResponsibleReport
     { total: Orientation.send(method, Orientation.statuses.values).count,
       in_progress: Orientation.send(method, 'IN_PROGRESS').count,
       approved: Orientation.send(method, 'APPROVED').count,
-      renewed: Orientation.send(method, 'RENEWED').count,
       canceled: Orientation.send(method, 'CANCELED').count,
       links: orientations_link(method) }
   end
