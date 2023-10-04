@@ -73,16 +73,13 @@
         </h3>
       </div>
       <div class="card-body">
-        <orientations-line-chart
-          :data="data.calendar_report"
-        />
+        <orientations-line-chart :data="data.calendar_report" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import OrientationsChart from './orientations-chart';
 import OrientationsLineChart from './orientations-line-chart';
 
@@ -91,13 +88,13 @@ export default {
 
   components: {
     OrientationsChart,
-    OrientationsLineChart
+    OrientationsLineChart,
   },
 
   props: {
     data: {
       type: Object,
-      required: true
+      required: true,
     },
   },
 
@@ -107,5 +104,4 @@ export default {
     },
   },
 };
-
 </script>

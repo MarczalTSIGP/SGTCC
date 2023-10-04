@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 import ProfessorsRanking from './professors/professors-ranking';
 import ProfessorsReport from './professors/professors-report';
 import OrientationsReport from './orientations/orientations-report';
@@ -39,7 +38,7 @@ export default {
     return {
       url: '/responsible/reports',
       load: false,
-      report: {},
+      report: {}
     };
   },
 
@@ -52,8 +51,7 @@ export default {
       const report = await this.$axios.get(this.url);
       this.report = report.data;
       this.load = true;
-    },
-  },
+    }
+  }
 };
-
 </script>

@@ -1,0 +1,12 @@
+<div class="item-action dropdown">
+   <%= link_to orientation.academic.name, show_path, "data-toggle" => "dropdown", "aria-expanded" => "false" %>
+
+   <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" x-out-of-boundaries="">
+
+      <% dropdown_links.each do |link| %>
+         <%= render partial: "shared/orientations/menu/links/#{link[:name]}",
+                    locals: { path: link[:path], orientation: orientation} %>
+      <% end %>
+
+   </div>
+</div>
