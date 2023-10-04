@@ -1,25 +1,34 @@
 <div class="card">
-  <div class="card-header">
-    <strong class="mr-1">
-      <%= t("views.title.notes.#{@examination_board.orientation.academic.gender}") %>:
-    </strong>
-    <%= @examination_board.orientation.academic.name %>
-  </div>
-  <div class="card-body">
-    <%= simple_form_for(@examination_board_note, url: url) do |f| %>
-      <div class="form-inputs">
-        <%= f.input :note, hint: t('hints.note.between') %>
-      </div>
+   <div class="card-header">
+      <strong class="mr-1">
+         <%= t("views.title.notes.#{@examination_board.orientation.academic.gender}") %>:
+      </strong>
+      <%= @examination_board.orientation.academic.name %>
+   </div>
+   <div class="card-body">
+      <%= simple_form_for(@examination_board_note, url: url) do |f| %>
+         <div class="form-inputs">
+            <%= f.input :note, as: :range_tabler, hint: t('hints.note.between') %>
+         </div>
 
-      <%= f.hidden_field :external_member_id, value: current_external_member.id %>
-      <%= f.hidden_field :examination_board_id, value: @examination_board.id %>
+         <%= f.hidden_field :external_member_id, value: current_external_member.id %>
+         <%= f.hidden_field :examination_board_id, value: @examination_board.id %>
 
-      <div class="d-flex mt-4">
-        <%= f.button :submit,
+         <div class="d-flex mt-4">
+            <%= f.button :submit,
           t('views.buttons.save'),
           id: 'examination_board_note_button',
           class: 'btn btn-primary ml-auto' %>
-      </div>
-    <% end %>
-  </div>
+         </div>
+      <% end %>
+   </div>
 </div>
+
+<script type="application/javascript">
+  const label = $('label.range-label').text() + ': ';
+  $(document).ready(function() {
+    $('#examination_board_note_note').on('input', function() {
+      $('label.range-label').text(label + $(this).val());
+    });
+  });
+</script>
