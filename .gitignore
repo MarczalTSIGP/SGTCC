@@ -48,4 +48,6 @@ yarn-debug.log*
 
 reload.sh
 
+# Ignore vscode config
 /htmlbeautifier
+.vscode/
