@@ -3,13 +3,16 @@ class ExaminationBoardNote < ApplicationRecord
   belongs_to :professor, optional: true
   belongs_to :external_member, optional: true
 
+  attr_accessor :validate_note
+
   mount_uploader :appointment_file, AppointmentFileUploader
 
   validates :note,
             presence: true,
             numericality: { only_integer: true,
                             greater_than_or_equal_to: 0,
-                            less_than_or_equal_to: 100 }
+                            less_than_or_equal_to: 100 },
+            if: -> { validate_note }
 
   after_save do
     if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
