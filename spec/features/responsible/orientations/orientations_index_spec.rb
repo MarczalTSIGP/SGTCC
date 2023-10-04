@@ -13,7 +13,6 @@ describe 'Orientation::index', type: :feature do
 
       before do
         visit index_url
-        sleep 1
       end
 
       it 'displays basic orientation information' do
@@ -33,8 +32,8 @@ describe 'Orientation::index', type: :feature do
 
       it 'displays links to orientation details' do
         orientations.each do |orientation|
-          orientation_link = "a[href='#{responsible_orientation_path(orientation)}']"
           visit index_url
+          orientation_link = "a[href='#{responsible_orientation_path(orientation)}']"
           find(orientation_link).click
 
           expect(page).to have_link(

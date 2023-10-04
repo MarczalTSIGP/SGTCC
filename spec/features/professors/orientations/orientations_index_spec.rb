@@ -48,7 +48,7 @@ describe 'Orientation::index', type: :feature do
         find(orientation_link).click
 
         expect(page).to have_link(
-          'Visualizar atividades',
+          'Atividades da orientação',
           href: professors_orientation_calendar_activities_path(
             orientation, orientation.current_calendar
           )
@@ -60,7 +60,7 @@ describe 'Orientation::index', type: :feature do
         find(orientation_link).click
 
         expect(page).to have_link(
-          'Visualizar documentos',
+          'Documentos da orientação',
           href: professors_orientation_documents_path(orientation)
         )
       end
@@ -71,7 +71,7 @@ describe 'Orientation::index', type: :feature do
 
         if orientation.meetings.any?
           expect(page).to have_link(
-            'Visualizar reuniões',
+            'Reuniões da orientação',
             href: professors_orientation_meetings_path(orientation)
           )
         else

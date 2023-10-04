@@ -21,7 +21,6 @@ class Dashboard::ProfessorReport
     { total: orientations.send(method, orientations.statuses.values).count,
       in_progress: orientations.send(method, 'IN_PROGRESS').count,
       approved: orientations.send(method, 'APPROVED').count,
-      renewed: orientations.send(method, 'RENEWED').count,
       canceled: orientations.send(method, 'CANCELED').count,
       links: orientations_link(method) }
   end
