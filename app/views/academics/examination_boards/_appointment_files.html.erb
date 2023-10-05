@@ -5,11 +5,11 @@
     </div>
     <div class="card-body">
       <% @examination_board.examination_board_notes.each do |examination_board_note| %>
-        <% if examination_board_note.appointment_file.present? %>
-          <p>
+        <p>
             <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
             <%= examination_board_note.evaluator.name_with_scholarity %>
-          </p>
+        </p>
+        <% if examination_board_note.appointment_file.present? %>
           <p>
             <strong>
               <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>:
@@ -17,6 +17,16 @@
             <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
               <%= examination_board_note.appointment_file_identifier %>
             <% end %>
+          </p>
+        <% end %>
+        <% if examination_board_note.appointment_text.present? %>
+          <p>
+            <strong>
+              <%= ExaminationBoardNote.human_attribute_name('appointment_text') %>:
+            </strong> 
+            <p>
+                <%= examination_board_note.appointment_text %>
+            </p> 
           </p>
         <% end %>
       <% end %>

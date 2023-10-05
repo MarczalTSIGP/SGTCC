@@ -7,7 +7,6 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
     @examination_board_note = ExaminationBoardNote.new(examination_board_note_params)
     @examination_board_note.validate_note = true;
 
-
     if @examination_board_note.save
       feminine_success_create_message
       redirect_to professors_examination_board_path(@examination_board)

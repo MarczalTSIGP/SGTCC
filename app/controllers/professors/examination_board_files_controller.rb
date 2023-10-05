@@ -41,7 +41,7 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
   def examination_board_note_params
     params.require(:examination_board_note)
           .permit(:appointment_file, :appointment_file_cache,
-                  :professor_id, :examination_board_id)
+                  :professor_id, :examination_board_id, :appointment_text)
   end
 
   def model_human
