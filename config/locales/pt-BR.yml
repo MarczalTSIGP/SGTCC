@@ -545,6 +545,7 @@ pt-BR:
         note: "Nota:"
         actual_note: 'Nota Atual:'
         appointment_file: "Arquivo com os apontamentos"
+        appointment_text: "Texto com os apontamentos"
         appointments: "Apontamentos"
       site:
         <<: *commons
