@@ -3883,7 +3883,8 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: transparent;
+  background: #dbd7d7;
+  padding: 3px 7px 3px 7px;
   border-color: #dee2e6 #dee2e6 transparent;
 }
 
@@ -11648,7 +11649,8 @@ a.icon:hover {
 .nav-tabs .nav-link.active {
   border-color: #467fcf;
   color: #467fcf;
-  background: transparent;
+  background: #dbd7d7;
+  padding: 3px 7px 3px 7px;
 }
 
 .nav-tabs .nav-link.disabled {

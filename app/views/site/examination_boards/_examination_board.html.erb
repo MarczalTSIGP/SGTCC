@@ -1,19 +1,21 @@
 <tr class="examination-board-row">
-  <td class="td-center">
-    <%= long_date(examination_board.date).split(',').first %>,<br>
-    <%= long_date(examination_board.date).split(',').last %>, <%= l(examination_board.date, format: :time) %><br>
+  <td class="td-center examination-board-td">
+    <%= long_date(examination_board.date).split(',').first %>, <%= l(examination_board.date, format: :time) %><br>
+    <%= long_date(examination_board.date).split(',').last %><br>
     <%= examination_board.place %>
   </td>
 
   <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('title') %>:</strong>
+     <a href="javascript:void(0);" class="showDetails" data-exam-id="<%= examination_board.id %>">
+      <strong><%= ExaminationBoard.human_attribute_name('title') %>:</strong>
+    </a>
     <%= examination_board.academic_activity&.title %><br>
 
     <strong><%= ExaminationBoard.human_attribute_name('academic') %>:</strong>
     <%= examination_board.orientation.academic.name %><span style="margin-right: 20px;"></span>
 
     <strong><%= ExaminationBoard.human_attribute_name('orientation') %>:</strong>
-    <%= examination_board.orientation.advisor.name_with_scholarity %>
+    <%= examination_board.orientation.advisor.name_with_scholarity %> <br>
 
     <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong>
     <% examination_board.orientation.supervisors.each do |supervisor| %>
@@ -21,10 +23,9 @@
 
     <% end %>
   </td>
-
 </tr>
 
-<tr class="examination-board-row">
+<tr class="examination-board-row examination-details exam_<%= examination_board.id %>">
   <td  class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('evaluators') %></strong>
   </td>
@@ -40,7 +41,7 @@
   </td>
 </tr>
 
-<tr class="examination-board-row">
+<tr class="examination-board-row examination-details exam_<%= examination_board.id %>">
   <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('summary') %></strong>
   </td>
@@ -49,7 +50,7 @@
   </td>
 </tr>
 
-<tr class="examination-board-row">
+<tr class="examination-board-row examination-details exam_<%= examination_board.id %>">
   <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
     <% if examination_board.academic_activity %>
@@ -64,3 +65,16 @@
     <% end %>
   </td>
 </tr>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".examination-details").hide();
+
+    $(".showDetails").click(function() {
+      var examId = $(this).data('exam-id');
+      console.log('Clicou no link para o exame com id: ' + examId);
+      $(".examination-details").hide(); 
+      $(".examination-details.exam_" + examId).toggle();
+    });
+  });
+</script>
