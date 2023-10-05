@@ -1,6 +1,7 @@
 class RangeTablerInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
-    @builder.range_field(attribute_name, class: 'form-control-range', value: 50, max: 100, min: 0)
+    @builder.range_field(attribute_name, class: 'form-control-range', value: object.note, max: 100,
+                                         min: 0)
   end
 
   def range_display
@@ -24,8 +25,8 @@ class RangeTablerInput < SimpleForm::Inputs::Base
 
   def build_label_markup(label_text)
     template.tag.label(class: 'form-label range-label') do
-      template.concat content_tag(:span, label_text, class: 'badge bg-blue custom-bigger-text-note')
-      template.concat(' | Selecionada: ')
+      template.concat content_tag(:span, label_text, class: 'badge bg-blue font-size-13')
+      template.concat(" | #{I18n.t('views.labels.selected.f')}: ")
       template.concat range_display
     end
   end
