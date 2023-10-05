@@ -7,28 +7,3 @@
     margin-top: 10px;
   }
 }
-
-.custom-bigger-text-note {
-  font-size: 13px;
-}
-
-.form-control-range {
-  appearance: none; 
-  width: 100%;
-  cursor: col-resize;
-  outline: none;
-  border-radius: 15px;
-  height: 6px;
-  background: linear-gradient(to right, #467fcf 50%, #ccc 50%);
-}
-
-.form-control-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none; 
-  height: 20px;
-  width: 20px;
-  background-color: #467fcf;
-  border-radius: 50%;
-  border: none;
-  transition: .2s ease-in-out;
-}

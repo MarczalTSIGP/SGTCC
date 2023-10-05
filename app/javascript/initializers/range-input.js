@@ -18,6 +18,9 @@ export default {
           const percentage = (value / input.max) * 100;
           input.style.background = `linear-gradient(to right, #467fcf ${percentage}%, #ccc ${percentage}%)`;
         });
+
+        // set the thumb in the right position
+        input.dispatchEvent(new Event('input'));
       });
     }
   }

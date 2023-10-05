@@ -48,6 +48,9 @@ pt-BR:
     labels:
       conceded: 'Deferido'
       dismissed: 'Indeferido'
+      selected: 
+        f: 'Selecionada'
+        m: 'Selecionado'
     login:
       academic: 'Acadêmico'
       professor: 'Professor'
