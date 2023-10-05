@@ -1,36 +1,37 @@
 <%= provide(:appointment_files) do %>
-  <div class="card">
-    <div class="card-header font-weight-bold">
-      <%= ExaminationBoardNote.human_attribute_name('appointments') %>:
-    </div>
-    <div class="card-body">
-      <% @examination_board.examination_board_notes.each do |examination_board_note| %>
-        <p>
-            <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
-            <%= examination_board_note.evaluator.name_with_scholarity %>
-        </p>
-        <% if examination_board_note.appointment_file.present? %>
-          <p>
-            <strong>
-              <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>:
-            </strong>
-            <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
-              <%= examination_board_note.appointment_file_identifier %>
-            <% end %>
-          </p>
-        <% end %>
-        <% if examination_board_note.appointment_text.present? %>
-          <p>
-            <strong>
-              <%= ExaminationBoardNote.human_attribute_name('appointment_text') %>:
-            </strong> 
+   <div class="card">
+      <div class="card-header font-weight-bold">
+         <%= ExaminationBoardNote.human_attribute_name('appointments') %>:
+      </div>
+      <div class="card-body">
+         <% @examination_board.examination_board_notes.each do |examination_board_note| %>
             <p>
-                <%= examination_board_note.appointment_text %>
-            </p> 
+               <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
+               <%= examination_board_note.evaluator.name_with_scholarity %>
+            </p>
+            <% if examination_board_note.appointment_file.present? %>
+               <p>
+                  <strong>
+                     <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
+                  </strong>
+                  <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
+                     <%= examination_board_note.appointment_file_identifier %>
+                  <% end %>
+               </p>
+            <% end %>
+
+            <% if examination_board_note.appointment_text.present? %>
+               <p>
+                  <strong>
+                     <%= ExaminationBoardNote.human_attribute_name('appointment_text') %>
+                  </strong>
+                  <div class="form-fieldset w-80 mx-auto text-left">
+                     <markdown-reader content="<%= examination_board_note.appointment_text %>" />
+            </div>
           </p>
         <% end %>
+        
       <% end %>
     </div>
-  </div>
-<% end %>
-
+                     </div>
+                  <% end %>
