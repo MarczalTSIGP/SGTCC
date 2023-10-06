@@ -30,14 +30,14 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
     context 'when the apointment text is valid' do
       it 'create a apointment text' do
         attributes = attributes_for(:examination_board_note)
-
+    
         page.execute_script("document.getElementById('examination_board_note_appointment_text').innerText = 'olá mundo!'")
         submit_form('input[id="examination_board_file_button"]')
         expect(page).to have_current_path professors_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('create.m'))
 
-        page.execute_script("document.getElementById('examination_board_note_appointment_text').style.display = 'block'")
-        expect(page).to have_field 'examination_board_note_appointment_text', with: 'olá mundo!'
+        hidden_textarea = find('#examination_board_note_appointment_text', visible: false)
+        expect(hidden_textarea.value).to eq('olá mundo!')
       end
     end
   end

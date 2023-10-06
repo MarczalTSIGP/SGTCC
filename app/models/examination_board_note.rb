@@ -52,7 +52,7 @@ class ExaminationBoardNote < ApplicationRecord
   end
 
   def final_note
-    examination_board.examination_board_notes.sum(&:note) / evaluators_number
+    examination_board.examination_board_notes.where.not(note: nil).sum(&:note) / evaluators_number
   end
 
   def status(final_note)

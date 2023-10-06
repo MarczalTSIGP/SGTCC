@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ExaminationBoardNote, type: :model do
   describe 'validates' do
-    it { is_expected.to validate_presence_of(:note) }
+    it { is_expected.not_to validate_presence_of(:note) }
   end
 
   describe 'associations' do
