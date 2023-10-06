@@ -1,26 +1,24 @@
 <tr class="examination-board-row">
-  <td class="td-center examination-board-td">
-    <%= long_date(examination_board.date).split(',').first %>, <%= l(examination_board.date, format: :time) %><br>
-    <%= long_date(examination_board.date).split(',').last %><br>
+  <td class="td-center examination-board-td examination-board-date" data-date="<%= examination_board.date %>">
+    <%= complete_date(examination_board.date)%>
     <%= examination_board.place %>
   </td>
 
   <td class="td-center">
      <a href="javascript:void(0);" class="showDetails" data-exam-id="<%= examination_board.id %>">
       <strong><%= ExaminationBoard.human_attribute_name('title') %>:</strong>
+      <%= examination_board.academic_activity&.title %><br>
     </a>
-    <%= examination_board.academic_activity&.title %><br>
 
     <strong><%= ExaminationBoard.human_attribute_name('academic') %>:</strong>
-    <%= examination_board.orientation.academic.name %><span style="margin-right: 20px;"></span>
+    <%= examination_board.orientation.academic.name %> <br>
 
     <strong><%= ExaminationBoard.human_attribute_name('orientation') %>:</strong>
     <%= examination_board.orientation.advisor.name_with_scholarity %> <br>
 
     <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong>
     <% examination_board.orientation.supervisors.each do |supervisor| %>
-    <%= supervisor.name_with_scholarity %>
-
+      <%= supervisor.name_with_scholarity %>
     <% end %>
   </td>
 </tr>
@@ -65,16 +63,3 @@
     <% end %>
   </td>
 </tr>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".examination-details").hide();
-
-    $(".showDetails").click(function() {
-      var examId = $(this).data('exam-id');
-      console.log('Clicou no link para o exame com id: ' + examId);
-      $(".examination-details").hide(); 
-      $(".examination-details.exam_" + examId).toggle();
-    });
-  });
-</script>

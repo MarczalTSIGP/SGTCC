@@ -33,3 +33,17 @@ table tr td.status-width {
 .examination-board-td {
   width: 10rem;
 }
+
+.showDetails {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #467fcf;
+}
+
+.hidden {
+  display: none;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}

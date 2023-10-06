@@ -18,6 +18,7 @@ import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
 import fileInput from '../initializers/file-input';
 import rangeInput from '../initializers/range-input';
+import examinationBoards from '../initializers/examination-boards';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
@@ -54,7 +55,8 @@ document.addEventListener('turbolinks:load', () => {
       selectize,
       sidebarScroll,
       tooltip,
-      rangeInput
-    ]
+      rangeInput,
+      examinationBoards
+    ],
   });
 });
