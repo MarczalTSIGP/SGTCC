@@ -44,5 +44,24 @@ describe 'ExaminationBoardNote::create', type: :feature, js: true do
                                    text: I18n.t('flash.examination_board_note.errors.edit'))
       end
     end
+
+    context 'when add a file save and later update with a note and save' do
+      it 'create a file' do
+        attributes = attributes_for(:examination_board_note)
+
+        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+        submit_form('input[id="examination_board_file_button"]')
+        expect(page).to have_current_path professors_examination_board_path(examination_board)
+        expect(page).to have_flash(:success, text:  I18n.t("flash.actions.create.m",
+                                   resource_name: ExaminationBoardNote.human_attribute_name('appointment_file')))
+
+        attributes = attributes_for(:examination_board_note)
+        fill_in 'examination_board_note_note', with: attributes[:note]
+        submit_form('input[id="examination_board_note_button"]')
+        expect(page).to have_current_path professors_examination_board_path(examination_board)
+        expect(page).to have_flash(:success, text: message('update.f'))
+      end
+    end
   end
 end

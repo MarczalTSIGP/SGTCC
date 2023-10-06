@@ -5,7 +5,6 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
 
   def create
     @examination_board_note = ExaminationBoardNote.new(examination_board_note_params)
-    @examination_board_note.validate_note = false;
 
     if @examination_board_note.save
       success_create_message
@@ -17,8 +16,6 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
   end
 
   def update
-    @examination_board_note.validate_note = false;
-
     if @examination_board_note.update(examination_board_note_params)
       success_update_message
       redirect_to professors_examination_board_path(@examination_board)

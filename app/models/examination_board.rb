@@ -108,7 +108,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def all_evaluated?
-    examination_board_notes.size == evaluators_number || final_note.present?
+    examination_board_notes.where.not(note: nil).size == evaluators_number || final_note.present?
   end
 
   def situation_translated
