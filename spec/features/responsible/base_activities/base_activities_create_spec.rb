@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-describe 'BaseActivity::create', type: :feature, js: true do
+describe 'BaseActivity::create', :js, type: :feature do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }
+  let!(:base_activity_info) { create(:base_activity_info) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -15,6 +16,23 @@ describe 'BaseActivity::create', type: :feature, js: true do
     end
 
     context 'when base_activity is valid' do
+      it 'create an informative base activity with tcc 1' do
+        attributes = attributes_for(:base_activity)
+
+        fill_in 'base_activity_name', with: attributes[:name]
+        selectize(base_activity_info.name, from: 'base_activity_base_activity_type_id')
+        click_on_label('1', in: 'base_activity_tcc')
+
+        submit_form('input[name="commit"]')
+
+        expect(page).to have_current_path responsible_base_activities_tcc_one_path
+        expect(page).to have_flash(:success, text: message('create.f'))
+
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
+        expect(page).to have_message(base_activity_info.name, in: 'table tbody')
+        expect(page).to have_message(1, in: 'table tbody')
+      end
+
       it 'create a base activity with tcc 1' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
