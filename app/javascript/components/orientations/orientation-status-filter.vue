@@ -28,8 +28,8 @@ export default {
   props: {
     options: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
 
   mounted() {
@@ -40,7 +40,7 @@ export default {
   methods: {
     listenOnChange() {
       const $ = window.jQuery;
-      $('#orientation_status').on('change', (event) => {
+      $('#orientation_status').on('change', event => {
         let status = event.target.value;
         if (status === 'ALL') {
           status = '';
@@ -58,14 +58,14 @@ export default {
     },
 
     updateFilter() {
-      const filter = this.options.filter((option) => {
+      const filter = this.options.filter(option => {
         return this.matchUrl(option[0]);
       });
 
       if (filter.length > 0) {
         this.$root.$emit('update-search-url', filter[0]);
       }
-    },
-  },
+    }
+  }
 };
 </script>

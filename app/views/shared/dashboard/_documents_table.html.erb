@@ -1,13 +1,12 @@
 <% unless @documents.empty? %>
-  <div class="card col-12">
-    <div class="card-header">
-      <h3 class="card-title">
-        <b><%= t('breadcrumbs.documents.recent.pending') %></b>
-      </h3>
-    </div>
-    <div class="table-sm table-responsive">
-      <%= render 'shared/documents/table' %>
-    </div>
-  </div>
+   <div class="card col-12">
+      <div class="card-header">
+         <h3 class="card-title">
+            <b><%= t('breadcrumbs.documents.recent.pending') %></b>
+         </h3>
+      </div>
+      <div class="table-sm table-responsive">
+         <%= render 'shared/documents/table' %>
+      </div>
+   </div>
 <% end %>
-

@@ -1,0 +1,52 @@
+$thumb-color: #467fcf !default;
+
+$thumb-radius: 16px !default;
+$thumb-height: 28px !default;
+$thumb-width: 28px !default;
+$thumb-shadow-size: 2px !default;
+$thumb-shadow-blur: 2px !default;
+$thumb-shadow-color: rgba(0, 0, 0, .2) !default;
+$thumb-border-width: 2px !default;
+$thumb-border-color: #eceff1 !default;
+
+$track-height: 10px;
+
+@mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+}
+
+@mixin thumb {
+  @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+  background: $thumb-color;
+  border: $thumb-border-width solid $thumb-border-color;
+  border-radius: $thumb-radius;
+  box-sizing: border-box;
+  cursor: ew-resize;
+  height: $thumb-height;
+  width: $thumb-width;
+}
+
+[type='range'] {
+  appearance: none; 
+  -webkit-appearance: none;
+
+  height: $track-height;
+  width: 100%;
+  border-radius: 15px;
+  margin: 15px 0;
+
+  background: linear-gradient(to right, #467fcf 50%, #ccc 50%);
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-ms-thumb {
+    @include thumb;
+  }
+}

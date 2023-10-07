@@ -17,8 +17,7 @@ describe 'Orientation::index', type: :feature do
       it 'shows the basic information' do
         expect(page).to have_content(orientation.short_title)
         expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_link(orientation.academic.name,
-                                  href: tcc_one_professors_calendar_orientation_path(orientation))
+        expect(page).to have_content(orientation.academic.name)
         expect(page).to have_content(orientation.academic.ra)
       end
 
@@ -30,19 +29,20 @@ describe 'Orientation::index', type: :feature do
 
       it 'shows links for more details' do
         academic_link = page.find(
-          "a[href='#{tcc_one_professors_calendar_orientation_path(orientation)}']"
+          "a[href='#{tcc_one_professors_calendar_orientation_path(orientation.current_calendar,
+                                                                  orientation)}']"
         )
         academic_link.click
 
-        expect(page).to have_link('Detalhes',
+        expect(page).to have_link('Detalhes da orientação',
                                   href: tcc_one_professors_calendar_orientation_path(
                                     orientation.current_calendar, orientation
                                   ))
-        expect(page).to have_link('Visualizar atividades',
+        expect(page).to have_link('Atividades da orientação',
                                   href: tcc_one_professors_calendar_orientation_activities_path(
                                     orientation.current_calendar, orientation
                                   ))
-        expect(page).to have_link('Visualizar documentos',
+        expect(page).to have_link('Documentos da orientação',
                                   href: tcc_one_professors_calendar_orientation_documents_path(
                                     orientation.current_calendar, orientation
                                   ))

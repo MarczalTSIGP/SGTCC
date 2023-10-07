@@ -90,10 +90,6 @@ FactoryBot.define do
       status { Orientation.statuses.key('APPROVED') }
     end
 
-    factory :orientation_renewed do
-      status { Orientation.statuses.key('RENEWED') }
-    end
-
     factory :orientation_approved do
       status { Orientation.statuses.key('APPROVED') }
     end

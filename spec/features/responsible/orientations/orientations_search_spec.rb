@@ -38,8 +38,8 @@ describe 'Orientation::search', type: :feature do
       it 'finds the orientation by status' do
         visit responsible_orientations_tcc_two_path
         calendar = create(:current_calendar_tcc_two)
-        orientation = create(:orientation_renewed, calendars: [calendar])
-        selectize(orientation_renewed_option, from: 'orientation_status')
+        orientation = create(:orientation_approved, calendars: [calendar])
+        selectize(orientation_approved_option, from: 'orientation_status')
 
         within('table tbody tr:nth-child(1)') do
           expect(page).to have_content(orientation.short_title)

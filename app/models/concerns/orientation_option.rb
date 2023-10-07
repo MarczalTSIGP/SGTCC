@@ -4,10 +4,6 @@ module OrientationOption
   extend ActiveSupport::Concern
 
   included do
-    def can_be_renewed?(professor)
-      professor&.role?(:responsible) && calendar_tcc_two? && in_progress?
-    end
-
     def can_be_canceled?(professor)
       professor&.role?(:responsible) && active?
     end

@@ -83,14 +83,6 @@ class Orientation < ApplicationRecord
     professor_supervisors + external_member_supervisors
   end
 
-  def renew(justification)
-    next_calendar = Calendar.next_semester(calendars.last)
-    return false if next_calendar.blank?
-
-    calendars << next_calendar
-    update(renewal_justification: justification, status: 'RENEWED')
-  end
-
   def cancel(justification)
     update(cancellation_justification: justification, status: 'CANCELED')
   end

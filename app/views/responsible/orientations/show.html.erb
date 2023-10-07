@@ -14,14 +14,6 @@
 <% end %>
 
 <%= provide(:orientation_options) do %>
-  <div class="mt-2">
-    <orientation-renew
-      :id="<%= @orientation.id %>"
-      label="<%= Orientation.human_attribute_name('renewal_justification') %>"
-      :has-permission="<%= @orientation.can_be_renewed?(current_professor) %>"
-      error-message="<%= t('errors.messages.blank') %>" />
-  </div>
-
   <div class="mt-3">
     <orientation-cancel
       :id="<%= @orientation.id %>"

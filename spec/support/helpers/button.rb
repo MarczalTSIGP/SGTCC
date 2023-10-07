@@ -4,10 +4,6 @@ module Helpers
       I18n.t('sessions.sign_out')
     end
 
-    def orientation_renew_button
-      I18n.t('views.buttons.orientation.renew')
-    end
-
     def orientation_abandon_button
       I18n.t('views.buttons.orientation.abandon')
     end
