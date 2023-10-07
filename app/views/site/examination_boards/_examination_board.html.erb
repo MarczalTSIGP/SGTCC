@@ -1,6 +1,7 @@
 <tr class="examination-board-row">
   <td class="td-center examination-board-td examination-board-date" data-date="<%= examination_board.date %>">
-    <%= complete_date(examination_board.date)%>
+    <strong><%= long_date(examination_board.date) %></strong> <br>
+    <strong><%= l(examination_board.date, format: :time) %></strong><br>
     <%= examination_board.place %>
   </td>
 
@@ -14,13 +15,24 @@
     <%= examination_board.orientation.academic.name %> <br>
 
     <strong><%= ExaminationBoard.human_attribute_name('orientation') %>:</strong>
-    <%= examination_board.orientation.advisor.name_with_scholarity %> <br>
+    <table-name-avatar
+      url="<%= examination_board.orientation.advisor.profile_image %>"
+      name="<%= examination_board.orientation.advisor.name_with_scholarity %>">
+    </table-name-avatar>
+</tr>
 
+<tr class="examination-board-row">
+  <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong>
-    <% examination_board.orientation.supervisors.each do |supervisor| %>
-      <%= supervisor.name_with_scholarity %>
-    <% end %>
   </td>
+
+  <td class="td-center">
+    <% examination_board.orientation.supervisors.each do |supervisor| %>
+      <table-name-avatar 
+        url="<%= supervisor.profile_image %>"
+        name="<%= supervisor.name_with_scholarity %>">
+      </table-name-avatar>
+    <% end %>
 </tr>
 
 <tr class="examination-board-row examination-details exam_<%= examination_board.id %>">
@@ -30,11 +42,18 @@
   <td class="td-center">
     <strong><%= ExaminationBoard.human_attribute_name('utfpr_members') %>:</strong>
     <% examination_board.professors.each do |professor| %>
-      <%= professor.name_with_scholarity %>
+      <table-name-avatar
+        url="<%= professor.profile_image %>"
+        name="<%= professor.name_with_scholarity %>">
+      </table-name-avatar>
     <% end %><br>
+
     <strong><%= ExaminationBoard.human_attribute_name('external_members') %>:</strong>
     <% examination_board.external_members.each do |external_member| %>
-    <%= external_member.name_with_scholarity %>
+      <table-name-avatar
+        url="<%= external_member.profile_image %>"
+        name="<%= external_member.name_with_scholarity %>">
+      </table-name-avatar>
     <% end %>
   </td>
 </tr>

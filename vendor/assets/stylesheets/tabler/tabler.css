@@ -3883,8 +3883,6 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background: #dbd7d7;
-  padding: 3px 7px 3px 7px;
   border-color: #dee2e6 #dee2e6 transparent;
 }
 
@@ -11647,10 +11645,9 @@ a.icon:hover {
 }
 
 .nav-tabs .nav-link.active {
-  border-color: #467fcf;
+  font-weight: bold;
   color: #467fcf;
-  background: #dbd7d7;
-  padding: 3px 7px 3px 7px;
+  border-bottom: 3px solid #007BFF;
 }
 
 .nav-tabs .nav-link.disabled {
@@ -18610,4 +18607,8 @@ svg {
 
 .fe-zoom-out:before {
   content: "\ea06";
+}
+
+.avatar{
+  margin-left: 15px;
 }
