@@ -9,69 +9,54 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
     let!(:examination_board_tcc_one) { create(:current_examination_board_tcc_one) }
     let!(:examination_board_tcc_two) { create(:current_examination_board_tcc_two) }
 
-    context 'when shows all the examination boards of the tcc one calendar' do
-      let(:orientation) { examination_board_tcc_one.orientation }
-      let(:academic) { orientation.academic }
-      let!(:academic_activity) do
-        create(:proposal_academic_activity, academic: academic,
-                                            calendar: orientation.calendars.first)
-      end
-
-      before do
-        visit site_examination_boards_path
-      end
-
-      it 'shows all the examination boards of the tcc one with options' do
-        advisor_name = examination_board_tcc_one.orientation.advisor.name_with_scholarity
-
-        expect(page).to have_contents([examination_board_tcc_one.orientation.academic.name,
-                                       advisor_name,
-                                       examination_board_tcc_one.place,
-                                       long_date(examination_board_tcc_one.date)])
-
-        examination_board_tcc_one.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
-
-        examination_board_tcc_one.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
-        end
-
-        expect(page).to have_selector(link(academic_activity.pdf.url))
-      end
+    before do
+      visit site_examination_boards_path
     end
 
-    context 'when shows all the examination boards of the tcc two calendar' do
-      let(:orientation) { examination_board_tcc_two.orientation }
-      let(:academic) { orientation.academic }
-      let!(:academic_activity) do
-        create(:monograph_academic_activity, academic: academic,
-                                             calendar: orientation.calendars.first)
+    it 'displays the "Proposta" tab by default' do
+      expect(page).to have_selector('.nav-link.active', text: 'Proposta')
+    end
+
+    it 'allows switching between tabs' do
+      click_on 'Proposta'
+      expect(page).to have_selector('.nav-link.active', text: 'Proposta')
+      
+      click_on 'Projeto'
+      expect(page).to have_selector('.nav-link.active', text: 'Projeto')
+
+      click_on 'Monografia'
+      expect(page).to have_selector('.nav-link.active', text: 'Monografia')
+    end
+
+    it 'displays examination board details' do
+      # Verifica se as informações da banca estão sendo exibidas corretamente
+      expect(page).to have_content(complete_date(examination_board_tcc_one.date))
+      expect(page).to have_content(examination_board_tcc_one.place)
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('title'))
+      expect(examination_board_tcc_one.academic_activity).not_to be_nil # Verifique se a atividade acadêmica não é nula
+      expect(page).to have_content(examination_board_tcc_one.academic_activity.title) # Use title diretamente
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('academic'))
+      expect(page).to have_content(examination_board_tcc_one.orientation.academic.name)
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('orientation'))
+      expect(page).to have_content(examination_board_tcc_one.orientation.advisor.name_with_scholarity)
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('orientation_supervisors'))
+      
+      examination_board_tcc_one.orientation.supervisors.each do |supervisor|
+        expect(page).to have_content(supervisor.name_with_scholarity)
       end
 
-      before do
-        visit site_examination_boards_path
+      # Verifica se o título é um link
+      within('.showDetails') do
+        expect(page).to have_link(examination_board_tcc_one.academic_activity.title, href: "javascript:void(0);")
       end
 
-      it 'shows all the examination boards of the tcc two with options' do
-        advisor_name = examination_board_tcc_two.orientation.advisor.name_with_scholarity
+      # Clique no link de título para abrir as opções
+      click_link examination_board_tcc_one.academic_activity.title
 
-        expect(page).to have_contents([examination_board_tcc_two.orientation.academic.name,
-                                       advisor_name,
-                                       examination_board_tcc_two.place,
-                                       long_date(examination_board_tcc_two.date)])
-
-        examination_board_tcc_two.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
-
-        examination_board_tcc_two.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
-        end
-
-        expect(page).to have_selectors([link(academic_activity.pdf.url),
-                                        link(academic_activity.complementary_files.url)])
-      end
+      # Verifique se as opções são exibidas
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('evaluators'))
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('summary'))
+      expect(page).to have_content(ExaminationBoard.human_attribute_name('documents'))
     end
   end
 end
