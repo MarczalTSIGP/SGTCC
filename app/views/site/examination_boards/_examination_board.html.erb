@@ -1,7 +1,7 @@
 <tr class="examination-board-row">
    <td class="td-center examination-board-td examination-board-date" data-date="<%= examination_board.date %>">
       <strong><%= long_date(examination_board.date) %></strong> <br>
-      <strong><%= l(examination_board.date, format: :time) %></strong><br>
+      <%= l(examination_board.date, format: :time) %><br>
       <%= examination_board.place %>
    </td>
 
@@ -21,7 +21,7 @@
       </table-name-avatar>
    </tr>
 
-   <tr class="examination-board-row">
+   <tr class="examination-board-row examination-details exam_<%= examination_board.id %>">
       <td class="td-center">
          <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong>
       </td>

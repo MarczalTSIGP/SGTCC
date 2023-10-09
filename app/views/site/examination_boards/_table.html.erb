@@ -1,16 +1,16 @@
 <% if examination_boards.empty? %>
-  <%= render 'site/examination_boards/empty_table', examination_boards: examination_boards %>
+   <%= render 'site/examination_boards/empty_table', examination_boards: examination_boards %>
 <% else %>
-  <% examination_boards.each_with_index do |examination_board, index| %>
-    <div class="site-table mb-4 examination-board-table">
+   <% examination_boards.each_with_index do |examination_board, index| %>
+      <div class="site-table mb-4 examination-board-table">
 
-      <table class="table table-vcenter border border-gray">
-        <tbody>
-          <%= render('site/examination_boards/examination_board',
+         <table class="table table-vcenter border border-gray">
+            <tbody>
+               <%= render('site/examination_boards/examination_board',
                      examination_board: examination_board) %>
-        </tbody>
-      </table>
-      
-    </div>
-  <% end %>
+            </tbody>
+         </table>
+
+      </div>
+   <% end %>
 <% end %>
