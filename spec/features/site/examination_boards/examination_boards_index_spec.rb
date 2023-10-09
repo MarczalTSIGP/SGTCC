@@ -21,10 +21,29 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
         visit site_examination_boards_path
       end
 
-      it 'Proposta and Projeto for TCC1' do
+      it 'Proposta for TCC1' do
         click_link('Proposta')
         expect(page).to have_content('Proposta')
 
+        advisor_name = examination_board_tcc_one.orientation.advisor.name_with_scholarity
+        # expect(page).to have_selector(examination_board_tcc_one.academic_activity&.title)
+        expect(page).to have_contents([examination_board_tcc_one.orientation.academic.name,
+                                       advisor_name,
+                                       examination_board_tcc_one.place,
+                                       long_date(examination_board_tcc_one.date)])
+
+        # examination_board_tcc_one.professors.each do |professor|
+        #   expect(page).to have_content(professor.name_with_scholarity)
+        # end
+
+        # examination_board_tcc_one.external_members.each do |external_member|
+        #   expect(page).to have_content(external_member.name_with_scholarity)
+        # end
+
+        # expect(page).to have_selector(link(academic_activity.pdf.url))
+      end
+
+      it 'Projeto for TCC1' do
         click_link('Projeto')
         expect(page).to have_content('Projeto')
 
