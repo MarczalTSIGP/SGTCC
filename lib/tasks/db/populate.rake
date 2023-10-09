@@ -4,10 +4,16 @@ namespace :db do
   task populate: :environment do
     require 'faker'
 
-    populate_tasks = %w[academics professors
-                        external_members institutions
-                        base_activities calendars orientations
-                        meetings examination_boards]
+    # populate_tasks = %w[academics professors
+    #                     external_members institutions
+    #                     base_activities calendars orientations
+    #                     meetings examination_boards]
+
+    populate_tasks = %w[
+      academics professors
+      external_members
+      base_activities calendars orientations
+    ]
 
     Rake::Task['db:clean'].invoke
     puts 'DB seed...'

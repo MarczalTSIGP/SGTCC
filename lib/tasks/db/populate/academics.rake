@@ -1,3 +1,5 @@
+require Rails.root.join('lib/tasks/db/populate/models/academics.rb')
+
 namespace :populate do
   desc 'Populate academics'
 

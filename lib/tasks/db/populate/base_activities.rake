@@ -1,3 +1,5 @@
+require Rails.root.join('lib/tasks/db/populate/models/base_activities.rb')
+
 namespace :populate do
   desc 'Populate base activities'
 

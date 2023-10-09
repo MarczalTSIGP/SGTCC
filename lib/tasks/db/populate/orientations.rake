@@ -1,3 +1,5 @@
+require Rails.root.join('lib/tasks/db/populate/models/orientations.rb')
+
 namespace :populate do
   desc 'Populate orientations'
 

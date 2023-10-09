@@ -1,3 +1,5 @@
+require Rails.root.join('lib/tasks/db/populate/models/external_members.rb')
+
 namespace :populate do
   desc 'Populate external members'
 

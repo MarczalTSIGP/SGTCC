@@ -1,3 +1,5 @@
+require Rails.root.join('lib/tasks/db/populate/models/calendars.rb')
+
 namespace :populate do
   desc 'Populate calendars'
 
