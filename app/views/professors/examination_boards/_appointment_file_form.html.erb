@@ -1,5 +1,5 @@
 <div class="card card-body">
-   <%= simple_form_for(@examination_board_note, url: url, html: { multipart: true }) do |f| %>
+   <%= simple_form_for(@examination_board_note, url: url, html: { multipart: true, id: 'appoints_form' }) do |f| %>
       <div class="form-inputs">
          <%= f.label :appointment_file, class: 'font-weight-bold' %>
 

@@ -3,8 +3,6 @@ class ExaminationBoardNote < ApplicationRecord
   belongs_to :professor, optional: true
   belongs_to :external_member, optional: true
 
-  attr_accessor :validate_note
-
   mount_uploader :appointment_file, AppointmentFileUploader
 
   validates :note,
