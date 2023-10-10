@@ -18,8 +18,7 @@
       <tr>
         <%= render('shared/no_results') if @documents.empty? %>
       </tr>
-      <%= render @documents %>
+      <%= render partial: "#{namespace}/documents/document", collection: @documents %>
     </tbody>
   </table>
 </div>
-

@@ -17,13 +17,12 @@
 </template>
 
 <script>
-
 import VueApexCharts from 'vue-apexcharts';
 
 export default {
   name: 'OrientationChart',
 
-  components: { 'apexchart': VueApexCharts },
+  components: { apexchart: VueApexCharts },
 
   props: {
     data: {
@@ -34,16 +33,16 @@ export default {
     title: {
       type: String,
       required: true
-    },
+    }
   },
 
   data() {
     return {
       series: [],
       chartOptions: {
-        labels: ['Em andamento', 'Aprovadas', 'Renovadas', 'Canceladas'],
+        labels: ['Em andamento', 'Aprovadas', 'Canceladas'],
         legend: {
-          position: 'right',
+          position: 'right'
         },
         title: {},
         chart: {
@@ -52,25 +51,27 @@ export default {
               const link = this.$refs.redirect;
               link.href = this.data.links[seriesIndex];
               link.click();
-            },
-          },
+            }
+          }
         },
         dataLabels: {
-          formatter: (val, { seriesIndex, w}) => {
+          formatter: (val, { seriesIndex, w }) => {
             return w.config.series[seriesIndex];
-          },
-        },
-        responsive: [{
-          breakpoint: 1000,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom',
-            },
           }
-        }]
+        },
+        responsive: [
+          {
+            breakpoint: 1000,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        ]
       }
     };
   },
@@ -84,16 +85,15 @@ export default {
     setSeries() {
       const orientations = this.data;
 
-      this.series = [orientations.in_progress,
+      this.series = [
+        orientations.in_progress,
         orientations.approved,
-        orientations.renewed,
         orientations.canceled];
     },
 
     setTitle() {
       this.chartOptions.title.text = `${this.data.total} ${this.title}`;
-    },
-  },
+    }
+  }
 };
-
 </script>

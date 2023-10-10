@@ -33,7 +33,7 @@
       <tr>
         <%= render('shared/no_results') if @pages.empty? %>
       </tr>
-      <%= render @pages %>
+      <%= render partial: 'page', collection: @pages %>
     </tbody>
   </table>
 </div>
