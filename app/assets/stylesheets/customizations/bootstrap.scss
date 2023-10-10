@@ -26,3 +26,60 @@ table tr td.status-width {
 .font-size-13 {
   font-size: 13px;
 }
+
+.examination-boards-site,
+.examination-boards-site-head {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.examination-boards-site-head {
+  justify-content: center;
+  align-items: center;
+}
+
+.examination-boards {
+  border: 2px solid #666;
+}
+
+.flex-left {
+  flex: 0.3;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.flex-right,
+.flex-right div {
+  flex: 1;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.academico {
+  margin-right: 20px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.examination-board-row {
+  font-size: 15px;
+  border-top: 2px solid #666;
+}
+
+.examination-row {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}

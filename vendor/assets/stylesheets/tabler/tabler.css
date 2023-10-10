@@ -3883,7 +3883,6 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: transparent;
   border-color: #dee2e6 #dee2e6 transparent;
 }
 
@@ -11646,9 +11645,9 @@ a.icon:hover {
 }
 
 .nav-tabs .nav-link.active {
-  border-color: #467fcf;
+  font-weight: bold;
   color: #467fcf;
-  background: transparent;
+  border-bottom: 3px solid #007BFF;
 }
 
 .nav-tabs .nav-link.disabled {

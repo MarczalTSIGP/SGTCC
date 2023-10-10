@@ -136,6 +136,8 @@ pt-BR:
         supervisions:
           in_progress: 'Coorientações em andamento'
           approved: 'Coorientações concluídas'
+        examination_boards:
+          defense: 'Bancas de TCC %{calendar}'
   breadcrumbs:
     homepage: "Página inicial"
     history: "Histórico"
