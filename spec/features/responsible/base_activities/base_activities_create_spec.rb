@@ -47,7 +47,7 @@ describe 'BaseActivity::create', :js, type: :feature do
 
         expect(page).to have_message(attributes[:name], in: 'table tbody')
         expect(page).to have_message(base_activity_info.name, in: 'table tbody')
-        expect(page).to have_message(1, in: 'table tbody')
+        expect(page).to have_message(2, in: 'table tbody')
       end
 
       it 'create a base activity with tcc 1' do
