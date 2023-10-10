@@ -42,7 +42,7 @@ table tr td.status-width {
 }
 
 .examination-boards {
-  border: 2px solid #666;
+  border: 1px solid #467fcf;
 }
 
 .flex-left {
@@ -68,7 +68,7 @@ table tr td.status-width {
 
 .examination-board-row {
   font-size: 15px;
-  border-top: 2px solid #666;
+  border-top: 1px solid #467fcf;
 }
 
 .examination-row {
@@ -82,4 +82,8 @@ table tr td.status-width {
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.nav-tabs {
+  border-bottom: 0;
 }

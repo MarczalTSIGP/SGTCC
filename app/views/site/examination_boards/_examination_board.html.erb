@@ -24,7 +24,7 @@
    <div class="examination-board-row examination-details exam_<%= examination_board.id %>">
       <div class="examination-boards-site">
          <div>
-            <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong>
+            <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
             <% examination_board.orientation.supervisors.each do |supervisor| %>
                <div class="examination-row">
                   <table-name-avatar 
@@ -38,7 +38,7 @@
 
       <div class="examination-boards-site">
          <div>
-            <strong><%= ExaminationBoard.human_attribute_name('evaluators') %>:</strong>
+            <strong><%= ExaminationBoard.human_attribute_name('evaluators') %>:</strong><br>
             <% examination_board.professors.each do |professor| %>
                <div class="examination-row">
                   <table-name-avatar
@@ -50,16 +50,15 @@
          </div>
       </div>
 
-      <div class="examination-boards-site teste">
+      <div class="examination-boards-site">
          <strong><%= ExaminationBoard.human_attribute_name('summary') %>:</strong><br>
-
-         <%= examination_board.academic_activity&.summary %>
+         <%= examination_board.academic_activity&.summary %> teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste 
 
       </div>
 
       <div class="examination-boards-site">
          <div>
-            <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong>
+            <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong><br>
             <% if examination_board.academic_activity %>
                <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
                   <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
