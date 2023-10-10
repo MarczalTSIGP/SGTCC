@@ -36,7 +36,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
                                                         .replaceRange('#{content}', {line: 0});")
         submit_form('input[id="examination_board_file_button"]')
         expect(page).to have_current_path professors_examination_board_path(examination_board)
-        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_field('examination_board_note_appointment_text', type: 'textarea',
                                                                               text: content,
                                                                               visible: :hidden)
@@ -54,7 +54,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
                                                         .replaceRange('#{content}', {line: 0});")
         submit_form('input[id="examination_board_file_button"]')
         expect(page).to have_current_path professors_examination_board_path(examination_board)
-        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_field('examination_board_note_appointment_text', type: 'textarea',
                                                                               text: content,
                                                                               visible: :hidden)
