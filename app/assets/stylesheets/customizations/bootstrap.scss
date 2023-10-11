@@ -32,8 +32,10 @@ table tr td.status-width {
   display: flex;
   flex-direction: row;
   padding: 10px;
-  margin-bottom: 20px;
   font-size: 15px;
+}
+.examination-boards-site p {
+  margin-bottom: 0;
 }
 
 .examination-boards-site-head {
@@ -74,6 +76,7 @@ table tr td.status-width {
 .examination-row {
   display: inline-block;
   margin-right: 10px;
+  margin-left: 0.5rem !important;
 }
 
 .hidden {

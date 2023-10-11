@@ -10,7 +10,6 @@
       <div class="flex-right">
          <div class="title">
             <a href="javascript:void(0);" class="showDetails" data-exam-id="<%= examination_board.id %>">
-               <strong><%= ExaminationBoard.human_attribute_name('title') %>:</strong>
                <%= examination_board.academic_activity&.title %><br>
             </a>
          </div>
@@ -22,6 +21,11 @@
    </div>
 
    <div class="examination-board-row examination-details exam_<%= examination_board.id %>">
+      <div class="examination-boards-site">
+         <p class="text-justify"><strong><%= ExaminationBoard.human_attribute_name('summary') %>: </strong>
+            <%= examination_board.academic_activity&.summary %></p>
+      </div>
+
       <div class="examination-boards-site">
          <div>
             <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
@@ -46,14 +50,8 @@
                   name="<%= professor.name_with_scholarity %>">
                   </table-name-avatar>
                </div>
-            <% end %><br>
+            <% end %>
          </div>
-      </div>
-
-      <div class="examination-boards-site">
-         <strong><%= ExaminationBoard.human_attribute_name('summary') %>:</strong><br>
-         <%= examination_board.academic_activity&.summary %>
-
       </div>
 
       <div class="examination-boards-site">
