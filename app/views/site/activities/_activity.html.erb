@@ -1,9 +1,9 @@
 <tr class="<%= activity_status_class(activity) %>">
   <td>
       <% if activity.base_activity_type.name == "Envio de documento" %>
-        <i class="fas fa-file-upload"></i>
+        <i class="fas fa-file-upload pr-2"></i>
       <% else %>
-        <i class="fas fa-info"></i>
+        <i class="fas fa-info pr-2"></i>
       <% end %>
       <%= activity.name %>
    </td>
