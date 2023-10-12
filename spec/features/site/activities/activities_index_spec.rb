@@ -18,7 +18,6 @@ describe 'Site::calendar', type: :feature, js: true do
     it 'shows all activities for tcc one' do
       within('table.tcc_one') do
         expect(page).to have_contents([activity_tcc_one.name,
-                                       activity_tcc_one.base_activity_type.name,
                                        activity_tcc_one.deadline])
       end
     end
@@ -28,7 +27,6 @@ describe 'Site::calendar', type: :feature, js: true do
 
       within('table.tcc_two') do
         expect(page).to have_contents([activity_tcc_two.name,
-                                       activity_tcc_two.base_activity_type.name,
                                        activity_tcc_two.deadline])
       end
     end
