@@ -123,5 +123,7 @@ RUN mkdir -p $APP \
 WORKDIR $APP
 
 # Install bundler and rails
+RUN gem install net-imap -v 0.3.7
+
 RUN gem install bundler -v 2.3.7 \
   && gem install rails -v 6.0.3.2

@@ -84,7 +84,9 @@
   </td>
   <td colspan="5">
     <% if examination_board.academic_activity %>
-      <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
+
+      <i class="fas fa-file-pdf" style="color: #467fcf; font-size: 1.2em; padding-left: 5px; padding-right: 2px"></i>
+      <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank) do %>
         <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
       <% end %>
 

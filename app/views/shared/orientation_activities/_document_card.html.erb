@@ -18,6 +18,9 @@
       </strong>
       <%= @academic_activity.summary %>
     </p>
+
+    <i class="fas fa-file-pdf" style="color: #467fcf; font-size: 1.2em; padding-right: 5px"></i>
+
     <p>
       <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
         <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>
