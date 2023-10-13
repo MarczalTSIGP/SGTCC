@@ -18,7 +18,7 @@ import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
 import fileInput from '../initializers/file-input';
 import rangeInput from '../initializers/range-input';
-import hideShowFields from '../initializers/hide-show-fields';
+import hideShowActivityFields from '../initializers/hide-show-activity-fields';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
@@ -56,7 +56,7 @@ document.addEventListener('turbolinks:load', () => {
       sidebarScroll,
       tooltip,
       rangeInput,
-      hideShowFields
+      hideShowActivityFields
     ]
   });
 });

@@ -1,10 +1,10 @@
 export default {
   mounted() {
-    this.initHideShowFields();
+    this.initHideShowActivityFields();
   },
 
   methods: {
-    initHideShowFields() {
+    initHideShowActivityFields() {
       const $ = window.jQuery;
       const elClass = '.activity_type_hide_event';
       
