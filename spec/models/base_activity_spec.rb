@@ -4,8 +4,22 @@ RSpec.describe BaseActivity, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:tcc) }
-    it { is_expected.to validate_presence_of(:identifier) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
+    it { is_expected.to validate_presence_of(:identifier) }
+
+    context 'when send document type' do
+      before do
+        subject.base_activity_type = create(:base_activity_type_send_document)
+      end
+
+      it { is_expected.to validate_presence_of(:identifier) }
+    end
+
+    context 'when info type' do
+      before { subject.base_activity_type = create(:base_activity_type_info) }
+
+      it { is_expected.not_to validate_presence_of(:identifier) }
+    end
   end
 
   describe 'associations' do
