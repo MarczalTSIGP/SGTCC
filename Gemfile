@@ -44,7 +44,7 @@ group :development, :test do
 
   # gem 'apparition'
   gem 'faker', '~>2.12.0'
-  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-rails', '~> 5.1.2'
 end
 
 group :development do
@@ -72,7 +72,7 @@ group :test do
   gem 'guard-rspec', require: false
   gem 'simplecov', '0.17.1', require: false
   gem 'simplecov-console', require: false
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1.3'
   gem 'capybara-screenshot'
 end
 

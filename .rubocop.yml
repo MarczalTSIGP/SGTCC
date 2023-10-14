@@ -153,6 +153,9 @@ RSpec/MultipleMemoizedHelpers:
     - 'spec/models/document_spec.rb'
     - 'spec/features/**/*'
 
+RSpec/NamedSubject:
+  Exclude:  
+    - 'spec/models/base_activity_spec.rb'
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
