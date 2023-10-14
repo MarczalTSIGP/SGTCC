@@ -157,6 +157,7 @@ RSpec/NamedSubject:
   Exclude:  
     - 'spec/models/base_activity_spec.rb'
     - 'spec/models/examination_board_note_spec.rb'
+    - 'spec/models/orientation_supervisor_spec.rb'
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
