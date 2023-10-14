@@ -12,7 +12,7 @@ RSpec.describe Orientation, type: :model do
     it { is_expected.to have_many(:calendars).through(:orientation_calendars) }
     it { is_expected.to belong_to(:academic) }
     it { is_expected.to belong_to(:advisor).class_name('Professor') }
-    it { is_expected.to belong_to(:institution) }
+    it { is_expected.to belong_to(:institution).optional }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
     it { is_expected.to have_many(:documents).through(:signatures) }
     it { is_expected.to have_many(:academic_activities).through(:academic) }

@@ -16,7 +16,9 @@ RSpec.describe BaseActivity, type: :model do
     end
 
     context 'when info type' do
-      before { subject.base_activity_type = create(:base_activity_type_info) }
+      before do
+        subject.base_activity_type = create(:base_activity_type_info)
+      end
 
       it { is_expected.not_to validate_presence_of(:identifier) }
     end
