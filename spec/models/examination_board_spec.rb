@@ -404,7 +404,16 @@ RSpec.describe ExaminationBoard, type: :model do
         create(:examination_board_note, examination_board: examination_board, note: nil)
       end
 
-      expect(examination_board.all_evaluated?).to eq(false)
+      expect(examination_board.all_evaluated?).to be(false)
+    end
+
+    it 'returns that all_evaluated is false when all give the note' do
+      en = examination_board.evaluators_number - 1
+      en.times do
+        create(:examination_board_note, examination_board: examination_board, note: nil)
+      end
+
+      expect(examination_board.all_evaluated?).to be(false)
     end
 
     it 'returns that all_evaluated is true' do
@@ -412,7 +421,7 @@ RSpec.describe ExaminationBoard, type: :model do
         create(:examination_board_note, examination_board: examination_board, note: 80)
       end
 
-      expect(examination_board.all_evaluated?).to eq(true)
+      expect(examination_board.all_evaluated?).to be(true)
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoardFile::create', type: :feature, js: true do
+describe 'ExaminationBoardApointments::create', :js, type: :feature do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
@@ -22,6 +22,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
         page.execute_script("$('.custom-file-input').css('opacity', '1')")
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_file_button"]')
+
         expect(page).to have_current_path professors_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('update.m'))
       end
@@ -35,6 +36,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
                                                         .CodeMirror.getDoc()
                                                         .replaceRange('#{content}', {line: 0});")
         submit_form('input[id="examination_board_file_button"]')
+
         expect(page).to have_current_path professors_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_field('examination_board_note_appointment_text', type: 'textarea',
@@ -53,6 +55,7 @@ describe 'ExaminationBoardFile::create', type: :feature, js: true do
                                                         .CodeMirror.getDoc()
                                                         .replaceRange('#{content}', {line: 0});")
         submit_form('input[id="examination_board_file_button"]')
+
         expect(page).to have_current_path professors_examination_board_path(examination_board)
         expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_field('examination_board_note_appointment_text', type: 'textarea',

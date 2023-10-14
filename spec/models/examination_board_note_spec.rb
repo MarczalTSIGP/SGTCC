@@ -2,7 +2,13 @@ require 'rails_helper'
 
 RSpec.describe ExaminationBoardNote, type: :model do
   describe 'validates' do
-    it { is_expected.not_to validate_presence_of(:note) }
+    it {
+      expect(subject).to validate_numericality_of(:note)
+        .is_less_than_or_equal_to(100)
+        .is_greater_than_or_equal_to(0)
+    }
+
+    it { is_expected.to allow_value(nil).for(:note) }
   end
 
   describe 'associations' do
