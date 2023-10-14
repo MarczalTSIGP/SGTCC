@@ -4,7 +4,7 @@ describe 'BaseActivity::create', :js, type: :feature do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }
-  let!(:base_activity_info) { create(:base_activity_info) }
+  let!(:base_activity_info) { create(:base_activity_type_info) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -50,7 +50,7 @@ describe 'BaseActivity::create', :js, type: :feature do
         expect(page).to have_message(2, in: 'table tbody')
       end
 
-      it 'create a base activity with tcc 1' do
+      it 'create a send document base activity to tcc 1' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label('1', in: 'base_activity_tcc')
@@ -64,7 +64,7 @@ describe 'BaseActivity::create', :js, type: :feature do
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
 
-      it 'create a base activity with tcc 2' do
+      it 'create a send document base activity to tcc 2' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label('2', in: 'base_activity_tcc')

@@ -27,6 +27,8 @@ class BaseActivity < ApplicationRecord
     by_tcc(tccs[:two], term)
   end
 
+  private
+
   def send_document?
     base_activity_type.nil? || base_activity_type.send_document?
   end
