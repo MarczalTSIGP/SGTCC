@@ -21,6 +21,10 @@
       <% end %>
     </div>
 
+    <div class="mt-5">
+      <%= f.input :appointment_text, input_html: { class: 'markdown-editor' } %>
+    </div>
+
     <%= f.hidden_field :external_member_id, value: current_external_member.id %>
     <%= f.hidden_field :examination_board_id, value: @examination_board.id %>
 

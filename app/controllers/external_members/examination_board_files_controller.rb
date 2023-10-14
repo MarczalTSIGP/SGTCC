@@ -38,7 +38,7 @@ class ExternalMembers::ExaminationBoardFilesController < ExternalMembers::BaseCo
   def examination_board_note_params
     params.require(:examination_board_note)
           .permit(:appointment_file, :appointment_file_cache,
-                  :external_member_id, :examination_board_id)
+                  :external_member_id, :examination_board_id, :appointment_text)
   end
 
   def model_human
