@@ -59,6 +59,9 @@
             <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong><br>
             <% if examination_board.academic_activity %>
                <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
+                  <span class="icon mr-1">
+                     <i class="fas fa-file-pdf"></i>
+                  </span>
                   <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
                <% end %>
                <% if examination_board.academic_activity.complementary_files.present? %>

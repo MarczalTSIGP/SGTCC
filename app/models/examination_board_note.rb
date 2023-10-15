@@ -9,7 +9,8 @@ class ExaminationBoardNote < ApplicationRecord
             presence: true,
             numericality: { only_integer: true,
                             greater_than_or_equal_to: 0,
-                            less_than_or_equal_to: 100 }
+                            less_than_or_equal_to: 100 },
+            allow_nil: true
 
   after_save do
     if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
@@ -49,7 +50,7 @@ class ExaminationBoardNote < ApplicationRecord
   end
 
   def final_note
-    examination_board.examination_board_notes.sum(&:note) / evaluators_number
+    examination_board.examination_board_notes.where.not(note: nil).sum(&:note) / evaluators_number
   end
 
   def status(final_note)
