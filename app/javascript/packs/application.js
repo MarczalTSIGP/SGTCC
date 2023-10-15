@@ -57,7 +57,7 @@ document.addEventListener('turbolinks:load', () => {
       sidebarScroll,
       tooltip,
       rangeInput,
-      examinationBoards
+      examinationBoards,
       hideShowActivityFields
     ]
   });
