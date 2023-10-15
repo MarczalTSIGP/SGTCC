@@ -1,127 +1,128 @@
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('title') %></strong>
-  </td>
-  <td colspan="4">
-    <strong><%= examination_board.academic_activity&.title %></strong>
-  </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('title') %></strong>
+   </td>
+   <td colspan="4">
+      <strong><%= examination_board.academic_activity&.title %></strong>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('summary') %></strong>
-  </td>
-  <td colspan="4">
-    <strong><%= examination_board.academic_activity&.summary %></strong>
-  </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('summary') %></strong>
+   </td>
+   <td colspan="4">
+      <strong><%= examination_board.academic_activity&.summary %></strong>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('academic') %></strong>
-  </td>
-  <td colspan="4" class="td-center">
-    <%= examination_board.orientation.academic.name %>
-  </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('academic') %></strong>
+   </td>
+   <td colspan="4" class="td-center">
+      <%= examination_board.orientation.academic.name %>
+   </td>
 </tr>
 <tr>
-  <td rowspan="2" class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('orientation') %></strong>
-  </td>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('advisor') %></strong>
-  </td>
-  <td colspan="4" class="text-center">
-    <table-name-avatar
+   <td rowspan="2" class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('orientation') %></strong>
+   </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('advisor') %></strong>
+   </td>
+   <td colspan="4" class="text-center">
+      <table-name-avatar
       url="<%= examination_board.orientation.advisor.profile_image %>"
       name="<%= examination_board.orientation.advisor.name_with_scholarity %>">
-    </table-name-avatar>
-  </td>
+      </table-name-avatar>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %></strong>
-  </td>
-  <td colspan="4">
-    <% examination_board.orientation.supervisors.each do |supervisor| %>
-      <table-name-avatar
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %></strong>
+   </td>
+   <td colspan="4">
+      <% examination_board.orientation.supervisors.each do |supervisor| %>
+         <table-name-avatar
         url="<%= supervisor.profile_image %>"
         name="<%= supervisor.name_with_scholarity %>">
-      </table-name-avatar>
-    <% end %>
-  </td>
+         </table-name-avatar>
+      <% end %>
+   </td>
 </tr>
 <tr>
-  <td rowspan="2" class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('evaluators') %></strong>
-  </td>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('utfpr_members') %></strong>
-  </td>
-  <td colspan="4">
-    <% examination_board.professors.each do |professor| %>
-      <table-name-avatar
+   <td rowspan="2" class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('evaluators') %></strong>
+   </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('utfpr_members') %></strong>
+   </td>
+   <td colspan="4">
+      <% examination_board.professors.each do |professor| %>
+         <table-name-avatar
         url="<%= professor.profile_image %>"
         name="<%= professor.name_with_scholarity %>">
-      </table-name-avatar>
-    <% end %>
-  </td>
+         </table-name-avatar>
+      <% end %>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('external_members') %></strong>
-  </td>
-  <td colspan="4">
-    <% examination_board.external_members.each do |external_member| %>
-      <table-name-avatar
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('external_members') %></strong>
+   </td>
+   <td colspan="4">
+      <% examination_board.external_members.each do |external_member| %>
+         <table-name-avatar
         url="<%= external_member.profile_image %>"
         name="<%= external_member.name_with_scholarity %>">
-      </table-name-avatar>
-    <% end %>
-  </td>
-</tr>
-<tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
-  </td>
-  <td colspan="5">
-    <% if examination_board.academic_activity %>
-
-      <i class="fas fa-file-pdf" style="color: #467fcf; font-size: 1.2em; padding-left: 5px; padding-right: 2px"></i>
-      <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
+         </table-name-avatar>
       <% end %>
+   </td>
+</tr>
+<tr>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('documents') %></strong>
+   </td>
+   <td colspan="5">
+      <% if examination_board.academic_activity %>
+         <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank) do %>
+            <span class="icon mr-1">
+               <i class="fas fa-file-pdf"></i>
+            </span>
+            <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
+         <% end %>
 
-      <% if examination_board.academic_activity.complementary_files.present? %>
-        <%= link_to(examination_board.academic_activity.complementary_files.url, target: :_blank) do %>
-          <%= AcademicActivity.human_attribute_name('complementary_files') %>
-        <% end %>
+         <% if examination_board.academic_activity.complementary_files.present? %>
+            <%= link_to(examination_board.academic_activity.complementary_files.url, target: :_blank) do %>
+               <%= AcademicActivity.human_attribute_name('complementary_files') %>
+            <% end %>
+         <% end %>
       <% end %>
-    <% end %>
-  </td>
+   </td>
 </tr>
 <tr>
-  <td rowspan="3" class="td-center">
-    <strong><%= ExaminationBoard.model_name.human %></strong>
-  </td>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('date') %></strong>
-  </td>
-  <td colspan="4">
-    <%= long_date(examination_board.date) %>
-  </td>
+   <td rowspan="3" class="td-center">
+      <strong><%= ExaminationBoard.model_name.human %></strong>
+   </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('date') %></strong>
+   </td>
+   <td colspan="4">
+      <%= long_date(examination_board.date) %>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('hour') %></strong>
-  </td>
-  <td colspan="4">
-    <%= l(examination_board.date, format: :time) %>
-  </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('hour') %></strong>
+   </td>
+   <td colspan="4">
+      <%= l(examination_board.date, format: :time) %>
+   </td>
 </tr>
 <tr>
-  <td class="td-center">
-    <strong><%= ExaminationBoard.human_attribute_name('place') %></strong>
-  </td>
-  <td colspan="4">
-    <%= examination_board.place %>
-  </td>
+   <td class="td-center">
+      <strong><%= ExaminationBoard.human_attribute_name('place') %></strong>
+   </td>
+   <td colspan="4">
+      <%= examination_board.place %>
+   </td>
 </tr>

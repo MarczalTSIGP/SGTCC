@@ -1,56 +1,57 @@
 <div class="card">
-  <div class="card-header">
-    <strong class="mr-1">
-      <%= t("views.title.activities.send_document.#{@orientation.academic.gender}") %>:
-    </strong>
-    <%= @orientation.academic.name %>
-  </div>
-  <div class="card-body">
-    <p>
-      <strong>
-        <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>:
+   <div class="card-header">
+      <strong class="mr-1">
+         <%= t("views.title.activities.send_document.#{@orientation.academic.gender}") %>:
       </strong>
-      <%= @academic_activity.title %>
-    </p>
-    <p>
-      <strong>
-        <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>:
-      </strong>
-      <%= @academic_activity.summary %>
-    </p>
-
-    <i class="fas fa-file-pdf" style="color: #467fcf; font-size: 1.2em; padding-right: 5px"></i>
-
-    <p>
-      <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>
-      <% end %>
-    </p>
-    <% if @academic_activity.complementary_files.present? %>
+      <%= @orientation.academic.name %>
+   </div>
+   <div class="card-body">
       <p>
-        <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
-          <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_complementary_files") %>
-        <% end %>
+         <strong>
+            <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>:
+         </strong>
+         <%= @academic_activity.title %>
       </p>
-    <% end %>
-    <div>
-      <%= yield(:advisor_component) %>
-    </div>
-  </div>
+      <p>
+         <strong>
+            <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>:
+         </strong>
+         <%= @academic_activity.summary %>
+      </p>
+
+      <p>
+         <%= link_to(@academic_activity.pdf.url, target: :_blank) do %>
+            <span class="icon mr-1">
+               <i class="fas fa-file-pdf"></i>
+            </span>
+            <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_pdf") %>
+         <% end %>
+      </p>
+      <% if @academic_activity.complementary_files.present? %>
+         <p>
+            <%= link_to(@academic_activity.complementary_files.url, target: :_blank) do %>
+               <%= AcademicActivity.human_attribute_name("sent_#{@activity.identifier}_complementary_files") %>
+            <% end %>
+         </p>
+      <% end %>
+      <div>
+         <%= yield(:advisor_component) %>
+      </div>
+   </div>
 </div>
 
 <% if @academic_activity.additional_instructions.present? %>
-  <div class="card">
-    <div class="card-header">
-      <strong class="mr-1">
-        <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
-      </strong>
-    </div>
+   <div class="card">
+      <div class="card-header">
+         <strong class="mr-1">
+            <%= AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
+         </strong>
+      </div>
 
-    <div class="card-body">
-      <p>
-        <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
-      </p>
-    </div>
-  </div>
-<% end %>
+      <div class="card-body">
+         <p>
+            <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
+            </p>
+         </div>
+      </div>
+   <% end %>
