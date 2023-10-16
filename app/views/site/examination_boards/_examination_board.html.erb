@@ -1,5 +1,5 @@
-<div class="examination-boards">
-   <div class="examination-boards-site-head examination-board-date" data-date="<%= examination_board.date %>">
+<div class="examination-board-site mb-4 <%= 'opacity-50' if (examination_board.date < Time.zone.now) %>">
+   <div class="head">
       <div class="flex-left">
          <div>
             <%= long_date(examination_board.date) %> <%= l(examination_board.date, format: :time) %><br>
@@ -8,29 +8,31 @@
       </div>
 
       <div class="flex-right">
-         <div class="title">
-            <a href="javascript:void(0);" class="showDetails" data-exam-id="<%= examination_board.id %>">
+         <div class="mb-3">
+            <a href="#" class="show-eb-details" data-eb-id="<%= examination_board.id %>">
                <%= examination_board.academic_activity&.title %><br>
             </a>
          </div>
          <div>
-            <span class="academico"><%= examination_board.orientation.academic.name %> (acadêmico)</span>
+            <span class="mr-5"><%= examination_board.orientation.academic.name %> (acadêmico)</span>
             <%= examination_board.orientation.advisor.name_with_scholarity %> (orientador)
          </div>
       </div>
    </div>
 
-   <div class="examination-board-row examination-details exam_<%= examination_board.id %>">
-      <div class="examination-boards-site">
+   <div id="eb-<%= examination_board.id %>" class=" d-none">
+      <hr />
+
+      <div class="section">
          <p class="text-justify"><strong><%= ExaminationBoard.human_attribute_name('summary') %>: </strong>
             <%= examination_board.academic_activity&.summary %></p>
       </div>
 
-      <div class="examination-boards-site">
+      <div class="section">
          <div>
             <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
             <% examination_board.orientation.supervisors.each do |supervisor| %>
-               <div class="examination-row">
+               <div class="d-inline-block mr-3">
                   <table-name-avatar 
                url="<%= supervisor.profile_image %>"
                name="<%= supervisor.name_with_scholarity %>">
@@ -40,11 +42,11 @@
          </div>
       </div>
 
-      <div class="examination-boards-site">
+      <div class="section">
          <div>
             <strong><%= ExaminationBoard.human_attribute_name('evaluators') %>:</strong><br>
             <% examination_board.professors.each do |professor| %>
-               <div class="examination-row">
+               <div class="d-inline-block mr-3">
                   <table-name-avatar
                   url="<%= professor.profile_image %>"
                   name="<%= professor.name_with_scholarity %>">
@@ -54,7 +56,7 @@
          </div>
       </div>
 
-      <div class="examination-boards-site">
+      <div class="section">
          <div>
             <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong><br>
             <% if examination_board.academic_activity %>

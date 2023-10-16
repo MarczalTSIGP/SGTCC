@@ -26,7 +26,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         advisor_name = eb.orientation.advisor.name_with_scholarity
 
         child = index + 1
-        within("div#tabContent .examination-board-table:nth-child(#{child})") do
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
           expect(page).to have_content(long_date(eb.date))
           expect(page).to have_content(eb.place)
           expect(page).to have_content(academic_name)
@@ -34,7 +34,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         end
       end
 
-      eb_selector = "div#tabContent .examination-board-table:nth-child(#{ebs_tcc_one.size})"
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one.size})"
       expect(page).to have_selector("#{eb_selector}.opacity-50")
     end
 
@@ -48,12 +48,12 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
       visit site_examination_boards_path
 
-      within('div#tabContent .examination-board-table:nth-child(1)') do
-        find("a[data-exam-id='#{eb_tcc_one.id}']").click
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_one.id}']").click
 
         expect(page).to have_content(paac.summary)
 
-        within("div.examination-board-row.exam_#{eb_tcc_one.id}") do
+        within("div#eb-#{eb_tcc_one.id}") do
           eb_tcc_one.orientation.supervisors.each do |supervisor|
             expect(page).to have_content(supervisor.name_with_scholarity)
           end
@@ -91,7 +91,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         advisor_name = eb.orientation.advisor.name_with_scholarity
         child = index + 1
 
-        within("div#tabContent .examination-board-table:nth-child(#{child})") do
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
           expect(page).to have_content(long_date(eb.date))
           expect(page).to have_content(eb.place)
           expect(page).to have_content(academic_name)
@@ -99,7 +99,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         end
       end
 
-      eb_selector = "div#tabContent .examination-board-table:nth-child(#{ebs_tcc_one_project.size})"
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one_project.size})"
       expect(page).to have_selector("#{eb_selector}.opacity-50")
     end
 
@@ -115,11 +115,11 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
       click_link('Projeto')
 
-      within('div#tabContent .examination-board-table:nth-child(1)') do
-        find("a[data-exam-id='#{eb_tcc_one_project.id}']").click
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_one_project.id}']").click
 
         expect(page).to have_content(paac.summary)
-        within("div.examination-board-row.exam_#{eb_tcc_one_project.id}") do
+        within("div#eb-#{eb_tcc_one_project.id}") do
           eb_tcc_one_project.orientation.supervisors.each do |supervisor|
             expect(page).to have_content(supervisor.name_with_scholarity)
           end
@@ -158,7 +158,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         advisor_name = eb.orientation.advisor.name_with_scholarity
 
         child = index + 1
-        within("div#tabContent .examination-board-table:nth-child(#{child})") do
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
           expect(page).to have_content(long_date(eb.date))
           expect(page).to have_content(eb.place)
           expect(page).to have_content(academic_name)
@@ -166,7 +166,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
         end
       end
 
-      eb_selector = "div#tabContent .examination-board-table:nth-child(#{ebs_tcc_two.size})"
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_two.size})"
       expect(page).to have_selector("#{eb_selector}.opacity-50")
     end
 
@@ -182,11 +182,11 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
       click_link('Monografia')
 
-      within('div#tabContent .examination-board-table:nth-child(1)') do
-        find("a[data-exam-id='#{eb_tcc_two.id}']").click
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_two.id}']").click
 
         expect(page).to have_content(paac.summary)
-        within("div.examination-board-row.exam_#{eb_tcc_two.id}") do
+        within("div#eb-#{eb_tcc_two.id}") do
           eb_tcc_two.orientation.supervisors.each do |supervisor|
             expect(page).to have_content(supervisor.name_with_scholarity)
           end
