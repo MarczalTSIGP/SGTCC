@@ -128,8 +128,8 @@ class Calendar < ApplicationRecord
     
     base_activities.each do |base_activity|
       create_activity(base_activity, date_data)
-      initial_date = DateCalculator.increment_date(date_data[:initial_date], date_data[:interval] + 1)
-      final_date = DateCalculator.calculate_final_date(date_data[:initial_date], date_data[:interval])
+      initial_date = DateCalculator.increment_date(date_data.initial_date, date_data.interval + 1)
+      final_date = DateCalculator.calculate_final_date(date_data.initial_date, date_data.interval)
     end
   end
 
@@ -139,8 +139,8 @@ class Calendar < ApplicationRecord
       calendar_id: id,
       base_activity_type_id: base_activity.base_activity_type_id,
       judgment: base_activity&.judgment, identifier: base_activity&.identifier,
-      initial_date: date_data[:initial_date], 
-      final_date: date_data[:final_date],
+      initial_date: date_data.initial_date, 
+      final_date: date_data.final_date,
       final_version: base_activity&.final_version
     }
     
