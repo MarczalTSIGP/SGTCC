@@ -2,7 +2,7 @@ class Populate::Calendars
   attr_reader :current_year
 
   def initialize
-    @start_year = Calendar.current_year.to_i - 2
+    @start_year = Calendar.current_year.to_i - 1
   end
 
   def populate
