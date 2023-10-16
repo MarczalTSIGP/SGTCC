@@ -35,6 +35,12 @@ FactoryBot.define do
       identifier { :proposal }
     end
 
+    factory :current_examination_board_tcc_one_project do
+      tcc { tccs.first }
+      orientation { create(:current_orientation_tcc_one) }
+      identifier { :project }
+    end
+
     factory :current_examination_board_tcc_two do
       tcc { tccs.last }
       orientation { create(:current_orientation_tcc_two) }
