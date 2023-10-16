@@ -15,3 +15,19 @@
 .comma-list li:last-child::after {
   content: "";
 }
+
+table tr td.status-width {
+  width: 75px;
+}
+
+.font-size-13 {
+  font-size: 13px;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.nav-tabs {
+  border-bottom: 0;
+}

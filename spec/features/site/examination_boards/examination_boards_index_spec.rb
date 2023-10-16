@@ -1,76 +1,202 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::index', type: :feature, js: true do
+describe 'ExaminationBoard::index', :js, type: :feature do
   before do
     create(:page, url: 'bancas-de-tcc')
   end
 
-  describe '#index' do
-    let!(:examination_board_tcc_one) { create(:current_examination_board_tcc_one) }
-    let!(:examination_board_tcc_two) { create(:current_examination_board_tcc_two) }
+  describe 'Proposal' do
+    it 'is the default tab' do
+      visit site_examination_boards_path
 
-    context 'when shows all the examination boards of the tcc one calendar' do
-      let(:orientation) { examination_board_tcc_one.orientation }
-      let(:academic) { orientation.academic }
-      let!(:academic_activity) do
-        create(:proposal_academic_activity, academic: academic,
-                                            calendar: orientation.calendars.first)
-      end
-
-      before do
-        visit site_examination_boards_path
-      end
-
-      it 'shows all the examination boards of the tcc one with options' do
-        advisor_name = examination_board_tcc_one.orientation.advisor.name_with_scholarity
-
-        expect(page).to have_contents([examination_board_tcc_one.orientation.academic.name,
-                                       advisor_name,
-                                       examination_board_tcc_one.place,
-                                       long_date(examination_board_tcc_one.date)])
-
-        examination_board_tcc_one.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
-
-        examination_board_tcc_one.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
-        end
-
-        expect(page).to have_selector(link(academic_activity.pdf.url))
-      end
+      expect(page).to have_css('a#proposal-tab.active', text: 'Proposta')
     end
 
-    context 'when shows all the examination boards of the tcc two calendar' do
-      let(:orientation) { examination_board_tcc_two.orientation }
-      let(:academic) { orientation.academic }
-      let!(:academic_activity) do
-        create(:monograph_academic_activity, academic: academic,
-                                             calendar: orientation.calendars.first)
+    it 'displays the examinations boards of the current semester' do
+      ebs_tcc_one = [
+        create(:current_examination_board_tcc_one, date: 1.day.from_now),
+        create(:current_examination_board_tcc_one, date: Time.zone.now),
+        create(:current_examination_board_tcc_one, date: 1.day.ago)
+      ]
+
+      visit site_examination_boards_path
+
+      ebs_tcc_one.each_with_index do |eb, index|
+        academic_name = eb.orientation.academic.name
+        advisor_name = eb.orientation.advisor.name_with_scholarity
+
+        child = index + 1
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
+          expect(page).to have_content(long_date(eb.date))
+          expect(page).to have_content(eb.place)
+          expect(page).to have_content(academic_name)
+          expect(page).to have_content(advisor_name)
+        end
       end
 
-      before do
-        visit site_examination_boards_path
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one.size})"
+      expect(page).to have_selector("#{eb_selector}.opacity-50")
+    end
+
+    it 'displays the details of the examination board' do
+      eb_tcc_one = create(:current_examination_board_tcc_one, date: Time.zone.now)
+      academic = eb_tcc_one.orientation.academic
+      orientation = eb_tcc_one.orientation
+
+      paac = create(:proposal_academic_activity, academic: academic,
+                                                 calendar: orientation.current_calendar)
+
+      visit site_examination_boards_path
+
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_one.id}']").click
+
+        expect(page).to have_content(paac.summary)
+
+        within("div#eb-#{eb_tcc_one.id}") do
+          eb_tcc_one.orientation.supervisors.each do |supervisor|
+            expect(page).to have_content(supervisor.name_with_scholarity)
+          end
+
+          eb_tcc_one.professors.each do |professor|
+            expect(page).to have_content(professor.name_with_scholarity)
+          end
+
+          expect(page).to have_selector("a[href='#{eb_tcc_one.academic_activity.pdf.url}']")
+        end
+      end
+    end
+  end
+
+  describe 'Project' do
+    it 'clicks to the tab Project to display examination boards projects' do
+      visit site_examination_boards_path
+
+      click_link('Projeto')
+      expect(page).to have_css('a#project-tab.active', text: 'Projeto')
+    end
+
+    it 'displays the examinations boards of the current semester' do
+      ebs_tcc_one_project = [
+        create(:current_examination_board_tcc_one_project, date: 1.day.from_now),
+        create(:current_examination_board_tcc_one_project, date: Time.zone.now),
+        create(:current_examination_board_tcc_one_project, date: 1.day.ago)
+      ]
+
+      visit site_examination_boards_path
+      click_link('Projeto')
+
+      ebs_tcc_one_project.each_with_index do |eb, index|
+        academic_name = eb.orientation.academic.name
+        advisor_name = eb.orientation.advisor.name_with_scholarity
+        child = index + 1
+
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
+          expect(page).to have_content(long_date(eb.date))
+          expect(page).to have_content(eb.place)
+          expect(page).to have_content(academic_name)
+          expect(page).to have_content(advisor_name)
+        end
       end
 
-      it 'shows all the examination boards of the tcc two with options' do
-        advisor_name = examination_board_tcc_two.orientation.advisor.name_with_scholarity
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one_project.size})"
+      expect(page).to have_selector("#{eb_selector}.opacity-50")
+    end
 
-        expect(page).to have_contents([examination_board_tcc_two.orientation.academic.name,
-                                       advisor_name,
-                                       examination_board_tcc_two.place,
-                                       long_date(examination_board_tcc_two.date)])
+    it 'displays the details of the examination board' do
+      eb_tcc_one_project = create(:current_examination_board_tcc_one_project, date: Time.zone.now)
+      academic = eb_tcc_one_project.orientation.academic
+      orientation = eb_tcc_one_project.orientation
 
-        examination_board_tcc_two.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
+      paac = create(:project_academic_activity, academic: academic,
+                                                calendar: orientation.current_calendar)
+
+      visit site_examination_boards_path
+
+      click_link('Projeto')
+
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_one_project.id}']").click
+
+        expect(page).to have_content(paac.summary)
+        within("div#eb-#{eb_tcc_one_project.id}") do
+          eb_tcc_one_project.orientation.supervisors.each do |supervisor|
+            expect(page).to have_content(supervisor.name_with_scholarity)
+          end
+
+          eb_tcc_one_project.professors.each do |professor|
+            expect(page).to have_content(professor.name_with_scholarity)
+          end
+
+          expect(page).to have_selector("a[href='#{eb_tcc_one_project.academic_activity.pdf.url}']")
         end
+      end
+    end
+  end
 
-        examination_board_tcc_two.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
+  describe 'Monograph' do
+    it 'clicks to the tab Monograph to display examination boards monograph' do
+      visit site_examination_boards_path
+
+      click_link('Monografia')
+      expect(page).to have_css('a#monograph-tab.active', text: 'Monografia')
+    end
+
+    it 'displays the examinations boards of the current semester' do
+      ebs_tcc_two = [
+        create(:current_examination_board_tcc_two, date: 1.day.from_now),
+        create(:current_examination_board_tcc_two, date: Time.zone.now),
+        create(:current_examination_board_tcc_two, date: 1.day.ago)
+      ]
+
+      visit site_examination_boards_path
+
+      click_link('Monografia')
+
+      ebs_tcc_two.each_with_index do |eb, index|
+        academic_name = eb.orientation.academic.name
+        advisor_name = eb.orientation.advisor.name_with_scholarity
+
+        child = index + 1
+        within("div#tabContent .examination-board-site:nth-child(#{child})") do
+          expect(page).to have_content(long_date(eb.date))
+          expect(page).to have_content(eb.place)
+          expect(page).to have_content(academic_name)
+          expect(page).to have_content(advisor_name)
         end
+      end
 
-        expect(page).to have_selectors([link(academic_activity.pdf.url),
-                                        link(academic_activity.complementary_files.url)])
+      eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_two.size})"
+      expect(page).to have_selector("#{eb_selector}.opacity-50")
+    end
+
+    it 'displays the details of the examination board' do
+      eb_tcc_two = create(:current_examination_board_tcc_two, date: Time.zone.now)
+      academic = eb_tcc_two.orientation.academic
+      orientation = eb_tcc_two.orientation
+
+      paac = create(:monograph_academic_activity, academic: academic,
+                                                  calendar: orientation.current_calendar)
+
+      visit site_examination_boards_path
+
+      click_link('Monografia')
+
+      within('div#tabContent .examination-board-site:nth-child(1)') do
+        find("a[data-eb-id='#{eb_tcc_two.id}']").click
+
+        expect(page).to have_content(paac.summary)
+        within("div#eb-#{eb_tcc_two.id}") do
+          eb_tcc_two.orientation.supervisors.each do |supervisor|
+            expect(page).to have_content(supervisor.name_with_scholarity)
+          end
+
+          eb_tcc_two.professors.each do |professor|
+            expect(page).to have_content(professor.name_with_scholarity)
+          end
+
+          expect(page).to have_selector("a[href='#{eb_tcc_two.academic_activity.pdf.url}']")
+        end
       end
     end
   end
