@@ -116,14 +116,13 @@ class Calendar < ApplicationRecord
     interval = calculate_interval
     initial_date = calculate_initial_date(interval)
     final_date = initial_date + interval + 23.hours + 59.minutes
-  
     base_activities.each do |base_activity|
       create_activity(base_activity, initial_date, final_date)
       initial_date += interval + 1.day
       final_date = initial_date + interval + 23.hours + 59.minutes
     end
   end
-  
+
   def create_activity(activity, initial_date, final_date)
     activities.create(
       name: activity.name,
@@ -137,16 +136,15 @@ class Calendar < ApplicationRecord
       final_version: activity&.final_version
     )
   end
-  
+
   private
-  
+
   def calculate_interval
     tcc == 1 ? 10.days : 30.days
   end
-  
+
   def calculate_initial_date(interval)
     month = Calendar.current_semester == 'one' ? 'mar' : 'aug'
     Time.zone.parse("#{month} 01 00:00:00 #{Calendar.current_year}")
   end
 end
-
