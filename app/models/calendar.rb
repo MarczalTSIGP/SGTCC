@@ -134,7 +134,6 @@ class Calendar < ApplicationRecord
       initial_date: initial_date, final_date: final_date,
       final_version: base_activity&.final_version
     }
-    
     activities.create(activity_params)
   end
 end

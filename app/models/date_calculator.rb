@@ -1,5 +1,4 @@
 class DateCalculator
-
   def self.calculate_all_dates(tcc)
     interval = calculate_interval(tcc)
     initial_date = calculate_initial_date
