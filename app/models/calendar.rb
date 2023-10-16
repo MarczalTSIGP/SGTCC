@@ -125,22 +125,26 @@ class Calendar < ApplicationRecord
   def clone_base_activities
     base_activities = BaseActivity.where(tcc: tcc)
     date_data = DateCalculator.calculate_all_dates(tcc)
-    
+    initial_date = date_data.initial_date
+    final_date = date_data.final_date
+
     base_activities.each do |base_activity|
-      create_activity(base_activity, date_data)
-      initial_date = DateCalculator.increment_date(date_data.initial_date, date_data.interval + 1)
-      final_date = DateCalculator.calculate_final_date(date_data.initial_date, date_data.interval)
+      create_activity(base_activity, initial_date, final_date)
+      initial_date = DateCalculator.increment_date(initial_date, interval + 1)
+      final_date = DateCalculator.calculate_final_date(initial_date, interval)
     end
   end
 
-  def create_activity(base_activity, date_data)
+  def create_activity(base_activity, initial_date, final_date)
     activity_params = {
-      name: base_activity.name, tcc: base_activity.tcc,
+      name: base_activity.name,
+      tcc: base_activity.tcc,
       calendar_id: id,
       base_activity_type_id: base_activity.base_activity_type_id,
-      judgment: base_activity&.judgment, identifier: base_activity&.identifier,
-      initial_date: date_data.initial_date, 
-      final_date: date_data.final_date,
+      judgment: base_activity&.judgment,
+      identifier: base_activity&.identifier,
+      initial_date: initial_date,
+      final_date: final_date,
       final_version: base_activity&.final_version
     }
     
