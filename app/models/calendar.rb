@@ -125,14 +125,14 @@ class Calendar < ApplicationRecord
 
   def create_activity(activity, initial_date, final_date)
     activities.create(
-      name: activity.name, 
-      tcc: activity.tcc, 
-      calendar_id: id, 
-      base_activity_type_id: activity.base_activity_type_id, 
-      judgment: activity&.judgment, 
-      identifier: activity&.identifier, 
-      initial_date: initial_date, 
-      final_date: final_date, 
+      name: activity.name,
+      tcc: activity.tcc,
+      calendar_id: id,
+      base_activity_type_id: activity.base_activity_type_id,
+      judgment: activity&.judgment,
+      identifier: activity&.identifier,
+      initial_date: initial_date,
+      final_date: final_date,
       final_version: activity&.final_version
     )
   end
