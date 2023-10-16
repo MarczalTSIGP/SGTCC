@@ -3,6 +3,7 @@ class Calendar < ApplicationRecord
   include Tcc
   include Semester
   include CurrentCalendar
+  include DateCalculator
 
   searchable :year
 
@@ -123,33 +124,26 @@ class Calendar < ApplicationRecord
 
   def clone_base_activities
     base_activities = BaseActivity.where(tcc: tcc)
-    interval = calculate_interval
-    initial_date = calculate_initial_date
-    final_date = initial_date + interval + 23.hours + 59.minutes
+    date_data = DateCalculator.calculate_all_dates(tcc)
+    
     base_activities.each do |base_activity|
-      create_activity(base_activity, initial_date, final_date)
-      initial_date += interval + 1.day
-      final_date = initial_date + interval + 23.hours + 59.minutes
+      create_activity(base_activity, date_data)
+      initial_date = DateCalculator.increment_date(date_data[:initial_date], date_data[:interval] + 1)
+      final_date = DateCalculator.calculate_final_date(date_data[:initial_date], date_data[:interval])
     end
   end
 
-  def create_activity(activity, initial_date, final_date)
-    activities.create(
-      name: activity.name, tcc: activity.tcc,
-      calendar_id: id, 
-      base_activity_type_id: activity.base_activity_type_id,
-      judgment: activity&.judgment, identifier: activity&.identifier,
-      initial_date: initial_date, final_date: final_date,
-      final_version: activity&.final_version
-    )
-  end
-
-  def calculate_interval
-    tcc == 1 ? 10.days : 30.days
-  end
-
-  def calculate_initial_date
-    month = Calendar.current_semester == 'one' ? 'mar' : 'aug'
-    Time.zone.parse("#{month} 01 00:00:00 #{Calendar.current_year}")
+  def create_activity(base_activity, date_data)
+    activity_params = {
+      name: base_activity.name, tcc: base_activity.tcc,
+      calendar_id: id,
+      base_activity_type_id: base_activity.base_activity_type_id,
+      judgment: base_activity&.judgment, identifier: base_activity&.identifier,
+      initial_date: date_data[:initial_date], 
+      final_date: date_data[:final_date],
+      final_version: base_activity&.final_version
+    }
+    
+    activities.create(activity_params)
   end
 end
