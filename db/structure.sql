@@ -502,7 +502,8 @@ CREATE TABLE public.examination_board_notes (
     note integer,
     appointment_file character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    appointment_text text
 );
 
 
@@ -2035,6 +2036,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191011133414'),
 ('20191011133608'),
 ('20191125224723'),
-('20200710170737');
+('20200710170737'),
+('20231004230530');
 
 

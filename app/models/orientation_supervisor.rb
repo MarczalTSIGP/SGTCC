@@ -14,5 +14,5 @@ class OrientationSupervisor < ApplicationRecord
   has_many :examination_boards,
            class_name: 'ExaminationBoard',
            through: :orientation,
-           source: :examination_board
+           source: :examination_boards
 end
