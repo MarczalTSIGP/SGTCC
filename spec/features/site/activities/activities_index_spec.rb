@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Site::calendar', type: :feature, js: true do
+describe 'Site::calendar', :js, type: :feature do
   before do
     create(:page, url: 'calendario')
   end
@@ -18,7 +18,6 @@ describe 'Site::calendar', type: :feature, js: true do
     it 'shows all activities for tcc one' do
       within('table.tcc_one') do
         expect(page).to have_contents([activity_tcc_one.name,
-                                       activity_tcc_one.base_activity_type.name,
                                        activity_tcc_one.deadline])
       end
     end
@@ -27,9 +26,26 @@ describe 'Site::calendar', type: :feature, js: true do
       visit site_calendar_path
 
       within('table.tcc_two') do
-        expect(page).to have_contents([activity_tcc_two.name,
-                                       activity_tcc_two.base_activity_type.name,
-                                       activity_tcc_two.deadline])
+        expect(page).to have_content(activity_tcc_two.name)
+        expect(page).to have_content(activity_tcc_two.deadline)
+      end
+    end
+
+    it 'shows icon to info activities' do
+      activity_tcc_one.update(base_activity_type: create(:base_activity_type_info))
+
+      visit site_calendar_path
+
+      within('table.tcc_one') do
+        expect(page).to have_css('i.fas.fa-info')
+      end
+    end
+
+    it 'shows icon to send document activities' do
+      visit site_calendar_path
+
+      within('table.tcc_one') do
+        expect(page).to have_css('i.fas.fa-file-upload')
       end
     end
 
