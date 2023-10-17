@@ -1,11 +1,7 @@
 <tr class="<%= activity_status_class(activity) %>">
-  <td>
-      <% if activity.base_activity_type.identifier === "send_document" %>
-        <i class="fas fa-file-upload pr-2"></i>
-      <% else %>
-        <i class="fas fa-info pr-2"></i>
-      <% end %>
+   <td>
+      <%= icon_to_activity(activity)%>
       <%= activity.name %>
    </td>
-  <td><%= activity.deadline %></td>
+   <td><%= activity.deadline %></td>
 </tr>
