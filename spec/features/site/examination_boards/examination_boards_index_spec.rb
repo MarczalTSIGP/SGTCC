@@ -14,8 +14,8 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one = [
+        create(:current_examination_board_tcc_one, date: 1.hour.from_now),
         create(:current_examination_board_tcc_one, date: 1.day.from_now),
-        create(:current_examination_board_tcc_one, date: Time.zone.now),
         create(:current_examination_board_tcc_one, date: 1.day.ago)
       ]
 
@@ -78,8 +78,8 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one_project = [
+        create(:current_examination_board_tcc_one_project, date: 1.hour.from_now),
         create(:current_examination_board_tcc_one_project, date: 1.day.from_now),
-        create(:current_examination_board_tcc_one_project, date: Time.zone.now),
         create(:current_examination_board_tcc_one_project, date: 1.day.ago)
       ]
 
@@ -144,8 +144,8 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_two = [
+        create(:current_examination_board_tcc_two, date: 1.hour.from_now),
         create(:current_examination_board_tcc_two, date: 1.day.from_now),
-        create(:current_examination_board_tcc_two, date: Time.zone.now),
         create(:current_examination_board_tcc_two, date: 1.day.ago)
       ]
 
@@ -156,8 +156,8 @@ describe 'ExaminationBoard::index', :js, type: :feature do
       ebs_tcc_two.each_with_index do |eb, index|
         academic_name = eb.orientation.academic.name
         advisor_name = eb.orientation.advisor.name_with_scholarity
-
         child = index + 1
+
         within("div#tabContent .examination-board-site:nth-child(#{child})") do
           expect(page).to have_content(long_date(eb.date))
           expect(page).to have_content(eb.place)

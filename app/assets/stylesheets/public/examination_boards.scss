@@ -1,43 +1,44 @@
-.examination-boards-site { 
-    .nav-tabs .nav-link.active {
-        font-weight: bold;
-        border-bottom: 3px solid #007BFF;
-    }
+.examination-boards-site {
+  .nav-tabs .nav-link.active {
+    font-weight: bold;
+    border-bottom: 3px solid #007bff;
+  }
 }
 
 .examination-board-site {
-    border: 1px solid #467fcf;
+  border: 1px solid #467fcf;
 
-    .head, .section {
-        display: flex;
-        flex-direction: row;
-        padding: 10px;
-        font-size: 15px;
-    }
+  .head,
+  .section {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    font-size: 15px;
+  }
 
-    .head {
-        justify-content: center;
-        align-items: center;
-    }
+  .head {
+    justify-content: center;
+    align-items: center;
+  }
 
-    .section p {
-        margin-bottom: 0;
-    }
+  .section p {
+    margin-bottom: 0;
+  }
 
-    .flex-left {
-        flex: 0.3;
-        padding-right: 20px;
-        text-align: center;
-    }
+  .flex-left {
+    flex: 0.3;
+    padding-right: 20px;
+    text-align: center;
+  }
 
-    .flex-right,
-    .flex-right div {
-        flex: 1;
-        text-align: center;
-        margin-top: 10px;
-    }
+  .flex-right,
+  .flex-right div {
+    flex: 1;
+    text-align: center;
+    margin-top: 10px;
+  }
 
-    hr {
-        margin: 0;
-    }
+  hr {
+    margin: 0;
+  }
 }
