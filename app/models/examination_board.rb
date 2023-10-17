@@ -31,10 +31,8 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
-  scope :current_semester, lambda {
-    where('date >= ?', Date.current)
-  }
-  scope :recent, -> { order(date: :asc) }
+  scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
+  scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {
     includes(orientation: [:academic, :calendars, { advisor: [:scholarity] }])
@@ -46,10 +44,12 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }]).recent
   }
 
-  def occurred?
-    date < Time.zone.now
+  def self.order_by_asc_from_now_desc_ago
+    ebs_from_now = where('date >= ?', Date.current).order(date: :asc)
+    ebs_ago = where('date >= ? AND date < ?', Calendar.start_date, Date.current).order(date: :desc)
+    ebs_from_now.site_with_relationships + ebs_ago.site_with_relationships
   end
-
+  
   def status
     current_date = Date.current.to_s
     board_date = Date.parse(date.to_s).to_s

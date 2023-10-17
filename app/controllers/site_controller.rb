@@ -65,7 +65,7 @@ class SiteController < ApplicationController
   end
 
   def examination_boards
-    @proposal_examination_boards = examination_board_data(ExaminationBoard.proposal)
+    @proposal_examination_boards = ExaminationBoard.proposal.order_by_asc_from_now_desc_ago
     @project_examination_boards = examination_board_data(ExaminationBoard.project)
     @monograph_examination_boards = examination_board_data(ExaminationBoard.monograph)
 

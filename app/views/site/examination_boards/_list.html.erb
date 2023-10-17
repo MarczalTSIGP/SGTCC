@@ -1,8 +1,7 @@
 <% if examination_boards.empty? %>
    <%= t('helpers.no_results') %>
 <% else %>
-   <% examination_boards_sorted = examination_boards.current_semester.sort_by { |eb| [eb.occurred? ? 1 : 0, eb.date] } %>
-   <% examination_boards_sorted.each_with_index do |examination_board, index| %>
+   <% examination_boards.each_with_index do |examination_board, index| %>
       <%= render('site/examination_boards/examination_board', examination_board: examination_board) %>
    <% end %>
 <% end %>

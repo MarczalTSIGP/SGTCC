@@ -37,8 +37,8 @@ class Calendar < ApplicationRecord
   def self.start_date
     # TODO: remove
     # "01/#{current_month}/#{current_year}"
-    # month = current_semester == 'one' ? 1 : 7
-    Date.parse("1/#{current_semester}/#{current_year}")
+    month = current_semester == 'one' ? 1 : 8
+    Date.parse("1/#{month}/#{current_year}")
   end
 
   def self.search_by_semester(calendar, semester)
