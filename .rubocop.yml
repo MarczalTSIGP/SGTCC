@@ -120,18 +120,18 @@ Metrics/BlockLength:
     - 'config/environments/development.rb'
     - 'spec/**/*'
     - 'lib/tasks/populate.rake'
-    - 'app/services/populate/'
     - 'config/routes.rb'
     - 'lib/tasks/migrate/orientation.rake'
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/services/populate/base_activities.rb'
 
 Metrics/AbcSize:
   Exclude:
     - spec/features/professors/supervisions/supervisions_show_spec.rb
     - spec/features/professors/orientations/orientations_show_spec.rb
-    - app/services/populate/
+    - app/services/populate/base_activities.rb
 
 Metrics/ClassLength:
   Enabled: false
