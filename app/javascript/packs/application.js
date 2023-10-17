@@ -18,6 +18,7 @@ import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
 import fileInput from '../initializers/file-input';
 import rangeInput from '../initializers/range-input';
+import examinationBoards from '../initializers/examination-boards';
 import hideShowActivityFields from '../initializers/hide-show-activity-fields';
 
 Vue.prototype.$axios = axios;
@@ -56,6 +57,7 @@ document.addEventListener('turbolinks:load', () => {
       sidebarScroll,
       tooltip,
       rangeInput,
+      examinationBoards,
       hideShowActivityFields
     ]
   });
