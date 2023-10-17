@@ -14,4 +14,20 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe '#icon_to_activity' do
+    context 'when activity is send document' do
+      it 'return the icon' do
+        activity = create(:activity)
+        expect(helper.icon_to_activity(activity)).to eql('<i class="fas fa-file-upload pr-2"></i>')
+      end
+    end
+
+    context 'when the activity is info' do
+      it 'return the icon' do
+        activity = create(:activity, base_activity_type: create(:base_activity_type_info))
+        expect(helper.icon_to_activity(activity)).to eql('<i class="fas fa-info pr-3"></i>')
+      end
+    end
+  end
 end
