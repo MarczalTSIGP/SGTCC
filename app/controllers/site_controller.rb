@@ -66,8 +66,8 @@ class SiteController < ApplicationController
 
   def examination_boards
     @proposal_examination_boards = ExaminationBoard.proposal.order_by_asc_from_now_desc_ago
-    @project_examination_boards = examination_board_data(ExaminationBoard.project)
-    @monograph_examination_boards = examination_board_data(ExaminationBoard.monograph)
+    @project_examination_boards = ExaminationBoard.project.order_by_asc_from_now_desc_ago
+    @monograph_examination_boards = ExaminationBoard.monograph.order_by_asc_from_now_desc_ago
 
     @page = Page.find_by(url: 'bancas-de-tcc')
   end
