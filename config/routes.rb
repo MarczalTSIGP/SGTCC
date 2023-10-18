@@ -201,12 +201,12 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
-      get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'
@@ -466,7 +466,7 @@ Rails.application.routes.draw do
       get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
-          as: 'examination_boards_tcc_one_search'
+          as: 'examination_boards_tcc_one_search'        
 
       get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },

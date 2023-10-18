@@ -20,7 +20,8 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def tcc_one
-    @examination_boards = paginate(ExaminationBoard.tcc_one)
+    # @examination_boards = paginate(ExaminationBoard.tcc_one)
+    @examination_boards = ExaminationBoard.by_tcc_one(params[:page], params[:term], params[:status])
     @search_url = responsible_examination_boards_tcc_one_search_path
     render :index
   end

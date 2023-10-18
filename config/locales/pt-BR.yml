@@ -587,6 +587,10 @@ pt-BR:
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
   enums:
+    examination_board:
+      status:
+        WILL_HAPPEN: 'Vão acontecer'
+        ALREADY_HAPPENED: 'Já Aconteceram'
     genders:
       male: 'Masculino'
       female: 'Feminino'
