@@ -661,4 +661,22 @@ RSpec.describe Orientation, type: :model do
       expect(described_class.approved.count).to eq(1)
     end
   end
+
+  describe '#order_by_asc_from_now_desc_ago' do
+    it 'orders upcoming boards by date in ascending order' do
+      examination_board_one = create(:examination_board, date: Date.current + 2.days)
+      examination_board_two = create(:examination_board, date: Date.current + 1.day)
+      examination_board_three = create(:examination_board, date: Date.current + 3.days)
+
+      result = ExaminationBoard.order_by_asc_from_now_desc_ago
+
+      expected_result = [
+        examination_board_two,
+        examination_board_one,
+        examination_board_three
+      ]
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
