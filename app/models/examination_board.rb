@@ -116,7 +116,8 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def appointments?
-    examination_board_notes.where.not(appointment_file: nil).present?
+    examination_board_notes.where.not(appointment_file: nil)
+                           .or(examination_board_notes.where.not(appointment_text: nil)).present?
   end
 
   def evaluators_size(advisor_size: 1)

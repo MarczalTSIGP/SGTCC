@@ -350,19 +350,52 @@ RSpec.describe ExaminationBoard, type: :model do
   end
 
   describe '.appointments?' do
-    context 'when has not appointments' do
+    context 'when has not appointment file and appointment text' do
       let(:examination_board) { create(:examination_board) }
+
+      before do
+        create(:examination_board_note, examination_board: examination_board,
+                                        appointment_file: nil,
+                                        appointment_text: nil)
+      end
 
       it 'returns false' do
         expect(examination_board.appointments?).to eq(false)
       end
     end
 
-    context 'when has appointments' do
+    context 'when has appointment file and not have appointment text' do
       let!(:examination_board) { create(:examination_board) }
 
       before do
         create(:examination_board_note, examination_board: examination_board)
+      end
+
+      it 'returns true' do
+        expect(examination_board.appointments?).to eq(true)
+      end
+    end
+
+    context 'when has appointment file and appointment text' do
+      let!(:examination_board) { create(:examination_board) }
+
+      before do
+        create(:examination_board_note, examination_board: examination_board,
+                                        appointment_text: 'Teste')
+      end
+
+      it 'returns true' do
+        expect(examination_board.appointments?).to eq(true)
+      end
+    end
+
+    context 'when has not appointment file but has appointment text' do
+      let!(:examination_board) { create(:examination_board) }
+
+      before do
+        create(:examination_board_note, examination_board: examination_board,
+                                        appointment_file: nil,
+                                        appointment_text: 'Texto de teste')
       end
 
       it 'returns true' do
