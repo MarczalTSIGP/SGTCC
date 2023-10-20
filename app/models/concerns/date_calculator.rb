@@ -7,7 +7,6 @@ module DateCalculator
     interval = calculate_interval(tcc)
     initial_date = calculate_initial_date
     final_date = calculate_final_date(initial_date, interval)
-  
     { initial_date: initial_date, final_date: final_date, interval: interval }
   end
 
