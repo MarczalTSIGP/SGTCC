@@ -1,9 +1,13 @@
-class DateCalculator
+require 'active_support/concern'
+
+module DateCalculator
+  extend ActiveSupport::Concern
+
   def self.calculate_all_dates(tcc)
     interval = calculate_interval(tcc)
     initial_date = calculate_initial_date
     final_date = calculate_final_date(initial_date, interval)
-
+  
     { initial_date: initial_date, final_date: final_date, interval: interval }
   end
 
@@ -12,8 +16,8 @@ class DateCalculator
   end
 
   def self.calculate_initial_date
-    month = Cal endar.current_semester == 'one' ? 'mar' : 'aug'
-    Time.zone.parse("#{month} 01 00:00:00 #{Cal endar.current_year}")
+    month = Calendar.current_semester == 'one' ? 'mar' : 'aug'
+    Time.zone.parse("#{month} 01 00:00:00 #{Calendar.current_year}")
   end
 
   def self.calculate_final_date(initial_date, interval)
