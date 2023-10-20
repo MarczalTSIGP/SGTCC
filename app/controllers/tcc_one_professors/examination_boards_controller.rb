@@ -1,7 +1,6 @@
 class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseController
   before_action :set_examination_board, only: [:edit, :update, :destroy]
   before_action :set_examination_board_with_relationships, only: :show
-  before_action :can_edit, only: :update
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :tcc_one_professors_examination_boards_tcc_one_path,
@@ -46,7 +45,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def create
-    @examination_board = ExaminationBoard.new(examination_board_params)
+    @examination_board = ExaminationBoard.new(examination_board_params_to_create)
 
     if @examination_board.save
       feminine_success_create_message
@@ -58,7 +57,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def update
-    if @examination_board.update(examination_board_params)
+    if @examination_board.update(examination_board_params_to_update)
       feminine_success_update_message
       redirect_to tcc_one_professors_examination_board_path(@examination_board)
     else
@@ -93,16 +92,30 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
                                          .find(params[:id])
   end
 
-  def examination_board_params
+  # def examination_board_params
+  #   if @examination_board&.defense_minutes.present?
+  #     #  @examimation_boar.defense_minutes.blank? 
+  #     params.require(:examination_board).permit(:document_available_until)
+  #   else
+  #     params.require(:examination_board)
+  #           .permit(:place, :date, :orientation_id, :tcc, :identifier,
+  #                   :document_available_until, professor_ids: [], external_member_ids: [])
+  #   end
+  # end
+
+  def examination_board_params_to_update
+    if @examination_board.defense_minutes.blank?
+      params.require(:examination_board)
+            .permit(:place, :date, :orientation_id, :tcc, :identifier,
+                    :document_available_until, professor_ids: [], external_member_ids: [])
+    else
+      params.require(:examination_board).permit(:document_available_until)
+    end
+  end
+
+  def examination_board_params_to_create
     params.require(:examination_board)
           .permit(:place, :date, :orientation_id, :tcc, :identifier,
                   :document_available_until, professor_ids: [], external_member_ids: [])
-  end
-
-  def can_edit
-    return if @examination_board.defense_minutes.blank?
-
-    flash[:alert] = I18n.t('flash.examination_board.edit.defense_minutes')
-    redirect_to tcc_one_professors_examination_board_path(@examination_board)
   end
 end

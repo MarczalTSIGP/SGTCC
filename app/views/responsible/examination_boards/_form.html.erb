@@ -11,7 +11,8 @@
       value_method: :id,
       label_method: :academic_with_calendar,
       collection: Orientation.all.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
-      prompt: t('prompt.select.m', name: Academic.model_name.human) %>
+      prompt: t('prompt.select.m', name: Academic.model_name.human),
+      disabled: !@examination_board.defense_minutes.blank? %>
 
     <div class="row">
       <div class="col-md-6">
@@ -19,27 +20,30 @@
           label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
           input_html: { data: 'selectize' },
           collection: Professor.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')),
+          disabled: !@examination_board.defense_minutes.blank? %>
       </div>
       <div class="col-md-6">
         <%= f.association :external_members,
           label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
           input_html: { data: 'selectize' },
           collection: ExternalMember.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')),
+          disabled: !@examination_board.defense_minutes.blank? %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-        <%= f.input :place %>
+        <%= f.input :place, disabled: !@examination_board.defense_minutes.blank? %>
       </div>
       <div class="col-md-6">
         <datetimepicker
           name="examination_board[date]"
           id="examination_board_date"
           label="<%= ExaminationBoard.human_attribute_name('date') %>"
-          datetime="<%= @examination_board.date %>" />
+          datetime="<%= @examination_board.date %>"
+          disabled="<%= !@examination_board.defense_minutes.blank? %>" />
       </div>
     </div>
 
