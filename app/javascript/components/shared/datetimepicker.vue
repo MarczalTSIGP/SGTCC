@@ -79,8 +79,7 @@ export default {
 
   data() {
     return {
-      value: '',
-      disabled: true
+      value: ''
     };
   },
 

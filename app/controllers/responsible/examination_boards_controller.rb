@@ -108,9 +108,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def examination_board_params_to_update
     if @examination_board.defense_minutes.blank?
-      params.require(:examination_board)
-            .permit(:place, :date, :orientation_id, :tcc, :identifier,
-                    :document_available_until, professor_ids: [], external_member_ids: [])
+      examination_board_params_to_create
     else
       params.require(:examination_board).permit(:document_available_until)
     end
@@ -121,10 +119,4 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
           .permit(:place, :date, :orientation_id, :tcc, :identifier,
                   :document_available_until, professor_ids: [], external_member_ids: [])
   end
-
-  # def examination_board_params_to_create
-  #   params.require(:examination_board)
-  #         .permit(:place, :date, :orientation_id, :tcc, :identifier,
-  #                 :document_available_until, professor_ids: [], external_member_ids: [])
-  # end
 end
