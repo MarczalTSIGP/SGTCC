@@ -213,5 +213,6 @@ class Orientation < ApplicationRecord
                                    professor_supervisors: [:scholarity])
                          .order('examination_boards.date DESC')
   end
+
   private_class_method :by_status
 end

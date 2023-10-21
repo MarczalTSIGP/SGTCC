@@ -2,7 +2,6 @@
    <%= t('helpers.no_results') %>
 <% else %>
    <% examination_boards.each_with_index do |examination_board, index| %>
-      <%= render('site/examination_boards/examination_board',
-                     examination_board: examination_board) %>
+      <%= render('site/examination_boards/examination_board', examination_board: examination_board) %>
    <% end %>
 <% end %>

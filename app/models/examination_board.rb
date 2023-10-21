@@ -44,6 +44,12 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }]).recent
   }
 
+  def self.cs_asc_from_now_desc_ago
+    ebs_from_now = where('date >= ?', Date.current).order(date: :asc)
+    ebs_ago = where('date >= ? AND date < ?', Calendar.start_date, Date.current).order(date: :desc)
+    ebs_from_now.site_with_relationships + ebs_ago.site_with_relationships
+  end
+
   def status
     current_date = Date.current.to_s
     board_date = Date.parse(date.to_s).to_s

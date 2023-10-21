@@ -258,4 +258,27 @@ RSpec.describe Calendar, type: :model do
       expect(described_class.orientations_report_by_status(status)).to eq(report)
     end
   end
+
+  describe '#start_date' do
+    let(:current_month) { Date.current.month }
+    let(:current_year) { Date.current.year }
+
+    context 'when the first semester is the current' do
+      before { allow(described_class).to receive(:current_semester).and_return('one') }
+
+      it 'returns the start date for the current semester (semester one)' do
+        expected_date = Date.parse("1/1/#{current_year}")
+        expect(described_class.start_date).to eq(expected_date)
+      end
+    end
+
+    context 'when the second semester is the current' do
+      before { allow(described_class).to receive(:current_semester).and_return('two') }
+
+      it 'returns the start date for the current semester (semester two)' do
+        expected_date = Date.parse("1/8/#{current_year}")
+        expect(described_class.start_date).to eq(expected_date)
+      end
+    end
+  end
 end
