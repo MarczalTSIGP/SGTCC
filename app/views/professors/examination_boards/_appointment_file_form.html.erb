@@ -4,6 +4,7 @@
          <%= f.label :appointment_file, class: 'font-weight-bold' %>
 
          <file-input
+               class="<%= @examination_board_note.appointment_file.present? ? 'border-green' : '' %>"
                name="examination_board_note[appointment_file]"
                id="examination_board_note_appointment_file"
                label="<%= ExaminationBoardNote.human_attribute_name('appointment_file') %>"
@@ -22,7 +23,7 @@
          <% end %>
       </div>
 
-      <div class="mt-5">
+      <div class="mt-5 <%= @examination_board_note.appointment_text.present? ? 'border-green' : '' %>">
          <%= f.input :appointment_text, input_html: { class: 'markdown-editor' } %>
       </div>
 

@@ -7,3 +7,16 @@
     margin-top: 10px;
   }
 }
+
+.border-green .CodeMirror {
+  border: 1px solid #5eba00;
+  border-top: 0;
+}
+
+.border-green .editor-toolbar {
+  border: solid 1px #5eba00;
+}
+
+.border-green .custom-file-label {
+  border: solid 1px #5eba00;
+}

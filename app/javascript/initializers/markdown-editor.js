@@ -12,7 +12,8 @@ export default {
       $('.markdown-editor').each(function () {
         const id = $(this).attr('id');
         new SimpleMDE({
-          element: document.getElementById(id)
+          element: document.getElementById(id),
+          spellChecker: false
         });
       });
     },
