@@ -11645,9 +11645,9 @@ a.icon:hover {
 }
 
 .nav-tabs .nav-link.active {
-  font-weight: bold;
+  border-color: #467fcf;
   color: #467fcf;
-  border-bottom: 3px solid #007BFF;
+  background: transparent;
 }
 
 .nav-tabs .nav-link.disabled {

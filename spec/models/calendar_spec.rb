@@ -263,7 +263,7 @@ RSpec.describe Calendar, type: :model do
     let(:current_month) { Date.current.month }
     let(:current_year) { Date.current.year }
 
-    context 'when current semester is one' do
+    context 'when the first semester is the current' do
       before { allow(described_class).to receive(:current_semester).and_return('one') }
 
       it 'returns the start date for the current semester (semester one)' do
@@ -272,7 +272,7 @@ RSpec.describe Calendar, type: :model do
       end
     end
 
-    context 'when current semester is not one' do
+    context 'when the second semester is the current' do
       before { allow(described_class).to receive(:current_semester).and_return('two') }
 
       it 'returns the start date for the current semester (semester two)' do
