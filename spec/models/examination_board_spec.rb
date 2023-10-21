@@ -360,7 +360,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns false' do
-        expect(examination_board.appointments?).to eq(false)
+        expect(examination_board.appointments?).to be(false)
       end
     end
 
@@ -372,7 +372,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns true' do
-        expect(examination_board.appointments?).to eq(true)
+        expect(examination_board.appointments?).to be(true)
       end
     end
 
@@ -385,7 +385,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns true' do
-        expect(examination_board.appointments?).to eq(true)
+        expect(examination_board.appointments?).to be(true)
       end
     end
 
@@ -399,7 +399,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns true' do
-        expect(examination_board.appointments?).to eq(true)
+        expect(examination_board.appointments?).to be(true)
       end
     end
   end
