@@ -90,22 +90,6 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     @examination_board = ExaminationBoard.with_relationships.find(params[:id])
   end
 
-  # def examination_board_params
-  #   if !@examination_board&.defense_minutes.present?
-  #       if @examimation_boar.defense_minutes.blank?
-  #         params.require(:examination_board).permit(:document_available_until)
-  #       else
-  #         params.require(:examination_board)
-  #           .permit(:place, :date, :orientation_id, :tcc, :identifier,
-  #                   :document_available_until, professor_ids: [], external_member_ids: [])
-  #       end
-  #   else
-  #     params.require(:examination_board)
-  #           .permit(:place, :date, :orientation_id, :tcc, :identifier,
-  #                   :document_available_until, professor_ids: [], external_member_ids: [])
-  #   end
-  # end
-
   def examination_board_params_to_update
     if @examination_board.defense_minutes.blank?
       examination_board_params_to_create
