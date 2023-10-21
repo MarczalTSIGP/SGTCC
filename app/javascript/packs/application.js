@@ -17,6 +17,9 @@ import datetimepicker from '../initializers/datetimepicker';
 import tooltip from '../initializers/tooltip';
 import sidebarScroll from '../initializers/sidebar-scroll';
 import fileInput from '../initializers/file-input';
+import rangeInput from '../initializers/range-input';
+import examinationBoards from '../initializers/examination-boards';
+import hideShowActivityFields from '../initializers/hide-show-activity-fields';
 
 Vue.prototype.$axios = axios;
 Vue.use(TurbolinksAdapter);
@@ -26,11 +29,7 @@ Vue.use(VueClipboard);
 
 const options = {
   name: '_blank',
-  specs: [
-    'fullscreen=yes',
-    'titlebar=no',
-    'scrollbars=yes',
-  ],
+  specs: ['fullscreen=yes', 'titlebar=no', 'scrollbars=yes'],
   styles: [
     'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
     'https://unpkg.com/kidlat-css/css/kidlat.css'
@@ -41,7 +40,7 @@ Vue.use(VueHtmlToPaper, options);
 
 const i18n = new VueI18n({
   locale: 'pt-BR',
-  messages,
+  messages
 });
 
 document.addEventListener('turbolinks:load', () => {
@@ -56,7 +55,10 @@ document.addEventListener('turbolinks:load', () => {
       menu,
       selectize,
       sidebarScroll,
-      tooltip
-    ],
+      tooltip,
+      rangeInput,
+      examinationBoards,
+      hideShowActivityFields
+    ]
   });
 });

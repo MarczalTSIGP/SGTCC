@@ -1,12 +1,12 @@
-<td class="text-center">
-  <examination-board-status
+<td class="text-center status-width">
+   <examination-board-status
     status="<%= examination_board.status %>"
     label="<%= examination_board.distance_of_date %>" />
 </td>
 <td>
   <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
-    <%= link_to examination_board.orientation.academic_with_calendar, show_path %>
-  </span>
+      <%= link_to examination_board.orientation.academic_with_calendar, show_path %>
+   </span>
 </td>
 <td><%= examination_board.place %></td>
 <td><%= datetime(examination_board.date) %></td>

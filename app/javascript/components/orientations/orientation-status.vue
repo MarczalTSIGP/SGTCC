@@ -32,7 +32,7 @@ export default {
       required: true
     },
 
-    index: Boolean,
+    index: Boolean
   },
 
   data() {
@@ -44,17 +44,17 @@ export default {
         ABANDONED: 'secondary',
         REPROVED: 'danger',
         CANCELED: 'secondary',
-        IN_PROGRESS: 'primary', 
-        APPROVED_TCC_ONE:'info'
+        IN_PROGRESS: 'primary',
+        APPROVED_TCC_ONE: 'info'
       },
-      statusLabel: '',
+      statusLabel: ''
     };
   },
 
   computed: {
     badgeClass() {
       return `badge badge-${this.badgeStatus}`;
-    },
+    }
   },
 
   mounted() {
@@ -77,11 +77,11 @@ export default {
     },
 
     onChangeStatus() {
-      this.$root.$on('update-status', (status) => {
+      this.$root.$on('update-status', status => {
         this.badgeStatus = this.getBadgeClass(status.enum);
         this.statusLabel = status.label;
       });
-    },
-  },
+    }
+  }
 };
 </script>

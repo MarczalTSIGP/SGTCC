@@ -79,6 +79,11 @@ function rails {
   cmd rails "${@}"
 }
 
+function bundle {
+  # Run any Rails commands
+  cmd bundle "${@}"
+}
+
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 # Linters commands.
@@ -88,13 +93,17 @@ function eslint {
   cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
 }
 
+function brakeman {
+ cmd bundle exec brakeman --ignore-config config/brakeman.ignore "${@}"
+}
+
 function rubocop {
   cmd bundle exec rubocop --parallel "${@}"
 }
 
 function linters {
   rubocop
-  cmd bundle exec brakeman --ignore-config config/brakeman.ignore
+  brakeman
   eslint
 }
 

@@ -11,7 +11,7 @@ class BaseActivity < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :tcc, presence: true
-  validates :identifier, presence: true
+  validates :identifier, presence: true, if: -> { send_document? }
 
   def self.by_tcc(type, term)
     search(term).order(:name)
@@ -25,5 +25,11 @@ class BaseActivity < ApplicationRecord
 
   def self.by_tcc_two(term)
     by_tcc(tccs[:two], term)
+  end
+
+  private
+
+  def send_document?
+    base_activity_type.nil? || base_activity_type.send_document?
   end
 end

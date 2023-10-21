@@ -44,13 +44,13 @@ describe 'Supervision::index', type: :feature do
         href: professors_supervision_path(orientation)
       )
       expect(page).to have_link(
-        'Visualizar atividades',
+        'Atividades da orientação',
         href: professors_supervision_calendar_activities_path(
           orientation, orientation.current_calendar
         )
       )
       expect(page).to have_link(
-        'Visualizar documentos',
+        'Documentos da orientação',
         href: professors_supervision_documents_path(orientation)
       )
     end

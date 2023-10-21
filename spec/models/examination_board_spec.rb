@@ -392,4 +392,36 @@ RSpec.describe ExaminationBoard, type: :model do
       expect(examination_board.number_to_evaluate).to eq(number_to_evaluate)
     end
   end
+
+  describe '.all_evaluated' do
+    let(:examination_board) { create(:examination_board) }
+    let(:advisor_size) { 1 }
+    let(:professors_size) { examination_board.professors.size }
+    let(:external_members_size) { examination_board.external_members.size }
+
+    it 'returns that all_evaluated is false' do
+      examination_board.evaluators_number.times do
+        create(:examination_board_note, examination_board: examination_board, note: nil)
+      end
+
+      expect(examination_board.all_evaluated?).to be(false)
+    end
+
+    it 'returns that all_evaluated is false when all give the note' do
+      en = examination_board.evaluators_number - 1
+      en.times do
+        create(:examination_board_note, examination_board: examination_board, note: nil)
+      end
+
+      expect(examination_board.all_evaluated?).to be(false)
+    end
+
+    it 'returns that all_evaluated is true' do
+      examination_board.evaluators_number.times do
+        create(:examination_board_note, examination_board: examination_board, note: 80)
+      end
+
+      expect(examination_board.all_evaluated?).to be(true)
+    end
+  end
 end

@@ -20,7 +20,7 @@ class Professors::MeetingsController < Professors::BaseController
     @meetings = current_professor.meetings
                                  .with_relationship
                                  .page(params[:page])
-                                 .recent
+                                 .order(date: :desc, created_at: :desc)
   end
 
   def show
