@@ -1,17 +1,11 @@
 <template>
   <div>
-    <span
-      v-if="index"
-      :class="`badge badge-pill badge-${badgeStatus}`"
-    >
+    <span v-if="index" :class="`badge badge-pill badge-${badgeStatus}`">
       <span :class="`text-${badgeStatus}`">
         -
       </span>
     </span>
-    <span
-      v-else
-      :class="badgeClass"
-    >
+    <span v-else :class="badgeClass">
       {{ statusLabel }}
     </span>
   </div>
@@ -43,6 +37,7 @@ export default {
         APPROVED: 'success',
         ABANDONED: 'secondary',
         REPROVED: 'danger',
+        REPROVED_TCC_ONE: 'danger',
         CANCELED: 'secondary',
         IN_PROGRESS: 'primary',
         APPROVED_TCC_ONE: 'info'

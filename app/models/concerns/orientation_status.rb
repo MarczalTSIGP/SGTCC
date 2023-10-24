@@ -28,6 +28,10 @@ module OrientationStatus
       equal_status?('CANCELED')
     end
 
+    def reproved?
+      equal_status?('REPROVED')
+    end
+
     def in_progress?
       equal_status?('IN_PROGRESS')
     end

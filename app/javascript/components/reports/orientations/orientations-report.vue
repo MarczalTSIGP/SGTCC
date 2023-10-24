@@ -12,7 +12,7 @@
             <div class="card">
               <div class="card-body">
                 <orientations-chart
-                  title="Orientações no Total"
+                  title="Orientações de TCC 1 no Total"
                   :data="data.tcc_one"
                 />
               </div>
@@ -45,7 +45,7 @@
             <div class="card">
               <div class="card-body">
                 <orientations-chart
-                  title="Orientações no Total"
+                  title="Orientações de TCC 2 no Total"
                   :data="data.tcc_two"
                 />
               </div>
@@ -69,7 +69,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title font-weight-bold">
-          Orientações de TCC 2
+          Orientações
         </h3>
       </div>
       <div class="card-body">
@@ -88,20 +88,20 @@ export default {
 
   components: {
     OrientationsChart,
-    OrientationsLineChart,
+    OrientationsLineChart
   },
 
   props: {
     data: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
   computed: {
     titleWithCalendar() {
       return `Orientações em (${this.data.calendar})`;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -22,6 +22,7 @@ class Dashboard::ProfessorReport
       in_progress: orientations.send(method, 'IN_PROGRESS').count,
       approved: orientations.send(method, 'APPROVED').count,
       canceled: orientations.send(method, 'CANCELED').count,
+      reproved: orientations.send(method, 'REPROVED').count,
       links: orientations_link(method) }
   end
 

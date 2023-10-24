@@ -50,6 +50,7 @@ class Dashboard::ResponsibleReport
       in_progress: Orientation.send(method, 'IN_PROGRESS').count,
       approved: Orientation.send(method, 'APPROVED').count,
       canceled: Orientation.send(method, 'CANCELED').count,
+      reproved: Orientation.send(method, 'REPROVED').count,
       links: orientations_link(method) }
   end
 
