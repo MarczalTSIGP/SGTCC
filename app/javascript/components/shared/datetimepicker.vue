@@ -90,7 +90,7 @@ export default {
 
     datetimepicker_id_hash() {
       return `#${this.datetimepicker_id}`;
-    },
+    }
   },
 
   mounted() {

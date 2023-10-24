@@ -1,19 +1,17 @@
 <tr>
-  <%= render 'shared/examination_boards/tbody',
+   <%= render 'shared/examination_boards/tbody',
              examination_board: examination_board,
              show_path: tcc_one_professors_examination_board_path(examination_board) %>
-  <td>
-    <% if examination_board.defense_minutes.blank? %>
+   <td>
       <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
+         <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
       <% end %>
-    <% end %>
 
-    <%= link_to tcc_one_professors_examination_board_path(examination_board),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
-    <% end %>
-  </td>
+      <%= link_to tcc_one_professors_examination_board_path(examination_board),
+                  method: :delete,
+                  data: { confirm: t('prompt.confirm') },
+                  class: 'destroy' do %>
+         <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+      <% end %>
+   </td>
 </tr>

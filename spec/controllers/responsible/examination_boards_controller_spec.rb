@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ResponsibleExaminationBoardsController', type: :request do
-  context 'when update examimation boards' do
+  context 'when update examimation boards with defense minutes present' do
     let(:responsible) { create(:responsible) }
     let(:resource_name) { ExaminationBoard.model_name.human }
     let(:examination_board) { create(:current_examination_board_tcc_one) }
@@ -11,13 +11,33 @@ describe 'ResponsibleExaminationBoardsController', type: :request do
       login_as(responsible, scope: :professor)
     end
 
-    it 'dont should update place' do
+    it 'does not update fields, except document_avaible_until' do
       examination_board.create_defense_minutes
-      old_place = examination_board.place
-      new_place = { examination_board: { place: 'New local' } }
-      put responsible_examination_board_path(examination_board), params: new_place
+
+      params = {
+        examination_board: {
+          identifier: :monograph, orientation_id: 274,
+          professor_ids: [], external_member_ids: [],
+          place: 'Place', date: 2.days.from_now,
+          document_available_until: 3.days.from_now
+        }
+      }
+
+      put responsible_examination_board_path(examination_board), params: params
+
       examination_board.reload
-      expect(examination_board.place).to eql(old_place)
+
+      eb = params[:examination_board]
+
+      expect(examination_board.identifier).not_to eql(eb[:identifier])
+      expect(examination_board.orientation_id).not_to eql(eb[:orientation_id])
+      expect(examination_board.professor_ids).not_to eql(eb[:professor_ids])
+      expect(examination_board.external_member_ids).not_to eql(eb[:external_member_ids])
+      expect(examination_board.place).not_to eql(eb[:place])
+      expect(examination_board.date).not_to eql(eb[:date])
+
+      avaible_until = eb[:document_available_until].utc.to_i
+      expect(examination_board.document_available_until.utc.to_i).to eql(avaible_until)
     end
   end
 end

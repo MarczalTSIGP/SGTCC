@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::update', type: :feature, js: true do
+describe 'ExaminationBoard::update', :js, type: :feature do
   let(:responsible) { create(:responsible) }
   let!(:orientation) { create(:current_orientation_tcc_two) }
   let(:resource_name) { ExaminationBoard.model_name.human }
@@ -51,15 +51,26 @@ describe 'ExaminationBoard::update', type: :feature, js: true do
     end
 
     context 'when defense minute exists' do
-      it 'updates the defense_minutes' do
-        new_place = 'New local'
-        error = Capybara::ElementNotFound
-        expect { fill_in 'examination_board_place', with: new_place }.to raise_error(error)
-        submit_form('input[name="commit"]')
+      it 'hidden all the fields expect document_available_until' do
+        expect(page).to have_field 'examination_board_identifier_proposal', disabled: true,
+                                                                            visible: :hidden
+        expect(page).to have_field 'examination_board_identifier_project', disabled: true,
+                                                                           visible: :hidden
+        expect(page).to have_field 'examination_board_identifier_monograph', disabled: true,
+                                                                             visible: :hidden
 
-        updated_path = responsible_examination_board_path(examination_board)
-        expect(page).to have_current_path updated_path
-        expect(page).to have_flash(:success, text: message('update.f'))
+        expect(page).to have_field 'examination_board_professor_ids-selectized', disabled: true
+        expect(page).to have_field 'examination_board_external_member_ids-selectized',
+                                   disabled: true
+        expect(page).to have_field 'examination_board_place', disabled: true
+
+        datetime_selector = 'div#datetimepicker_examination_board_date input[disabled="disabled"]'
+        expect(page).to have_css(datetime_selector)
+
+        datetime_selector = 'div#datetimepicker_examination_board_document_available_until input'
+        expect(page).to have_css(datetime_selector)
+
+        expect(page).not_to have_css("#{datetime_selector}[disabled='disabled']")
       end
     end
   end
