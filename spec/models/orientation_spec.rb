@@ -661,4 +661,25 @@ RSpec.describe Orientation, type: :model do
       expect(described_class.approved.count).to eq(1)
     end
   end
+
+  describe '#cs_asc_from_now_desc_ago' do
+    it 'returns just current semester examination boards asc order from now desc order for past' do
+      examination_board_one = create(:examination_board, date: Date.current + 2.days)
+      examination_board_two = create(:examination_board, date: Date.current + 1.day)
+      examination_board_three = create(:examination_board, date: Date.current + 3.days)
+
+      create(:examination_board, date: 6.months.ago)
+      create(:examination_board, date: 1.year.ago)
+
+      result = ExaminationBoard.cs_asc_from_now_desc_ago
+
+      expected_result = [
+        examination_board_two,
+        examination_board_one,
+        examination_board_three
+      ]
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
