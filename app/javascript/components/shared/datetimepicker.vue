@@ -18,6 +18,7 @@
         type="text"
         class="form-control datetimepicker-input"
         :data-target="datetimepicker_id_hash"
+        :disabled="disabled"
       >
       <div
         class="input-group-append"
@@ -67,11 +68,18 @@ export default {
         return '';
       }
     },
+
+    disabled: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    }
   },
 
   data() {
     return {
-      value: '',
+      value: ''
     };
   },
 
@@ -82,7 +90,7 @@ export default {
 
     datetimepicker_id_hash() {
       return `#${this.datetimepicker_id}`;
-    },
+    }
   },
 
   mounted() {

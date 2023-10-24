@@ -144,6 +144,8 @@ RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
     - 'spec/controllers/api/v1/orientations_controller_spec.rb'
+    - 'spec/controllers/tcc_one_professors/examination_boards_controller_spec.rb'
+    - 'spec/controllers/responsible/examination_boards_controller_spec.rb'
 
 RSpec/ExampleLength:
   Max: 20
