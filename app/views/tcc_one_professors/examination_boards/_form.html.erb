@@ -1,65 +1,71 @@
 <%= simple_form_for [:tcc_one_professors, @examination_board] do |f| %>
-  <div class="form-inputs">
-    <%= f.input :identifier,
-      as: :radio_button_tabler,
-      collection: Activity.human_tcc_one_identifiers %>
+   <div class="form-inputs">
+      <%= f.input :identifier,
+                as: :radio_button_tabler,
+                collection: Activity.human_tcc_one_identifiers,
+                disabled: @disabled_field %>
 
-    <%= f.association :orientation,
-      label: Academic.model_name.human,
-      input_html: { data: 'selectize' },
-      value_method: :id,
-      label_method: :academic_with_calendar,
-      collection: Orientation.all.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
-      prompt: t('prompt.select.f', name: Academic.model_name.human) %>
+      <%= f.association :orientation,
+                        label: Academic.model_name.human,
+                        input_html: { data: 'selectize' },
+                        value_method: :id,
+                        label_method: :academic_with_calendar,
+                        collection: Orientation.all.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
+                        prompt: t('prompt.select.f', name: Academic.model_name.human),
+                        disabled: @disabled_field  %>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.association :professors,
-          label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
-          input_html: { data: 'selectize' },
-          collection: Professor.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')) %>
+      <div class="row">
+         <div class="col-sm-6">
+            <%= f.association :professors,
+                              label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
+                              input_html: { data: 'selectize' },
+                              collection: Professor.all.order(:name),
+                              prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')),
+                              disabled: @disabled_field %>
+         </div>
+         <div class="col-sm-6">
+            <%= f.association :external_members,
+                              label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
+                              input_html: { data: 'selectize' },
+                              collection: ExternalMember.all.order(:name),
+                              prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')),
+                              disabled: @disabled_field %>
+         </div>
       </div>
-      <div class="col-sm-6">
-        <%= f.association :external_members,
-          label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
-          input_html: { data: 'selectize' },
-          collection: ExternalMember.all.order(:name),
-          prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')) %>
+
+      <div class="row">
+         <div class="col-sm-6">
+            <%= f.input :place, disabled: @disabled_field, valid_class: 'a' %>
+         </div>
+
+         <div class="col-sm-6">
+            <datetimepicker
+              name="examination_board[date]"
+              id="examination_board_date"
+              label="<%= ExaminationBoard.human_attribute_name('date') %>"
+              datetime="<%= @examination_board.date %>"
+              :disabled="<%= @disabled_field %>" /><
+         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.input :place %>
+      <div>
+         <datetimepicker
+          name="examination_board[document_available_until]"
+          id="examination_board_document_available_until"
+          label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
+          datetime="<%= @examination_board.document_available_until %>" />
       </div>
-      <div class="col-sm-6">
-        <datetimepicker
-          name="examination_board[date]"
-          id="examination_board_date"
-          label="<%= ExaminationBoard.human_attribute_name('date') %>"
-          datetime="<%= @examination_board.date %>" />
-      </div>
-    </div>
 
-    <div>
-      <datetimepicker
-        name="examination_board[document_available_until]"
-        id="examination_board_document_available_until"
-        label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
-        datetime="<%= @examination_board.document_available_until %>" />
-    </div>
+      <%= f.input :tcc,
+                  as: :hidden,
+                  input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'one' } %>
+   </div>
 
-    <%= f.input :tcc,
-      as: :hidden,
-      input_html: { value: @examination_board.tcc.present? ? @examination_board.tcc : 'one' } %>
-  </div>
+   <div class="d-flex">
+      <%= link_to t('simple_form.buttons.back'),
+                  tcc_one_professors_examination_boards_path,
+                  class: 'btn btn-secondary' %>
 
-  <div class="d-flex">
-    <%= link_to t('simple_form.buttons.back'),
-      tcc_one_professors_examination_boards_path,
-      class: 'btn btn-secondary' %>
-
-    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
-  </div>
+      <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+   </div>
 <% end %>
