@@ -16,6 +16,14 @@
       </div>
 
       <div class="row">
+         <div class="col-md-6">
+            <%= f.input :interval,
+                        as: :integer %>
+         </div>
+         <div class="col-md-6">
+            <%= f.input :increment_date,
+                        as: :integer %>
+         </div>
          <div class="col-md-6" hide-on-activity-type-info-selected>
             <%= f.input :identifier,
                         as: :radio_button_tabler,

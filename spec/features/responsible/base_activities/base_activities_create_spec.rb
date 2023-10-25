@@ -77,6 +77,38 @@ describe 'BaseActivity::create', :js, type: :feature do
         expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')
       end
+
+      it 'create a interval and incremente date base activity to tcc 1' do
+        attributes = attributes_for(:base_activity)
+        fill_in 'base_activity_name', with: attributes[:name]
+        fill_in 'base_activity_interval', with: 10
+        fill_in 'base_activity_increment_date', with: 10
+        click_on_label('1', in: 'base_activity_tcc')
+        click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
+                       in: 'base_activity_identifier')
+        selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
+
+        submit_form('input[name="commit"]')
+        expect(page).to have_current_path responsible_base_activities_tcc_one_path
+        expect(page).to have_flash(:success, text: message('create.f'))
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
+      end
+
+      it 'create a interval and incremente date base activity to tcc 2' do
+        attributes = attributes_for(:base_activity)
+        fill_in 'base_activity_name', with: attributes[:name]
+        fill_in 'base_activity_interval', with: 10
+        fill_in 'base_activity_increment_date', with: 10
+        click_on_label('2', in: 'base_activity_tcc')
+        click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
+                       in: 'base_activity_identifier')
+        selectize(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
+
+        submit_form('input[name="commit"]')
+        expect(page).to have_current_path responsible_base_activities_tcc_two_path
+        expect(page).to have_flash(:success, text: message('create.f'))
+        expect(page).to have_message(attributes[:name], in: 'table tbody')
+      end
     end
 
     context 'when base activity is not valid' do

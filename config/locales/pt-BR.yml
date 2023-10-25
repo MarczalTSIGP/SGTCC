@@ -458,6 +458,8 @@ pt-BR:
         external_member: "Responsável da instituição"
       base_activity:
         identifier: "Tipo do documento"
+        interval: "Quantidade de dias para realização da atividade"
+        increment_date: "Quantidade de dias após início de semestre"
         judgment: "Parecer"
         <<: *commons
       activity:
