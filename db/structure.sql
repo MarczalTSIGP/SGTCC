@@ -152,7 +152,8 @@ CREATE TABLE public.academics (
     reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
-    profile_image character varying
+    profile_image character varying,
+    whatsapp character varying DEFAULT ''::character varying
 );
 
 
@@ -2039,6 +2040,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191011133608'),
 ('20191125224723'),
 ('20200710170737'),
+('20230927022202'),
 ('20231004230530'),
 ('20231017133608'),
 ('20231018133608');
