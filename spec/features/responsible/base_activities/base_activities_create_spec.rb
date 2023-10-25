@@ -81,8 +81,7 @@ describe 'BaseActivity::create', :js, type: :feature do
       it 'create a interval and incremente date base activity to tcc 1' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
-        fill_in 'base_activity_interval', with: 10
-        fill_in 'base_activity_increment_date', with: 10
+        fill_in 'base_activity_increment_date', with: attributes[:interval]
         click_on_label('1', in: 'base_activity_tcc')
         click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
                        in: 'base_activity_identifier')
@@ -97,8 +96,7 @@ describe 'BaseActivity::create', :js, type: :feature do
       it 'create a interval and incremente date base activity to tcc 2' do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
-        fill_in 'base_activity_interval', with: 10
-        fill_in 'base_activity_increment_date', with: 10
+        fill_in 'base_activity_increment_date', with: attributes[:interval]
         click_on_label('2', in: 'base_activity_tcc')
         click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
                        in: 'base_activity_identifier')

@@ -280,5 +280,28 @@ RSpec.describe Calendar, type: :model do
         expect(described_class.start_date).to eq(expected_date)
       end
     end
+
+    describe 'create_activity' do
+      it 'creates activity with valid initial and final dates respecting the interval' do
+        base_activity = create(:base_activity)
+        initial_date = DateCalculator.increment_date(base_activity.increment_date.days)
+        final_date = DateCalculator.calculate_final_date(initial_date, base_activity.interval.days)
+    
+        calendar = create(:calendar) 
+    
+        activity = calendar.activities.create(
+          name: base_activity.name,
+          tcc: base_activity.tcc,
+          base_activity_type_id: base_activity.base_activity_type_id,
+          judgment: base_activity&.judgment,
+          identifier: base_activity&.identifier,
+          initial_date: initial_date,
+          final_date: final_date,
+          final_version: base_activity&.final_version
+        )
+    
+        expect(activity).to be_valid
+      end
+    end
   end
 end
