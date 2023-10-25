@@ -1,0 +1,29 @@
+<% provide(:page_title, t('breadcrumbs.orientations.migration')) %>
+<% provide(:head_title, t('breadcrumbs.orientations.migration')) %>
+
+<%= page_entries_info @orientations %>
+
+<div class="table-striped mt-3 table-responsive w-100">
+   <table class="table card-table table-vcenter text-nowrap">
+      <thead>
+         <tr>
+            <th><%= Orientation.human_attribute_name('status') %></th>
+            <th><%= Orientation.human_attribute_name('academic') %></th>
+            <th><%= Orientation.human_attribute_name('ra') %></th>
+            <th><%= Orientation.human_attribute_name('title') %></th>
+            <th><%= Orientation.human_attribute_name('advisor') %></th>
+            <th><%= Orientation.human_attribute_name('calendars') %></th>
+            <th><%= Orientation.human_attribute_name('actions') %></th>
+         </tr>
+      </thead>
+      <tbody>
+        <%= render('shared/no_results') if @orientations.empty? %>
+
+        <% @orientations.each do | orientation |%>
+            <%= render('orientation_migration', orientation: orientation) %>
+        <% end %>
+      </tbody>
+   </table>
+</div>
+
+<%= paginate @orientations %>

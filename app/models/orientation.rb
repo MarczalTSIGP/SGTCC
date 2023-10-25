@@ -75,6 +75,16 @@ class Orientation < ApplicationRecord
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
+  scope :migration, lambda { |status = nil|
+    current_year = Calendar.current_year
+    current_semester = Calendar.current_semester
+
+    where(status: %i[IN_PROGRESS])
+      .or(where(status: %i[APPROVED_TCC_ONE]))
+      .where('calendars.year <= ?', current_year)
+      .where('calendars.semester < ?', current_semester)
+  }
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end

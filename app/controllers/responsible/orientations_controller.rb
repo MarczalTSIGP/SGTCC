@@ -40,6 +40,12 @@ class Responsible::OrientationsController < Responsible::BaseController
     render :current_index
   end
 
+  def migration
+    add_breadcrumb I18n.t('breadcrumbs.orientations.migration'), responsible_orientations_migration_path
+    @orientations = Orientation.migratable(params[:page], params[:term], params[:status])
+    render :migration
+  end
+
   def show
     add_responsible_index_breadcrumb
     add_breadcrumb show_orientation_calendar_title, responsible_orientation_path
