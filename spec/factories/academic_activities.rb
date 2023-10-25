@@ -30,4 +30,8 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :academic_activity_without_complementary_files, parent: :academic_activity do
+    complementary_files { nil }
+  end
 end
