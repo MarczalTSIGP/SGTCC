@@ -11,39 +11,44 @@ FactoryBot.define do
 
     factory :proposal_examination_board do
       identifier { :proposal }
+      tcc { tccs.first }
     end
 
     factory :project_examination_board do
       identifier { :project }
+      tcc { tccs.first }
     end
 
     factory :monograph_examination_board do
       identifier { :monograph }
+      tcc { tccs.last }
     end
 
     factory :examination_board_tcc_one do
       tcc { tccs.first }
+      identifier { [:proposal, :project].sample }
     end
 
     factory :examination_board_tcc_two do
       tcc { tccs.last }
+      identifier { :monograph }
     end
 
     factory :current_examination_board_tcc_one do
       tcc { tccs.first }
-      orientation { create(:current_orientation_tcc_one) }
+      orientation  factory: :current_orientation_tcc_one
       identifier { :proposal }
     end
 
     factory :current_examination_board_tcc_one_project do
       tcc { tccs.first }
-      orientation { create(:current_orientation_tcc_one) }
+      orientation factory: :current_orientation_tcc_one
       identifier { :project }
     end
 
     factory :current_examination_board_tcc_two do
       tcc { tccs.last }
-      orientation { create(:current_orientation_tcc_two) }
+      orientation factory: :current_orientation_tcc_two
       identifier { :monograph }
     end
 
