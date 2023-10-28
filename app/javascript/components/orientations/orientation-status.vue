@@ -33,14 +33,12 @@ export default {
     return {
       badgeStatus: '',
       statuses: {
-        RENEWED: 'warning',
-        APPROVED: 'success',
-        ABANDONED: 'secondary',
-        REPROVED: 'danger',
-        REPROVED_TCC_ONE: 'danger',
-        CANCELED: 'secondary',
-        IN_PROGRESS: 'primary',
-        APPROVED_TCC_ONE: 'info'
+        APPROVED: 'approved',
+        REPROVED: 'reproved',
+        REPROVED_TCC_ONE: 'reproved-tcc-1',
+        CANCELED: 'canceled',
+        IN_PROGRESS: 'in-progress',
+        APPROVED_TCC_ONE: 'approved-tcc-1'
       },
       statusLabel: ''
     };

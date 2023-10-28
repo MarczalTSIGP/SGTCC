@@ -200,7 +200,11 @@ class Orientation < ApplicationRecord
   end
 
   def self.reproved
-    by_status('REPROVED').reject { |o| o.final_project.nil? }
+    by_status('REPROVED').reject { |o| o.final_monograph.nil? }
+  end
+
+  def self.reproved_tcc_one
+    by_status('REPROVED_TCC_ONE').reject { |o| o.final_project.nil? }
   end
 
   def self.in_tcc_one

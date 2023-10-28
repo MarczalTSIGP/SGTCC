@@ -51,6 +51,7 @@ class Dashboard::ResponsibleReport
       approved: Orientation.send(method, 'APPROVED').count,
       canceled: Orientation.send(method, 'CANCELED').count,
       reproved: Orientation.send(method, 'REPROVED').count,
+      reproved_tcc_one: Orientation.send(method, 'REPROVED_TCC_ONE').count,
       links: orientations_link(method) }
   end
 

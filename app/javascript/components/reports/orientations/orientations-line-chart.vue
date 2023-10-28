@@ -41,7 +41,14 @@ export default {
             show: false
           }
         },
-        colors: ['#85CC00', '#009900', '#FF9933', '#FFFF00', '#D9041A'],
+        colors: [
+          '#85CC00',
+          '#009900',
+          '#FF9933',
+          '#FFFF00',
+          '#D9041A',
+          '#E35665'
+        ],
         dataLabels: {
           enabled: true
         },
