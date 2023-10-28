@@ -15,7 +15,7 @@ describe 'ExaminationBoard::destroy', type: [:feature, :request], js: true do
       it 'destroy examimation boards' do
         delete tcc_one_professors_examination_board_path(examination_board)
         expect(flash[:success]).to eq(I18n.t('flash.actions.destroy.f',
-                                              resource_name: resource_name))
+                                             resource_name: resource_name))
         expect(response).to redirect_to(tcc_one_professors_examination_boards_path)
       end
 
@@ -50,7 +50,5 @@ describe 'ExaminationBoard::destroy', type: [:feature, :request], js: true do
         expect(page).not_to have_content(examination_board.orientation.academic_with_calendar)
       end
     end
-
   end
 end
-
