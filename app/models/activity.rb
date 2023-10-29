@@ -46,4 +46,37 @@ class Activity < ApplicationRecord
   def expired?
     Time.current > final_date
   end
+
+  def responses calendar_id
+    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
+
+    responded_count = Academic.joins(orientations: :academic_activities)
+                             .where(orientations: { id: orientation_ids })
+                             .where(academic_activities: { activity_id: self.id })
+                             .count
+
+    total_students_in_calendar = Academic.joins(orientations: :orientation_calendars)
+                                         .where(orientations: { id: orientation_ids })
+                                         .where(orientation_calendars: { calendar_id: calendar_id })
+                                         .count
+
+    unresponded_count = total_students_in_calendar - responded_count
+
+    {
+      responded_count: responded_count,
+      unresponded_count: unresponded_count,
+      total_students_in_calendar: total_students_in_calendar
+    }
+  end
+
+  def academics(calendar_id)
+    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
+
+    academics = Academic.left_joins(orientations: :academic_activities)
+                   .where(orientations: { id: orientation_ids })
+                   .where('academic_activities.activity_id = ? OR academic_activities.id IS NULL', self.id)
+                   .select('academics.*, CASE WHEN academic_activities.id IS NULL THEN 0 ELSE 1 END as sent_academic_activity')
+
+    academics
+  end
 end
