@@ -23,7 +23,6 @@ class Dashboard::ProfessorReport
       approved: orientations.send(method, 'APPROVED').count,
       canceled: orientations.send(method, 'CANCELED').count,
       reproved: orientations.send(method, 'REPROVED').count,
-      reproved_tcc_one: orientations.send(method, 'REPROVED_TCC_ONE').count,
       links: orientations_link(method) }
   end
 

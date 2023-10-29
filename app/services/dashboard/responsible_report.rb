@@ -14,13 +14,21 @@ class Dashboard::ResponsibleReport
   end
 
   def academics_report
-    { total: Academic.count,
+    { 
+      total: Academic.count,
       orientations: {
         all: { in_progress: academics_orientations('IN_PROGRESS') },
-        tcc_one: { approved: academics_orientations('APPROVED', 1) },
-        tcc_two: { approved: academics_orientations('APPROVED', 2) }
-      } }
-  end
+        tcc_one: { 
+          approved: academics_orientations('APPROVED', 1),
+          reproved: academics_orientations('REPROVED', 1)
+        },
+        tcc_two: { 
+          approved: academics_orientations('APPROVED', 2),
+          reproved: academics_orientations('REPROVED', 2)
+        },
+      }
+    }
+  end  
 
   def academics_orientations(status, tcc = nil)
     conditions = { status: status }
@@ -51,7 +59,6 @@ class Dashboard::ResponsibleReport
       approved: Orientation.send(method, 'APPROVED').count,
       canceled: Orientation.send(method, 'CANCELED').count,
       reproved: Orientation.send(method, 'REPROVED').count,
-      reproved_tcc_one: Orientation.send(method, 'REPROVED_TCC_ONE').count,
       links: orientations_link(method) }
   end
 
