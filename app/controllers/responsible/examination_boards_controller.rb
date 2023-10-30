@@ -2,8 +2,6 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   before_action :set_examination_board, only: [:edit, :update, :destroy]
   before_action :set_examination_board_with_relationships, only: :show
   before_action :disabled_fields, only: [:new, :create, :edit, :update]
-  before_action :can_edit, only: :update
-  before_action :can_destroy, only: :destroy
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :responsible_examination_boards_tcc_one_path,
@@ -70,10 +68,15 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def destroy
-    @examination_board.destroy
-    feminine_success_destroy_message
+    if @examination_board.defense_minutes.blank?
+      @examination_board.destroy
+      feminine_success_destroy_message
 
-    redirect_to responsible_examination_boards_path
+      redirect_to responsible_examination_boards_path
+    else
+      flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to responsible_examination_board_path(@examination_board)
+    end
   end
 
   private
@@ -105,20 +108,5 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def disabled_fields
     @disabled_field = @examination_board&.defense_minutes.present?
-  end
-
-  def can_update(action)
-    return if @examination_board.defense_minutes.blank?
-
-    flash[:alert] = I18n.t("flash.examination_board.defense_minutes.errors.#{action}")
-    redirect_to responsible_examination_board_path(@examination_board)
-  end
-
-  def can_edit
-    can_update('edit')
-  end
-
-  def can_destroy
-    can_update('destroy')
   end
 end
