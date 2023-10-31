@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-require 'pp'
-
 RSpec.describe Activity, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
