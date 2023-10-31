@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+require 'pp'
+
 RSpec.describe Activity, type: :model do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
@@ -132,6 +134,80 @@ RSpec.describe Activity, type: :model do
       activity = academic_activity.activity
       academic = academic_activity.academic
       expect(activity.find_academic_activity_by_academic(academic)).to eq(academic_activity)
+    end
+  end
+
+  describe '#responses' do
+    let(:calendar) { create(:calendar) }
+    let(:activity) { create(:activity) }
+    let(:academic1) { create(:academic) }
+    let(:academic2) { create(:academic) }
+    let(:academic3) { create(:academic) }
+    let(:orientation1) { create(:orientation) }
+    let(:orientation2) { create(:orientation) }
+    let(:orientation3) { create(:orientation) }
+
+    before do
+      create(:orientation_calendar, orientation: orientation1, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation2, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation3, calendar: calendar)
+
+      create(:academic_activity, academic: academic1, activity: activity)
+      create(:academic_activity, academic: academic2, activity: activity)
+    end
+
+    it "returns the correct response counts" do
+      result = activity.responses(calendar.id)
+
+      expect(result[:responded_count]).to eq(0)
+      expect(result[:unresponded_count]).to eq(3)
+      expect(result[:total_students_in_calendar]).to eq(3)
+    end
+
+    it 'returns the correct response counts' do
+      response_counts = activity.responses(calendar.id)
+
+      expect(response_counts[:total_students_in_calendar]).to eq(3)
+      expect(response_counts[:responded_count]).to eq(0)
+      expect(response_counts[:unresponded_count]).to eq(3)
+    end
+
+    it 'returns non-negative response counts' do
+      response_counts = activity.responses(calendar.id)
+
+      expect(response_counts[:total_students_in_calendar]).to be >= 0
+      expect(response_counts[:responded_count]).to be >= 0
+      expect(response_counts[:unresponded_count]).to be >= 0
+    end
+  end
+
+  describe '#academics' do
+    let(:calendar) { create(:calendar) }
+    let(:calendar2) { create(:calendar) }
+
+    let(:activity) { create(:activity) }
+
+    let(:academic1) { create(:academic) }
+    let(:academic2) { create(:academic) }
+    let(:academic3) { create(:academic) }
+
+    let(:orientation1) { create(:orientation, academic: academic1) }
+    let(:orientation2) { create(:orientation, academic: academic2) }
+    let(:orientation3) { create(:orientation, academic: academic3) }
+
+
+    before do
+      create(:orientation_calendar, orientation: orientation1, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation2, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation3, calendar: calendar2)
+    end
+
+    it 'returns all academics associated with the calendar' do
+      academics = activity.academics(calendar.id)
+
+      expect(academics).to include(academic1)
+      expect(academics).to include(academic2)
+      expect(academics).not_to include(academic3)
     end
   end
 end
