@@ -20,6 +20,8 @@ class ExaminationBoardNote < ApplicationRecord
       if status.eql?(:approved) &&
          examination_board.identifier.eql?(ExaminationBoard.identifiers[:project])
         status = 'APPROVED_TCC_ONE'
+      else
+        status = 'REPROVED_TCC_ONE'
       end
 
       if examination_board.identifier != ExaminationBoard.identifiers[:proposal]

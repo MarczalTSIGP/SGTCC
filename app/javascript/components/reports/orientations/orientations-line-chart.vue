@@ -44,10 +44,10 @@ export default {
         colors: [
           '#85CC00',
           '#009900',
-          '#FF9933',
           '#FFFF00',
-          '#D9041A',
-          '#E35665'
+          '#FF9933',
+          '#E35665',
+          '#D9041A'
         ],
         dataLabels: {
           enabled: true
