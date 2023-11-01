@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="chart"
-    class="card"
-  >
+  <div id="chart" class="card">
     <div class="card-header">
       <div class="card-title font-weight-bold">
         Ranking dos professores
@@ -20,57 +17,58 @@
 </template>
 
 <script>
-
 import VueApexCharts from 'vue-apexcharts';
 
 export default {
   name: 'ProfessorsRanking',
 
-  components: { 'apexchart': VueApexCharts },
+  components: { apexchart: VueApexCharts },
 
   props: {
     ranking: {
       type: Array,
       required: true
-    },
+    }
   },
 
   data() {
     return {
-      series: [{
-        name: 'Número de orientações concluídas',
-        data: [],
-      }],
+      series: [
+        {
+          name: 'Número de orientações concluídas',
+          data: []
+        }
+      ],
       chartOptions: {
         title: {
-          text: 'Número de orientações concluídas',
+          text: 'Número de orientações concluídas'
         },
         plotOptions: {
           bar: {
-            horizontal: true,
+            horizontal: true
           }
         },
         dataLabels: {
-          formatter: function (val) {
+          formatter: function(val) {
             return parseInt(val);
-          },
+          }
         },
         xaxis: {
           categories: [],
           labels: {
-            formatter: function (val) {
+            formatter: function(val) {
               return parseInt(val);
-            },
-          },
+            }
+          }
         },
         tooltip: {
           y: {
-            formatter: function (val) {
+            formatter: function(val) {
               return parseInt(val);
-            },
-          },
-        },
-      },
+            }
+          }
+        }
+      }
     };
   },
 
@@ -87,14 +85,13 @@ export default {
     },
 
     setOrientations() {
-      const data = this.ranking.map((item) => {
+      const data = this.ranking.map(item => {
         return item[1];
       });
 
       const name = 'Número de orientações concluídas';
-      this.series = [{name: name, data: data}];
-    },
-  },
+      this.series = [{ name: name, data: data }];
+    }
+  }
 };
-
 </script>

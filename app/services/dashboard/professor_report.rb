@@ -18,12 +18,27 @@ class Dashboard::ProfessorReport
   end
 
   def orientations_by_tcc(method, orientations: @professor.orientations)
-    { total: orientations.send(method, orientations.statuses.values).count,
-      in_progress: orientations.send(method, 'IN_PROGRESS').count,
-      approved: orientations.send(method, 'APPROVED').count,
-      canceled: orientations.send(method, 'CANCELED').count,
-      reproved: orientations.send(method, 'REPROVED').count,
-      links: orientations_link(method) }
+    if method == 'tcc_one' || method == 'tcc_two'
+      tcc_type = method.split('_').last
+      {
+        total: orientations.joins(:calendars).where(calendars: { tcc: tcc_type }).count,
+        in_progress: orientations.send(method, 'IN_PROGRESS').count,
+        approved: orientations.send(method, %w[APPROVED_TCC_ONE APPROVED]).count,
+        canceled: orientations.send(method, 'CANCELED').count,
+        reproved: orientations.send(method, %w[REPROVED_TCC_ONE REPROVED]).count,
+        links: orientations_link(method)
+      }
+    elsif method == 'current_tcc_one' || method == 'current_tcc_two'
+      tcc_type = method.split('_').last
+      {
+        total: orientations.where(calendars: { tcc: tcc_type }).count,
+        in_progress: orientations.send(method, 'IN_PROGRESS').count,
+        approved: orientations.send(method, %w[APPROVED_TCC_ONE APPROVED]).count,
+        canceled: orientations.send(method, 'CANCELED').count,
+        reproved: orientations.send(method, %w[REPROVED_TCC_ONE REPROVED]).count,
+        links: orientations_link(method)
+      }
+    end
   end
 
   def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})
