@@ -28,7 +28,7 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   def current_semester(data)
     return nil if data.blank?
 
-    data.current_semester.with_relationships.find_by(:id params[:id])
+    data.current_semester.with_relationships.find_by(id: params[:id])
   end
 
   def set_examination_board_note
