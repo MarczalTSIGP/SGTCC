@@ -155,27 +155,24 @@ RSpec.describe Activity, type: :model do
     end
 
     it "returns the correct response counts" do
-      result = activity.responses(calendar.id)
+      result = activity.responses
 
-      expect(result[:responded_count]).to eq(0)
-      expect(result[:unresponded_count]).to eq(3)
-      expect(result[:total_students_in_calendar]).to eq(3)
+      expect(result.count).to eq(0)
+      expect(result.total).to eq(3)
     end
 
     it 'returns the correct response counts' do
-      response_counts = activity.responses(calendar.id)
+      response_counts = activity.responses
 
-      expect(response_counts[:total_students_in_calendar]).to eq(3)
-      expect(response_counts[:responded_count]).to eq(0)
-      expect(response_counts[:unresponded_count]).to eq(3)
+      expect(response_counts.total).to eq(3)
+      expect(response_counts.count).to eq(0)
     end
 
     it 'returns non-negative response counts' do
-      response_counts = activity.responses(calendar.id)
+      response_counts = activity.responses
 
-      expect(response_counts[:total_students_in_calendar]).to be >= 0
-      expect(response_counts[:responded_count]).to be >= 0
-      expect(response_counts[:unresponded_count]).to be >= 0
+      expect(response_counts.total).to be >= 0
+      expect(response_counts.count).to be >= 0
     end
   end
 
@@ -201,7 +198,7 @@ RSpec.describe Activity, type: :model do
     end
 
     it 'returns all academics associated with the calendar' do
-      academics = activity.academics(calendar.id)
+      academics = activity.academics
 
       expect(academics).to include(academic1)
       expect(academics).to include(academic2)

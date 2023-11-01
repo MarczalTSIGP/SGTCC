@@ -31,5 +31,11 @@ FactoryBot.define do
       tcc { Activity.tccs.values.last }
       identifier { :monograph }
     end
+
+    factory :activity_type do
+      # Defina os atributos do activity_type aqui, por exemplo:
+      name { 'Sample Activity Type' }
+      send_document { false }
+    end
   end
 end

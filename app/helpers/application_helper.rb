@@ -18,4 +18,13 @@ module ApplicationHelper
 
     '<i class="fas fa-info pr-3"></i>'.html_safe
   end
+
+  def activity_count_sended(activity)
+    if activity.base_activity_type.send_document?
+      return "#{activity.responses.count} \
+              de #{activity.responses.total} \
+              #{Activity.human_attribute_name('sent')}s".html_safe
+    end
+    return "-".html_safe
+  end
 end

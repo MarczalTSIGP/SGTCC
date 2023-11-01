@@ -47,7 +47,7 @@ class Activity < ApplicationRecord
     Time.current > final_date
   end
 
-  def responses calendar_id
+  def responses
     orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
 
     responded_count = Academic.joins(orientations: :academic_activities)
@@ -62,20 +62,16 @@ class Activity < ApplicationRecord
 
     unresponded_count = total_students_in_calendar - responded_count
 
-    {
-      responded_count: responded_count,
-      unresponded_count: unresponded_count,
-      total_students_in_calendar: total_students_in_calendar
-    }
+    OpenStruct.new(count: responded_count, total: total_students_in_calendar)
   end
 
-  def academics(calendar_id)
+  def academics
     orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
 
     academics = Academic.left_joins(orientations: :academic_activities)
                    .where(orientations: { id: orientation_ids })
                    .where('academic_activities.activity_id = ? OR academic_activities.id IS NULL', self.id)
-                   .select('academics.*, CASE WHEN academic_activities.id IS NULL THEN 0 ELSE 1 END as sent_academic_activity')
+                   .select('academics.*, CASE WHEN academic_activities.id IS NULL THEN \'false\' ELSE \'true\' END as sent_academic_activity')
 
     academics
   end

@@ -5,4 +5,5 @@
   <td><%= activity.base_activity_type.name %></td>
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= activity.deadline %></td>
+  <td><%= activity_count_sended(activity) %></td>
 </tr>

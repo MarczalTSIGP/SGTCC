@@ -46,31 +46,28 @@
       <%= complete_date(@activity.updated_at) %>
     </p>
 
-    <table class="table table-striped table-bordered mt-5">
-      <thead>
-        <tr>
-          <th scope="col"><%= Activity.human_attribute_name('academic') %></th>
-          <th scope="col"><%= Activity.human_attribute_name('sent') %></th>
-        </tr>
-      </thead>
-      <tbody>
-          <% @activity.academics(@calendar.id).each do |academic| %>
-            <tr>
-              <td><%= academic.name %></td> 
-              <td><% if academic.sent_academic_activity == 0 %>
-                  Não
-                <% else %>
-                  Sim
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
+    <% if @activity.base_activity_type.send_document? %>
+      <table class="table table-striped table-bordered mt-5">
+        <thead>
           <tr>
-            <td><strong><%= Activity.human_attribute_name('total') %></strong></td>
-            <td><%= @activity.responses(@calendar.id)[:responded_count] %> de <%= @activity.responses(@calendar.id)[:total_students_in_calendar] %>  <%= Activity.human_attribute_name('sent') %>s.</td>
+            <th scope="col"><%= Activity.human_attribute_name('academic') %></th>
+            <th scope="col"><%= Activity.human_attribute_name('sent') %></th>
           </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+            <% @activity.academics.each do |academic| %>
+              <tr>
+                <td><%= academic.name %></td> 
+                <td><%= t("helpers.boolean.#{academic.sent_academic_activity}") %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td><strong><%= Activity.human_attribute_name('total') %></strong></td>
+              <td><%= @activity.responses.count %> de <%= @activity.responses.total %> <%= Activity.human_attribute_name('sent') %>s</td>
+            </tr>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
 
