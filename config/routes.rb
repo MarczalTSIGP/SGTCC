@@ -155,9 +155,7 @@ Rails.application.routes.draw do
           to: 'orientations#migration',
           as: 'orientations_migration'
 
-      post 'orientations/(:id)/migrate',
-          to: 'orientations#migrate',
-          as: 'orientations_migrate'
+      post 'orientations/(:id)/migrate', to: 'orientations#migrate', as: 'orientations_migrate'
 
       post 'orientations/(:id)/renew', to: 'orientations#renew', as: 'orientations_renew'
       post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'

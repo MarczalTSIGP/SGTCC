@@ -9,6 +9,8 @@ class Responsible::OrientationsController < Responsible::BaseController
   before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
   before_action :responsible_can_edit, only: :edit
   before_action :responsible_can_destroy, only: :destroy
+  before_action :can_migrate, only: [:migration, :migrate]
+  before_action :set_orientation_to_migrate, only: :migrate
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
@@ -41,26 +43,21 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def migration
-    add_breadcrumb I18n.t('breadcrumbs.orientations.migration'), responsible_orientations_migration_path
-    @orientations = Orientation.migratable(params[:page], params[:term], params[:status])
+    add_breadcrumb(
+      I18n.t('breadcrumbs.orientations.migration'),
+      responsible_orientations_migration_path
+    )
     render :migration
   end
 
   def migrate
-    @orientation = Orientation.find(orientation_params_id.fetch(:id))
     next_calendar = Calendar.next_semester(Calendar.current_by_tcc_two)
-
     if next_calendar
-      new_calendar =
-        @orientation.current_calendar.id == Calendar.current_by_tcc_two.id ?
-          next_calendar.id :
-          Calendar.current_by_tcc_two.id
-
+      new_calendar = get_calendar(@orientation, next_calendar)
       @orientation.update(calendar_ids: @orientation.calendar_ids << new_calendar)
       feminine_success_update_message
       redirect_to responsible_orientations_migration_path
     else
-      @orientations = Orientation.migratable(params[:page], params[:term], params[:status])
       error_message_with(I18n.t('flash.orientation.next_calendar_not_found'))
       render :migration
     end
@@ -135,6 +132,22 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def orientation_params_id
     params.require(:orientation).permit(:id)
+  end
+
+  def get_calendar(orientation, next_calendar)
+    if orientation.current_calendar.id == Calendar.current_by_tcc_two.id
+      next_calendar.id
+    else
+      Calendar.current_by_tcc_two.id
+    end
+  end
+
+  def can_migrate
+    @orientations = Orientation.migratable(params[:page], params[:term])
+  end
+
+  def set_orientation_to_migrate
+    @orientation = Orientation.find(orientation_params_id.fetch(:id))
   end
 
   def orientation_params
