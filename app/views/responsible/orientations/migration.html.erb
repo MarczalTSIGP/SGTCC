@@ -17,11 +17,11 @@
          </tr>
       </thead>
       <tbody>
-        <%= render('shared/no_results') if @orientations.empty? %>
+         <%= render('shared/no_results') if @orientations.empty? %>
 
-        <% @orientations.each do | orientation |%>
+         <% @orientations.each do | orientation |%>
             <%= render('orientation_migration', orientation: orientation) %>
-        <% end %>
+         <% end %>
       </tbody>
    </table>
 </div>

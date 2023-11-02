@@ -23,6 +23,9 @@
         </ul>
     </td>
     <td>
-        <button class="btn btn-primary">Migrar</button>
+        <%= simple_form_for(Orientation.model_name.param_key, url: responsible_orientations_migrate_path) do |f| %>
+            <%= f.hidden_field :id, value: orientation.id %>
+            <%= f.button :submit, t("views.buttons.migrate"), class: 'btn btn-primary' %>
+        <% end %>
     </td>
 </tr>

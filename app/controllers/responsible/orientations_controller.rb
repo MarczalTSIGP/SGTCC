@@ -46,6 +46,26 @@ class Responsible::OrientationsController < Responsible::BaseController
     render :migration
   end
 
+  def migrate
+    @orientation = Orientation.find(orientation_params_id.fetch(:id))
+    next_calendar = Calendar.next_semester(Calendar.current_by_tcc_two)
+
+    if next_calendar
+      new_calendar =
+        @orientation.current_calendar.id == Calendar.current_by_tcc_two.id ?
+          next_calendar.id :
+          Calendar.current_by_tcc_two.id
+
+      @orientation.update(calendar_ids: @orientation.calendar_ids << new_calendar)
+      feminine_success_update_message
+      redirect_to responsible_orientations_migration_path
+    else
+      @orientations = Orientation.migratable(params[:page], params[:term], params[:status])
+      error_message_with(I18n.t('flash.orientation.next_calendar_not_found'))
+      render :migration
+    end
+  end
+
   def show
     add_responsible_index_breadcrumb
     add_breadcrumb show_orientation_calendar_title, responsible_orientation_path
@@ -111,6 +131,10 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def set_calendar
     @calendar = @orientation.current_calendar
+  end
+
+  def orientation_params_id
+    params.require(:orientation).permit(:id)
   end
 
   def orientation_params

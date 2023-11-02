@@ -72,6 +72,7 @@ pt-BR:
         sign: 'Assinar documento'
       defense_minutes:
         view: 'Visualizar Ata de Defesa'
+      migrate: 'Migrar'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -667,6 +668,7 @@ pt-BR:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
+      next_calendar_not_found: 'Não existe calendário cadastrado para o próximo semestre'
     documents:
       academics:
         requests:

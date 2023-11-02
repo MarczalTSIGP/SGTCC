@@ -25,7 +25,7 @@ module OrientationFilter
     end
 
     def self.migratable(page, term, status = nil)
-      by_tcc(migration(status), page, term).recent
+      by_tcc(migration, page, term).recent
     end
   end
 end

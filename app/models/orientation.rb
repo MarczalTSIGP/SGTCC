@@ -75,14 +75,16 @@ class Orientation < ApplicationRecord
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
-  scope :migration, lambda { |status = nil|
-    current_year = Calendar.current_year
-    current_semester = Calendar.current_semester
+  scope :migration, -> {
+    subquery =
+      joins(:calendars)
+        .where('calendars.year > ?', Calendar.current_year)
+        .or(joins(:calendars)
+          .where('calendars.year = ? AND calendars.semester > ?',
+          Calendar.current_year, Calendar.current_semester))
+        .pluck('orientations.id')
 
-    where(status: %i[IN_PROGRESS])
-      .or(where(status: %i[APPROVED_TCC_ONE]))
-      .where('calendars.year <= ?', current_year)
-      .where('calendars.semester < ?', current_semester)
+    where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
   }
 
   def short_title
