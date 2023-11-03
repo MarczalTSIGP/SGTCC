@@ -552,6 +552,7 @@ pt-BR:
         appointment_file: "Arquivo com os apontamentos:"
         appointment_text: "Texto com os apontamentos:"
         appointments: "Apontamentos"
+        note_null: "Nota não enviada"
       site:
         <<: *commons
       page:
