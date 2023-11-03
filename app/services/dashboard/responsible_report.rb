@@ -76,7 +76,8 @@ class Dashboard::ResponsibleReport
   end
   
   def orientations_by_tcc(method)
-    if method == 'tcc_one'
+    case method
+    when 'tcc_one'
       {
         total: Orientation.joins(:calendars).where(calendars: { tcc: 'one' }).count,
         in_progress: Orientation.tcc_one('IN_PROGRESS').count,
@@ -85,16 +86,16 @@ class Dashboard::ResponsibleReport
         reproved: Orientation.tcc_one(%w[REPROVED_TCC_ONE REPROVED]).count,
         links: orientations_link('tcc_one')
       }
-    elsif method == 'tcc_two'
+    when 'tcc_two'
       {
         total: Orientation.joins(:calendars).where(calendars: { tcc: 'one' }).count,
         in_progress: Orientation.tcc_two('IN_PROGRESS').count,
         approved: Orientation.tcc_two(%w[APPROVED_TCC_ONE APPROVED]).count,
         canceled: Orientation.tcc_two('CANCELED').count,
         reproved: Orientation.tcc_two(%w[REPROVED_TCC_ONE REPROVED]).count,
-        links: orientations_link('tcc_two') 
+        links: orientations_link('tcc_two')
       }
-    elsif method == 'current_tcc_one'
+    when 'current_tcc_one'
       {
         total: Orientation.current_tcc_one.joins(:calendars).where(calendars: { tcc: 'one' }).count,
         in_progress: Orientation.current_tcc_one('IN_PROGRESS').count,
@@ -103,14 +104,14 @@ class Dashboard::ResponsibleReport
         reproved: Orientation.current_tcc_one(%w[REPROVED_TCC_ONE REPROVED]).count,
         links: orientations_link('current_tcc_one')
       }
-    elsif method == 'current_tcc_two'
+    when 'current_tcc_two'
       {
         total: Orientation.current_tcc_two.joins(:calendars).where(calendars: { tcc: 'two' }).count,
         in_progress: Orientation.current_tcc_two('IN_PROGRESS').count,
         approved: Orientation.current_tcc_two(%w[APPROVED_TCC_ONE APPROVED]).count,
         canceled: Orientation.current_tcc_two('CANCELED').count,
         reproved: Orientation.current_tcc_two(%w[REPROVED_TCC_ONE REPROVED]).count,
-        links: orientations_link('current_tcc_two') 
+        links: orientations_link('current_tcc_two')
       }
     end
   end

@@ -17,8 +17,7 @@ class ExaminationBoardNote < ApplicationRecord
       status = status(final_note)
       examination_board.update(situation: status, final_note: final_note)
 
-      if status.eql?(:approved) &&
-         examination_board.identifier.eql?(ExaminationBoard.identifiers[:project])
+      if status(final_note) == :approved && examination_board.identifier == ExaminationBoard.identifiers[:project]
         status = 'APPROVED_TCC_ONE'
       else
         status = 'REPROVED_TCC_ONE'
