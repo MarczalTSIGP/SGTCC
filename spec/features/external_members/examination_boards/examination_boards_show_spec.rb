@@ -52,5 +52,35 @@ describe 'ExaminationBoard::show', type: :feature do
                                         link(academic_activity.complementary_files.url)])
       end
     end
+
+    context 'when shows the examination board note from others' do
+      let(:academic) { orientation.academic }
+
+      before do
+        create(:examination_board_note, examination_board: examination_board,
+                                        external_member: external_member)
+
+        examination_board.professors.each do |evaluator|
+          create(:examination_board_note, examination_board: examination_board,
+                                          professor: evaluator,
+                                          appointment_text: 'Texto de avaliação professor')
+        end
+
+        examination_board.external_members.each do |evaluator|
+          create(:examination_board_note, examination_board: examination_board,
+                                          external_member: evaluator,
+                                          appointment_text: 'Texto de avaliação membro externo')
+        end
+
+        visit external_members_examination_board_path(examination_board)
+      end
+
+      it 'shows the appointmnets' do
+        examination_board.examination_board_notes_by_others(external_member.id).each do |examination_board_note|
+          expect(page).to have_contents([examination_board_note.note,
+                                        examination_board_note.appointment_text])
+        end
+      end
+    end
   end
 end

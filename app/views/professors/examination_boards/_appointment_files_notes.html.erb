@@ -3,11 +3,22 @@
       <div class="card-header font-weight-bold">
          <%= ExaminationBoardNote.human_attribute_name('appointments') %>:
       </div>
+
       <div class="card-body">
-         <% @examination_board.examination_board_notes.each do |examination_board_note| %>
+         <% @examination_board.examination_board_notes_by_others(current_professor.id).each do |examination_board_note| %>
             <p>
                <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
                <%= examination_board_note.evaluator.name_with_scholarity %>
+            </p>
+            <p>
+               <strong>
+                  <%= ExaminationBoardNote.human_attribute_name('note') %>
+               </strong>
+               <% if examination_board_note.note.present? %>
+                  <%= examination_board_note.note %>
+               <% else %>
+                  <span><%= ExaminationBoardNote.human_attribute_name('note_null') %></span>
+               <% end %>
             </p>
             <% if examination_board_note.appointment_file.present? %>
                <p>
