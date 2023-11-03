@@ -137,35 +137,35 @@ RSpec.describe Activity, type: :model do
 
   describe '#responses' do
     let(:calendar) { create(:calendar) }
-    let(:activity) { create(:activity) }
+    let(:activity) { create(:activity, calendar: calendar) }
     let(:academic1) { create(:academic) }
     let(:academic2) { create(:academic) }
     let(:academic3) { create(:academic) }
-    let(:orientation1) { create(:orientation) }
-    let(:orientation2) { create(:orientation) }
-    let(:orientation3) { create(:orientation) }
+    let(:orientation1) { create(:orientation, academic: academic1) }
+    let(:orientation2) { create(:orientation, academic: academic2) }
+    let(:orientation3) { create(:orientation, academic: academic3) }
 
     before do
       create(:orientation_calendar, orientation: orientation1, calendar: calendar)
       create(:orientation_calendar, orientation: orientation2, calendar: calendar)
       create(:orientation_calendar, orientation: orientation3, calendar: calendar)
-
-      create(:academic_activity, academic: academic1, activity: activity)
-      create(:academic_activity, academic: academic2, activity: activity)
     end
 
-    it "returns the correct response counts" do
+    it 'returns count with no response answered' do
       result = activity.responses
 
       expect(result.count).to eq(0)
       expect(result.total).to eq(3)
     end
 
-    it 'returns the correct response counts' do
-      response_counts = activity.responses
+    it 'returns count with 2 response answered' do
+      create(:academic_activity, academic: academic1, activity: activity)
+      create(:academic_activity, academic: academic2, activity: activity)
 
-      expect(response_counts.total).to eq(3)
-      expect(response_counts.count).to eq(0)
+      result = activity.responses
+
+      expect(result.count).to eq(2)
+      expect(result.total).to eq(3)
     end
 
     it 'returns non-negative response counts' do
@@ -180,7 +180,7 @@ RSpec.describe Activity, type: :model do
     let(:calendar) { create(:calendar) }
     let(:calendar2) { create(:calendar) }
 
-    let(:activity) { create(:activity) }
+    let(:activity) { create(:activity, calendar: calendar) }
 
     let(:academic1) { create(:academic) }
     let(:academic2) { create(:academic) }
@@ -203,6 +203,21 @@ RSpec.describe Activity, type: :model do
       expect(academics).to include(academic1)
       expect(academics).to include(academic2)
       expect(academics).not_to include(academic3)
+    end
+
+    it 'should not have an academic with property sent academic activity as true' do
+      academics_with_activity_sent = activity.academics.select { |academic| academic.sent_academic_activity == 'false' }
+      expect(academics_with_activity_sent.size).to eq(2)
+    end
+
+    it 'should have an academic with property sent academic activity as true' do
+      create(:academic_activity, academic: academic1, activity: activity)
+
+      academic_with_activity_sent = activity.academics.find { |academic| academic.sent_academic_activity }
+      
+      expect(academic_with_activity_sent).to eq(academic1)
+      expect(academic_with_activity_sent).to be_truthy
+      expect(academic_with_activity_sent.sent_academic_activity === 'true').to be_truthy
     end
   end
 end
