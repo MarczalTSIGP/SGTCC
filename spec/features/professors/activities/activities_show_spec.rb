@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Activity::show', type: :feature do
-  let(:responsible) { create(:responsible) }
+  let(:professor) { create(:professor) }
   let(:calendar) { create(:calendar) }
   let(:activity_type_with_document) {create(:base_activity_type, identifier: :info)}
   let!(:activity) { create(:activity, base_activity_type: activity_type_with_document, calendar: calendar) }
@@ -13,7 +13,7 @@ describe 'Activity::show', type: :feature do
     create(:academic_activity, academic: academic1, activity: activity)
 
     login_as(professor, scope: :professor)
-    visit professor_calendar_activity_path(activity.calendar, activity)
+    visit professors_calendar_activity_path(activity.calendar, activity)
   end
 
   describe '#show' do
@@ -44,7 +44,7 @@ describe 'Activity::show', type: :feature do
       create(:academic_activity, academic: academic1, activity: activity)
 
       login_as(professor, scope: :professor)
-      visit professor_calendar_activity_path(activity.calendar, activity)
+      visit professors_calendar_activity_path(activity.calendar, activity)
     end
     context 'when shows the activity' do
       it 'shows the activity' do
