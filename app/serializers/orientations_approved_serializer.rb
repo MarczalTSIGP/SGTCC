@@ -19,7 +19,7 @@ class OrientationsApprovedSerializer < OrientationsSerializer
     docs = []
     final_monograph(object, docs)
     complementary_files(object, docs)
-    docs.reject { |doc| doc[:url].nil? }
+    docs
   end
 
   def self.final_monograph(object, docs)
@@ -32,8 +32,7 @@ class OrientationsApprovedSerializer < OrientationsSerializer
   end
 
   def self.complementary_files(object, docs)
-    return if object.final_monograph.nil?
-    return if object.final_monograph.complementary_files.nil?
+    return unless object.final_monograph&.complementary_files&.url
 
     docs << {
       name: 'Arquivos complementares',

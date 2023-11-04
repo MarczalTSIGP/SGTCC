@@ -1,8 +1,8 @@
 <% provide(:head_title, @page.menu_title) %>
 
 <div>
-  <orientations-page
-      :title="'<%= @page.menu_title %>'"  
+   <orientations-page
+      :page_title="'<%= @page.menu_title %>'"  
       :path="'<%= api_v1_orientations_approved_path %>'"
-  />
-</div>
+      />
+   </div>

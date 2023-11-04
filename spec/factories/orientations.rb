@@ -90,20 +90,20 @@ FactoryBot.define do
       status { Orientation.statuses.key('APPROVED') }
     end
 
-    factory :orientation_tcc_two_approved_without_complementary_files do
+    factory :orientation_tcc_two_approved_no_complementary_files do
       after(:create) do |orientation|
-        calendar = create(:calendar_tcc_two)
+        calendar = create(:previous_calendar_tcc_two)
+        orientation.calendars = [calendar]
+
         activity = create(:activity, calendar: calendar, identifier: :monograph,
                                      final_version: true)
         create(
-          :academic_activity_without_complementary_files,
+          :academic_activity_no_complementary_files,
           activity: activity,
           academic: orientation.academic
         )
         create(:examination_board, orientation: orientation, identifier: :monograph,
                                    situation: :approved)
-
-        orientation.calendars = [calendar]
       end
 
       status { Orientation.statuses.key('APPROVED') }
