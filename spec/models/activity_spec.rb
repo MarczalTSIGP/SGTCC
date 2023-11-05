@@ -138,17 +138,17 @@ RSpec.describe Activity, type: :model do
   describe '#responses' do
     let(:calendar) { create(:calendar) }
     let(:activity) { create(:activity, calendar: calendar) }
-    let(:academic1) { create(:academic) }
-    let(:academic2) { create(:academic) }
-    let(:academic3) { create(:academic) }
-    let(:orientation1) { create(:orientation, academic: academic1) }
-    let(:orientation2) { create(:orientation, academic: academic2) }
-    let(:orientation3) { create(:orientation, academic: academic3) }
+    let(:academic_one) { create(:academic) }
+    let(:academic_two) { create(:academic) }
+    let(:academic_three) { create(:academic) }
+    let(:orientation_one) { create(:orientation, academic: academic_one) }
+    let(:orientation_two) { create(:orientation, academic: academic_two) }
+    let(:orientation_three) { create(:orientation, academic: academic_three) }
 
     before do
-      create(:orientation_calendar, orientation: orientation1, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation2, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation3, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_one, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_two, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_three, calendar: calendar)
     end
 
     it 'returns count with no response answered' do
@@ -159,8 +159,8 @@ RSpec.describe Activity, type: :model do
     end
 
     it 'returns count with 2 response answered' do
-      create(:academic_activity, academic: academic1, activity: activity)
-      create(:academic_activity, academic: academic2, activity: activity)
+      create(:academic_activity, academic: academic_one, activity: activity)
+      create(:academic_activity, academic: academic_two, activity: activity)
 
       result = activity.responses
 
@@ -178,46 +178,47 @@ RSpec.describe Activity, type: :model do
 
   describe '#academics' do
     let(:calendar) { create(:calendar) }
-    let(:calendar2) { create(:calendar) }
+    let(:calendar_two) { create(:calendar) }
 
     let(:activity) { create(:activity, calendar: calendar) }
 
-    let(:academic1) { create(:academic) }
-    let(:academic2) { create(:academic) }
-    let(:academic3) { create(:academic) }
+    let(:academic_one) { create(:academic) }
+    let(:academic_two) { create(:academic) }
+    let(:academic_three) { create(:academic) }
 
-    let(:orientation1) { create(:orientation, academic: academic1) }
-    let(:orientation2) { create(:orientation, academic: academic2) }
-    let(:orientation3) { create(:orientation, academic: academic3) }
-
+    let(:orientation_one) { create(:orientation, academic: academic_one) }
+    let(:orientation_two) { create(:orientation, academic: academic_two) }
+    let(:orientation_three) { create(:orientation, academic: academic_three) }
 
     before do
-      create(:orientation_calendar, orientation: orientation1, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation2, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation3, calendar: calendar2)
+      create(:orientation_calendar, orientation: orientation_one, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_two, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_three, calendar: calendar_two)
     end
 
     it 'returns all academics associated with the calendar' do
       academics = activity.academics
 
-      expect(academics).to include(academic1)
-      expect(academics).to include(academic2)
-      expect(academics).not_to include(academic3)
+      expect(academics).to contain_exactly(academic_one, academic_two)
+      expect(academics).not_to include(academic_three)
     end
 
-    it 'should not have an academic with property sent academic activity as true' do
-      academics_with_activity_sent = activity.academics.select { |academic| academic.sent_academic_activity == 'false' }
+    it 'does not have an academic with property sent academic activity as true' do
+      academics_with_activity_sent = activity.academics.select do |academic|
+        academic.sent_academic_activity == 'false'
+      end
       expect(academics_with_activity_sent.size).to eq(2)
     end
 
-    it 'should have an academic with property sent academic activity as true' do
-      create(:academic_activity, academic: academic1, activity: activity)
+    it 'has an academic with property sent academic activity as true' do
+      create(:academic_activity, academic: academic_one, activity: activity)
 
-      academic_with_activity_sent = activity.academics.find { |academic| academic.sent_academic_activity }
-      
-      expect(academic_with_activity_sent).to eq(academic1)
-      expect(academic_with_activity_sent).to be_truthy
-      expect(academic_with_activity_sent.sent_academic_activity === 'true').to be_truthy
+      academic_with_activity_sent = activity
+                                    .academics
+                                    .find(&:sent_academic_activity)
+
+      expect(academic_with_activity_sent).to eq(academic_one)
+      expect(academic_with_activity_sent.sent_academic_activity).to eq('true')
     end
   end
 end
