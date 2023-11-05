@@ -4,6 +4,8 @@ describe 'ExaminationBoard::show', type: :feature do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let(:note_status) { ExaminationBoardNote.human_attribute_name('note_status') }
+  let(:note_sent) { ExaminationBoardNote.human_attribute_name('note_sent') }
 
   before do
     create(:document_type_adpp)
@@ -84,7 +86,6 @@ describe 'ExaminationBoard::show', type: :feature do
       end
     end
 
-
     context 'when shows the examination board note from others' do
       let(:academic) { orientation.academic }
 
@@ -108,9 +109,12 @@ describe 'ExaminationBoard::show', type: :feature do
       end
 
       it 'shows the appointmnets' do
-        examination_board.examination_board_notes_by_others(professor.id).each do |examination_board_note|
-          expect(page).to have_contents([examination_board_note.note,
-                                        examination_board_note.appointment_text])
+        examination_board
+          .examination_board_notes_by_others(professor.id)
+          .each do |examination_board_note|
+          expect(page).to have_contents([examination_board_note.appointment_text])
+          expect(page).to have_selector('p > strong', text: note_status)
+          expect(page).to have_selector('p > span', text: note_sent)
         end
       end
     end

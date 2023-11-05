@@ -12,13 +12,9 @@
             </p>
             <p>
                <strong>
-                  <%= ExaminationBoardNote.human_attribute_name('note') %>
+                  <%= ExaminationBoardNote.human_attribute_name('note_status') %>
                </strong>
-               <% if examination_board_note.note.present? %>
-                  <%= examination_board_note.note %>
-               <% else %>
-                  <span><%= ExaminationBoardNote.human_attribute_name('note_null') %></span>
-               <% end %>
+               <span><%= examination_board_note.note.present? ? ExaminationBoardNote.human_attribute_name('note_sent') : ExaminationBoardNote.human_attribute_name('note_null')%></span>
             </p>
             <% if examination_board_note.appointment_file.present? %>
                <p>

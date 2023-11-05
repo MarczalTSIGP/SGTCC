@@ -9,6 +9,12 @@
                <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
                <%= examination_board_note.evaluator.name_with_scholarity %>
             </p>
+            <p>
+               <strong>
+                  <%= ExaminationBoardNote.human_attribute_name('note_status') %>
+               </strong>
+               <span><%= examination_board_note.note.present? ? ExaminationBoardNote.human_attribute_name('note_sent') : ExaminationBoardNote.human_attribute_name('note_null')%></span>
+            </p>
             <% if examination_board_note.appointment_file.present? %>
                <p>
                   <strong>

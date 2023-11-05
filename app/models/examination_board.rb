@@ -134,8 +134,8 @@ class ExaminationBoard < ApplicationRecord
     evaluators_size - examination_board_notes.size
   end
 
-  def examination_board_notes_by_others(filterId)
-    examination_board_notes.where.not(professor_id: filterId)
-                           .or(examination_board_notes.where.not(external_member_id: filterId))
+  def examination_board_notes_by_others(filter_id)
+    examination_board_notes.where.not(professor_id: filter_id)
+                           .or(examination_board_notes.where.not(external_member_id: filter_id))
   end
 end
