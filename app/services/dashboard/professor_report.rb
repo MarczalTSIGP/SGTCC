@@ -13,32 +13,34 @@ class Dashboard::ProfessorReport
   private
 
   def orientations_report
-    { tcc_one: orientations_by_tcc('tcc_one'),
-      tcc_two: orientations_by_tcc('tcc_two') }
+    { tcc_one: calculate_orientations('tcc_one'),
+      tcc_two: calculate_orientations('tcc_two') }
   end
 
-  def orientations_by_tcc(method, orientations: @professor.orientations)
-    if method == 'tcc_one' || method == 'tcc_two'
-      tcc_type = method.split('_').last
-      {
-        total: orientations.joins(:calendars).where(calendars: { tcc: tcc_type }).count,
-        in_progress: orientations.send(method, 'IN_PROGRESS').count,
-        approved: orientations.send(method, %w[APPROVED_TCC_ONE APPROVED]).count,
-        canceled: orientations.send(method, 'CANCELED').count,
-        reproved: orientations.send(method, %w[REPROVED_TCC_ONE REPROVED]).count,
-        links: orientations_link(method)
-      }
-    elsif method == 'current_tcc_one' || method == 'current_tcc_two'
-      tcc_type = method.split('_').last
-      {
-        total: orientations.where(calendars: { tcc: tcc_type }).count,
-        in_progress: orientations.send(method, 'IN_PROGRESS').count,
-        approved: orientations.send(method, %w[APPROVED_TCC_ONE APPROVED]).count,
-        canceled: orientations.send(method, 'CANCELED').count,
-        reproved: orientations.send(method, %w[REPROVED_TCC_ONE REPROVED]).count,
-        links: orientations_link(method)
-      }
-    end
+  def calculate_orientations(method)
+    return {} unless valid_method?(method)
+
+    tcc_type = method.split('_').last
+    {
+      total: total_orientations(tcc_type),
+      in_progress: count_orientations(method, 'IN_PROGRESS'),
+      approved: count_orientations(method, %w[APPROVED_TCC_ONE APPROVED]),
+      canceled: count_orientations(method, 'CANCELED'),
+      reproved: count_orientations(method, %w[REPROVED_TCC_ONE REPROVED]),
+      links: orientations_link(method)
+    }
+  end
+
+  def valid_method?(method)
+    %w[tcc_one tcc_two current_tcc_one current_tcc_two].include?(method)
+  end
+
+  def total_orientations(tcc_type)
+    @professor.orientations.joins(:calendars).where(calendars: { tcc: tcc_type }).count
+  end
+
+  def count_orientations(method, status)
+    @professor.orientations.send(method, status).count
   end
 
   def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})

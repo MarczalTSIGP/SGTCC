@@ -7,9 +7,11 @@ class ExaminationBoardNote < ApplicationRecord
 
   validates :note,
             presence: true,
-            numericality: { only_integer: true,
-                            greater_than_or_equal_to: 0,
-                            less_than_or_equal_to: 100 },
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 0,
+              less_than_or_equal_to: 100
+            },
             allow_nil: true
 
   after_save do
@@ -17,13 +19,16 @@ class ExaminationBoardNote < ApplicationRecord
       status = status(final_note)
       examination_board.update(situation: status, final_note: final_note)
 
-      if status(final_note) == :approved && examination_board.identifier == ExaminationBoard.identifiers[:project]
-        status = 'APPROVED_TCC_ONE'
-      else
-        status = 'REPROVED_TCC_ONE'
-      end
+      status_approved = status.eql?(:approved)
+      project_identifier = examination_board.identifier.eql?(ExaminationBoard.identifiers[:project])
 
-      if examination_board.identifier != ExaminationBoard.identifiers[:proposal]
+      status = if status_approved && project_identifier
+                 'APPROVED_TCC_ONE'
+               else
+                 'REPROVED_TCC_ONE'
+               end
+
+      unless examination_board.identifier == ExaminationBoard.identifiers[:proposal]
         # rubocop:disable Rails/SkipsModelValidations
         examination_board.orientation.update_column(:status, status.to_s.upcase)
         # rubocop:enable Rails/SkipsModelValidations

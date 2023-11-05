@@ -8,7 +8,10 @@
         -
       </span>
     </span>
-    <span v-else :class="badgeClass">
+    <span
+      v-else
+      :class="badgeClass"
+    >
       {{ statusLabel }}
     </span>
   </div>

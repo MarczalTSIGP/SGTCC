@@ -1,5 +1,8 @@
 <template>
-  <div id="chart" class="card">
+  <div
+    id="chart"
+    class="card"
+  >
     <div class="card-header">
       <div class="card-title font-weight-bold">
         Ranking dos professores

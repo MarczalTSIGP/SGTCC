@@ -520,7 +520,7 @@ RSpec.describe Orientation, type: :model do
       ranking = professors.map do |professor|
         [professor.name_with_scholarity, professor.orientations.size]
       end
-      ranking = ranking.sort_by { |professor| professor[1] }.reverse[0..4]
+      ranking = ranking.sort_by { |professor| professor[1] }.reverse
       expect(described_class.professors_ranking).to match_array(ranking)
     end
   end
