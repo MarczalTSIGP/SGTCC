@@ -555,6 +555,7 @@ pt-BR:
         note_null: "Não enviada"
         note_sent: "Enviada"
         note_status: "Status da nota:"
+        appointments_null: "Apontamentos não enviados"
       site:
         <<: *commons
       page:

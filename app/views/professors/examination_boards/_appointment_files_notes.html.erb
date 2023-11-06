@@ -38,6 +38,15 @@
                </p>
             <% end %>
          <% end %>
+         <% @examination_board.members_that_not_sent_appointments(current_professor.id).each do |member| %>
+            <p>
+               <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
+               <%= member.name_with_scholarity %>
+            </p>
+            <p>
+               <%= ExaminationBoardNote.human_attribute_name('appointments_null') %>
+            </p>
+         <% end %>
       </div>
    </div>
 <% end %>
