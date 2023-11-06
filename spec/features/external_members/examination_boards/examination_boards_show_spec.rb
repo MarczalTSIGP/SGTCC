@@ -87,5 +87,25 @@ describe 'ExaminationBoard::show', type: :feature do
         end
       end
     end
+
+    context 'when shows the examination board members not send appointments' do
+      let(:academic) { orientation.academic }
+
+      before do
+        create(:examination_board_note, examination_board: examination_board,
+                                        external_member: external_member)
+
+        visit external_members_examination_board_path(examination_board)
+      end
+
+      it 'shows the appointmnets not send' do
+        examination_board
+          .members_that_not_send_appointments(external_member.id)
+          .each do |member|
+          expect(page).to have_selector('p', text: member.name_with_scholarity)
+          expect(page).to have_selector('p', text: 'Apontamentos não enviados')
+        end
+      end
+    end
   end
 end
