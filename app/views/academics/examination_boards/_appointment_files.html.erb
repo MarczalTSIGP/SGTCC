@@ -15,27 +15,31 @@
                </strong>
                <span><%= examination_board_note.note.present? ? ExaminationBoardNote.human_attribute_name('note_sent') : ExaminationBoardNote.human_attribute_name('note_null')%></span>
             </p>
-            <% if examination_board_note.appointment_file.present? %>
-               <p>
-                  <strong>
-                     <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
-                  </strong>
+            <p>
+               <strong>
+                  <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
+               </strong>
+               <% if examination_board_note.appointment_file.present? %>
                   <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
                      <%= examination_board_note.appointment_file_identifier %>
                   <% end %>
-               </p>
-            <% end %>
+               <% else %>
+                  <span><%=ExaminationBoardNote.human_attribute_name('appointment_file_null')%></span>
+               <% end %>
+            </p>
 
-            <% if examination_board_note.appointment_text.present? %>
-               <p>
-                  <strong>
-                     <%= ExaminationBoardNote.human_attribute_name('appointment_text') %>
-                  </strong>
+            <p>
+               <strong>
+                  <%= ExaminationBoardNote.human_attribute_name('appointment_text') %>
+               </strong>
+               <% if examination_board_note.appointment_text.present? %>
                   <div class="form-fieldset w-80 mx-auto text-left">
                      <markdown-reader content="<%= examination_board_note.appointment_text %>" />
                   </div>
-               </p>
-            <% end %>
+               <% else %>
+                  <span><%=ExaminationBoardNote.human_attribute_name('appointment_text_null')%></span>
+               <% end %>
+            </p>
          <% end %>
       </div>
    </div>
