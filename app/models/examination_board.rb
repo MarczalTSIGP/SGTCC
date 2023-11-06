@@ -139,18 +139,20 @@ class ExaminationBoard < ApplicationRecord
                            .or(examination_board_notes.where.not(external_member_id: filter_id))
   end
 
-  def members_that_not_sent_appointments(filter_id)
-    professor_ids = examination_board_notes.pluck(:professor_id).flatten.compact
-    external_member_ids = examination_board_notes.pluck(:external_member_id).flatten.compact
-  
+  def professor_and_external_members_ids
+    professor_ids = examination_board_notes.pluck(:professor_id).flatten.compact.uniq
+    external_member_ids = examination_board_notes.pluck(:external_member_id).flatten.compact.uniq
+    [professor_ids, external_member_ids]
+  end
+
+  def members_that_not_send_appointments(filter_id)
+    professor_ids, external_member_ids = fetch_ids
     professor_ids << filter_id
     external_member_ids << filter_id
-  
     members = {
       professors: professors.where.not(id: professor_ids),
       external_members: external_members.where.not(id: external_member_ids)
     }
-  
     members.values.flatten
   end
 end
