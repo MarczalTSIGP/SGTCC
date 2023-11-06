@@ -23,7 +23,7 @@
         </ul>
     </td>
     <td>
-        <%= simple_form_for(Orientation.model_name.param_key, url: responsible_orientations_migrate_path) do |f| %>
+        <%= simple_form_for [:responsible, :orientations_migration, orientation], url: responsible_orientations_migrate_path, method: :post do |f| %>
             <%= f.hidden_field :id, value: orientation.id %>
             <%= f.button :submit, t("views.buttons.migrate"), class: 'btn btn-primary' %>
         <% end %>

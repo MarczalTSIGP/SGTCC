@@ -20,7 +20,7 @@
          <%= render('shared/no_results') if @orientations.empty? %>
 
          <% @orientations.each do | orientation |%>
-            <%= render('orientation_migration', orientation: orientation) %>
+            <%= render('orientation', orientation: orientation) %>
          <% end %>
       </tbody>
    </table>

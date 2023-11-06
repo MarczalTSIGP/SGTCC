@@ -90,6 +90,10 @@ class Orientation < ApplicationRecord
     where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
   }
 
+  def migrate(new_calendar_id)
+    update(calendar_ids: calendar_ids << new_calendar_id)
+  end
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
