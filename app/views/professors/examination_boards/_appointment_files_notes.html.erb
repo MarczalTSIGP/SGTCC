@@ -42,7 +42,7 @@
                <% end %>
             </p>
          <% end %>
-         <% @examination_board.members_that_not_sent_appointments(current_professor.id).each do |member| %>
+         <% @examination_board.members_that_not_send_appointments(current_professor.id).each do |member| %>
             <p>
                <strong><%= ExaminationBoardNote.human_attribute_name('evaluator') %>:</strong>
                <%= member.name_with_scholarity %>
