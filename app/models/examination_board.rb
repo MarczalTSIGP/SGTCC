@@ -146,7 +146,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def members_that_not_send_appointments(filter_id)
-    professor_ids, external_member_ids = fetch_ids
+    professor_ids, external_member_ids = professor_and_external_members_ids
     professor_ids << filter_id
     external_member_ids << filter_id
     members = {
