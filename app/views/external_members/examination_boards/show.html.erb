@@ -6,9 +6,7 @@
     update_url: external_members_examination_board_note_path(@examination_board, @examination_board_note) %>
 <% end %>
 
-<% if @examination_board.appointments? %>
-  <%= render 'external_members/examination_boards/appointment_files_notes' %>
-<% end %>
+<%= render 'external_members/examination_boards/appointment_files_notes' %>
 
 <%= provide(:appointment_file_form) do %>
   <%= render 'external_members/examination_boards/appointment_file_form',
