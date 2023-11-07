@@ -30,6 +30,10 @@ class Calendar < ApplicationRecord
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
+  def orientation_by_academic(academic_id)
+    orientations.find_by(academic_id)
+  end
+
   def current?
     Calendar.current_calendar?(self)
   end

@@ -58,9 +58,7 @@
             <% @activity.academic_responses.each do |academic| %>
               <tr>
                 <td><%= academic.name %></td> 
-                <td><a href=<%= responsible_orientation_calendar_activity_path(@activity.calendar.orientations.find_by(academic_id: academic.id),
-                @activity.calendar,
-                @activity) %>><%= t("helpers.boolean.#{academic.sent_academic_activity}") %></a></td> 
+                <td><%= t("helpers.boolean.#{academic.sent_academic_activity}") %></a></td> 
               </tr>
             <% end %>
             <tr>

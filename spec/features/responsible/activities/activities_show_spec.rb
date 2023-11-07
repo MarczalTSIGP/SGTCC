@@ -70,8 +70,11 @@ describe 'Activity::show', type: :feature do
           expect(page).to have_content(Activity.human_attribute_name('sent'))
 
           expect(page).to have_content(academic_one.name)
-          expect(page).to have_content("#{activity.response_summary.count} de \
-            #{activity.response_summary.total} #{Activity.human_attribute_name('sent')}s")
+          result = ''
+          result << "#{activity.response_summary.count} de "
+          result << "#{activity.response_summary.total} "
+          result << "#{Activity.human_attribute_name('sent')}s"
+          expect(page).to have_content(result)
         end
       end
     end
