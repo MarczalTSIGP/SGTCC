@@ -41,7 +41,7 @@ class ExaminationBoard < ApplicationRecord
   scope :site_with_relationships, lambda {
     includes(external_members: [:scholarity], professors: [:scholarity],
              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
-                           :external_member_supervisors, { advisor: [:scholarity] }]).recent
+                           :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
   def self.cs_asc_from_now_desc_ago
