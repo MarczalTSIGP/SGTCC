@@ -26,9 +26,9 @@ describe 'Institution::update', type: :feature, js: true do
 
         expect(page).to have_current_path responsible_institution_path(institution)
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_contents([attributes[:name],
-                                       attributes[:trade_name],
-                                       attributes[:cnpj]])
+        expect(page).to have_content(attributes[:name])
+        expect(page).to have_content(attributes[:trade_name])
+        expect(page).to have_content(attributes[:cnpj])
       end
     end
 
