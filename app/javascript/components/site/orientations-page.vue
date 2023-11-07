@@ -5,7 +5,7 @@
     </div>
     <div v-show="!loading">
       <h2 class="page-title mb-2">
-        {{ page_title }}
+        {{ pageTitle }}
       </h2>
 
       <div class="text-right mb-3">
@@ -38,7 +38,7 @@ export default {
   },
 
   props: {
-    page_title: {
+    pageTitle: {
       type: String,
       required: true
     },
