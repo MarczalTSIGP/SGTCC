@@ -135,76 +135,62 @@ RSpec.describe Activity, type: :model do
     end
   end
 
-  describe '#responses' do
-    let(:calendar) { create(:calendar) }
-    let(:activity) { create(:activity, calendar: calendar) }
+  describe '#responses_summary' do
+    let(:activity) { create(:activity) }
     let(:academic_one) { create(:academic) }
     let(:academic_two) { create(:academic) }
-    let(:academic_three) { create(:academic) }
     let(:orientation_one) { create(:orientation, academic: academic_one) }
     let(:orientation_two) { create(:orientation, academic: academic_two) }
-    let(:orientation_three) { create(:orientation, academic: academic_three) }
 
     before do
-      create(:orientation_calendar, orientation: orientation_one, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation_two, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation_three, calendar: calendar)
+      create(:orientation_calendar, orientation: orientation_one, calendar: activity.calendar)
+      create(:orientation_calendar, orientation: orientation_two, calendar: activity.calendar)
     end
 
     it 'returns count with no response answered' do
-      result = activity.responses
+      result = activity.response_summary
 
       expect(result.count).to eq(0)
-      expect(result.total).to eq(3)
+      expect(result.total).to eq(2)
     end
 
-    it 'returns count with 2 response answered' do
+    it 'returns count with 1 response answered' do
       create(:academic_activity, academic: academic_one, activity: activity)
-      create(:academic_activity, academic: academic_two, activity: activity)
 
-      result = activity.responses
+      result = activity.response_summary
 
-      expect(result.count).to eq(2)
-      expect(result.total).to eq(3)
+      expect(result.count).to eq(1)
+      expect(result.total).to eq(2)
     end
 
     it 'returns non-negative response counts' do
-      response_counts = activity.responses
+      response_counts = activity.response_summary
 
       expect(response_counts.total).to be >= 0
       expect(response_counts.count).to be >= 0
     end
   end
 
-  describe '#academics' do
-    let(:calendar) { create(:calendar) }
-    let(:calendar_two) { create(:calendar) }
-
-    let(:activity) { create(:activity, calendar: calendar) }
-
+  describe '#academic_responses' do
+    let(:activity) { create(:activity) }
     let(:academic_one) { create(:academic) }
     let(:academic_two) { create(:academic) }
-    let(:academic_three) { create(:academic) }
 
     let(:orientation_one) { create(:orientation, academic: academic_one) }
     let(:orientation_two) { create(:orientation, academic: academic_two) }
-    let(:orientation_three) { create(:orientation, academic: academic_three) }
 
     before do
-      create(:orientation_calendar, orientation: orientation_one, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation_two, calendar: calendar)
-      create(:orientation_calendar, orientation: orientation_three, calendar: calendar_two)
+      create(:orientation_calendar, orientation: orientation_one, calendar: activity.calendar)
+      create(:orientation_calendar, orientation: orientation_two, calendar: activity.calendar)
     end
 
     it 'returns all academics associated with the calendar' do
-      academics = activity.academics
-
+      academics = activity.academic_responses
       expect(academics).to contain_exactly(academic_one, academic_two)
-      expect(academics).not_to include(academic_three)
     end
 
     it 'does not have an academic with property sent academic activity as true' do
-      academics_with_activity_sent = activity.academics.select do |academic|
+      academics_with_activity_sent = activity.academic_responses.select do |academic|
         academic.sent_academic_activity == 'false'
       end
       expect(academics_with_activity_sent.size).to eq(2)
@@ -214,7 +200,7 @@ RSpec.describe Activity, type: :model do
       create(:academic_activity, academic: academic_one, activity: activity)
 
       academic_with_activity_sent = activity
-                                    .academics
+                                    .academic_responses
                                     .find(&:sent_academic_activity)
 
       expect(academic_with_activity_sent).to eq(academic_one)

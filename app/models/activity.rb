@@ -27,6 +27,32 @@ class Activity < ApplicationRecord
     :in_the_future
   end
 
+  def response_summary
+    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
+    responded_count = Academic.joins(orientations: :academic_activities)
+                              .where(orientations: { id: orientation_ids })
+                              .where(academic_activities: { activity_id: id })
+                              .count
+
+    total_students_in_calendar = Academic.joins(orientations: :orientation_calendars)
+                                         .where(orientations: { id: orientation_ids })
+                                         .where(orientation_calendars: { calendar_id: calendar_id })
+                                         .count
+
+    Struct.new(:count, :total).new(responded_count, total_students_in_calendar)
+  end
+
+  def academic_responses
+    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
+
+    Academic.left_joins(orientations: :academic_activities)
+            .where(orientations: { id: orientation_ids })
+            .where('academic_activities.activity_id = ? OR academic_activities.id IS NULL', id)
+            .select('academics.*, ' \
+                    'CASE WHEN academic_activities.id IS NULL ' \
+                    'THEN \'false\' ELSE \'true\' END as sent_academic_activity')
+  end
+
   def academic_activity(orientation)
     AcademicActivity.find_by(activity: id, academic: orientation.academic)
   end
@@ -45,31 +71,5 @@ class Activity < ApplicationRecord
 
   def expired?
     Time.current > final_date
-  end
-
-  def responses
-    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
-    responded_count = Academic.joins(orientations: :academic_activities)
-                              .where(orientations: { id: orientation_ids })
-                              .where(academic_activities: { activity_id: id })
-                              .count
-
-    total_students_in_calendar = Academic.joins(orientations: :orientation_calendars)
-                                         .where(orientations: { id: orientation_ids })
-                                         .where(orientation_calendars: { calendar_id: calendar_id })
-                                         .count
-
-    OpenStruct.new(count: responded_count, total: total_students_in_calendar)
-  end
-
-  def academics
-    orientation_ids = OrientationCalendar.where(calendar_id: calendar_id).pluck(:orientation_id)
-
-    Academic.left_joins(orientations: :academic_activities)
-            .where(orientations: { id: orientation_ids })
-            .where('academic_activities.activity_id = ? OR academic_activities.id IS NULL', id)
-            .select('academics.*, ' \
-                    'CASE WHEN academic_activities.id IS NULL ' \
-                    'THEN \'false\' ELSE \'true\' END as sent_academic_activity')
   end
 end

@@ -21,10 +21,10 @@ module ApplicationHelper
 
   def activity_count_sended(activity)
     if activity.base_activity_type.send_document?
-      return "#{activity.responses.count} \
-              de #{activity.responses.total} \
-              #{Activity.human_attribute_name('sent')}s".html_safe
+      return "#{activity.response_summary.count} \
+              de #{activity.response_summary.total} \
+              #{Activity.human_attribute_name('sent')}s"
     end
-    return "-".html_safe
+    '-'
   end
 end
