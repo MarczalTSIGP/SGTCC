@@ -12,7 +12,7 @@ class Responsible::OrientationsMigrationController < Responsible::BaseController
 
   def migrate
     if @orientation.migrate
-      feminine_success_update_message
+      flash[:success] = I18n.t('flash.orientation_migrated')
       redirect_to responsible_orientations_migration_path
     else
       flash.now[:error] = I18n.t('flash.orientation.next_calendar_not_found')

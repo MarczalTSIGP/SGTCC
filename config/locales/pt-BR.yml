@@ -682,6 +682,7 @@ pt-BR:
     examination_board_note:
       errors:
         edit: 'Não é possível editar nota, pois a Ata de Defesa já foi gerada!'
+    orientation_migrated: 'Orientação migrada com sucesso!'
   json:
     messages:
       invalid_code: 'Código inválido!'
