@@ -33,10 +33,6 @@ module FlashMessage
     flash.now[:error] = I18n.t('flash.actions.errors')
   end
 
-  def error_message_with(error)
-    flash.now[:error] = error
-  end
-
   private
 
   def model_human

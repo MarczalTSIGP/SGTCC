@@ -75,7 +75,7 @@ class Orientation < ApplicationRecord
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
-  scope :migration, lambda {
+  scope :to_migrate, lambda {
     subquery =
       joins(:calendars)
       .where('calendars.year > ?', Calendar.current_year)
@@ -90,8 +90,13 @@ class Orientation < ApplicationRecord
     where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
   }
 
-  def migrate(new_calendar_id)
-    update(calendar_ids: calendar_ids << new_calendar_id)
+  def migrate
+    if can_be_migrated?
+      new_calendar = Calendar.next_semester_tcc_two(current_calendar)
+      update(calendar_ids: calendar_ids << new_calendar.id)
+    else
+      false
+    end
   end
 
   def short_title
@@ -180,6 +185,13 @@ class Orientation < ApplicationRecord
   end
 
   private
+
+  def can_be_migrated?
+    equal_status?('APPROVED_TCC_ONE') &&
+      Calendar
+        .next_semester_tcc_two(current_calendar)
+        .present?
+  end
 
   def find_academic_activity(conditions = {})
     academic_activities.joins(:activity)

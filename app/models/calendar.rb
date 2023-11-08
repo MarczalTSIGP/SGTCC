@@ -65,6 +65,16 @@ class Calendar < ApplicationRecord
     search_by_first_semester_next_year(calendar)
   end
 
+  def self.next_semester_tcc_two(calendar)
+    return next_semester(calendar) if calendar.tcc == 'two'
+
+    if calendar.semester == 'one'
+      find_by(semester: 2, year: calendar.year, tcc: tccs[:two])
+    else
+      find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[:two])
+    end
+  end
+
   def self.search_by_tcc(tcc, page, term)
     where(tcc: tcc).page(page).search(term).order({ year: :desc }, :semester)
   end
