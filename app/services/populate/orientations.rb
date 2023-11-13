@@ -3,7 +3,7 @@ class Populate::Orientations
               :calendar_ids, :professor_ids, :advisor,
               :supervisors, :external_members, :statuses,
               :index
-            
+
   def initialize
     @academic_ids = Academic.pluck(:id)
     @institution_ids = Institution.pluck(:id)
@@ -30,7 +30,6 @@ class Populate::Orientations
   def create_orientation_by_calendar(calendar_id)
     increment_index
     calendars = Calendar.all
-
     academic_id = @academic_ids.sample
 
     orientation = Orientation.create!(
@@ -42,16 +41,9 @@ class Populate::Orientations
       status: @statuses.sample
     )
     add_supervisors(orientation)
-    
-    if calendars[-2].id == calendar_id
-      add_proposal(calendars[-2], orientation, academic_id)
-      add_project(calendars[-2], orientation, academic_id)
-    end
-    
-    if calendars[-3].id == calendar_id
-      add_monograph(calendars[-3], orientation, academic_id)
-    end
-
+    add_proposal(calendars[-2], orientation, academic_id) if calendars[-2].id == calendar_id
+    add_project(calendars[-2], orientation, academic_id) if calendars[-2].id == calendar_id
+    add_monograph(calendars[-3], orientation, academic_id) if calendars[-3].id == calendar_id
   end
 
   def sign_orientations
