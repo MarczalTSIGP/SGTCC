@@ -29,17 +29,17 @@ class Populate::Orientations
 
   def create_orientation_by_calendar(calendar_id)
     increment_index
-    calendars = Calendar.all
     academic_id = @academic_ids.sample
-
     orientation = Orientation.create!(
-      title: "Orientation #{@index}",
-      calendar_ids: [calendar_id],
-      advisor_id: @professor_ids.sample,
-      academic_id: academic_id,
-      institution_id: @institution_ids.sample,
-      status: @statuses.sample
+      title: "Orientation #{@index}", calendar_ids: [calendar_id],
+      advisor_id: @professor_ids.sample, academic_id: academic_id,
+      institution_id: @institution_ids.sample, status: @statuses.sample
     )
+    add_all(orientation, calendar_id, academic_id)
+  end
+
+  def add_all(orientation, calendar_id, academic_id)
+    calendars = Calendar.all
     add_supervisors(orientation)
     add_proposal(calendars[-2], orientation, academic_id) if calendars[-2].id == calendar_id
     add_project(calendars[-2], orientation, academic_id) if calendars[-2].id == calendar_id
@@ -65,178 +65,85 @@ class Populate::Orientations
 
   def add_proposal(calendar, orientation, academic_id)
     ac = calendar.activities.find_by name: 'Envio da Proposta'
-    aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Proposta do #{academic_id}",
-      summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
-    }
-    aa = AcademicActivity.new(aa)
-
-    path = Rails.root.join('app/services/populate/pdfs/proposta.pdf')
-    aa.pdf = File.open(path)
-    aa.save!
-
-    eb = {
-      date: ac.final_date,
-      place: 'Lab B7 ou B8', orientation_id: orientation.id,
-      tcc: 'one', identifier: 'proposal',
-      document_available_until: ac.final_date
-    }
-
-    evaluator_ids = Professor.pluck(:id).sample(2)
-
-    eb = ExaminationBoard.new(eb)
-    eb.professor_ids = evaluator_ids
-    eb.save!
-
-    advisor = orientation.advisor
-    ExaminationBoardNote.create! examination_board_id: eb.id,
-                                 professor_id: advisor.id, external_member_id: nil,
-                                 note: 100
-
-    evaluator_ids.each do |id|
-      ExaminationBoardNote.create! examination_board_id: eb.id,
-                                   professor_id: id,
-                                   external_member_id: nil,
-                                   note: 100
-    end
-
-    document = eb.create_defense_minutes
-    document.signatures.each(&:sign)
-
+    aa = { academic_id: academic_id, activity_id: ac.id, title: "Proposta do #{academic_id}",
+           summary: Faker::Lorem.paragraph(sentence_count: 10),
+           complementary_files: nil, judgment: true, additional_instructions: '' }
+    create_academic_activity(aa, 'proposta.pdf')
     ac = calendar.activities.find_by name: 'Envio da Versão Final da Proposta'
-    aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Versão Final Proposta do #{academic_id}",
-      summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
-    }
-    aa = AcademicActivity.new(aa)
-    path = Rails.root.join('app/services/populate/pdfs/proposta.pdf')
-    aa.pdf = File.open(path)
-    aa.save!
+    create_examination_board(orientation, 'proposal', ac, 100)
+    create_final_activity(academic_id, ac, 'proposta.pdf')
   end
 
   def add_project(calendar, orientation, academic_id)
     ac = calendar.activities.find_by name: 'Envio do Projeto'
     aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Projeto do #{academic_id}",
+      academic_id: academic_id, activity_id: ac.id, title: "Projeto do #{academic_id}",
       summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
+      complementary_files: nil, judgment: true, additional_instructions: ''
     }
-
-    aa = AcademicActivity.new(aa)
-    path = Rails.root.join('app/services/populate/pdfs/projeto.pdf')
-    aa.pdf = File.open(path)
-    aa.save!
-
-    eb = {
-      date: ac.final_date, place: 'Lab B7 ou B8', orientation_id: orientation.id,
-      tcc: 'one', identifier: 'project',
-      document_available_until: ac.final_date
-    }
-
-    evaluator_ids = Professor.pluck(:id).sample(3)
-
-    eb = ExaminationBoard.new(eb)
-    eb.professor_ids = evaluator_ids
-    eb.save!
-
-    advisor = orientation.advisor
-    ExaminationBoardNote.create! examination_board_id: eb.id,
-                                 professor_id: advisor.id, external_member_id: nil,
-                                 note: 80
-
-    evaluator_ids.each do |id|
-      ExaminationBoardNote.create! examination_board_id: eb.id,
-                                   professor_id: id,
-                                   external_member_id: nil,
-                                   note: 80
-    end
-
-    document = eb.create_defense_minutes
-    document.signatures.each(&:sign)
-
+    create_academic_activity(aa, 'projeto.pdf')
     ac = calendar.activities.find_by name: 'Envio da Versão Final do Projeto'
-    aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Versão Final do Projeto do #{academic_id}",
-      summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
-    }
-
-    aa = AcademicActivity.new(aa)
-    path = Rails.root.join('app/services/populate/pdfs/projeto.pdf')
-    aa.pdf = File.open(path)
-    aa.save!
+    create_examination_board(orientation, 'project', ac, 100)
+    create_final_activity(academic_id, ac, 'projeto.pdf')
   end
 
   def add_monograph(calendar, orientation, academic_id)
     ac = calendar.activities.find_by name: 'Envio da Monografia'
     aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Monografia do #{academic_id}",
+      academic_id: academic_id, activity_id: ac.id, title: "Monografia do #{academic_id}",
       summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
+      complementary_files: nil, judgment: true, additional_instructions: ''
     }
+    create_academic_activity(aa, 'monografia.pdf')
+    ac = calendar.activities.find_by name: 'Envio da Versão Final da Monografia'
+    create_examination_board(orientation, 'monograph', ac, 100)
+    create_final_activity(academic_id, ac, 'monografia.pdf')
+  end
 
-    aa = AcademicActivity.new(aa)
-    path = Rails.root.join('app/services/populate/pdfs/monograph.pdf')
+  def create_academic_activity(params, pdf_file)
+    aa = AcademicActivity.new(params)
+    path = Rails.root.join("app/services/populate/pdfs/#{pdf_file}")
     aa.pdf = File.open(path)
     aa.save!
+    aa
+  end
 
-    eb = {
-      date: ac.final_date, place: 'Lab B7 ou B8', orientation_id: orientation.id,
-      tcc: 'two', identifier: 'monograph',
-      document_available_until: ac.final_date
+  def create_final_activity(academic_id, ac_params, pdf_file)
+    aa_params = {
+      academic_id: academic_id, activity_id: ac_params.id,
+      title: "Versão Final #{pdf_file.capitalize} do #{academic_id}",
+      summary: Faker::Lorem.paragraph(sentence_count: 10),
+      complementary_files: nil, judgment: true, additional_instructions: ''
     }
+    create_academic_activity(aa_params, pdf_file)
+  end
 
-    evaluator_ids = Professor.pluck(:id).sample(3)
-
-    eb = ExaminationBoard.new(eb)
-    eb.professor_ids = evaluator_ids
-    eb.save!
-
-    advisor = orientation.advisor
-    ExaminationBoardNote.create! examination_board_id: eb.id,
-                                 professor_id: advisor.id, external_member_id: nil,
-                                 note: 85
-
-    evaluator_ids.each do |id|
-      ExaminationBoardNote.create! examination_board_id: eb.id,
-                                   professor_id: id,
-                                   external_member_id: nil,
-                                   note: 85
-    end
-
+  def create_examination_board(orientation, identifier, ac_params, note)
+    eb_params = {
+      date: ac_params.final_date, place: 'Lab B7 ou B8', orientation_id: orientation.id,
+      tcc: %w[proposal project].include?(identifier) ? 'one' : 'two',
+      identifier: identifier, document_available_until: ac_params.final_date
+    }
+    evaluator_ids = Professor.pluck(:id).sample(%w[proposal project].include?(identifier) ? 2 : 3)
+    eb = add_examination_board_notes(eb_params, note, evaluator_ids, orientation)
     document = eb.create_defense_minutes
     document.signatures.each(&:sign)
+  end
 
-    ac = calendar.activities.find_by name: 'Envio da Versão Final da Monografia'
-    aa = {
-      academic_id: academic_id, activity_id: ac.id,
-      title: "Versão Final da Monografia do #{academic_id}",
-      summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil,
-      judgment: true,
-      additional_instructions: ''
-    }
+  def add_examination_board_notes(eb_params, note, evaluator_ids, orientation)
+    eb = ExaminationBoard.new(eb_params)
+    eb.professor_ids = evaluator_ids
+    eb.save!
+    advisor = orientation.advisor
+    create_notes(eb, advisor.id, note)
+    evaluator_ids.each do |id|
+      create_notes(eb, id, note)
+    end
+    eb
+  end
 
-    aa = AcademicActivity.new(aa)
-    path = Rails.root.join('app/services/populate/pdfs/monograph.pdf')
-    aa.pdf = File.open(path)
-    aa.save!
+  def create_notes(eb_params, id, note)
+    ExaminationBoardNote.create! examination_board_id: eb_params.id,
+                                 professor_id: id, external_member_id: nil, note: note
   end
 end
