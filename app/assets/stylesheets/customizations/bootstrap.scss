@@ -49,7 +49,7 @@ body {
 
 .legend {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
 }
 
 .legend p {
@@ -69,11 +69,10 @@ body {
   background-color: #0b9b1e;
 }
 
-.badge-passad {
-  // background-color: #e9ecef;
-  background-color: #c1c1c1;
-}
-
 .badge-minutes {
   background-color: #cccc0e;
+}
+
+.badge-passad {
+  background-color: #c1c1c1;
 }

@@ -5,12 +5,6 @@
   <div class="col-12">
     <search url="<%= professors_examination_boards_search_path %>" search-term="<%= params[:term] %>" />
   </div>
-
-  <div class="legend">
-    <p> <span class="status badge-today"></span> Será hoje </p>
-    <p> <span class="status badge-minutes"></span> Será em alguns minutos</p>
-    <p> <span class="status badge-passad"></span> Já ocorreu</p>
-  </div>
 </div>
 
 <%= render 'shared/examination_boards/table' %>
