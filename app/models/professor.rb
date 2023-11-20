@@ -103,6 +103,18 @@ class Professor < ApplicationRecord
     all.sort_by(&:date).reverse.uniq
   end
 
+  def examination_boards_by_tcc_one_list(page = nil, term = nil, status = nil)
+    all = (guest_examination_boards.by_tcc_one(page, term, status) +
+     orientation_examination_boards.by_tcc_one(page, term, status))
+    all.sort_by(&:date).reverse.uniq
+  end
+
+  def examination_boards_by_tcc_two_list(page = nil, term = nil, status = nil)
+    all = (guest_examination_boards.by_tcc_two(page, term, status) +
+     orientation_examination_boards.by_tcc_two(page, term, status))
+    all.sort_by(&:date).reverse.uniq
+  end
+
   def current_semester_supervision_examination_boards
     supervision_examination_boards.current_semester.with_relationships
   end

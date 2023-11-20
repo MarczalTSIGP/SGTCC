@@ -90,4 +90,16 @@ class ExternalMember < ApplicationRecord
      supervision_examination_boards.current_semester.search(term).with_relationships)
     all.sort_by(&:date).reverse.uniq
   end
+
+  def examination_boards_by_tcc_one_list(page = nil, term = nil, status = nil)
+    all = (examination_boards.by_tcc_one(page, term, status) +
+     supervision_examination_boards.by_tcc_one(page, term, status))
+    all.sort_by(&:date).reverse.uniq
+  end
+
+  def examination_boards_by_tcc_two_list(page = nil, term = nil, status = nil)
+    all = (examination_boards.by_tcc_two(page, term, status) +
+     supervision_examination_boards.by_tcc_two(page, term, status))
+    all.sort_by(&:date).reverse.uniq
+  end
 end

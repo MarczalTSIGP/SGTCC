@@ -21,17 +21,19 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def tcc_one
-    @examination_boards = ExaminationBoard.by_tcc_one(params[:page], 
-                                                      params[:term], 
-                                                      params[:status])
+    data = current_professor.examination_boards_by_tcc_one_list(params[:page], 
+                                                                params[:term], 
+                                                                params[:status])
+    @examination_boards = Kaminari.paginate_array(data).page(params[:page])
     @search_url = professors_examination_boards_tcc_one_search_path
     render :index
   end
 
   def tcc_two
-    @examination_boards = ExaminationBoard.by_tcc_two(params[:page], 
-                                                      params[:term], 
-                                                      params[:status])
+    data = current_professor.examination_boards_by_tcc_two_list(params[:page], 
+                                                                params[:term], 
+                                                                params[:status])
+    @examination_boards = Kaminari.paginate_array(data).page(params[:page])
     @search_url = professors_examination_boards_tcc_two_search_path
     render :index
   end
