@@ -12,6 +12,14 @@
 
 <div class="text-right mt-3">
    <%= page_entries_info @orientations %>
+   <div class="legend">
+    <p> <span class="status badge-approved-tcc-1"></span> Aprovada em TCC 1 </p>
+    <p> <span class="status badge-approved"></span> Aprovada</p>
+    <p> <span class="status badge-in-progress"></span> Em progresso</p>
+    <p> <span class="status badge-canceled"></span> Cancelada</p>
+    <p> <span class="status badge-reproved-tcc-1"></span> Reprovada em TCC 1</p>
+    <p> <span class="status badge-reproved"></span> Reprovada</p>
+  </div>
 </div>
 
 <%= render('supervisor_tabs') %>
