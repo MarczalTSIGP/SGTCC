@@ -587,6 +587,10 @@ pt-BR:
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
   enums:
+    examination_board:
+      status:
+        CURRENT_SEMESTER: 'Semestre corrente'
+        OTHER_SEMESTER: 'Outros semestres'
     genders:
       male: 'Masculino'
       female: 'Feminino'

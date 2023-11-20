@@ -2,8 +2,15 @@
 <% provide(:head_title, t('breadcrumbs.examination_boards.index')) %>
 
 <div class="row">
-  <div class="col-sm-12 col-lg-8 mb-2">
+  <div class="col-sm-12 col-lg-5 mb-2">
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
+  </div>
+  <div class="col-sm-12 col-lg-3 mb-2">
+    <examination-boards-status-filter
+        :index="true"
+        label="<%= params[:status] %>"
+        status="<%= ExaminationBoard.statuses[params[:status]] %>"
+        :options="<%= ExaminationBoard.select_status_data %>" />
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_examination_board_path, class: 'btn btn-outline-primary d-block') do %>

@@ -7,6 +7,9 @@ class ExaminationBoard < ApplicationRecord
   include TccIdentifier
   include Searchable
   include Tcc
+  include ExaminationBoardStatus
+  include ExaminationBoardFilter
+  include ExaminationBoardJoin
 
   searchable place: { unaccent: true }, relationships: {
     orientation: { fields: [title: { unaccent: true }] }
@@ -28,8 +31,13 @@ class ExaminationBoard < ApplicationRecord
   has_many :external_members, class_name: 'ExternalMember', foreign_key: :external_member_id,
                               through: :examination_board_attendees, dependent: :destroy
 
-  scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
-  scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
+  scope :tcc_one, lambda { |status|
+    join_with_status_by_tcc('one', status)
+  }
+
+  scope :tcc_two, lambda { |status|
+    join_with_status_by_tcc('two', status)
+  }
 
   scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
   scope :recent, -> { order(date: :desc) }
@@ -43,6 +51,10 @@ class ExaminationBoard < ApplicationRecord
              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
+
+  def self.select_status_data
+    statuses.map { |index, field| [field, index.capitalize] }.sort!
+  end
 
   def self.cs_asc_from_now_desc_ago
     ebs_from_now = where('date >= ?', Date.current).order(date: :asc)

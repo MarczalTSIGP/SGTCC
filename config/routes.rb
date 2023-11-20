@@ -201,12 +201,12 @@ Rails.application.routes.draw do
           to: 'institutions#index',
           as: 'institutions_search'
 
-      get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
-      get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'
@@ -410,10 +410,23 @@ Rails.application.routes.draw do
             to: 'examination_board_files#update',
             as: 'examination_board_file'
 
-      get 'examination_boards/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_one',
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one'
+
+      get 'examination_boards/tcc_two',
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two'
+
+      get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
-          to: 'examination_boards#index',
-          as: 'examination_boards_search'
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one_search'
+
+      get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^/]+} },
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two_search'
 
       get 'orientations/history/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
@@ -684,6 +697,24 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
+      get 'examination_boards/tcc_one',
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one'
+      
+      get 'examination_boards/tcc_two',
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two'
+      
+      get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^/]+} },
+          to: 'examination_boards#tcc_one',
+          as: 'examination_boards_tcc_one_search'
+      
+      get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^/]+} },
+          to: 'examination_boards#tcc_two',
+          as: 'examination_boards_tcc_two_search'                
+
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
@@ -758,11 +789,6 @@ Rails.application.routes.draw do
           constraints: { term: %r{[^/]+} },
           to: 'supervisions#tcc_two',
           as: 'supervisions_search_tcc_two'
-
-      get 'examination_boards/search/(:term)/(page/:page)',
-          constraints: { term: %r{[^/]+} },
-          to: 'examination_boards#index',
-          as: 'examination_boards_search'
     end
   end
 

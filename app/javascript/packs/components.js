@@ -19,6 +19,7 @@ import OrientationCancel from '../components/orientations/orientation-cancel';
 import OrientationRenew from '../components/orientations/orientation-renew';
 import OrientationStatus from '../components/orientations/orientation-status';
 import OrientationStatusFilter from '../components/orientations/orientation-status-filter';
+import ExaminationBoardsStatusFilter from '../components/examination-boards/examination-boards-status-filter';
 import ResponsibleDashboard from '../components/reports/responsible-dashboard';
 import ProfessorDashboard from '../components/reports/professor-dashboard';
 import Search from '../components/shared/search';
@@ -59,6 +60,7 @@ const components = {
   OrientationStatus,
   OrientationStatusFilter,
   ProfileImagePreview,
+  ExaminationBoardsStatusFilter,
   ProfessorOrientationsReport,
   ResponsibleDashboard,
   ProfessorDashboard,

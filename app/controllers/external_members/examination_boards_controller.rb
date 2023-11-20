@@ -6,9 +6,37 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.index'),
                  :external_members_examination_boards_path
 
+  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
+                 :responsible_examination_boards_tcc_one_path,
+                 only: :tcc_one
+
+  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.two.index'),
+                 :responsible_examination_boards_tcc_two_path,
+                 only: :tcc_two
+
+  # def index
+  #   data = current_external_member.current_examination_boards(params[:term])
+  #   @examination_boards = Kaminari.paginate_array(data).page(params[:page])
+  # end
+
   def index
-    data = current_external_member.current_examination_boards(params[:term])
-    @examination_boards = Kaminari.paginate_array(data).page(params[:page])
+    redirect_to action: :tcc_one
+  end
+
+  def tcc_one
+    @examination_boards = ExaminationBoard.by_tcc_one(params[:page], 
+                                                      params[:term], 
+                                                      params[:status])
+    @search_url = external_members_examination_boards_tcc_one_search_path
+    render :index
+  end
+
+  def tcc_two
+    @examination_boards = ExaminationBoard.by_tcc_two(params[:page], 
+                                                      params[:term], 
+                                                      params[:status])
+    @search_url = external_members_examination_boards_tcc_two_search_path
+    render :index
   end
 
   def show
