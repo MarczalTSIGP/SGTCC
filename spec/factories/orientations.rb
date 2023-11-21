@@ -116,5 +116,9 @@ FactoryBot.define do
     factory :orientation_canceled do
       status { Orientation.statuses.key('CANCELED') }
     end
+
+    factory :orientation_reproved do
+      status { Orientation.statuses.key('REPROVED') }
+    end
   end
 end
