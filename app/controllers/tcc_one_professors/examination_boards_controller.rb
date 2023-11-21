@@ -38,11 +38,23 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def new
     @examination_board = ExaminationBoard.new
+
+    @orientations = Orientation.current_tcc_one
+    @activities = Activity.human_tcc_one_identifiers
   end
 
   def edit
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.edit"),
                    edit_tcc_one_professors_examination_board_path
+
+    if @examination_board.identifier == 'monograph'
+      @orientations = Orientation.current_tcc_two
+      @activities = Activity.human_tcc_two_identifiers
+
+    else
+      @orientations = Orientation.current_tcc_one
+      @activities = Activity.human_tcc_one_identifiers
+    end
 
     @disabled_field = @examination_board.defense_minutes.present?
   end
@@ -50,16 +62,22 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   def create
     @examination_board = ExaminationBoard.new(examination_board_params)
 
+    @orientations = Orientation.current_tcc_one
+    @activities = Activity.human_tcc_one_identifiers
+
     if @examination_board.save
       feminine_success_create_message
       redirect_to tcc_one_professors_examination_boards_path
     else
       error_message
-      render :new
+      render :new, orientations: @orientations, activities: @activities
     end
   end
 
   def update
+    @orientations = Orientation.current_tcc_one
+    @activities = Activity.human_tcc_one_identifiers
+
     if @examination_board.update(examination_board_params)
       feminine_success_update_message
       redirect_to tcc_one_professors_examination_board_path(@examination_board)

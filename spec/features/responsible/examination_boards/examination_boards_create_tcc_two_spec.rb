@@ -1,43 +1,43 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::create', type: :feature, js: true do
-  let(:professor) { create(:professor_tcc_one) }
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+describe 'ExaminationBoard::new', type: :feature, js: true do
+  let(:responsible) { create(:responsible) }
   let(:resource_name) { ExaminationBoard.model_name.human }
+  let!(:orientation) { create(:current_orientation_tcc_two) }
 
   before do
-    login_as(professor, scope: :professor)
+    login_as(responsible, scope: :professor)
     create(:current_orientation_tcc_one)
     create(:current_orientation_tcc_two)
   end
 
-  describe '#create' do
+  describe '#new' do
     before do
-      visit new_tcc_one_professors_examination_board_path
+      visit responsible_examination_boards_new_tcc_two_path
     end
 
-    context 'when examination_board is valid' do
-      it 'does not show "Monografia" in the identifier input' do
-        expect(page).not_to have_content('Monografia')
+    context 'when examination_board tcc two is valid' do
+      it 'does not show "Projeto" and "Proposta" in the identifier input' do
+        expect(page).not_to have_content('Projeto')
+        expect(page).not_to have_content('Proposta')
       end
 
-      it 'does not show "tcc 2" in the identifier input' do
+      it 'does not show "tcc 1" in the identifier input' do
         find('#examination_board_orientation_id-selectized').click
 
         all('.selectize-dropdown-content .option').each do |option|
-          expect(option.text).not_to match(/TCC: 2/i)
+          expect(option.text).not_to match(/TCC: 1/i)
         end
       end
 
-      it 'create an examination_board' do
-        attributes = attributes_for(:examination_board_tcc_one)
+      it 'create an examination_board tcc two' do
+        attributes = attributes_for(:examination_board_tcc_two)
+        click_on_label('Monografia', in: 'examination_board_identifier')
         selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
-        click_on_label(ExaminationBoard.human_tcc_one_identifiers.first[0],
-                       in: 'examination_board_identifier')
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path tcc_one_professors_examination_boards_tcc_one_path
+        expect(page).to have_current_path responsible_examination_boards_tcc_two_path
         expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:place], in: 'table tbody')
       end

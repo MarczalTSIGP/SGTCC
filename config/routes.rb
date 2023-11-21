@@ -78,6 +78,7 @@ Rails.application.routes.draw do
                 end
 
       resources :examination_boards,
+                except: :new,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -103,9 +104,17 @@ Rails.application.routes.draw do
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
 
+      get 'examination_boards/tcc_one/new',
+          to: 'examination_boards#new',
+          as: 'examination_boards_new_tcc_one'
+
       get 'examination_boards/tcc_two',
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two'
+
+      get 'examination_boards/tcc_two/new',
+          to: 'examination_boards#new',
+          as: 'examination_boards_new_tcc_two'
 
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',

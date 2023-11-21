@@ -11,10 +11,6 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
                  :responsible_examination_boards_tcc_two_path,
                  only: :tcc_two
 
-  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.new'),
-                 :new_responsible_examination_board_path,
-                 only: [:new]
-
   def index
     redirect_to action: :tcc_one
   end
@@ -38,32 +34,40 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def new
     @examination_board = ExaminationBoard.new
+
+    set_orientations_and_activities_new
   end
 
   def edit
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.edit"),
                    edit_responsible_examination_board_path
+    set_orientations_and_activities_edit
   end
 
   def create
     @examination_board = ExaminationBoard.new(examination_board_params)
+    @examination_board.tcc = determine_tcc_by_identifier(@examination_board.identifier)
+    set_orientations_and_activities_create
 
     if @examination_board.save
       feminine_success_create_message
       redirect_to responsible_examination_boards_tcc_two_path
     else
       error_message
-      render :new
+      render :new, orientations: @orientations, activities: @activities
     end
   end
 
   def update
+    add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.edit")
+    set_orientations_and_activities_edit
+
     if @examination_board.update(examination_board_params)
       feminine_success_update_message
       redirect_to responsible_examination_board_path(@examination_board)
     else
       error_message
-      render :edit
+      render :edit, orientations: @orientations, activities: @activities
     end
   end
 
@@ -98,6 +102,70 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
                     :document_available_until, professor_ids: [], external_member_ids: [])
     else
       params.require(:examination_board).permit(:document_available_until)
+    end
+  end
+
+  def set_orientations_and_activities_new
+    if request.path == responsible_examination_boards_new_tcc_one_path
+      @orientations = Orientation.current_tcc_one
+      @activities = Activity.human_tcc_one_identifiers
+      set_breadcrumbs_new_tcc_one
+    elsif request.path == responsible_examination_boards_new_tcc_two_path
+      @orientations = Orientation.current_tcc_two
+      @activities = Activity.human_tcc_two_identifiers
+      set_breadcrumbs_new_tcc_two
+      @examination_board.identifier = 'monograph'
+    end
+  end
+
+  def set_orientations_and_activities_edit
+    return unless @examination_board.identifier
+
+    case @examination_board.identifier
+    when 'monograph'
+      @orientations = Orientation.current_tcc_two
+      @activities = Activity.human_tcc_two_identifiers
+    when 'project', 'proposal'
+      @orientations = Orientation.current_tcc_one
+      @activities = Activity.human_tcc_one_identifiers
+    end
+  end
+
+  def set_breadcrumbs_new_tcc_one
+    return unless request.path == responsible_examination_boards_new_tcc_one_path
+
+    @title_one_index = I18n.t('breadcrumbs.examination_boards.tcc.one.index')
+    add_breadcrumb @title_one_index, :responsible_examination_boards_tcc_two_path
+    @title = I18n.t('breadcrumbs.examination_boards.tcc.one.new')
+    add_breadcrumb @title
+  end
+
+  def set_breadcrumbs_new_tcc_two
+    return unless request.path == responsible_examination_boards_new_tcc_two_path
+
+    @title_two_index = I18n.t('breadcrumbs.examination_boards.tcc.two.index')
+    add_breadcrumb @title_two_index, :responsible_examination_boards_tcc_one_path
+    @title = I18n.t('breadcrumbs.examination_boards.tcc.two.new')
+    add_breadcrumb @title
+  end
+
+  def set_orientations_and_activities_create
+    case @examination_board.tcc
+    when 'two'
+      @orientations = Orientation.current_tcc_two
+      @activities = Activity.human_tcc_two_identifiers
+    when 'one'
+      @orientations = Orientation.current_tcc_one
+      @activities = Activity.human_tcc_one_identifiers
+    end
+  end
+
+  def determine_tcc_by_identifier(identifier)
+    case identifier
+    when 'monograph'
+      'two'
+    else
+      'one'
     end
   end
 
