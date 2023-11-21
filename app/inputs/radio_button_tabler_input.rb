@@ -32,7 +32,9 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
 
   def label_tag(value)
     template.tag.label(class: 'custom-control custom-radio custom-control-inline') do
-      template.concat @builder.radio_button(attribute_name, value[1], class: 'custom-control-input')
+      template.concat @builder.radio_button(attribute_name, value[1],
+                                            class: 'custom-control-input',
+                                            disabled: options[:disabled])
       template.concat span_tag(value[0])
     end
   end

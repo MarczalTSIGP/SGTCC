@@ -1,7 +1,7 @@
 class Responsible::ExaminationBoardsController < Responsible::BaseController
   before_action :set_examination_board, only: [:edit, :update, :destroy]
-  before_action :can_edit, only: :update
   before_action :set_examination_board_with_relationships, only: :show
+  before_action :disabled_fields, only: [:new, :create, :edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :responsible_examination_boards_tcc_one_path,
@@ -92,15 +92,16 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def examination_board_params
-    params.require(:examination_board)
-          .permit(:place, :date, :orientation_id, :tcc, :identifier,
-                  :document_available_until, professor_ids: [], external_member_ids: [])
+    if @examination_board&.defense_minutes.blank?
+      params.require(:examination_board)
+            .permit(:place, :date, :orientation_id, :tcc, :identifier,
+                    :document_available_until, professor_ids: [], external_member_ids: [])
+    else
+      params.require(:examination_board).permit(:document_available_until)
+    end
   end
 
-  def can_edit
-    return if @examination_board.defense_minutes.blank?
-
-    flash[:alert] = I18n.t('flash.examination_board.edit.defense_minutes')
-    redirect_to responsible_examination_board_path(@examination_board)
+  def disabled_fields
+    @disabled_field = @examination_board&.defense_minutes.present?
   end
 end
