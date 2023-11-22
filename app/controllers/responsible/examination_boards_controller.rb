@@ -51,7 +51,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
     if @examination_board.save
       feminine_success_create_message
-      redirect_to responsible_examination_boards_tcc_two_path
+      redirect_to @redirect_route
     else
       error_message
       render :new, orientations: @orientations, activities: @activities
@@ -154,9 +154,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     when 'two'
       @orientations = Orientation.current_tcc_two
       @activities = Activity.human_tcc_two_identifiers
+      @redirect_route = responsible_examination_boards_tcc_two_path
     when 'one'
       @orientations = Orientation.current_tcc_one
       @activities = Activity.human_tcc_one_identifiers
+      @redirect_route = responsible_examination_boards_tcc_one_path
     end
   end
 
