@@ -3,7 +3,7 @@
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-3">
-    <%= render 'shared/orientations/status_filter' %>
+    <%= render 'shared/orientations/status_filter', cached: true %>
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="text-right mt-3">
-  <%= page_entries_info @orientations %>
+<%= page_entries_info @orientations, entry_name: 'orientation' %>
 </div>
 
 

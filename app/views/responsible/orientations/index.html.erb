@@ -1,6 +1,14 @@
 <% provide(:page_title, t('breadcrumbs.orientations.index')) %>
 <% provide(:head_title, t('breadcrumbs.orientations.index')) %>
 
-<%= render('responsible/orientations/head') %>
-<%= render('orientation_tabs') %>
-<%= render('shared/orientations/table') %>
+<% cache('head_content') do %>
+  <%= render('responsible/orientations/head') %>
+<% end %>
+
+<% cache('orientation_tabs') do %>
+  <%= render('orientation_tabs') %>
+<% end %>
+
+<% cache('orientations_table') do %>
+  <%= render('shared/orientations/table') %>
+<% end %>
