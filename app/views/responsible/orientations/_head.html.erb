@@ -1,28 +1,26 @@
 <div class="row">
-  <div class="col-sm-12 col-lg-5 mb-2">
-    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
+   <div class="col-sm-12 col-lg-5 mb-2">
+      <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-3">
     <%= render 'shared/orientations/status_filter' %>
   </div>
-  <div class="col-sm-12 col-lg-4">
-    <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
-      <i class="fe fe-plus"></i>
-      <%= t('breadcrumbs.orientations.new') %>
-    <% end %>
-  </div>
-</div>
+         <div class="col-sm-12 col-lg-4">
+            <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
+               <i class="fe fe-plus"></i>
+               <%= t('breadcrumbs.orientations.new') %>
+            <% end %>
+         </div>
+      </div>
 
-<div class="text-right mt-3">
-  <%= page_entries_info @orientations %>
-  <div class="legend">
-    <p> <span class="status badge-approved-tcc-1"></span> Aprovada em TCC 1 </p>
-    <p> <span class="status badge-approved"></span> Aprovada</p>
-    <p> <span class="status badge-in-progress"></span> Em progresso</p>
-    <p> <span class="status badge-canceled"></span> Cancelada</p>
-    <p> <span class="status badge-reproved-tcc-1"></span> Reprovada em TCC 1</p>
-    <p> <span class="status badge-reproved"></span> Reprovada</p>
-  </div>
-</div>
-
-
+      <div class="text-right mt-3">
+         <%= page_entries_info @orientations %>
+         <div class="legend">
+            <p> <span class="status badge-approved-tcc-1"></span> Aprovada em TCC 1 </p>
+            <p> <span class="status badge-approved"></span> Aprovada</p>
+            <p> <span class="status badge-in-progress"></span> Em andamento</p>
+            <p> <span class="status badge-canceled"></span> Cancelada</p>
+            <p> <span class="status badge-reproved-tcc-1"></span> Reprovada em TCC 1</p>
+            <p> <span class="status badge-reproved"></span> Reprovada</p>
+         </div>
+      </div>
