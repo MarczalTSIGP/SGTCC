@@ -8,7 +8,7 @@
 </td>
 
 <td><%= render partial: 'shared/orientations/menu/dropdown',
-               locals: { dropdown_links: dropdown_links, show_path: show_path, orientation: orientation } %></td>
+               locals: { dropdown_links: dropdown_links, show_path: show_path, orientation: orientation }, cached: true  %></td>
 
 <td><%= orientation.academic.ra %></td>
 
