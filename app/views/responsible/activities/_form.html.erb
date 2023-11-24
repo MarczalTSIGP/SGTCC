@@ -7,8 +7,12 @@
 
       <div class="col-md-6">
         <%= f.association :base_activity_type,
-          input_html: { data: 'selectize' },
-          prompt: t('prompt.select.m', name: 'tipo') %>
+        input_html: { 
+                                  class: 'activity_type_hide_event',
+                                  data: 'selectize',
+                                  "base-activities-types" => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
+                              },
+                              prompt: t('prompt.select.m', name: 'tipo') %>
       </div>
     </div>
 
@@ -30,21 +34,22 @@
           datetime="<%= @activity.final_date %>" />
       </div>
     </div>
+    <div hide-on-activity-type-info-selected>
+      <% if @calendar.tcc == 'one' %>
+        <%= f.input :identifier,
+          as: :radio_button_tabler,
+          collection: Activity.human_tcc_one_identifiers %>
+      <% else %>
+        <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
+      <% end %>
 
-    <% if @calendar.tcc == 'one' %>
-      <%= f.input :identifier,
-        as: :radio_button_tabler,
-        collection: Activity.human_tcc_one_identifiers %>
-    <% else %>
-      <%= f.input :identifier, as: :hidden, input_html: { value: :monograph } %>
-    <% end %>
+      <%= f.input :judgment, as: :checkbox_tabler %>
+      <%= f.input :final_version, as: :checkbox_tabler %>
 
-    <%= f.input :judgment, as: :checkbox_tabler %>
-    <%= f.input :final_version, as: :checkbox_tabler %>
-
-    <%= f.input :tcc,
-      as: :hidden,
-      input_html: { value: @calendar.tcc } %>
+      <%= f.input :tcc,
+        as: :hidden,
+        input_html: { value: @calendar.tcc } %>
+      </div>
 </div>
 
 <div class="d-flex">
