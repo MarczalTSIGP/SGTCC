@@ -191,6 +191,18 @@ class Orientation < ApplicationRecord
     statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 
+  def self.select_orientations_for_tcc_one(page = 1, term, status)
+    select('orientations.id, orientations.title, academics.name as academic_name, academics.ra,
+        professors.name as advisor_name, calendars.semester, calendars.year, calendars.tcc, orientations.status,
+        academics.id as academic_id, orientations.advisor_id')
+      .joins('LEFT JOIN professors ON orientations.advisor_id = professors.id')
+      .joins('JOIN academics ON orientations.academic_id = academics.id')
+      .joins('JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
+      .joins('JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
+      .where('calendars.tcc = ?', 1)
+      .page(page)
+  end
+
   def self.approved
     by_status('APPROVED').reject { |o| o.final_monograph.nil? }
   end
