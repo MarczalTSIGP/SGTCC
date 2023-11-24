@@ -191,7 +191,7 @@ class Orientation < ApplicationRecord
     statuses.map { |index, field| [field, index.capitalize] }.sort!
   end
 
-  def self.select_orientations_for_tcc_one(page = 1, term, status)
+  def self.select_orientations_for_tcc(page = 1, term, status, tcc)
     query = select('orientations.id, orientations.title, academics.name as academic_name, academics.ra,
         professors.name as advisor_name, calendars.semester, calendars.year, calendars.tcc, orientations.status,
         academics.id as academic_id, orientations.advisor_id')
@@ -199,7 +199,7 @@ class Orientation < ApplicationRecord
       .joins('LEFT JOIN academics ON orientations.academic_id = academics.id')
       .joins('LEFT JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
       .joins('LEFT JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
-      .where('calendars.tcc = ?', 1)
+      .where('calendars.tcc = ?', tcc)
       .where('academics.name LIKE ?', "%#{term}%")
 
     query = query.where('orientations.status = ?', status) if status.present?
