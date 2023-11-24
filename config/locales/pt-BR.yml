@@ -633,6 +633,7 @@ pt-BR:
         CANCELED: 'cancelada'
         IN_PROGRESS: 'em andamento'
         REPROVED: 'reprovada'
+        REPROVED_TCC_ONE: 'Reprovada em TCC 1'
         select:
           RENEWED: 'Renovada'
           APPROVED: 'Aprovada'
@@ -640,6 +641,7 @@ pt-BR:
           ABANDONED: 'Abandonada'
           CANCELED: 'Cancelada'
           IN_PROGRESS: 'Em andamento'
+          REPROVED_TCC_ONE: 'Reprovada em TCC 1'
   flash:
     actions:
       update:

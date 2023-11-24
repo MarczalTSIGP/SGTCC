@@ -140,7 +140,7 @@ Naming/VariableNumber:
 
 
 RSpec/MultipleExpectations:
-  Max: 2
+  Max: 3
   Exclude:
     - 'spec/features/**/*'
     - 'spec/controllers/api/v1/orientations_controller_spec.rb'
