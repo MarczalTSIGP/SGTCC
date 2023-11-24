@@ -192,15 +192,20 @@ class Orientation < ApplicationRecord
   end
 
   def self.select_orientations_for_tcc_one(page = 1, term, status)
-    select('orientations.id, orientations.title, academics.name as academic_name, academics.ra,
+    query = select('orientations.id, orientations.title, academics.name as academic_name, academics.ra,
         professors.name as advisor_name, calendars.semester, calendars.year, calendars.tcc, orientations.status,
         academics.id as academic_id, orientations.advisor_id')
       .joins('LEFT JOIN professors ON orientations.advisor_id = professors.id')
-      .joins('JOIN academics ON orientations.academic_id = academics.id')
-      .joins('JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
-      .joins('JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
+      .joins('LEFT JOIN academics ON orientations.academic_id = academics.id')
+      .joins('LEFT JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
+      .joins('LEFT JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
       .where('calendars.tcc = ?', 1)
-      .page(page)
+      .where('academics.name LIKE ?', "%#{term}%")
+
+    query = query.where('orientations.status = ?', status) if status.present?
+
+    query.order('calendars.year DESC, calendars.semester ASC')
+         .page(page)
   end
 
   def self.approved
