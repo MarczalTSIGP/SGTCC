@@ -3,7 +3,6 @@ class Calendar < ApplicationRecord
   include Tcc
   include Semester
   include CurrentCalendar
-  include DateCalculator
 
   searchable :year
 
@@ -123,23 +122,6 @@ class Calendar < ApplicationRecord
   private
 
   def clone_base_activities
-    base_activities = BaseActivity.where(tcc: tcc)
-
-    base_activities.each do |base_activity|
-      initial_date = DateCalculator.increment_date(base_activity.increment_date.days)
-      final_date = DateCalculator.calculate_final_date(initial_date, base_activity.interval.days)
-      create_activity(base_activity, initial_date, final_date)
-    end
-  end
-
-  def create_activity(base_activity, initial_date, final_date)
-    activity_params = {
-      name: base_activity.name, tcc: base_activity.tcc,
-      calendar_id: id, base_activity_type_id: base_activity.base_activity_type_id,
-      judgment: base_activity&.judgment, identifier: base_activity&.identifier,
-      initial_date: initial_date, final_date: final_date,
-      final_version: base_activity&.final_version
-    }
-    activities.create(activity_params)
+    Calendars::CloneBaseActivities.to(self)
   end
 end

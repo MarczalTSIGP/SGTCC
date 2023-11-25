@@ -152,8 +152,7 @@ CREATE TABLE public.academics (
     reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
-    profile_image character varying,
-    whatsapp character varying DEFAULT ''::character varying
+    profile_image character varying
 );
 
 
@@ -305,8 +304,8 @@ CREATE TABLE public.base_activities (
     identifier public.base_activity_identifiers,
     judgment boolean DEFAULT false,
     final_version boolean DEFAULT false,
-    "interval" integer DEFAULT 0,
-    increment_date integer DEFAULT 0
+    days_to_start integer DEFAULT 0,
+    duration_in_days integer DEFAULT 0
 );
 
 
@@ -2040,9 +2039,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191011133608'),
 ('20191125224723'),
 ('20200710170737'),
-('20230927022202'),
 ('20231004230530'),
-('20231017133608'),
-('20231018133608');
+('20231017133608');
 
 

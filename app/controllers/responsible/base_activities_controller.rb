@@ -76,8 +76,9 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
 
   def activity_params
     params.require(:base_activity).permit(:name, :base_activity_type_id,
-                                          :increment_date, :tcc,
-                                          :identifier, :judgment, :final_version)
+                                          :tcc, :identifier, :judgment,
+                                          :final_version, :days_to_start,
+                                          :duration_in_days)
   end
 
   def tcc_url

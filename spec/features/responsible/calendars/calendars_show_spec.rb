@@ -17,7 +17,8 @@ describe 'Calendar::show', type: :feature do
           expect(page).to have_contents([activity.name,
                                          activity.base_activity_type.name,
                                          tcc,
-                                         short_date(activity.initial_date)])
+                                         short_date(activity.initial_date),
+                                         short_date(activity.final_date)])
         end
       end
     end

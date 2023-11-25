@@ -43,7 +43,23 @@ RSpec.describe Calendar, type: :model do
     it 'is clone base activities' do
       create_list(:base_activity_tcc_one, 3)
       calendar = create(:calendar_tcc_one)
-      expect(calendar.activities).not_to be_empty
+
+      nbas = BaseActivity.where(tcc: :one).count
+      expect(calendar.activities.count).to eq(nbas)
+    end
+
+    it 'is clone base activities with right initial and final date' do
+      create(:base_activity_tcc_one, days_to_start: 10, duration_in_days: 10)
+      calendar = create(:calendar_tcc_one)
+
+      month = described_class.current_semester == 'one' ? 'mar' : 'aug'
+      initial_date = Time.zone.parse("#{month} 01 00:00:00 #{described_class.current_year}")
+      initial_date += 10.days
+      final_date = initial_date + 10.days + 23.hours + 59.minutes
+
+      base_activity = calendar.activities.first
+      expect(base_activity.initial_date).to eq(initial_date)
+      expect(base_activity.final_date).to eq(final_date)
     end
   end
 
@@ -278,26 +294,6 @@ RSpec.describe Calendar, type: :model do
       it 'returns the start date for the current semester (semester two)' do
         expected_date = Date.parse("1/8/#{current_year}")
         expect(described_class.start_date).to eq(expected_date)
-      end
-    end
-
-    describe 'create_activity' do
-      it 'creates activity with valid initial and final dates respecting the interval' do
-        base_activity = create(:base_activity)
-        initial_date = DateCalculator.increment_date(base_activity.increment_date.days)
-        final_date = DateCalculator.calculate_final_date(initial_date, base_activity.interval.days)
-        calendar = create(:calendar)
-        activity = calendar.activities.create(
-          name: base_activity.name,
-          tcc: base_activity.tcc,
-          base_activity_type_id: base_activity.base_activity_type_id,
-          judgment: base_activity&.judgment,
-          identifier: base_activity&.identifier,
-          initial_date: initial_date,
-          final_date: final_date,
-          final_version: base_activity&.final_version
-        )
-        expect(activity).to be_valid
       end
     end
   end

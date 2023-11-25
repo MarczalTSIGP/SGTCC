@@ -9,17 +9,18 @@ class Populate::BaseActivities
   end
 
   def populate
-    create_base_activities
+    create_base_activities_for_tcc_one
+    create_base_activities_for_tcc_two
   end
 
   private
 
-  def create_base_activities
+  def create_base_activities_for_tcc_one
     BaseActivity.create!(
       name: 'Assinatura do Termo de Compromisso de Orientação',
       tcc: @tcc_one,
-      interval: 53,
-      increment_date: 0,
+      duration_in_days: 53,
+      days_to_start: 0,
       base_activity_type_id: @info,
       identifier: BaseActivity.identifiers[:proposal],
       judgment: Faker::Boolean.boolean
@@ -27,8 +28,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Envio da Proposta',
       tcc: @tcc_one,
-      interval: 48,
-      increment_date: 15,
+      duration_in_days: 48,
+      days_to_start: 15,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:proposal],
       judgment: Faker::Boolean.boolean
@@ -36,8 +37,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Defesa da Proposta',
       tcc: @tcc_one,
-      interval: 7,
-      increment_date: 69,
+      duration_in_days: 7,
+      days_to_start: 69,
       base_activity_type_id: @info,
       identifier: BaseActivity.identifiers[:proposal],
       judgment: Faker::Boolean.boolean
@@ -45,8 +46,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Envio da Versão Final da Proposta',
       tcc: @tcc_one,
-      interval: 42,
-      increment_date: 41,
+      duration_in_days: 42,
+      days_to_start: 41,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:proposal],
       judgment: Faker::Boolean.boolean,
@@ -55,8 +56,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Envio do Projeto',
       tcc: @tcc_one,
-      interval: 60,
-      increment_date: 44,
+      duration_in_days: 60,
+      days_to_start: 44,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:project],
       judgment: Faker::Boolean.boolean
@@ -64,8 +65,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Defesa do Projeto',
       tcc: @tcc_one,
-      interval: 7,
-      increment_date: 111,
+      duration_in_days: 7,
+      days_to_start: 111,
       base_activity_type_id: @info,
       identifier: BaseActivity.identifiers[:project],
       judgment: Faker::Boolean.boolean
@@ -73,18 +74,21 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Envio da Versão Final do Projeto',
       tcc: @tcc_one,
-      interval: 15,
-      increment_date: 117,
+      duration_in_days: 15,
+      days_to_start: 117,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:project],
       judgment: Faker::Boolean.boolean,
       final_version: true
     )
+  end
+
+  def create_base_activities_for_tcc_two
     BaseActivity.create!(
       name: 'Envio da Monografia',
       tcc: @tcc_two,
-      interval: 109,
-      increment_date: 0,
+      duration_in_days: 109,
+      days_to_start: 0,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:monograph],
       judgment: Faker::Boolean.boolean
@@ -92,8 +96,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Defesa da Monografia',
       tcc: @tcc_two,
-      interval: 4,
-      increment_date: 117,
+      duration_in_days: 4,
+      days_to_start: 117,
       base_activity_type_id: @info,
       identifier: BaseActivity.identifiers[:monograph],
       judgment: Faker::Boolean.boolean
@@ -101,8 +105,8 @@ class Populate::BaseActivities
     BaseActivity.create!(
       name: 'Envio da Versão Final da Monografia',
       tcc: @tcc_two,
-      interval: 130,
-      increment_date: 0,
+      duration_in_days: 130,
+      days_to_start: 0,
       base_activity_type_id: @send_document,
       identifier: BaseActivity.identifiers[:monograph],
       judgment: Faker::Boolean.boolean,

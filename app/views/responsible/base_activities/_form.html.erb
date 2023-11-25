@@ -1,51 +1,59 @@
+<%= render('initial_dates') %>
+
 <%= simple_form_for [:responsible, @base_activity] do |f| %>
-   <div class="form-inputs">
-      <div class="row">
-         <div class="col-md-6">
-            <%= f.input :name %>
-         </div>
-         <div class="col-md-6">
-            <%= f.association :base_activity_type,
+  <div class="form-inputs">
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :tcc,
+                        as: :radio_button_tabler,
+                        collection: BaseActivity.human_tccs %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :days_to_start, as: :integer %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :duration_in_days, as: :integer %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :name %>
+      </div>
+      <div class="col-md-6">
+        <%= f.association :base_activity_type,
                               input_html: { 
                                   class: 'activity_type_hide_event',
                                   data: 'selectize',
                                   "base-activities-types" => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
                               },
                               prompt: t('prompt.select.m', name: 'tipo') %>
-         </div>
       </div>
-      <div class="row">
-         <div class="col-md-6">
-            <%= f.input :increment_date,
-                        as: :integer %>
-         </div>
-      </div>
+    </div>
 
-      <div class="row">
-         <div class="col-md-6" hide-on-activity-type-info-selected>
-            <%= f.input :identifier,
+    <div class="row">
+      <div class="col-md-6" hide-on-activity-type-info-selected>
+        <%= f.input :identifier,
                         as: :radio_button_tabler,
                         collection: BaseActivity.human_tcc_identifiers %>
-         </div>
-
-         <div class="col-md-6">
-            <%= f.input :tcc,
-                        as: :radio_button_tabler,
-                        collection: BaseActivity.human_tccs %>
-         </div>
       </div>
+    </div>
 
-      <div hide-on-activity-type-info-selected>
-         <%= f.input :judgment, as: :checkbox_tabler %>
-         <%= f.input :final_version, as: :checkbox_tabler %>
-      </div>
-   </div>
+    <div hide-on-activity-type-info-selected>
+      <%= f.input :judgment, as: :checkbox_tabler %>
+      <%= f.input :final_version, as: :checkbox_tabler %>
+    </div>
+  </div>
 
-   <div class="d-flex">
-      <%= link_to t('simple_form.buttons.back'),
+  <div class="d-flex">
+    <%= link_to t('simple_form.buttons.back'),
       responsible_base_activities_tcc_one_path,
       class: 'btn btn-secondary' %>
 
-      <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
-   </div>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
 <% end %>
