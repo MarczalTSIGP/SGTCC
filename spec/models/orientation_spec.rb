@@ -192,7 +192,8 @@ RSpec.describe Orientation, type: :model do
 
     it 'returns the orientations that can be migrated' do
       expect(described_class.to_migrate.count).to eq(2)
-      expect(described_class.to_migrate).to match_array([valid_orientation, valid_orientation_two])
+      expect(described_class.to_migrate).to contain_exactly(valid_orientation,
+                                                            valid_orientation_two)
     end
 
     it 'do not returns the orientations that can not be migrated' do
@@ -230,6 +231,19 @@ RSpec.describe Orientation, type: :model do
         expect(orientation.calendars.count).to eq(2)
         expect(orientation.tcc_two?).to eq(true)
         expect(orientation.current_calendar).to eq(next_calendar)
+      end
+
+      it 'migrates to times to when can' do
+        current_calendar = create(:current_calendar_tcc_two)
+        next_calendar = create(:next_calendar_tcc_two)
+
+        orientation = create(:orientation_tcc_one_approved)
+
+        expect(orientation.migrate).to be(true)
+        expect(orientation.calendars.pluck(:id)).to include(current_calendar.id)
+
+        expect(orientation.migrate).to be(true)
+        expect(orientation.calendars.pluck(:id)).to include(next_calendar.id)
       end
     end
     # rubocop:enable RSpec/MultipleExpectations

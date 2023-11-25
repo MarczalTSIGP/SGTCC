@@ -20,10 +20,6 @@ class Responsible::OrientationsMigrationController < Responsible::BaseController
     end
   end
 
-  def model_human
-    I18n.t('activerecord.models.orientation.one')
-  end
-
   private
 
   def orientation_params_id

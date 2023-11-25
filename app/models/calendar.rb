@@ -76,7 +76,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.search_by_tcc(tcc, page, term)
-    where(tcc: tcc).page(page).search(term).order({ year: :desc }, :semester)
+    where(tcc: tcc).page(page).search(term).order({ year: :desc }, { semester: :desc })
   end
 
   def self.search_by_tcc_one(page, term)
