@@ -17,6 +17,8 @@ describe 'BaseActivities::show', type: :feature do
         expect(page).to have_contents([base_activity.name,
                                        base_activity.base_activity_type.name,
                                        tcc,
+                                       base_activity.days_to_start,
+                                       base_activity.duration_in_days,
                                        complete_date(base_activity.created_at),
                                        complete_date(base_activity.updated_at)])
       end

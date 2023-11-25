@@ -303,7 +303,9 @@ CREATE TABLE public.base_activities (
     tcc integer,
     identifier public.base_activity_identifiers,
     judgment boolean DEFAULT false,
-    final_version boolean DEFAULT false
+    final_version boolean DEFAULT false,
+    days_to_start integer DEFAULT 0,
+    duration_in_days integer DEFAULT 0
 );
 
 
@@ -2037,6 +2039,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191011133608'),
 ('20191125224723'),
 ('20200710170737'),
-('20231004230530');
+('20231004230530'),
+('20231017133608');
 
 
