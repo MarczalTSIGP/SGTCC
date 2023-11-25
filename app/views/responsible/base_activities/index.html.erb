@@ -1,6 +1,8 @@
 <% provide(:page_title, t('breadcrumbs.base_activities.index')) %>
 <% provide(:head_title, t('breadcrumbs.base_activities.index')) %>
 
+<%= render('initial_dates') %>
+
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
     <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
