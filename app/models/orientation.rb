@@ -192,20 +192,17 @@ class Orientation < ApplicationRecord
   end
 
   def self.select_orientations_for_tcc(page = 1, term, status, tcc)
-    query = select('orientations.id, orientations.title, academics.name as academic_name, academics.ra,
-        professors.name as advisor_name, calendars.semester, calendars.year, calendars.tcc, orientations.status,
-        academics.id as academic_id, orientations.advisor_id')
-      .joins('LEFT JOIN professors ON orientations.advisor_id = professors.id')
-      .joins('LEFT JOIN academics ON orientations.academic_id = academics.id')
-      .joins('LEFT JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
-      .joins('LEFT JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
-      .where('calendars.tcc = ?', tcc)
-      .where('academics.name ILIKE ?', "%#{term}%")
+    query = joins(:professor_supervisors, :academic, orientation_calendars: :calendar)
+            .select('orientations.id, orientations.title, academics.name as academic_name,
+              academics.ra, professors.name as advisor_name, calendars.semester,
+              calendars.year, calendars.tcc, orientations.status, academics.id as academic_id,
+              orientations.advisor_id')
+            .where(calendars: { tcc: tcc })
+            .where('academics.name ILIKE ?', "%#{term}%")
 
-    query = query.where('orientations.status = ?', status) if status.present?
+    query = query.where(orientations: { status: status }) if status.present?
 
-    query.order('calendars.year DESC, calendars.semester ASC')
-         .page(page)
+    query.order('calendars.year DESC, calendars.semester ASC').page(page)
   end
 
   def self.approved
