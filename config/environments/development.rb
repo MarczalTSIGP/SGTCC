@@ -24,7 +24,7 @@ Rails.application.configure do
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
-    config.action_controller.perform_caching = true
+    config.action_controller.perform_caching = false
 
     config.cache_store = :null_store
   end
@@ -60,7 +60,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-  config.cache_store = :file_store, "#{Rails.root}/tmp/cache"
 
   config.after_initialize do
     Bullet.enable = true

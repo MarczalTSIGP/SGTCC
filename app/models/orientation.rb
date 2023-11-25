@@ -200,7 +200,7 @@ class Orientation < ApplicationRecord
       .joins('LEFT JOIN orientation_calendars ON orientations.id = orientation_calendars.orientation_id')
       .joins('LEFT JOIN calendars ON orientation_calendars.calendar_id = calendars.id')
       .where('calendars.tcc = ?', tcc)
-      .where('academics.name LIKE ?', "%#{term}%")
+      .where('academics.name ILIKE ?', "%#{term}%")
 
     query = query.where('orientations.status = ?', status) if status.present?
 
