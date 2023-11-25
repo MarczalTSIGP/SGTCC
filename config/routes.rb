@@ -151,6 +151,14 @@ Rails.application.routes.draw do
           to: 'orientations#current_tcc_two',
           as: 'orientations_current_tcc_two'
 
+      get 'orientations/migration',
+          to: 'orientations_migration#index',
+          as: 'orientations_migration'
+
+      post 'orientations/(:id)/migrate',
+           to: 'orientations_migration#migrate',
+           as: 'orientations_migrate'
+
       post 'orientations/(:id)/renew', to: 'orientations#renew', as: 'orientations_renew'
       post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'
 

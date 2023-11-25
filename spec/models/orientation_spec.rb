@@ -183,6 +183,80 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
+  describe '#to_migrate' do
+    let!(:valid_orientation) { create(:orientation_tcc_one_approved) }
+    let!(:valid_orientation_two) { create(:orientation_tcc_one_approved_current_calendar) }
+    let!(:invalid_orientation) { create(:orientation_tcc_one_approved_next_calendar) }
+    let!(:invalid_orientation_two) { create(:orientation_approved) }
+    let!(:invalid_orientation_three) { create(:orientation_canceled) }
+
+    it 'returns the orientations that can be migrated' do
+      expect(described_class.to_migrate.count).to eq(2)
+      expect(described_class.to_migrate).to contain_exactly(valid_orientation,
+                                                            valid_orientation_two)
+    end
+
+    it 'do not returns the orientations that can not be migrated' do
+      expect(described_class.to_migrate)
+        .not_to include([invalid_orientation, invalid_orientation_two, invalid_orientation_three])
+    end
+  end
+
+  describe '#migrate' do
+    context 'when calendar for next semester is not found' do
+      it 'does not migrate' do
+        orientation = create(:orientation_tcc_one_approved)
+        expect(orientation.migrate).to eq(false)
+        expect(orientation.calendars.count).to eq(1)
+      end
+    end
+
+    # rubocop:disable RSpec/MultipleExpectations
+    context 'when calendar for next semester is found' do
+      it 'migrates to next semester related to orientation calendar' do
+        create(:current_calendar_tcc_two)
+        orientation = create(:orientation_tcc_one_approved)
+
+        expect(orientation.migrate).not_to eq(false)
+        expect(orientation.calendars.count).to be >= 2
+        expect(orientation.tcc_two?).to eq(true)
+        expect(orientation.current_calendar).to eq(Calendar.current_by_tcc_two)
+      end
+
+      it 'migrates to next semester related to current calendar' do
+        next_calendar = create(:next_calendar_tcc_two)
+        orientation = create(:orientation_tcc_one_approved_current_calendar)
+
+        expect(orientation.migrate).not_to eq(false)
+        expect(orientation.calendars.count).to eq(2)
+        expect(orientation.tcc_two?).to eq(true)
+        expect(orientation.current_calendar).to eq(next_calendar)
+      end
+
+      it 'migrates to times to when can' do
+        current_calendar = create(:current_calendar_tcc_two)
+        next_calendar = create(:next_calendar_tcc_two)
+
+        orientation = create(:orientation_tcc_one_approved)
+
+        expect(orientation.migrate).to be(true)
+        expect(orientation.calendars.pluck(:id)).to include(current_calendar.id)
+
+        expect(orientation.migrate).to be(true)
+        expect(orientation.calendars.pluck(:id)).to include(next_calendar.id)
+      end
+    end
+    # rubocop:enable RSpec/MultipleExpectations
+
+    context 'when orientation is not approved tcc one' do
+      it 'does not migrate' do
+        orientation = create(:orientation) # status: 'IN_PROGRESS'
+        expect(orientation.migrate).to eq(false)
+        expect(orientation.calendars.count).to eq(1)
+      end
+    end
+  end
+
   describe '#by_current_tcc' do
     let!(:current_tcc_one_orientation) { create(:current_orientation_tcc_one) }
     let!(:current_tcc_two_orientation) { create(:current_orientation_tcc_two) }

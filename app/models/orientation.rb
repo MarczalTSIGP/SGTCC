@@ -75,6 +75,30 @@ class Orientation < ApplicationRecord
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
+  scope :to_migrate, lambda {
+    subquery =
+      joins(:calendars)
+      .where('calendars.year > ?', Calendar.current_year)
+      .or(joins(:calendars)
+        .where(
+          'calendars.year = ? AND calendars.semester > ?',
+          Calendar.current_year,
+          Calendar.current_semester
+        ))
+      .pluck('orientations.id')
+
+    where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
+  }
+
+  def migrate
+    if can_be_migrated?
+      new_calendar = Calendar.next_semester_tcc_two(current_calendar)
+      update(calendar_ids: calendar_ids << new_calendar.id)
+    else
+      false
+    end
+  end
+
   def short_title
     title.length > 35 ? "#{title[0..35]}..." : title
   end
@@ -92,7 +116,10 @@ class Orientation < ApplicationRecord
   end
 
   def current_calendar
-    calendars.last
+    calendars.order(
+      { year: :desc },
+      { semester: :desc }
+    ).first
   end
 
   # TODO: Refactored and Remove
@@ -161,6 +188,13 @@ class Orientation < ApplicationRecord
   end
 
   private
+
+  def can_be_migrated?
+    equal_status?('APPROVED_TCC_ONE') &&
+      Calendar
+        .next_semester_tcc_two(current_calendar)
+        .present?
+  end
 
   def find_academic_activity(conditions = {})
     academic_activities.joins(:activity)
