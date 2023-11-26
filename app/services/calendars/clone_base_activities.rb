@@ -43,8 +43,8 @@ module Calendars
     end
 
     def beginning_of_semester
-      month = Calendar.current_semester == 'one' ? 'mar' : 'aug'
-      Time.zone.parse("#{month} 01 00:00:00 #{Calendar.current_year}")
+      month = @calendar.semester == 'one' ? 'mar' : 'aug'
+      Time.zone.parse("#{month} 01 00:00:00 #{@calendar.year}")
     end
   end
 end

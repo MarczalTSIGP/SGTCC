@@ -52,8 +52,8 @@ RSpec.describe Calendar, type: :model do
       create(:base_activity_tcc_one, days_to_start: 10, duration_in_days: 10)
       calendar = create(:calendar_tcc_one)
 
-      month = described_class.current_semester == 'one' ? 'mar' : 'aug'
-      initial_date = Time.zone.parse("#{month} 01 00:00:00 #{described_class.current_year}")
+      month = calendar.semester == 'one' ? 'mar' : 'aug'
+      initial_date = Time.zone.parse("#{month} 01 00:00:00 #{calendar.year}")
       initial_date += 10.days
       final_date = initial_date + 10.days + 23.hours + 59.minutes
 
