@@ -17,24 +17,35 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
       before do
         visit external_members_examination_boards_tcc_one_path
       end
+
       it 'shows the examination boards of the tcc one with options' do
         expect(page).to have_link(examination_board_tcc_one.orientation.academic_with_calendar,
-                                  href: external_members_examination_board_path(examination_board_tcc_one))
-        expect(page).to have_contents([examination_board_tcc_one.orientation.advisor.name_with_scholarity,
-                                       examination_board_tcc_one.place,
-                                       datetime(examination_board_tcc_one.date)])
+                                  href: external_members_examination_board_path(
+                                    examination_board_tcc_one
+                                  ))
+
+        examination_board = examination_board_tcc_one
+        expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
+                                       examination_board.place,
+                                       datetime(examination_board.date)])
       end
     end
+
     context 'when shows the examination boards of the tcc two calendar' do
       before do
         visit external_members_examination_boards_tcc_two_path
       end
+
       it 'shows the examination boards of the tcc one with options' do
         expect(page).to have_link(examination_board_tcc_two.orientation.academic_with_calendar,
-                                  href: external_members_examination_board_path(examination_board_tcc_two))
-        expect(page).to have_contents([examination_board_tcc_two.orientation.advisor.name_with_scholarity,
-                                       examination_board_tcc_two.place,
-                                       datetime(examination_board_tcc_two.date)])
+                                  href: external_members_examination_board_path(
+                                    examination_board_tcc_two
+                                  ))
+
+        examination_board = examination_board_tcc_two
+        expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
+                                       examination_board.place,
+                                       datetime(examination_board.date)])
       end
     end
   end

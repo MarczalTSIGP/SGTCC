@@ -15,8 +15,8 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
                  only: :tcc_two
 
   # def index
-    # data = current_external_member.current_examination_boards(params[:term])
-    # @examination_boards = Kaminari.paginate_array(data).page(params[:page])
+  #   data = current_external_member.current_examination_boards(params[:term])
+  #   @examination_boards = Kaminari.paginate_array(data).page(params[:page])
   # end
 
   def index
@@ -24,8 +24,8 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   end
 
   def tcc_one
-    data = current_external_member.examination_boards_by_tcc_one_list(params[:page], 
-                                                                      params[:term], 
+    data = current_external_member.examination_boards_by_tcc_one_list(params[:page],
+                                                                      params[:term],
                                                                       params[:status])
     @examination_boards = Kaminari.paginate_array(data).page(params[:page])
     @search_url = external_members_examination_boards_tcc_one_search_path
@@ -33,8 +33,8 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   end
 
   def tcc_two
-    data = current_external_member.examination_boards_by_tcc_two_list(params[:page], 
-                                                                      params[:term], 
+    data = current_external_member.examination_boards_by_tcc_two_list(params[:page],
+                                                                      params[:term],
                                                                       params[:status])
     @examination_boards = Kaminari.paginate_array(data).page(params[:page])
     @search_url = external_members_examination_boards_tcc_two_search_path

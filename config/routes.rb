@@ -700,20 +700,17 @@ Rails.application.routes.draw do
       get 'examination_boards/tcc_one',
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
-      
       get 'examination_boards/tcc_two',
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two'
-      
       get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
-      
       get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
-          as: 'examination_boards_tcc_two_search'                
+          as: 'examination_boards_tcc_two_search'
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'

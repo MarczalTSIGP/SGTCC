@@ -11,14 +11,20 @@ module ExaminationBoardJoin
     def self.join_with_status(join, status)
       return join if status.blank?
 
-      current_semester_start = Date.new(Date.today.year, Date.today.month < 7 ? 1 : 7, 1)
-      current_semester_end = Date.new(Date.today.year, Date.today.month < 7 ? 6 : 12, 31)
-
-      if status == 'CURRENT_SEMESTER'
+      current_semester_start, current_semester_end = current_semester_dates
+      case status
+      when 'CURRENT_SEMESTER'
         join.where(date: current_semester_start..current_semester_end)
-      elsif status == 'OTHER_SEMESTER'
+      when 'OTHER_SEMESTER'
         join.where.not(date: current_semester_start..current_semester_end)
       end
+    end
+
+    def self.current_semester_dates
+      today = Time.zone.today
+      start_month = today.month < 7 ? 1 : 7
+      end_month = start_month == 1 ? 6 : 12
+      [Date.new(today.year, start_month, 1), Date.new(today.year, end_month, 31)]
     end
   end
 end
