@@ -135,46 +135,11 @@ RSpec.describe Activity, type: :model do
     end
   end
 
-  describe '#responses_summary' do
-    let(:activity) { create(:activity) }
-    let(:academic_one) { create(:academic) }
-    let(:academic_two) { create(:academic) }
-    let(:orientation_one) { create(:orientation, academic: academic_one) }
-    let(:orientation_two) { create(:orientation, academic: academic_two) }
-
-    before do
-      create(:orientation_calendar, orientation: orientation_one, calendar: activity.calendar)
-      create(:orientation_calendar, orientation: orientation_two, calendar: activity.calendar)
-    end
-
-    it 'returns count with no response answered' do
-      result = activity.response_summary
-
-      expect(result.count).to eq(0)
-      expect(result.total).to eq(2)
-    end
-
-    it 'returns count with 1 response answered' do
-      create(:academic_activity, academic: academic_one, activity: activity)
-
-      result = activity.response_summary
-
-      expect(result.count).to eq(1)
-      expect(result.total).to eq(2)
-    end
-
-    it 'returns non-negative response counts' do
-      response_counts = activity.response_summary
-
-      expect(response_counts.total).to be >= 0
-      expect(response_counts.count).to be >= 0
-    end
-  end
-
   describe '#academic_responses' do
     let(:activity) { create(:activity) }
-    let(:academic_one) { create(:academic) }
-    let(:academic_two) { create(:academic) }
+
+    let(:academic_one)   { create(:academic, name: 'A') }
+    let(:academic_two)   { create(:academic, name: 'B') }
 
     let(:orientation_one) { create(:orientation, academic: academic_one) }
     let(:orientation_two) { create(:orientation, academic: academic_two) }
@@ -185,26 +150,28 @@ RSpec.describe Activity, type: :model do
     end
 
     it 'returns all academics associated with the calendar' do
-      academics = activity.academic_responses
-      expect(academics).to contain_exactly(academic_one, academic_two)
+      academics = activity.responses.academics
+      expect(academics.pluck(:id)).to contain_exactly(academic_one.id, academic_two.id)
     end
 
-    it 'does not have an academic with property sent academic activity as true' do
-      academics_with_activity_sent = activity.academic_responses.select do |academic|
-        academic.sent_academic_activity == 'false'
-      end
-      expect(academics_with_activity_sent.size).to eq(2)
+    it 'have total that should sent' do
+      expect(activity.responses.total_should_sent).to eq(2)
     end
 
-    it 'has an academic with property sent academic activity as true' do
+    it 'have total of sent' do
+      expect(activity.responses.total_sent).to eq(0)
+    end
+
+    it 'has an academic response with property sent' do
       create(:academic_activity, academic: academic_one, activity: activity)
 
-      academic_with_activity_sent = activity
-                                    .academic_responses
-                                    .find(&:sent_academic_activity)
+      academic_response_one = activity.responses.academics.first
+      academic_response_two = activity.responses.academics.second
 
-      expect(academic_with_activity_sent).to eq(academic_one)
-      expect(academic_with_activity_sent.sent_academic_activity).to eq('true')
+      expect(academic_response_one.sent?).to be(true)
+      expect(academic_response_two.sent?).to be(false)
+
+      expect(activity.responses.total_sent).to eq(1)
     end
   end
 end

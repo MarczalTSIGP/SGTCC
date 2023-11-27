@@ -46,28 +46,8 @@
       <%= complete_date(@activity.updated_at) %>
     </p>
 
-    <% if @activity.base_activity_type.send_document? %>
-      <table class="table table-striped table-bordered mt-5">
-        <thead>
-          <tr>
-            <th scope="col"><%= Activity.human_attribute_name('academic') %></th>
-            <th scope="col"><%= Activity.human_attribute_name('sent') %></th>
-          </tr>
-        </thead>
-        <tbody>
-            <% @activity.academic_responses.each do |academic| %>
-              <tr>
-                <td><%= academic.name %></td> 
-                <td><%= t("helpers.boolean.#{academic.sent_academic_activity}") %></a></td> 
-              </tr>
-            <% end %>
-            <tr>
-              <td><strong><%= Activity.human_attribute_name('total') %></strong></td>
-              <td><%= @activity.response_summary.count %> de <%= @activity.response_summary.total %> <%= Activity.human_attribute_name('sent') %>s</td>
-            </tr>
-        </tbody>
-      </table>
-    <% end %>
+    <%= render 'shared/activities/responses' %>
+
   </div>
 </div>
 
@@ -75,4 +55,3 @@
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
-

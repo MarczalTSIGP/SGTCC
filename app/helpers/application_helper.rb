@@ -19,12 +19,8 @@ module ApplicationHelper
     '<i class="fas fa-info pr-3"></i>'.html_safe
   end
 
-  def activity_count_sended(activity)
-    if activity.base_activity_type.send_document?
-      return "#{activity.response_summary.count} \
-              de #{activity.response_summary.total} \
-              #{Activity.human_attribute_name('sent')}s"
-    end
-    '-'
+  def user_can_access_activity_response
+    (current_professor&.responsible? || current_professor&.tcc_one?) &&
+      namespace.in?(%w[responsible tcc_one_professors])
   end
 end

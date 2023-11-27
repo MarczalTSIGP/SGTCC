@@ -12,8 +12,8 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   end
 
   def show
-    url = tcc_one_professors_calendar_orientation_activity_path(
-      @calendar, @orientation, @activity
+    url = tcc_one_professors_orientation_calendar_activity_path(
+      @orientation, @calendar, @activity
     )
 
     add_breadcrumb I18n.t('breadcrumbs.orientation_activities.show',
@@ -23,7 +23,7 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = Orientation.find(params[:orientation_id])
   end
 
   def set_calendar
@@ -31,7 +31,7 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   end
 
   def set_activity
-    @activity = @calendar.activities.find_by(id: params[:activity_id])
+    @activity = @calendar.activities.find_by(id: params[:id])
   end
 
   def set_academic_activity
@@ -45,6 +45,6 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
                    tcc_one_professors_calendar_orientations_path(@calendar)
 
     add_breadcrumb I18n.t('breadcrumbs.orientation_activities.index', calendar: year_with_semester),
-                   tcc_one_professors_calendar_orientation_activities_path(@calendar, @orientation)
+                   tcc_one_professors_orientation_calendar_activities_path(@orientation, @calendar)
   end
 end

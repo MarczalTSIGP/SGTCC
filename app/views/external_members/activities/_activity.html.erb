@@ -1,7 +1,7 @@
 <tr>
   <td><%= link_to activity.name, external_members_calendar_activity_path(@calendar, activity) %></td>
+  <td><%= activity.responses.entries_info %></td>
   <td><%= activity.base_activity_type.name %></td>
   <td><%= t("enums.tcc.#{activity.tcc}") %></td>
   <td><%= activity.deadline %></td>
-  <td><%= activity_count_sended(activity) %></td>
 </tr>
