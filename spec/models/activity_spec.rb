@@ -134,4 +134,44 @@ RSpec.describe Activity, type: :model do
       expect(activity.find_academic_activity_by_academic(academic)).to eq(academic_activity)
     end
   end
+
+  describe '#academic_responses' do
+    let(:activity) { create(:activity) }
+
+    let(:academic_one)   { create(:academic, name: 'A') }
+    let(:academic_two)   { create(:academic, name: 'B') }
+
+    let(:orientation_one) { create(:orientation, academic: academic_one) }
+    let(:orientation_two) { create(:orientation, academic: academic_two) }
+
+    before do
+      create(:orientation_calendar, orientation: orientation_one, calendar: activity.calendar)
+      create(:orientation_calendar, orientation: orientation_two, calendar: activity.calendar)
+    end
+
+    it 'returns all academics associated with the calendar' do
+      academics = activity.responses.academics
+      expect(academics.pluck(:id)).to contain_exactly(academic_one.id, academic_two.id)
+    end
+
+    it 'have total that should sent' do
+      expect(activity.responses.total_should_sent).to eq(2)
+    end
+
+    it 'have total of sent' do
+      expect(activity.responses.total_sent).to eq(0)
+    end
+
+    it 'has an academic response with property sent' do
+      create(:academic_activity, academic: academic_one, activity: activity)
+
+      academic_response_one = activity.responses.academics.first
+      academic_response_two = activity.responses.academics.second
+
+      expect(academic_response_one.sent?).to be(true)
+      expect(academic_response_two.sent?).to be(false)
+
+      expect(activity.responses.total_sent).to eq(1)
+    end
+  end
 end

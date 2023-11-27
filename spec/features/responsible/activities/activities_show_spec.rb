@@ -1,24 +1,58 @@
 require 'rails_helper'
 
 describe 'Activity::show', type: :feature do
-  let(:responsible) { create(:responsible) }
-  let!(:activity) { create(:activity) }
+  let(:responsible)     { create(:responsible) }
+  let(:calendar)        { create(:current_calendar_tcc_one) }
+  let(:activity)        { calendar.activities.first }
+  let(:orientation_one) { create(:orientation, calendar_ids: [calendar.id]) }
+  let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 
   before do
+    create(:academic_activity, academic: orientation_one.academic, activity: activity)
+
     login_as(responsible, scope: :professor)
-    visit responsible_calendar_activity_path(activity.calendar, activity)
+    visit responsible_calendar_activity_path(calendar, activity)
   end
 
-  describe '#show' do
-    context 'when shows the activity' do
-      it 'shows the activity' do
-        tcc = I18n.t("enums.tcc.#{activity.tcc}")
-        expect(page).to have_contents([activity.name,
-                                       activity.base_activity_type.name,
-                                       activity.deadline,
-                                       tcc,
-                                       complete_date(activity.created_at),
-                                       complete_date(activity.updated_at)])
+  it 'base info' do
+    tcc = I18n.t("enums.tcc.#{activity.tcc}")
+    expect(page).to have_contents([activity.name,
+                                   activity.base_activity_type.name,
+                                   activity.deadline,
+                                   tcc,
+                                   complete_date(activity.created_at),
+                                   complete_date(activity.updated_at)])
+  end
+
+  context 'with responses' do
+    it 'show all' do
+      within('table.table') do
+        activity.responses.academics.each_with_index do |academic, index|
+          child = index + 1
+          within("tbody tr:nth-child(#{child})") do
+            expect(page).to have_content(academic.name)
+            expect(page).to have_content(I18n.t("helpers.boolean.#{academic.sent?}"))
+          end
+        end
+
+        expect(page).to have_content(activity.responses.entries_info)
+      end
+    end
+
+    it 'has link when sent' do
+      url = responsible_orientation_calendar_activity_path(orientation_one, calendar,
+                                                           activity)
+      within('table.table tbody') do
+        expect(page).to have_link(I18n.t('helpers.boolean.true'), href: url)
+      end
+    end
+
+    it 'has no link when no sent' do
+      url = responsible_orientation_calendar_activity_path(orientation_two, calendar,
+                                                           activity)
+
+      within('table.table tbody') do
+        expect(page).not_to have_link(I18n.t('helpers.boolean.true'), href: url)
       end
     end
   end

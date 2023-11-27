@@ -129,11 +129,13 @@ class Populate::Orientations
   # Orientation
   #--------------------------------------------------------------------------
   def create_orientation(calendar, index)
-    Orientation.create!(
+    orientation = Orientation.create!(
       title: "Orientation #{index} - #{calendar.year_with_semester}", calendar_ids: [calendar.id],
       advisor_id: @professor_ids.sample, academic_id: @academic_ids.sample,
       institution_id: @institution_ids.sample
     )
+    add_supervisors(orientation)
+    orientation
   end
 
   def sign_orientations
@@ -199,7 +201,7 @@ class Populate::Orientations
       academic_id: orientation.academic.id,
       title: "#{activity_name} - #{orientation.id} - #{calendar.year_with_semester}",
       summary: Faker::Lorem.paragraph(sentence_count: 10),
-      complementary_files: nil, judgment: true, additional_instructions: '',
+      complementary_files: nil, judgment: true, additional_instructions: '# Please read and review',
       pdf: file(file_name)
     )
   end
@@ -244,7 +246,8 @@ class Populate::Orientations
     examination_board.examination_board_notes.create! professor: advisor, note: note
 
     examination_board.professors.each do |professor|
-      examination_board.examination_board_notes.create! professor: professor, note: note
+      examination_board.examination_board_notes.create! professor: professor, note: note,
+                                                        appointment_text: '## Rewrite all the text'
     end
   end
 end

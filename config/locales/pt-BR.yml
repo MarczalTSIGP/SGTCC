@@ -436,6 +436,7 @@ pt-BR:
         hour: "Hora"
         available: "Disponível"
         final_version: "Versão final"
+        total: "Total"  
       academic:
         ra: "RA"
         <<: *commons
@@ -463,7 +464,9 @@ pt-BR:
         judgment: "Parecer"
         <<: *commons
       activity:
-        sent: "Enviada"
+        sent: 
+          one: "Enviada"
+          other: "Enviadas"
         calendar: "Calendário"
         initial_date: "Data inicial de entrega"
         final_date: "Data final de entrega"
