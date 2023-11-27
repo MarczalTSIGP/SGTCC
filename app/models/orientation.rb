@@ -198,7 +198,8 @@ class Orientation < ApplicationRecord
               calendars.year, calendars.tcc, orientations.status, academics.id as academic_id,
               orientations.advisor_id')
             .where(calendars: { tcc: tcc })
-            .where('academics.name ILIKE ?', "%#{term}%")
+            .where('academics.name ILIKE ? OR orientations.title ILIKE ? OR academics.ra ILIKE ?',
+                   "%#{term}%", "%#{term}%", "%#{term}%")
 
     query = query.where(orientations: { status: status }) if status.present?
 
