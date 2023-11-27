@@ -476,12 +476,12 @@ Rails.application.routes.draw do
 
       get 'calendars/tcc_one', to: 'calendars#tcc_one', as: 'calendars_tcc_one'
 
-      get 'examination_boards/tcc_one/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
-      get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
+      get 'examination_boards/tcc_two/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'

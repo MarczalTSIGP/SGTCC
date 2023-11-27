@@ -20,13 +20,17 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def tcc_one
-    @examination_boards = paginate(ExaminationBoard.tcc_one)
+    @examination_boards = ExaminationBoard.by_tcc_one(params[:page],
+                                                      params[:term],
+                                                      params[:status])
     @search_url = tcc_one_professors_examination_boards_tcc_one_search_path
     render :index
   end
 
   def tcc_two
-    @examination_boards = paginate(ExaminationBoard.tcc_two)
+    @examination_boards = ExaminationBoard.by_tcc_two(params[:page],
+                                                      params[:term],
+                                                      params[:status])
     @search_url = tcc_one_professors_examination_boards_tcc_two_search_path
     render :index
   end
