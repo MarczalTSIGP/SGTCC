@@ -6,7 +6,7 @@ module ExaminationBoardDefenseMinutes
   included do
     def can_create_defense_minutes?(professor)
       has_roles = advisor?(professor) || professor.responsible?
-      defense_minutes.blank? && has_roles
+      defense_minutes.blank? && has_roles && all_evaluated?
     end
 
     def create_defense_minutes

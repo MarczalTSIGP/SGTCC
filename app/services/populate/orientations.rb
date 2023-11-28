@@ -249,5 +249,10 @@ class Populate::Orientations
       examination_board.examination_board_notes.create! professor: professor, note: note,
                                                         appointment_text: '## Rewrite all the text'
     end
+
+    examination_board.external_members.each do |external_member|
+      examination_board.examination_board_notes.create! external_member: external_member, note: note,
+                                                        appointment_text: '## Rewrite all the text'
+    end
   end
 end
