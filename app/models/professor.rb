@@ -77,6 +77,10 @@ class Professor < ApplicationRecord
     role?(:responsible)
   end
 
+  def tcc_one?
+    role?(:tcc_one)
+  end
+
   def user_types
     types = Signature.user_types
     user_types = [types[:advisor], types[:new_advisor],

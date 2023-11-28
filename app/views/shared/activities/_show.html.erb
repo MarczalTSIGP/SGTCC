@@ -45,6 +45,9 @@
       </strong>
       <%= complete_date(@activity.updated_at) %>
     </p>
+
+    <%= render 'shared/activities/responses' %>
+
   </div>
 </div>
 
@@ -52,4 +55,3 @@
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
   <%= yield(:edit_button) %>
 </div>
-

@@ -6,7 +6,7 @@ describe 'Orientation::index', type: :feature do
     login_as(professor, scope: :professor)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     context 'when shows all the orientations of the current tcc one calendar' do
       let(:orientation) { create(:current_orientation_tcc_one) }
 
@@ -39,8 +39,8 @@ describe 'Orientation::index', type: :feature do
                                     orientation.current_calendar, orientation
                                   ))
         expect(page).to have_link('Atividades da orientação',
-                                  href: tcc_one_professors_calendar_orientation_activities_path(
-                                    orientation.current_calendar, orientation
+                                  href: tcc_one_professors_orientation_calendar_activities_path(
+                                    orientation, orientation.current_calendar
                                   ))
         expect(page).to have_link('Documentos da orientação',
                                   href: tcc_one_professors_calendar_orientation_documents_path(

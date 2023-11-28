@@ -53,8 +53,8 @@ FactoryBot.define do
     end
 
     after :create do |examination_board|
-      professors = create_list(:professor, 3)
-      external_members = create_list(:external_member, 3)
+      professors = create_list(:professor, 2)
+      external_members = create_list(:external_member, 1)
 
       professors.each do |professor|
         examination_board.professors << professor

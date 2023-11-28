@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::review', type: :feature, js: true do
+describe 'Document::review', :js, type: :feature do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation, advisor: responsible) }
   let(:document) { create(:document_tdo, orientation_id: orientation.id) }
@@ -37,15 +37,15 @@ describe 'Document::review', type: :feature, js: true do
 
   describe '#update' do
     let(:responsible_json) do
-      { accept: 'true', id: responsible.id, justification: 'justi' }
+      { accept: 'true', id: responsible.id, justification: 'justification' }
     end
 
     let(:request) do
       { requester: { justification: 'a' }, judgment: { responsible: responsible_json } }
     end
 
-    let(:new_document) do
-      create(:document_tep, orientation_id: orientation.id, request: request)
+    let!(:new_document) do
+      create(:document_tdo, orientation_id: orientation.id, request: request)
     end
 
     before do
@@ -54,11 +54,13 @@ describe 'Document::review', type: :feature, js: true do
 
     context 'when the document is updated' do
       it 'shows success message' do
-        find('#edit_button_judgment').click
+        find_by_id('edit_button_judgment').click
         click_on_label(dismiss_label, in: 'document_judgment')
         fill_in_simple_mde('Hakuna Matata')
 
+        sleep 1
         find('button[id="save_document_judgment"]', text: save_button).click
+
         expect(page).to have_alert(text: message('update.m'))
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
         expect(page).to have_contents([dismissed_label, 'Hakuna Matata'])
@@ -71,7 +73,7 @@ describe 'Document::review', type: :feature, js: true do
       end
 
       it 'shows errors message' do
-        find('#edit_button_judgment').click
+        find_by_id('edit_button_judgment').click
         click_on_label(dismiss_label, in: 'document_judgment')
         find('.fa-bold').click
 

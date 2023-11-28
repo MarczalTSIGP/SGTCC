@@ -125,11 +125,13 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/services/populate/base_activities.rb'
 
 Metrics/AbcSize:
   Exclude:
     - spec/features/professors/supervisions/supervisions_show_spec.rb
     - spec/features/professors/orientations/orientations_show_spec.rb
+    - app/services/populate/base_activities.rb
 
 Metrics/ClassLength:
   Enabled: false
@@ -140,7 +142,7 @@ Naming/VariableNumber:
 
 
 RSpec/MultipleExpectations:
-  Max: 2
+  Max: 3
   Exclude:
     - 'spec/features/**/*'
     - 'spec/controllers/api/v1/orientations_controller_spec.rb'
