@@ -15,7 +15,7 @@ class ExaminationBoardNote < ApplicationRecord
             allow_nil: true
 
   after_save do
-    if examination_board.all_evaluated? || !examination_board.available_defense_minutes?
+    if examination_board.all_evaluated? && examination_board.defense_minutes.blank?
       tcc_type = examination_board.identifier
       approved = final_note >= 60
       status = approved ? :approved : :reproved
