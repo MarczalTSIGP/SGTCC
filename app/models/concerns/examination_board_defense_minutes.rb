@@ -4,10 +4,10 @@ module ExaminationBoardDefenseMinutes
   extend ActiveSupport::Concern
 
   included do
-    def can_create_defense_minutes?(professor)
-      has_roles = advisor?(professor) || professor.responsible?
-      defense_minutes.blank? && has_roles && all_evaluated?
-    end
+    # def can_create_defense_minutes?(professor)
+    #   has_roles = advisor?(professor) || professor.responsible?
+    #   defense_minutes.blank? && has_roles && all_evaluated?
+    # end
 
     def create_defense_minutes
       data_params = { orientation_id: orientation.id, examination_board: examination_board_data }

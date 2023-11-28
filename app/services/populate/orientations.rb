@@ -245,13 +245,12 @@ class Populate::Orientations
     advisor = examination_board.orientation.advisor
     examination_board.examination_board_notes.create! professor: advisor, note: note
 
+    assigning_grades_by_external_members(examination_board, note)
+  end
+
+  def assigning_grades_by_external_members(examination_board, note)
     examination_board.professors.each do |professor|
       examination_board.examination_board_notes.create! professor: professor, note: note,
-                                                        appointment_text: '## Rewrite all the text'
-    end
-
-    examination_board.external_members.each do |external_member|
-      examination_board.examination_board_notes.create! external_member: external_member, note: note,
                                                         appointment_text: '## Rewrite all the text'
     end
   end
