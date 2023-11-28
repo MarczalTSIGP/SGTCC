@@ -30,6 +30,10 @@ class Calendar < ApplicationRecord
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
+  def orientation_by_academic(academic_id)
+    orientations.find_by(academic_id)
+  end
+
   def current?
     Calendar.current_calendar?(self)
   end
@@ -122,16 +126,6 @@ class Calendar < ApplicationRecord
   private
 
   def clone_base_activities
-    base_activities = BaseActivity.where(tcc: tcc)
-    base_activities.each { |base_activity| create_activity(base_activity) }
-  end
-
-  def create_activity(activity)
-    current_time = Time.current
-    activities.create(name: activity.name, tcc: activity.tcc,
-                      calendar_id: id, base_activity_type_id: activity.base_activity_type_id,
-                      judgment: activity&.judgment, identifier: activity&.identifier,
-                      initial_date: current_time, final_date: current_time,
-                      final_version: activity&.final_version)
+    Calendars::CloneBaseActivities.to(self)
   end
 end
