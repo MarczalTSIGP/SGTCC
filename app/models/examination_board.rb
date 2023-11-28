@@ -134,25 +134,7 @@ class ExaminationBoard < ApplicationRecord
     evaluators_size - examination_board_notes.size
   end
 
-  def examination_board_notes_by_others(filter_id)
-    examination_board_notes.where.not(professor_id: filter_id)
-                           .or(examination_board_notes.where.not(external_member_id: filter_id))
-  end
-
-  def professor_and_external_members_ids
-    professor_ids = examination_board_notes.pluck(:professor_id).flatten.compact.uniq
-    external_member_ids = examination_board_notes.pluck(:external_member_id).flatten.compact.uniq
-    [professor_ids, external_member_ids]
-  end
-
-  def members_that_not_send_appointments(filter_id)
-    professor_ids, external_member_ids = professor_and_external_members_ids
-    professor_ids << filter_id
-    external_member_ids << filter_id
-    members = {
-      professors: professors.where.not(id: professor_ids),
-      external_members: external_members.where.not(id: external_member_ids)
-    }
-    members.values.flatten
+  def evaluators
+    Logics::ExaminationBoard::EvaluatorsResponses.new(self)
   end
 end

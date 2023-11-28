@@ -4,106 +4,60 @@ describe 'ExaminationBoard::show', type: :feature do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation_tcc_one) }
   let!(:examination_board) { create(:project_examination_board, orientation: orientation) }
-  let(:note_status) { ExaminationBoardNote.human_attribute_name('note_status') }
-  let(:note_sent) { ExaminationBoardNote.human_attribute_name('note_sent') }
 
   before do
     create(:document_type_adpj)
     examination_board.external_members << external_member
     login_as(external_member, scope: :external_member)
-    visit external_members_examination_board_path(examination_board)
   end
 
-  describe '#show' do
-    context 'when shows the examination_board' do
-      it 'shows the examination board' do
-        expect(page).to have_contents([examination_board.orientation.title,
-                                       examination_board.orientation.academic_with_calendar,
-                                       examination_board.orientation.advisor.name_with_scholarity,
-                                       examination_board.place,
-                                       complete_date(examination_board.date),
-                                       complete_date(examination_board.created_at),
-                                       complete_date(examination_board.updated_at)])
+  context 'when shows the examination_board' do
+    before do
+      visit external_members_examination_board_path(examination_board)
+    end
 
-        examination_board.professors.each do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
-        end
+    it 'shows the examination board base info' do
+      expect(page).to have_contents([examination_board.orientation.title,
+                                     examination_board.orientation.academic_with_calendar,
+                                     examination_board.orientation.advisor.name_with_scholarity,
+                                     examination_board.place,
+                                     complete_date(examination_board.date)])
+    end
 
-        examination_board.external_members.each do |external_member|
-          expect(page).to have_content(external_member.name_with_scholarity)
+    it 'show the evaluators' do
+      within('table.table') do
+        examination_board.evaluators.responses.each_with_index do |response, index|
+          child = index + 1
+          within("tbody tr:nth-child(#{child})") do
+            expect(page).to have_content(response.evaluator.name_with_scholarity)
+            expect(page).to have_content(I18n.t("helpers.boolean.#{response.appointments_file?}"))
+            expect(page).to have_content(I18n.t("helpers.boolean.#{response.appointments_text?}"))
+          end
         end
       end
     end
+  end
 
-    context 'when shows the academic activity' do
-      let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
+  context 'when shows the examination_board with evaluators note and appointments' do
+    before do
+      examination_board.evaluators.responses.each do |response|
+        params = { professor_id: response.evaluator.id } if response.evaluator.is_a?(Professor)
+        params ||= { external_member_id: response.evaluator.id }
+        params.merge!(note: 100, examination_board: examination_board)
 
-      before do
-        create(:project_academic_activity, academic: academic,
-                                           calendar: orientation.calendars.first)
-        visit external_members_examination_board_path(examination_board)
+        create(:examination_board_note, params)
       end
-
-      it 'shows the academic activity' do
-        expect(page).to have_contents([academic.name,
-                                       academic_activity.title,
-                                       academic_activity.summary])
-
-        expect(page).to have_selectors([link(academic_activity.pdf.url),
-                                        link(academic_activity.complementary_files.url)])
-      end
+      visit external_members_examination_board_path(examination_board)
     end
 
-    context 'when shows the examination board note from others' do
-      let(:academic) { orientation.academic }
-
-      before do
-        create(:examination_board_note, examination_board: examination_board,
-                                        external_member: external_member)
-
-        examination_board.professors.each do |evaluator|
-          create(:examination_board_note, examination_board: examination_board,
-                                          professor: evaluator,
-                                          appointment_text: 'Texto de avaliação professor')
-        end
-
-        examination_board.external_members.each do |evaluator|
-          create(:examination_board_note, examination_board: examination_board,
-                                          external_member: evaluator,
-                                          appointment_text: 'Texto de avaliação membro externo')
-        end
-
-        visit external_members_examination_board_path(examination_board)
-      end
-
-      it 'shows the appointmnets' do
-        examination_board
-          .examination_board_notes_by_others(external_member.id)
-          .each do |examination_board_note|
-          expect(page).to have_contents([examination_board_note.appointment_text])
-          expect(page).to have_selector('p > strong', text: note_status)
-          expect(page).to have_selector('p > span', text: note_sent)
-        end
-      end
-    end
-
-    context 'when shows the examination board members not send appointments' do
-      let(:academic) { orientation.academic }
-
-      before do
-        create(:examination_board_note, examination_board: examination_board,
-                                        external_member: external_member)
-
-        visit external_members_examination_board_path(examination_board)
-      end
-
-      it 'shows the appointmnets not send' do
-        examination_board
-          .members_that_not_send_appointments(external_member.id)
-          .each do |member|
-          expect(page).to have_selector('p', text: member.name_with_scholarity)
-          expect(page).to have_selector('p', text: 'Apontamentos não enviados')
+    it 'show the evaluators' do
+      within('table.table') do
+        examination_board.evaluators.responses.each_with_index do |response, index|
+          child = index + 1
+          within("tbody tr:nth-child(#{child})") do
+            expect(page).to have_css("a[href='#{response.appointments_file.url}']")
+            expect(page).to have_link(I18n.t("helpers.boolean.#{response.appointments_text?}"))
+          end
         end
       end
     end
