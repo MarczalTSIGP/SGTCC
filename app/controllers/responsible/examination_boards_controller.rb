@@ -68,10 +68,15 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def destroy
-    @examination_board.destroy
-    feminine_success_destroy_message
+    if @examination_board.defense_minutes.blank?
+      @examination_board.destroy
+      feminine_success_destroy_message
 
-    redirect_to responsible_examination_boards_path
+      redirect_to responsible_examination_boards_path
+    else
+      flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to responsible_examination_board_path(@examination_board)
+    end
   end
 
   private
