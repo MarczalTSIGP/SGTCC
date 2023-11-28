@@ -43,7 +43,23 @@ RSpec.describe Calendar, type: :model do
     it 'is clone base activities' do
       create_list(:base_activity_tcc_one, 3)
       calendar = create(:calendar_tcc_one)
-      expect(calendar.activities).not_to be_empty
+
+      nbas = BaseActivity.where(tcc: :one).count
+      expect(calendar.activities.count).to eq(nbas)
+    end
+
+    it 'is clone base activities with right initial and final date' do
+      create(:base_activity_tcc_one, days_to_start: 10, duration_in_days: 10)
+      calendar = create(:calendar_tcc_one)
+
+      month = calendar.semester == 'one' ? 'mar' : 'aug'
+      initial_date = Time.zone.parse("#{month} 01 00:00:00 #{calendar.year}")
+      initial_date += 10.days
+      final_date = initial_date + 10.days + 23.hours + 59.minutes
+
+      base_activity = calendar.activities.first
+      expect(base_activity.initial_date).to eq(initial_date)
+      expect(base_activity.final_date).to eq(final_date)
     end
   end
 

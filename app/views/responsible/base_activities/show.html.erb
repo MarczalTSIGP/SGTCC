@@ -29,6 +29,18 @@
     </p>
     <p>
       <strong>
+        <%= BaseActivity.human_attribute_name('days_to_start') %>:
+      </strong>
+      <%= @base_activity.days_to_start %> dias
+    </p>
+    <p>
+      <strong>
+        <%= BaseActivity.human_attribute_name('duration_in_days') %>:
+      </strong>
+      <%= @base_activity.duration_in_days%> dias
+    </p>
+    <p>
+      <strong>
         <%= BaseActivity.human_attribute_name('created_at') %>:
       </strong>
       <%= complete_date(@base_activity.created_at) %>
@@ -51,4 +63,3 @@
     edit_responsible_base_activity_path(@base_activity),
     class: 'btn btn-primary ml-auto' %>
 </div>
-

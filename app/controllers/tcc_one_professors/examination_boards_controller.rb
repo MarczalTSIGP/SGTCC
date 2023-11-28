@@ -71,10 +71,15 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def destroy
-    @examination_board.destroy
-    feminine_success_destroy_message
+    if @examination_board.defense_minutes.blank?
+      @examination_board.destroy
+      feminine_success_destroy_message
 
-    redirect_to tcc_one_professors_examination_boards_path
+      redirect_to tcc_one_professors_examination_boards_path
+    else
+      flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to tcc_one_professors_examination_board_path(@examination_board)
+    end
   end
 
   private

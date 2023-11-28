@@ -90,12 +90,65 @@ FactoryBot.define do
       status { Orientation.statuses.key('APPROVED') }
     end
 
+    factory :orientation_tcc_one_approved_current_calendar do
+      before(:create) do |orientation|
+        calendar = create(:current_calendar_tcc_two)
+        activity = create(:activity, calendar: calendar, identifier: :project,
+                                     final_version: true)
+        create(:academic_activity, activity: activity, academic: orientation.academic)
+        create(:examination_board, orientation: orientation, identifier: :project,
+                                   situation: :approved)
+
+        orientation.calendars = [calendar]
+      end
+
+      status { Orientation.statuses.key('APPROVED_TCC_ONE') }
+    end
+
+    factory :orientation_tcc_one_approved_next_calendar do
+      before(:create) do |orientation|
+        calendar = create(:next_calendar_tcc_one)
+        activity = create(:activity, calendar: calendar, identifier: :project,
+                                     final_version: true)
+        create(:academic_activity, activity: activity, academic: orientation.academic)
+        create(:examination_board, orientation: orientation, identifier: :project,
+                                   situation: :approved)
+
+        orientation.calendars = [calendar]
+      end
+
+      status { Orientation.statuses.key('APPROVED_TCC_ONE') }
+    end
+
+    factory :orientation_tcc_two_approved_no_complementary_files do
+      after(:create) do |orientation|
+        calendar = create(:previous_calendar_tcc_two)
+        orientation.calendars = [calendar]
+
+        activity = create(:activity, calendar: calendar, identifier: :monograph,
+                                     final_version: true)
+        create(
+          :academic_activity_no_complementary_files,
+          activity: activity,
+          academic: orientation.academic
+        )
+        create(:examination_board, orientation: orientation, identifier: :monograph,
+                                   situation: :approved)
+      end
+
+      status { Orientation.statuses.key('APPROVED') }
+    end
+
     factory :orientation_approved do
       status { Orientation.statuses.key('APPROVED') }
     end
 
     factory :orientation_canceled do
       status { Orientation.statuses.key('CANCELED') }
+    end
+
+    factory :orientation_reproved do
+      status { Orientation.statuses.key('REPROVED') }
     end
   end
 end

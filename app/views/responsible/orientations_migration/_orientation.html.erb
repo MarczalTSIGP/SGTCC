@@ -1,0 +1,31 @@
+<tr>
+    <td class="text-center status-width">
+        <span data-toggle="tooltip" title="<%= orientation.status %>">
+            <orientation-status
+            :index="true"
+            label="<%= orientation.status %>"
+            status="<%= Orientation.statuses[orientation.status] %>" />
+        </span>
+    </td>
+    <td><%= orientation.academic.name %></td>
+    <td><%= orientation.academic.ra %></td>
+    <td>
+        <span data-toggle="tooltip" title="<%= orientation.title %>">
+            <%= orientation.short_title %>
+        </span>
+    </td>
+    <td><%= orientation.advisor.name %></td>
+    <td>
+        <ul class="list-unstyled">
+            <% orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>
+                <li class="<%= 'text-muted' unless calendar.current? %>"><%= calendar.year_with_semester_and_tcc %></li>
+            <% end %>
+        </ul>
+    </td>
+    <td>
+        <%= simple_form_for [:responsible, :orientations_migration, orientation], url: responsible_orientations_migrate_path, method: :post do |f| %>
+            <%= f.hidden_field :id, value: orientation.id %>
+            <%= f.button :submit, t("views.buttons.migrate"), class: 'btn btn-primary' %>
+        <% end %>
+    </td>
+</tr>

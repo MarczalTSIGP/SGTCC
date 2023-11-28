@@ -41,7 +41,7 @@ class ExaminationBoard < ApplicationRecord
   scope :site_with_relationships, lambda {
     includes(external_members: [:scholarity], professors: [:scholarity],
              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
-                           :external_member_supervisors, { advisor: [:scholarity] }]).recent
+                           :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
   def self.cs_asc_from_now_desc_ago
@@ -126,11 +126,7 @@ class ExaminationBoard < ApplicationRecord
                            .or(examination_board_notes.where.not(appointment_text: nil)).present?
   end
 
-  def evaluators_size(advisor_size: 1)
-    advisor_size + professors.size + external_members.size
-  end
-
-  def number_to_evaluate
-    evaluators_size - examination_board_notes.size
+  def evaluators
+    Logics::ExaminationBoard::EvaluatorsResponses.new(self)
   end
 end

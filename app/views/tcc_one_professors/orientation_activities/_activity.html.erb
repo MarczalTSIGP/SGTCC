@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to(activity.name, tcc_one_professors_calendar_orientation_activity_path(@calendar, @orientation, activity)) %>
+    <%= link_to(activity.name, tcc_one_professors_orientation_calendar_activity_path(@orientation, @calendar, activity)) %>
   </td>
   <%= render 'shared/orientation_activities/tbody', activity: activity %>
 </tr>
