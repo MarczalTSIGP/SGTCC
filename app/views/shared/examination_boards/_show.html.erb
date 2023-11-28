@@ -2,6 +2,10 @@
 <% provide(:head_title, @title) %>
 
 <div class="card">
+  <div class="card-header">
+    <strong>Dados Gerais</strong>
+  </div>
+
   <div class="card-body">
     <p>
       <strong>
@@ -9,18 +13,21 @@
       </strong>
       <%= @examination_board.orientation.title %>
     </p>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('identifier') %>:
       </strong>
       <%= t("enums.tcc.identifiers.#{@examination_board.identifier}") %>
     </p>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('advisor') %>:
       </strong>
       <%= @examination_board.orientation.advisor.name_with_scholarity %>
     </p>
+
     <% unless @examination_board.orientation.professor_supervisors.empty? %>
       <p>
         <strong>
@@ -32,6 +39,7 @@
         <% end %>
       </p>
     <% end %>
+
     <% unless @examination_board.orientation.external_member_supervisors.empty? %>
       <p>
         <strong>
@@ -43,75 +51,45 @@
         <% end %>
       </p>
     <% end %>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('academic') %>:
       </strong>
       <%= @examination_board.orientation.academic_with_calendar %>
     </p>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('place') %>:
       </strong>
       <%= @examination_board.place %>
     </p>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('date') %>:
       </strong>
       <%= complete_date(@examination_board.date) %>
     </p>
+
     <p>
       <strong>
         <%= ExaminationBoard.human_attribute_name('document_available_until') %>:
       </strong>
       <%= complete_date(@examination_board.document_available_until) %>
     </p>
-    <% unless @examination_board.professors.empty? %>
-      <p>
-        <strong>
-          <%= ExaminationBoard.human_attribute_name('utfpr_evaluators') %>:
-        </strong>
-        <br>
-        <% @examination_board.professors.each do |professor| %>
-          <%= professor.name_with_scholarity %><br>
-        <% end %>
-      </p>
-    <% end %>
-    <% unless @examination_board.external_members.empty? %>
-      <p>
-        <strong>
-          <%= ExaminationBoard.human_attribute_name('external_member_evaluators') %>:
-        </strong>
-        <br>
-        <% @examination_board.external_members.each do |external_member| %>
-          <%= external_member.name_with_scholarity %><br>
-        <% end %>
-      </p>
-    <% end %>
-    <p>
-      <strong>
-        <%= ExaminationBoard.human_attribute_name('created_at') %>:
-      </strong>
-      <%= complete_date(@examination_board.created_at) %>
-    </p>
-    <p>
-      <strong>
-        <%= ExaminationBoard.human_attribute_name('updated_at') %>:
-      </strong>
-      <%= complete_date(@examination_board.updated_at) %>
-    </p>
   </div>
 </div>
 
 <% if @examination_board.academic_activity.present? %>
   <%= render 'shared/examination_boards/academic_activity',
-    academic_activity: @examination_board.academic_activity,
-    identifier: @examination_board.academic_activity.activity.identifier %>
+              academic_activity: @examination_board.academic_activity,
+              identifier: @examination_board.academic_activity.activity.identifier %>
 <% end %>
 
-<%= yield(:evaluated_status) %>
-<%= yield(:appointment_files) %>
+<%= render 'shared/examination_boards/evaluated_status' %>
+
 <%= yield(:evaluator_note_form) %>
 
 <%= render 'shared/examination_boards/final_note' if @examination_board.final_note.present? %>
@@ -122,7 +100,7 @@
       <strong>Visualizar Ata de Defesa</strong>
       <p>Visualizar documento gerado desta banca de defesa.</p>
       <%= link_to t('views.buttons.defense_minutes.view'),
-        send("#{resource}_document_path", @examination_board.defense_minutes),
+                    send("#{resource}_document_path", @examination_board.defense_minutes),
         class: 'btn btn-outline-primary btn-sm btn-block' %>
     </div>
   </div>
