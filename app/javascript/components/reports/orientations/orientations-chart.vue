@@ -40,7 +40,8 @@ export default {
     return {
       series: [],
       chartOptions: {
-        labels: ['Em andamento', 'Aprovadas', 'Canceladas'],
+        labels: ['Em andamento', 'Aprovadas', 'Canceladas', 'Reprovadas'],
+        colors: ['#FFFF00', '#009900', '#FF9933', '#D9041A'],
         legend: {
           position: 'right'
         },
@@ -88,7 +89,9 @@ export default {
       this.series = [
         orientations.in_progress,
         orientations.approved,
-        orientations.canceled];
+        orientations.canceled,
+        orientations.reproved
+      ];
     },
 
     setTitle() {

@@ -8,7 +8,7 @@ module OrientationReport
       professors = tcc_two('APPROVED').group_by(&:advisor_id)
       orientations = professors.values.map(&:size)
       professors = professors_ranking_data(professors.keys, orientations)
-      professors.sort_by { |professor| professor[1] }.reverse[0..4]
+      professors.sort_by { |professor| professor[1] }.reverse
     end
 
     def self.professors_ranking_data(professor_ids, orientations)

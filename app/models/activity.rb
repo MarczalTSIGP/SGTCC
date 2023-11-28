@@ -6,6 +6,7 @@ class Activity < ApplicationRecord
   belongs_to :calendar, optional: true
 
   has_many :academic_activities, dependent: :destroy
+  has_many :academics, through: :academic_activities
 
   validates :name, presence: true
   validates :tcc, presence: true
@@ -25,6 +26,11 @@ class Activity < ApplicationRecord
     return :expired if final_date < Time.zone.now
 
     :in_the_future
+  end
+
+  # Academics and responses
+  def responses
+    Logics::Activity::Responses.new(self)
   end
 
   def academic_activity(orientation)

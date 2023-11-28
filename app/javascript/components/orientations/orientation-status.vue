@@ -2,7 +2,7 @@
   <div>
     <span
       v-if="index"
-      :class="`badge badge-pill badge-${badgeStatus}`"
+      :class="`badge-bottom badge-pill-status badge-${badgeStatus}`"
     >
       <span :class="`text-${badgeStatus}`">
         -
@@ -39,13 +39,12 @@ export default {
     return {
       badgeStatus: '',
       statuses: {
-        RENEWED: 'warning',
-        APPROVED: 'success',
-        ABANDONED: 'secondary',
-        REPROVED: 'danger',
-        CANCELED: 'secondary',
-        IN_PROGRESS: 'primary',
-        APPROVED_TCC_ONE: 'info'
+        APPROVED: 'approved',
+        REPROVED: 'reproved',
+        REPROVED_TCC_ONE: 'reproved-tcc-1',
+        CANCELED: 'canceled',
+        IN_PROGRESS: 'in-progress',
+        APPROVED_TCC_ONE: 'approved-tcc-1'
       },
       statusLabel: ''
     };
@@ -53,7 +52,7 @@ export default {
 
   computed: {
     badgeClass() {
-      return `badge badge-${this.badgeStatus}`;
+      return `badge-${this.badgeStatus}`;
     }
   },
 

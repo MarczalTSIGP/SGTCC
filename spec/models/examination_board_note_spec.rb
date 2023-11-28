@@ -18,73 +18,114 @@ RSpec.describe ExaminationBoardNote, type: :model do
   end
 
   describe '#after_save' do
-    let!(:examination_board) { create(:project_examination_board) }
-    let(:professor) { examination_board.orientation.advisor }
-    let(:note) { 90 }
+    context 'when proposal' do
+      let!(:eb) { create(:proposal_examination_board) }
 
-    before do
-      create(:document_type_adpj)
-      examination_board.professors.destroy_all
-      examination_board.external_members.destroy_all
+      it 'is approved' do
+        note = 60
+        attribute_note_for(eb, note)
+
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('approved')
+        status = Orientation.statuses.key('IN_PROGRESS')
+        expect(eb.orientation.status).to eq(status)
+      end
+
+      it 'is repproved' do
+        note = 50
+        attribute_note_for(eb, note)
+
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('reproved')
+
+        status = Orientation.statuses.key('REPROVED_TCC_ONE')
+        expect(eb.orientation.status).to eq(status)
+      end
     end
 
-    context 'when creates the defense minutes and academic is approved' do
-      let(:note) { 60 }
+    context 'when project' do
+      let!(:eb) { create(:project_examination_board) }
 
-      before do
-        create(:examination_board_note, examination_board: examination_board,
-                                        professor: professor,
-                                        note: note)
-      end
+      it 'is approved' do
+        note = 60
+        attribute_note_for(eb, note)
 
-      it 'update the examination board and create defense minutes' do
-        expect(examination_board.final_note).to eq(note)
-        expect(examination_board.situation).to eq('approved')
-      end
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('approved')
 
-      it 'update the orientation status' do
         status = Orientation.statuses.key('APPROVED_TCC_ONE')
-        expect(examination_board.orientation.status).to eq(status)
+        expect(eb.orientation.status).to eq(status)
+      end
+
+      it 'is repproved' do
+        note = 50
+        attribute_note_for(eb, note)
+
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('reproved')
+
+        status = Orientation.statuses.key('REPROVED_TCC_ONE')
+        expect(eb.orientation.status).to eq(status)
       end
     end
 
-    context 'when creates the defense minutes and academic is approved and its proposal' do
-      let!(:examination_board) { create(:proposal_examination_board) }
-      let(:professor) { examination_board.orientation.advisor }
-      let(:note) { 60 }
+    context 'when monograph' do
+      let!(:eb) { create(:monograph_examination_board) }
 
-      before do
-        create(:document_type_adpp)
-        examination_board.professors.destroy_all
-        examination_board.external_members.destroy_all
-        create(:examination_board_note, examination_board: examination_board,
-                                        professor: professor,
-                                        note: note)
+      it 'is approved' do
+        note = 60
+        attribute_note_for(eb, note)
+
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('approved')
+
+        status = Orientation.statuses.key('APPROVED')
+        expect(eb.orientation.status).to eq(status)
       end
 
-      it 'update the examination board and create defense minutes' do
-        expect(examination_board.final_note).to eq(note)
-        expect(examination_board.situation).to eq('approved')
-      end
+      it 'is repproved' do
+        note = 50
+        attribute_note_for(eb, note)
 
-      it 'not update the orientation status' do
-        expect(examination_board.orientation.status).to eq(Orientation.statuses.key('IN_PROGRESS'))
+        expect(eb.final_note).to eq(note)
+        expect(eb.situation).to eq('reproved')
+
+        status = Orientation.statuses.key('REPROVED')
+        expect(eb.orientation.status).to eq(status)
       end
     end
+  end
 
-    context 'when creates the defense minutes and academic is reproved' do
-      let(:note) { 59 }
+  private
 
-      before do
-        create(:examination_board_note, examination_board: examination_board,
-                                        professor: professor,
-                                        note: note)
-      end
+  # Helpers
+  def attribute_note_for(examination_board, note)
+    create(:examination_board_note, examination_board: examination_board,
+                                    professor: examination_board.orientation.advisor,
+                                    note: note)
 
-      it 'update the examination board and create defense minutes' do
-        expect(examination_board.final_note).to eq(note)
-        expect(examination_board.situation).to eq('reproved')
-      end
+    attribute_note_for_professors(examination_board, note)
+    attribute_note_by_external_members(examination_board, note)
+
+    create(:document_type_adpp)
+    create(:document_type_adpj)
+    create(:document_type_admg)
+    examination_board.create_defense_minutes
+  end
+
+  def attribute_note_for_professors(examination_board, note)
+    examination_board.professors.each do |evaluator|
+      create(:examination_board_note, examination_board: examination_board,
+                                      professor: evaluator,
+                                      note: note)
+    end
+  end
+
+  def attribute_note_by_external_members(examination_board, note)
+    examination_board.external_members.each do |evaluator|
+      create(:examination_board_note, examination_board: examination_board,
+                                      external_member: evaluator,
+                                      note: note)
     end
   end
 end
