@@ -14,7 +14,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one = [
-        create(:current_examination_board_tcc_one, date: 1.hour.from_now),
+        create(:current_examination_board_tcc_one, date: 2.hours.from_now),
         create(:current_examination_board_tcc_one, date: 1.day.from_now),
         create(:current_examination_board_tcc_one, date: 1.day.ago)
       ]
@@ -78,7 +78,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one_project = [
-        create(:current_examination_board_tcc_one_project, date: 1.hour.from_now),
+        create(:current_examination_board_tcc_one_project, date: 2.hours.from_now),
         create(:current_examination_board_tcc_one_project, date: 1.day.from_now),
         create(:current_examination_board_tcc_one_project, date: 1.day.ago)
       ]
@@ -144,7 +144,7 @@ describe 'ExaminationBoard::index', :js, type: :feature do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_two = [
-        create(:current_examination_board_tcc_two, date: 1.hour.from_now),
+        create(:current_examination_board_tcc_two, date: 2.hours.from_now),
         create(:current_examination_board_tcc_two, date: 1.day.from_now),
         create(:current_examination_board_tcc_two, date: 1.day.ago)
       ]

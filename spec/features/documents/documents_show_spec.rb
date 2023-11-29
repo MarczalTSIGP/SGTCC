@@ -15,11 +15,11 @@ describe 'Document::show', :js, type: :feature do
     let(:academic) { academic_signature.user }
     let(:document_type) { document.document_type }
 
-    before do
-      visit confirm_document_code_path(document.code)
-    end
-
     context 'when shows the signed signature of the term of commitment' do
+      before do
+        visit confirm_document_code_path(document.code)
+      end
+
       it 'shows the document of the term of commitment' do
         expect(page).to have_alert(text: document_authenticated_message)
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
