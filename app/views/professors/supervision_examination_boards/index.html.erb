@@ -1,6 +1,8 @@
 <% provide(:page_title, t('breadcrumbs.examination_boards.index')) %>
 <% provide(:head_title, t('breadcrumbs.examination_boards.index')) %>
 
+<%= render 'shared/examination_boards/legend_status', resource: 'professors' %>
+
 <%= render 'shared/supervision_examination_boards/table', resource: 'professors' %>
 
 <%= paginate @examination_boards %>

@@ -3,13 +3,15 @@
 
 <div class="row">
   <div class="col-sm-12 col-lg-8">
-    <search url="<%= tcc_one_professors_calendar_orientations_search_path(@calendar) %>"
+      <search url="<%= tcc_one_professors_calendar_orientations_search_path(@calendar) %>"
             search-term="<%= params[:term] %>" />
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= render 'shared/orientations/status_filter' %>
   </div>
 </div>
+
+<%= render('shared/orientations/legend_status') %>
 
 <div class="text-right mt-3">
   <%= page_entries_info @orientations %>

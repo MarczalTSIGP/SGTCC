@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-header">
+    <strong>Situação da Avaliação</strong>
+  </div>
+  <div class="card-body">
+    <div class="table-striped mt-3 table-responsive w-100">
+      <table class="table table-vcenter text-nowrap no-table-padding-horizontal">
+        <thead>
+          <tr>
+            <th><%= ExaminationBoardNote.human_attribute_name(:evaluator) %></th>
+            <th><%= ExaminationBoardNote.human_attribute_name(:note_assigned) %></th>
+            <th><%= ExaminationBoardNote.human_attribute_name(:appointment_file) %></th>
+            <th><%= ExaminationBoardNote.human_attribute_name(:appointment_text) %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @examination_board.evaluators.responses.each do |response| %>
+            <tr>
+              <td><%= response.evaluator.name_with_scholarity %></td>
+              <td><%= t("helpers.boolean.#{response.sent_note?}") %></td>
+              <td>
+                <% if response.appointments_file? %>
+                  <%= link_to response.appointments_file.url, target: :_blank do %>
+                    <span class="mr-1">
+                      <i class="fas fa-file-pdf"></i> Arquivo
+                    </span>
+                  <% end %>
+                <% else %>
+                  <%= t("helpers.boolean.#{response.appointments_file?}") %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to_if response.appointments_text?,
+                                 t("helpers.boolean.#{response.appointments_text?}"),'#',  
+                                 data: { toggle: "modal", target: "#appoint-text-#{response.id}" } %>
+
+                <%= render('shared/examination_boards/appointment_text_modal', response: response) if response.appointments_text? %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

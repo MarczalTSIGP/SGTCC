@@ -3,3 +3,4 @@
 //= link_directory ../stylesheets .css
 //= link public/application.css
 //= link public/application.js
+//= link print.css

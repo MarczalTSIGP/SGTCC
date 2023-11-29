@@ -738,9 +738,9 @@ RSpec.describe Orientation, type: :model do
 
   describe '#cs_asc_from_now_desc_ago' do
     it 'returns just current semester examination boards asc order from now desc order for past' do
-      examination_board_one = create(:examination_board, date: Date.current + 2.days)
-      examination_board_two = create(:examination_board, date: Date.current + 1.day)
-      examination_board_three = create(:examination_board, date: Date.current + 3.days)
+      examination_board_one = create(:examination_board, date: 2.hours.from_now)
+      examination_board_two = create(:examination_board, date: 1.day.from_now)
+      examination_board_three = create(:examination_board, date: 1.day.ago)
 
       create(:examination_board, date: 6.months.ago)
       create(:examination_board, date: 1.year.ago)
@@ -748,8 +748,8 @@ RSpec.describe Orientation, type: :model do
       result = ExaminationBoard.cs_asc_from_now_desc_ago
 
       expected_result = [
-        examination_board_two,
         examination_board_one,
+        examination_board_two,
         examination_board_three
       ]
 

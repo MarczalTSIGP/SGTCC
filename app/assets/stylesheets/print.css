@@ -1,0 +1,5 @@
+@media print {
+    @page {
+        size: 8.26in 11.69in;
+    }
+}
