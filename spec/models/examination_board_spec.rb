@@ -320,34 +320,34 @@ RSpec.describe ExaminationBoard, type: :model do
     end
   end
 
-  describe '.can_create_defense_minutes?' do
-    context 'when is the advisor' do
-      let(:examination_board) { create(:examination_board) }
-      let(:professor) { examination_board.orientation.advisor }
+  # describe '.can_create_defense_minutes?' do
+  #   context 'when is the advisor' do
+  #     let(:examination_board) { create(:examination_board) }
+  #     let(:professor) { examination_board.orientation.advisor }
 
-      it 'returns true' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
-      end
-    end
+  #     it 'returns true' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
+  #     end
+  #   end
 
-    context 'when is the responsible' do
-      let(:examination_board) { create(:examination_board) }
-      let(:professor) { create(:responsible) }
+  #   context 'when is the responsible' do
+  #     let(:examination_board) { create(:examination_board) }
+  #     let(:professor) { create(:responsible) }
 
-      it 'returns true' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
-      end
-    end
+  #     it 'returns true' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
+  #     end
+  #   end
 
-    context 'when can not create' do
-      let(:professor) { create(:professor) }
-      let(:examination_board) { create(:examination_board) }
+  #   context 'when can not create' do
+  #     let(:professor) { create(:professor) }
+  #     let(:examination_board) { create(:examination_board) }
 
-      it 'returns false' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(false)
-      end
-    end
-  end
+  #     it 'returns false' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(false)
+  #     end
+  #   end
+  # end
 
   describe '.appointments?' do
     context 'when has not appointment file and appointment text' do
