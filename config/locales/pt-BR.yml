@@ -72,6 +72,7 @@ pt-BR:
         sign: 'Assinar documento'
       defense_minutes:
         view: 'Visualizar Ata de Defesa'
+      migrate: 'Migrar'
     pagination:
       first: "&laquo;"
       last: "&raquo;"
@@ -317,6 +318,7 @@ pt-BR:
           edit: 'Editar Orientação de TCC 2 (%{calendar})'
           show: 'Visualizar Orientação de TCC 2 (%{calendar})'
           calendar: 'Orientações de TCC 2 (%{calendar})'
+      migration: 'Migrar orientações'
     supervisions:
       index: "Coorientações"
       calendar: "Coorientações de TCC (%{calendar})"
@@ -420,6 +422,7 @@ pt-BR:
         scholarity: "Escolaridade"
         base_activity_type: "Tipo da atividade"
         academic: "Acadêmico"
+        actions: "Ações"
         advisor: "Orientador"
         role: "Papel"
         tcc: "TCC"
@@ -433,6 +436,7 @@ pt-BR:
         hour: "Hora"
         available: "Disponível"
         final_version: "Versão final"
+        total: "Total"  
       academic:
         ra: "RA"
         <<: *commons
@@ -455,10 +459,14 @@ pt-BR:
         external_member: "Responsável da instituição"
       base_activity:
         identifier: "Tipo do documento"
+        duration_in_days: "Quantidade de dias para realização da atividade"
+        days_to_start: "Quantidade de dias após início de semestre para iniciar"
         judgment: "Parecer"
         <<: *commons
       activity:
-        sent: "Enviada"
+        sent: 
+          one: "Enviada"
+          other: "Enviadas"
         calendar: "Calendário"
         initial_date: "Data inicial de entrega"
         final_date: "Data final de entrega"
@@ -548,9 +556,10 @@ pt-BR:
       examination_board_note:
         evaluator: "Avaliador"
         note: "Nota:"
-        actual_note: 'Nota Atual:'
-        appointment_file: "Arquivo com os apontamentos:"
-        appointment_text: "Texto com os apontamentos:"
+        note_assigned: "Nota atribuída"
+        actual_note: 'Nota Atual'
+        appointment_file: "Apontamentos em arquivo"
+        appointment_text: "Apontamentos em texto"
         appointments: "Apontamentos"
       site:
         <<: *commons
@@ -667,6 +676,7 @@ pt-BR:
         signed: 'Não é possível excluir orientação com todas as assinaturas!'
       edit:
         signed: 'Não é possível editar orientação com assinaturas!'
+      next_calendar_not_found: 'Não existe calendário cadastrado para o próximo semestre'
     documents:
       academics:
         requests:
@@ -675,11 +685,14 @@ pt-BR:
         requests:
           not_allowed: 'Operação não permitida, pois o professor já assinou o documento!'
     examination_board:
-      edit:
-        defense_minutes: 'Banca de defesa não pode ser alterada, pois a Ata de Defesa já foi gerada'
+      defense_minutes:
+        errors:
+          edit: 'Banca de defesa não pode ser alterada, pois a Ata de Defesa já foi gerada'
+          destroy: 'Banca de defesa não pode ser excluída, pois a Ata de Defesa já foi gerada'
     examination_board_note:
       errors:
         edit: 'Não é possível editar nota, pois a Ata de Defesa já foi gerada!'
+    orientation_migrated: 'Orientação migrada com sucesso!'
   json:
     messages:
       invalid_code: 'Código inválido!'

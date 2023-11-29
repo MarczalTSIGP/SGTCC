@@ -115,6 +115,9 @@ function rspec {
   _dc tests bundle exec rspec "${@}"
 }
 
+# Access remmina VNC: 
+# url: localhost:5900 
+# password: secret 
 function rspec:browser {
   docker compose exec -e LAUNCH_BROWSER=TRUE tests bundle exec rspec "${@}"
 }
