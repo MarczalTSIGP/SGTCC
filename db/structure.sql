@@ -221,8 +221,8 @@ ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -1540,6 +1540,13 @@ CREATE INDEX index_base_activities_on_base_activity_type_id ON public.base_activ
 
 
 --
+-- Name: index_documents_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_documents_on_code ON public.documents USING btree (code);
+
+
+--
 -- Name: index_documents_on_document_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1712,6 +1719,13 @@ CREATE INDEX index_professors_on_scholarity_id ON public.professors USING btree 
 --
 
 CREATE UNIQUE INDEX index_professors_on_username ON public.professors USING btree (username);
+
+
+--
+-- Name: index_roles_on_identifier; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_roles_on_identifier ON public.roles USING btree (identifier);
 
 
 --

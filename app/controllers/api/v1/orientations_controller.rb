@@ -8,12 +8,12 @@ module Api
 
       def approved_tcc_one
         @orientations = Orientation.approved_tcc_one
-        render json: OrientationsApprovedTCCOneSerializer.new(@orientations)
+        render json: OrientationsApprovedTccOneSerializer.new(@orientations)
       end
 
       def in_tcc_one
         @orientations = Orientation.in_tcc_one
-        render json: OrientationsInTCCOneSerializer.new(@orientations)
+        render json: OrientationsInTccOneSerializer.new(@orientations)
       end
     end
   end
