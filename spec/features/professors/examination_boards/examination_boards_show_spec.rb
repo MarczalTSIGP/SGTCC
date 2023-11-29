@@ -7,8 +7,6 @@ describe 'ExaminationBoard::show', type: :feature do
 
   before do
     create(:document_type_adpp)
-    examination_board.professors << professor
-    examination_board.external_members << create(:external_member)
     login_as(professor, scope: :professor)
   end
 
