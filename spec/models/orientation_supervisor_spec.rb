@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OrientationSupervisor, type: :model do
+RSpec.describe OrientationSupervisor do
   subject(:orientation_supervisor) { described_class.new }
 
   describe 'associations' do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::index', type: :feature, js: true do
+describe 'Institution::index', :js do
   let(:responsible) { create(:responsible) }
   let!(:institutions) { create_list(:institution, 3) }
 

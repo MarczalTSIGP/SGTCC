@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics:logout', type: :feature, js: true do
+describe 'Academics:logout', :js do
   let(:academic) { create(:academic) }
 
   before do

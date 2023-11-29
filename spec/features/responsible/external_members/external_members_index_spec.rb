@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::index', type: :feature, js: true do
+describe 'ExternalMember::index', :js do
   let(:responsible) { create(:responsible) }
   let!(:external_members) { create_list(:external_member, 3) }
 

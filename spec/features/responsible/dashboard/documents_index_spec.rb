@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature, js: true do
+describe 'Document::index', :js do
   let(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation, advisor: responsible) }
 

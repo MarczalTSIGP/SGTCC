@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::ExaminationBoarsIndex', type: :feature do
+describe 'Supervision::ExaminationBoarsIndex' do
   let(:professor) { create(:professor) }
 
   before do

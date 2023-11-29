@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'TepRequest::update', type: :feature, js: true do
+describe 'TepRequest::update', :js do
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:orientation, academic: academic) }
   let!(:document_tep) { create(:document_tep, orientation_id: orientation.id) }

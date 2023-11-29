@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::create', type: :feature, js: true do
+describe 'ExaminationBoard::create', :js do
   let(:responsible) { create(:responsible) }
   let!(:orientation) { create(:current_orientation_tcc_two) }
   let(:resource_name) { ExaminationBoard.model_name.human }

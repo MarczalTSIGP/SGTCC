@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature, js: true do
+describe 'Activity::index', :js do
   let(:external_member) { create(:external_member) }
 
   describe '#index' do

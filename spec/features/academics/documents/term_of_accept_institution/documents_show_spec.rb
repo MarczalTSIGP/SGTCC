@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::show', type: :feature, js: true do
+describe 'Document::show', :js do
   let!(:orientation) { create(:orientation) }
   let!(:document) { orientation.documents.last }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Page::index', type: :feature, js: true do
+describe 'Page::index', :js do
   let(:responsible) { create(:responsible) }
 
   before do

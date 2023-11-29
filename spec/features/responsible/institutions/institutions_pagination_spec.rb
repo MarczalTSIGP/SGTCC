@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::pagination', type: :feature, js: true do
+describe 'Institution::pagination', :js do
   let(:responsible) { create(:responsible) }
 
   before do

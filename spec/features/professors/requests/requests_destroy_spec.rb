@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Request::destroy', type: :feature, js: true do
+describe 'Request::destroy', :js do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor: professor) }
   let!(:document_tdo) { create(:document_tdo, orientation_id: orientation.id) }

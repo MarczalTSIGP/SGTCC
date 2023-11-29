@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::sign', type: :feature, js: true do
+describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:academic_signature) { orientation.signatures.where(user_type: :academic).last }
   let(:academic) { academic_signature.user }
@@ -18,7 +18,7 @@ describe 'Document::sign', type: :feature, js: true do
 
         fill_in 'login_confirmation', with: academic.ra, visible: false
         fill_in 'password_confirmation', with: 'password'
-        find('#login_confirmation_button').click
+        find_by_id('login_confirmation_button').click
 
         expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
 
@@ -38,7 +38,7 @@ describe 'Document::sign', type: :feature, js: true do
 
         fill_in 'login_confirmation', with: academic.ra, visible: false
         fill_in 'password_confirmation', with: '123'
-        find('#login_confirmation_button').click
+        find_by_id('login_confirmation_button').click
 
         expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
       end

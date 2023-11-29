@@ -76,9 +76,7 @@ class Academics::TsoRequestsController < Academics::BaseController
     supervisor_ids = request_params[param_name]
     supervisor_ids.shift
     supervisor_ids = supervisor_ids.map(&:to_i)
-    supervisor_ids != @document.request['new_orientation'][request_name].map do |supervisor|
-      supervisor['id']
-    end
+    supervisor_ids != @document.request['new_orientation'][request_name].pluck('id')
   end
 
   def can_destroy_and_update?

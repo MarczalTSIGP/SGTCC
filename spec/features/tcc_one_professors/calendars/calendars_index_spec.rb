@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::index', type: :feature, js: true do
+describe 'Calendar::index', :js do
   let(:professor) { create(:professor_tcc_one) }
   let!(:calendars) { create_list(:calendar_tcc_one, 3) }
   let!(:current_calendar_tcc_one) { create(:current_calendar_tcc_one) }

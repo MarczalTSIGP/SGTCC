@@ -98,7 +98,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.select_for_orientation
-    all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+    order({ year: :desc }, :tcc, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester_and_tcc]
     end
   end

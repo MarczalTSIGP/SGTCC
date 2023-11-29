@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::review', :js, type: :feature do
+describe 'Document::review', :js do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation, advisor: responsible) }
   let(:document) { create(:document_tdo, orientation_id: orientation.id) }

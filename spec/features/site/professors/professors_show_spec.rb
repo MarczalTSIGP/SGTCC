@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professors::show', type: :feature do
+describe 'Professors::show' do
   let!(:professor) { create(:professor) }
 
   before do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember:profiles', type: :feature, js: true do
+describe 'ExternalMember:profiles', :js do
   context 'when update a external_member' do
     let(:external_member) { create(:external_member) }
 

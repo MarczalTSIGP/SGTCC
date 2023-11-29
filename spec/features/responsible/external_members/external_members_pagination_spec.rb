@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::pagination', type: :feature, js: true do
+describe 'ExternalMember::pagination', :js do
   let(:responsible) { create(:responsible) }
 
   before do

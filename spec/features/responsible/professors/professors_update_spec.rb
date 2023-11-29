@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::update', type: :feature, js: true do
+describe 'Professor::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { professor.model_name.human }
 

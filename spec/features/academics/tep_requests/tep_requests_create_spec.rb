@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'TepRequest::create', type: :feature, js: true do
+describe 'TepRequest::create', :js do
   let!(:academic) { create(:academic) }
   let(:resource_name) { request_resource_name }
 

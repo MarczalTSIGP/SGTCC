@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::search', type: :feature, js: true do
+describe 'Calendar::search', :js do
   let(:responsible) { create(:responsible) }
   let(:calendars) { create_list(:calendar_tcc_one, 2) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::search', type: :feature do
+describe 'Supervision::search' do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:current_orientation_tcc_one, status: 'APPROVED') }
 
@@ -10,7 +10,7 @@ describe 'Supervision::search', type: :feature do
     visit professors_supervisions_tcc_one_path
   end
 
-  describe '#search', js: true do
+  describe '#search', :js do
     context 'when finds the supervision' do
       it 'finds the supervision by status' do
         selectize(orientation_approved_option, from: 'orientation_status')

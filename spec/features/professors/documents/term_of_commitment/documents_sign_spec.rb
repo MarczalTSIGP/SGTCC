@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::sign', type: :feature, js: true do
+describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:professor_signature) { orientation.signatures.find_by(user_type: :advisor) }
   let(:professor) { professor_signature.user }

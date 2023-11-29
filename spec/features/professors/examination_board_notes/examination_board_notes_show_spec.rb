@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoardNote::show', type: :feature, js: true do
+describe 'ExaminationBoardNote::show', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }

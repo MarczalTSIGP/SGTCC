@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature, js: true do
+describe 'Document::index', :js do
   let(:professor_tcc_one) { create(:professor_tcc_one) }
   let!(:orientation) { create(:orientation, advisor: professor_tcc_one) }
 

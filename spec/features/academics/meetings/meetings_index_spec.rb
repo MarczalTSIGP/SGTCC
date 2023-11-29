@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::index', type: :feature, js: true do
+describe 'Meeting::index', :js do
   let(:academic)    { create(:academic) }
   let(:orientation) { create(:orientation, academic: academic) }
 

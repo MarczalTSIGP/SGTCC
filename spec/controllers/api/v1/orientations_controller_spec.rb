@@ -13,7 +13,7 @@ describe 'ApiV1OrientationsController', type: :request do
     end
 
     it 'returns all approved orientations in json format' do
-      resp = JSON.parse(response.body)['data']
+      resp = response.parsed_body['data']
 
       orientations.each_with_index do |orientation, index|
         academic = orientation.academic
@@ -49,7 +49,7 @@ describe 'ApiV1OrientationsController', type: :request do
     end
 
     it 'returns all approved tcc one orientations in json format' do
-      resp = JSON.parse(response.body)['data']
+      resp = response.parsed_body['data']
 
       orientations.each_with_index do |orientation, index|
         academic = orientation.academic
@@ -83,7 +83,7 @@ describe 'ApiV1OrientationsController', type: :request do
 
     it 'returns all orientations in tcc one at json format' do
       get api_v1_orientations_in_tcc_one_path
-      resp = JSON.parse(response.body)['data']
+      resp = response.parsed_body['data']
 
       orientations.each_with_index do |orientation, index|
         academic = orientation.academic
@@ -111,7 +111,7 @@ describe 'ApiV1OrientationsController', type: :request do
                                  situation: :approved)
 
       get api_v1_orientations_in_tcc_one_path
-      resp = JSON.parse(response.body)['data']
+      resp = response.parsed_body['data']
 
       data = resp[1]['attributes']
 

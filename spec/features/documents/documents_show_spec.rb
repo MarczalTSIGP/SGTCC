@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::show', :js, type: :feature do
+describe 'Document::show', :js do
   let(:orientation) { create(:orientation) }
 
   before do

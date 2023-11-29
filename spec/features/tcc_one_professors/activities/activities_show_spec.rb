@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::show', type: :feature do
+describe 'Activity::show' do
   let(:professor_tcc_one) { create(:professor_tcc_one) }
   let(:calendar)          { create(:current_calendar_tcc_one) }
   let(:activity)          { calendar.activities.first }

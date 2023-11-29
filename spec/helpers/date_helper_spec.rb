@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DateHelper, type: :helper do
+RSpec.describe DateHelper do
   describe '#complete_date' do
     it 'shows complete date' do
       date = Time.zone.now

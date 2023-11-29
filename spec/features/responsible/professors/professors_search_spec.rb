@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::search', type: :feature, js: true do
+describe 'Professor::search', :js do
   let(:responsible) { create(:responsible) }
   let(:professors) { create_list(:professor_tcc_one, 25) }
 

@@ -1,7 +1,7 @@
 # TODO: Refactor RSpec/MultipleMemoizedHelpers
 require 'rails_helper'
 
-RSpec.describe Document, type: :model do
+RSpec.describe Document do
   describe 'associations' do
     it { is_expected.to belong_to(:document_type).without_validating_presence }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
@@ -22,7 +22,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns true' do
-        expect(document.all_signed?).to eq(true)
+        expect(document.all_signed?).to be(true)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns false' do
-        expect(document.all_signed?).to eq(false)
+        expect(document.all_signed?).to be(false)
       end
     end
   end
@@ -159,7 +159,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns true' do
-        expect(document.save_to_json).to eq(true)
+        expect(document.save_to_json).to be(true)
       end
     end
   end
@@ -458,7 +458,7 @@ RSpec.describe Document, type: :model do
     end
 
     it 'returns true' do
-      expect(document.save_judgment(professor, params)).to eq(true)
+      expect(document.save_judgment(professor, params)).to be(true)
     end
   end
 
@@ -469,7 +469,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the document is not signed' do
       it 'returns false' do
-        expect(document.academic_signed?(academic)).to eq(false)
+        expect(document.academic_signed?(academic)).to be(false)
       end
     end
 
@@ -479,7 +479,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.academic_signed?(academic)).to eq(true)
+        expect(document.academic_signed?(academic)).to be(true)
       end
     end
   end
@@ -491,7 +491,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the document is not signed' do
       it 'returns false' do
-        expect(document.professor_signed?(professor)).to eq(false)
+        expect(document.professor_signed?(professor)).to be(false)
       end
     end
 
@@ -501,7 +501,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.professor_signed?(professor)).to eq(true)
+        expect(document.professor_signed?(professor)).to be(true)
       end
     end
   end
@@ -513,12 +513,12 @@ RSpec.describe Document, type: :model do
     let(:params) { { justification: 'new_justification' } }
 
     it 'returns true when is updated' do
-      expect(document.update_requester_justification(params)).to eq(true)
+      expect(document.update_requester_justification(params)).to be(true)
     end
 
     it 'returns when the justification is empty' do
       params = { justification: nil }
-      expect(document.update_requester_justification(params)).to eq(true)
+      expect(document.update_requester_justification(params)).to be(true)
     end
   end
 
@@ -529,7 +529,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the advisor not signed' do
       it 'returns false' do
-        expect(document.tdo_for_review?).to eq(false)
+        expect(document.tdo_for_review?).to be(false)
       end
     end
 
@@ -541,7 +541,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tdo_for_review?).to eq(true)
+        expect(document.tdo_for_review?).to be(true)
       end
     end
   end
@@ -553,7 +553,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the academic not signed' do
       it 'returns false' do
-        expect(document.tep_for_review?).to eq(false)
+        expect(document.tep_for_review?).to be(false)
       end
     end
 
@@ -566,7 +566,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tep_for_review?).to eq(true)
+        expect(document.tep_for_review?).to be(true)
       end
     end
   end
@@ -592,7 +592,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the academic not signed' do
       it 'returns false' do
-        expect(document.tso_for_review?).to eq(false)
+        expect(document.tso_for_review?).to be(false)
       end
     end
 
@@ -605,7 +605,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tso_for_review?).to eq(true)
+        expect(document.tso_for_review?).to be(true)
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::sign', type: :feature, js: true do
+describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:external_member_signature) do
     orientation.signatures.where(user_type: :external_member_supervisor).last

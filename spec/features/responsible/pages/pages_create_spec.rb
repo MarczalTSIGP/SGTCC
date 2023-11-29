@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Page::create', type: :feature, js: true do
+describe 'Page::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Page.model_name.human }
 

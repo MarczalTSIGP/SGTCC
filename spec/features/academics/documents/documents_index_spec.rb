@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature do
+describe 'Document::index' do
   let(:orientation) { create(:orientation) }
   let(:academic) { orientation.academic }
 
@@ -9,7 +9,7 @@ describe 'Document::index', type: :feature do
     login_as(academic, scope: :academic)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     let(:documents) { orientation.documents.where(signatures: { user_type: :academic }) }
 
     context 'when shows all the pending documents' do

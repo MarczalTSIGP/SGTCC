@@ -21,6 +21,6 @@ end
 
 Rails.autoloaders.each do |autoloader|
   autoloader.inflector.inflect(
-    "cnpj_formatter" => "CNPJFormatter"
+    'cnpj_formatter' => 'CNPJFormatter'
   )
 end

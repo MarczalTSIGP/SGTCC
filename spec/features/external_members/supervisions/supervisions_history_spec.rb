@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Supervision::index', type: :feature do
+describe 'Supervision::index' do
   let(:external_member) { create(:external_member) }
 
   before do
     login_as(external_member, scope: :external_member)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     context 'when shows all the supervisions' do
       it 'shows all the supervisions' do
         orientation = create(:current_orientation_tcc_one)

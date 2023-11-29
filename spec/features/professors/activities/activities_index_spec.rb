@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature do
+describe 'Activity::index' do
   let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
   let!(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
 
@@ -11,7 +11,7 @@ describe 'Activity::index', type: :feature do
     end
 
     context 'when shows all activities' do
-      it 'shows all activities for tcc one with options', js: true do
+      it 'shows all activities for tcc one with options', :js do
         activity = create(:activity_tcc_one, calendar: calendar_tcc_one)
 
         index_url = professors_calendar_activities_path(calendar_tcc_one)
@@ -26,7 +26,7 @@ describe 'Activity::index', type: :feature do
         expect(page).to have_selector("a[href='#{index_url}'].active")
       end
 
-      it 'shows all activities for tcc two with options', js: true do
+      it 'shows all activities for tcc two with options', :js do
         activity = create(:activity_tcc_two, calendar: calendar_tcc_two)
 
         index_url = professors_calendar_activities_path(calendar_tcc_two)

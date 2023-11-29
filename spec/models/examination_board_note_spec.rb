@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ExaminationBoardNote, type: :model do
+RSpec.describe ExaminationBoardNote do
   describe 'validates' do
     it {
       expect(subject).to validate_numericality_of(:note)

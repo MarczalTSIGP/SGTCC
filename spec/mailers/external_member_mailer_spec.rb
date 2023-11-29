@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ExternalMemberMailer, type: :mailer do
+describe ExternalMemberMailer do
   describe 'registration email' do
     let(:password) { '123456' }
     let(:external_member) { create(:external_member) }

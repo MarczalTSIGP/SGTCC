@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiteHelper, type: :helper do
+RSpec.describe SiteHelper do
   describe '#activity_status_class' do
     let(:activity) { create(:activity) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::destroy', type: :feature, js: true do
+describe 'Institution::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:institution) { create(:institution) }
   let(:resource_name) { Institution.model_name.human }

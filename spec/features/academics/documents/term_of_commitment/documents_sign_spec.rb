@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::sign', type: :feature, js: true do
+describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:academic_signature) { orientation.signatures.where(user_type: :academic).first }
   let(:academic) { academic_signature.user }

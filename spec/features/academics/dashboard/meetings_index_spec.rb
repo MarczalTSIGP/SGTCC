@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::index', type: :feature do
+describe 'Meeting::index' do
   let(:orientation) { create(:orientation) }
 
   before do

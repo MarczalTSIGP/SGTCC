@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Orientation::to_migrate', type: :feature do
+describe 'Orientation::to_migrate' do
   before do
     responsible = create(:responsible)
     login_as(responsible, scope: :professor)
   end
 
-  describe '#to_migrate', js: true do
+  describe '#to_migrate', :js do
     let!(:orientations) { create_list(:orientation_tcc_one_approved, 2) }
     let(:index_url) { responsible_orientations_migration_path }
 

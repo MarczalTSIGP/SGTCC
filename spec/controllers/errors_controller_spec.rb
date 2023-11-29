@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ErrorsController, type: :controller do
+RSpec.describe ErrorsController do
   describe '#show' do
     context 'when resource is not found' do
       it 'responds with 404' do

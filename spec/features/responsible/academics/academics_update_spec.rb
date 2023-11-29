@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::update', type: :feature, js: true do
+describe 'Academic::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Academic.model_name.human }
 

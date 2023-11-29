@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'TsoRequest::update', type: :feature, js: true do
+describe 'TsoRequest::update', :js do
   let(:resource_name) { request_resource_name }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }

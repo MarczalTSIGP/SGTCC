@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::show', type: :feature do
+describe 'Supervision::show' do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation) }
   let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }

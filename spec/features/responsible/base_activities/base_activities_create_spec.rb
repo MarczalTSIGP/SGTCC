@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::create', :js, type: :feature do
+describe 'BaseActivity::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }

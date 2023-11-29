@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::show', type: :feature do
+describe 'Calendar::show' do
   let(:responsible) { create(:responsible) }
   let!(:calendar) { create(:calendar) }
 

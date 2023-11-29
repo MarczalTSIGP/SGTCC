@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'AttachedDocument::update', type: :feature, js: true do
+describe 'AttachedDocument::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { AttachedDocument.model_name.human }
 

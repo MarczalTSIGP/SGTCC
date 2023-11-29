@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::authenticate', type: :feature, js: true do
+describe 'Document::authenticate', :js do
   let(:orientation) { create(:orientation) }
 
   before do

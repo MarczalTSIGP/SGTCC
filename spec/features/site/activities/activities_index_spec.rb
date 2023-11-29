@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Site::calendar', :js, type: :feature do
+describe 'Site::calendar', :js do
   before do
     create(:page, url: 'calendario')
   end

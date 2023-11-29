@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AcademicActivity, type: :model do
+RSpec.describe AcademicActivity do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:summary) }
@@ -11,7 +11,7 @@ RSpec.describe AcademicActivity, type: :model do
     let(:academic_activity) { create(:academic_activity) }
 
     it 'returns true' do
-      expect(academic_activity.update_judgment).to eq(true)
+      expect(academic_activity.update_judgment).to be(true)
     end
   end
 end

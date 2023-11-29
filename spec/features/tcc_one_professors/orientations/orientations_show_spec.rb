@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::show', type: :feature do
+describe 'Orientation::show' do
   let(:professor) { create(:professor_tcc_one) }
   let!(:orientation) { create(:current_orientation_tcc_one) }
 

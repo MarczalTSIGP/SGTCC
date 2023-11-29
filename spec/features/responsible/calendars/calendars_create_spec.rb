@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::create', type: :feature, js: true do
+describe 'Calendar::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human }
 

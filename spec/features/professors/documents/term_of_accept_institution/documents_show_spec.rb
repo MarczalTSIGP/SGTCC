@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Signature::show', type: :feature, js: true do
+describe 'Signature::show', :js do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:document) { Document.last }

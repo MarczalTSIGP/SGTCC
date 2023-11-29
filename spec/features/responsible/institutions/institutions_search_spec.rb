@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::search', type: :feature, js: true do
+describe 'Institution::search', :js do
   let(:responsible) { create(:responsible) }
   let(:institutions) { create_list(:institution, 25) }
 

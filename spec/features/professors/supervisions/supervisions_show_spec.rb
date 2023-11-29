@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::show', type: :feature do
+describe 'Supervision::show' do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'TsoRequest::destroy', type: :feature, js: true do
+describe 'TsoRequest::destroy', :js do
   let(:resource_name) { request_resource_name }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }

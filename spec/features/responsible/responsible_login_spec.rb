@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:login', type: :feature, js: true do
+describe 'Responsible:login', :js do
   let(:professor) { create(:responsible) }
   let(:resource_name) { Professor.human_attribute_name(:username) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::index', :js, type: :feature do
+describe 'ExaminationBoard::index', :js do
   before do
     create(:page, url: 'bancas-de-tcc')
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::update', type: :feature, js: true do
+describe 'Activity::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
   let(:activity) { create(:activity) }

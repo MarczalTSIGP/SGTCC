@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivities::show', type: :feature do
+describe 'BaseActivities::show' do
   let(:responsible) { create(:responsible) }
   let!(:base_activity) { create(:base_activity_tcc_one) }
 

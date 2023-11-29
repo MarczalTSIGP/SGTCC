@@ -74,7 +74,7 @@ class SiteController < ApplicationController
 
   def set_page
     @page = Page.find_by(url: params[:page])
-    return not_found if @page.blank?
+    not_found if @page.blank?
   end
 
   def set_professor

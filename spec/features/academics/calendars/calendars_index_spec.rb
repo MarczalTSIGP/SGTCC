@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::index', type: :feature do
+describe 'Calendar::index' do
   let!(:orientation) { create(:orientation) }
 
   before do

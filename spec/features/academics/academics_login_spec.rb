@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics:login', type: :feature, js: true do
+describe 'Academics:login', :js do
   let(:academic) { create(:academic) }
   let(:resource_name) { Academic.human_attribute_name(:ra) }
 

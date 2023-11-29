@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::create', type: :feature, js: true do
+describe 'Activity::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
   let(:calendar) { create(:calendar_tcc_one) }

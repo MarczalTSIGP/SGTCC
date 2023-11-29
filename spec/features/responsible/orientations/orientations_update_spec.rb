@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::update', type: :feature do
+describe 'Orientation::update' do
   let(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation) }
   let!(:academic) { create(:academic) }
@@ -15,7 +15,7 @@ describe 'Orientation::update', type: :feature do
     visit edit_responsible_orientation_path(orientation)
   end
 
-  describe '#update', js: true do
+  describe '#update', :js do
     context 'when data is valid' do
       it 'updates the orientation' do
         attributes = attributes_for(:orientation)

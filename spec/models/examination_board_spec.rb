@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ExaminationBoard, type: :model do
+RSpec.describe ExaminationBoard do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:place) }
     it { is_expected.to validate_presence_of(:date) }
@@ -173,7 +173,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns true' do
-        expect(examination_board.available_defense_minutes?).to eq(true)
+        expect(examination_board.available_defense_minutes?).to be(true)
       end
     end
 
@@ -184,7 +184,7 @@ RSpec.describe ExaminationBoard, type: :model do
       end
 
       it 'returns false' do
-        expect(examination_board.available_defense_minutes?).to eq(false)
+        expect(examination_board.available_defense_minutes?).to be(false)
       end
     end
   end
@@ -266,7 +266,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:professor) { examination_board.orientation.advisor }
 
       it 'returns true' do
-        expect(examination_board.advisor?(professor)).to eq(true)
+        expect(examination_board.advisor?(professor)).to be(true)
       end
     end
 
@@ -275,7 +275,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:examination_board) { create(:examination_board) }
 
       it 'returns false' do
-        expect(examination_board.advisor?(professor)).to eq(false)
+        expect(examination_board.advisor?(professor)).to be(false)
       end
     end
   end
@@ -286,7 +286,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:professor) { examination_board.professors.first }
 
       it 'returns true' do
-        expect(examination_board.professor_evaluator?(professor)).to eq(true)
+        expect(examination_board.professor_evaluator?(professor)).to be(true)
       end
     end
 
@@ -295,7 +295,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:examination_board) { create(:examination_board) }
 
       it 'returns false' do
-        expect(examination_board.professor_evaluator?(professor)).to eq(false)
+        expect(examination_board.professor_evaluator?(professor)).to be(false)
       end
     end
   end
@@ -306,7 +306,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:external_member) { examination_board.external_members.first }
 
       it 'returns true' do
-        expect(examination_board.external_member_evaluator?(external_member)).to eq(true)
+        expect(examination_board.external_member_evaluator?(external_member)).to be(true)
       end
     end
 
@@ -315,7 +315,7 @@ RSpec.describe ExaminationBoard, type: :model do
       let(:examination_board) { create(:examination_board) }
 
       it 'returns false' do
-        expect(examination_board.external_member_evaluator?(external_member)).to eq(false)
+        expect(examination_board.external_member_evaluator?(external_member)).to be(false)
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::destroy', type: :feature, js: true do
+describe 'Academic::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:academic) { create(:academic) }
   let(:resource_name) { Academic.model_name.human }

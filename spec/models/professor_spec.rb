@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Professor, type: :model do
+RSpec.describe Professor do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:username) }
@@ -74,11 +74,11 @@ RSpec.describe Professor, type: :model do
     let(:responsible) { create(:responsible) }
 
     it 'returns true if the professor has role' do
-      expect(responsible.role?('responsible')).to eq(true)
+      expect(responsible.role?('responsible')).to be(true)
     end
 
     it 'returns false if the professor has not role' do
-      expect(responsible.role?('tcc_one')).to eq(false)
+      expect(responsible.role?('tcc_one')).to be(false)
     end
   end
 
@@ -287,11 +287,11 @@ RSpec.describe Professor, type: :model do
     let(:professor) { create(:professor) }
 
     it 'returns true' do
-      expect(responsible.responsible?).to eq(true)
+      expect(responsible.responsible?).to be(true)
     end
 
     it 'returns false' do
-      expect(professor.responsible?).to eq(false)
+      expect(professor.responsible?).to be(false)
     end
   end
 

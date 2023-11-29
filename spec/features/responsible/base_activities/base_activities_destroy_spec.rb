@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::destroy', type: :feature, js: true do
+describe 'BaseActivity::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:base_activity) { create(:base_activity_tcc_one) }
   let(:resource_name) { BaseActivity.model_name.human }

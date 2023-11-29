@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Basebase_activity::update', type: :feature, js: true do
+describe 'Basebase_activity::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { BaseActivity.model_name.human }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }

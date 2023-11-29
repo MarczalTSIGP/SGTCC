@@ -30,7 +30,7 @@ class Page < ApplicationRecord
   end
 
   def self.update_menu_order(items)
-    pages_ids = items.map { |item| item['id'] }
+    pages_ids = items.pluck('id')
     pages = find(pages_ids)
     pages.each.with_index do |page, index|
       page.update(order: index + 1)

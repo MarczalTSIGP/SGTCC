@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::update', :js, type: :feature do
+describe 'ExaminationBoard::update', :js do
   let(:responsible) { create(:responsible) }
   let!(:orientation) { create(:current_orientation_tcc_two) }
   let(:resource_name) { ExaminationBoard.model_name.human }

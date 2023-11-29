@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'TepRequest::destroy', type: :feature, js: true do
+describe 'TepRequest::destroy', :js do
   let!(:academic) { create(:academic) }
   let!(:orientation) { create(:orientation, academic: academic) }
   let!(:document_tep) { create(:document_tep, orientation_id: orientation.id) }

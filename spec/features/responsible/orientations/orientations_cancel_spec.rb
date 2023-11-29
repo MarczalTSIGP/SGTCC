@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::cancel', type: :feature do
+describe 'Orientation::cancel' do
   let(:responsible) { create(:responsible) }
   let(:orientation) { create(:orientation) }
   let(:resource_name) { Orientation.model_name.human }
@@ -10,7 +10,7 @@ describe 'Orientation::cancel', type: :feature do
     visit responsible_orientation_path(orientation)
   end
 
-  describe '#show', js: true do
+  describe '#show', :js do
     context 'when the orientation is cancelled' do
       it 'shows success message and update the status' do
         find('button[id="orientation_cancel"]', text: orientation_cancel_button).click

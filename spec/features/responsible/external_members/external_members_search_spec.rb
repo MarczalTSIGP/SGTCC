@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::search', type: :feature, js: true do
+describe 'ExternalMember::search', :js do
   let(:responsible) { create(:responsible) }
   let(:external_members) { create_list(:external_member, 25) }
 
