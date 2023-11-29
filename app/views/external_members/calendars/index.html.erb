@@ -2,39 +2,31 @@
 <% provide(:head_title, t('breadcrumbs.calendars.index')) %>
 
 <div class="text-right mt-3">
-   <%= page_entries_info @orientations %>
-   <div class="legend">
-      <p> <span class="status badge-approved-tcc-1"></span> Aprovada em TCC 1 </p>
-      <p> <span class="status badge-approved"></span> Aprovada</p>
-      <p> <span class="status badge-in-progress"></span> Em andamento</p>
-      <p> <span class="status badge-canceled"></span> Cancelada</p>
-      <p> <span class="status badge-reproved-tcc-1"></span> Reprovada em TCC 1</p>
-      <p> <span class="status badge-reproved"></span> Reprovada</p>
-   </div>
+  <%= page_entries_info @orientations %>
 </div>
 
 <div class="table-striped mt-5 table-responsive w-100">
-   <table class="table card-table table-vcenter text-nowrap">
-      <thead>
-         <tr>
-            <th><%= Calendar.human_attribute_name('year_semester') %></th>
-            <th><%= Calendar.human_attribute_name('tcc') %></th>
-            <th><%= Orientation.human_attribute_name('title') %></th>
-            <th><%= Orientation.human_attribute_name('advisor') %></th>
-            <th><%= Orientation.human_attribute_name('orientation_supervisors') %></th>
-            <th><%= Calendar.human_attribute_name('created_at') %></th>
-         </tr>
-      </thead>
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Calendar.human_attribute_name('year_semester') %></th>
+        <th><%= Calendar.human_attribute_name('tcc') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('orientation_supervisors') %></th>
+        <th><%= Calendar.human_attribute_name('created_at') %></th>
+      </tr>
+    </thead>
 
-      <tbody>
-         <tr>
-            <%= render('shared/no_results') if @orientations.empty? %>
-         </tr>
-         <% @orientations.each do |orientation| %>
-            <%= render('external_members/calendars/calendar', orientation: orientation) %>
-         <% end %>
-      </tbody>
-   </table>
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @orientations.empty? %>
+      </tr>
+      <% @orientations.each do |orientation| %>
+        <%= render('external_members/calendars/calendar', orientation: orientation) %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= paginate @orientations %>

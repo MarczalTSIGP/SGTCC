@@ -1,14 +1,8 @@
 <% provide(:page_title, t('breadcrumbs.examination_boards.index')) %>
 <% provide(:head_title, t('breadcrumbs.examination_boards.index')) %>
 
-<div class="legend">
-    <p> <span class="status badge-today"></span> Será hoje </p>
-    <p> <span class="status badge-minutes"></span> Será em alguns minutos</p>
-    <p> <span class="status badge-passad"></span> Já ocorreu</p>
-</div>
+<%= render 'shared/examination_boards/legend_status', resource: 'professors' %>
 
 <%= render 'shared/supervision_examination_boards/table', resource: 'professors' %>
 
 <%= paginate @examination_boards %>
-
-

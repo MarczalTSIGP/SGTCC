@@ -13,6 +13,8 @@
   </div>
 </div>
 
-<%= render('tabs') %>
+<%= provide(:orienation_tabs) do%>
+  <%= render('tabs') %>
+<% end %>
 
 <%= render 'shared/examination_boards/table' %>
