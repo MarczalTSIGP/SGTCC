@@ -7,12 +7,10 @@
 
       <div class="col-md-6">
         <%= f.association :base_activity_type,
-        input_html: { 
-                                  class: 'activity_type_hide_event',
-                                  data: 'selectize',
-                                  "base-activities-types" => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
-                              },
-                              prompt: t('prompt.select.m', name: 'tipo') %>
+        input_html: { class: 'activity_type_hide_event',
+                      data: 'selectize',
+                      "base-activities-types" => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
+                    }, prompt: t('prompt.select.m', name: 'tipo') %>
       </div>
     </div>
 
@@ -33,8 +31,9 @@
           datetime="<%= @activity.final_date %>" />
       </div>
     </div>
+
     <div hide-on-activity-type-info-selected>
-      <% if @calendar.tcc == 'one' %>
+      <% if @calendar.tcc_one? %>
         <%= f.input :identifier,
           as: :radio_button_tabler,
           collection: Activity.human_tcc_one_identifiers %>
@@ -48,14 +47,14 @@
       <%= f.input :tcc,
         as: :hidden,
         input_html: { value: @calendar.tcc } %>
-      </div>
-</div>
+    </div>
+        </div>
 
-          <div class="d-flex">
-            <%= link_to t('simple_form.buttons.back'),
+        <div class="d-flex">
+          <%= link_to t('simple_form.buttons.back'),
     responsible_calendar_activities_path(@calendar),
     class: 'btn btn-secondary' %>
 
-            <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
-          </div>
-        <% end %>
+          <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+        </div>
+      <% end %>
