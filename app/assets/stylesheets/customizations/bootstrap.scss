@@ -18,3 +18,61 @@ body {
     margin-bottom: 0;
   }
 }
+
+.badge-approved-tcc-1 {
+  background-color: #85cc00;
+}
+
+.badge-approved {
+  background-color: #009900;
+}
+
+.badge-in-progress {
+  background-color: #ffff00;
+}
+
+.badge-canceled {
+  background-color: #ff9933;
+}
+
+.badge-reproved {
+  background-color: #d9041a;
+}
+
+.badge-reproved-tcc-1 {
+  background-color: #e35665;
+}
+
+.badge-bottom {
+  color: #fff0;
+}
+
+.legend {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.legend p {
+  font-size: 13px;
+}
+
+.status{
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0px 0.1em 0px 1em;
+  vertical-align: middle;
+}
+
+.badge-today {
+  background-color: #0b9b1e;
+}
+
+.badge-minutes {
+  background-color: #cccc0e;
+}
+
+.badge-passad {
+  background-color: #c1c1c1;
+}

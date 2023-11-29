@@ -30,6 +30,10 @@ class Calendar < ApplicationRecord
     "#{year_with_semester} - TCC: #{I18n.t("enums.tcc.#{tcc}")}"
   end
 
+  def orientation_by_academic(academic_id)
+    orientations.find_by(academic_id)
+  end
+
   def current?
     Calendar.current_calendar?(self)
   end
@@ -65,8 +69,18 @@ class Calendar < ApplicationRecord
     search_by_first_semester_next_year(calendar)
   end
 
+  def self.next_semester_tcc_two(calendar)
+    return next_semester(calendar) if calendar.tcc == 'two'
+
+    if calendar.semester == 'one'
+      find_by(semester: 2, year: calendar.year, tcc: tccs[:two])
+    else
+      find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[:two])
+    end
+  end
+
   def self.search_by_tcc(tcc, page, term)
-    where(tcc: tcc).page(page).search(term).order({ year: :desc }, :semester)
+    where(tcc: tcc).page(page).search(term).order({ year: :desc }, { semester: :desc })
   end
 
   def self.search_by_tcc_one(page, term)
@@ -112,16 +126,6 @@ class Calendar < ApplicationRecord
   private
 
   def clone_base_activities
-    base_activities = BaseActivity.where(tcc: tcc)
-    base_activities.each { |base_activity| create_activity(base_activity) }
-  end
-
-  def create_activity(activity)
-    current_time = Time.current
-    activities.create(name: activity.name, tcc: activity.tcc,
-                      calendar_id: id, base_activity_type_id: activity.base_activity_type_id,
-                      judgment: activity&.judgment, identifier: activity&.identifier,
-                      initial_date: current_time, final_date: current_time,
-                      final_version: activity&.final_version)
+    Calendars::CloneBaseActivities.to(self)
   end
 end

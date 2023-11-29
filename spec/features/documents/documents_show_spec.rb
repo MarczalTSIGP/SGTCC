@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::show', type: :feature, js: true do
+describe 'Document::show', :js, type: :feature do
   let(:orientation) { create(:orientation) }
 
   before do
@@ -15,11 +15,11 @@ describe 'Document::show', type: :feature, js: true do
     let(:academic) { academic_signature.user }
     let(:document_type) { document.document_type }
 
-    before do
-      visit confirm_document_code_path(document.code)
-    end
-
     context 'when shows the signed signature of the term of commitment' do
+      before do
+        visit confirm_document_code_path(document.code)
+      end
+
       it 'shows the document of the term of commitment' do
         expect(page).to have_alert(text: document_authenticated_message)
         find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
@@ -48,7 +48,7 @@ describe 'Document::show', type: :feature, js: true do
 
     context 'when the not found document' do
       before do
-        code = 3.days.from_now.to_i
+        code = 10.years.from_now.to_i
         visit confirm_document_code_path(code)
       end
 

@@ -18,4 +18,9 @@ module ApplicationHelper
 
     '<i class="fas fa-info pr-3"></i>'.html_safe
   end
+
+  def user_can_access_activity_response
+    (current_professor&.responsible? || current_professor&.tcc_one?) &&
+      namespace.in?(%w[responsible tcc_one_professors])
+  end
 end

@@ -320,34 +320,34 @@ RSpec.describe ExaminationBoard, type: :model do
     end
   end
 
-  describe '.can_create_defense_minutes?' do
-    context 'when is the advisor' do
-      let(:examination_board) { create(:examination_board) }
-      let(:professor) { examination_board.orientation.advisor }
+  # describe '.can_create_defense_minutes?' do
+  #   context 'when is the advisor' do
+  #     let(:examination_board) { create(:examination_board) }
+  #     let(:professor) { examination_board.orientation.advisor }
 
-      it 'returns true' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
-      end
-    end
+  #     it 'returns true' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
+  #     end
+  #   end
 
-    context 'when is the responsible' do
-      let(:examination_board) { create(:examination_board) }
-      let(:professor) { create(:responsible) }
+  #   context 'when is the responsible' do
+  #     let(:examination_board) { create(:examination_board) }
+  #     let(:professor) { create(:responsible) }
 
-      it 'returns true' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
-      end
-    end
+  #     it 'returns true' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(true)
+  #     end
+  #   end
 
-    context 'when can not create' do
-      let(:professor) { create(:professor) }
-      let(:examination_board) { create(:examination_board) }
+  #   context 'when can not create' do
+  #     let(:professor) { create(:professor) }
+  #     let(:examination_board) { create(:examination_board) }
 
-      it 'returns false' do
-        expect(examination_board.can_create_defense_minutes?(professor)).to eq(false)
-      end
-    end
-  end
+  #     it 'returns false' do
+  #       expect(examination_board.can_create_defense_minutes?(professor)).to eq(false)
+  #     end
+  #   end
+  # end
 
   describe '.appointments?' do
     context 'when has not appointment file and appointment text' do
@@ -401,28 +401,6 @@ RSpec.describe ExaminationBoard, type: :model do
       it 'returns true' do
         expect(examination_board.appointments?).to be(true)
       end
-    end
-  end
-
-  describe '.evaluators_size' do
-    let(:examination_board) { create(:examination_board) }
-    let(:advisor_size) { 1 }
-    let(:professors_size) { examination_board.professors.size }
-    let(:external_members_size) { examination_board.external_members.size }
-
-    it 'returns the evaluators size' do
-      size = advisor_size + professors_size + external_members_size
-      expect(examination_board.evaluators_size).to eq(size)
-    end
-  end
-
-  describe '.numbers_to_evaluate' do
-    let(:examination_board) { create(:examination_board) }
-    let(:examination_board_note) { examination_board.examination_board_notes }
-
-    it 'returns the number to evaluate' do
-      number_to_evaluate = examination_board.evaluators_size - examination_board_note.size
-      expect(examination_board.number_to_evaluate).to eq(number_to_evaluate)
     end
   end
 

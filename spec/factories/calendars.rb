@@ -51,6 +51,18 @@ FactoryBot.define do
       tcc { tcc_two }
     end
 
+    factory :next_calendar_tcc_one do
+      year { current_semester == 1 ? current_year : current_year.to_i + 1 }
+      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
+      tcc { tcc_one }
+    end
+
+    factory :next_calendar_tcc_two do
+      year { current_semester == 1 ? current_year : current_year.to_i + 1 }
+      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
+      tcc { tcc_two }
+    end
+
     factory :calendar_tcc_one do
       tcc { tcc_one }
     end
