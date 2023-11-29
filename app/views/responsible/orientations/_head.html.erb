@@ -1,20 +1,22 @@
 <div class="row">
   <div class="col-sm-12 col-lg-5 mb-2">
-    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
+    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" /> 
   </div>
+  
   <div class="col-sm-12 col-lg-3">
     <%= render 'shared/orientations/status_filter', cached: true %>
   </div>
+
   <div class="col-sm-12 col-lg-4">
-    <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
-      <i class="fe fe-plus"></i>
-      <%= t('breadcrumbs.orientations.new') %>
-    <% end %>
+     <%= link_to(new_responsible_orientation_path, class: 'btn btn-outline-primary d-block') do %>
+         <i class="fe fe-plus"></i>
+         <%= t('breadcrumbs.orientations.new') %>
+     <% end %>
   </div>
 </div>
 
+<%= render('shared/orientations/legend_status') %>
+
 <div class="text-right mt-3">
-<%= page_entries_info @orientations, entry_name: 'orientation' %>
+  <%= page_entries_info @orientations %>
 </div>
-
-

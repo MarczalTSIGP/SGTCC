@@ -30,18 +30,18 @@ export default {
 
   data() {
     return {
-      badgeType: 'default',
+      badgeType: 'passad',
     };
   },
 
   computed: {
     textColor() {
       switch (this.badgeType) {
-      case 'primary': return { color: '#467fcf' };
-      case 'warning': return { color: '#f1c40f' };
+      case 'today': return { color: '#0b9b1e' };
+      case 'minutes': return { color: '#cccc0e' };
       }
 
-      return { color: '#e9ecef' };
+      return { color: '#c1c1c1' };
     },
 
     badgeClass() {
@@ -57,10 +57,10 @@ export default {
     setBadgeType() {
       switch(this.status) {
       case 'today':
-        this.badgeType = 'primary';
+        this.badgeType = 'today';
         break;
       case 'next' :
-        this.badgeType = 'warning';
+        this.badgeType = 'minutes';
       }
     },
   },

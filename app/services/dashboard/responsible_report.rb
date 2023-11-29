@@ -47,16 +47,24 @@ class Dashboard::ResponsibleReport
   end
 
   def calendar_orientations_by_status(status)
-    calendars = Calendar.order(:year, :semester)
+    groubed_calendars = Calendar.order(:year, :semester).group_by(&:year_with_semester)
     years = []
     total = []
 
-    calendars.each do |calendar|
-      years.push(calendar.year_with_semester)
-      total.push(calendar.orientations.where(status: status).count)
+    groubed_calendars.each do |year, calendars|
+      years.push(year)
+      total.push(orientations_count_by_calendars_and_status(calendars, status))
     end
 
     { years: years, total: total }
+  end
+
+  def orientations_count_by_calendars_and_status(calendars, status)
+    orientations = 0
+    calendars.each do |calendar|
+      orientations += calendar.orientations.where(status: status).count
+    end
+    orientations
   end
 
   def orientations_by_tcc_one

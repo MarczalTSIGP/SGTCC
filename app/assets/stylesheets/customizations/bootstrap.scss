@@ -46,3 +46,33 @@ body {
 .badge-bottom {
   color: #fff0;
 }
+
+.legend {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.legend p {
+  font-size: 13px;
+}
+
+.status{
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0px 0.1em 0px 1em;
+  vertical-align: middle;
+}
+
+.badge-today {
+  background-color: #0b9b1e;
+}
+
+.badge-minutes {
+  background-color: #cccc0e;
+}
+
+.badge-passad {
+  background-color: #c1c1c1;
+}

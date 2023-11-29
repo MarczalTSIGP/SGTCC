@@ -19,8 +19,8 @@ class Orientations::Links::TccOneProfessorsService < Orientations::Links::BaseSe
   def activities
     @links << {
       name: :activities,
-      path: @route.tcc_one_professors_calendar_orientation_activities_path(
-        @orientation.current_calendar, @orientation
+      path: @route.tcc_one_professors_orientation_calendar_activities_path(
+        @orientation, @orientation.current_calendar
       )
     }
   end
