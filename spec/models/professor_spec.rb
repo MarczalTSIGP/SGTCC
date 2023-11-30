@@ -282,6 +282,62 @@ RSpec.describe Professor, type: :model do
     end
   end
 
+  describe '#examination_boards_by_tcc_one_list' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
+
+    before do
+      create(:examination_board, orientation: orientation)
+      examination_board_tcc_one.professors << professor
+    end
+
+    it 'returns examination boards filtered by TCC One' do
+      page = 1
+      term = 'test'
+      status = 'CURRENT_SEMESTER'
+
+      filtered_examination_boards = (
+        professor.guest_examination_boards.by_tcc_one(page, term, status) +
+        professor.orientation_examination_boards.by_tcc_one(page, term, status)
+      )
+
+      expect(professor.examination_boards_by_tcc_one_list(page, term, status))
+        .to match_array(filtered_examination_boards)
+
+      expect(professor.examination_boards_by_tcc_one_list(page, term, status).count)
+        .to eq(filtered_examination_boards.count)
+    end
+  end
+
+  describe '#examination_boards_by_tcc_two_list' do
+    let!(:professor) { create(:professor) }
+    let!(:orientation) { create(:orientation, advisor: professor) }
+    let(:examination_board_tcc_two) { create(:examination_board_tcc_two) }
+
+    before do
+      create(:examination_board, orientation: orientation)
+      examination_board_tcc_two.professors << professor
+    end
+
+    it 'returns examination boards filtered by TCC Two' do
+      page = 1
+      term = 'test'
+      status = 'CURRENT_SEMESTER'
+
+      filtered_examination_boards = (
+        professor.guest_examination_boards.by_tcc_two(page, term, status) +
+        professor.orientation_examination_boards.by_tcc_two(page, term, status)
+      )
+
+      expect(professor.examination_boards_by_tcc_two_list(page, term, status))
+        .to match_array(filtered_examination_boards)
+
+      expect(professor.examination_boards_by_tcc_two_list(page, term, status).count)
+        .to eq(filtered_examination_boards.count)
+    end
+  end
+
   describe '#responsible?' do
     let(:responsible) { create(:responsible) }
     let(:professor) { create(:professor) }

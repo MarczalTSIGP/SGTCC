@@ -180,4 +180,77 @@ RSpec.describe ExternalMember, type: :model do
       expect(external_member.current_examination_boards.count).to eq(2)
     end
   end
+
+  describe '#examination_boards_by_tcc_one_list' do
+    let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
+    let(:external_member) { orientation_tcc_one.external_member_supervisors.first }
+
+    let(:examination_board_tcc_one) do
+      create(:examination_board_tcc_one, orientation: orientation_tcc_one)
+    end
+
+    before do
+      examination_board_tcc_one
+      create(:examination_board_tcc_two)
+    end
+
+    it 'returns the examination boards for TCC One' do
+      examination_boards_tcc_one = (external_member.examination_boards.by_tcc_one(nil, nil, nil) +
+                                    external_member.supervision_examination_boards.by_tcc_one(nil,
+                                                                                              nil,
+                                                                                              nil))
+      expect(external_member.examination_boards_by_tcc_one_list).to
+      match_array(examination_boards_tcc_one)
+      expect(external_member.examination_boards_by_tcc_one_list.count).to eq(1)
+    end
+
+    it 'returns the examination boards for TCC One with specific status' do
+      status = 'CURRENT_SEMESTER'
+
+      examination_boards_tcc_one_approved = (
+        external_member.examination_boards.by_tcc_one(nil, nil, status) +
+        external_member.supervision_examination_boards.by_tcc_one(nil, nil, status)
+      )
+      expect(external_member.examination_boards_by_tcc_one_list(nil, nil, status)).to
+      match_array(examination_boards_tcc_one_approved)
+      expect(external_member.examination_boards_by_tcc_one_list(nil, nil, status).count).to eq(1)
+    end
+  end
+
+  describe '#examination_boards_by_tcc_two_list' do
+    let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
+    let(:external_member) { orientation_tcc_two.external_member_supervisors.first }
+
+    let(:examination_board_tcc_two) do
+      create(:examination_board_tcc_two, orientation: orientation_tcc_two)
+    end
+
+    before do
+      examination_board_tcc_two
+      create(:examination_board_tcc_one)
+    end
+
+    it 'returns the examination boards for TCC Two' do
+      examination_boards_tcc_two = (external_member.examination_boards.by_tcc_two(nil, nil, nil) +
+                                    external_member.supervision_examination_boards.by_tcc_two(nil,
+                                                                                              nil,
+                                                                                              nil))
+      expect(external_member.examination_boards_by_tcc_two_list).to
+      match_array(examination_boards_tcc_two)
+      expect(external_member.examination_boards_by_tcc_two_list.count).to eq(1)
+    end
+
+    it 'returns the examination boards for TCC Two with specific status' do
+      status = 'CURRENT_SEMESTER'
+
+      examination_boards_tcc_two_approved = (
+        external_member.examination_boards.by_tcc_two(nil, nil, status) +
+        external_member.supervision_examination_boards.by_tcc_two(nil, nil, status)
+      )
+
+      expect(external_member.examination_boards_by_tcc_two_list(nil, nil, status)).to
+      match_array(examination_boards_tcc_two_approved)
+      expect(external_member.examination_boards_by_tcc_two_list(nil, nil, status).count).to eq(1)
+    end
+  end
 end
