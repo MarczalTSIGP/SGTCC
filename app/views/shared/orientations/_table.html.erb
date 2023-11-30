@@ -12,11 +12,11 @@
     </thead>
     <tbody>
       <%= render('shared/no_results') if @orientations.empty? %>
-      <% cache(['recent_orientations', request.path, @orientations.current_page, @orientations.total_pages]) do %>
-        <% @orientations.each do |orientation| %>
-          <%= render orientation %>
-        <% end %>
+
+      <% @orientations.each do |orientation| %>
+        <%= render orientation %>
       <% end %>
+
     </tbody>
   </table>
 </div>

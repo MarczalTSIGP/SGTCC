@@ -71,7 +71,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :recent, lambda {
-                   order('calendars.year DESC, calendars.semester ASC, title, academics.name')
+                   order('calendars.year DESC, calendars.semester DESC, academics.name, title')
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
@@ -223,21 +223,6 @@ class Orientation < ApplicationRecord
 
   def self.select_status_data
     statuses.map { |index, field| [field, index.capitalize] }.sort!
-  end
-
-  def self.select_orientations_for_tcc(page = 1, term, status, tcc)
-    query = joins(:professor_supervisors, :academic, orientation_calendars: :calendar)
-            .select('orientations.id, orientations.title, academics.name as academic_name,
-              academics.ra, professors.name as advisor_name, calendars.semester,
-              calendars.year, calendars.tcc, orientations.status, academics.id as academic_id,
-              orientations.advisor_id')
-            .where(calendars: { tcc: tcc })
-            .where('academics.name ILIKE ? OR orientations.title ILIKE ? OR academics.ra ILIKE ?',
-                   "%#{term}%", "%#{term}%", "%#{term}%")
-
-    query = query.where(orientations: { status: status }) if status.present?
-
-    query.order('calendars.year DESC, calendars.semester ASC').page(page)
   end
 
   def self.approved

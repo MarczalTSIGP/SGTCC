@@ -164,27 +164,6 @@ RSpec.describe Orientation, type: :model do
     end
   end
 
-  describe '#select_orientations_for_tcc' do
-    let!(:tcc_one_orientations) { create_list(:orientation_tcc_one, 5) }
-    let!(:tcc_two_orientations) { create_list(:orientation_tcc_two, 5) }
-
-    it 'returns the orientations by tcc one' do
-      tcc_one_orientations_found = described_class.select_orientations_for_tcc(1, '',
-                                                                               'IN_PROGRESS', 1)
-
-      expect(tcc_one_orientations_found.count).to eq(tcc_one_orientations.count)
-      expect(tcc_one_orientations_found).to match_array(tcc_one_orientations)
-    end
-
-    it 'returns the orientations by tcc two' do
-      tcc_two_orientations_found = described_class.select_orientations_for_tcc(1, '',
-                                                                               'IN_PROGRESS', 2)
-
-      expect(tcc_two_orientations_found.count).to eq(tcc_two_orientations.count)
-      expect(tcc_two_orientations_found).to match_array(tcc_two_orientations)
-    end
-  end
-
   describe '#by_tcc' do
     let!(:tcc_one_orientations) { create_list(:orientation_tcc_one, 5) }
     let!(:tcc_two_orientations) { create_list(:orientation_tcc_two, 5) }
@@ -294,71 +273,6 @@ RSpec.describe Orientation, type: :model do
 
       expect(current_tcc_two_orientations_found.count).to eq(1)
       expect(current_tcc_two_orientations_found).to match_array(current_tcc_two_orientation)
-    end
-  end
-
-  describe '#search .select_orientations_for_tcc' do
-    let(:professor) { create(:professor) }
-    let(:academic) { create(:academic) }
-    let(:tcc_one_orientation) do
-      create(:orientation_tcc_one, academic: academic, advisor: professor, status: 'IN_PROGRESS')
-    end
-    let(:tcc_two_orientation) do
-      create(:orientation_tcc_two, academic: academic, advisor: professor,
-                                   status: 'APPROVED_TCC_ONE')
-    end
-
-    before do
-      tcc_one_orientation.calendars.first.update(tcc: 1)
-      tcc_two_orientation.calendars.first.update(tcc: 2)
-    end
-
-    it 'returns tcc one orientations with default values' do
-      result = described_class.select_orientations_for_tcc(1, '', 'IN_PROGRESS', 1)
-
-      expect(result).to include(tcc_one_orientation)
-      expect(result).not_to include(tcc_two_orientation)
-    end
-
-    it 'returns tcc two orientations with specified values' do
-      result = described_class.select_orientations_for_tcc(1, '', 'APPROVED_TCC_ONE', 2)
-
-      expect(result).to include(tcc_two_orientation)
-      expect(result).not_to include(tcc_one_orientation)
-    end
-
-    it 'applies status filter' do
-      tcc_two_orientation.update(status: 'CANCELED')
-
-      result_canceled = described_class.select_orientations_for_tcc(1, '', 'CANCELED', 2)
-
-      expect(result_canceled).to include(tcc_two_orientation)
-      expect(result_canceled).not_to include(tcc_one_orientation)
-    end
-
-    it 'orders by year and semester' do
-      tcc_one_orientation.calendars.first.update(year: 2022, semester: 1)
-
-      op_two_tcc_one_orientation = create(:orientation_tcc_one, academic: academic)
-      op_two_tcc_one_orientation.update(status: 'IN_PROGRESS', advisor: professor)
-      op_two_tcc_one_orientation.calendars.first.update(year: 2021, semester: 2)
-
-      result = described_class.select_orientations_for_tcc(1, '', nil, 1)
-
-      expected_result = [tcc_one_orientation, op_two_tcc_one_orientation]
-
-      expect(result).to eq(expected_result)
-    end
-  end
-
-  describe '#search count select_orientations_for_tcc' do
-    it 'paginates results' do
-      create_list(:orientation_tcc_one, 5)
-      result_page_one = described_class.select_orientations_for_tcc(1, '', nil, 1)
-      result_page_two = described_class.select_orientations_for_tcc(2, '', nil, 1)
-
-      expect(result_page_one.count).to eq(5)
-      expect(result_page_two.count).to eq(0)
     end
   end
 
