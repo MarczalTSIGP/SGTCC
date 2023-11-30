@@ -6,8 +6,12 @@
       <search url="<%= @search_url %>" search-term="<%= params[:term] %>" /> 
    </div>
 
-   <%= render('new_buttons') %>
-
+   <div class="col-sm-12 col-lg-4">
+      <%= link_to(@new_url, class: 'btn btn-outline-primary d-block') do %>
+         <i class="fe fe-plus"></i>
+         <%= @link_name %>
+      <% end %>
+   </div>
 </div>
 
 <%= provide(:orienation_tabs) do%>

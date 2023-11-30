@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::new', type: :feature, js: true do
+describe 'ExaminationBoard::new', :js, type: :feature do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { ExaminationBoard.model_name.human }
   let!(:orientation) { create(:current_orientation_tcc_one) }
@@ -22,7 +22,7 @@ describe 'ExaminationBoard::new', type: :feature, js: true do
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        find('#examination_board_orientation_id-selectized').click
+        find_by_id('examination_board_orientation_id-selectized').click
 
         all('.selectize-dropdown-content .option').each do |option|
           expect(option.text).not_to match(/TCC: 2/i)
@@ -39,6 +39,7 @@ describe 'ExaminationBoard::new', type: :feature, js: true do
         expect(page).to have_current_path responsible_examination_boards_tcc_one_path
         expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:place], in: 'table tbody')
+        expect(page).to have_content(orientation.academic_with_calendar)
       end
     end
 

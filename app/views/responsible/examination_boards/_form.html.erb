@@ -1,11 +1,11 @@
-<%= simple_form_for [:responsible, @examination_board] do |f| %>
+<%= simple_form_for @examination_board, url: url do |f| %>
    <div class="form-inputs">
 
       <%= f.input :identifier,
                 as: :radio_button_tabler,
                 collection: @activities,
                 disabled: @disabled_field %>
-      
+
       <%= f.association :orientation,
                         label: Academic.model_name.human,
                         input_html: { data: 'selectize' },
@@ -64,4 +64,4 @@
 
       <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
    </div>
-<% end %>
+            <% end %>
