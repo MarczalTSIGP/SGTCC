@@ -13,9 +13,9 @@ module ExaminationBoardJoin
 
       current_semester_start, current_semester_end = current_semester_dates
       case status
-      when 'CURRENT_SEMESTER'
+      when 'current_semester'
         join.where(date: current_semester_start..current_semester_end)
-      when 'OTHER_SEMESTER'
+      when 'other_semester'
         join.where.not(date: current_semester_start..current_semester_end)
       end
     end
