@@ -13,12 +13,12 @@ describe 'Document::sign', :js do
   describe '#sign' do
     context 'when signs the signature of the term of commitment' do
       it 'signs the document of the term of commitment' do
-        find('button[id="signature_button"]', text: signature_button).click
+        click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
         fill_in 'login_confirmation', with: academic.ra, visible: false
         fill_in 'password_confirmation', with: 'password'
-        find('button[id="login_confirmation_button"]', text: sign_button).click
+        click_button(sign_button, id: 'login_confirmation_button')
 
         expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
         academic_signature.reload
@@ -32,12 +32,12 @@ describe 'Document::sign', :js do
 
     context 'when the password is wrong' do
       it 'shows alert message' do
-        find('button[id="signature_button"]', text: signature_button).click
+        click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
         fill_in 'login_confirmation', with: academic.ra, visible: false
         fill_in 'password_confirmation', with: '123'
-        find('button[id="login_confirmation_button"]', text: sign_button).click
+        click_button(sign_button, id: 'login_confirmation_button')
 
         expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
       end

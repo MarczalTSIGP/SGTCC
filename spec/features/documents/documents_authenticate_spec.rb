@@ -15,10 +15,10 @@ describe 'Document::authenticate', :js do
       it 'signs the document of the term of commitment' do
         visit document_path
         fill_in 'signature_code', with: document.code
-        find('button[id="signature_authenticate_button"]', text: authenticate_button).click
+        click_button(authenticate_button, id: 'signature_authenticate_button')
         expect(page).to have_current_path confirm_document_code_path(document.code)
         expect(page).to have_alert(text: document_authenticated_message)
-        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
       end
     end
 
@@ -26,9 +26,9 @@ describe 'Document::authenticate', :js do
       it 'shows alert message' do
         visit document_path
         fill_in 'signature_code', with: ''
-        find('button[id="signature_authenticate_button"]', text: authenticate_button).click
+        click_button(authenticate_button, id: 'signature_authenticate_button')
         expect(page).to have_alert(text: invalid_code_message)
-        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
       end
     end
 
@@ -36,7 +36,7 @@ describe 'Document::authenticate', :js do
       it 'shows alert message' do
         visit document_path
         fill_in 'signature_code', with: '343'
-        find('button[id="signature_authenticate_button"]', text: authenticate_button).click
+        click_button(authenticate_button, id: 'signature_authenticate_button')
         expect(page).to have_alert(text: document_not_found_message)
       end
     end

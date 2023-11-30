@@ -13,7 +13,7 @@ describe 'Document::sign', :js do
   describe '#sign' do
     context 'when signs the signature of the term of accept institution' do
       it 'signs the document of the term of accept institution' do
-        find('button[id="signature_button"]', text: signature_button).click
+        click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
         fill_in 'login_confirmation', with: academic.ra, visible: false
@@ -33,7 +33,7 @@ describe 'Document::sign', :js do
 
     context 'when the password is wrong' do
       it 'shows alert message' do
-        find('button[id="signature_button"]', text: signature_button).click
+        click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
         fill_in 'login_confirmation', with: academic.ra, visible: false

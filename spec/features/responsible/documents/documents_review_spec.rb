@@ -19,17 +19,17 @@ describe 'Document::review', :js do
       it 'shows success message' do
         click_on_label(concede_label, in: 'document_judgment')
         fill_in_simple_mde('Hakuna Matata')
-        find('button[id="save_document_judgment"]', text: save_button).click
+        click_button(save_button, id: 'save_document_judgment')
         expect(page).to have_alert(text: message('update.m'))
 
-        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
         expect(page).to have_contents([conceded_label, 'Hakuna Matata'])
       end
     end
 
     context 'when the document review is invalid' do
       it 'shows blank error message' do
-        find('button[id="save_document_judgment"]', text: save_button).click
+        click_button(save_button, id: 'save_document_judgment')
         expect(page).to have_alert(text: I18n.t('json.messages.empty_fields'))
       end
     end
@@ -59,10 +59,10 @@ describe 'Document::review', :js do
         fill_in_simple_mde('Hakuna Matata')
 
         sleep 1
-        find('button[id="save_document_judgment"]', text: save_button).click
+        click_button(save_button, id: 'save_document_judgment')
 
         expect(page).to have_alert(text: message('update.m'))
-        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
         expect(page).to have_contents([dismissed_label, 'Hakuna Matata'])
       end
     end
@@ -77,7 +77,7 @@ describe 'Document::review', :js do
         click_on_label(dismiss_label, in: 'document_judgment')
         find('.fa-bold').click
 
-        find('button[id="save_document_judgment"]', text: save_button).click
+        click_button(save_button, id: 'save_document_judgment')
         expect(page).to have_alert(text: document_errors_update_message)
       end
     end

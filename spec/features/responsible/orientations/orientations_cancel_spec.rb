@@ -13,10 +13,10 @@ describe 'Orientation::cancel' do
   describe '#show', :js do
     context 'when the orientation is cancelled' do
       it 'shows success message and update the status' do
-        find('button[id="orientation_cancel"]', text: orientation_cancel_button).click
+        click_button(orientation_cancel_button, id: 'orientation_cancel')
         accept_alert
         fill_in 'orientation_cancel_justification', with: 'Justification'
-        find('button[id="save_justification"]', text: save_button).click
+        click_button(save_button, id: 'save_justification')
         flash_message = I18n.t('json.messages.orientation.cancel.success')
         expect(page).to have_flash(:success, text: flash_message)
         orientation.reload
@@ -26,9 +26,9 @@ describe 'Orientation::cancel' do
 
     context 'when the cancellation is invalid' do
       it 'shows blank error message' do
-        find('button[id="orientation_cancel"]', text: orientation_cancel_button).click
+        click_button(orientation_cancel_button, id: 'orientation_cancel')
         accept_alert
-        find('button[id="save_justification"]', text: save_button).click
+        click_button(save_button, id: 'save_justification')
         expect(page).to have_message(blank_error_message,
                                      in: 'div.orientation_cancel_justification')
       end

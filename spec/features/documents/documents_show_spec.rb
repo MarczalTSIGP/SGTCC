@@ -22,7 +22,7 @@ describe 'Document::show', :js do
 
       it 'shows the document of the term of commitment' do
         expect(page).to have_alert(text: document_authenticated_message)
-        find('button[class="swal-button swal-button--confirm"]', text: ok_button).click
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
 
         expect(page).to have_contents([orientation.title,
                                        orientation.academic.name,
