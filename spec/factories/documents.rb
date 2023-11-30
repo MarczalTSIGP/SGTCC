@@ -7,21 +7,21 @@ FactoryBot.define do
     document_type
 
     factory :document_tco do
-      document_type { create(:document_type_tco) }
+      document_type { association :document_type_tco }
     end
 
     factory :document_tcai do
-      document_type { create(:document_type_tcai) }
+      document_type { association(:document_type_tcai) }
     end
 
     factory :document_tdo do
-      document_type { create(:document_type_tdo) }
+      document_type { association(:document_type_tdo) }
       justification { 'justification' }
       request { request }
     end
 
     factory :document_tep do
-      document_type { create(:document_type_tep) }
+      document_type { association(:document_type_tep) }
       justification { 'justification' }
       request { request }
     end
@@ -31,13 +31,13 @@ FactoryBot.define do
                           new_orientation: { advisor: { id: '', name: '' },
                                              professorSupervisors: {},
                                              externalMemberSupervisors: {} } }
-      document_type { create(:document_type_tso) }
+      document_type { association(:document_type_tso) }
       justification { 'justification' }
       request { new_orientation }
     end
 
     factory :document_adpp do
-      document_type { create(:document_type_adpp) }
+      document_type { association(:document_type_adpp) }
     end
 
     before :create do

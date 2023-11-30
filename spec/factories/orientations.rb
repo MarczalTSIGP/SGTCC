@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :orientation do
     title { Faker::Lorem.sentence(word_count: 3) }
-    advisor { create(:professor) }
+    advisor { association(:professor) }
     academic
     institution
     renewal_justification { Faker::Lorem.sentence(word_count: 3) }
