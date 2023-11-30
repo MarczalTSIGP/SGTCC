@@ -110,7 +110,7 @@ CREATE TABLE public.academic_activities (
     complementary_files character varying,
     title character varying,
     summary text,
-    judgment boolean DEFAULT false,
+    judgment boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     additional_instructions text
@@ -189,9 +189,9 @@ CREATE TABLE public.activities (
     calendar_id bigint,
     initial_date timestamp without time zone,
     final_date timestamp without time zone,
-    judgment boolean DEFAULT false,
+    judgment boolean DEFAULT false NOT NULL,
     identifier public.activity_identifiers,
-    final_version boolean DEFAULT false
+    final_version boolean DEFAULT false NOT NULL
 );
 
 
@@ -302,8 +302,8 @@ CREATE TABLE public.base_activities (
     updated_at timestamp without time zone NOT NULL,
     tcc integer,
     identifier public.base_activity_identifiers,
-    judgment boolean DEFAULT false,
-    final_version boolean DEFAULT false,
+    judgment boolean DEFAULT false NOT NULL,
+    final_version boolean DEFAULT false NOT NULL,
     days_to_start integer DEFAULT 0,
     duration_in_days integer DEFAULT 0
 );
@@ -574,7 +574,7 @@ CREATE TABLE public.external_members (
     id bigint NOT NULL,
     name character varying,
     email character varying,
-    is_active boolean DEFAULT false,
+    is_active boolean DEFAULT false NOT NULL,
     gender character varying(1),
     working_area text,
     created_at timestamp without time zone NOT NULL,
@@ -683,7 +683,7 @@ CREATE TABLE public.meetings (
     id bigint NOT NULL,
     content text,
     date timestamp without time zone,
-    viewed boolean DEFAULT false,
+    viewed boolean DEFAULT false NOT NULL,
     orientation_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -822,7 +822,7 @@ CREATE TABLE public.pages (
     url character varying,
     fa_icon character varying,
     "order" integer,
-    publish boolean DEFAULT false,
+    publish boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -896,8 +896,8 @@ CREATE TABLE public.professors (
     name character varying,
     lattes character varying,
     gender character varying(1),
-    is_active boolean DEFAULT false,
-    available_advisor boolean,
+    is_active boolean DEFAULT false NOT NULL,
+    available_advisor boolean DEFAULT false NOT NULL,
     scholarity_id bigint,
     professor_type_id bigint,
     working_area text
@@ -1006,7 +1006,7 @@ CREATE TABLE public.signatures (
     document_id bigint,
     user_id integer,
     user_type character varying(3),
-    status boolean DEFAULT false,
+    status boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
