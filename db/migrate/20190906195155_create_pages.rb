@@ -6,7 +6,7 @@ class CreatePages < ActiveRecord::Migration[5.2]
       t.string :url
       t.string :fa_icon
       t.integer :order
-      t.boolean :publish, default: false
+      t.boolean :publish, default: false, null: false
 
       t.timestamps
     end
