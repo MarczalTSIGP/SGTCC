@@ -71,7 +71,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :recent, lambda {
-                   order('calendars.year DESC, calendars.semester ASC, title, academics.name')
+                   order('calendars.year DESC, calendars.semester DESC, academics.name, title')
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
