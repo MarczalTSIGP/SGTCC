@@ -11,7 +11,7 @@ describe 'ExaminationBoard::update', :js, type: :feature do
   end
 
   describe '#update' do
-    let(:examination_board) { create(:examination_board) }
+    let(:examination_board) { create(:current_examination_board_tcc_one) }
 
     before do
       visit edit_tcc_one_professors_examination_board_path(examination_board)
