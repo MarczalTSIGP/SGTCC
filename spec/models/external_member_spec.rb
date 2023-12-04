@@ -199,21 +199,22 @@ RSpec.describe ExternalMember, type: :model do
                                     external_member.supervision_examination_boards.by_tcc_one(nil,
                                                                                               nil,
                                                                                               nil))
-      expect(external_member.examination_boards_by_tcc_one_list).to
-      match_array(examination_boards_tcc_one)
-      expect(external_member.examination_boards_by_tcc_one_list.count).to eq(1)
+      examination_boards = external_member.examination_boards_by_tcc_one_list
+      expect(examination_boards).to match_array(examination_boards_tcc_one)
+      expect(examination_boards.count).to eq(1)
     end
 
     it 'returns the examination boards for TCC One with specific status' do
-      status = 'CURRENT_SEMESTER'
+      status = 'current_semester'
 
       examination_boards_tcc_one_approved = (
         external_member.examination_boards.by_tcc_one(nil, nil, status) +
         external_member.supervision_examination_boards.by_tcc_one(nil, nil, status)
       )
-      expect(external_member.examination_boards_by_tcc_one_list(nil, nil, status)).to
-      match_array(examination_boards_tcc_one_approved)
-      expect(external_member.examination_boards_by_tcc_one_list(nil, nil, status).count).to eq(1)
+
+      examination_boards = external_member.examination_boards_by_tcc_one_list(nil, nil, status)
+      expect(examination_boards).to match_array(examination_boards_tcc_one_approved)
+      expect(examination_boards.count).to eq(1)
     end
   end
 
@@ -235,22 +236,22 @@ RSpec.describe ExternalMember, type: :model do
                                     external_member.supervision_examination_boards.by_tcc_two(nil,
                                                                                               nil,
                                                                                               nil))
-      expect(external_member.examination_boards_by_tcc_two_list).to
-      match_array(examination_boards_tcc_two)
-      expect(external_member.examination_boards_by_tcc_two_list.count).to eq(1)
+      examination_boards = external_member.examination_boards_by_tcc_two_list
+      expect(examination_boards).to match_array(examination_boards_tcc_two)
+      expect(examination_boards.count).to eq(1)
     end
 
     it 'returns the examination boards for TCC Two with specific status' do
-      status = 'CURRENT_SEMESTER'
+      status = 'current_semester'
 
       examination_boards_tcc_two_approved = (
         external_member.examination_boards.by_tcc_two(nil, nil, status) +
         external_member.supervision_examination_boards.by_tcc_two(nil, nil, status)
       )
 
-      expect(external_member.examination_boards_by_tcc_two_list(nil, nil, status)).to
-      match_array(examination_boards_tcc_two_approved)
-      expect(external_member.examination_boards_by_tcc_two_list(nil, nil, status).count).to eq(1)
+      examination_boards = external_member.examination_boards_by_tcc_two_list(nil, nil, status)
+      expect(examination_boards).to match_array(examination_boards_tcc_two_approved)
+      expect(examination_boards.count).to eq(1)
     end
   end
 end

@@ -58,7 +58,7 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
         status_filter = I18n.t('enums.examination_board.status.CURRENT_SEMESTER')
         selectize(status_filter, from: 'examination_boards_status')
 
-        status = 'CURRENT_SEMESTER'
+        status = 'current_semester'
         examination_boards = external_member.examination_boards_by_tcc_one_list(nil,
                                                                                 nil,
                                                                                 status)
@@ -77,7 +77,7 @@ describe 'ExaminationBoard::index', type: :feature, js: true do
         status_filter = I18n.t('enums.examination_board.status.OTHER_SEMESTER')
         selectize(status_filter, from: 'examination_boards_status')
 
-        status = 'OTHER_SEMESTER'
+        status = 'other_semester'
         examination_boards = external_member.examination_boards_by_tcc_one_list(nil,
                                                                                 nil,
                                                                                 status)

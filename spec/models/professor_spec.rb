@@ -295,7 +295,7 @@ RSpec.describe Professor, type: :model do
     it 'returns examination boards filtered by TCC One' do
       page = 1
       term = 'test'
-      status = 'CURRENT_SEMESTER'
+      status = 'current_semester'
 
       filtered_examination_boards = (
         professor.guest_examination_boards.by_tcc_one(page, term, status) +
@@ -323,7 +323,7 @@ RSpec.describe Professor, type: :model do
     it 'returns examination boards filtered by TCC Two' do
       page = 1
       term = 'test'
-      status = 'CURRENT_SEMESTER'
+      status = 'current_semester'
 
       filtered_examination_boards = (
         professor.guest_examination_boards.by_tcc_two(page, term, status) +

@@ -50,7 +50,7 @@
     </div>
   <% end %>
 
-  <%= active_link_to(external_members_examination_boards_path,
+  <%= active_link_to(external_members_examination_boards_tcc_one_path(status: 'current_semester'),
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('fas', 'user-friends') %>

@@ -14,11 +14,6 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
                  :responsible_examination_boards_tcc_two_path,
                  only: :tcc_two
 
-  # def index
-  #   data = current_external_member.current_examination_boards(params[:term])
-  #   @examination_boards = Kaminari.paginate_array(data).page(params[:page])
-  # end
-
   def index
     redirect_to action: :tcc_one
   end
