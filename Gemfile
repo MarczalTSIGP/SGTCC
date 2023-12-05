@@ -4,7 +4,7 @@ ruby '3.0.6'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
@@ -24,7 +24,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'momentjs-rails'
-gem 'pg', '0.18.4'
+gem 'pg', '~> 1.1'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
