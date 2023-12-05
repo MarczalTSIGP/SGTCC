@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:2.7.2
+FROM ruby:3.0.6
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -121,9 +121,6 @@ RUN mkdir -p $APP \
 
 # Set working directory
 WORKDIR $APP
-
-# Install latest version of net-imap supported by ruby-2.7.2
-RUN gem install net-imap -v 0.3.7
 
 # Install bundler and rails
 RUN gem install bundler -v 2.3.7 \

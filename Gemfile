@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby '3.0.6'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 5.6'
@@ -39,18 +39,18 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
-  gem 'capybara', '3.32'
+  gem 'capybara'
   gem 'webdrivers'
 
   # gem 'apparition'
-  gem 'faker', '~>2.12.0'
-  gem 'rspec-rails', '~> 5.1.2'
+  gem 'faker'
+  gem 'rspec-rails'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
