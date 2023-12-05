@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:2.7.2
+FROM ruby:3.0.6
 
 # Encoding
 # C.UTF8 locale supports Computer English language

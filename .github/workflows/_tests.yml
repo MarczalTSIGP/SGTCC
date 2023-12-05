@@ -14,7 +14,7 @@ jobs:
     env:
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
-      image: ruby:2.7.2
+      image: ruby:3.0.6
       options: --network-alias testHost
       volumes:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples

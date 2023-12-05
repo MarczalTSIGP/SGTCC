@@ -12,7 +12,7 @@ jobs:
   linters:
     runs-on: ubuntu-latest
     container:
-      image: ruby:2.7.2
+      image: ruby:3.0.6
     steps:
       - uses: actions/checkout@v3
         with:
@@ -71,7 +71,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install yarn and dependencies
