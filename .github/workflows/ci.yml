@@ -1,7 +1,11 @@
 name: CI
+#on:
+#  pull_request_target:
+#    types: [opened, synchronize, reopened]
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - @guilhermeferreira7/chore/upgrade-rails-and-ruby
 
 jobs:
   tests:
