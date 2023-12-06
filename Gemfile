@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.0.6'
+ruby '3.1.4'
 
 gem 'bootsnap', require: false
 gem 'puma', '~> 5.6'
@@ -34,6 +34,8 @@ gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+
+gem 'psych', '~> 3.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

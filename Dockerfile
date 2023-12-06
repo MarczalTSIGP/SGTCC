@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:3.0.6
+FROM ruby:3.1.4
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -123,5 +123,5 @@ RUN mkdir -p $APP \
 WORKDIR $APP
 
 # Install bundler and rails
-RUN gem install bundler -v 2.3.7 \
-  && gem install rails -v 6.0.3.2
+RUN gem install bundler -v 2.4.22 \
+  && gem install rails -v 6.1.5.1
