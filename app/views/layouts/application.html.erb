@@ -8,13 +8,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'public/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'public/application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag 'print', media: 'print' %>
-    <%= javascript_include_tag 'public/application', 'data-turbolinks-track': 'reload' %>
 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
 
     <%= favicon_link_tag %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>

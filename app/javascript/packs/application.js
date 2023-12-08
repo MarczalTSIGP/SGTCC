@@ -48,8 +48,11 @@ const i18n = new VueI18n({
   locale: 'pt-BR',
   messages
 });
+console.log('a')
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('turbo:load', () => {
+  console.log('turbo:load')
+
   new Vue({
     i18n,
     el: '#app',

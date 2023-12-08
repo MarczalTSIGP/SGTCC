@@ -1,4 +1,4 @@
-//= require turbolinks
+//= require turbo
 
 //= require jquery3
 //= require jquery_ujs
