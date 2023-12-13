@@ -4,7 +4,7 @@ module ExaminationBoardDefenseMinutes
   extend ActiveSupport::Concern
 
   included do
-    def can_create_defense_minutes?(professor)
+    def can_create_defense_minutes_by?(professor)
       has_roles = advisor?(professor) || professor.responsible?
       defense_minutes.blank? && has_roles
     end

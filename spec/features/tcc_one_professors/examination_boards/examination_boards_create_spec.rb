@@ -7,6 +7,8 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
 
   before do
     login_as(professor, scope: :professor)
+    create(:current_orientation_tcc_one)
+    create(:current_orientation_tcc_two)
   end
 
   describe '#create' do
@@ -15,6 +17,18 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
     end
 
     context 'when examination_board is valid' do
+      it 'does not show "Monografia" in the identifier input' do
+        expect(page).not_to have_content('Monografia')
+      end
+
+      it 'does not show "tcc 2" in the identifier input' do
+        find('#examination_board_orientation_id-selectized').click
+
+        all('.selectize-dropdown-content .option').each do |option|
+          expect(option.text).not_to match(/TCC: 2/i)
+        end
+      end
+
       it 'create an examination_board' do
         attributes = attributes_for(:examination_board_tcc_one)
         selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')

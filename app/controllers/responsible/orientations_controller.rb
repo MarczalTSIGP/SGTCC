@@ -12,15 +12,19 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
+
     @orientations = Orientation.by_tcc_one(params[:page], params[:term], params[:status])
     @search_url = responsible_orientations_search_tcc_one_path
+
     render :index
   end
 
   def tcc_two
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_two_path
+
     @orientations = Orientation.by_tcc_two(params[:page], params[:term], params[:status])
     @search_url = responsible_orientations_search_tcc_two_path
+
     render :index
   end
 

@@ -11,7 +11,7 @@ describe 'ExaminationBoard::update', :js, type: :feature do
   end
 
   describe '#update' do
-    let(:examination_board) { create(:examination_board) }
+    let(:examination_board) { create(:examination_board_tcc_two) }
 
     before do
       visit edit_responsible_examination_board_path(examination_board)
@@ -56,8 +56,6 @@ describe 'ExaminationBoard::update', :js, type: :feature do
                                                                             visible: :hidden
         expect(page).to have_field 'examination_board_identifier_project', disabled: true,
                                                                            visible: :hidden
-        expect(page).to have_field 'examination_board_identifier_monograph', disabled: true,
-                                                                             visible: :hidden
 
         expect(page).to have_field 'examination_board_professor_ids-selectized', disabled: true
         expect(page).to have_field 'examination_board_external_member_ids-selectized',

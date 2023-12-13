@@ -8,10 +8,12 @@ FactoryBot.define do
 
     factory :base_activity_tcc_one do
       tcc { BaseActivity.tccs.values.first }
+      identifier { %w[proposal project].sample }
     end
 
     factory :base_activity_tcc_two do
       tcc { BaseActivity.tccs.values.last }
+      identifier { :monograph }
     end
   end
 end

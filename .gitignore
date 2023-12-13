@@ -51,3 +51,5 @@ reload.sh
 # Ignore vscode config
 /htmlbeautifier
 .vscode/
+
+.idea/

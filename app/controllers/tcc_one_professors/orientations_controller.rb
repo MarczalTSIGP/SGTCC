@@ -1,13 +1,12 @@
 class TccOneProfessors::OrientationsController < TccOneProfessors::BaseController
   before_action :set_calendar
   before_action :set_orientation, only: [:show, :document, :documents]
-  before_action :set_orientations, only: :by_calendar
   before_action :set_title, only: :by_calendar
   before_action :set_index_breadcrumb
   before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
 
   def by_calendar
-    @orientations = @orientations.search(params[:term]).page(params[:page])
+    @orientations = @calendar.orientations.by_tcc_one(params[:status], params[:term]).recent
 
     render :index
   end
@@ -33,12 +32,6 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
 
   def set_orientation
     @orientation = @calendar.orientations.find(params[:id])
-  end
-
-  def set_orientations
-    status = params[:status]
-    condition = status.present? ? { status: status } : {}
-    @orientations = @calendar.orientations.where(condition).with_relationships.recent
   end
 
   def set_calendar

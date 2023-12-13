@@ -1,7 +1,11 @@
+<%= render 'shared/examination_boards/legend_status' %>
+
 <div class="text-right mt-3">
   <%= page_entries_info @examination_boards,
     entry_name: t('entry_names.examination_boards', count: @examination_boards.size) %>
 </div>
+
+<%= yield(:orienation_tabs) %>
 
 <div class="table-striped mt-3 table-responsive w-100">
   <table class="table card-table table-vcenter text-nowrap no-table-padding-horizontal">
@@ -23,4 +27,3 @@
     </tbody>
   </table>
 </div>
-

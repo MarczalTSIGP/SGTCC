@@ -2,6 +2,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   before_action :set_examination_board, only: [:edit, :update, :destroy]
   before_action :set_examination_board_with_relationships, only: :show
   before_action :disabled_fields, only: [:new, :create, :edit, :update]
+  before_action :can_update_or_destroy?, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
                  :tcc_one_professors_examination_boards_tcc_one_path,
@@ -38,43 +39,53 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def new
     @examination_board = ExaminationBoard.new
+
+    set_orientations_and_activities
   end
 
   def edit
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.edit"),
                    edit_tcc_one_professors_examination_board_path
 
-    @disabled_field = @examination_board.defense_minutes.present?
+    set_orientations_and_activities
   end
 
   def create
-    @examination_board = ExaminationBoard.new(examination_board_params)
+    @examination_board = ExaminationBoard.new(examination_board_params.merge(tcc: :one))
 
     if @examination_board.save
       feminine_success_create_message
       redirect_to tcc_one_professors_examination_boards_path
     else
+      set_orientations_and_activities
+
       error_message
-      render :new
+      render :new, orientations: @orientations, activities: @activities
     end
   end
 
   def update
-    if @examination_board.update(examination_board_params)
+    if @examination_board.update(examination_board_params.merge(tcc: :one))
       feminine_success_update_message
       redirect_to tcc_one_professors_examination_board_path(@examination_board)
     else
-      @disabled_field = @examination_board.defense_minutes.present?
+      set_orientations_and_activities
+
       error_message
       render :edit
     end
   end
 
   def destroy
-    @examination_board.destroy
-    feminine_success_destroy_message
+    if @examination_board.defense_minutes.blank?
+      @examination_board.destroy
+      feminine_success_destroy_message
 
-    redirect_to tcc_one_professors_examination_boards_path
+      redirect_to tcc_one_professors_examination_boards_path
+    else
+      flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to tcc_one_professors_examination_board_path(@examination_board)
+    end
   end
 
   private
@@ -108,5 +119,17 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def disabled_fields
     @disabled_field = @examination_board&.defense_minutes.present?
+  end
+
+  def set_orientations_and_activities
+    @activities = Activity.human_tcc_one_identifiers
+    @orientations = Orientation.current_tcc_one
+  end
+
+  def can_update_or_destroy?
+    return unless @examination_board.monograph?
+
+    flash[:error] = I18n.t('flash.not_authorized')
+    redirect_back(fallback_location: tcc_one_professors_examination_boards_tcc_one_path)
   end
 end

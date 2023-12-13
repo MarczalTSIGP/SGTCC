@@ -2,7 +2,8 @@ class Populate::Calendars
   attr_reader :current_year
 
   def initialize
-    @start_year = Calendar.current_year.to_i - 1
+    @current_year = Calendar.current_year.to_i
+    @current_semester = Calendar.current_semester
   end
 
   def populate
@@ -12,15 +13,16 @@ class Populate::Calendars
   private
 
   def create_calendars
-    3.times do |index|
-      create_calendar_for_year(@start_year + index)
-    end
-  end
+    year = @current_year
+    semester = @current_semester
 
-  def create_calendar_for_year(year)
-    2.times do |index|
-      Calendar.create!(year: year, semester: index + 1, tcc: 1)
-      Calendar.create!(year: year, semester: index + 1, tcc: 2)
+    4.times do |_index|
+      # this order is important to the populate
+      Calendar.create!(year: year, semester: semester, tcc: 2)
+      Calendar.create!(year: year, semester: semester, tcc: 1)
+
+      year -= 1 if semester == 1
+      semester = semester == 1 ? 2 : 1
     end
   end
 end

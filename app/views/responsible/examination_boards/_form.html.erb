@@ -1,9 +1,9 @@
-<%= simple_form_for [:responsible, @examination_board] do |f| %>
+<%= simple_form_for @examination_board, url: url do |f| %>
    <div class="form-inputs">
 
       <%= f.input :identifier,
                 as: :radio_button_tabler,
-                collection: Activity.human_tcc_identifiers,
+                collection: @activities,
                 disabled: @disabled_field %>
 
       <%= f.association :orientation,
@@ -11,7 +11,7 @@
                         input_html: { data: 'selectize' },
                         value_method: :id,
                         label_method: :academic_with_calendar,
-                        collection: Orientation.all.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
+                        collection: @orientations.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
                         prompt: t('prompt.select.m', name: Academic.model_name.human),
                         disabled: @disabled_field %>
 
@@ -55,8 +55,6 @@
             label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
             datetime="<%= @examination_board.document_available_until %>" />
       </div>
-
-      <%= f.hidden_field :tcc, value: @examination_board.tcc.present? ? @examination_board.tcc : 'two' %>
    </div>
 
    <div class="d-flex">
@@ -66,4 +64,4 @@
 
       <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
    </div>
-<% end %>
+            <% end %>

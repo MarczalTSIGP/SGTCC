@@ -6,8 +6,8 @@ describe 'Orientation::activities', type: :feature do
 
   before do
     login_as(professor, scope: :professor)
-    visit tcc_one_professors_calendar_orientation_activities_path(orientation.current_calendar,
-                                                                  orientation)
+    calendar = orientation.current_calendar
+    visit tcc_one_professors_orientation_calendar_activities_path(orientation, calendar)
   end
 
   describe '#index' do
@@ -15,8 +15,8 @@ describe 'Orientation::activities', type: :feature do
       it 'shows all the activites' do
         orientation.current_calendar.activities.each do |activity|
           expect(page).to have_link(activity.name,
-                                    href: tcc_one_professors_calendar_orientation_activity_path(
-                                      orientation.current_calendar, orientation, activity
+                                    href: tcc_one_professors_orientation_calendar_activity_path(
+                                      orientation, orientation.current_calendar, activity
                                     ))
           expect(page).to have_contents([activity.base_activity_type.name,
                                          I18n.t("enums.tcc.#{activity.tcc}"),
@@ -32,8 +32,9 @@ describe 'Orientation::activities', type: :feature do
       end
 
       before do
-        visit tcc_one_professors_calendar_orientation_activity_path(orientation.current_calendar,
-                                                                    orientation, activity)
+        calendar = orientation.current_calendar
+        visit tcc_one_professors_orientation_calendar_activity_path(orientation,
+                                                                    calendar, activity)
       end
 
       it 'shows the activity' do

@@ -1,0 +1,21 @@
+<div class="modal fade" id="appoint-text-<%= response.id %>" tabindex="-1" role="dialog" aria-labelledby="appointment-modal-label-<%= response.id %>" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <span class="text-muted mr-1">Apontamentos do avaliador </span>
+            <h5 class="modal-title" id="appointment-modal-label-<%= response.id %>">
+               <%= response.evaluator.name %>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </button>
+         </div>
+         <div class="modal-body">
+            <markdown-reader content="<%= response.appointments_text %>" />
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+         </div>
+      </div>
+   </div>
+</div>

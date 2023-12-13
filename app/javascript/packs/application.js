@@ -27,13 +27,19 @@ Vue.use(VueI18n);
 Vue.use(VueSwal);
 Vue.use(VueClipboard);
 
+const styles = [
+  'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+];
+
+const link = document.querySelectorAll('link[media="print"]')[0];
+if (link != undefined) {
+  styles.push(link.href);
+}
+
 const options = {
   name: '_blank',
   specs: ['fullscreen=yes', 'titlebar=no', 'scrollbars=yes'],
-  styles: [
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
-  ]
+  styles: styles
 };
 
 Vue.use(VueHtmlToPaper, options);

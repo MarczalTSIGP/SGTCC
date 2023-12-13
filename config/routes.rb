@@ -78,6 +78,7 @@ Rails.application.routes.draw do
                 end
 
       resources :examination_boards,
+                except: [:new, :create],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -103,9 +104,25 @@ Rails.application.routes.draw do
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
 
+      get 'examination_boards/tcc_one/new',
+          to: 'examination_boards#new_to_tcc_one',
+          as: 'examination_boards_new_tcc_one'
+
+      post 'examination_boards/tcc_one',
+           to: 'examination_boards#create_to_tcc_one',
+           as: 'examination_boards_create_tcc_one'
+
       get 'examination_boards/tcc_two',
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two'
+
+      get 'examination_boards/tcc_two/new',
+          to: 'examination_boards#new_to_tcc_two',
+          as: 'examination_boards_new_tcc_two'
+
+      post 'examination_boards/tcc_two',
+           to: 'examination_boards#create_to_tcc_two',
+           as: 'examination_boards_create_tcc_two'
 
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
@@ -150,6 +167,14 @@ Rails.application.routes.draw do
       get 'orientations/current_tcc_two',
           to: 'orientations#current_tcc_two',
           as: 'orientations_current_tcc_two'
+
+      get 'orientations/migration',
+          to: 'orientations_migration#index',
+          as: 'orientations_migration'
+
+      post 'orientations/(:id)/migrate',
+           to: 'orientations_migration#migrate',
+           as: 'orientations_migrate'
 
       post 'orientations/(:id)/renew', to: 'orientations#renew', as: 'orientations_renew'
       post 'orientations/(:id)/cancel', to: 'orientations#cancel', as: 'orientations_cancel'
@@ -489,13 +514,13 @@ Rails.application.routes.draw do
           to: 'orientations#document',
           as: 'calendar_orientation_document'
 
-      get 'calendars/(:calendar_id)/orientations/(:id)/activities',
+      get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities',
           to: 'orientation_activities#index',
-          as: 'calendar_orientation_activities'
+          as: 'orientation_calendar_activities'
 
-      get 'calendars/(:calendar_id)/orientations/(:id)/activities/(:activity_id)',
+      get 'orientations/(:orientation_id)/calendars/(:calendar_id)/activities/(:id)',
           to: 'orientation_activities#show',
-          as: 'calendar_orientation_activity'
+          as: 'orientation_calendar_activity'
 
       get 'orientations/current_tcc_one',
           to: 'orientations#current_tcc_one',
