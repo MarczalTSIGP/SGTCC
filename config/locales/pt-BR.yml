@@ -122,6 +122,9 @@ pt-BR:
     documents:
       one: "documento"
       other: "documentos"
+    activities:
+      one: "atividade"
+      other: "atividades"
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
@@ -191,6 +194,7 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+      recent: "Atividades que precisam de aprovação"
     documents:
       show: "Visualizar documento"
       reviewing: "Documentos para análise"
@@ -595,6 +599,7 @@ pt-BR:
           other: 'Total de <b> %{count}</b> %{entry_name}'
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
+    total_entries: 'Total de'
   enums:
     genders:
       male: 'Masculino'

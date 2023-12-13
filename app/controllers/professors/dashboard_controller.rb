@@ -1,5 +1,6 @@
 class Professors::DashboardController < Professors::BaseController
   before_action :set_meetings, only: :index
+  before_action :set_activities, only: :index
   before_action :set_documents, only: :index
   before_action :set_examination_boards, only: :index
   before_action :set_professor, only: :report
@@ -20,6 +21,10 @@ class Professors::DashboardController < Professors::BaseController
                                  .page(params[:page])
                                  .per(5)
                                  .recent
+  end
+
+  def set_activities
+    @activities = current_professor.activities_to_be_approved
   end
 
   def set_documents

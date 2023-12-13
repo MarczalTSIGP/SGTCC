@@ -14,6 +14,8 @@ class Activity < ApplicationRecord
   validates :final_date, presence: true
 
   scope :recent, -> { order(:final_date) }
+  scope :not_judged, -> { where(judgment: false) }
+  scope :with_relationship, -> { includes(orientation: [:academic, :calendars]) }
 
   def deadline
     I18n.t('time.deadline',
