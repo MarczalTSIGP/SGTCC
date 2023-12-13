@@ -15,6 +15,7 @@ class Academics::ActivitiesController < Academics::BaseController
 
   def create
     @academic_activity = AcademicActivity.new(academic_activity_params)
+    @academic_activity.title = format_title(academic_activity_params[:title])
 
     if @academic_activity.save
       feminine_success_update_message
@@ -43,6 +44,9 @@ class Academics::ActivitiesController < Academics::BaseController
 
   def set_academic_activity
     @academic_activity = current_academic.academic_activities.find_by(activity_id: @activity.id)
+    if @academic_activity&.present?
+      @academic_activity.title = format_title(@academic_activity.title)
+    end
     @academic_activity = AcademicActivity.new if @academic_activity.blank?
   end
 
@@ -62,5 +66,13 @@ class Academics::ActivitiesController < Academics::BaseController
           .permit(:title, :summary, :pdf, :pdf_cache,
                   :additional_instructions, :academic_id, :activity_id,
                   :complementary_files, :complementary_files_cache)
+  end
+
+  def format_title(title)
+    ignore_words = %w[de da do das dos a e o em uma para]
+
+    title.split.map do |word|
+      ignore_words.include?(word.downcase) ? word.downcase : word.capitalize
+    end.join(' ')
   end
 end
