@@ -16,15 +16,17 @@ describe 'Activity::index', type: :feature, js: true do
     context 'when shows all activities with pending approvement' do
       it 'shows all the activities' do
         activities.each do |activity|
-          if !activity.judgment
-            expect(page).to have_link(activity.name,
-                                      href: professors_orientation_calendar_activity_path(academic.orientations.last, activity.calendar, activity))
+          next if activity.judgment
 
-            expect(page).to have_contents([activity.base_activity_type.name,
-                                           academic.name,
-                                           I18n.t("enums.tcc.#{activity.tcc}"),
-                                           activity.deadline])
-          end
+          expect(page).to have_link(activity.name,
+                                    href: professors_orientation_calendar_activity_path(
+                                      academic.orientations.last, activity.calendar, activity
+                                    ))
+
+          expect(page).to have_contents([activity.base_activity_type.name,
+                                         academic.name,
+                                         I18n.t("enums.tcc.#{activity.tcc}"),
+                                         activity.deadline])
         end
       end
     end

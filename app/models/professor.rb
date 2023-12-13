@@ -133,5 +133,4 @@ class Professor < ApplicationRecord
     academic_ids = orientations.pluck(:academic_id)
     AcademicActivity.where(judgment: false, academic_id: academic_ids)
   end
-
 end
