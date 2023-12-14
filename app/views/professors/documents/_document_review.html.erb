@@ -1,7 +1,7 @@
 <tr>
   <td>
     <span data-toggle="tooltip" title="<%= document.orientation.title %>">
-      <%= document.orientation.short_title %>
+      <%= link_to document.orientation.short_title, professors_document_path(document) %>
     </span>
   </td>
   <td><%= document.orientation.academic.name %></td>
