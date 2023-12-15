@@ -1,3 +1,8 @@
+import jquery from "jquery";
+window.jQuery = jquery;
+window.$ = jquery;
+console.log($);
+
 export default {
   mounted() {
     this.initHeaderMenuCollapse();
@@ -5,11 +10,9 @@ export default {
 
   methods: {
     initHeaderMenuCollapse() {
-      const $ = window.jQuery;
-
       $('[data-toggle="collapse"]').click(function() {
-        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        $("html, body").animate({ scrollTop: 0 }, "slow");
       });
-    },
-  },
+    }
+  }
 };

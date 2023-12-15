@@ -8,9 +8,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'public/application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'public/application', media: 'all', 'data-turbo-track': 'reload' %>
 
-    <%=  javascript_importmap_tags 'public/application' %>
+    <%= javascript_importmap_tags %>
+
+    <%= javascript_import_module_tag "packs/application" %>
 
     <%= favicon_link_tag %>
   </head>
