@@ -5,6 +5,7 @@ export default {
 
   methods: {
     initExaminationBoardsHelper() {
+      console.log("examination-boards.js");
       document.querySelectorAll(".show-eb-details").forEach(function(element) {
         element.addEventListener("click", function(event) {
           const ebId = this.dataset.ebId;

@@ -1,78 +1,72 @@
 <div class="examination-board-site mb-4 <%= 'opacity-50' if (examination_board.date < Time.zone.now) %>">
-   <div class="head">
-      <div class="flex-left">
-         <div>
-            <%= long_date(examination_board.date) %> <%= l(examination_board.date, format: :time) %><br>
-            <%= examination_board.place %><br>
-         </div>
+  <div class="head">
+    <div class="flex-left">
+      <div>
+        <%= long_date(examination_board.date) %> <%= l(examination_board.date, format: :time) %><br>
+        <%= examination_board.place %><br>
       </div>
-
-      <div class="flex-right">
-         <div class="mb-3">
-            <a href="#" class="show-eb-details" data-eb-id="<%= examination_board.id %>">
-               <%= examination_board.academic_activity&.title %><br>
-            </a>
-         </div>
-         <div>
-            <span class="mr-5"><%= examination_board.orientation.academic.name %> (acadêmico)</span>
-            <%= examination_board.orientation.advisor.name_with_scholarity %> (orientador)
-         </div>
+    </div>
+    <div class="flex-right">
+      <div class="mb-3">
+        <a href="#" class="show-eb-details" data-eb-id="<%= examination_board.id %>">
+          <%= examination_board.academic_activity&.title %><br>
+        </a>
       </div>
-   </div>
-
-   <div id="eb-<%= examination_board.id %>" class=" d-none">
-      <hr />
-
-      <div class="section">
-         <p class="text-justify"><strong><%= ExaminationBoard.human_attribute_name('summary') %>: </strong>
-            <%= examination_board.academic_activity&.summary %></p>
+      <div>
+        <span class="mr-5"><%= examination_board.orientation.academic.name %> (acadêmico)</span>
+        <%= examination_board.orientation.advisor.name_with_scholarity %> (orientador)
       </div>
-
-      <div class="section">
-         <div>
-            <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
-            <% examination_board.orientation.supervisors.each do |supervisor| %>
-               <div class="d-inline-block mr-3">
-                  <table-name-avatar 
+    </div>
+  </div>
+  <div id="eb-<%= examination_board.id %>" class=" d-none">
+    <hr />
+    <div class="section">
+      <p class="text-justify"><strong><%= ExaminationBoard.human_attribute_name('summary') %>: </strong>
+        <%= examination_board.academic_activity&.summary %></p>
+    </div>
+    <div class="section">
+      <div>
+        <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
+        <% examination_board.orientation.supervisors.each do |supervisor| %>
+          <div class="d-inline-block mr-3">
+            <table-name-avatar 
                url="<%= supervisor.profile_image %>"
                name="<%= supervisor.name_with_scholarity %>">
-                  </table-name-avatar>
-               </div>
-            <% end %>
-         </div>
+            </table-name-avatar>
+          </div>
+        <% end %>
       </div>
-
-      <div class="section">
-         <div>
-            <strong><%= ExaminationBoard.human_attribute_name('evaluators') %>:</strong><br>
-            <% examination_board.professors.each do |professor| %>
-               <div class="d-inline-block mr-3">
-                  <table-name-avatar
+    </div>
+    <div class="section">
+      <div>
+        <strong><%= ExaminationBoard.human_attribute_name('evaluators') %>:</strong><br>
+        <% examination_board.professors.each do |professor| %>
+          <div class="d-inline-block mr-3">
+            <table-name-avatar
                   url="<%= professor.profile_image %>"
                   name="<%= professor.name_with_scholarity %>">
-                  </table-name-avatar>
-               </div>
-            <% end %>
-         </div>
+            </table-name-avatar>
+          </div>
+        <% end %>
       </div>
-
-      <div class="section">
-         <div>
-            <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong><br>
-            <% if examination_board.academic_activity %>
-               <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
-                  <span class="icon mr-1">
-                     <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
-               <% end %>
-               <% if examination_board.academic_activity.complementary_files.present? %>
-                  <%= link_to(examination_board.academic_activity.complementary_files.url, target: :_blank) do %>
-                     <%= AcademicActivity.human_attribute_name('complementary_files') %>
-                  <% end %>
-               <% end %>
+    </div>
+    <div class="section">
+      <div>
+        <strong><%= ExaminationBoard.human_attribute_name('documents') %>:</strong><br>
+        <% if examination_board.academic_activity %>
+          <%= link_to(examination_board.academic_activity.pdf.url, target: :_blank, class: 'mx-2') do %>
+            <span class="icon mr-1">
+              <i class="fas fa-file-pdf"></i>
+            </span>
+            <%= AcademicActivity.human_attribute_name(examination_board.identifier) %>
+          <% end %>
+          <% if examination_board.academic_activity.complementary_files.present? %>
+            <%= link_to(examination_board.academic_activity.complementary_files.url, target: :_blank) do %>
+              <%= AcademicActivity.human_attribute_name('complementary_files') %>
             <% end %>
-         </div>
+          <% end %>
+        <% end %>
       </div>
-   </div>
+    </div>
+  </div>
 </div>

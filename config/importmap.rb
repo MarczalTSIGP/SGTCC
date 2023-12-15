@@ -24,7 +24,7 @@ pin "#lib/platform/node/index.js", to: "https://ga.jspm.io/npm:@jspm/core@2.0.1/
 pin "bs-custom-file-input", to: "https://ga.jspm.io/npm:bs-custom-file-input@1.3.2/dist/bs-custom-file-input.js"
 pin "vue-html-to-paper", to: "https://ga.jspm.io/npm:vue-html-to-paper@1.1.0/index.js"
 
-pin_all_from "app/javascript/components", under: "components"
+pin_all_from "app/javascript/packs/components", under: "components"
 pin_all_from "app/javascript/initializers", under: "initializers"
 pin_all_from "app/javascript/utils", under: "utils"
 pin_all_from "app/javascript/packs", under: "packs"
