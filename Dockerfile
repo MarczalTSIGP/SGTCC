@@ -91,7 +91,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg m
 # --------------------------
 # INSTALL NODEJS BY NVM
 # --------------------------
-ARG NODE_VERSION=10.24.1
+ARG NODE_VERSION=20.10.0
 ARG NVM_DIR=/usr/local/nvm
 
 # https://github.com/creationix/nvm#install-script
@@ -123,5 +123,5 @@ RUN mkdir -p $APP \
 WORKDIR $APP
 
 # Install bundler and rails
-RUN gem install bundler -v 2.4.22 \
-  && gem install rails -v 6.1.5.1
+RUN gem install bundler -v 2.4.22 #\
+  #  && gem install rails -v 6.1.5.1

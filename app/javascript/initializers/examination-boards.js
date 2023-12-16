@@ -1,3 +1,5 @@
+console.log("examination-boards.js");
+
 export default {
   mounted() {
     this.initExaminationBoardsHelper();

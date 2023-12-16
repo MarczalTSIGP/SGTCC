@@ -34,6 +34,7 @@ gem 'mechanize'
 gem 'jsonapi-serializer'
 
 gem 'psych', '~> 3.0'
+gem 'vite_rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
