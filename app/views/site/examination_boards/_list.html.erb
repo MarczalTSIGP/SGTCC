@@ -1,7 +1,9 @@
 <% if examination_boards.empty? %>
    <%= t('helpers.no_results') %>
 <% else %>
-   <% examination_boards.each_with_index do |examination_board, index| %>
-      <%= render('site/examination_boards/examination_board', examination_board: examination_board) %>
+   <% cache(examination_boards) do %>
+      <% examination_boards.each_with_index do |examination_board, index| %>
+         <%= render('site/examination_boards/examination_board', examination_board: examination_board) %>
+      <% end %>
    <% end %>
 <% end %>

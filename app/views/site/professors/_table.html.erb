@@ -25,8 +25,10 @@
          <tr>
             <%= render('shared/no_results') if professors.empty? %>
          </tr>
-         <% professors.each do |professor| %>
-            <%= render('site/professors/professor', professor: professor) %>
+         <% cache(professors) do %>
+            <% professors.each do |professor| %>
+               <%= render('site/professors/professor', professor: professor) %>
+            <% end %>
          <% end %>
       </tbody>
    </table>

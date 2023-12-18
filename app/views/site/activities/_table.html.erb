@@ -11,8 +11,10 @@
       <tr>
         <%= render('shared/no_results') if activities.empty? %>
       </tr>
-      <% activities.each do |activity| %>
-        <%= render('site/activities/activity', activity: activity) %>
+      <% cache(activities) do %>
+        <% activities.each do |activity| %>
+          <%= render('site/activities/activity', activity: activity) %>
+        <% end %>
       <% end %>
     </tbody>
   </table>
