@@ -10,6 +10,26 @@ describe 'Document::review', :js, type: :feature do
     login_as(responsible, scope: :professor)
   end
 
+  describe '#index' do
+    let(:tep) { create(:document_tep, orientation_id: orientation.id) }
+
+    before do
+      signatures = tep.signatures.reject { |s| s.user_type.eql?('professor_responsible') }
+      signatures.each(&:sign)
+      visit professors_documents_reviewing_path
+    end
+
+    it 'shows the pending documents' do
+      within('table tbody') do
+        expect(page).to have_link(text: orientation.short_title,
+                                  href: professors_document_path(tep))
+        expect(page).to have_content(orientation.academic.name)
+        expect(page).to have_content(tep.document_type.identifier.upcase)
+        expect(page).to have_content(short_date(document.created_at))
+      end
+    end
+  end
+
   describe '#create' do
     before do
       visit professors_document_path(document)

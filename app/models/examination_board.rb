@@ -31,6 +31,9 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
+  scope :tcc_one_current_semester, -> { tcc_one.where('date >= ?', Calendar.start_date) }
+  scope :tcc_two_current_semester, -> { tcc_two.where('date >= ?', Calendar.start_date) }
+
   scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
   scope :recent, -> { order(date: :desc) }
 
