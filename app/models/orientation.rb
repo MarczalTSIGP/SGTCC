@@ -71,7 +71,7 @@ class Orientation < ApplicationRecord
   }
 
   scope :recent, lambda {
-                   order('calendars.year DESC, calendars.semester ASC, title, academics.name')
+                   order('calendars.year DESC, calendars.semester DESC, academics.name, title')
                  }
   scope :order_by_academic, -> { order('academics.name') }
 
@@ -117,9 +117,8 @@ class Orientation < ApplicationRecord
 
   def current_calendar
     calendars.order(
-      { year: :desc },
-      { semester: :desc }
-    ).first
+      year: :asc, semester: :asc, tcc: :asc
+    ).last
   end
 
   # TODO: Refactored and Remove
