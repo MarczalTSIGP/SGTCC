@@ -10,30 +10,60 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
                  :responsible_examination_boards_tcc_one_path,
                  only: :tcc_one
 
+  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.one.index'),
+                 :responsible_examination_boards_tcc_one_current_semester_path,
+                 only: :tcc_one_current_semester
+
   add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.two.index'),
                  :responsible_examination_boards_tcc_two_path,
                  only: :tcc_two
 
+  add_breadcrumb I18n.t('breadcrumbs.examination_boards.tcc.two.index'),
+                 :responsible_examination_boards_tcc_two_current_semester_path,
+                 only: :tcc_two_current_semester
+
   def index
-    redirect_to action: :tcc_one
+    redirect_to action: :tcc_one_current_semester
+  end
+
+  def tcc_one_current_semester
+    @examination_boards = ExaminationBoard.tcc_one_current_semester
+                                          .search(params[:term])
+                                          .page(params[:page])
+                                          .order(date: :desc)
+
+    @search_url = responsible_examination_boards_tcc_one_current_semester_search_path
+    render_with_data_to_tcc_one
   end
 
   def tcc_one
-    @examination_boards = paginate(ExaminationBoard.tcc_one)
-    @search_url = responsible_examination_boards_tcc_one_search_path
-    @new_url = responsible_examination_boards_new_tcc_one_path
-    @link_name = t('breadcrumbs.examination_boards.tcc.one.new')
+    @examination_boards = ExaminationBoard.tcc_one
+                                          .search(params[:term])
+                                          .page(params[:page])
+                                          .order(date: :desc)
 
-    render :index
+    @search_url = responsible_examination_boards_tcc_one_search_path
+    render_with_data_to_tcc_one
+  end
+
+  def tcc_two_current_semester
+    @examination_boards = ExaminationBoard.tcc_two_current_semester
+                                          .search(params[:term])
+                                          .page(params[:page])
+                                          .order(date: :desc)
+
+    @search_url = responsible_examination_boards_tcc_two_current_semester_search_path
+    render_with_data_to_tcc_two
   end
 
   def tcc_two
-    @examination_boards = paginate(ExaminationBoard.tcc_two)
-    @search_url = responsible_examination_boards_tcc_two_search_path
-    @new_url = responsible_examination_boards_new_tcc_two_path
-    @link_name = t('breadcrumbs.examination_boards.tcc.two.new')
+    @examination_boards = ExaminationBoard.tcc_two
+                                          .search(params[:term])
+                                          .page(params[:page])
+                                          .order(date: :desc)
 
-    render :index
+    @search_url = responsible_examination_boards_tcc_two_search_path
+    render_with_data_to_tcc_two
   end
 
   def show
@@ -118,13 +148,6 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   private
 
-  def paginate(data)
-    data.search(params[:term])
-        .page(params[:page])
-        .order(created_at: :desc)
-        .with_relationships
-  end
-
   def set_examination_board
     @examination_board = ExaminationBoard.find(params[:id])
   end
@@ -176,5 +199,19 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def disabled_fields
     @disabled_field = @examination_board&.defense_minutes.present?
+  end
+
+  def render_with_data_to_tcc_one
+    @new_url = responsible_examination_boards_new_tcc_one_path
+    @link_name = t('breadcrumbs.examination_boards.tcc.one.new')
+
+    render :index
+  end
+
+  def render_with_data_to_tcc_two
+    @new_url = responsible_examination_boards_new_tcc_two_path
+    @link_name = t('breadcrumbs.examination_boards.tcc.two.new')
+
+    render :index
   end
 end
