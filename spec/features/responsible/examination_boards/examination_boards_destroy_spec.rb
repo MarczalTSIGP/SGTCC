@@ -1,11 +1,14 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::destroy', type: :feature, js: true do
+describe 'ExaminationBoard::destroy', :js, type: :feature do
   let(:responsible) { create(:responsible) }
   let!(:examination_board) { create(:examination_board_tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
+    create(:current_calendar_tcc_one)
+    create(:current_calendar_tcc_two)
+
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path
   end
