@@ -40,6 +40,8 @@ class Professor < ApplicationRecord
 
   has_many :meetings, through: :orientations
 
+  has_many :activities, through: :orientations
+
   has_many :orientation_examination_boards,
            through: :orientations,
            source: :examination_boards
@@ -125,5 +127,13 @@ class Professor < ApplicationRecord
 
   def self.temporary
     joins(:professor_type).where(professor_types: { name: 'Temporário' })
+  end
+
+  def activities_submissions_to_confirm
+    academic_ids = orientations.pluck(:academic_id)
+    AcademicActivity.includes(:activity)
+                    .where(judgment: false,
+                           academic_id: academic_ids,
+                           activities: { judgment: true })
   end
 end

@@ -1,0 +1,32 @@
+<% unless @submissions_to_confirm.empty? %>
+  <div id="activities-submissions-to-confirm" class="card col-12">
+
+    <div class="card-header">
+      <h3 class="card-title col-sm-8">
+        <b><%= t('breadcrumbs.activities.submissions.to_confirm') %></b>
+      </h3>
+    </div>
+
+    <div class="list-group list-group-flush list-group-hoverable">
+      <% @submissions_to_confirm.each do |submission| %>
+        <div class="list-group-item">
+          <div class="row align-items-center">
+
+            <div class="col-auto">
+              <a href="#">
+                <span class="avatar" style="background-image: url('<%= submission.academic.profile_image %>')"></span>
+              </a>
+            </div>
+            <div class="col text-truncate">
+              <%= link_to_submission(submission, class: "text-reset d-block") %>
+              <div class="d-block text-secondary text-truncate mt-n1">
+                <%= submission.activity.name %> - <%= submission.activity.calendar.year_with_semester %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>
