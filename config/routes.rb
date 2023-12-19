@@ -100,17 +100,19 @@ Rails.application.routes.draw do
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
-      get 'examination_boards/tcc_one',
+      get 'examination_boards/tcc_one/(:current_semester)',
           to: 'examination_boards#tcc_one',
-          as: 'examination_boards_tcc_one'
+          as: 'examination_boards_tcc_one',
+          constraints: { current_semester: /current_semester/ }
 
       get 'examination_boards/tcc_one/new',
           to: 'examination_boards#new_to_tcc_one',
           as: 'examination_boards_new_tcc_one'
 
-      post 'examination_boards/tcc_one',
+      post 'examination_boards/tcc_one/(:current_semester)',
            to: 'examination_boards#create_to_tcc_one',
-           as: 'examination_boards_create_tcc_one'
+           as: 'examination_boards_create_tcc_one',
+           constraints: { current_semester: /current_semester/ }
 
       get 'examination_boards/tcc_two',
           to: 'examination_boards#tcc_two',

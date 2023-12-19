@@ -19,7 +19,15 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def tcc_one
-    @examination_boards = paginate(ExaminationBoard.tcc_one)
+    @examination_boards = ExaminationBoard.tcc_one
+
+    if params[:current_semester].present?
+      @examination_boards = @examination_boards.where('date >= ?', Calendar.start_date)
+    end
+
+    @examination_boards = @examination_boards.page(params[:page])
+                                             .order(date: :desc)
+
     @search_url = responsible_examination_boards_tcc_one_search_path
     @new_url = responsible_examination_boards_new_tcc_one_path
     @link_name = t('breadcrumbs.examination_boards.tcc.one.new')
@@ -28,7 +36,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def tcc_two
-    @examination_boards = paginate(ExaminationBoard.tcc_two)
+    @examination_boards = ExaminationBoard.tcc_two
+                                          .where('date >= ?', Calendar.start_date)
+                                          .page(params[:page])
+                                          .order(date: :desc)
+
     @search_url = responsible_examination_boards_tcc_two_search_path
     @new_url = responsible_examination_boards_new_tcc_two_path
     @link_name = t('breadcrumbs.examination_boards.tcc.two.new')
