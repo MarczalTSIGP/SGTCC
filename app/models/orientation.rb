@@ -117,9 +117,8 @@ class Orientation < ApplicationRecord
 
   def current_calendar
     calendars.order(
-      { year: :desc },
-      { semester: :desc }
-    ).first
+      year: :asc, semester: :asc, tcc: :asc
+    ).last
   end
 
   # TODO: Refactored and Remove

@@ -131,7 +131,7 @@ class Populate::Orientations
   def create_orientation(calendar, index)
     orientation = Orientation.create!(
       title: "Orientation #{index} - #{calendar.year_with_semester}", calendar_ids: [calendar.id],
-      advisor_id: @professor_ids.sample, academic_id: @academic_ids.sample,
+      advisor_id: @professor_ids.sample, academic_id: @academic_ids.delete(@academic_ids.sample),
       institution_id: @institution_ids.sample
     )
     add_supervisors(orientation)
