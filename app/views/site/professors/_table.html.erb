@@ -1,33 +1,37 @@
-<div class="text-right mt-3">
-   <%= page_entries_info professors.page(params[:page]).per(professors.size) %>
-</div>
+<% cache(professors) do %>
+  <div class="text-right mt-3">
+    <%= page_entries_info professors.page(params[:page]).per(professors.size) %>
+  </div>
 
-<div class="site-table table-striped table-responsive w-100 mt-5">
-   <table class="border border-gray card-table table-vcenter text-nowrap">
+  <div class="site-table table-striped table-responsive w-100 mt-5">
+    <table class="border border-gray card-table table-vcenter text-nowrap">
       <thead>
-         <tr>
-            <th colspan="2" class="text-center">
-               <%= Professor.human_attribute_name('name') %>
-            </th>
-            <th>
-               <%= Professor.human_attribute_name('email') %>
-            </th>
-            <th>
-               <%= Professor.human_attribute_name('lattes') %>
-            </th>
-            <th class="w-1" title="<%= Professor.human_attribute_name('available_advisor') %>">
-               <%= Professor.human_attribute_name('available') %>
-            </th>
-         </tr>
+        <tr>
+          <th colspan="2" class="text-center">
+            <%= Professor.human_attribute_name('name') %>
+          </th>
+          <th>
+            <%= Professor.human_attribute_name('email') %>
+          </th>
+          <th>
+            <%= Professor.human_attribute_name('lattes') %>
+          </th>
+          <th class="w-1" title="<%= Professor.human_attribute_name('available_advisor') %>">
+            <%= Professor.human_attribute_name('available') %>
+          </th>
+        </tr>
       </thead>
 
       <tbody>
-         <tr>
-            <%= render('shared/no_results') if professors.empty? %>
-         </tr>
-         <% professors.each do |professor| %>
-            <%= render('site/professors/professor', professor: professor) %>
-         <% end %>
+        <tr>
+          <%= render('shared/no_results') if professors.empty? %>
+        </tr>
+
+        <% professors.each do |professor| %>
+          <%= render('site/professors/professor', professor: professor) %>
+
+        <% end %>
       </tbody>
-   </table>
-</div>
+    </table>
+  </div>
+<% end %>
