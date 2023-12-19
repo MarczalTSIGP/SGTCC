@@ -194,7 +194,8 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
-      recent: "Atividades que precisam de aprovação"
+      submissions:
+        to_confirm: "Submissões de atividades que precisam da sua confirmação"
     documents:
       show: "Visualizar documento"
       reviewing: "Documentos para análise"
@@ -599,7 +600,6 @@ pt-BR:
           other: 'Total de <b> %{count}</b> %{entry_name}'
       more_pages:
         display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
-    total_entries: 'Total de'
   enums:
     genders:
       male: 'Masculino'

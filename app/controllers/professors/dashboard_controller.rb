@@ -1,6 +1,6 @@
 class Professors::DashboardController < Professors::BaseController
   before_action :set_meetings, only: :index
-  before_action :set_activities, only: :index
+  before_action :submissions_to_confirm, only: :index
   before_action :set_documents, only: :index
   before_action :set_examination_boards, only: :index
   before_action :set_professor, only: :report
@@ -23,8 +23,8 @@ class Professors::DashboardController < Professors::BaseController
                                  .recent
   end
 
-  def set_activities
-    @activities = current_professor.activities_to_be_approved
+  def submissions_to_confirm
+    @submissions_to_confirm = current_professor.activities_submissions_to_confirm
   end
 
   def set_documents

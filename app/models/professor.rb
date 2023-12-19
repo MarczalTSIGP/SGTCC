@@ -129,8 +129,11 @@ class Professor < ApplicationRecord
     joins(:professor_type).where(professor_types: { name: 'Temporário' })
   end
 
-  def activities_to_be_approved
+  def activities_submissions_to_confirm
     academic_ids = orientations.pluck(:academic_id)
-    AcademicActivity.where(judgment: false, academic_id: academic_ids)
+    AcademicActivity.includes(:activity)
+                    .where(judgment: false,
+                           academic_id: academic_ids,
+                           activities: { judgment: true })
   end
 end
