@@ -26,4 +26,6 @@
       <%= render partial: "#{namespace}/examination_boards/examination_board", collection: @examination_boards %>
     </tbody>
   </table>
+
+  <%= paginate @examination_boards %>
 </div>
