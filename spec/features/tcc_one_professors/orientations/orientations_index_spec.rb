@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::index', type: :feature do
+describe 'Orientation::index' do
   before do
     professor = create(:professor_tcc_one)
     login_as(professor, scope: :professor)

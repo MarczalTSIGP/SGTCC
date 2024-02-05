@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::update', type: :feature, js: true do
+describe 'ExternalMember::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { ExternalMember.model_name.human }
 

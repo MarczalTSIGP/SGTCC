@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Request::create', type: :feature do
+describe 'Request::create' do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor_id: professor.id) }
   let(:resource_name) { request_resource_name }
@@ -17,7 +17,7 @@ describe 'Request::create', type: :feature do
       visit new_professors_request_path
     end
 
-    context 'when request is valid', js: true do
+    context 'when request is valid', :js do
       it 'create a term of abandonment' do
         selectize(orientation.academic_with_calendar, from: 'document_orientation_id')
         find('.fa-bold').click
@@ -29,7 +29,7 @@ describe 'Request::create', type: :feature do
       end
     end
 
-    context 'when request is not valid', js: true do
+    context 'when request is not valid', :js do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_message(blank_error_message, in: 'div.document_orientation_id')

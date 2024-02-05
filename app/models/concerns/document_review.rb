@@ -5,7 +5,7 @@ module DocumentReview
 
   included do
     def signed_by_user?(user_type)
-      return if all_signed?
+      return false if all_signed?
 
       signatures.where(user_type: user_type, status: true).size == user_type.size
     end

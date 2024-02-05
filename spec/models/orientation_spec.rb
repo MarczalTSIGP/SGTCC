@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Orientation, type: :model do
+RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
   describe 'validates' do
@@ -73,42 +73,42 @@ RSpec.describe Orientation, type: :model do
   describe '#equal_status?' do
     it 'returns if the orientation is equal status?' do
       orientation = create(:orientation)
-      expect(orientation.equal_status?('IN_PROGRESS')).to eq(true)
+      expect(orientation.equal_status?('IN_PROGRESS')).to be(true)
     end
   end
 
   describe '#approved?' do
     it 'returns if the orientation is approved?' do
       orientation = create(:orientation_approved)
-      expect(orientation.approved?).to eq(true)
+      expect(orientation.approved?).to be(true)
     end
   end
 
   describe '#canceled?' do
     it 'returns if the orientation is canceled?' do
       orientation = create(:orientation_canceled)
-      expect(orientation.canceled?).to eq(true)
+      expect(orientation.canceled?).to be(true)
     end
   end
 
   describe '#in_progress?' do
     it 'returns if the orientation is in progress?' do
       orientation = create(:orientation)
-      expect(orientation.in_progress?).to eq(true)
+      expect(orientation.in_progress?).to be(true)
     end
   end
 
   describe '#calendar_tcc_one?' do
     it 'returns if the calendar orientation is the tcc one?' do
       orientation = create(:orientation_tcc_one)
-      expect(orientation.calendar_tcc_one?).to eq(true)
+      expect(orientation.calendar_tcc_one?).to be(true)
     end
   end
 
   describe '#calendar_tcc_two?' do
     it 'returns if the calendar orientation is the tcc two?' do
       orientation = create(:orientation_tcc_two)
-      expect(orientation.calendar_tcc_two?).to eq(true)
+      expect(orientation.calendar_tcc_two?).to be(true)
     end
   end
 
@@ -116,7 +116,7 @@ RSpec.describe Orientation, type: :model do
     it 'returns true' do
       professor = create(:responsible)
       orientation = create(:orientation_tcc_two)
-      expect(orientation.can_be_canceled?(professor)).to eq(true)
+      expect(orientation.can_be_canceled?(professor)).to be(true)
     end
   end
 
@@ -128,7 +128,7 @@ RSpec.describe Orientation, type: :model do
     end
 
     it 'returns true' do
-      expect(orientation.can_be_edited?).to eq(true)
+      expect(orientation.can_be_edited?).to be(true)
     end
 
     context 'when cant be edited' do
@@ -137,7 +137,7 @@ RSpec.describe Orientation, type: :model do
       end
 
       it 'returns false' do
-        expect(orientation.can_be_edited?).to eq(false)
+        expect(orientation.can_be_edited?).to be(false)
       end
     end
   end
@@ -150,7 +150,7 @@ RSpec.describe Orientation, type: :model do
     end
 
     it 'returns true' do
-      expect(orientation.can_be_destroyed?).to eq(true)
+      expect(orientation.can_be_destroyed?).to be(true)
     end
 
     context 'when returns false' do
@@ -159,7 +159,7 @@ RSpec.describe Orientation, type: :model do
       end
 
       it 'returns false' do
-        expect(orientation.can_be_destroyed?).to eq(false)
+        expect(orientation.can_be_destroyed?).to be(false)
       end
     end
   end
@@ -206,7 +206,7 @@ RSpec.describe Orientation, type: :model do
     context 'when calendar for next semester is not found' do
       it 'does not migrate' do
         orientation = create(:orientation_tcc_one_approved)
-        expect(orientation.migrate).to eq(false)
+        expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
       end
     end
@@ -217,9 +217,9 @@ RSpec.describe Orientation, type: :model do
         create(:current_calendar_tcc_two)
         orientation = create(:orientation_tcc_one_approved)
 
-        expect(orientation.migrate).not_to eq(false)
+        expect(orientation.migrate).not_to be(false)
         expect(orientation.calendars.count).to be >= 2
-        expect(orientation.tcc_two?).to eq(true)
+        expect(orientation.tcc_two?).to be(true)
         expect(orientation.current_calendar).to eq(Calendar.current_by_tcc_two)
       end
 
@@ -227,9 +227,9 @@ RSpec.describe Orientation, type: :model do
         next_calendar = create(:next_calendar_tcc_two)
         orientation = create(:orientation_tcc_one_approved_current_calendar)
 
-        expect(orientation.migrate).not_to eq(false)
+        expect(orientation.migrate).not_to be(false)
         expect(orientation.calendars.count).to eq(2)
-        expect(orientation.tcc_two?).to eq(true)
+        expect(orientation.tcc_two?).to be(true)
         expect(orientation.current_calendar).to eq(next_calendar)
       end
 
@@ -251,7 +251,7 @@ RSpec.describe Orientation, type: :model do
     context 'when orientation is not approved tcc one' do
       it 'does not migrate' do
         orientation = create(:orientation) # status: 'IN_PROGRESS'
-        expect(orientation.migrate).to eq(false)
+        expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
       end
     end

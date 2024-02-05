@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature, js: true do
+describe 'Orientation::activities', :js do
   let!(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:academic) { orientation.academic }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Site::update', type: :feature, js: true do
+describe 'Site::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Site.model_name.human }
 

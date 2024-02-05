@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::update', :js, type: :feature do
+describe 'Institution::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Institution.model_name.human }
 

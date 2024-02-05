@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature, js: true do
+describe 'Document::index', :js do
   let!(:orientation) { create(:orientation) }
   let(:external_member) { orientation.external_member_supervisors.first }
 

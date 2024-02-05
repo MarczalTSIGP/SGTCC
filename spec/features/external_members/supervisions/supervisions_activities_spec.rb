@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::activities', type: :feature do
+describe 'Supervision::activities' do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }

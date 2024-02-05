@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Calendar::index', type: :feature, js: true do
+describe 'Calendar::index', :js do
   let(:external_member) { create(:external_member) }
   let!(:orientation) { create(:orientation) }
 

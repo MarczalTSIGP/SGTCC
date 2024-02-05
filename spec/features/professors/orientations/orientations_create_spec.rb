@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::create', type: :feature do
+describe 'Orientation::create' do
   let(:professor) { create(:professor) }
   let!(:academic) { create(:academic) }
   let(:resource_name) { Orientation.model_name.human }
@@ -17,7 +17,7 @@ describe 'Orientation::create', type: :feature do
       visit new_professors_orientation_path
     end
 
-    context 'when orientation is valid', js: true do
+    context 'when orientation is valid', :js do
       it 'create an orientation' do
         attributes = attributes_for(:orientation)
         fill_in 'orientation_title', with: attributes[:title]
@@ -30,7 +30,7 @@ describe 'Orientation::create', type: :feature do
       end
     end
 
-    context 'when orientation is not valid', js: true do
+    context 'when orientation is not valid', :js do
       it 'show errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)

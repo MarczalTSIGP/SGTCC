@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::show', type: :feature do
+describe 'ExternalMember::show' do
   let(:responsible) { create(:responsible) }
   let!(:external_member) { create(:external_member) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature do
+describe 'Orientation::activities' do
   let!(:professor) { create(:professor_tcc_one) }
   let(:orientation) { create(:current_orientation_tcc_two) }
 

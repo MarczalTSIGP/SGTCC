@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Activity, type: :model do
+RSpec.describe Activity do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:tcc) }
@@ -90,7 +90,7 @@ RSpec.describe Activity, type: :model do
       let(:activity) { create(:activity, final_date: Time.current - 1) }
 
       it 'returns true' do
-        expect(activity.expired?).to eq(true)
+        expect(activity.expired?).to be(true)
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Activity, type: :model do
       let(:activity) { create(:activity, final_date: Time.current + 3) }
 
       it 'returns false' do
-        expect(activity.expired?).to eq(false)
+        expect(activity.expired?).to be(false)
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe Activity, type: :model do
       end
 
       it 'returns true' do
-        expect(activity.open?).to eq(true)
+        expect(activity.open?).to be(true)
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe Activity, type: :model do
       end
 
       it 'returns false' do
-        expect(activity.open?).to eq(false)
+        expect(activity.open?).to be(false)
       end
     end
   end

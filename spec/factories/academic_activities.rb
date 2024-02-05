@@ -12,15 +12,15 @@ FactoryBot.define do
     summary { Faker::Lorem.paragraph }
 
     factory :proposal_academic_activity do
-      activity { create(:proposal_activity) }
+      activity { association(:proposal_activity) }
     end
 
     factory :project_academic_activity do
-      activity { create(:project_activity) }
+      activity { association(:project_activity) }
     end
 
     factory :monograph_academic_activity do
-      activity { create(:monograph_activity) }
+      activity { association(:monograph_activity) }
     end
 
     after(:create) do |academic_activity, evaluator|

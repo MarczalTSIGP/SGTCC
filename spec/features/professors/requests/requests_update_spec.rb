@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Request::update', type: :feature, js: true do
+describe 'Request::update', :js do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:orientation, advisor: professor) }
   let!(:document) { create(:document_tdo, orientation_id: orientation.id) }

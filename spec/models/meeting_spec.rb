@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Meeting, type: :model do
+RSpec.describe Meeting do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:content) }
   end
@@ -13,7 +13,7 @@ RSpec.describe Meeting, type: :model do
     let(:meeting) { create(:meeting) }
 
     it 'returns true' do
-      expect(meeting.update_viewed).to eq(true)
+      expect(meeting.update_viewed).to be(true)
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Meeting, type: :model do
 
     context 'when returns true' do
       it 'returns true' do
-        expect(meeting.can_update?).to eq(true)
+        expect(meeting.can_update?).to be(true)
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Meeting, type: :model do
       end
 
       it 'returns false' do
-        expect(meeting.can_update?).to eq(false)
+        expect(meeting.can_update?).to be(false)
       end
     end
   end

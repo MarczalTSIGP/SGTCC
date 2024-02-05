@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics::show', type: :feature do
+describe 'Academics::show' do
   let(:responsible) { create(:responsible) }
   let!(:academic) { create(:academic) }
 

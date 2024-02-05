@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature, js: true do
+describe 'Orientation::activities', :js do
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
   let(:calendar) { orientation.current_calendar }

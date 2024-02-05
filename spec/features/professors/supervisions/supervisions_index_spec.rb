@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::index', type: :feature do
+describe 'Supervision::index' do
   let(:professor) { create(:professor) }
 
   before do

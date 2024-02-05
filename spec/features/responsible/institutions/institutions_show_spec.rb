@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::show', type: :feature do
+describe 'Institution::show' do
   let(:responsible) { create(:responsible) }
   let!(:institution) { create(:institution) }
 

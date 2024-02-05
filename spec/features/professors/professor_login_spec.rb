@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professors:login', type: :feature, js: true do
+describe 'Professors:login', :js do
   let(:professor) { create(:professor) }
   let(:resource_name) { Professor.human_attribute_name(:username) }
 

@@ -1,4 +1,4 @@
-class OrientationsInTCCOneSerializer < OrientationsSerializer
+class OrientationsInTccOneSerializer < OrientationsSerializer
   attribute :title do |object|
     if object.final_proposal
       object.final_proposal.title

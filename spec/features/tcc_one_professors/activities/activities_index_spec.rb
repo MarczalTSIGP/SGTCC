@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature, js: true do
+describe 'Activity::index', :js do
   let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
   let!(:activity) { create(:activity_tcc_one, calendar: calendar_tcc_one) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::search', type: :feature do
+describe 'Supervision::search' do
   let(:external_member) { create(:external_member) }
   let(:canceled_orientation) { create(:current_orientation_tcc_one, status: 'CANCELED') }
   let(:current_orientation) do
@@ -14,7 +14,7 @@ describe 'Supervision::search', type: :feature do
     login_as(external_member, scope: :external_member)
   end
 
-  describe '#search', js: true do
+  describe '#search', :js do
     context 'when finds the supervision' do
       it 'finds the supervision by status' do
         visit external_members_supervisions_tcc_one_path

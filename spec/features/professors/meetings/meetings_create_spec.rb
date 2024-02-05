@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::create', type: :feature, js: true do
+describe 'Meeting::create', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let(:resource_name) { Meeting.model_name.human }

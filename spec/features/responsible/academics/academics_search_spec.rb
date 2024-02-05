@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academics::search', type: :feature, js: true do
+describe 'Academics::search', :js do
   let(:responsible) { create(:responsible) }
   let(:academics) { create_list(:academic, 25) }
 

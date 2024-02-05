@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::activities', type: :feature, js: true do
+describe 'Supervision::activities', :js do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }

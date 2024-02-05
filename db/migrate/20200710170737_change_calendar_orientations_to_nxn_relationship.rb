@@ -7,7 +7,7 @@ class ChangeCalendarOrientationsToNxnRelationship < ActiveRecord::Migration[5.2]
     end
 
     # Migration relationships
-    Orientation.all.each do |o|
+    Orientation.find_each do |o|
       OrientationCalendar.create(orientation_id: o.id, calendar_id: o.calendar_id)
     end
 

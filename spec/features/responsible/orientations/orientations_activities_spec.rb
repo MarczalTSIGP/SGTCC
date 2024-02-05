@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature, js: true do
+describe 'Orientation::activities', :js do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation) }
 

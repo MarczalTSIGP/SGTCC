@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::show', type: :feature do
+describe 'ExaminationBoard::show' do
   let(:professor) { create(:professor_tcc_one) }
   let(:orientation) { create(:orientation_tcc_one) }
   let!(:examination_board) { create(:project_examination_board, orientation: orientation) }

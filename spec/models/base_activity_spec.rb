@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BaseActivity, type: :model do
+RSpec.describe BaseActivity do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:tcc) }

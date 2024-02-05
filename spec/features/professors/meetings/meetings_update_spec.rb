@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::update', type: :feature, js: true do
+describe 'Meeting::update', :js do
   let(:professor) { create(:professor) }
   let(:resource_name) { Meeting.model_name.human }
 

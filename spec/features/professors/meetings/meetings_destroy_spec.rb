@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::destroy', type: :feature, js: true do
+describe 'Meeting::destroy', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
   let!(:meeting) { create(:meeting, orientation: orientation) }

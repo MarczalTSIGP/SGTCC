@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activity_update_judgment', type: :feature, js: true do
+describe 'Orientation::activity_update_judgment', :js do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:activity) { orientation.current_calendar.activities.first }

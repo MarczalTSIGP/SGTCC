@@ -4,7 +4,7 @@ module OrientationCancel
   def cancel
     orientation = Orientation.find(params[:id])
     justification = params['orientation']['cancellation_justification']
-    return success_cancel_json_message(orientation.status) if orientation.cancel(justification)
+    success_cancel_json_message(orientation.status) if orientation.cancel(justification)
   end
 
   private

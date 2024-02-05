@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Calendar, type: :model do
+RSpec.describe Calendar do
   describe 'validates' do
     subject(:calendar) { create(:calendar) }
 
@@ -151,7 +151,7 @@ RSpec.describe Calendar, type: :model do
     it 'returns the calendar data for orientation select' do
       create(:current_calendar_tcc_one)
       create(:current_calendar_tcc_two)
-      expected_data = described_class.all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+      expected_data = described_class.order({ year: :desc }, :tcc, :semester).map do |calendar|
         [calendar.id, calendar.year_with_semester_and_tcc]
       end
       expect(described_class.select_for_orientation).to eq(expected_data)
@@ -213,26 +213,26 @@ RSpec.describe Calendar, type: :model do
   describe '#current_by_tcc_one?' do
     it 'returns the value if the calendar is the current by tcc one' do
       calendar = create(:current_calendar_tcc_one)
-      expect(described_class.current_by_tcc_one?(calendar)).to eq(true)
+      expect(described_class.current_by_tcc_one?(calendar)).to be(true)
     end
   end
 
   describe '#current_by_tcc_two?' do
     it 'returns the value if the calendar is the current by tcc two' do
       calendar = create(:current_calendar_tcc_two)
-      expect(described_class.current_by_tcc_two?(calendar)).to eq(true)
+      expect(described_class.current_by_tcc_two?(calendar)).to be(true)
     end
   end
 
   describe '#current_calendar?' do
     it 'returns true for the current calendar' do
       calendar = create(:current_calendar_tcc_two)
-      expect(described_class.current_calendar?(calendar)).to eq(true)
+      expect(described_class.current_calendar?(calendar)).to be(true)
     end
 
     it 'returns false for the current calendar' do
       calendar = create(:calendar)
-      expect(described_class.current_calendar?(calendar)).to eq(false)
+      expect(described_class.current_calendar?(calendar)).to be(false)
     end
   end
 

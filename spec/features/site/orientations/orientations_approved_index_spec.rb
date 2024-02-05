@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::index', :js, type: :feature do
+describe 'Orientation::index', :js do
   describe '#index' do
     before do
       create(:page, url: 'tccs-aprovados')

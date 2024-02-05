@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature do
+describe 'Document::index' do
   let(:professor) { create(:responsible) }
   let!(:orientation) { create(:orientation, advisor: professor) }
   let!(:document) { create(:document_tdo, orientation_id: orientation.id) }
@@ -10,7 +10,7 @@ describe 'Document::index', type: :feature do
     login_as(professor, scope: :professor)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     context 'when shows all the reviewing documents' do
       it 'shows all the documents' do
         index_url = professors_documents_reviewing_path

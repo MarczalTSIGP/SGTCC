@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'BaseActivity::index', type: :feature, js: true do
+describe 'BaseActivity::index', :js do
   let(:responsible) { create(:responsible) }
 
   before do

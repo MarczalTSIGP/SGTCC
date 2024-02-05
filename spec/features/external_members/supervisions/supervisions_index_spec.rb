@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::index', type: :feature, js: true do
+describe 'Supervision::index', :js do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:current_orientation_tcc_one) }
 

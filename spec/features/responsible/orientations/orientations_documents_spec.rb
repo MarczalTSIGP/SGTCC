@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::documents', type: :feature, js: true do
+describe 'Orientation::documents', :js do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation) }
 

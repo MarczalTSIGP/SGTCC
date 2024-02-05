@@ -49,7 +49,6 @@ class Professor < ApplicationRecord
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
            inverse_of: :professor,
-           source: :examination_board,
            dependent: :destroy
 
   has_many :guest_examination_boards,

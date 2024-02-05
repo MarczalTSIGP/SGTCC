@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'AttachedDocument::destroy', type: :feature, js: true do
+describe 'AttachedDocument::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:attached_document) { create(:attached_document) }
   let(:resource_name) { AttachedDocument.model_name.human }

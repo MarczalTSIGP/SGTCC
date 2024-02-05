@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def namespace
-    controller.class.parent.to_s.underscore.downcase
+    controller.class.module_parent.to_s.underscore.downcase
   end
 
   def icon_to_activity(activity)
