@@ -3,15 +3,17 @@
              examination_board: examination_board,
              show_path: tcc_one_professors_examination_board_path(examination_board) %>
    <td>
-      <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
-         <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
-      <% end %>
+      <% unless examination_board.monograph? %>
+         <%= link_to(edit_tcc_one_professors_examination_board_path(examination_board)) do %>
+            <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
+         <% end %>
 
-      <%= link_to tcc_one_professors_examination_board_path(examination_board),
+         <%= link_to tcc_one_professors_examination_board_path(examination_board),
                   method: :delete,
                   data: { confirm: t('prompt.confirm') },
                   class: 'destroy' do %>
-         <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+            <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+         <% end %>
       <% end %>
    </td>
 </tr>

@@ -122,6 +122,9 @@ pt-BR:
     documents:
       one: "documento"
       other: "documentos"
+    activities:
+      one: "atividade"
+      other: "atividades"
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
@@ -191,6 +194,8 @@ pt-BR:
       new: "Nova Atividade"
       edit: "Editar Atividade"
       show: "Visualizar Atividade"
+      submissions:
+        to_confirm: "Submissões de atividades que precisam da sua confirmação"
     documents:
       show: "Visualizar documento"
       reviewing: "Documentos para análise"

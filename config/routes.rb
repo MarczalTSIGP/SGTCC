@@ -78,6 +78,7 @@ Rails.application.routes.draw do
                 end
 
       resources :examination_boards,
+                except: [:new, :create],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -103,9 +104,33 @@ Rails.application.routes.draw do
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one'
 
+      get 'examination_boards/tcc_one/current_semester',
+          to: 'examination_boards#tcc_one_current_semester',
+          as: 'examination_boards_tcc_one_current_semester'
+
+      get 'examination_boards/tcc_one/new',
+          to: 'examination_boards#new_to_tcc_one',
+          as: 'examination_boards_new_tcc_one'
+
+      post 'examination_boards/tcc_one',
+           to: 'examination_boards#create_to_tcc_one',
+           as: 'examination_boards_create_tcc_one'
+
       get 'examination_boards/tcc_two',
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two'
+
+      get 'examination_boards/tcc_two/current_semester',
+          to: 'examination_boards#tcc_two_current_semester',
+          as: 'examination_boards_tcc_two_current_semester'
+
+      get 'examination_boards/tcc_two/new',
+          to: 'examination_boards#new_to_tcc_two',
+          as: 'examination_boards_new_tcc_two'
+
+      post 'examination_boards/tcc_two',
+           to: 'examination_boards#create_to_tcc_two',
+           as: 'examination_boards_create_tcc_two'
 
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
@@ -214,10 +239,20 @@ Rails.application.routes.draw do
           to: 'examination_boards#tcc_one',
           as: 'examination_boards_tcc_one_search'
 
+      get 'examination_boards/tcc_one/current_semester/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^/]+} },
+          to: 'examination_boards#tcc_one_current_semester',
+          as: 'examination_boards_tcc_one_current_semester_search'
+
       get 'examination_boards/tcc_two/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },
           to: 'examination_boards#tcc_two',
           as: 'examination_boards_tcc_two_search'
+
+      get 'examination_boards/tcc_two/current_semester/search/(:term)/(page/:page)',
+          constraints: { term: %r{[^/]+} },
+          to: 'examination_boards#tcc_two_current_semester',
+          as: 'examination_boards_tcc_two_current_semester_search'
 
       get 'orientations/current_tcc_one/(:status)/search/(:term)/(page/:page)',
           constraints: { term: %r{[^/]+} },

@@ -19,5 +19,9 @@ module TccIdentifier
     def self.human_tcc_one_identifiers
       human_tcc_identifiers.first(2).to_h
     end
+
+    def self.human_tcc_two_identifiers
+      { I18n.t('enums.tcc.identifiers.monograph') => :monograph }
+    end
   end
 end

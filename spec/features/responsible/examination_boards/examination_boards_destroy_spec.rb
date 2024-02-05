@@ -6,6 +6,9 @@ describe 'ExaminationBoard::destroy', :js do
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
+    create(:current_calendar_tcc_one)
+    create(:current_calendar_tcc_two)
+
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path
   end
