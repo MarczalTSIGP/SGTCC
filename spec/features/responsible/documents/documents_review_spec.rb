@@ -65,7 +65,7 @@ describe 'Document::review', :js do
     end
 
     let!(:new_document) do
-      create(:document_tdo, orientation_id: orientation.id, request: request)
+      create(:document_tdo, orientation_id: orientation.id, request:)
     end
 
     before do

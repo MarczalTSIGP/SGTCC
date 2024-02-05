@@ -67,8 +67,8 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   private
 
   def send_registration_email(external_member, password)
-    ExternalMemberMailer.with(external_member: external_member,
-                              password: password)
+    ExternalMemberMailer.with(external_member:,
+                              password:)
                         .registration_email.deliver_later
   end
 

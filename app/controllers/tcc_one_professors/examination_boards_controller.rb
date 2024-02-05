@@ -127,7 +127,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def can_update_or_destroy?
-    return unless @examination_board.monograph?
+    return false unless @examination_board.monograph?
 
     flash[:error] = I18n.t('flash.not_authorized')
     redirect_back(fallback_location: tcc_one_professors_examination_boards_tcc_one_path)

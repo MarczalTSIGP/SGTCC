@@ -5,10 +5,10 @@ module DocumentSignature
     if confirm_authentication(current_user, login)
       @signature.sign
       message = I18n.t('json.messages.orientation.signatures.confirm.success')
-      render json: { message: message }
+      render json: { message: }
     else
       message = I18n.t('json.messages.orientation.signatures.confirm.error')
-      render json: { message: message, status: :internal_server_error }
+      render json: { message:, status: :internal_server_error }
     end
   end
 

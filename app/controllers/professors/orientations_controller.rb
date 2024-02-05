@@ -88,7 +88,7 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def select_orientations(status: params[:status])
-    condition = status.present? ? { status: status } : {}
+    condition = status.present? ? { status: } : {}
     @orientations = current_professor.orientations.where(condition)
   end
 

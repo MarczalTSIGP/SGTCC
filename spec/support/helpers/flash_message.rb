@@ -74,7 +74,7 @@ module Helpers
     end
 
     def message(key)
-      I18n.t("flash.actions.#{key}", resource_name: resource_name)
+      I18n.t("flash.actions.#{key}", resource_name:)
     end
 
     def orientation_edit_signed_warning_message
@@ -102,7 +102,7 @@ module Helpers
     end
 
     def signature_register(name, role, date, time)
-      I18n.t('signatures.register', name: name, role: role, date: date, time: time)
+      I18n.t('signatures.register', name:, role:, date:, time:)
     end
 
     def signature_role(user_gender, user_type)
@@ -111,7 +111,7 @@ module Helpers
 
     def signature_code_message(signature_code)
       url = "#{current_host}:#{URI.parse(current_url).port}#{confirm_document_code_path}"
-      I18n.t('signatures.code', url: url, code: signature_code.code)
+      I18n.t('signatures.code', url:, code: signature_code.code)
     end
 
     def document_academic_not_allowed_message

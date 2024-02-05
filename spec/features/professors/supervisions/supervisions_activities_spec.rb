@@ -35,7 +35,7 @@ describe 'Supervision::activities', :js do
       let(:activity) { activities.first }
 
       let!(:academic_activity) do
-        create(:academic_activity, academic: academic, activity: activity)
+        create(:academic_activity, academic:, activity:)
       end
 
       before do

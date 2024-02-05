@@ -43,8 +43,8 @@ class Professors::DocumentsController < Professors::BaseController
 
   def set_document
     id = params[:id]
-    @document = current_professor.documents.find_by(id: id)
-    @document = current_professor.all_documents.find_by(id: id) if @document.blank?
+    @document = current_professor.documents.find_by(id:)
+    @document = current_professor.all_documents.find_by(id:) if @document.blank?
   end
 
   def set_document_for_responsible

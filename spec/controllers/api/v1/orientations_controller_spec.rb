@@ -105,9 +105,9 @@ describe 'ApiV1OrientationsController', type: :request do
       calendar = orientation.calendars.first
       academic = orientation.academic
 
-      activity = create(:activity, calendar: calendar, identifier: :proposal, final_version: true)
-      create(:academic_activity, activity: activity, academic: academic)
-      create(:examination_board, orientation: orientation, identifier: :proposal,
+      activity = create(:activity, calendar:, identifier: :proposal, final_version: true)
+      create(:academic_activity, activity:, academic:)
+      create(:examination_board, orientation:, identifier: :proposal,
                                  situation: :approved)
 
       get api_v1_orientations_in_tcc_one_path
