@@ -267,10 +267,10 @@ RSpec.describe Calendar do
 
       calendars.each do |calendar|
         years.push(calendar.year_with_semester)
-        total.push(calendar.orientations.where(status: status).size)
+        total.push(calendar.orientations.where(status:).size)
       end
 
-      report = { years: years, total: total }
+      report = { years:, total: }
       expect(described_class.orientations_report_by_status(status)).to eq(report)
     end
   end

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ExaminationBoardNote::show', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
   let(:external_member) { examination_board.external_members.first }
   let(:academic) { orientation.academic }
 
@@ -11,7 +11,7 @@ describe 'ExaminationBoardNote::show', :js do
     examination_board.evaluators.responses.each do |response|
       params = { professor_id: response.evaluator.id } if response.evaluator.is_a?(Professor)
       params ||= { external_member_id: response.evaluator.id }
-      params.merge!(examination_board: examination_board)
+      params.merge!(examination_board:)
 
       create(:examination_board_note, params)
     end

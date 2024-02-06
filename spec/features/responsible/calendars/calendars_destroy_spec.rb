@@ -22,7 +22,7 @@ describe 'Calendar::destroy', :js do
     end
 
     context 'when calendar has associations' do
-      let!(:activity) { create(:activity, calendar: calendar) }
+      let!(:activity) { create(:activity, calendar:) }
 
       it 'show alert message' do
         click_on_destroy_link(responsible_calendar_path(activity.calendar))

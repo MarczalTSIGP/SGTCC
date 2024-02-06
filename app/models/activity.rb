@@ -38,7 +38,7 @@ class Activity < ApplicationRecord
   end
 
   def find_academic_activity_by_academic(academic)
-    academic_activities.find_by(academic: academic)
+    academic_activities.find_by(academic:)
   end
 
   def identifier_translated

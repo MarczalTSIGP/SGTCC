@@ -38,8 +38,8 @@ RSpec.describe Activity do
       initial_date = I18n.l(activity.initial_date, format: :datetime)
       final_date = I18n.l(activity.final_date, format: :datetime)
       expect(activity.deadline).to eq(I18n.t('time.deadline',
-                                             initial_date: initial_date,
-                                             final_date: final_date))
+                                             initial_date:,
+                                             final_date:))
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe Activity do
     let(:orientation) { create(:orientation) }
 
     let!(:academic_activity) do
-      create(:academic_activity, activity: activity, academic: orientation.academic)
+      create(:academic_activity, activity:, academic: orientation.academic)
     end
 
     it 'returns the academic activity' do
@@ -163,7 +163,7 @@ RSpec.describe Activity do
     end
 
     it 'has an academic response with property sent' do
-      create(:academic_activity, academic: academic_one, activity: activity)
+      create(:academic_activity, academic: academic_one, activity:)
 
       academic_response_one = activity.responses.academics.first
       academic_response_two = activity.responses.academics.second

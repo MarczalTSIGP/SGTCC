@@ -22,7 +22,7 @@ describe 'ExaminationBoard::create', :js do
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        find('#examination_board_orientation_id-selectized').click
+        find_by_id('examination_board_orientation_id-selectized').click
 
         all('.selectize-dropdown-content .option').each do |option|
           expect(option.text).not_to match(/TCC: 2/i)

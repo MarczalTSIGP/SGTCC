@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ExaminationBoard::show' do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
 
   before do
     create(:document_type_adpp)
@@ -74,7 +74,7 @@ describe 'ExaminationBoard::show' do
       let(:academic_activity) { examination_board.academic_activity }
 
       before do
-        create(:proposal_academic_activity, academic: academic,
+        create(:proposal_academic_activity, academic:,
                                             calendar: orientation.calendars.first)
         visit professors_examination_board_path(examination_board)
       end
@@ -95,7 +95,7 @@ describe 'ExaminationBoard::show' do
       examination_board.evaluators.responses.each do |response|
         params = { professor_id: response.evaluator.id } if response.evaluator.is_a?(Professor)
         params ||= { external_member_id: response.evaluator.id }
-        params.merge!(note: 100, examination_board: examination_board)
+        params.merge!(note: 100, examination_board:)
 
         create(:examination_board_note, params)
       end

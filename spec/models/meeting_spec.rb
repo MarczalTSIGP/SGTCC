@@ -44,7 +44,7 @@ RSpec.describe Meeting do
 
     before do
       5.times do
-        meetings.push(create(:meeting, orientation: orientation))
+        meetings.push(create(:meeting, orientation:))
       end
     end
 

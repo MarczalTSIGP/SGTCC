@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ExaminationBoardNote::create', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
   let(:resource_name) { ExaminationBoardNote.model_name.human }
 
   before do
@@ -54,7 +54,7 @@ describe 'ExaminationBoardNote::create', :js do
         expect(page).to have_current_path professors_examination_board_path(examination_board)
 
         resource_name = ExaminationBoardNote.human_attribute_name('appointment_file')
-        created_message = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        created_message = I18n.t('flash.actions.create.m', resource_name:)
         expect(page).to have_flash(:success, text: created_message)
 
         attributes = attributes_for(:examination_board_note)

@@ -29,7 +29,7 @@ class ExaminationBoardNote < ApplicationRecord
         orientation_status = approved ? 'APPROVED' : 'REPROVED'
       end
 
-      examination_board.update(situation: status, final_note: final_note)
+      examination_board.update(situation: status, final_note:)
       examination_board.orientation.update(status: orientation_status)
     end
   end

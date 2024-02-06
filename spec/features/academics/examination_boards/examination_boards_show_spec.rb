@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::show' do
   let(:academic) { create(:academic) }
-  let(:orientation) { create(:orientation_tcc_two, academic: academic) }
-  let!(:examination_board) { create(:monograph_examination_board, orientation: orientation) }
+  let(:orientation) { create(:orientation_tcc_two, academic:) }
+  let!(:examination_board) { create(:monograph_examination_board, orientation:) }
 
   before do
     create(:document_type_admg)
@@ -44,7 +44,7 @@ describe 'ExaminationBoard::show' do
       let(:academic_activity) { examination_board.academic_activity }
 
       before do
-        create(:monograph_academic_activity, academic: academic,
+        create(:monograph_academic_activity, academic:,
                                              calendar: orientation.calendars.first)
         visit academics_examination_board_path(examination_board)
       end
@@ -65,7 +65,7 @@ describe 'ExaminationBoard::show' do
       examination_board.evaluators.responses.each do |response|
         params = { professor_id: response.evaluator.id } if response.evaluator.is_a?(Professor)
         params ||= { external_member_id: response.evaluator.id }
-        params.merge!(note: 100, examination_board: examination_board)
+        params.merge!(note: 100, examination_board:)
 
         create(:examination_board_note, params)
       end

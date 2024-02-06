@@ -8,7 +8,7 @@ describe 'Supervision::ExaminationBoarsIndex' do
   end
 
   context 'when shows all the supervisions examinations board' do
-    let!(:examination_board) { create(:examination_board_tcc_one, orientation: orientation) }
+    let!(:examination_board) { create(:examination_board_tcc_one, orientation:) }
 
     let(:orientation) { create(:current_orientation_tcc_one) }
     let(:index_url) { professors_supervision_examination_boards_path }

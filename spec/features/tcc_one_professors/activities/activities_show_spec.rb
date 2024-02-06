@@ -8,7 +8,7 @@ describe 'Activity::show' do
   let(:orientation_two)   { create(:orientation, calendar_ids: [calendar.id]) }
 
   before do
-    create(:academic_activity, academic: orientation_one.academic, activity: activity)
+    create(:academic_activity, academic: orientation_one.academic, activity:)
 
     login_as(professor_tcc_one, scope: :professor)
     visit tcc_one_professors_calendar_activity_path(calendar, activity)

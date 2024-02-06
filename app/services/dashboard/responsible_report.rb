@@ -56,13 +56,13 @@ class Dashboard::ResponsibleReport
       total.push(orientations_count_by_calendars_and_status(calendars, status))
     end
 
-    { years: years, total: total }
+    { years:, total: }
   end
 
   def orientations_count_by_calendars_and_status(calendars, status)
     orientations = 0
     calendars.each do |calendar|
-      orientations += calendar.orientations.where(status: status).count
+      orientations += calendar.orientations.where(status:).count
     end
     orientations
   end
@@ -109,10 +109,10 @@ class Dashboard::ResponsibleReport
     canceled = Orientation.send("tcc_#{tcc_type}", 'CANCELED').count
     reproved = Orientation.send("tcc_#{tcc_type}", %w[REPROVED_TCC_ONE REPROVED]).count
     links = orientations_link("tcc_#{tcc_type}")
-    { total: total,
-      in_progress: in_progress, approved: approved,
-      canceled: canceled, reproved: reproved,
-      links: links }
+    { total:,
+      in_progress:, approved:,
+      canceled:, reproved:,
+      links: }
   end
 
   def current_tcc_orientations(tcc_type)
@@ -130,8 +130,8 @@ class Dashboard::ResponsibleReport
   end
 
   def count_orientations(tcc_type, year, semester)
-    Orientation.joins(:calendars).where(calendars: { tcc: tcc_type, year: year,
-                                                     semester: semester }).count
+    Orientation.joins(:calendars).where(calendars: { tcc: tcc_type, year:,
+                                                     semester: }).count
   end
 
   def count_orientation_status(tcc_type, _year, _semester, status)

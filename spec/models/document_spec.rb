@@ -102,12 +102,12 @@ RSpec.describe Document do
       end
 
       let(:request) do
-        { requester: { justificatio: 'just' }, new_orientation: new_orientation }
+        { requester: { justificatio: 'just' }, new_orientation: }
       end
 
       let!(:document) do
         create(:document_tso, orientation_id: orientation.id,
-                              advisor_id: new_advisor.id, request: request)
+                              advisor_id: new_advisor.id, request:)
       end
 
       let(:signatures) { document.signatures }
@@ -259,7 +259,7 @@ RSpec.describe Document do
     let!(:professor) { create(:professor) }
 
     let!(:orientation) do
-      create(:current_orientation_tcc_two, advisor: professor, academic: academic)
+      create(:current_orientation_tcc_two, advisor: professor, academic:)
     end
 
     let(:requester_data) do
@@ -405,7 +405,7 @@ RSpec.describe Document do
 
   describe '#signature_by_user' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let(:document) { described_class.first }
 
     context 'when returns the pending signature' do
@@ -464,7 +464,7 @@ RSpec.describe Document do
 
   describe '#academic_signed?' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
 
     context 'when the document is not signed' do
@@ -508,7 +508,7 @@ RSpec.describe Document do
 
   describe '#update_requester_justification' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
     let(:params) { { justification: 'new_justification' } }
 
@@ -548,7 +548,7 @@ RSpec.describe Document do
 
   describe '#tep_for_review?' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
 
     context 'when the academic not signed' do
@@ -574,7 +574,7 @@ RSpec.describe Document do
   describe '#tso_for_review?' do
     let!(:advisor) { create(:professor) }
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let(:new_orientation) do
       { advisor: { id: advisor.id, name: advisor.name },
         professorSupervisors: {},
@@ -582,12 +582,12 @@ RSpec.describe Document do
     end
 
     let(:request) do
-      { requester: { justification: 'just' }, new_orientation: new_orientation }
+      { requester: { justification: 'just' }, new_orientation: }
     end
 
     let!(:document) do
       create(:document_tso, orientation_id: orientation.id,
-                            request: request, advisor_id: advisor.id)
+                            request:, advisor_id: advisor.id)
     end
 
     context 'when the academic not signed' do

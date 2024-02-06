@@ -5,7 +5,7 @@ describe 'TsoRequest::update', :js do
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }
   let!(:supervisor) { create(:professor) }
-  let!(:orientation) { create(:current_orientation_tcc_one, academic: academic) }
+  let!(:orientation) { create(:current_orientation_tcc_one, academic:) }
 
   let!(:new_orientation) do
     { advisor: { id: advisor.id, name: advisor.name },
@@ -14,12 +14,12 @@ describe 'TsoRequest::update', :js do
   end
 
   let(:request) do
-    { requester: { justification: 'just' }, new_orientation: new_orientation }
+    { requester: { justification: 'just' }, new_orientation: }
   end
 
   let!(:document_tso) do
     create(:document_tso, orientation_id: orientation.id,
-                          advisor_id: advisor.id, request: request)
+                          advisor_id: advisor.id, request:)
   end
 
   before do

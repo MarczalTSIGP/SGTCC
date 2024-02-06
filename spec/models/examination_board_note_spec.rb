@@ -100,9 +100,9 @@ RSpec.describe ExaminationBoardNote do
 
   # Helpers
   def attribute_note_for(examination_board, note)
-    create(:examination_board_note, examination_board: examination_board,
+    create(:examination_board_note, examination_board:,
                                     professor: examination_board.orientation.advisor,
-                                    note: note)
+                                    note:)
 
     attribute_note_for_professors(examination_board, note)
     attribute_note_by_external_members(examination_board, note)
@@ -115,17 +115,17 @@ RSpec.describe ExaminationBoardNote do
 
   def attribute_note_for_professors(examination_board, note)
     examination_board.professors.each do |evaluator|
-      create(:examination_board_note, examination_board: examination_board,
+      create(:examination_board_note, examination_board:,
                                       professor: evaluator,
-                                      note: note)
+                                      note:)
     end
   end
 
   def attribute_note_by_external_members(examination_board, note)
     examination_board.external_members.each do |evaluator|
-      create(:examination_board_note, examination_board: examination_board,
+      create(:examination_board_note, examination_board:,
                                       external_member: evaluator,
-                                      note: note)
+                                      note:)
     end
   end
 end

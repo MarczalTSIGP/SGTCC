@@ -23,7 +23,7 @@ describe 'Professor::destroy', :js do
 
   describe '#destroy with associations' do
     let!(:advisor) { create(:professor) }
-    let!(:orientation) { create(:orientation, advisor: advisor) }
+    let!(:orientation) { create(:orientation, advisor:) }
 
     context 'when professor has associations' do
       it 'show alert message' do

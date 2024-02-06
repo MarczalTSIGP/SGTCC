@@ -7,7 +7,7 @@ describe ExternalMemberMailer do
 
     let(:mail) do
       described_class.with(
-        external_member: external_member, password: password
+        external_member:, password:
       ).registration_email.deliver_now
     end
 

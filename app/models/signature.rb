@@ -16,7 +16,7 @@ class Signature < ApplicationRecord
   }, _prefix: :user_type
 
   scope :by_document_type, lambda { |document_type_id|
-    joins(:document).where(documents: { document_type_id: document_type_id })
+    joins(:document).where(documents: { document_type_id: })
   }
 
   scope :recent, -> { order(created_at: :desc) }
