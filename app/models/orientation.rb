@@ -245,14 +245,14 @@ class Orientation < ApplicationRecord
   end
 
   def self.by_status(status)
-    where(status: status).includes(:academic,
-                                   :professor_supervisors,
-                                   :orientation_supervisors,
-                                   :external_member_supervisors,
-                                   :examination_boards,
-                                   advisor: [:scholarity],
-                                   professor_supervisors: [:scholarity])
-                         .order('examination_boards.date DESC')
+    where(status:).includes(:academic,
+                            :professor_supervisors,
+                            :orientation_supervisors,
+                            :external_member_supervisors,
+                            :examination_boards,
+                            advisor: [:scholarity],
+                            professor_supervisors: [:scholarity])
+                  .order('examination_boards.date DESC')
   end
 
   private_class_method :by_status

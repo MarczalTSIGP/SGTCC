@@ -7,7 +7,7 @@ describe 'Orientation::activity_update_judgment', :js do
   let(:resource_name) { Activity.model_name.human }
 
   before do
-    create(:academic_activity, activity: activity, academic: orientation.academic)
+    create(:academic_activity, activity:, academic: orientation.academic)
     login_as(professor, scope: :professor)
   end
 

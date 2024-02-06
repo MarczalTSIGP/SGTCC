@@ -4,7 +4,7 @@ describe 'Meeting::index' do
   let(:orientation) { create(:orientation) }
 
   before do
-    create_list(:meeting, 3, orientation: orientation)
+    create_list(:meeting, 3, orientation:)
     login_as(orientation.academic, scope: :academic)
     visit academics_root_path
   end

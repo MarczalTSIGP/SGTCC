@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ExaminationBoardApointments::create', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
   let(:resource_name) { ExaminationBoardNote.human_attribute_name('appointment_file') }
 
   before do

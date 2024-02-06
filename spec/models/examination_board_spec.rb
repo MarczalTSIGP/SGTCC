@@ -101,7 +101,7 @@ RSpec.describe ExaminationBoard do
 
     context 'when returns the distance of next date' do
       let(:date) { Date.current + 1 }
-      let(:examination_board) { create(:examination_board, date: date) }
+      let(:examination_board) { create(:examination_board, date:) }
       let(:label) do
         I18n.t("#{i18n}.next", distance: distance_of_time_in_words(date, Time.current))
       end
@@ -113,7 +113,7 @@ RSpec.describe ExaminationBoard do
 
     context 'when returns the distance of occurred date' do
       let(:date) { Date.current - 1 }
-      let(:examination_board) { create(:examination_board, date: date) }
+      let(:examination_board) { create(:examination_board, date:) }
       let(:label) do
         I18n.t("#{i18n}.occurred", distance: distance_of_time_in_words(date, Time.current))
       end
@@ -237,8 +237,8 @@ RSpec.describe ExaminationBoard do
     let(:orientation) { create(:orientation, advisor: professor) }
     let(:examination_board) { create(:examination_board) }
     let!(:note) do
-      create(:examination_board_note, examination_board: examination_board,
-                                      professor: professor)
+      create(:examination_board_note, examination_board:,
+                                      professor:)
     end
 
     it 'returns the note by professor' do
@@ -251,8 +251,8 @@ RSpec.describe ExaminationBoard do
     let(:external_member) { orientation.external_member_supervisors.first }
     let(:examination_board) { create(:examination_board) }
     let!(:note) do
-      create(:examination_board_note, examination_board: examination_board,
-                                      external_member: external_member)
+      create(:examination_board_note, examination_board:,
+                                      external_member:)
     end
 
     it 'returns the note by external_member' do
@@ -354,7 +354,7 @@ RSpec.describe ExaminationBoard do
       let(:examination_board) { create(:examination_board) }
 
       before do
-        create(:examination_board_note, examination_board: examination_board,
+        create(:examination_board_note, examination_board:,
                                         appointment_file: nil,
                                         appointment_text: nil)
       end
@@ -368,7 +368,7 @@ RSpec.describe ExaminationBoard do
       let!(:examination_board) { create(:examination_board) }
 
       before do
-        create(:examination_board_note, examination_board: examination_board)
+        create(:examination_board_note, examination_board:)
       end
 
       it 'returns true' do
@@ -380,7 +380,7 @@ RSpec.describe ExaminationBoard do
       let!(:examination_board) { create(:examination_board) }
 
       before do
-        create(:examination_board_note, examination_board: examination_board,
+        create(:examination_board_note, examination_board:,
                                         appointment_text: 'Teste')
       end
 
@@ -393,7 +393,7 @@ RSpec.describe ExaminationBoard do
       let!(:examination_board) { create(:examination_board) }
 
       before do
-        create(:examination_board_note, examination_board: examination_board,
+        create(:examination_board_note, examination_board:,
                                         appointment_file: nil,
                                         appointment_text: 'Texto de teste')
       end
@@ -412,7 +412,7 @@ RSpec.describe ExaminationBoard do
 
     it 'returns that all_evaluated is false' do
       examination_board.evaluators_number.times do
-        create(:examination_board_note, examination_board: examination_board, note: nil)
+        create(:examination_board_note, examination_board:, note: nil)
       end
 
       expect(examination_board.all_evaluated?).to be(false)
@@ -421,7 +421,7 @@ RSpec.describe ExaminationBoard do
     it 'returns that all_evaluated is false when all give the note' do
       en = examination_board.evaluators_number - 1
       en.times do
-        create(:examination_board_note, examination_board: examination_board, note: nil)
+        create(:examination_board_note, examination_board:, note: nil)
       end
 
       expect(examination_board.all_evaluated?).to be(false)
@@ -429,7 +429,7 @@ RSpec.describe ExaminationBoard do
 
     it 'returns that all_evaluated is true' do
       examination_board.evaluators_number.times do
-        create(:examination_board_note, examination_board: examination_board, note: 80)
+        create(:examination_board_note, examination_board:, note: 80)
       end
 
       expect(examination_board.all_evaluated?).to be(true)

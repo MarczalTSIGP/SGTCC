@@ -23,7 +23,7 @@ describe 'ResponsibleExaminationBoardsController', type: :request do
         }
       }
 
-      put responsible_examination_board_path(examination_board), params: params
+      put(responsible_examination_board_path(examination_board), params:)
 
       examination_board.reload
 
@@ -54,7 +54,7 @@ describe 'ResponsibleExaminationBoardsController', type: :request do
     it 'destroy examimation boards' do
       delete responsible_examination_board_path(examination_board)
       expect(flash[:success]).to eq(I18n.t('flash.actions.destroy.f',
-                                           resource_name: resource_name))
+                                           resource_name:))
       expect(response).to redirect_to(responsible_examination_boards_path)
     end
 

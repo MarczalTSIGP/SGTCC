@@ -4,7 +4,7 @@ describe 'TsoRequest::destroy', :js do
   let(:resource_name) { request_resource_name }
   let!(:academic) { create(:academic) }
   let!(:advisor) { create(:professor) }
-  let!(:orientation) { create(:orientation, academic: academic) }
+  let!(:orientation) { create(:orientation, academic:) }
   let(:new_orientation) do
     { advisor: { id: advisor.id, name: advisor.name },
       professorSupervisors: {},
@@ -12,12 +12,12 @@ describe 'TsoRequest::destroy', :js do
   end
 
   let(:request) do
-    { requester: { justification: 'just' }, new_orientation: new_orientation }
+    { requester: { justification: 'just' }, new_orientation: }
   end
 
   let!(:document) do
     create(:document_tso, orientation_id: orientation.id,
-                          advisor_id: advisor.id, request: request)
+                          advisor_id: advisor.id, request:)
   end
 
   before do

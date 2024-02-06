@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Meeting::view', :js do
   let(:academic) { create(:academic) }
-  let(:orientation) { create(:orientation, academic: academic) }
-  let(:meeting) { create(:meeting, orientation: orientation) }
+  let(:orientation) { create(:orientation, academic:) }
+  let(:meeting) { create(:meeting, orientation:) }
   let(:resource_name) { Meeting.model_name.human }
 
   before do

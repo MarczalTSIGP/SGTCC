@@ -71,7 +71,7 @@ class Professor < ApplicationRecord
   scope :unavailable_advisor, -> { where(available_advisor: false) }
 
   def role?(identifier)
-    roles.where(identifier: identifier).any?
+    roles.where(identifier:).any?
   end
 
   def responsible?

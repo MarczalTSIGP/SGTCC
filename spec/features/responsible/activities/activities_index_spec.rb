@@ -10,7 +10,7 @@ describe 'Activity::index', :js do
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
         calendar = create(:current_calendar_tcc_one)
-        activity = create(:activity_tcc_one, calendar: calendar)
+        activity = create(:activity_tcc_one, calendar:)
 
         index_url = responsible_calendar_activities_path(calendar)
         visit index_url
@@ -25,7 +25,7 @@ describe 'Activity::index', :js do
 
       it 'shows all activities for tcc two with options' do
         calendar = create(:current_calendar_tcc_two)
-        activity = create(:activity_tcc_one, calendar: calendar)
+        activity = create(:activity_tcc_one, calendar:)
 
         index_url = responsible_calendar_activities_path(calendar)
         visit index_url

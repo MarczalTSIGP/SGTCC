@@ -34,13 +34,13 @@ RSpec.describe Orientation do
   describe '#short_title' do
     it 'returns the short title' do
       title = 'title' * 40
-      orientation = create(:orientation, title: title)
+      orientation = create(:orientation, title:)
       expect(orientation.short_title).to eq("#{title[0..35]}...")
     end
 
     it 'returns the title' do
       title = 'title'
-      orientation = create(:orientation, title: title)
+      orientation = create(:orientation, title:)
       expect(orientation.short_title).to eq(title)
     end
   end
@@ -331,14 +331,14 @@ RSpec.describe Orientation do
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'João')
-        orientation = create(:orientation, academic: academic)
+        orientation = create(:orientation, academic:)
         results_search = described_class.search(academic.name)
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Júlio')
-        orientation = create(:orientation, advisor: advisor)
+        orientation = create(:orientation, advisor:)
         results_search = described_class.search(advisor.name)
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
@@ -353,14 +353,14 @@ RSpec.describe Orientation do
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'Joao')
-        orientation = create(:orientation, academic: academic)
+        orientation = create(:orientation, academic:)
         results_search = described_class.search('João')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Julio')
-        orientation = create(:orientation, advisor: advisor)
+        orientation = create(:orientation, advisor:)
         results_search = described_class.search('Júlio')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
@@ -381,28 +381,28 @@ RSpec.describe Orientation do
 
       it 'returns orientation by academic name' do
         academic = create(:academic, name: 'Joao')
-        orientation = create(:orientation, academic: academic)
+        orientation = create(:orientation, academic:)
         results_search = described_class.search('joao')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by academic name on search term' do
         academic = create(:academic, name: 'joao')
-        orientation = create(:orientation, academic: academic)
+        orientation = create(:orientation, academic:)
         results_search = described_class.search('JOAO')
         expect(orientation.academic.name).to eq(results_search.first.academic.name)
       end
 
       it 'returns orientation by advisor name' do
         advisor = create(:professor, name: 'Julio')
-        orientation = create(:orientation, advisor: advisor)
+        orientation = create(:orientation, advisor:)
         results_search = described_class.search('julio')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
 
       it 'returns orientation by advisor name on search term' do
         advisor = create(:professor, name: 'julio')
-        orientation = create(:orientation, advisor: advisor)
+        orientation = create(:orientation, advisor:)
         results_search = described_class.search('JULIO')
         expect(orientation.advisor.name).to eq(results_search.first.advisor.name)
       end
