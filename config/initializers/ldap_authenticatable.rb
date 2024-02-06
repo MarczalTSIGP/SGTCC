@@ -16,7 +16,7 @@ if SGTCC::LDAP.enable?
           username = params[:professor][:username]
           password = params[:professor][:password]
 
-          professor = Professor.find_by(username: username)
+          professor = Professor.find_by(username:)
           return success!(professor) if SGTCC::LDAP.authenticate(professor, password)
 
           fail(:invalid_login)

@@ -50,7 +50,7 @@ describe 'Activity::document', :js do
 
   describe '#upload document / update' do
     before do
-      create(:academic_activity, activity: activity, academic: academic)
+      create(:academic_activity, activity:, academic:)
       visit show_url
     end
 

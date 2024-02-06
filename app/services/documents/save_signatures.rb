@@ -48,8 +48,8 @@ class Documents::SaveSignatures
       @orientation.signatures << Signature.create!(
         orientation_id: @orientation.id,
         document_id: @document.id,
-        user_id: user_id,
-        user_type: user_type
+        user_id:,
+        user_type:
       )
     end
   end

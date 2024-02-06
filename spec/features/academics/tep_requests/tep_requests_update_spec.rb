@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'TepRequest::update', :js do
   let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:orientation, academic: academic) }
+  let!(:orientation) { create(:orientation, academic:) }
   let!(:document_tep) { create(:document_tep, orientation_id: orientation.id) }
   let(:resource_name) { request_resource_name }
 

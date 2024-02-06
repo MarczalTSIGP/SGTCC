@@ -43,7 +43,7 @@ describe 'ExaminationBoard::index', :js do
       academic = eb_tcc_one.orientation.academic
       orientation = eb_tcc_one.orientation
 
-      paac = create(:proposal_academic_activity, academic: academic,
+      paac = create(:proposal_academic_activity, academic:,
                                                  calendar: orientation.current_calendar)
 
       visit site_examination_boards_path
@@ -108,7 +108,7 @@ describe 'ExaminationBoard::index', :js do
       academic = eb_tcc_one_project.orientation.academic
       orientation = eb_tcc_one_project.orientation
 
-      paac = create(:project_academic_activity, academic: academic,
+      paac = create(:project_academic_activity, academic:,
                                                 calendar: orientation.current_calendar)
 
       visit site_examination_boards_path
@@ -175,7 +175,7 @@ describe 'ExaminationBoard::index', :js do
       academic = eb_tcc_two.orientation.academic
       orientation = eb_tcc_two.orientation
 
-      paac = create(:monograph_academic_activity, academic: academic,
+      paac = create(:monograph_academic_activity, academic:,
                                                   calendar: orientation.current_calendar)
 
       visit site_examination_boards_path

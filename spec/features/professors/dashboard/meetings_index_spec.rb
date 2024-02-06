@@ -11,7 +11,7 @@ describe 'Meeting::index', :js do
   describe '#index' do
     context 'when shows all meetings' do
       it 'shows all meetings with options' do
-        meetings = create_list(:meeting, 3, orientation: orientation)
+        meetings = create_list(:meeting, 3, orientation:)
 
         visit professors_root_path
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Meeting::destroy', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:meeting) { create(:meeting, orientation: orientation) }
+  let!(:meeting) { create(:meeting, orientation:) }
   let(:resource_name) { Meeting.model_name.human }
 
   before do
@@ -22,7 +22,7 @@ describe 'Meeting::destroy', :js do
     end
 
     context 'when the meeting cant be destroyed' do
-      let(:meeting) { create(:meeting, orientation: orientation) }
+      let(:meeting) { create(:meeting, orientation:) }
 
       before do
         click_on_destroy_link(professors_meeting_path(meeting))

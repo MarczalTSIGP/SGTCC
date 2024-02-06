@@ -33,7 +33,7 @@ RSpec.describe Professor do
 
     context 'when professor supervisors is not valid' do
       let(:advisor) { build(:professor) }
-      let(:orientation) { build(:orientation, advisor: advisor) }
+      let(:orientation) { build(:orientation, advisor:) }
 
       it 'validation should reject invalid orientation' do
         orientation.professor_supervisors << advisor
@@ -270,7 +270,7 @@ RSpec.describe Professor do
     let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
 
     before do
-      create(:examination_board, orientation: orientation)
+      create(:examination_board, orientation:)
       examination_board_tcc_one.professors << professor
     end
 
@@ -337,7 +337,7 @@ RSpec.describe Professor do
 
   describe '#effective' do
     let(:professor_type) { create(:professor_type, name: 'Efetivo') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
+    let(:professor) { create(:professor, professor_type:) }
 
     it 'returns the effective professors' do
       expect(described_class.effective).to eq([professor])
@@ -346,7 +346,7 @@ RSpec.describe Professor do
 
   describe '#temporary' do
     let(:professor_type) { create(:professor_type, name: 'Temporário') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
+    let(:professor) { create(:professor, professor_type:) }
 
     it 'returns the temporary professors' do
       expect(described_class.temporary).to eq([professor])

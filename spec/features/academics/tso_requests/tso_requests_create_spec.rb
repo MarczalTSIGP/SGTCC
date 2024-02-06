@@ -14,7 +14,7 @@ describe 'TsoRequest::create', :js do
     let!(:document_type) { create(:document_type_tso) }
 
     before do
-      create(:current_orientation_tcc_one, advisor: advisor, academic: academic)
+      create(:current_orientation_tcc_one, advisor:, academic:)
       visit new_academics_tso_request_path
     end
 

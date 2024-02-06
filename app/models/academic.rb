@@ -40,7 +40,7 @@ class Academic < ApplicationRecord
 
   def documents(status = [true, false], document_type = nil, query: {})
     user_types = Signature.user_types[:academic]
-    query[:documents] = { document_type: document_type } if document_type.present?
+    query[:documents] = { document_type: } if document_type.present?
     Document.from(Document.by_user(id, user_types, status), :documents).where(query).recent
   end
 

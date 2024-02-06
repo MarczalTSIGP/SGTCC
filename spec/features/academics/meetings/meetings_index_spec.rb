@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'Meeting::index', :js do
   let(:academic)    { create(:academic) }
-  let(:orientation) { create(:orientation, academic: academic) }
+  let(:orientation) { create(:orientation, academic:) }
 
   before do
-    create_list(:meeting, 3, orientation: orientation)
+    create_list(:meeting, 3, orientation:)
 
     login_as(academic, scope: :academic)
   end

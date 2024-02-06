@@ -11,9 +11,9 @@ class Logics::Activity::AcademicResponse
     @sent
   end
 
-  def method_missing(method, *args, &block)
+  def method_missing(method, *, &)
     if @academic.respond_to?(method)
-      @academic.send(method, *args, &block)
+      @academic.send(method, *, &)
     else
       super
     end

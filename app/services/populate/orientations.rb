@@ -220,10 +220,10 @@ class Populate::Orientations
   end
 
   def create_examination_board(orientation, identifier, date, note)
-    eb = ExaminationBoard.create(date: date, place: 'Lab B7 ou B8',
+    eb = ExaminationBoard.create(date:, place: 'Lab B7 ou B8',
                                  orientation_id: orientation.id,
                                  tcc: orientation.current_calendar.tcc,
-                                 identifier: identifier, document_available_until: date,
+                                 identifier:, document_available_until: date,
                                  professor_ids: professors_evaluators_ids(orientation),
                                  external_member_ids: external_members_evaluators_ids)
 
@@ -243,7 +243,7 @@ class Populate::Orientations
 
   def assigning_grades(examination_board, note)
     advisor = examination_board.orientation.advisor
-    examination_board.examination_board_notes.create! professor: advisor, note: note
+    examination_board.examination_board_notes.create!(professor: advisor, note:)
 
     assigning_grades_by_professors(examination_board, note)
     assigning_grades_by_external_members(examination_board, note)
@@ -251,16 +251,16 @@ class Populate::Orientations
 
   def assigning_grades_by_external_members(examination_board, note)
     examination_board.external_members.each do |external_member|
-      examination_board.examination_board_notes.create! external_member: external_member,
-                                                        note: note,
+      examination_board.examination_board_notes.create! external_member:,
+                                                        note:,
                                                         appointment_text: '## Rewrite all the text'
     end
   end
 
   def assigning_grades_by_professors(examination_board, note)
     examination_board.professors.each do |professor|
-      examination_board.examination_board_notes.create! professor: professor,
-                                                        note: note,
+      examination_board.examination_board_notes.create! professor:,
+                                                        note:,
                                                         appointment_text: '## Rewrite all the text'
     end
   end

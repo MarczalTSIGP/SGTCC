@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Orientation, type: :model do
+RSpec.describe Orientation do
   describe '#current_calendar' do
     it 'returns the tcc two calendar' do
       calendar_one = create(:previous_calendar_tcc_one)
