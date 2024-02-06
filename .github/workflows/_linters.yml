@@ -14,7 +14,7 @@ jobs:
     container:
       image: ruby:3.2.2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -50,7 +50,7 @@ jobs:
           " > config/application.yml
 
       - name: Cache bundle gems
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
