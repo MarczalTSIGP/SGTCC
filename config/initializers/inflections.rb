@@ -14,3 +14,13 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym 'LDAP'
+end
+
+Rails.autoloaders.each do |autoloader|
+  autoloader.inflector.inflect(
+    'cnpj_formatter' => 'CNPJFormatter'
+  )
+end

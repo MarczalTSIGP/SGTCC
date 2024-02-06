@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature, js: true do
+describe 'Activity::index', :js do
   let(:external_member) { create(:external_member) }
 
   describe '#index' do
@@ -11,7 +11,7 @@ describe 'Activity::index', type: :feature, js: true do
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
         calendar = create(:current_calendar_tcc_one)
-        activity = create(:activity_tcc_one, calendar: calendar)
+        activity = create(:activity_tcc_one, calendar:)
 
         orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
@@ -29,7 +29,7 @@ describe 'Activity::index', type: :feature, js: true do
 
       it 'shows all activities for tcc two with options' do
         calendar = create(:current_calendar_tcc_two)
-        activity = create(:activity_tcc_two, calendar: calendar)
+        activity = create(:activity_tcc_two, calendar:)
         orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
 

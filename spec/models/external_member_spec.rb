@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ExternalMember, type: :model do
+RSpec.describe ExternalMember do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }

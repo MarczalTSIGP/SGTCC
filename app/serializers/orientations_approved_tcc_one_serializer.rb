@@ -1,4 +1,4 @@
-class OrientationsApprovedTCCOneSerializer < OrientationsSerializer
+class OrientationsApprovedTccOneSerializer < OrientationsSerializer
   attribute :title do |object|
     object.final_project.title
   end

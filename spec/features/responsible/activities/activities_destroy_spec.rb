@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::destroy', type: :feature, js: true do
+describe 'Activity::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:activity) { create(:activity) }
   let(:resource_name) { Activity.model_name.human }
@@ -18,7 +18,7 @@ describe 'Activity::destroy', type: :feature, js: true do
         expect(page).to have_flash(:success, text: message('destroy.f'))
 
         href = "a[href='#{responsible_calendar_activity_path(activity.calendar, activity)}']"
-        expect(page).not_to have_selector(:css, href)
+        expect(page).not_to have_css(href)
       end
     end
   end

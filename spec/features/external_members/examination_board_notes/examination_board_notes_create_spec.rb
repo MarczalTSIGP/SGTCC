@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe 'ExaminationBoardNote::create', type: :feature, js: true do
+describe 'ExaminationBoardNote::create', :js do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
   let(:resource_name) { ExaminationBoardNote.model_name.human }
 
   before do

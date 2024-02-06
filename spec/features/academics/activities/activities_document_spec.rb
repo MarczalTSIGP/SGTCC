@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::document', type: :feature, js: true do
+describe 'Activity::document', :js do
   let(:academic) { create(:academic) }
   let!(:activity) { create(:activity) }
   let(:calendar) { activity.calendar }
@@ -32,8 +32,8 @@ describe 'Activity::document', type: :feature, js: true do
 
         expect(page).to have_current_path show_url
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(find('#academic_activity_title').value).to eq attributes[:title]
-        expect(find('#academic_activity_summary').value).to eq attributes[:summary]
+        expect(find_by_id('academic_activity_title').value).to eq attributes[:title]
+        expect(find_by_id('academic_activity_summary').value).to eq attributes[:summary]
       end
     end
 
@@ -50,7 +50,7 @@ describe 'Activity::document', type: :feature, js: true do
 
   describe '#upload document / update' do
     before do
-      create(:academic_activity, activity: activity, academic: academic)
+      create(:academic_activity, activity:, academic:)
       visit show_url
     end
 
@@ -69,8 +69,8 @@ describe 'Activity::document', type: :feature, js: true do
 
         expect(page).to have_current_path show_url
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(find('#academic_activity_title').value).to eq attributes[:title]
-        expect(find('#academic_activity_summary').value).to eq attributes[:summary]
+        expect(find_by_id('academic_activity_title').value).to eq attributes[:title]
+        expect(find_by_id('academic_activity_summary').value).to eq attributes[:summary]
       end
     end
 

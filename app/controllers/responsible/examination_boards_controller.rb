@@ -68,7 +68,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def show
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.index"),
-                   "responsible_examination_boards_tcc_#{@examination_board.tcc}_path".to_sym
+                   :"responsible_examination_boards_tcc_#{@examination_board.tcc}_path"
 
     @title = I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.show")
     add_breadcrumb @title, responsible_examination_board_path
@@ -192,7 +192,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def set_breadcrumbs_to_edit_update
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.index"),
-                   "responsible_examination_boards_tcc_#{@examination_board.tcc}_path".to_sym
+                   :"responsible_examination_boards_tcc_#{@examination_board.tcc}_path"
 
     add_breadcrumb I18n.t("breadcrumbs.examination_boards.tcc.#{@examination_board.tcc}.edit")
   end

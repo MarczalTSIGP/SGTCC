@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::activities', type: :feature do
+describe 'Supervision::activities' do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
@@ -36,7 +36,7 @@ describe 'Supervision::activities', type: :feature do
     context 'when show the activity by orientation' do
       let!(:activity) { activities.first }
       let!(:academic_activity) do
-        create(:academic_activity, academic: academic, activity: activity)
+        create(:academic_activity, academic:, activity:)
       end
 
       before do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember::destroy', type: :feature, js: true do
+describe 'ExternalMember::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:external_member) { create(:external_member) }
   let!(:institution) { create(:institution) }

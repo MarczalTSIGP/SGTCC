@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature do
+describe 'Orientation::activities' do
   let!(:professor) { create(:professor_tcc_one) }
   let(:orientation) { create(:current_orientation_tcc_two) }
 
@@ -28,7 +28,7 @@ describe 'Orientation::activities', type: :feature do
     context 'when show the activity by orientation' do
       let(:activity) { orientation.current_calendar.activities.first }
       let!(:academic_activity) do
-        create(:academic_activity, academic: orientation.academic, activity: activity)
+        create(:academic_activity, academic: orientation.academic, activity:)
       end
 
       before do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Academic, type: :model do
+RSpec.describe Academic do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
@@ -45,7 +45,7 @@ RSpec.describe Academic, type: :model do
     it 'returns the current orientation when it is tcc two' do
       orientation = create(:previous_orientation_tcc_one)
       academic = orientation.academic
-      current_orientation = create(:current_orientation_tcc_two, academic: academic)
+      current_orientation = create(:current_orientation_tcc_two, academic:)
 
       expect(academic.current_orientation.tcc_two?).to be true
       expect(academic.current_orientation).to eq(current_orientation)

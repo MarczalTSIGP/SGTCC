@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature do
+describe 'Document::index' do
   let!(:orientation) { create(:orientation) }
 
   before do

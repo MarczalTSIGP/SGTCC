@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Academic::index', type: :feature, js: true do
+describe 'Academic::index', :js do
   let(:responsible) { create(:responsible) }
   let!(:academics) { create_list(:academic, 3) }
 

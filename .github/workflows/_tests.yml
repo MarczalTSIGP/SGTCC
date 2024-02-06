@@ -14,7 +14,7 @@ jobs:
     env:
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
-      image: ruby:2.7.2
+      image: ruby:3.2.2
       options: --network-alias testHost
       volumes:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
@@ -91,7 +91,7 @@ jobs:
           apt-get install -y postgresql-client
 
       - name: Cache bundle gems
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -110,7 +110,7 @@ jobs:
           node-version: 10.24.1
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}

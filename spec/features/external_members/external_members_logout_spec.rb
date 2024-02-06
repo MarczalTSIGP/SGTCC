@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember:logout', type: :feature, js: true do
+describe 'ExternalMember:logout', :js do
   let(:external_member) { create(:external_member) }
 
   before do

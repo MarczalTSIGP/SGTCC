@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::show', type: :feature do
+describe 'Activity::show' do
   let(:professor)       { create(:professor) }
   let(:calendar)        { create(:current_calendar_tcc_one) }
   let(:activity)        { calendar.activities.first }
@@ -8,7 +8,7 @@ describe 'Activity::show', type: :feature do
   let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 
   before do
-    create(:academic_activity, academic: orientation_one.academic, activity: activity)
+    create(:academic_activity, academic: orientation_one.academic, activity:)
 
     login_as(professor, scope: :professor)
     visit professors_calendar_activity_path(calendar, activity)

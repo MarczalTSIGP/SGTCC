@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Orientation::current_tcc', type: :feature do
+describe 'Orientation::current_tcc' do
   before do
     responsible = create(:responsible)
     login_as(responsible, scope: :professor)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     context 'when shows all the orientations of tcc one calendar' do
       it 'shows all the orientations of tcc one with options' do
         orientation = create(:current_orientation_tcc_one)

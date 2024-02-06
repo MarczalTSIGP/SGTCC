@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Activity, type: :model do
+RSpec.describe Activity do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:tcc) }
@@ -38,8 +38,8 @@ RSpec.describe Activity, type: :model do
       initial_date = I18n.l(activity.initial_date, format: :datetime)
       final_date = I18n.l(activity.final_date, format: :datetime)
       expect(activity.deadline).to eq(I18n.t('time.deadline',
-                                             initial_date: initial_date,
-                                             final_date: final_date))
+                                             initial_date:,
+                                             final_date:))
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe Activity, type: :model do
     let(:orientation) { create(:orientation) }
 
     let!(:academic_activity) do
-      create(:academic_activity, activity: activity, academic: orientation.academic)
+      create(:academic_activity, activity:, academic: orientation.academic)
     end
 
     it 'returns the academic activity' do
@@ -90,7 +90,7 @@ RSpec.describe Activity, type: :model do
       let(:activity) { create(:activity, final_date: Time.current - 1) }
 
       it 'returns true' do
-        expect(activity.expired?).to eq(true)
+        expect(activity.expired?).to be(true)
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Activity, type: :model do
       let(:activity) { create(:activity, final_date: Time.current + 3) }
 
       it 'returns false' do
-        expect(activity.expired?).to eq(false)
+        expect(activity.expired?).to be(false)
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe Activity, type: :model do
       end
 
       it 'returns true' do
-        expect(activity.open?).to eq(true)
+        expect(activity.open?).to be(true)
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe Activity, type: :model do
       end
 
       it 'returns false' do
-        expect(activity.open?).to eq(false)
+        expect(activity.open?).to be(false)
       end
     end
   end
@@ -163,7 +163,7 @@ RSpec.describe Activity, type: :model do
     end
 
     it 'has an academic response with property sent' do
-      create(:academic_activity, academic: academic_one, activity: activity)
+      create(:academic_activity, academic: academic_one, activity:)
 
       academic_response_one = activity.responses.academics.first
       academic_response_two = activity.responses.academics.second

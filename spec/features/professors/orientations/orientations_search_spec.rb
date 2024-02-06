@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::search', type: :feature do
+describe 'Orientation::search' do
   let(:professor) { create(:professor) }
   let!(:first_orientation) { create(:current_orientation_tcc_one, advisor: professor) }
 
@@ -9,7 +9,7 @@ describe 'Orientation::search', type: :feature do
     visit professors_orientations_tcc_one_path
   end
 
-  describe '#search', js: true do
+  describe '#search', :js do
     context 'when finds the orientation' do
       it 'finds the orientation by the title' do
         fill_in 'term', with: first_orientation.title

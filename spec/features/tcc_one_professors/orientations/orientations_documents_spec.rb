@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::documents', type: :feature, js: true do
+describe 'Orientation::documents', :js do
   let!(:professor) { create(:professor_tcc_one) }
   let!(:orientation) { create(:current_orientation_tcc_one, advisor: professor) }
 

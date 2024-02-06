@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe 'Meeting::view', type: :feature, js: true do
+describe 'Meeting::view', :js do
   let(:academic) { create(:academic) }
-  let(:orientation) { create(:orientation, academic: academic) }
-  let(:meeting) { create(:meeting, orientation: orientation) }
+  let(:orientation) { create(:orientation, academic:) }
+  let(:meeting) { create(:meeting, orientation:) }
   let(:resource_name) { Meeting.model_name.human }
 
   before do
@@ -17,7 +17,7 @@ describe 'Meeting::view', type: :feature, js: true do
         click_on_label(confirm_judgment_label, in: 'meeting_viewed')
         find('.swal-button--danger', match: :first).click
         # expect(page).to have_alert(text: message('update.f'))
-        expect(page).to have_selector('div.swal-text', text: message('update.f'))
+        expect(page).to have_css('div.swal-text', text: message('update.f'))
         find('.swal-button--confirm', match: :first).click
       end
     end

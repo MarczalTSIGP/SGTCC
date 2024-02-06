@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExternalMember:login', type: :feature, js: true do
+describe 'ExternalMember:login', :js do
   let(:external_member) { create(:external_member) }
   let(:resource_name) { ExternalMember.human_attribute_name(:email) }
 

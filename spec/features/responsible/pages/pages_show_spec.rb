@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Page::show', type: :feature do
+describe 'Page::show' do
   let(:responsible) { create(:responsible) }
   let!(:site_page) { create(:page) }
 

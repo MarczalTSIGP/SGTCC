@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Orientation::index', type: :feature do
+describe 'Orientation::index' do
   before do
     responsible = create(:responsible)
     login_as(responsible, scope: :professor)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     context 'when showing all the orientations of TCC one calendar' do
       let!(:orientations) { create_list(:orientation_tcc_one, 2) }
       let(:index_url) { responsible_orientations_tcc_one_path }

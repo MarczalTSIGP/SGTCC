@@ -7,11 +7,11 @@ FactoryBot.define do
     status { false }
 
     factory :signature_tcai do
-      document { create(:document_tcai) }
+      document { association(:document_tcai) }
     end
 
     factory :signature_tco do
-      document { create(:document_tco) }
+      document { association(:document_tco) }
     end
 
     factory :signature_signed do

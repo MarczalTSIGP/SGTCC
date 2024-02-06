@@ -56,7 +56,7 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def set_orientations
     status = params[:status]
-    condition = status.present? ? { status: status } : {}
+    condition = status.present? ? { status: } : {}
     @orientations = current_professor.supervisions.where(condition).with_relationships.recent
   end
 

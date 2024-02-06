@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature, js: true do
+describe 'Orientation::activities', :js do
   let!(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:academic) { orientation.academic }
@@ -33,7 +33,7 @@ describe 'Orientation::activities', type: :feature, js: true do
       let(:activity) { activities.first }
 
       let!(:academic_activity) do
-        create(:academic_activity, academic: academic, activity: activity)
+        create(:academic_activity, academic:, activity:)
       end
 
       before do

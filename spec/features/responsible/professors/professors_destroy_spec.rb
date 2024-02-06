@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::destroy', type: :feature, js: true do
+describe 'Professor::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:professor) { create(:professor) }
   let(:resource_name) { Professor.model_name.human }
@@ -23,7 +23,7 @@ describe 'Professor::destroy', type: :feature, js: true do
 
   describe '#destroy with associations' do
     let!(:advisor) { create(:professor) }
-    let!(:orientation) { create(:orientation, advisor: advisor) }
+    let!(:orientation) { create(:orientation, advisor:) }
 
     context 'when professor has associations' do
       it 'show alert message' do

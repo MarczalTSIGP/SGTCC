@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::activities', type: :feature, js: true do
+describe 'Supervision::activities', :js do
   let!(:professor) { create(:professor) }
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:academic) { orientation.academic }
@@ -35,7 +35,7 @@ describe 'Supervision::activities', type: :feature, js: true do
       let(:activity) { activities.first }
 
       let!(:academic_activity) do
-        create(:academic_activity, academic: academic, activity: activity)
+        create(:academic_activity, academic:, activity:)
       end
 
       before do

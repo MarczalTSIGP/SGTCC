@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::create', type: :feature, js: true do
+describe 'ExaminationBoard::create', :js do
   let(:professor) { create(:professor_tcc_one) }
   let!(:orientation) { create(:current_orientation_tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
@@ -22,7 +22,7 @@ describe 'ExaminationBoard::create', type: :feature, js: true do
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        find('#examination_board_orientation_id-selectized').click
+        find_by_id('examination_board_orientation_id-selectized').click
 
         all('.selectize-dropdown-content .option').each do |option|
           expect(option.text).not_to match(/TCC: 2/i)

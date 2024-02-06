@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'AttachedDocument::index', type: :feature, js: true do
+describe 'AttachedDocument::index', :js do
   let(:responsible) { create(:responsible) }
   let!(:attached_documents) { create_list(:attached_document, 3) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::activities', type: :feature, js: true do
+describe 'Orientation::activities', :js do
   let!(:responsible) { create(:responsible) }
   let!(:orientation) { create(:orientation) }
 
@@ -46,7 +46,7 @@ describe 'Orientation::activities', type: :feature, js: true do
 
       orientation.calendars.order(year: :desc, semester: :desc).each do |calendar|
         href = responsible_orientation_calendar_activities_path(orientation, calendar)
-        expect(page).to have_link(calendar.year_with_semester, href: href)
+        expect(page).to have_link(calendar.year_with_semester, href:)
       end
     end
 
@@ -61,7 +61,7 @@ describe 'Orientation::activities', type: :feature, js: true do
     let!(:activity) { orientation.current_calendar.activities.first }
     let!(:academic) { orientation.academic }
     let!(:academic_activity) do
-      create(:academic_activity, academic: academic, activity: activity)
+      create(:academic_activity, academic:, activity:)
     end
 
     before do

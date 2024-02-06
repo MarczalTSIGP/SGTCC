@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Page::destroy', type: :feature, js: true do
+describe 'Page::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:site_page) { create(:page) }
   let(:resource_name) { Page.model_name.human }

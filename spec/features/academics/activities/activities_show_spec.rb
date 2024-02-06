@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::show', type: :feature do
+describe 'Activity::show' do
   let(:academic) { create(:academic) }
   let!(:activity) { create(:activity) }
 

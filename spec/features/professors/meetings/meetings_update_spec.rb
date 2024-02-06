@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::update', type: :feature, js: true do
+describe 'Meeting::update', :js do
   let(:professor) { create(:professor) }
   let(:resource_name) { Meeting.model_name.human }
 
@@ -13,7 +13,7 @@ describe 'Meeting::update', type: :feature, js: true do
     let(:orientation) { create(:orientation, advisor: professor) }
 
     context 'when data is valid' do
-      let(:meeting) { create(:meeting, orientation: orientation) }
+      let(:meeting) { create(:meeting, orientation:) }
 
       before do
         professor.orientations << orientation
@@ -31,7 +31,7 @@ describe 'Meeting::update', type: :feature, js: true do
     end
 
     context 'when the meeting cant be edited' do
-      let(:meeting) { create(:meeting, orientation: orientation, viewed: true) }
+      let(:meeting) { create(:meeting, orientation:, viewed: true) }
 
       before do
         visit edit_professors_meeting_path(meeting)

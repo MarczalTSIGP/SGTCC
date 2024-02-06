@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::show', type: :feature do
+describe 'Orientation::show' do
   let(:responsible) { create(:responsible) }
   let(:calendar_tcc_one) { create(:calendar_tcc_one) }
   let(:orientation_tcc_one) { create(:orientation, calendars: [calendar_tcc_one]) }
@@ -11,7 +11,7 @@ describe 'Orientation::show', type: :feature do
     login_as(responsible, scope: :professor)
   end
 
-  describe '#show', js: true do
+  describe '#show', :js do
     context 'when shows the tcc one orientation' do
       it 'shows the tcc one orientation' do
         visit responsible_orientation_path(orientation_tcc_one)

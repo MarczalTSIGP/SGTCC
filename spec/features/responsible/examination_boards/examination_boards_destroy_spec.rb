@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::destroy', :js, type: :feature do
+describe 'ExaminationBoard::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:examination_board) { create(:examination_board_tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::index', type: :feature, js: true do
+describe 'Professor::index', :js do
   let!(:responsible) { create(:responsible) }
   let!(:professors) { create_list(:professor, 5) }
   let(:resource_name) { Professor.model_name.human }

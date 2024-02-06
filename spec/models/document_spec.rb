@@ -1,7 +1,7 @@
 # TODO: Refactor RSpec/MultipleMemoizedHelpers
 require 'rails_helper'
 
-RSpec.describe Document, type: :model do
+RSpec.describe Document do
   describe 'associations' do
     it { is_expected.to belong_to(:document_type).without_validating_presence }
     it { is_expected.to have_many(:signatures).dependent(:destroy) }
@@ -22,7 +22,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns true' do
-        expect(document.all_signed?).to eq(true)
+        expect(document.all_signed?).to be(true)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns false' do
-        expect(document.all_signed?).to eq(false)
+        expect(document.all_signed?).to be(false)
       end
     end
   end
@@ -102,12 +102,12 @@ RSpec.describe Document, type: :model do
       end
 
       let(:request) do
-        { requester: { justificatio: 'just' }, new_orientation: new_orientation }
+        { requester: { justificatio: 'just' }, new_orientation: }
       end
 
       let!(:document) do
         create(:document_tso, orientation_id: orientation.id,
-                              advisor_id: new_advisor.id, request: request)
+                              advisor_id: new_advisor.id, request:)
       end
 
       let(:signatures) { document.signatures }
@@ -159,7 +159,7 @@ RSpec.describe Document, type: :model do
       let(:document) { orientation.signatures.first.document }
 
       it 'returns true' do
-        expect(document.save_to_json).to eq(true)
+        expect(document.save_to_json).to be(true)
       end
     end
   end
@@ -259,7 +259,7 @@ RSpec.describe Document, type: :model do
     let!(:professor) { create(:professor) }
 
     let!(:orientation) do
-      create(:current_orientation_tcc_two, advisor: professor, academic: academic)
+      create(:current_orientation_tcc_two, advisor: professor, academic:)
     end
 
     let(:requester_data) do
@@ -405,7 +405,7 @@ RSpec.describe Document, type: :model do
 
   describe '#signature_by_user' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let(:document) { described_class.first }
 
     context 'when returns the pending signature' do
@@ -458,18 +458,18 @@ RSpec.describe Document, type: :model do
     end
 
     it 'returns true' do
-      expect(document.save_judgment(professor, params)).to eq(true)
+      expect(document.save_judgment(professor, params)).to be(true)
     end
   end
 
   describe '#academic_signed?' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
 
     context 'when the document is not signed' do
       it 'returns false' do
-        expect(document.academic_signed?(academic)).to eq(false)
+        expect(document.academic_signed?(academic)).to be(false)
       end
     end
 
@@ -479,7 +479,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.academic_signed?(academic)).to eq(true)
+        expect(document.academic_signed?(academic)).to be(true)
       end
     end
   end
@@ -491,7 +491,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the document is not signed' do
       it 'returns false' do
-        expect(document.professor_signed?(professor)).to eq(false)
+        expect(document.professor_signed?(professor)).to be(false)
       end
     end
 
@@ -501,24 +501,24 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.professor_signed?(professor)).to eq(true)
+        expect(document.professor_signed?(professor)).to be(true)
       end
     end
   end
 
   describe '#update_requester_justification' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
     let(:params) { { justification: 'new_justification' } }
 
     it 'returns true when is updated' do
-      expect(document.update_requester_justification(params)).to eq(true)
+      expect(document.update_requester_justification(params)).to be(true)
     end
 
     it 'returns when the justification is empty' do
       params = { justification: nil }
-      expect(document.update_requester_justification(params)).to eq(true)
+      expect(document.update_requester_justification(params)).to be(true)
     end
   end
 
@@ -529,7 +529,7 @@ RSpec.describe Document, type: :model do
 
     context 'when the advisor not signed' do
       it 'returns false' do
-        expect(document.tdo_for_review?).to eq(false)
+        expect(document.tdo_for_review?).to be(false)
       end
     end
 
@@ -541,19 +541,19 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tdo_for_review?).to eq(true)
+        expect(document.tdo_for_review?).to be(true)
       end
     end
   end
 
   describe '#tep_for_review?' do
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let!(:document) { create(:document_tep, orientation_id: orientation.id) }
 
     context 'when the academic not signed' do
       it 'returns false' do
-        expect(document.tep_for_review?).to eq(false)
+        expect(document.tep_for_review?).to be(false)
       end
     end
 
@@ -566,7 +566,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tep_for_review?).to eq(true)
+        expect(document.tep_for_review?).to be(true)
       end
     end
   end
@@ -574,7 +574,7 @@ RSpec.describe Document, type: :model do
   describe '#tso_for_review?' do
     let!(:advisor) { create(:professor) }
     let!(:academic) { create(:academic) }
-    let!(:orientation) { create(:orientation, academic: academic) }
+    let!(:orientation) { create(:orientation, academic:) }
     let(:new_orientation) do
       { advisor: { id: advisor.id, name: advisor.name },
         professorSupervisors: {},
@@ -582,17 +582,17 @@ RSpec.describe Document, type: :model do
     end
 
     let(:request) do
-      { requester: { justification: 'just' }, new_orientation: new_orientation }
+      { requester: { justification: 'just' }, new_orientation: }
     end
 
     let!(:document) do
       create(:document_tso, orientation_id: orientation.id,
-                            request: request, advisor_id: advisor.id)
+                            request:, advisor_id: advisor.id)
     end
 
     context 'when the academic not signed' do
       it 'returns false' do
-        expect(document.tso_for_review?).to eq(false)
+        expect(document.tso_for_review?).to be(false)
       end
     end
 
@@ -605,7 +605,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'returns true' do
-        expect(document.tso_for_review?).to eq(true)
+        expect(document.tso_for_review?).to be(true)
       end
     end
   end

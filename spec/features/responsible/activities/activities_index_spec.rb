@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Activity::index', type: :feature, js: true do
+describe 'Activity::index', :js do
   describe '#index' do
     before do
       responsible = create(:responsible)
@@ -10,7 +10,7 @@ describe 'Activity::index', type: :feature, js: true do
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
         calendar = create(:current_calendar_tcc_one)
-        activity = create(:activity_tcc_one, calendar: calendar)
+        activity = create(:activity_tcc_one, calendar:)
 
         index_url = responsible_calendar_activities_path(calendar)
         visit index_url
@@ -25,7 +25,7 @@ describe 'Activity::index', type: :feature, js: true do
 
       it 'shows all activities for tcc two with options' do
         calendar = create(:current_calendar_tcc_two)
-        activity = create(:activity_tcc_one, calendar: calendar)
+        activity = create(:activity_tcc_one, calendar:)
 
         index_url = responsible_calendar_activities_path(calendar)
         visit index_url
@@ -62,7 +62,7 @@ describe 'Activity::index', type: :feature, js: true do
         activity = create(:activity_tcc_one, calendar: second_calendar)
 
         visit responsible_calendar_activities_path(calendar)
-        find('#next_calendar').click
+        find_by_id('next_calendar').click
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,

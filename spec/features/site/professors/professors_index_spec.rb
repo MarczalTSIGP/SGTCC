@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Professor::index', type: :feature, js: true do
+describe 'Professor::index', :js do
   let!(:effective_professor_type) { create(:professor_type, name: 'Efetivo') }
   let!(:temporary_professor_type) { create(:professor_type, name: 'Temporário') }
   let!(:effective_professor) { create(:professor, professor_type: effective_professor_type) }

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe 'Meeting::show', type: :feature do
+describe 'Meeting::show' do
   let(:academic) { create(:academic) }
-  let(:orientation) { create(:orientation, academic: academic) }
-  let(:meeting) { create(:meeting, orientation: orientation) }
+  let(:orientation) { create(:orientation, academic:) }
+  let(:meeting) { create(:meeting, orientation:) }
 
   before do
     login_as(academic, scope: :academic)

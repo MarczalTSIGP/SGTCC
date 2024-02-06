@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature do
+describe 'Document::index' do
   let(:orientation) { create(:orientation) }
   let(:external_member) { orientation.external_member_supervisors.first }
 
@@ -9,7 +9,7 @@ describe 'Document::index', type: :feature do
     login_as(external_member, scope: :external_member)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     let(:documents) do
       orientation.documents.where(signatures: { user_type: :external_member_supervisor })
     end

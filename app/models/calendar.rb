@@ -41,12 +41,12 @@ class Calendar < ApplicationRecord
   def self.start_date
     # TODO: remove
     # "01/#{current_month}/#{current_year}"
-    month = current_semester == 'one' ? 1 : 8
+    month = current_semester == 'one' || current_semester == 1 ? 1 : 8
     Date.parse("1/#{month}/#{current_year}")
   end
 
   def self.search_by_semester(calendar, semester)
-    find_by(semester: semester, year: calendar.year, tcc: tccs[calendar.tcc])
+    find_by(semester:, year: calendar.year, tcc: tccs[calendar.tcc])
   end
 
   def self.search_by_first_semester_next_year(calendar)
@@ -80,7 +80,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.search_by_tcc(tcc, page, term)
-    where(tcc: tcc).page(page).search(term).order({ year: :desc }, { semester: :desc })
+    where(tcc:).page(page).search(term).order({ year: :desc }, { semester: :desc })
   end
 
   def self.search_by_tcc_one(page, term)
@@ -92,23 +92,23 @@ class Calendar < ApplicationRecord
   end
 
   def self.select_data(tcc)
-    where(tcc: tcc).order({ year: :desc }, :semester).map do |calendar|
+    where(tcc:).order({ year: :desc }, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester]
     end
   end
 
   def self.select_for_orientation
-    all.order({ year: :desc }, :tcc, :semester).map do |calendar|
+    order({ year: :desc }, :tcc, :semester).map do |calendar|
       [calendar.id, calendar.year_with_semester_and_tcc]
     end
   end
 
   def self.by_first_year_and_tcc(tcc)
     first_year = minimum('year')
-    first_calendar = find_by(year: first_year, semester: 'one', tcc: tcc)
+    first_calendar = find_by(year: first_year, semester: 'one', tcc:)
     return first_calendar if first_calendar.present?
 
-    find_by(year: first_year, semester: 'two', tcc: tcc)
+    find_by(year: first_year, semester: 'two', tcc:)
   end
 
   def self.orientations_report_by_status(status, years: [], total: [])
@@ -117,10 +117,10 @@ class Calendar < ApplicationRecord
       break if calendar.blank?
 
       years.push(calendar.year_with_semester)
-      total.push(calendar.orientations.where(status: status).size)
+      total.push(calendar.orientations.where(status:).size)
       calendar = next_semester(calendar)
     end
-    { years: years, total: total }
+    { years:, total: }
   end
 
   private

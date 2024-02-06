@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::index', type: :feature do
+describe 'ExaminationBoard::index' do
   let(:orientation) { create(:orientation) }
-  let!(:examination_board) { create(:examination_board_tcc_one, orientation: orientation) }
+  let!(:examination_board) { create(:examination_board_tcc_one, orientation:) }
 
   before do
     login_as(orientation.academic, scope: :academic)

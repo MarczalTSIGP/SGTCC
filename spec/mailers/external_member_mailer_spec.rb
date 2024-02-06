@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe ExternalMemberMailer, type: :mailer do
+describe ExternalMemberMailer do
   describe 'registration email' do
     let(:password) { '123456' }
     let(:external_member) { create(:external_member) }
 
     let(:mail) do
       described_class.with(
-        external_member: external_member, password: password
+        external_member:, password:
       ).registration_email.deliver_now
     end
 

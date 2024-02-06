@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Responsible:profiles', type: :feature, js: true do
+describe 'Responsible:profiles', :js do
   context 'when update a academic' do
     let(:academic) { create(:academic) }
 

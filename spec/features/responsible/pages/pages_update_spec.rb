@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Page::update', type: :feature, js: true do
+describe 'Page::update', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Page.model_name.human }
 

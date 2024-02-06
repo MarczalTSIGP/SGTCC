@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Signature, type: :model do
+RSpec.describe Signature do
   describe 'associations' do
     it { is_expected.to belong_to(:orientation) }
     it { is_expected.to belong_to(:document) }
@@ -16,7 +16,7 @@ RSpec.describe Signature, type: :model do
     it 'returns the new status of the signature' do
       signature = orientation.signatures.first
       signature.sign
-      expect(signature.status).to eq(true)
+      expect(signature.status).to be(true)
     end
   end
 

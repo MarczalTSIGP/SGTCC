@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Document::index', type: :feature do
+describe 'Document::index' do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
 
@@ -9,7 +9,7 @@ describe 'Document::index', type: :feature do
     login_as(professor, scope: :professor)
   end
 
-  describe '#index', js: true do
+  describe '#index', :js do
     let(:documents) do
       orientation.documents.where(signatures: { user_type: :advisor })
     end

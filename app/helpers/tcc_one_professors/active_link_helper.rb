@@ -14,9 +14,9 @@ module TccOneProfessors::ActiveLinkHelper
   end
 
   def tcc_one_professors_calendars_active_link?
-    (calendars_active_link?('tcc_one_professors') ||
-       (tcc_one_professors_calendar_orientations_active_link? &&
-        !tcc_one_professors_current_calendar_link?))
+    calendars_active_link?('tcc_one_professors') ||
+      (tcc_one_professors_calendar_orientations_active_link? &&
+       !tcc_one_professors_current_calendar_link?)
   end
 
   def tcc_one_professors_current_calendar_link?

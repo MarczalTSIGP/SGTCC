@@ -28,7 +28,7 @@ module Searchable
 
     def query_search_joins(search)
       hash_joins&.each do |table, field|
-        table = field.key?(:table_name) ? field[:table_name] : table
+        table = field[:table_name] if field.key?(:table_name)
         field[:fields].each do |f|
           search += "#{query_from_string(f, table)} OR "
         end

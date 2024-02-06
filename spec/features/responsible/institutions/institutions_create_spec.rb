@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Institution::create', type: :feature, js: true do
+describe 'Institution::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Institution.model_name.human }
   let!(:external_member) { create(:external_member) }

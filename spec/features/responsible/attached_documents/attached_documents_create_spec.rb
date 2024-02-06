@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'AttachedDocuments::create', type: :feature, js: true do
+describe 'AttachedDocuments::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { AttachedDocument.model_name.human }
 

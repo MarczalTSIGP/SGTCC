@@ -49,7 +49,6 @@ class Professor < ApplicationRecord
   has_many :examination_board_attendees,
            class_name: 'ExaminationBoardAttendee',
            inverse_of: :professor,
-           source: :examination_board,
            dependent: :destroy
 
   has_many :guest_examination_boards,
@@ -72,7 +71,7 @@ class Professor < ApplicationRecord
   scope :unavailable_advisor, -> { where(available_advisor: false) }
 
   def role?(identifier)
-    roles.where(identifier: identifier).any?
+    roles.where(identifier:).any?
   end
 
   def responsible?

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Dashboard::index', type: :feature, js: true do
+describe 'Dashboard::index', :js do
   describe '#index' do
     before do
       professor = create(:professor_tcc_one)

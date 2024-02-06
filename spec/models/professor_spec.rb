@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Professor, type: :model do
+RSpec.describe Professor do
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:username) }
@@ -33,7 +33,7 @@ RSpec.describe Professor, type: :model do
 
     context 'when professor supervisors is not valid' do
       let(:advisor) { build(:professor) }
-      let(:orientation) { build(:orientation, advisor: advisor) }
+      let(:orientation) { build(:orientation, advisor:) }
 
       it 'validation should reject invalid orientation' do
         orientation.professor_supervisors << advisor
@@ -74,11 +74,11 @@ RSpec.describe Professor, type: :model do
     let(:responsible) { create(:responsible) }
 
     it 'returns true if the professor has role' do
-      expect(responsible.role?('responsible')).to eq(true)
+      expect(responsible.role?('responsible')).to be(true)
     end
 
     it 'returns false if the professor has not role' do
-      expect(responsible.role?('tcc_one')).to eq(false)
+      expect(responsible.role?('tcc_one')).to be(false)
     end
   end
 
@@ -270,7 +270,7 @@ RSpec.describe Professor, type: :model do
     let(:examination_board_tcc_one) { create(:examination_board_tcc_one) }
 
     before do
-      create(:examination_board, orientation: orientation)
+      create(:examination_board, orientation:)
       examination_board_tcc_one.professors << professor
     end
 
@@ -287,11 +287,11 @@ RSpec.describe Professor, type: :model do
     let(:professor) { create(:professor) }
 
     it 'returns true' do
-      expect(responsible.responsible?).to eq(true)
+      expect(responsible.responsible?).to be(true)
     end
 
     it 'returns false' do
-      expect(professor.responsible?).to eq(false)
+      expect(professor.responsible?).to be(false)
     end
   end
 
@@ -337,7 +337,7 @@ RSpec.describe Professor, type: :model do
 
   describe '#effective' do
     let(:professor_type) { create(:professor_type, name: 'Efetivo') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
+    let(:professor) { create(:professor, professor_type:) }
 
     it 'returns the effective professors' do
       expect(described_class.effective).to eq([professor])
@@ -346,7 +346,7 @@ RSpec.describe Professor, type: :model do
 
   describe '#temporary' do
     let(:professor_type) { create(:professor_type, name: 'Temporário') }
-    let(:professor) { create(:professor, professor_type: professor_type) }
+    let(:professor) { create(:professor, professor_type:) }
 
     it 'returns the temporary professors' do
       expect(described_class.temporary).to eq([professor])

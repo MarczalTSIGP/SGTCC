@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::index', type: :feature, js: true do
+describe 'Meeting::index', :js do
   let(:professor)   { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
 
@@ -11,7 +11,7 @@ describe 'Meeting::index', type: :feature, js: true do
   describe '#index' do
     context 'when shows all meetings' do
       it 'shows all meetings with options' do
-        meetings = create_list(:meeting, 3, orientation: orientation)
+        meetings = create_list(:meeting, 3, orientation:)
 
         visit professors_root_path
 

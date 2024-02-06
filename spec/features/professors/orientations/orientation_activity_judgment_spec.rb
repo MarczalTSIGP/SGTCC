@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Orientation::activity_update_judgment', type: :feature, js: true do
+describe 'Orientation::activity_update_judgment', :js do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:activity) { orientation.current_calendar.activities.first }
   let(:resource_name) { Activity.model_name.human }
 
   before do
-    create(:academic_activity, activity: activity, academic: orientation.academic)
+    create(:academic_activity, activity:, academic: orientation.academic)
     login_as(professor, scope: :professor)
   end
 

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe 'ExaminationBoardFile::create', type: :feature, js: true do
+describe 'ExaminationBoardFile::create', :js do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation: orientation) }
+  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
   let(:resource_name) { ExaminationBoardNote.human_attribute_name('appointment_file') }
 
   before do

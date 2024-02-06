@@ -47,7 +47,7 @@ module ActiveLinkHelper
 
   def activities_tcc_active_link?(tcc_type, namespace)
     is_equal_tcc_type = @calendar && @calendar.tcc == tcc_type
-    (match_link?("/#{namespace}/calendars/\\d+/activities") && is_equal_tcc_type)
+    match_link?("/#{namespace}/calendars/\\d+/activities") && is_equal_tcc_type
   end
 
   def calendar_equal_current_calendar_tcc_one?

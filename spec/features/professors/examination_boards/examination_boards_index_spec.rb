@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ExaminationBoard::index', :js, type: :feature do
+describe 'ExaminationBoard::index', :js do
   let(:professor) { create(:professor) }
   let!(:examination_board) { create(:examination_board_tcc_one) }
 

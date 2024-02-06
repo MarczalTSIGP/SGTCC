@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Meeting::index', type: :feature, js: true do
+describe 'Meeting::index', :js do
   let(:professor)   { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
 
@@ -11,7 +11,7 @@ describe 'Meeting::index', type: :feature, js: true do
   describe '#index' do
     context 'when shows all meetings' do
       it 'shows all meetings with options' do
-        meetings = create_list(:meeting, 3, orientation: orientation)
+        meetings = create_list(:meeting, 3, orientation:)
 
         visit professors_meetings_path
 
@@ -39,9 +39,9 @@ describe 'Meeting::index', type: :feature, js: true do
 
     context 'when shows all meetings by date' do
       it 'shows all meetings by date when created in order' do
-        meetings = [create(:meeting, orientation: orientation, date: 2.days.from_now),
-                    create(:meeting, orientation: orientation, date: 1.day.from_now),
-                    create(:meeting, orientation: orientation, date: Time.zone.now)]
+        meetings = [create(:meeting, orientation:, date: 2.days.from_now),
+                    create(:meeting, orientation:, date: 1.day.from_now),
+                    create(:meeting, orientation:, date: Time.zone.now)]
 
         visit professors_meetings_path
 
@@ -60,9 +60,9 @@ describe 'Meeting::index', type: :feature, js: true do
       end
 
       it 'shows all meetings by date when created in reverse order' do
-        meeting_one = create(:meeting, orientation: orientation, date: Time.zone.now)
-	       meeting_two = create(:meeting, orientation: orientation, date: 1.day.from_now)
-	       meeting_three = create(:meeting, orientation: orientation, date: 2.days.from_now)
+        meeting_one = create(:meeting, orientation:, date: Time.zone.now)
+	       meeting_two = create(:meeting, orientation:, date: 1.day.from_now)
+	       meeting_three = create(:meeting, orientation:, date: 2.days.from_now)
 	       meetings = [meeting_three, meeting_two, meeting_one]
 
         visit professors_meetings_path

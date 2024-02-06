@@ -18,8 +18,8 @@ class Populate::Calendars
 
     4.times do |_index|
       # this order is important to the populate
-      Calendar.create!(year: year, semester: semester, tcc: 2)
-      Calendar.create!(year: year, semester: semester, tcc: 1)
+      Calendar.create!(year:, semester:, tcc: 2)
+      Calendar.create!(year:, semester:, tcc: 1)
 
       year -= 1 if semester == 1
       semester = semester == 1 ? 2 : 1

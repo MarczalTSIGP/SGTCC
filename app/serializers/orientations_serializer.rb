@@ -35,7 +35,7 @@ class OrientationsSerializer
   end
 
   def self.approved_date(object, identifier)
-    date = object.examination_boards.find_by(identifier: identifier, situation: :approved).date
+    date = object.examination_boards.find_by(identifier:, situation: :approved).date
     I18n.l(date, format: :long)
   end
 end

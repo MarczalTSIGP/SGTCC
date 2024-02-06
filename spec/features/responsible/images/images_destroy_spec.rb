@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Image::destroy', type: :feature, js: true do
+describe 'Image::destroy', :js do
   let(:responsible) { create(:responsible) }
   let!(:image) { create(:image) }
   let(:resource_name) { Image.model_name.human }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Orientation::search', type: :feature do
+describe 'Orientation::search' do
   let(:responsible) { create(:responsible) }
   let(:orientations) { create_list(:orientation_tcc_one, 2) }
 
@@ -9,7 +9,7 @@ describe 'Orientation::search', type: :feature do
     visit responsible_orientations_tcc_one_path
   end
 
-  describe '#search', js: true do
+  describe '#search', :js do
     context 'when finds the orientation' do
       it 'finds the orientation by the title' do
         orientation = orientations.first

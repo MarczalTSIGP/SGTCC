@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :orientation do
     title { Faker::Lorem.sentence(word_count: 3) }
-    advisor { create(:professor) }
+    advisor { association(:professor) }
     academic
     institution
     renewal_justification { Faker::Lorem.sentence(word_count: 3) }
@@ -63,10 +63,10 @@ FactoryBot.define do
     factory :orientation_tcc_one_approved do
       before(:create) do |orientation|
         calendar = create(:previous_calendar_tcc_one)
-        activity = create(:activity, calendar: calendar, identifier: :project,
+        activity = create(:activity, calendar:, identifier: :project,
                                      final_version: true)
-        create(:academic_activity, activity: activity, academic: orientation.academic)
-        create(:examination_board, orientation: orientation, identifier: :project,
+        create(:academic_activity, activity:, academic: orientation.academic)
+        create(:examination_board, orientation:, identifier: :project,
                                    situation: :approved)
 
         orientation.calendars = [calendar]
@@ -78,10 +78,10 @@ FactoryBot.define do
     factory :orientation_tcc_two_approved do
       after(:create) do |orientation|
         calendar = create(:calendar_tcc_two)
-        activity = create(:activity, calendar: calendar, identifier: :monograph,
+        activity = create(:activity, calendar:, identifier: :monograph,
                                      final_version: true)
-        create(:academic_activity, activity: activity, academic: orientation.academic)
-        create(:examination_board, orientation: orientation, identifier: :monograph,
+        create(:academic_activity, activity:, academic: orientation.academic)
+        create(:examination_board, orientation:, identifier: :monograph,
                                    situation: :approved)
 
         orientation.calendars = [calendar]
@@ -93,10 +93,10 @@ FactoryBot.define do
     factory :orientation_tcc_one_approved_current_calendar do
       before(:create) do |orientation|
         calendar = create(:current_calendar_tcc_two)
-        activity = create(:activity, calendar: calendar, identifier: :project,
+        activity = create(:activity, calendar:, identifier: :project,
                                      final_version: true)
-        create(:academic_activity, activity: activity, academic: orientation.academic)
-        create(:examination_board, orientation: orientation, identifier: :project,
+        create(:academic_activity, activity:, academic: orientation.academic)
+        create(:examination_board, orientation:, identifier: :project,
                                    situation: :approved)
 
         orientation.calendars = [calendar]
@@ -108,10 +108,10 @@ FactoryBot.define do
     factory :orientation_tcc_one_approved_next_calendar do
       before(:create) do |orientation|
         calendar = create(:next_calendar_tcc_one)
-        activity = create(:activity, calendar: calendar, identifier: :project,
+        activity = create(:activity, calendar:, identifier: :project,
                                      final_version: true)
-        create(:academic_activity, activity: activity, academic: orientation.academic)
-        create(:examination_board, orientation: orientation, identifier: :project,
+        create(:academic_activity, activity:, academic: orientation.academic)
+        create(:examination_board, orientation:, identifier: :project,
                                    situation: :approved)
 
         orientation.calendars = [calendar]
@@ -125,14 +125,14 @@ FactoryBot.define do
         calendar = create(:previous_calendar_tcc_two)
         orientation.calendars = [calendar]
 
-        activity = create(:activity, calendar: calendar, identifier: :monograph,
+        activity = create(:activity, calendar:, identifier: :monograph,
                                      final_version: true)
         create(
           :academic_activity_no_complementary_files,
-          activity: activity,
+          activity:,
           academic: orientation.academic
         )
-        create(:examination_board, orientation: orientation, identifier: :monograph,
+        create(:examination_board, orientation:, identifier: :monograph,
                                    situation: :approved)
       end
 

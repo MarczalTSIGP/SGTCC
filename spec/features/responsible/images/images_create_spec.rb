@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Image::create', type: :feature, js: true do
+describe 'Image::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Image.model_name.human }
 
