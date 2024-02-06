@@ -41,7 +41,7 @@ class Calendar < ApplicationRecord
   def self.start_date
     # TODO: remove
     # "01/#{current_month}/#{current_year}"
-    month = current_semester == 'one' ? 1 : 8
+    month = current_semester == 'one' || current_semester == 1 ? 1 : 8
     Date.parse("1/#{month}/#{current_year}")
   end
 
