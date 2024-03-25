@@ -45,7 +45,7 @@ module SGTCC
       form.field_with(id: 'password').value = pwd
       resp = form.submit
 
-      resp.title.eql?('Painel | Moodle UTFPR')
+      resp.link_with(href: 'https://moodle.utfpr.edu.br/my/courses.php').present?
     end
 
     private_class_method :base_authenticate
