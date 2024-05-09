@@ -55,8 +55,9 @@ describe 'Orientation::update' do
       let(:orientation) { create(:orientation) }
 
       before do
-        orientation.signatures << Signature.all
-        orientation.signatures.each(&:sign)
+        create(:document_type_adpp)
+        eb = create(:proposal_examination_board, orientation:)
+        eb.create_defense_minutes
         visit edit_responsible_orientation_path(orientation)
       end
 
