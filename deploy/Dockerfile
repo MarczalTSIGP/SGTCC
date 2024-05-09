@@ -65,7 +65,7 @@ RUN bundle install --jobs 4 --retry 3
 COPY . .
 
 RUN yarn install
-RUN npx update-browserslist-db@latest
+RUN npx update-browserslist-db@1.0.3
 RUN SECRET_KEY_BASE=1 bundle exec rails assets:precompile
 
 ENTRYPOINT [ "./deploy/docker-entrypoint.sh" ]
