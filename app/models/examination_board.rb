@@ -19,7 +19,10 @@ class ExaminationBoard < ApplicationRecord
   validates :identifier, presence: true
   validates :document_available_until, presence: true
 
-  has_many :examination_board_attendees, dependent: :delete_all
+  has_many :examination_board_attendees, dependent: :delete_all,
+                                         after_add: :touch_updated_at,
+                                         after_remove: :touch_updated_at
+
   has_many :examination_board_notes, dependent: :delete_all
 
   has_many :professors, class_name: 'Professor', foreign_key: :professor_id,
@@ -132,5 +135,13 @@ class ExaminationBoard < ApplicationRecord
 
   def evaluators
     Logics::ExaminationBoard::EvaluatorsResponses.new(self)
+  end
+
+  # Callback to after_add and after_remove a professor or external member
+  # Necessary to clear cache after add or remove a professor or external member
+  def touch_updated_at(_attendee)
+    # rubocop:disable Rails/SkipsModelValidations
+    touch
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end
