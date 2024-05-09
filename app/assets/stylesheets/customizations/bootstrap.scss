@@ -15,14 +15,6 @@ body {
   color: transparent;
 }
 
-.table-responsive {
-  min-height: 200px;
-
-  .table tr td ul {
-    margin-bottom: 0;
-  }
-}
-
 .badge-approved-tcc-1 {
   background-color: #85cc00;
 }
@@ -79,4 +71,18 @@ body {
 
 .badge-passad {
   background-color: #c1c1c1;
+}
+
+
+.table-responsive {
+  min-height: 200px;
+
+  .table tr td ul {
+    margin-bottom: 0;
+  }
+}
+
+.tooltip-inner {
+  max-width: 450px; /* Adjust the maximum width as needed */
+  overflow-wrap: break-word;
 }

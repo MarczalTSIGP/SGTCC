@@ -547,9 +547,9 @@ pt-BR:
       examination_board:
         professors: "Professores da UTFPR"
         external_members: "Membros externos"
-        external_member_evaluators: "Membros externos (Avaliadores)"
+        external_member_evaluators: "Avaliadores externos"
         utfpr_members: "Membros da UTFPR"
-        utfpr_evaluators: "Professores da UTFPR (Avaliadores)"
+        utfpr_evaluators: "Avaliadores da UTFPR"
         orientation: "Orientação"
         evaluators: "Avaliadores"
         place: "Local"

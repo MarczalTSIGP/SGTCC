@@ -46,8 +46,9 @@ describe 'Orientation::update' do
 
     context 'when the orientation cant be edited' do
       before do
-        orientation.signatures << Signature.all
-        orientation.signatures.each(&:sign)
+        create(:document_type_adpp)
+        eb = create(:proposal_examination_board, orientation:)
+        eb.create_defense_minutes
         visit edit_professors_orientation_path(orientation)
       end
 

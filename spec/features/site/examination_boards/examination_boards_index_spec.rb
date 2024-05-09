@@ -62,6 +62,10 @@ describe 'ExaminationBoard::index', :js do
             expect(page).to have_content(professor.name_with_scholarity)
           end
 
+          eb_tcc_one.external_members.each do |external_member|
+            expect(page).to have_content(external_member.name_with_scholarity)
+          end
+
           expect(page).to have_selector("a[href='#{eb_tcc_one.academic_activity.pdf.url}']")
         end
       end
@@ -126,6 +130,10 @@ describe 'ExaminationBoard::index', :js do
 
           eb_tcc_one_project.professors.each do |professor|
             expect(page).to have_content(professor.name_with_scholarity)
+          end
+
+          eb_tcc_one_project.external_members.each do |external_member|
+            expect(page).to have_content(external_member.name_with_scholarity)
           end
 
           expect(page).to have_selector("a[href='#{eb_tcc_one_project.academic_activity.pdf.url}']")
@@ -193,6 +201,10 @@ describe 'ExaminationBoard::index', :js do
 
           eb_tcc_two.professors.each do |professor|
             expect(page).to have_content(professor.name_with_scholarity)
+          end
+
+          eb_tcc_two.external_members.each do |external_member|
+            expect(page).to have_content(external_member.name_with_scholarity)
           end
 
           expect(page).to have_selector("a[href='#{eb_tcc_two.academic_activity.pdf.url}']")

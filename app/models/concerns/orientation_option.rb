@@ -9,20 +9,12 @@ module OrientationOption
     end
 
     def can_be_edited?
-      signatures.where(status: true).empty?
+      doc_type_ids = DocumentType.where(identifier: [:adpp, :adpj, :admg]).pluck(:id)
+      documents.where(document_type: doc_type_ids).empty?
     end
 
     def can_be_destroyed?
-      tcos = signatures.by_document_type(DocumentType.tco)
-      tcais = signatures.by_document_type(DocumentType.tcai)
-
-      all_signed_tco = tcos.where(status: true).count < tcos.count
-
-      tcais_to_sign = tcais.count
-      return all_signed_tco unless tcais_to_sign.positive?
-
-      all_signed_tcai = tcais.where(status: true).count < tcais_to_sign
-      all_signed_tco && all_signed_tcai
+      can_be_edited?
     end
   end
 end
