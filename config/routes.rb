@@ -176,7 +176,7 @@ Rails.application.routes.draw do
           to: 'orientations#current_tcc_two',
           as: 'orientations_current_tcc_two'
 
-      get 'orientations/migration',
+      get 'orientations/migration/(page/:page)',
           to: 'orientations_migration#index',
           as: 'orientations_migration'
 
