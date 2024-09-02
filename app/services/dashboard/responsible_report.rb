@@ -33,10 +33,10 @@ class Dashboard::ResponsibleReport
       calendar: Calendar.current_by_tcc_one&.year_with_semester,
       ranking: Orientation.professors_ranking,
       calendar_report: calendar_orientations_report,
-      tcc_one: orientations_by_tcc('tcc_one'),
-      tcc_two: orientations_by_tcc('tcc_two'),
-      current_tcc_one: orientations_by_tcc('current_tcc_one'),
-      current_tcc_two: orientations_by_tcc('current_tcc_two')
+      tcc_one: orientations_by_tcc_one,
+      tcc_two: orientations_by_tcc_two,
+      current_tcc_one: current_tcc_orientations('one'),
+      current_tcc_two: current_tcc_orientations('two')
     }
   end
 
@@ -62,70 +62,78 @@ class Dashboard::ResponsibleReport
   def orientations_count_by_calendars_and_status(calendars, status)
     orientations = 0
     calendars.each do |calendar|
+      # o.examination_boards.where('date >= ? AND date <= ?', start_date, end_date).count
       orientations += calendar.orientations.where(status:).count
     end
     orientations
   end
 
   def orientations_by_tcc_one
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'one' })
     {
-      total: Orientation.joins(:calendars).where(calendars: { tcc: 'one' }).count,
+      total: orientations.select(&:tcc_one?).count,
       in_progress: Orientation.tcc_one('IN_PROGRESS').count,
-      approved: Orientation.tcc_one(%w[APPROVED_TCC_ONE APPROVED]).count,
+      approved: Orientation.tcc_one('APPROVED_TCC_ONE').count,
       canceled: Orientation.tcc_one('CANCELED').count,
-      reproved: Orientation.tcc_one(%w[REPROVED_TCC_ONE REPROVED]).count,
+      reproved: Orientation.tcc_one('REPROVED_TCC_ONE').count,
       links: orientations_link('tcc_one')
     }
   end
 
   def orientations_by_tcc_two
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
     {
-      total: Orientation.joins(:calendars).where(calendars: { tcc: 'two' }).count,
-      in_progress: Orientation.tcc_two('IN_PROGRESS').count,
-      approved: Orientation.tcc_two(%w[APPROVED_TCC_ONE APPROVED]).count,
+      total: orientations.select(&:tcc_two?).count,
+      in_progress: Orientation.tcc_two('APPROVED_TCC_ONE').count,
+      approved: Orientation.tcc_two('APPROVED').count,
       canceled: Orientation.tcc_two('CANCELED').count,
-      reproved: Orientation.tcc_two(%w[REPROVED_TCC_ONE REPROVED]).count,
+      reproved: Orientation.tcc_two('REPROVED').count,
       links: orientations_link('tcc_two')
     }
   end
 
-  def orientations_by_tcc(method)
-    case method
-    when 'tcc_one'
-      tcc_orientations('one')
-    when 'tcc_two'
-      tcc_orientations('two')
-    when 'current_tcc_one'
-      current_tcc_orientations('one')
-    when 'current_tcc_two'
-      current_tcc_orientations('two')
-    end
-  end
+  # def orientations_by_tcc(method)
+  #   case method
+  #   # when 'tcc_one'
+  #   #   tcc_orientations('one')
+  #   # when 'tcc_two'
+  #   #   tcc_orientations('two')
+  #   when 'current_tcc_one'
+  #     current_tcc_orientations('one')
+  #   when 'current_tcc_two'
+  #     current_tcc_orientations('two')
+  #   end
+  # end
 
-  def tcc_orientations(tcc_type)
-    total = Orientation.joins(:calendars).where(calendars: { tcc: tcc_type }).count
-    in_progress = Orientation.send("tcc_#{tcc_type}", 'IN_PROGRESS').count
-    approved = Orientation.send("tcc_#{tcc_type}", %w[APPROVED_TCC_ONE APPROVED]).count
-    canceled = Orientation.send("tcc_#{tcc_type}", 'CANCELED').count
-    reproved = Orientation.send("tcc_#{tcc_type}", %w[REPROVED_TCC_ONE REPROVED]).count
-    links = orientations_link("tcc_#{tcc_type}")
-    { total:,
-      in_progress:, approved:,
-      canceled:, reproved:,
-      links: }
-  end
+  # def current_tcc_orientations(tcc_type)
+  #   total = Orientation.joins(:calendars).distinct.where(calendars: { tcc: tcc_type }).count
+
+  #   in_progress = Orientation.send("tcc_#{tcc_type}", 'IN_PROGRESS').count
+
+  #   status = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
+  #   approved = Orientation.send("tcc_#{tcc_type}", status).count
+  #   canceled = Orientation.send("tcc_#{tcc_type}", 'CANCELED').count
+
+  #   status = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
+  #   reproved = Orientation.send("tcc_#{tcc_type}", status).count
+  #   links = orientations_link("tcc_#{tcc_type}")
+
+  #   { total:, in_progress:, approved:, canceled:, reproved:, links: }
+  # end
 
   def current_tcc_orientations(tcc_type)
     current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
+    repproved_status = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
+    approved_status = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
 
     { total: count_orientations(tcc_type, current_year, current_semester),
       in_progress: count_orientation_status(tcc_type, current_year, current_semester,
                                             'IN_PROGRESS'),
-      approved: count_orientation_status(tcc_type, current_year, current_semester,
-                                         %w[APPROVED_TCC_ONE APPROVED]),
+      approved: count_orientation_status(tcc_type, current_year, current_semester, approved_status),
       canceled: count_orientation_status(tcc_type, current_year, current_semester, 'CANCELED'),
+
       reproved: count_orientation_status(tcc_type, current_year, current_semester,
-                                         %w[REPROVED_TCC_ONE REPROVED]),
+                                         repproved_status),
       links: orientations_link("current_tcc_#{tcc_type}") }
   end
 
