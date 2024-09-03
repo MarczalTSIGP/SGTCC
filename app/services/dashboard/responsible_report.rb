@@ -28,6 +28,8 @@ class Dashboard::ResponsibleReport
     }
   end
 
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_report
     {
       calendar: Calendar.current_by_tcc_one&.year_with_semester,
@@ -35,8 +37,8 @@ class Dashboard::ResponsibleReport
       calendar_report: calendar_orientations_report,
       tcc_one: orientations_by_tcc_one,
       tcc_two: orientations_by_tcc_two,
-      current_tcc_one: current_tcc_orientations('one'),
-      current_tcc_two: current_tcc_orientations('two')
+      current_tcc_one: current_tcc_one_orientations,
+      current_tcc_two: current_tcc_two_orientations
     }
   end
 
@@ -59,11 +61,10 @@ class Dashboard::ResponsibleReport
     { years:, total: }
   end
 
-  def orientations_count_by_calendars_and_status(calendars, status)
+  def orientations_count_by_calendars_and_status(calendars, _status)
     orientations = 0
-    calendars.each do |calendar|
-      # o.examination_boards.where('date >= ? AND date <= ?', start_date, end_date).count
-      orientations += calendar.orientations.where(status:).count
+    calendars.each do |_calendar|
+      orientations += 0 # TODO: Implement this
     end
     orientations
   end
@@ -120,20 +121,30 @@ class Dashboard::ResponsibleReport
 
   #   { total:, in_progress:, approved:, canceled:, reproved:, links: }
   # end
-
-  def current_tcc_orientations(tcc_type)
+  def current_tcc_one_orientations
     current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
-    repproved_status = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
-    approved_status = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
+
+    { total: count_orientations('one', current_year, current_semester),
+      in_progress: count_orientation_status('one', current_year, current_semester,
+                                            'IN_PROGRESS'),
+      approved: count_orientation_status('one', current_year, current_semester,
+                                         'APPROVED_TCC_ONE'),
+      canceled: count_orientation_status('one', current_year, current_semester, 'CANCELED'),
+      reproved: count_orientation_status('one', current_year, current_semester,
+                                         'REPROVED_TCC_ONE'),
+      links: orientations_link('current_tcc_one') }
+  end
+
+  def current_tcc_two_orientations
+    tcc_type = 'two'
+    current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
 
     { total: count_orientations(tcc_type, current_year, current_semester),
       in_progress: count_orientation_status(tcc_type, current_year, current_semester,
                                             'IN_PROGRESS'),
-      approved: count_orientation_status(tcc_type, current_year, current_semester, approved_status),
+      approved: count_orientation_status(tcc_type, current_year, current_semester, 'APPROVED'),
       canceled: count_orientation_status(tcc_type, current_year, current_semester, 'CANCELED'),
-
-      reproved: count_orientation_status(tcc_type, current_year, current_semester,
-                                         repproved_status),
+      reproved: count_orientation_status(tcc_type, current_year, current_semester, 'REPROVED'),
       links: orientations_link("current_tcc_#{tcc_type}") }
   end
 
