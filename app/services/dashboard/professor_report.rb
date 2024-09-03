@@ -13,35 +13,74 @@ class Dashboard::ProfessorReport
   private
 
   def orientations_report
-    { tcc_one: calculate_orientations('tcc_one'),
-      tcc_two: calculate_orientations('tcc_two') }
+    { tcc_one: orientations_by_tcc_one,
+      tcc_two: orientations_by_tcc_two }
   end
 
-  def calculate_orientations(method)
-    return {} unless valid_method?(method)
-
-    tcc_type = method.split('_').last
+  # rubocop:disable Metrics/AbcSize
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
+  def orientations_by_tcc_one
+    orientations = @professor.orientations.joins(:calendars)
+                             .distinct.where(calendars: { tcc: 'one' }).select(&:tcc_one?)
     {
-      total: total_orientations(tcc_type),
-      in_progress: count_orientations(method, 'IN_PROGRESS'),
-      approved: count_orientations(method, %w[APPROVED_TCC_ONE APPROVED]),
-      canceled: count_orientations(method, 'CANCELED'),
-      reproved: count_orientations(method, %w[REPROVED_TCC_ONE REPROVED]),
-      links: orientations_link(method)
+      total: orientations.count,
+      in_progress: orientations.count { |o| o.status.eql?('em andamento') },
+      approved: orientations.count { |o| o.status.eql?('Aprovado em TCC 1') },
+      canceled: orientations.count { |o| o.status.eql?('cancelada') },
+      reproved: orientations.count { |o| o.status.eql?('reprovada') },
+      links: orientations_link('tcc_one')
     }
   end
 
-  def valid_method?(method)
-    %w[tcc_one tcc_two current_tcc_one current_tcc_two].include?(method)
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
+  def orientations_by_tcc_two
+    orientations = @professor.orientations
+    orientations = orientations.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
+    {
+      total: orientations.select(&:tcc_two?).count,
+      in_progress: orientations.tcc_two('APPROVED_TCC_ONE').count,
+      approved: orientations.tcc_two('APPROVED').count,
+      canceled: orientations.tcc_two('CANCELED').count,
+      reproved: orientations.tcc_two('REPROVED').count,
+      links: orientations_link('tcc_two')
+    }
   end
+  # rubocop:enable Metrics/AbcSize
 
-  def total_orientations(tcc_type)
-    @professor.orientations.joins(:calendars).where(calendars: { tcc: tcc_type }).count
-  end
+  # def calculate_orientations(method)
+  #   return {} unless valid_method?(method)
 
-  def count_orientations(method, status)
-    @professor.orientations.send(method, status).count
-  end
+  #   tcc_type = method.split('_').last
+
+  #   progress = tcc_type.eql?('one') ? 'IN_PROGRESS' : 'APPROVED_TCC_ONE'
+  #   approved = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
+  #   reproved = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
+
+  #   {
+  #     total: total_orientations(tcc_type),
+  #     in_progress: count_orientations(method, progress),
+  #     approved: count_orientations(method, approved),
+  #     canceled: count_orientations(method, 'CANCELED'),
+  #     reproved: count_orientations(method, reproved),
+  #     links: orientations_link(method)
+  #   }
+  # end
+
+  # def valid_method?(method)
+  #   %w[tcc_one tcc_two current_tcc_one current_tcc_two].include?(method)
+  # end
+
+  # def total_orientations(tcc_type)
+  #   orientations = @professor.orientations
+  #   .joins(:calendars).distinct.where(calendars: { tcc: tcc_type })
+  #   orientations.select { |o| o.send("tcc_#{tcc_type}?") }.count
+  # end
+
+  # def count_orientations(method, status)
+  #   @professor.orientations.send(method, status).count
+  # end
 
   def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})
     if @current_professor.responsible?
