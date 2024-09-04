@@ -26,9 +26,9 @@ class Dashboard::ProfessorReport
     {
       total: orientations.count,
       in_progress: orientations.count { |o| o.status.eql?('em andamento') },
-      approved: orientations.count { |o| o.status.eql?('Aprovado em TCC 1') },
+      approved: orientations.count { |o| o.status.eql?('Aprovada em TCC 1') },
       canceled: orientations.count { |o| o.status.eql?('cancelada') },
-      reproved: orientations.count { |o| o.status.eql?('reprovada') },
+      reproved: orientations.count { |o| o.status.eql?('Reprovada em TCC 1') },
       links: orientations_link('tcc_one')
     }
   end
