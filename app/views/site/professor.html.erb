@@ -54,20 +54,18 @@
 
 <%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.in_progress'),
                                      supervisions_title: t('site.pages.professors.supervisions.in_progress'),
-                                     tcc_one_orientations: @professor.tcc_one_in_progress,
+                                     #  tcc_one_orientations: @professor.tcc_one_in_progress,
                                      tcc_two_orientations: @professor.tcc_two_in_progress,
-                                     tcc_one_supervisions: @professor.tcc_one_in_progress(@professor.supervisions),
+                                     #  tcc_one_supervisions: @professor.tcc_one_in_progress(@professor.supervisions),
                                      tcc_two_supervisions: @professor.tcc_two_in_progress(@professor.supervisions) %>
 
 <%= render 'site/orientations/card', orientations_title: t('site.pages.professors.orientations.approved'),
                                      supervisions_title: t('site.pages.professors.supervisions.approved'),
-                                     tcc_one_orientations: @professor.tcc_one_approved,
+                                     # tcc_one_orientations: @professor.tcc_one_approved,
                                      tcc_two_orientations: @professor.tcc_two_approved,
-                                     tcc_one_supervisions: @professor.tcc_one_approved(@professor.supervisions),
+                                     # tcc_one_supervisions: @professor.tcc_one_approved(@professor.supervisions),
                                      tcc_two_supervisions: @professor.tcc_two_approved(@professor.supervisions) %>
 
 <div class="d-flex">
-  <%= link_to t('simple_form.buttons.back'),
-    site_professors_path,
-    class: 'btn btn-secondary' %>
+    <%= link_to t('simple_form.buttons.back'), site_professors_path, class: 'btn btn-secondary' %>
 </div>

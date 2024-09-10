@@ -38,6 +38,16 @@ class Calendar < ApplicationRecord
     Calendar.current_calendar?(self)
   end
 
+  def start_date
+    month = semester == 'one' || semester == 1 ? 1 : 8
+    Date.parse("1/#{month}/#{year}")
+  end
+
+  def end_date
+    month = semester == 'one' || semester == 1 ? 7 : 12
+    Date.parse("31/#{month}/#{year}")
+  end
+
   def self.start_date
     # TODO: remove
     # "01/#{current_month}/#{current_year}"
