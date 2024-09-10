@@ -8,7 +8,9 @@ module OrientationJoin
       condition = { tcc: }
       condition['year'] = year if year.present?
       condition['semester'] = semester if semester.present?
-      join_with_status(joins(:calendars).where(calendars: condition), status)
+
+      query = joins(:calendars).where(calendars: condition)
+      join_with_status(query, status)
     end
 
     def self.join_with_status(join, status)

@@ -137,6 +137,9 @@ pt-BR:
           approved: 'Orientações concluídas'
           tcc_one: 'TCC 1'
           tcc_two: 'TCC 2'
+          total: 
+            one: 'Total de 1 orientação'
+            other: 'Total de %{count} orientações'
         supervisions:
           in_progress: 'Coorientações em andamento'
           approved: 'Coorientações concluídas'

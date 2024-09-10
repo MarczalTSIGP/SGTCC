@@ -1,47 +1,19 @@
-<% if tcc_one_orientations.present? || tcc_two_orientations.present? %>
-  <h2 class="mb-3"><%= orientations_title %></h2>
-<% end %>
-
-<% if tcc_one_orientations.present? %>
-  <h3 class="page-title">
-    <%= t('site.pages.professors.orientations.tcc_one') %>
-  </h3>
-
-  <div id="tcc_one">
-    <%= render 'site/orientations/table', orientations: tcc_one_orientations %>
-  </div>
+<% if tcc_two_orientations.present? %>
+   <h2 class="mb-3"><%= orientations_title %></h2>
 <% end %>
 
 <% if tcc_two_orientations.present? %>
-  <h3 class="page-title">
-    <%= t('site.pages.professors.orientations.tcc_two') %>
-  </h3>
-
-  <div id="tcc_two">
-    <%= render 'site/orientations/table', orientations: tcc_two_orientations %>
-  </div>
-<% end %>
-
-<% if tcc_one_supervisions.present? || tcc_two_supervisions.present? %>
-  <h2 class="mb-3"><%= supervisions_title %></h2>
-<% end %>
-
-<% if tcc_one_supervisions.present? %>
-  <h3 class="page-title">
-    <%= t('site.pages.professors.orientations.tcc_one') %>
-  </h3>
-
-  <div id="tcc_one">
-    <%= render 'site/orientations/table', orientations: tcc_one_supervisions %>
-  </div>
+   <div id="tcc_two">
+      <%= render 'site/orientations/table', orientations: tcc_two_orientations %>
+   </div>
 <% end %>
 
 <% if tcc_two_supervisions.present? %>
-  <h3 class="page-title">
-    <%= t('site.pages.professors.orientations.tcc_two') %>
-  </h3>
+   <h2 class="mb-3"><%= supervisions_title %></h2>
+<% end %>
 
-  <div id="tcc_two">
-    <%= render 'site/orientations/table', orientations: tcc_two_supervisions %>
-  </div>
+<% if tcc_two_supervisions.present? %>
+   <div id="tcc_two">
+      <%= render 'site/orientations/table', orientations: tcc_two_supervisions %>
+   </div>
 <% end %>

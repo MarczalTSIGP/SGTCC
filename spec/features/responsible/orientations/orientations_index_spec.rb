@@ -129,7 +129,8 @@ describe 'Orientation::index' do
       end
 
       it 'displays basic orientation information' do
-        orientations = Orientation.includes(:academic, :calendars).recent
+        orientations = Orientation.includes(:academic, :calendars)
+                                  .order('orientations.created_at DESC')
 
         orientations.each_with_index do |orientation, index|
           pos = index + 1

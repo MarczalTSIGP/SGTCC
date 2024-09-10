@@ -139,9 +139,10 @@ class ExaminationBoard < ApplicationRecord
 
   # Callback to after_add and after_remove a professor or external member
   # Necessary to clear cache after add or remove a professor or external member
+  # TODO: Tests for this method
   def touch_updated_at(_attendee)
     # rubocop:disable Rails/SkipsModelValidations
-    touch
+    touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
   end
 end

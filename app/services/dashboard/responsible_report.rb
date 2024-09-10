@@ -28,15 +28,17 @@ class Dashboard::ResponsibleReport
     }
   end
 
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_report
     {
       calendar: Calendar.current_by_tcc_one&.year_with_semester,
       ranking: Orientation.professors_ranking,
       calendar_report: calendar_orientations_report,
-      tcc_one: orientations_by_tcc('tcc_one'),
-      tcc_two: orientations_by_tcc('tcc_two'),
-      current_tcc_one: orientations_by_tcc('current_tcc_one'),
-      current_tcc_two: orientations_by_tcc('current_tcc_two')
+      tcc_one: orientations_by_tcc_one,
+      tcc_two: orientations_by_tcc_two,
+      current_tcc_one: current_tcc_one_orientations,
+      current_tcc_two: current_tcc_two_orientations
     }
   end
 
@@ -59,73 +61,97 @@ class Dashboard::ResponsibleReport
     { years:, total: }
   end
 
-  def orientations_count_by_calendars_and_status(calendars, status)
+  def orientations_count_by_calendars_and_status(calendars, _status)
     orientations = 0
-    calendars.each do |calendar|
-      orientations += calendar.orientations.where(status:).count
+    calendars.each do |_calendar|
+      orientations += 0 # TODO: Implement this
     end
     orientations
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_one
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'one' })
+                              .select(&:tcc_one?)
     {
-      total: Orientation.joins(:calendars).where(calendars: { tcc: 'one' }).count,
-      in_progress: Orientation.tcc_one('IN_PROGRESS').count,
-      approved: Orientation.tcc_one(%w[APPROVED_TCC_ONE APPROVED]).count,
-      canceled: Orientation.tcc_one('CANCELED').count,
-      reproved: Orientation.tcc_one(%w[REPROVED_TCC_ONE REPROVED]).count,
+      total: orientations.count,
+      in_progress: orientations.count { |o| o.status.eql?('em andamento') },
+      approved: orientations.count { |o| o.status.eql?('Aprovada em TCC 1') },
+      canceled: orientations.count { |o| o.status.eql?('cancelada') },
+      reproved: orientations.count { |o| o.status.eql?('Reprovada em TCC 1') },
       links: orientations_link('tcc_one')
     }
   end
 
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_two
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
     {
-      total: Orientation.joins(:calendars).where(calendars: { tcc: 'two' }).count,
-      in_progress: Orientation.tcc_two('IN_PROGRESS').count,
-      approved: Orientation.tcc_two(%w[APPROVED_TCC_ONE APPROVED]).count,
-      canceled: Orientation.tcc_two('CANCELED').count,
-      reproved: Orientation.tcc_two(%w[REPROVED_TCC_ONE REPROVED]).count,
+      total: orientations.count,
+      in_progress: orientations.tcc_two('APPROVED_TCC_ONE').count,
+      approved: orientations.tcc_two('APPROVED').count,
+      canceled: orientations.tcc_two('CANCELED').count,
+      reproved: orientations.tcc_two('REPROVED').count,
       links: orientations_link('tcc_two')
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
-  def orientations_by_tcc(method)
-    case method
-    when 'tcc_one'
-      tcc_orientations('one')
-    when 'tcc_two'
-      tcc_orientations('two')
-    when 'current_tcc_one'
-      current_tcc_orientations('one')
-    when 'current_tcc_two'
-      current_tcc_orientations('two')
-    end
+  # def orientations_by_tcc(method)
+  #   case method
+  #   # when 'tcc_one'
+  #   #   tcc_orientations('one')
+  #   # when 'tcc_two'
+  #   #   tcc_orientations('two')
+  #   when 'current_tcc_one'
+  #     current_tcc_orientations('one')
+  #   when 'current_tcc_two'
+  #     current_tcc_orientations('two')
+  #   end
+  # end
+
+  # def current_tcc_orientations(tcc_type)
+  #   total = Orientation.joins(:calendars).distinct.where(calendars: { tcc: tcc_type }).count
+
+  #   in_progress = Orientation.send("tcc_#{tcc_type}", 'IN_PROGRESS').count
+
+  #   status = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
+  #   approved = Orientation.send("tcc_#{tcc_type}", status).count
+  #   canceled = Orientation.send("tcc_#{tcc_type}", 'CANCELED').count
+
+  #   status = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
+  #   reproved = Orientation.send("tcc_#{tcc_type}", status).count
+  #   links = orientations_link("tcc_#{tcc_type}")
+
+  #   { total:, in_progress:, approved:, canceled:, reproved:, links: }
+  # end
+  def current_tcc_one_orientations
+    current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
+
+    { total: count_orientations('one', current_year, current_semester),
+      in_progress: count_orientation_status('one', current_year, current_semester,
+                                            'IN_PROGRESS'),
+      approved: count_orientation_status('one', current_year, current_semester,
+                                         'APPROVED_TCC_ONE'),
+      canceled: count_orientation_status('one', current_year, current_semester, 'CANCELED'),
+      reproved: count_orientation_status('one', current_year, current_semester,
+                                         'REPROVED_TCC_ONE'),
+      links: orientations_link('current_tcc_one') }
   end
 
-  def tcc_orientations(tcc_type)
-    total = Orientation.joins(:calendars).where(calendars: { tcc: tcc_type }).count
-    in_progress = Orientation.send("tcc_#{tcc_type}", 'IN_PROGRESS').count
-    approved = Orientation.send("tcc_#{tcc_type}", %w[APPROVED_TCC_ONE APPROVED]).count
-    canceled = Orientation.send("tcc_#{tcc_type}", 'CANCELED').count
-    reproved = Orientation.send("tcc_#{tcc_type}", %w[REPROVED_TCC_ONE REPROVED]).count
-    links = orientations_link("tcc_#{tcc_type}")
-    { total:,
-      in_progress:, approved:,
-      canceled:, reproved:,
-      links: }
-  end
-
-  def current_tcc_orientations(tcc_type)
+  def current_tcc_two_orientations
+    tcc_type = 'two'
     current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
 
     { total: count_orientations(tcc_type, current_year, current_semester),
       in_progress: count_orientation_status(tcc_type, current_year, current_semester,
                                             'IN_PROGRESS'),
-      approved: count_orientation_status(tcc_type, current_year, current_semester,
-                                         %w[APPROVED_TCC_ONE APPROVED]),
+      approved: count_orientation_status(tcc_type, current_year, current_semester, 'APPROVED'),
       canceled: count_orientation_status(tcc_type, current_year, current_semester, 'CANCELED'),
-      reproved: count_orientation_status(tcc_type, current_year, current_semester,
-                                         %w[REPROVED_TCC_ONE REPROVED]),
+      reproved: count_orientation_status(tcc_type, current_year, current_semester, 'REPROVED'),
       links: orientations_link("current_tcc_#{tcc_type}") }
   end
 

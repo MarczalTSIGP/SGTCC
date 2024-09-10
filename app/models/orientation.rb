@@ -121,6 +121,17 @@ class Orientation < ApplicationRecord
     ).last
   end
 
+  def self.last_tcc_one_calendars
+    Calendar.where(tcc: 'one')
+            .select('DISTINCT ON (orientation_id) *')
+            .order(:orientation_id, year: :asc, semester: :asc, tcc: :asc)
+  end
+
+  def self.count_orientations_in_last_tcc_one_calendar
+    last_calendars = last_tcc_one_calendars
+    Orientation.joins(:calendars).where(calendars: { id: last_calendars.pluck(:id) }).distinct.count
+  end
+
   # TODO: Refactored and Remove
   def calendar_tcc_one?
     current_calendar.tcc == 'one'
