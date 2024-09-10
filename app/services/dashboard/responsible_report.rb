@@ -69,29 +69,36 @@ class Dashboard::ResponsibleReport
     orientations
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_one
     orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'one' })
+                              .select(&:tcc_one?)
     {
-      total: orientations.select(&:tcc_one?).count,
-      in_progress: Orientation.tcc_one('IN_PROGRESS').count,
-      approved: Orientation.tcc_one('APPROVED_TCC_ONE').count,
-      canceled: Orientation.tcc_one('CANCELED').count,
-      reproved: Orientation.tcc_one('REPROVED_TCC_ONE').count,
+      total: orientations.count,
+      in_progress: orientations.count { |o| o.status.eql?('em andamento') },
+      approved: orientations.count { |o| o.status.eql?('Aprovada em TCC 1') },
+      canceled: orientations.count { |o| o.status.eql?('cancelada') },
+      reproved: orientations.count { |o| o.status.eql?('Reprovada em TCC 1') },
       links: orientations_link('tcc_one')
     }
   end
 
+  # TODO: Refactor this method
+  # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_two
     orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
     {
-      total: orientations.select(&:tcc_two?).count,
-      in_progress: Orientation.tcc_two('APPROVED_TCC_ONE').count,
-      approved: Orientation.tcc_two('APPROVED').count,
-      canceled: Orientation.tcc_two('CANCELED').count,
-      reproved: Orientation.tcc_two('REPROVED').count,
+      total: orientations.count,
+      in_progress: orientations.tcc_two('APPROVED_TCC_ONE').count,
+      approved: orientations.tcc_two('APPROVED').count,
+      canceled: orientations.tcc_two('CANCELED').count,
+      reproved: orientations.tcc_two('REPROVED').count,
       links: orientations_link('tcc_two')
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   # def orientations_by_tcc(method)
   #   case method
