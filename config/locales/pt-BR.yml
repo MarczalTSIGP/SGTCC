@@ -143,6 +143,9 @@ pt-BR:
         supervisions:
           in_progress: 'Coorientações em andamento'
           approved: 'Coorientações concluídas'
+          total: 
+            one: 'Total de 1 coorientação'
+            other: 'Total de %{count} coorientações'
       examination_boards:
         defense: 'Bancas de TCC %{calendar}'
   breadcrumbs:

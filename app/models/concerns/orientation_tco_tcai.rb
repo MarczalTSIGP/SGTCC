@@ -4,7 +4,7 @@ module OrientationTcoTcai
   extend ActiveSupport::Concern
 
   included do
-    after_create :create_tco_and_tcai
+    after_create_commit :create_tco_and_tcai
     after_update :recreate_tco_and_tcai
 
     def create_tco(params)

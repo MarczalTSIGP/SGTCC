@@ -4,7 +4,7 @@
 
 <% if tcc_two_orientations.present? %>
    <div id="tcc_two">
-      <%= render 'site/orientations/table', orientations: tcc_two_orientations %>
+      <%= render 'site/orientations/table', orientations: tcc_two_orientations, type: :orientations %>
    </div>
 <% end %>
 
@@ -14,6 +14,6 @@
 
 <% if tcc_two_supervisions.present? %>
    <div id="tcc_two">
-      <%= render 'site/orientations/table', orientations: tcc_two_supervisions %>
+      <%= render 'site/orientations/table', orientations: tcc_two_supervisions, type: :supervisions %>
    </div>
 <% end %>
