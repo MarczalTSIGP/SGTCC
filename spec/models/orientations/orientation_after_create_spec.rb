@@ -2,11 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Orientation do
   describe '#after_create' do
-    let(:orientation) { create(:orientation) }
+    let(:orientation) { build(:orientation) }
     let(:signatures) { orientation.signatures }
 
     before do
-      orientation.signatures << Signature.all
+      create(:document_type_tco)
+      create(:document_type_tcai)
+
+      orientation.professor_supervisors << create(:professor)
+      orientation.external_member_supervisors << create(:external_member)
+
+      orientation.save!
     end
     # rubocop:disable RSpec/MultipleMemoizedHelpers
 
