@@ -30,7 +30,9 @@ class ExaminationBoardNote < ApplicationRecord
       end
 
       examination_board.update(situation: status, final_note:)
-      examination_board.orientation.update(status: orientation_status)
+      # rubocop:disable Rails/SkipsModelValidations
+      examination_board.orientation.update_column(:status, orientation_status)
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 

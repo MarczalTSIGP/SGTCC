@@ -41,6 +41,20 @@ RSpec.describe ExaminationBoardNote do
         status = Orientation.statuses.key('REPROVED_TCC_ONE')
         expect(eb.orientation.status).to eq(status)
       end
+
+      # Should use examination_board.orientation.update_column(:status, orientation_status)
+      # instead of examination_board.orientation.update(status: orientation_status)
+      # If use update, it will trigger after_save and recreate tco and tcai
+      it 'does not trigger orientation after_save' do
+        tco_id = eb.orientation.tco.id
+        tcai_id = eb.orientation.tcai.id
+
+        note = 60
+        attribute_note_for(eb, note)
+
+        expect(eb.orientation.tco.id).to eq(tco_id)
+        expect(eb.orientation.tcai.id).to eq(tcai_id)
+      end
     end
 
     context 'when project' do

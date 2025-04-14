@@ -37,7 +37,7 @@ module Searchable
     end
 
     def join_keys
-      left_joins(hash_joins.keys) if hash_joins
+      left_joins(hash_joins.keys).distinct if hash_joins
     end
 
     def query_unnacent_ilike(name, table = model_name.plural)
@@ -71,9 +71,8 @@ module Searchable
   included do
     def self.search(term = nil)
       return all if term.blank?
-      return search_joins(term) if hash_joins
 
-      where_search(query_search, term)
+      hash_joins ? search_joins(term) : where_search(query_search, term)
     end
 
     def self.hash_joins
