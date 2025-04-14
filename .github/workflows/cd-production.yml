@@ -71,6 +71,7 @@ jobs:
           context: ./
           file: ./deploy/Dockerfile
           push: true
+          no-cache: true
           tags: |
             dmarczal/sgtcc-production:${{github.run_number}}
             dmarczal/sgtcc-production:latest
