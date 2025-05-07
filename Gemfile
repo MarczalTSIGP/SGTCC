@@ -32,7 +32,6 @@ gem 'validators'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
-gem 'hotwire-rails'
 gem "importmap-rails"
 
 gem 'psych', '~> 3.0'
