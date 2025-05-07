@@ -91,7 +91,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg m
 # --------------------------
 # INSTALL NODEJS BY NVM
 # --------------------------
-ARG NODE_VERSION=10.24.1
+ARG NODE_VERSION=18.0.0
 ARG NVM_DIR=/usr/local/nvm
 
 # https://github.com/creationix/nvm#install-script
