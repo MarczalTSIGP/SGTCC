@@ -5,7 +5,6 @@ ruby '3.2.2'
 gem 'bootsnap', require: false
 gem 'puma', '~> 6'
 gem 'rails', '~> 7.0'
-gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
