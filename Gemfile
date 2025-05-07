@@ -29,10 +29,11 @@ gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
 gem 'validators'
-gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+gem 'hotwire-rails'
+gem "importmap-rails"
 
 gem 'psych', '~> 3.0'
 
