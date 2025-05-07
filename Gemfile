@@ -3,9 +3,8 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.1.7'
-gem 'turbolinks', '~> 5'
+gem 'puma', '~> 6'
+gem 'rails', '~> 7.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
@@ -30,10 +29,10 @@ gem 'reek', require: false
 gem 'simple_form'
 gem 'sassc-rails'
 gem 'validators'
-gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+gem "importmap-rails"
 
 gem 'psych', '~> 3.0'
 
