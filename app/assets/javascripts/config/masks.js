@@ -1,2 +1,0 @@
-var $;
-$.jMaskGlobals.watchDataMask = true;

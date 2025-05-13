@@ -1,5 +1,5 @@
 <% if @page %>
   <% provide(:head_title, @page.menu_title) %>
 
-  <markdown-reader content="<%= @page.content %>" />
+  <div data-controller="markdown-viewer" data-markdown="<%= @page.content %>"></div>
 <% end %>
