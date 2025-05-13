@@ -1,0 +1,10 @@
+@import url("/tabler/tabler.css");
+
+@font-face {
+    font-family: "feather";
+    src: font-url("/feather/feather-webfont.eot");
+    src: font-url("/feather/feather-webfont.eot") format("embedded-opentype"),
+    font-url("/feather/feather-webfont.woff") format("woff"),
+    font-url("/feather/feather-webfont.ttf") format("truetype"),
+    font-url("/feather/feather-webfont.svg#feather") format("svg");
+}

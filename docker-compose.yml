@@ -1,7 +1,7 @@
 x-app: &app
   build:
     context: .
-    dockerfile: Dockerfile
+    dockerfile: Dockerfile.development
   volumes:
     - .:/var/www/sgtcc
     - bundle_path:/bundle
@@ -19,7 +19,7 @@ services:
     <<: *app
     command: >
       bash -c "
-        rm -f tmp/pids/server.pid &&
+        sudo rm -f tmp/pids/server.pid &&
         bundle exec rails s -p 3000 -b '0.0.0.0'
         " # Removing server.pid is technically a cleanup script
     ports:
