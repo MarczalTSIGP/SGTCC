@@ -1,16 +1,15 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.4.3'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.1.7'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
+gem 'puma', '~> 6'
+gem 'rails', '~> 7.2.2.1'
+# gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
-gem 'bootstrap', '~> 4.6.2'
-gem 'bootstrap4-datetime-picker-rails'
+# gem 'bootstrap', '~> 4.6.2'
+# gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
 gem 'carrierwave', '~> 2.2'
@@ -19,21 +18,29 @@ gem 'cpf_cnpj'
 gem 'devise'
 gem 'devise-i18n'
 gem 'exception_notification'
-gem 'font-awesome-sass'
-gem 'jquery-rails'
+# gem 'font-awesome-sass'
+# gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
-gem 'momentjs-rails'
+# gem 'momentjs-rails'
 gem 'pg', '~> 1.1'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
-gem 'sassc-rails'
+# gem 'sassc-rails'
 gem 'validators'
-gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem 'importmap-rails'
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem 'turbo-rails'
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem 'stimulus-rails'
 
 gem 'psych', '~> 3.0'
 
@@ -53,14 +60,15 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
