@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:3.2.2
+FROM ruby:3.4.3
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -89,12 +89,31 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg m
   apt-get install -y postgresql-client
 
 # Define environment variables
+ENV _USER devel
 ENV APP_NAME sgtcc
 ENV APP /var/www/${APP_NAME}
 ENV BUNDLE_PATH /bundle/vendor
 
+# ADD an user called devel
+# --gecos GECOS
+#          Set  the  gecos (information about the user) field for the new entry generated.  adduser will
+#          not ask for finger information if this option is given
+#
+# The users of the group staff can install executables in /usr/local/bin and /usr/local/sbin without root privileges
+RUN addgroup --gid $GROUP_ID ${_USER}
+RUN adduser  --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID ${_USER} \
+    && usermod -a -G sudo ${_USER} \
+    && usermod -a -G staff ${_USER} \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+    && echo "${_USER}:${_USER}" | chpasswd
+
+# Configure the main working directory. This is the base
+# directory used in any further RUN, COPY, and ENTRYPOINT commands.
 RUN mkdir -p $APP \
   && mkdir -p $BUNDLE_PATH
+
+# Change current user
+USER ${_USER}:${_USER}
 
 # Set working directory
 WORKDIR $APP
