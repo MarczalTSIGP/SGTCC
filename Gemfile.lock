@@ -630,7 +630,7 @@ DEPENDENCIES
   pg (~> 1.1)
   psych (~> 3.0)
   puma (~> 6)
-  rails (~> 7.0)
+  rails (~> 7.2.2.1)
   rails-i18n
   reek
   rspec-rails

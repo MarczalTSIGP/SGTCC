@@ -88,29 +88,6 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg m
   apt-get update -qq && \
   apt-get install -y postgresql-client
 
-# --------------------------
-# INSTALL NODEJS BY NVM
-# --------------------------
-ARG NODE_VERSION=18.0.0
-ARG NVM_DIR=/usr/local/nvm
-
-# https://github.com/creationix/nvm#install-script
-RUN mkdir $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
-# add node and npm to path so the commands are available
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
-# confirm installation
-RUN node -v
-RUN npm -v
-# --------------------------
-# end NODEJS
-# --------------------------
-
-# Install YARN
-RUN npm install -g yarn
-
 # Define environment variables
 ENV APP_NAME sgtcc
 ENV APP /var/www/${APP_NAME}
@@ -123,5 +100,5 @@ RUN mkdir -p $APP \
 WORKDIR $APP
 
 # Install bundler and rails
-RUN gem install bundler -v 2.4.22 \
-  && gem install rails -v 6.1.5.1
+RUN gem install bundler -v 2.6.8 \
+  && gem install rails -v 7.2.2.1
