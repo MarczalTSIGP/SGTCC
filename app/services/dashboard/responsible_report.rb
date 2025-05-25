@@ -64,7 +64,7 @@ class Dashboard::ResponsibleReport
   def orientations_count_by_calendars_and_status(calendars, _status)
     orientations = 0
     calendars.each do |_calendar|
-      orientations = orientations # TODO: Implement this
+      # orientations += 0 # TODO: Implement this
     end
     orientations
   end
