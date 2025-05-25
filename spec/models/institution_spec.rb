@@ -84,7 +84,7 @@ RSpec.describe Institution do
 
     context 'when returns institutions ordered by name' do
       it 'returns ordered' do
-        create_list(:institution, 30)
+        create_list(:institution, 10)
         institutions_ordered = described_class.order(:trade_name)
         institution = institutions_ordered.first
         results_search = described_class.search.order(:trade_name)

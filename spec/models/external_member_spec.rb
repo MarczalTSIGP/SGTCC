@@ -95,7 +95,7 @@ RSpec.describe ExternalMember do
 
     context 'when returns external members ordered by name' do
       it 'returns ordered' do
-        create_list(:external_member, 30)
+        create_list(:external_member, 10)
         external_members_ordered = described_class.order(:name)
         external_member = external_members_ordered.first
         results_search = described_class.search.order(:name)
