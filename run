@@ -88,10 +88,12 @@ function bundle {
 # -----------------------------------------------------------------------------
 # Linters commands.
 # -----------------------------------------------------------------------------
-function eslint {
-  FILES_PATH="${@:-app/javascript}"
-  cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
-}
+
+# Removed eslint function due the Node.js and package.json removal
+# function eslint {
+#   FILES_PATH="${@:-app/javascript}"
+#   cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
+# }
 
 function brakeman {
  cmd bundle exec brakeman --ignore-config config/brakeman.ignore "${@}"
@@ -104,7 +106,6 @@ function rubocop {
 function linters {
   rubocop
   brakeman
-  eslint
 }
 
 # -----------------------------------------------------------------------------
