@@ -1,9 +1,18 @@
 class AddDocumentAvailableUntilToExaminationBoards < ActiveRecord::Migration[5.2]
-  change_table :examination_boards, bulk: true do |t|
-    t.timestamp :document_available_until
+  def up
+    unless column_exists?(:examination_boards, :document_available_until)
+      add_column :examination_boards, :document_available_until, :timestamp
+    end
+
+    execute <<-SQL.squish
+      UPDATE examination_boards
+      SET document_available_until = date
+    SQL
   end
 
-  ExaminationBoard.find_each do |examination_board|
-    examination_board.update(document_available_until: examination_board.date)
+  def down
+    return unless column_exists?(:examination_boards, :document_available_until)
+
+    remove_column :examination_boards, :document_available_until
   end
 end
