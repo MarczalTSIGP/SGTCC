@@ -52,7 +52,7 @@ describe 'Activity::show' do
                                                                   activity)
 
       within('table.table tbody') do
-        expect(page).not_to have_link(I18n.t('helpers.boolean.true'), href: url)
+        expect(page).to have_no_link(I18n.t('helpers.boolean.true'), href: url)
       end
     end
   end

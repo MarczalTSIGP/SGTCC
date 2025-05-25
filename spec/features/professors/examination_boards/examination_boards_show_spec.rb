@@ -43,10 +43,10 @@ describe 'ExaminationBoard::show' do
         find_by_id('generate_non_attendance_defense_minutes').click
         expect(page).to have_alert(text: 'Você tem certeza que deseja gerar a Ata de Defesa')
 
-        find('.swal-button--confirm', match: :first).click # confirmation
+        first('.swal-button--confirm').click # confirmation
         expect(page).to have_alert(text: 'Ata de Defesa gerada com sucesso!')
 
-        find('.swal-button--confirm', match: :first).click # success message
+        first('.swal-button--confirm').click # success message
         expect(page).to have_link(text: 'Visualizar Ata de Defesa')
 
         find_by_id('view_defense_minutes').click

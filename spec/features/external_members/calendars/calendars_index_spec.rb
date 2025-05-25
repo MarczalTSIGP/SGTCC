@@ -26,7 +26,7 @@ describe 'Calendar::index', :js do
           end
         end
 
-        expect(page).to have_selector("a[href='#{external_members_calendars_path}'].active")
+        expect(page).to have_css("a[href='#{external_members_calendars_path}'].active")
       end
     end
   end

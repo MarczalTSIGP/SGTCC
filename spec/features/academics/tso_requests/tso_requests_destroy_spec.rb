@@ -31,7 +31,7 @@ describe 'TsoRequest::destroy', :js do
         click_on_destroy_link(academics_tso_request_path(document))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_content(orientation.title)
+        expect(page).to have_no_content(orientation.title)
       end
     end
   end

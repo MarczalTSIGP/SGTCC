@@ -21,7 +21,7 @@ describe 'Orientation::index', :js do
                                        orientation.advisor.name,
                                        orientation.academic.name])
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
         expect(page).to have_selector(link(orientation.final_monograph.pdf.url))
         expect(page).to have_selector(link(orientation.final_monograph.complementary_files.url))
       end
@@ -40,7 +40,7 @@ describe 'Orientation::index', :js do
                                        orientation.advisor.name,
                                        orientation.academic.name])
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
         expect(page).to have_selector(link(orientation.final_project.pdf.url))
       end
     end

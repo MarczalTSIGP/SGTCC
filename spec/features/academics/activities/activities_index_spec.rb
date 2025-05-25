@@ -22,7 +22,7 @@ describe 'Activity::index' do
         expect(page).to have_content(activity.base_activity_type.name)
         expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
         expect(page).to have_content(activity.deadline)
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
       it 'shows all activities for tcc two with options' do
@@ -38,7 +38,7 @@ describe 'Activity::index' do
         expect(page).to have_content(activity.base_activity_type.name)
         expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
         expect(page).to have_content(activity.deadline)
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

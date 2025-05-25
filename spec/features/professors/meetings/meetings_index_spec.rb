@@ -50,9 +50,9 @@ describe 'Meeting::index', :js do
             child = index + 1
             base_selector = "tr:nth-child(#{child})"
 
-            expect(page).to have_selector("#{base_selector}
+            expect(page).to have_css("#{base_selector}
 					  a[href='#{professors_meeting_path(meeting)}']",
-                                          text: meeting.orientation.academic_with_calendar)
+                                     text: meeting.orientation.academic_with_calendar)
             expect(page).to have_selector(base_selector,
                                           text: short_date(meeting.date))
           end
@@ -72,9 +72,9 @@ describe 'Meeting::index', :js do
             child = index + 1
             base_selector = "tr:nth-child(#{child})"
 
-            expect(page).to have_selector("#{base_selector}
+            expect(page).to have_css("#{base_selector}
 					a[href='#{professors_meeting_path(meeting)}']",
-                                          text: meeting.orientation.academic_with_calendar)
+                                     text: meeting.orientation.academic_with_calendar)
             expect(page).to have_selector(base_selector,
                                           text: short_date(meeting.date))
           end

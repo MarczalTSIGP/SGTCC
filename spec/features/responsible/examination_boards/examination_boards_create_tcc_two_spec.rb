@@ -18,8 +18,8 @@ describe 'ExaminationBoard::new', :js do
 
     context 'when examination_board tcc two is valid' do
       it 'does not show "Projeto" and "Proposta" in the identifier input' do
-        expect(page).not_to have_content('Projeto')
-        expect(page).not_to have_content('Proposta')
+        expect(page).to have_no_content('Projeto')
+        expect(page).to have_no_content('Proposta')
       end
 
       it 'does not show "tcc 1" in the identifier input' do

@@ -26,7 +26,7 @@ describe 'Orientation::activities', :js do
           expect(page).to have_content(activity.deadline)
         end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 

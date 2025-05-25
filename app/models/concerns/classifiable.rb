@@ -4,7 +4,7 @@ module Classifiable
   extend ActiveSupport::Concern
 
   included do
-    enum gender: { male: 'M', female: 'F' }, _prefix: :gender
+    enum :gender, { male: 'M', female: 'F' }, prefix: :gender
 
     def self.human_genders
       hash = {}

@@ -17,7 +17,7 @@ describe 'Calendar::destroy', :js do
         click_on_destroy_link(responsible_calendar_path(calendar))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).not_to have_content(calendar.year)
+        expect(page).to have_no_content(calendar.year)
       end
     end
 

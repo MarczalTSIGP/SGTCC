@@ -50,7 +50,7 @@ describe 'Site::calendar', :js do
     end
 
     it 'active calendar link' do
-      expect(page).to have_selector("a[href='#{site_calendar_path}'].active")
+      expect(page).to have_css("a[href='#{site_calendar_path}'].active")
     end
   end
 end

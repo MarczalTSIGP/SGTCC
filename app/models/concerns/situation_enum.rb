@@ -4,7 +4,7 @@ module SituationEnum
   extend ActiveSupport::Concern
 
   included do
-    enum situation: {
+    enum :situation, {
       approved: 'approved',
       reproved: 'reproved',
       not_appear: 'not_appear',

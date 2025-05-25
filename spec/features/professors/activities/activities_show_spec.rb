@@ -34,7 +34,7 @@ describe 'Activity::show' do
 
             expect(page).to have_content(academic.name)
             expect(page).to have_content(sent_value)
-            expect(page).not_to have_link(sent_value)
+            expect(page).to have_no_link(sent_value)
           end
         end
 

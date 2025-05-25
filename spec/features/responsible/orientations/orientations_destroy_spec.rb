@@ -20,7 +20,7 @@ describe 'Orientation::destroy', :js do
         end
 
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_content(orientation.short_title)
+        expect(page).to have_no_content(orientation.short_title)
       end
     end
   end

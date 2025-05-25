@@ -46,7 +46,7 @@ class Activity < ApplicationRecord
   end
 
   def open?(current_time: Time.current)
-    current_time >= initial_date && current_time <= final_date
+    current_time.between?(initial_date, final_date)
   end
 
   def expired?

@@ -18,6 +18,6 @@
 # Rails.application.config.assets.precompile += %w[session.scss public/application.scss]
 # Rails.application.config.assets.precompile += %w[session.js public/application.js]
 
-Rails.application.config.assets.version = "1.0"
-Rails.application.config.assets.paths << Rails.root.join("vendor/assets/fonts")
-Rails.application.config.assets.paths << Rails.root.join("vendor/assets/stylesheets")
+Rails.application.config.assets.version = '1.0'
+Rails.application.config.assets.paths << Rails.root.join('vendor/assets/fonts')
+Rails.application.config.assets.paths << Rails.root.join('vendor/assets/stylesheets')

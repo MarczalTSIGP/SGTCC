@@ -35,7 +35,7 @@ describe 'ExaminationBoard::index', :js do
       end
 
       eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one.size})"
-      expect(page).to have_selector("#{eb_selector}.opacity-50")
+      expect(page).to have_css("#{eb_selector}.opacity-50")
     end
 
     it 'displays the details of the examination board' do
@@ -66,7 +66,7 @@ describe 'ExaminationBoard::index', :js do
             expect(page).to have_content(external_member.name_with_scholarity)
           end
 
-          expect(page).to have_selector("a[href='#{eb_tcc_one.academic_activity.pdf.url}']")
+          expect(page).to have_css("a[href='#{eb_tcc_one.academic_activity.pdf.url}']")
         end
       end
     end
@@ -104,7 +104,7 @@ describe 'ExaminationBoard::index', :js do
       end
 
       eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_one_project.size})"
-      expect(page).to have_selector("#{eb_selector}.opacity-50")
+      expect(page).to have_css("#{eb_selector}.opacity-50")
     end
 
     it 'displays the details of the examination board' do
@@ -136,7 +136,7 @@ describe 'ExaminationBoard::index', :js do
             expect(page).to have_content(external_member.name_with_scholarity)
           end
 
-          expect(page).to have_selector("a[href='#{eb_tcc_one_project.academic_activity.pdf.url}']")
+          expect(page).to have_css("a[href='#{eb_tcc_one_project.academic_activity.pdf.url}']")
         end
       end
     end
@@ -175,7 +175,7 @@ describe 'ExaminationBoard::index', :js do
       end
 
       eb_selector = "div#tabContent .examination-board-site:nth-child(#{ebs_tcc_two.size})"
-      expect(page).to have_selector("#{eb_selector}.opacity-50")
+      expect(page).to have_css("#{eb_selector}.opacity-50")
     end
 
     it 'displays the details of the examination board' do
@@ -207,7 +207,7 @@ describe 'ExaminationBoard::index', :js do
             expect(page).to have_content(external_member.name_with_scholarity)
           end
 
-          expect(page).to have_selector("a[href='#{eb_tcc_two.academic_activity.pdf.url}']")
+          expect(page).to have_css("a[href='#{eb_tcc_two.academic_activity.pdf.url}']")
         end
       end
     end

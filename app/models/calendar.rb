@@ -39,19 +39,19 @@ class Calendar < ApplicationRecord
   end
 
   def start_date
-    month = semester == 'one' || semester == 1 ? 1 : 8
+    month = ['one', 1].include?(semester) ? 1 : 8
     Date.parse("1/#{month}/#{year}")
   end
 
   def end_date
-    month = semester == 'one' || semester == 1 ? 7 : 12
+    month = ['one', 1].include?(semester) ? 7 : 12
     Date.parse("31/#{month}/#{year}")
   end
 
   def self.start_date
     # TODO: remove
     # "01/#{current_month}/#{current_year}"
-    month = current_semester == 'one' || current_semester == 1 ? 1 : 8
+    month = ['one', 1].include?(current_semester) ? 1 : 8
     Date.parse("1/#{month}/#{current_year}")
   end
 

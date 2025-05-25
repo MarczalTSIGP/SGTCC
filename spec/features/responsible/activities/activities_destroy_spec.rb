@@ -18,7 +18,7 @@ describe 'Activity::destroy', :js do
         expect(page).to have_flash(:success, text: message('destroy.f'))
 
         href = "a[href='#{responsible_calendar_activity_path(activity.calendar, activity)}']"
-        expect(page).not_to have_css(href)
+        expect(page).to have_no_css(href)
       end
     end
   end
