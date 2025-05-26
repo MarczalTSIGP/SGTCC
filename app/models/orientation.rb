@@ -198,8 +198,30 @@ class Orientation < ApplicationRecord
     proposal(final_version: true)
   end
 
+  def orientation_type
+    case status
+    when 'aprovada'
+      :approved if final_monograph.present?
+    when 'Aprovada em TCC 1'
+      :tcc_one if final_project.present?
+    when 'em andamento'
+      :in_tcc_one if final_proposal.present?
+    else
+      :unknown
+    end
+  end
+
   def summary
-    final_monograph&.summary.to_s
+    case orientation_type
+    when :approved
+      final_monograph&.summary.to_s
+    when :tcc_one
+      final_project&.summary.to_s
+    when :in_tcc_one
+      final_proposal&.summary.to_s || ''
+    else
+      ''
+    end
   end
 
   def approved_date(identifier = :monograph)
