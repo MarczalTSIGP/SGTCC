@@ -136,6 +136,10 @@ pt-BR:
           total:
             one: 'Total de 1 TCC aprovado'
             other: 'Total de %{count} TCCs aprovados'
+        in_tcc_one:
+          total:
+            one: 'Total de 1 TCC em andamento'
+            other: 'Total de %{count} TCCs em andamento'
         orientations:
           in_progress: 'Orientações em andamento'
           approved: 'Orientações concluídas'
