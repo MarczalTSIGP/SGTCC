@@ -198,6 +198,15 @@ class Orientation < ApplicationRecord
     proposal(final_version: true)
   end
 
+  def summary
+    final_monograph&.summary.to_s
+  end
+
+  def approved_date(identifier = :monograph)
+    exam_board = examination_boards.find_by(identifier: identifier, situation: :approved)
+    exam_board&.date
+  end
+
   private
 
   def can_be_migrated?

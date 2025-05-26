@@ -1,37 +1,53 @@
-<tr>
-  <td><%= orientation.academic.name %></td>
-  <td>
-    <span data-toggle="tooltip" title="<%= orientation.document_title %>">
+<div id="orientation_<%= orientation.id %>">
+  <div>
+    <a
+      href="#summary_<%= orientation.id %>"
+      data-bs-toggle="collapse"
+      aria-expanded="false"
+      class="d-block font-weight-bold"
+    >
       <%= orientation.document_title %>
-    </span>
-  </td>
-  <td><%= orientation.advisor.name_with_scholarity %></td>
-  <td>
-    <% orientation.supervisors.each do |supervisor| %>
-      <p class="m-0"><%= supervisor.name %></p>
-    <% end %>
-  </td>
-  <td>
-    <% if orientation.final_proposal.present? %>
-      <%= link_to(orientation.final_proposal.pdf.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name('proposal') %><br>
+    </a>
+
+    <div
+      class="collapse mt-2"
+      id="summary_<%= orientation.id %>"
+    >
+      <% if orientation.summary.present? %>
+        <div class="card card-body site-table mb-2">
+          <p class="text-justify">
+            <%= orientation.summary %>
+          </p>
+        </div>
       <% end %>
+    </div>
+
+    <%= orientation.academic.name %> (acadêmico)<br>
+    <%= orientation.advisor.name %> (orientador)<br>
+
+    <% if orientation.supervisors.any? %>
+      <%= orientation.supervisors.map(&:name).join(', ') %> (coorientadores)<br>
     <% end %>
 
-    <% if orientation.final_project.present? %>
-      <%= link_to(orientation.final_project.pdf.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name('project') %><br>
-      <% end %>
+    <% if orientation.approved_date.present? %>
+      <%= l(orientation.approved_date, format: :long) %> (data de aprovação)<br>
     <% end %>
 
-    <% if orientation.final_monograph.present? %>
-      <%= link_to(orientation.final_monograph.pdf.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name('monograph') %><br>
-      <% end %>
+    <% documents = {
+      'Proposta' => orientation.final_proposal&.pdf,
+      'Projeto' => orientation.final_project&.pdf,
+      'Monografia' => orientation.final_monograph&.pdf,
+      'Arquivos Complementares' => orientation.final_monograph&.complementary_files
+    }.compact %>
 
-      <%= link_to(orientation.final_monograph.complementary_files.url, target: :_blank) do %>
-        <%= AcademicActivity.human_attribute_name('complementary_files') %><br>
+    <% documents.each do |type, doc| %>
+      <% if doc.url.present? %>
+        <%= link_to doc.url, target: "_blank", class: "btn btn-outline-primary btn-sm mt-2 mr-2" do %>
+          <%= type %>
+        <% end %>
       <% end %>
     <% end %>
-  </td>
-</tr>
+  </div>
+
+  <hr>
+</div>
