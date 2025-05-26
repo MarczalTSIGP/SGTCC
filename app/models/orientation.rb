@@ -212,16 +212,11 @@ class Orientation < ApplicationRecord
   end
 
   def summary
-    case orientation_type
-    when :approved
-      final_monograph&.summary.to_s
-    when :tcc_one
-      final_project&.summary.to_s
-    when :in_tcc_one
-      final_proposal&.summary.to_s || ''
-    else
-      ''
-    end
+    {
+      approved: final_monograph,
+      tcc_one: final_project,
+      in_tcc_one: final_proposal
+    }.fetch(orientation_type, nil)&.summary.to_s
   end
 
   def approved_date(identifier = :monograph)
