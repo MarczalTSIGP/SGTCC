@@ -104,23 +104,6 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.0.0
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install yarn and dependencies
-        run: |
-          npm install -g yarn
-          yarn install
-          yarn install --check-files
-
       - name: Compile assets
         run: |
           bundle exec rails assets:precompile
