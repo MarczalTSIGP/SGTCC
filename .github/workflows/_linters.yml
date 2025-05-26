@@ -49,13 +49,13 @@ jobs:
                 <<: *ldap
           " > config/application.yml
 
-      # - name: Cache bundle gems
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: vendor/bundle
-      #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-gems-
+      - name: Cache bundle gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
 
       - name: Install bundle gems
         run: |
