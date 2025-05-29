@@ -4,7 +4,7 @@ export default class extends Controller {
   connect() {
     // Ensure SimpleMDE is loaded
     if (typeof window.SimpleMDE === "undefined") {
-      console.error('SimpleMDE is not loaded.');
+      console.error("SimpleMDE is not loaded.");
       return;
     }
 
