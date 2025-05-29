@@ -1,7 +1,7 @@
-
 <% provide(:head_title, @page.menu_title) %>
 
-<%= render partial: "site/orientations/in_tcc_one", locals: {
+<%= render partial: "site/orientations/orientation_list", locals: {
   orientations: @orientations,
-  page: @page
+  page: @page,
+  translation_key: 'site.pages.professors.in_tcc_one.total'
 } %>

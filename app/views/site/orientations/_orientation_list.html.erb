@@ -3,7 +3,7 @@
 </h2>
 
 <div class="text-right mb-3">
-  <%= t('site.pages.professors.approved.total', count: orientations.count).html_safe %>
+  <%= t(translation_key, count: orientations.count).html_safe %>
 </div>
 
 <% orientations.each do |orientation| %>
