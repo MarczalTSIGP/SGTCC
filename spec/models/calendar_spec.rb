@@ -30,14 +30,14 @@ RSpec.describe Calendar do
       invalid_year = '2eid'
       calendar.year = invalid_year
       expect(calendar).not_to be_valid
-      fail "#{invalid_year.inspect} is not valid" if calendar.valid?
+      raise "#{invalid_year.inspect} is not valid" if calendar.valid?
     end
 
     it 'is valid' do
       valid_year = '2019'
       calendar.year = valid_year
       expect(calendar).to be_valid
-      fail "#{valid_year.inspect} is valid" unless calendar.valid?
+      raise "#{valid_year.inspect} is valid" unless calendar.valid?
     end
   end
 
