@@ -20,7 +20,7 @@ jobs:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
     services:
       db:
-        image: postgres
+        image: postgres:17.5
         ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
