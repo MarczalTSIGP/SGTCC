@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   toggle(event) {
@@ -7,7 +7,7 @@ export default class extends Controller {
     const ebId = event.currentTarget.dataset.ebId;
     const target = document.getElementById(`eb-${ebId}`);
     if (target) {
-      target.classList.toggle('d-none');
+      target.classList.toggle("d-none");
     }
   }
 }
