@@ -13,7 +13,7 @@ RSpec.describe ExaminationBoard do
                      date: 6.months.ago,
                      orientation: previous_orientation).id
       tccs << create(:examination_board_tcc_one,
-                     date: 6.months.ago,
+                     date: 5.months.ago,
                      identifier: :project,
                      orientation: previous_orientation).id
     end

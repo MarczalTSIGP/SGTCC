@@ -30,7 +30,7 @@ describe 'Orientation::activities', :js do
 
     it 'have links' do
       active_link = responsible_orientations_tcc_one_path
-      expect(page).to have_selector("a[href='#{active_link}'].active")
+      expect(page).to have_css("a[href='#{active_link}'].active")
 
       within('nav ol.breadcrumb') do
         expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)
@@ -84,7 +84,7 @@ describe 'Orientation::activities', :js do
 
     it 'have links' do
       active_link = responsible_orientations_tcc_one_path
-      expect(page).to have_selector("a[href='#{active_link}'].active")
+      expect(page).to have_css("a[href='#{active_link}'].active")
 
       within('nav ol.breadcrumb') do
         expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)

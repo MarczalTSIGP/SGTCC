@@ -11,7 +11,7 @@ describe 'Dashboard::index', :js do
       it 'shows the dashboard' do
         index_url = tcc_one_professors_root_path
         visit index_url
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
 

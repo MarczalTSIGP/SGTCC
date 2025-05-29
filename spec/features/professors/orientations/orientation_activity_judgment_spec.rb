@@ -21,7 +21,7 @@ describe 'Orientation::activity_update_judgment', :js do
         click_on_label(confirm_judgment_label, in: 'academic_activity_judgment')
         expect(page).to have_alert(text: 'Você tem certeza que deseja dar ciência nessa atividade?')
 
-        find('.swal-button--danger', match: :first).click
+        first('.swal-button--danger').click
         expect(page).to have_alert(text: message('update.f'))
       end
     end

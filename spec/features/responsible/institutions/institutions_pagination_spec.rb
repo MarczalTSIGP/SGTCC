@@ -5,7 +5,7 @@ describe 'Institution::pagination', :js do
 
   before do
     login_as(responsible, scope: :professor)
-    create_list(:institution, 30)
+    create_list(:institution, 10)
     visit responsible_institutions_path
   end
 

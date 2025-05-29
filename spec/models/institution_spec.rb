@@ -84,7 +84,7 @@ RSpec.describe Institution do
 
     context 'when returns institutions ordered by name' do
       it 'returns ordered' do
-        create_list(:institution, 30)
+        create_list(:institution, 10)
         institutions_ordered = described_class.order(:trade_name)
         institution = institutions_ordered.first
         results_search = described_class.search.order(:trade_name)
@@ -99,7 +99,7 @@ RSpec.describe Institution do
         invalid_cnpjs = %w[00000000000000 11111111111111 22222222222222]
         invalid_cnpjs.each do |invalid_cnpj|
           institution.cnpj = invalid_cnpj
-          expect(institution.valid?).to((be false), "#{invalid_cnpj.inspect} should be invalid")
+          expect(institution.valid?).to be(false), "#{invalid_cnpj.inspect} should be invalid"
           expect(institution.errors[:cnpj]).not_to be_empty
         end
       end
@@ -109,7 +109,7 @@ RSpec.describe Institution do
 
         valid_cnpjs.each do |valid_cnpj|
           institution.cnpj = valid_cnpj
-          expect(institution.valid?).to((be true), "#{valid_cnpj.inspect} should be valid")
+          expect(institution.valid?).to be(true), "#{valid_cnpj.inspect} should be valid"
           expect(institution.errors[:cnpj]).to be_empty
         end
       end

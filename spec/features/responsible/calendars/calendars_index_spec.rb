@@ -20,7 +20,7 @@ describe 'Calendar::index', :js do
           expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
                                          short_date(calendar.created_at)])
         end
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
       it 'shows all tcc 2 calendars with options' do
@@ -34,7 +34,7 @@ describe 'Calendar::index', :js do
           expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
                                          short_date(calendar.created_at)])
         end
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

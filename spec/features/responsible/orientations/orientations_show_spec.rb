@@ -26,7 +26,7 @@ describe 'Orientation::show' do
         end
 
         within('div.sidebar') do
-          expect(page).to have_selector("a[href='#{responsible_orientations_tcc_one_path}'].active")
+          expect(page).to have_css("a[href='#{responsible_orientations_tcc_one_path}'].active")
         end
 
         within('nav ol.breadcrumb') do

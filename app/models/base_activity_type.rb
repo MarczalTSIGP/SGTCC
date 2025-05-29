@@ -5,7 +5,7 @@ class BaseActivityType < ApplicationRecord
 
   validates :identifier, presence: true
 
-  enum identifier: {
+  enum :identifier, {
     send_document: 'send_document',
     info: 'info'
   }

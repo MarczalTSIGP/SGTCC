@@ -30,7 +30,7 @@ describe 'Supervision::search' do
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).not_to have_content(current_orientation.short_title)
+        expect(page).to have_no_content(current_orientation.short_title)
       end
     end
   end

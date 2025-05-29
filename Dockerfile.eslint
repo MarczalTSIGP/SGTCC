@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /eslint
+
+# Init Yarn and install ESLint
+RUN yarn init -y \
+ && yarn add eslint@latest \
+ && sed -i 's/"main": "index.js"/"type": "module"/' package.json
+
+RUN ls -la /eslint
+
+WORKDIR /app/javascript
+
+ENTRYPOINT ["/eslint/node_modules/.bin/eslint", "--config", "/eslint/eslint.config.js"]
+CMD ["/app/javascript"]

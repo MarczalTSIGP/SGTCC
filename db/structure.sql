@@ -1544,7 +1544,7 @@ CREATE INDEX index_base_activities_on_base_activity_type_id ON public.base_activ
 -- Name: index_documents_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_code ON public.documents USING btree (code);
+CREATE UNIQUE INDEX index_documents_on_code ON public.documents USING btree (code);
 
 
 --
@@ -1726,7 +1726,7 @@ CREATE UNIQUE INDEX index_professors_on_username ON public.professors USING btre
 -- Name: index_roles_on_identifier; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_identifier ON public.roles USING btree (identifier);
+CREATE UNIQUE INDEX index_roles_on_identifier ON public.roles USING btree (identifier);
 
 
 --
@@ -1974,9 +1974,6 @@ ALTER TABLE ONLY public.meetings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20250423190259'),
-('20250423190258'),
-('20250423190257'),
 ('20231017133608'),
 ('20231004230530'),
 ('20200710170737'),

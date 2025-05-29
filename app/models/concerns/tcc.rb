@@ -4,7 +4,7 @@ module Tcc
   extend ActiveSupport::Concern
 
   included do
-    enum tcc: I18n.t('enums.tcc_number'), _prefix: :tcc
+    enum :tcc, I18n.t('enums.tcc_number'), prefix: :tcc
 
     def self.human_tccs
       hash = {}

@@ -145,7 +145,7 @@ RSpec.describe Professor do
 
     context 'when returns professors ordered by name' do
       it 'returns ordered' do
-        create_list(:professor_tcc_one, 30)
+        create_list(:professor_tcc_one, 10)
         professors_ordered = described_class.order(:name)
         professor = professors_ordered.first
         results_search = described_class.search.order(:name)

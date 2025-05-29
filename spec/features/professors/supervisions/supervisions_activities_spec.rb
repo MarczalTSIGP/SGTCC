@@ -27,7 +27,7 @@ describe 'Supervision::activities', :js do
                                          I18n.t("enums.tcc.#{activity.tcc}"),
                                          activity.deadline])
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
