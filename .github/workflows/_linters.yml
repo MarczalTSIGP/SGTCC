@@ -12,7 +12,7 @@ jobs:
   linters:
     runs-on: ubuntu-latest
     container:
-      image: ruby:3.2.2
+      image: ruby:3.4.3
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,26 +59,9 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.4.22
+          gem install bundler -v 2.6.8
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.0.0
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install yarn and dependencies
-        run: |
-          npm install -g yarn
-          yarn install
-          yarn install --check-files
 
       - name: Code quality - robocop
         run: |

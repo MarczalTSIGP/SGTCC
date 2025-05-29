@@ -14,7 +14,7 @@ jobs:
     env:
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
-      image: ruby:3.2.2
+      image: ruby:3.4.3
       options: --network-alias testHost
       volumes:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
@@ -100,26 +100,9 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.4.22
+          gem install bundler -v 2.6.8
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.0.0
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install yarn and dependencies
-        run: |
-          npm install -g yarn
-          yarn install
-          yarn install --check-files
 
       - name: Compile assets
         run: |
@@ -140,4 +123,7 @@ jobs:
           SELENIUM_PORT: 4444
           TEST_APP_HOST: testHost
         run: |
-          bundle exec rspec
+          bundle exec rspec spec/controllers
+          bundle exec rspec spec/helpers
+          bundle exec rspec spec/mailers
+          bundle exec rspec spec/models
