@@ -66,6 +66,14 @@ services:
     networks:
       - app-network
 
+  eslint:
+    build:
+      context: .
+      dockerfile: Dockerfile.eslint
+    volumes:
+      - ./eslint.config.js:/eslint/eslint.config.js:ro
+      - ./app/javascript:/app/javascript
+
 volumes:
   pgdata:
     driver: local

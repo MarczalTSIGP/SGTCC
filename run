@@ -89,11 +89,16 @@ function bundle {
 # Linters commands.
 # -----------------------------------------------------------------------------
 
-# Removed eslint function due the Node.js and package.json removal
-# function eslint {
-#   FILES_PATH="${@:-app/javascript}"
-#   cmd yarn run eslint --ext .vue --ext .js ${FILES_PATH} 
-# }
+# Run eslint using a custom container
+# Commands:
+# docker compose run --rm eslint
+# docker compose run --rm eslint controllers/markdown_viewer_controller.js
+# docker compose run --rm eslint --fix
+# docker compose run --rm eslint --fix controllers/markdown_viewer_controller.js
+function eslint {
+   FILES_PATH="${@:-.}"
+   docker compose run --rm eslint ${FILES_PATH}
+ }
 
 function brakeman {
  cmd bundle exec brakeman --ignore-config config/brakeman.ignore "${@}"
