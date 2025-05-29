@@ -59,7 +59,7 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.4.22
+          gem install bundler -v 2.6.8
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
