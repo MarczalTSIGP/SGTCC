@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  linters:
+  rubocop-brakeman:
     runs-on: ubuntu-latest
     container:
       image: ruby:3.4.3
