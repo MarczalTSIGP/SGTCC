@@ -18,7 +18,7 @@ describe 'ExternalMember::destroy', :js do
         accept_alert
 
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).not_to have_content(external_member.name)
+        expect(page).to have_no_content(external_member.name)
       end
     end
 

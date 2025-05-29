@@ -28,7 +28,7 @@ services:
       RAILS_ENV: development
 
   db:
-    image: postgres
+    image: postgres:17.5
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -65,6 +65,14 @@ services:
       - 5900:5900
     networks:
       - app-network
+
+  eslint:
+    build:
+      context: .
+      dockerfile: Dockerfile.eslint
+    volumes:
+      - ./eslint.config.js:/eslint/eslint.config.js:ro
+      - ./app/javascript:/app/javascript
 
 volumes:
   pgdata:

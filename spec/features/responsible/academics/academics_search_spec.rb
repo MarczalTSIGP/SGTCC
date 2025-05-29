@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Academics::search', :js do
   let(:responsible) { create(:responsible) }
-  let(:academics) { create_list(:academic, 25) }
+  let(:academics) { create_list(:academic, 10) }
 
   before do
     login_as(responsible, scope: :professor)

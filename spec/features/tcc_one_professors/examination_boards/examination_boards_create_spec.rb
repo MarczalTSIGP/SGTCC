@@ -18,7 +18,7 @@ describe 'ExaminationBoard::create', :js do
 
     context 'when examination_board is valid' do
       it 'does not show "Monografia" in the identifier input' do
-        expect(page).not_to have_content('Monografia')
+        expect(page).to have_no_content('Monografia')
       end
 
       it 'does not show "tcc 2" in the identifier input' do

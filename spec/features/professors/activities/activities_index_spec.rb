@@ -23,7 +23,7 @@ describe 'Activity::index' do
         expect(page).to have_contents([activity.base_activity_type.name,
                                        activity.deadline])
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
       it 'shows all activities for tcc two with options', :js do
@@ -37,7 +37,7 @@ describe 'Activity::index' do
                                                                           activity))
         expect(page).to have_contents([activity.base_activity_type.name,
                                        activity.deadline])
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

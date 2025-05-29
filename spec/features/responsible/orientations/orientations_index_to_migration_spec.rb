@@ -28,7 +28,7 @@ describe 'Orientation::to_migrate' do
 
     it 'does not show orientations already migrated' do
       next_calendar = create(:next_calendar_tcc_two)
-      expect(page).not_to have_content(next_calendar.year_with_semester_and_tcc)
+      expect(page).to have_no_content(next_calendar.year_with_semester_and_tcc)
     end
   end
 end

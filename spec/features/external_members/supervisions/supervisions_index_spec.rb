@@ -29,7 +29,7 @@ describe 'Supervision::index', :js do
     end
 
     it 'shows active link for tcc one supervision' do
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
 
     it 'clicks on academic name and shows additional options' do

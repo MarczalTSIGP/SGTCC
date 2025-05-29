@@ -16,7 +16,7 @@ describe 'AttachedDocument::destroy', :js do
         click_on_destroy_link(responsible_attached_document_path(attached_document))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).not_to have_content(attached_document.name)
+        expect(page).to have_no_content(attached_document.name)
       end
     end
   end

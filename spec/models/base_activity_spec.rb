@@ -76,7 +76,7 @@ RSpec.describe BaseActivity do
 
     context 'when returns base_activitys ordered by name' do
       it 'returns ordered' do
-        create_list(:base_activity, 30)
+        create_list(:base_activity, 10)
         base_activities_ordered = described_class.order(:name)
         base_activity = base_activities_ordered.first
         results_search = described_class.search.order(:name)

@@ -2,7 +2,7 @@ class Signature < ApplicationRecord
   belongs_to :orientation
   belongs_to :document
 
-  enum user_type: {
+  enum :user_type, {
     advisor: 'AD',
     academic: 'AC',
     coordinator: 'CC',
@@ -13,7 +13,7 @@ class Signature < ApplicationRecord
     professor_evaluator: 'PV',
     external_member_evaluator: 'EMV',
     responsible_institution: 'RI'
-  }, _prefix: :user_type
+  }, prefix: :user_type
 
   scope :by_document_type, lambda { |document_type_id|
     joins(:document).where(documents: { document_type_id: })

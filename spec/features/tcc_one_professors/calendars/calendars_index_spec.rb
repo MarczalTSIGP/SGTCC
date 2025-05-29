@@ -19,7 +19,7 @@ describe 'Calendar::index', :js do
                                   href: tcc_one_professors_calendar_activities_path(calendar))
         expect(page).to have_contents([short_date(calendar.created_at)])
       end
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
 
     it 'shows the orientations by calendar' do
@@ -35,7 +35,7 @@ describe 'Calendar::index', :js do
         expect(page).to have_content(calendar.year_with_semester_and_tcc)
       end
 
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
   end
 end

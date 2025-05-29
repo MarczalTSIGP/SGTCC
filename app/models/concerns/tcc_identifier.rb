@@ -4,7 +4,7 @@ module TccIdentifier
   extend ActiveSupport::Concern
 
   included do
-    enum identifier: {
+    enum :identifier, {
       proposal: 'proposal',
       project: 'project',
       monograph: 'monograph'

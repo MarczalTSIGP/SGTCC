@@ -25,7 +25,7 @@ describe 'Calendar::index' do
           expect(page).to have_content(supervisor.name)
         end
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

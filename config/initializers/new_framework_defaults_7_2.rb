@@ -1,3 +1,4 @@
+# rubocop:disable Layout/LineLength
 # Be sure to restart your server when you modify this file.
 #
 # This file eases your Rails 7.2 framework defaults upgrade.
@@ -68,3 +69,4 @@
 # deploying to a memory constrained environment you may want to set this to `false`.
 #++
 # Rails.application.config.yjit = true
+# rubocop:enable Layout/LineLength

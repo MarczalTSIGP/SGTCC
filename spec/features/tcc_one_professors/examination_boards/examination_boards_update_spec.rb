@@ -69,7 +69,7 @@ describe 'ExaminationBoard::update', :js do
         datetime_selector = 'div#datetimepicker_examination_board_document_available_until input'
         expect(page).to have_css(datetime_selector)
 
-        expect(page).not_to have_css("#{datetime_selector}[disabled='disabled']")
+        expect(page).to have_no_css("#{datetime_selector}[disabled='disabled']")
       end
     end
   end

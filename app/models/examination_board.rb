@@ -34,10 +34,10 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
-  scope :tcc_one_current_semester, -> { tcc_one.where('date >= ?', Calendar.start_date) }
-  scope :tcc_two_current_semester, -> { tcc_two.where('date >= ?', Calendar.start_date) }
+  scope :tcc_one_current_semester, -> { tcc_one.where(date: Calendar.start_date..) }
+  scope :tcc_two_current_semester, -> { tcc_two.where(date: Calendar.start_date..) }
 
-  scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
+  scope :current_semester, -> { where(date: Calendar.start_date..) }
   scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {
@@ -51,9 +51,8 @@ class ExaminationBoard < ApplicationRecord
   }
 
   def self.cs_asc_from_now_desc_ago
-    ebs_from_now = where('date >= ?', 1.hour.from_now).order(date: :asc)
-    ebs_ago = where('date >= ? AND date < ?', Calendar.start_date,
-                    1.hour.from_now).order(date: :desc)
+    ebs_from_now = where(date: 1.hour.from_now..).order(date: :asc)
+    ebs_ago = where(date: Calendar.start_date...1.hour.from_now).order(date: :desc)
     ebs_from_now.site_with_relationships + ebs_ago.site_with_relationships
   end
 

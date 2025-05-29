@@ -26,7 +26,7 @@ describe 'Orientation::documents', :js do
           expect(page).to have_contents([document.orientation.short_title,
                                          document.document_type.identifier.upcase])
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
@@ -55,7 +55,7 @@ describe 'Orientation::documents', :js do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
   end

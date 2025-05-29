@@ -29,7 +29,7 @@ describe 'Supervision::activities' do
           expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
           expect(page).to have_content(activity.deadline)
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
