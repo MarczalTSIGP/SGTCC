@@ -71,6 +71,13 @@ jobs:
         run: |
           bundle exec brakeman --ignore-config config/brakeman.ignore
 
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Code quality - eslint
         run: |
           ./run eslint
