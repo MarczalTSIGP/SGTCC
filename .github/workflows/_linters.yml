@@ -71,6 +71,6 @@ jobs:
         run: |
           bundle exec brakeman --ignore-config config/brakeman.ignore
 
-#      - name: Code quality - eslint
-#        run: |
-#          yarn run eslint --ext .vue --ext .js app/javascript
+      - name: Code quality - eslint
+        run: |
+          ./run eslint
