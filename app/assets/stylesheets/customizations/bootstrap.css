@@ -1,3 +1,10 @@
 body {
     padding-top: 80px;
 }
+
+.btn-close {
+  width: 5px;
+  height: 5px;
+  padding: 0.25em;
+  background-size: 0.75em;
+}
