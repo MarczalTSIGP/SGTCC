@@ -1,0 +1,13 @@
+<h2 class="page-title mb-2">
+  <%= page.menu_title %>
+</h2>
+
+<div class="text-right mb-3">
+  <%= t(translation_key, count: orientations.count).html_safe %>
+</div>
+
+<% orientations.each do |orientation| %>
+  <div class="orientations mb-4">
+    <%= render "site/orientations/orientation", orientation: orientation %>
+  </div>
+<% end %>

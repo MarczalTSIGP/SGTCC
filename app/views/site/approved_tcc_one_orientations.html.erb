@@ -1,9 +1,7 @@
-
 <% provide(:head_title, @page.menu_title) %>
 
-<div>
-  <orientations-page
-      :title="'<%= @page.menu_title %>'"  
-      :path="'<%= api_v1_orientations_approved_tcc_one_path %>'"
-  />
-</div>
+<%= render partial: "site/orientations/orientation_list", locals: {
+  orientations: @orientations,
+  page: @page,
+  translation_key: 'site.pages.professors.approved.total'
+} %>

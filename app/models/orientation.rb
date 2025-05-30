@@ -198,6 +198,32 @@ class Orientation < ApplicationRecord
     proposal(final_version: true)
   end
 
+  def orientation_type
+    case status
+    when 'aprovada'
+      :approved if final_monograph.present?
+    when 'Aprovada em TCC 1'
+      :tcc_one if final_project.present?
+    when 'em andamento'
+      :in_tcc_one if final_proposal.present?
+    else
+      :unknown
+    end
+  end
+
+  def summary
+    {
+      approved: final_monograph,
+      tcc_one: final_project,
+      in_tcc_one: final_proposal
+    }.fetch(orientation_type, nil)&.summary.to_s
+  end
+
+  def approved_date(identifier = :monograph)
+    exam_board = examination_boards.find_by(identifier: identifier, situation: :approved)
+    exam_board&.date
+  end
+
   private
 
   def can_be_migrated?

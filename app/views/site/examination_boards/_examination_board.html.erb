@@ -9,7 +9,10 @@
 
     <div class="flex-right">
       <div class="mb-3">
-        <a href="#" class="show-eb-details" data-eb-id="<%= examination_board.id %>">
+        <a href="#"
+          data-controller="toggle"
+          data-action="click->toggle#toggle"
+          data-eb-id="<%= examination_board.id %>">
           <%= examination_board.academic_activity&.title %><br>
         </a>
       </div>
@@ -20,7 +23,7 @@
     </div>
   </div>
 
-  <div id="eb-<%= examination_board.id %>" class=" d-none">
+  <div id="eb-<%= examination_board.id %>" class="d-none" data-toggle-target="details">
     <hr />
 
     <div class="section">
@@ -33,10 +36,7 @@
         <strong><%= ExaminationBoard.human_attribute_name('orientation_supervisors') %>:</strong><br>
         <% examination_board.orientation.supervisors.each do |supervisor| %>
           <div class="d-inline-block mr-3">
-            <table-name-avatar 
-               url="<%= supervisor.profile_image %>"
-               name="<%= supervisor.name_with_scholarity %>">
-            </table-name-avatar>
+            <%= render partial: 'shared/name_avatar', locals: { url: supervisor.profile_image, name: supervisor.name_with_scholarity } %>
           </div>
         <% end %>
       </div>
@@ -47,10 +47,7 @@
         <strong><%= ExaminationBoard.human_attribute_name('utfpr_evaluators') %>:</strong><br>
         <% examination_board.professors.each do |professor| %>
           <div class="d-inline-block mr-3">
-            <table-name-avatar
-                  url="<%= professor.profile_image %>"
-                  name="<%= professor.name_with_scholarity %>">
-            </table-name-avatar>
+            <%= render partial: 'shared/name_avatar', locals: { url: professor.profile_image, name: professor.name_with_scholarity } %>
           </div>
         <% end %>
       </div>
@@ -58,10 +55,7 @@
         <strong><%= ExaminationBoard.human_attribute_name('external_member_evaluators') %>:</strong><br>
         <% examination_board.external_members.each do |avaliator| %>
           <div class="d-inline-block mr-3">
-            <table-name-avatar
-                  url="<%= avaliator.profile_image %>"
-                  name="<%= avaliator.name_with_scholarity %>">
-            </table-name-avatar>
+            <%= render partial: 'shared/name_avatar', locals: { url: avaliator.profile_image, name: avaliator.name_with_scholarity } %>
           </div>
         <% end %>
       </div>
