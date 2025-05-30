@@ -132,6 +132,14 @@ pt-BR:
       professors:
         effective: 'Professores efetivos'
         temporary: 'Professores temporários'
+        approved:
+          total:
+            one: 'Total de <b>1</b> TCC aprovado'
+            other: 'Total de <b>%{count}</b> TCCs aprovados'
+        in_tcc_one:
+          total:
+            one: 'Total de <b>1</b> TCC em andamento'
+            other: 'Total de <b>%{count}</b> TCCs em andamento'
         orientations:
           in_progress: 'Orientações em andamento'
           approved: 'Orientações concluídas'

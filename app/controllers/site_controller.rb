@@ -34,14 +34,17 @@ class SiteController < ApplicationController
 
   def approved_orientations
     @page = Page.find_by(url: 'tccs-aprovados')
+    @orientations = Orientation.approved
   end
 
   def approved_tcc_one_orientations
     @page = Page.find_by(url: 'tccs-aprovados-em-tcc-um')
+    @orientations = Orientation.approved_tcc_one
   end
 
   def in_tcc_one_orientations
     @page = Page.find_by(url: 'tccs-em-tcc-um')
+    @orientations = Orientation.in_tcc_one
   end
 
   def sidebar
