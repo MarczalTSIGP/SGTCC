@@ -33,7 +33,7 @@ module CurrentCalendar
     end
 
     def self.current_semester
-      current_month.to_i <= 6 ? 1 : 2
+      current_month.to_i <= 7 ? 1 : 2
     end
   end
 end
