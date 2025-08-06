@@ -27,7 +27,7 @@ class Responsible::OrientationsMigrationController < Responsible::BaseController
   end
 
   def orientations
-    @orientations = Orientation.migratable(params[:page], params[:term])
+    @orientations = Orientation.to_migrate.page(params[:page])
   end
 
   def set_orientation
