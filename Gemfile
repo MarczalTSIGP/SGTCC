@@ -24,7 +24,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'momentjs-rails'
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.6', '>= 1.6.1'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
