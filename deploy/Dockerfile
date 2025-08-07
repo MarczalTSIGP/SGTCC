@@ -57,7 +57,7 @@ RUN gem install bundler -v 2.3.7 --no-document
 
 # copy Gemfile and Gemfile.lock and install gems before copying rest of the application
 # so the steps will be cached until there won't be any changes in Gemfile
-COPY Gemfile* ./
+COPY Gemfile Gemfile.lock ./
 
 ENV BUNDLER_WITHOUT development test
 RUN bundle install --jobs 4 --retry 3
