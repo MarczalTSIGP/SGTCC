@@ -65,6 +65,12 @@ jobs:
                 <<: *ldap
           " > config/application.yml
 
+      - name: Show commit
+        run: git rev-parse HEAD
+
+      - name: Print Dockerfile version
+        run: head -20 ./deploy/Dockerfile
+
       - name: Build the Docker Image
         uses: docker/build-push-action@v5
         with:
