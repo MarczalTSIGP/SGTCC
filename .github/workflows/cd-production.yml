@@ -8,14 +8,13 @@ on:
         required: true
 
 jobs:
-
   release:
     name: "Create Release"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.branch_to_tag }}
+          ref: deploy
 
       - uses: ncipollo/release-action@v1
         with:
