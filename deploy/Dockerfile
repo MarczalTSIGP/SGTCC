@@ -68,6 +68,6 @@ RUN yarn install
 RUN npx update-browserslist-db@1.0.3
 RUN SECRET_KEY_BASE=1 bundle exec rails assets:precompile
 
-ENTRYPOINT [ "./deploy/docker-entrypoint.sh" ]
-
-CMD bundle exec rails s -p 3000 -b '0.0.0.0'
+#ENTRYPOINT [ "./deploy/docker-entrypoint.sh" ]
+#
+#CMD bundle exec rails s -p 3000 -b '0.0.0.0'
