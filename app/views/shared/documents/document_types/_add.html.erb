@@ -1,2 +1,73 @@
-<defense-minutes :document-id="<%= @document.id %>" />
+<%= render 'shared/documents/base_term_layout', document: document do %>
+  <p>
+    No dia <strong><%= document.content.dig("examination_board", "date") || "—" %></strong>,
+    às <%= document.content.dig("examination_board", "time") || "—" %> horas, em sessão pública nas dependências da UTFPR Câmpus Guarapuava,
+    ocorreu a banca de defesa de Trabalho de Conclusão de Curso intitulada:
+    <strong>“<%= document.content.dig("examination_board", "document_title") || "—" %>”</strong>
+    do(a) acadêmico(a) <strong><%= document.content.dig("academic", "name") || "—" %></strong>
+    sob orientação do(a) professor(a) <strong><%= document.content.dig("advisor", "name") || "—" %></strong>
+    do curso de Tecnologia em Sistemas para Internet.
+  </p>
 
+  <table class="table table-vcenter table-bordered">
+    <thead class="text-center">
+      <tr>
+        <th colspan="2">Orientação</th>
+      </tr>
+      <tr>
+        <th>Membro</th>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="30%">Orientador</td>
+        <td><%= document.content.dig("advisor", "name") || "—" %></td>
+      </tr>
+      <% supervisors = (document.content.dig("professorSupervisors") || []) + (document.content.dig("externalMemberSupervisors") || []) %>
+      <% supervisors.each_with_index do |supervisor, index| %>
+        <tr>
+          <td width="30%">Coorientador <%= index + 1 %></td>
+          <td><%= supervisor["name"] || "—" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table table-vcenter table-bordered">
+    <thead class="text-center">
+      <tr>
+        <th colspan="2">Banca Avaliadora</th>
+      </tr>
+      <tr>
+        <th>Membro</th>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="30%">Orientador</td>
+        <td><%= document.content.dig("advisor", "name") || "—" %></td>
+      </tr>
+      <% evaluators = (document.content.dig("examination_board", "evaluators", "professors") || []) +
+                     (document.content.dig("examination_board", "evaluators", "external_members") || []) %>
+      <% evaluators.each_with_index do |evaluator, index| %>
+        <tr>
+          <td width="30%">Avaliador <%= index + 1 %></td>
+          <td><%= evaluator["name"] || "—" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table table-vcenter table-bordered">
+    <thead class="text-center">
+      <tr><th colspan="2">Situação</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= document.content.dig("examination_board", "situation") || "—" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

@@ -1,4 +1,6 @@
 class DocumentsController < ApplicationController
+  helper DocumentsHelper
+
   before_action :set_document, only: [:data, :mark, :code, :status, :request_data]
   before_action :set_document_by_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
@@ -23,6 +25,7 @@ class DocumentsController < ApplicationController
   def show
     @signature = @document.signatures.first
     success_document_authenticated_message
+    @signatures = @document.mark
   end
 
   def data
