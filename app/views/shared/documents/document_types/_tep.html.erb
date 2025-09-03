@@ -1,7 +1,22 @@
-<term-of-extension
-  :document-id="<%= @document.id %>"
-  :can-edit="<%= !@document.professor_signed?(current_professor) %>"
-  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
-
-
-
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <%# Variáveis locais %>
+  <% academic = @document.content.dig("academic") %>
+  <% request = @document.content.dig("request") || {} %>
+  <p>
+    Eu, <b><%= academic.dig("name") %></b>, acadêmico(a) desta instituição,
+    solicito a extensão do prazo de trabalho de conclusão de curso em 1 (um)
+    semestre letivo.
+  </p>
+  <% if request.dig("requester", "justification").present? %>
+    <p>
+      <b>Justificativa</b>:<br>
+      <span class="ms-4">
+        <%= render "shared/markdown_reader", content: request.dig("requester", "justification") %>
+      </span>
+    </p>
+  <% end %>
+  <%= render "shared/documents/document_review",
+      document: @document,
+      can_edit: !@document.professor_signed?(current_professor),
+      has_permission: current_professor&.responsible? %>
+<% end %>
