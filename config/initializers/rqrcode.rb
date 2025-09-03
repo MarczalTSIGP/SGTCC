@@ -1,1 +1,1 @@
-require "rqrcode"
+require 'rqrcode'
