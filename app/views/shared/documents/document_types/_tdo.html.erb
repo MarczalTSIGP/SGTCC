@@ -1,7 +1,25 @@
-<term-of-abandonment
-  :document-id="<%= @document.id %>"
-  :can-edit="<%= !@document.professor_signed?(current_professor) %>"
-  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
-
-
-
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <%# Variáveis locais %>
+  <% advisor = @document.content.dig("advisor") %>
+  <% academic = @document.content.dig("academic") %>
+  <% orientation = @document.content.dig("orientation") %>
+  <% request = @document.content.dig("request") || {} %>
+  <p>
+    Eu, <b><%= advisor.dig("name") %></b>, <%= advisor.dig("label") %> desta instituição,
+    declaro para os devidos fins, desistir da orientação do trabalho de conclusão de
+    curso intitulado <b><%= orientation.dig("title") %></b> do acadêmico
+    <b><%= academic.dig("name") %></b>, RA <%= academic.dig("ra") %>.
+  </p>
+  <% if request.dig("requester", "justification").present? %>
+    <p>
+      <b>Motivos da desistência</b>: <br>
+      <span class="ms-4">
+        <%= render "shared/markdown_reader", content: request.dig("requester", "justification") %>
+      </span>
+    </p>
+  <% end %>
+  <%= render "shared/documents/document_review",
+      document: @document,
+      can_edit: !@document.professor_signed?(current_professor),
+      has_permission: current_professor&.responsible? %>
+<% end %>
