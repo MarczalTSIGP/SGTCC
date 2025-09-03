@@ -1,2 +1,43 @@
-<term-of-accept-institution :document-id="<%= @document.id %>" />
-
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <%# Variáveis locais %>
+  <% professor_supervisors = @document.content.dig("professorSupervisors") || [] %>
+  <% external_supervisors = @document.content.dig("externalMemberSupervisors") || [] %>
+  <% professor_supervisor_label = professor_supervisors.size == 1 ? "Coorientador da UTFPR" : "Coorientadores da UTFPR" %>
+  <% external_member_supervisor_label = external_supervisors.size == 1 ? "Coorientador externo" : "Coorientadores externos" %>
+  <% institution = @document.content.dig("institution") %>
+  <p>
+    Eu, <b><%= institution.dig("responsible") %></b>, como representante da instituição
+    <b><%= institution.dig("trade_name") %></b>, afirmo que o acadêmico <b><%= @document.content.dig("academic", "name") %></b>,
+    RA <%= @document.content.dig("academic", "ra") %>, do curso de Tecnologia em Sistemas para Internet da Universidade
+    Tecnológica Federal do Paraná do Câmpus Guarapuava, orientado pelo professor
+    <b><%= @document.content.dig("advisor", "name") %></b>, possa realizar as atividades de seu trabalho
+    de conclusão de curso nesta instituição, sem prejuízo, desde que ambas as partes preservem a ética necessária.
+  </p>
+  <p>
+    Por meio deste termo a empresa autoriza a divulgação do seu nome para fins de desenvolvimento e
+    publicação do TCC. Além disso, o aluno se compromete em não divulgar dados sigilosos da empresa
+    que foram necessários para a realização do TCC.
+  </p>
+  <p>
+    <b>Tema</b>: <br>
+    <span class="ms-4">
+      <%= @document.content.dig("orientation", "title") %>
+    </span>
+  </p>
+  <% if professor_supervisors.any? %>
+    <p>
+      <b><%= professor_supervisor_label %>:</b> <br>
+      <% professor_supervisors.each do |prof| %>
+        <span class="ms-4"><%= prof["name"] %></span><br>
+      <% end %>
+    </p>
+  <% end %>
+  <% if external_supervisors.any? %>
+    <p>
+      <b><%= external_member_supervisor_label %>:</b> <br>
+      <% external_supervisors.each do |member| %>
+        <span class="ms-4"><%= member["name"] %></span><br>
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
