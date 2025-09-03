@@ -1,7 +1,62 @@
-<term-of-substitution
-  :document-id="<%= @document.id %>"
-  :can-edit="<%= !@document.professor_signed?(current_professor) %>"
-  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
-
-
-
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <% academic = @document.content.dig("academic") %>
+  <% advisor = @document.content.dig("advisor") %>
+  <% term = @document.content %>
+  <% request = @document.content.dig("request") || {} %>
+  <p>
+    Eu, <b><%= academic.dig("name") %></b>, acadêmico(a) desta instituição,
+    solicito a substituição de orientação.
+  </p>
+  <div>
+    <b>Dados da orientação em andamento</b>
+    <span class="ms-4">
+      <p>
+        <span class="ms-4"><b>Orientador:</b></span><br>
+        <span class="ms-6"><%= advisor.dig("name") %></span>
+      </p>
+      <% if term.dig("professorSupervisors")&.any? || term.dig("externalMemberSupervisors")&.any? %>
+        <span class="ms-4"><b>
+            <%= (term.dig("professorSupervisors")&.size.to_i + term.dig("externalMemberSupervisors")&.size.to_i) > 1 ? "Coorientadores" : "Coorientador" %>
+          </b>:</span>
+        <% term.dig("professorSupervisors")&.each do |prof| %>
+          <span class="ms-6"><%= prof["name"] %></span><br>
+        <% end %>
+        <% term.dig("externalMemberSupervisors")&.each do |member| %>
+          <span class="ms-6"><%= member["name"] %></span><br>
+        <% end %>
+      <% end %>
+    </span>
+  </div>
+  <div>
+    <b>Dados da nova orientação</b>
+    <span class="ms-4">
+      <p>
+        <span class="ms-4"><b>Orientador:</b></span><br>
+        <span class="ms-6"><%= request.dig("new_orientation", "advisor", "name") %></span>
+      </p>
+      <% if (request.dig("new_orientation", "professorSupervisors")&.any? || request.dig("new_orientation", "externalMemberSupervisors")&.any?) %>
+        <span class="ms-4"><b>
+            <%= (request.dig("new_orientation", "professorSupervisors")&.size.to_i + request.dig("new_orientation", "externalMemberSupervisors")&.size.to_i) > 1 ? "Coorientadores" : "Coorientador" %>
+          </b>:</span>
+        <% request.dig("new_orientation", "professorSupervisors")&.each do |prof| %>
+          <span class="ms-6"><%= prof["name"] %></span><br>
+        <% end %>
+        <% request.dig("new_orientation", "externalMemberSupervisors")&.each do |member| %>
+          <span class="ms-6"><%= member["name"] %></span><br>
+        <% end %>
+      <% end %>
+    </span>
+  </div>
+  <% if request.dig("requester", "justification").present? %>
+    <p>
+      <b>Justificativa</b>: <br>
+      <span class="ms-4">
+        <%= render "shared/markdown_reader", content: request.dig("requester", "justification") %>
+      </span>
+    </p>
+  <% end %>
+  <%= render "shared/documents/document_review",
+      document: @document,
+      can_edit: !@document.professor_signed?(current_professor),
+      has_permission: current_professor&.responsible? %>
+<% end %>
