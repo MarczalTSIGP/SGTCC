@@ -2,8 +2,8 @@
   <%# Variáveis locais para simplificar o acesso %>
   <% professor_supervisors = @document.content.dig("professorSupervisors") || [] %>
   <% external_supervisors = @document.content.dig("externalMemberSupervisors") || [] %>
-  <% professor_supervisor_label = t("supervisors.utfpr",  count: professor_supervisors.size) %>
-  <% external_member_supervisor_label = t("supervisors.external", count: external_supervisors.size) %>
+  <% professor_supervisor_label = professor_supervisors.size == 1 ? "Coorientador da UTFPR" : "Coorientadores da UTFPR" %>
+  <% external_member_supervisor_label = external_supervisors.size == 1 ? "Coorientador externo" : "Coorientadores externos" %>
   <% institution = @document.content.dig("institution") %>
   <p>
     Eu, <b><%= @document.content.dig("advisor", "name") %></b>,
@@ -14,7 +14,7 @@
   </p>
   <p>
     <b>Tema</b>: <br>
-    <span class="ml-4">
+    <span class="ms-4">
       <%= @document.content.dig("orientation", "title") %>
     </span>
   </p>
@@ -22,7 +22,7 @@
     <p>
       <b><%= professor_supervisor_label %>:</b> <br>
       <% professor_supervisors.each do |prof| %>
-        <span class="ml-4"><%= prof["name"] %></span><br>
+        <span class="ms-4"><%= prof["name"] %></span><br>
       <% end %>
     </p>
   <% end %>
