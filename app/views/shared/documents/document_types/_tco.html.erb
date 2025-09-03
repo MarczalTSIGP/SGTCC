@@ -1,3 +1,44 @@
-<term-of-commitment :document-id="<%= @document.id %>" />
-
-
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <%# Variáveis locais para simplificar o acesso %>
+  <% professor_supervisors = @document.content.dig("professorSupervisors") || [] %>
+  <% external_supervisors = @document.content.dig("externalMemberSupervisors") || [] %>
+  <% professor_supervisor_label = professor_supervisors.size == 1 ? "Coorientador da UTFPR" : "Coorientadores da UTFPR" %>
+  <% external_member_supervisor_label = external_supervisors.size == 1 ? "Coorientador externo" : "Coorientadores externos" %>
+  <% institution = @document.content.dig("institution") %>
+  <p>
+    Eu, <b><%= @document.content.dig("advisor", "name") %></b>,
+    <%= @document.content.dig("advisor", "label") %> desta instituição,
+    declaro para os devidos fins, estar de acordo em assumir a orientação do trabalho
+    de conclusão de curso do acadêmico <b><%= @document.content.dig("academic", "name") %></b>,
+    RA <%= @document.content.dig("academic", "ra") %>.
+  </p>
+  <p>
+    <b>Tema</b>: <br>
+    <span class="ms-4">
+      <%= @document.content.dig("orientation", "title") %>
+    </span>
+  </p>
+  <% if professor_supervisors.any? %>
+    <p>
+      <b><%= professor_supervisor_label %>:</b> <br>
+      <% professor_supervisors.each do |prof| %>
+        <span class="ms-4"><%= prof["name"] %></span><br>
+      <% end %>
+    </p>
+  <% end %>
+  <% if external_supervisors.any? %>
+    <p>
+      <b><%= external_member_supervisor_label %>:</b> <br>
+      <% external_supervisors.each do |member| %>
+        <span class="ms-4"><%= member["name"] %></span><br>
+      <% end %>
+    </p>
+  <% end %>
+  <% if institution.present? && institution["trade_name"].present? && institution["responsible"].present? %>
+    <p>
+      <b>TCC desenvolvido em parceria com a instituição:</b> <br>
+      <span class="ms-4">Nome fantasia: <%= institution["trade_name"] %></span><br>
+      <span class="ms-4">Responsável: <%= institution["responsible"] %></span><br>
+    </p>
+  <% end %>
+<% end %>

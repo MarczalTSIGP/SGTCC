@@ -32,6 +32,8 @@ gem 'validators'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+gem 'rqrcode'
+gem 'chunky_png'
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem 'propshaft'

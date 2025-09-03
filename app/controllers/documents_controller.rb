@@ -23,6 +23,7 @@ class DocumentsController < ApplicationController
   def show
     @signature = @document.signatures.first
     success_document_authenticated_message
+    @signatures = @document.mark
   end
 
   def data
