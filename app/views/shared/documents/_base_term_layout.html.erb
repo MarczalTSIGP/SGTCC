@@ -5,9 +5,11 @@
     </header>
 
     <main>
-      <div class="d-block w-80" style="margin-top: 50px; margin-bottom: 50px;">
-        <%= render "shared/documents/term_footer", created_at: document.content.dig("document", "created_at") || "—" %>
-      </div>
+        <div class="d-block w-80" style="margin-top: 50px; margin-bottom: 50px;">
+          <h4 class="text-center">
+            <%= document.content.dig("title") %>
+          </h4>
+        </div>
 
       <%= yield %>
     </main>

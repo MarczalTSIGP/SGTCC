@@ -1,4 +1,31 @@
-<div class="signature-code">
-  <p>Código de verificação do documento:</p>
-  <code><%= document.content.dig("verification_code") || document.code %></code>
-</div>
+  <% base_url = "#{request.base_url}/autenticidade/documentos" %>
+  <div class="signature-code">
+    <hr class="m-0">
+    <div class="py-4 d-flex">
+      <div class="float-left mr-2">
+        <%= image_tag(
+          RQRCode::QRCode.new(
+            base_url
+          ).as_png(size: 100).to_data_url,
+          class: 'mr-5',
+          alt: "QR Code de verificação",
+          style: "width: 100px; height: 100px; max-width: 200%;"
+        ) %>
+      </div>
+      <p>
+        A autenticidade deste documento pode ser conferida no site
+        <u>
+          <a
+            href="<%= base_url %>"
+            target="_blank"
+            class="text-dark"
+          >
+            <%= base_url %>
+          </a>
+        </u>,
+        informando o código verificador
+        <b><%= document.code %></b>.
+      </p>
+    </div>
+    <hr class="m-0">
+  </div>
