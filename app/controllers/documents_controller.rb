@@ -36,7 +36,8 @@ class DocumentsController < ApplicationController
 
   def confirm_document
     if @document&.all_signed?
-      redirect_to confirm_document_code_path(@document.code), status: :see_other
+      flash[:success] = I18n.t('json.messages.documents.success.authenticated')
+      redirect_to confirm_document_code_path(@document.code)
     else
       flash[:error] = document_not_found_message
     end
