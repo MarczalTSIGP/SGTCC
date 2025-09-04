@@ -1,23 +1,22 @@
-<turbo-frame id="confirm_document_frame">
-  <div class="card col col-login mx-auto mb-3">
-    <div class="card-body p-6">
-      <div class="card-title mb-7">
-        <h5 class="text-center">
-          Entre com o código para verificar a autenticidade do documento.
-        </h5>
+<div class="card col col-login mx-auto mb-3">
+  <div class="card-body p-6">
+
+    <div class="card-title mb-7">
+      <h5 class="text-center">
+        Entre com o código para verificar a autenticidade do documento.
+      </h5>
+    </div>
+
+    <%= form_with url: confirm_document_path, method: :post do |f| %>
+      <div class="form-group">
+        <%= f.label :code, "Código", class: "form-label" %>
+        <%= f.text_field :code, class: "form-control", autofocus: true %>
       </div>
 
-      <%= form_with url: confirm_document_path, method: :post, data: { controller: "signature-confirm-code", action: "turbo:submit-end->signature-confirm-code#handleResponse" }, local: false do |f| %>
-        <div class="form-group">
-          <%= f.label :code, "Código", class: "form-label" %>
-          <%= f.text_field :code, class: "form-control", data: { signature_confirm_code_target: "code" }, autofocus: true %>
-        </div>
+      <div class="form-footer">
+        <%= f.submit "Autenticar", class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
 
-        <div class="form-footer">
-          <%= f.submit "Autenticar", class: "btn btn-primary btn-block" %>
-          <a data-signature-confirm-code-target="redirect"></a>
-        </div>
-      <% end %>
-    </div>
   </div>
-</turbo-frame>
+</div>
