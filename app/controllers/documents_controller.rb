@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [ :data, :mark, :code, :status, :request_data ]
-  before_action :set_document_by_code, only: [ :show, :confirm_document ]
+  before_action :set_document, only: [:data, :mark, :code, :status, :request_data]
+  before_action :set_document_by_code, only: [:show, :confirm_document]
   before_action :can_show, only: :show
   include JsonMessage
 
@@ -51,18 +51,18 @@ class DocumentsController < ApplicationController
 
   private
 
-    def set_document_by_code
-      @document = Document.find_by(code: params[:code])
-    end
+  def set_document_by_code
+    @document = Document.find_by(code: params[:code])
+  end
 
-    def set_document
-      @document = Document.find(params[:id])
-    end
+  def set_document
+    @document = Document.find(params[:id])
+  end
 
-    def can_show
-      return if @document.present? && @document&.all_signed?
+  def can_show
+    return if @document.present? && @document&.all_signed?
 
-      error_document_not_found_message
-      redirect_to document_path
-    end
+    error_document_not_found_message
+    redirect_to document_path
+  end
 end
