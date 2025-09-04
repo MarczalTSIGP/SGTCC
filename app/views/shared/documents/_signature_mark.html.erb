@@ -2,33 +2,33 @@
   <hr class="m-0">
   <% @signatures.each do |signature| %>
     <div class="signature_mark">
-        <div class="py-4">
+      <div class="py-4">
         <%= image_tag(
-            asset_path("sgtcc_signature.png"),
-            class: "float-left mr-2",
-            style: "width: 100px;"
-        ) %>
+              asset_path("sgtcc_signature.png"),
+              class: "float-left mr-2",
+              style: "width: 100px;"
+            ) %>
 
         <p>
-            Documento assinado eletronicamente por
-            <strong><%= signature[:name] %>, <%= signature[:role] %>,</strong>
-            em <%= signature[:date] %>, às <%= signature[:time] %>,
-            conforme horário oficial de Brasília, com fundamento no art. 6º, § 1º, do
-            <u>
+          Documento assinado eletronicamente por
+          <strong><%= signature[:name] %>, <%= signature[:role] %>,</strong>
+          em <%= signature[:date] %>, às <%= signature[:time] %>,
+          conforme horário oficial de Brasília, com fundamento no art. 6º, § 1º, do
+          <u>
             <a href="http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2015/Decreto/D8539.htm"
-                target="_blank" class="text-dark">
-                Decreto nº 8.539, de 8 de outubro de 2015
+               target="_blank" class="text-dark">
+              Decreto nº 8.539, de 8 de outubro de 2015
             </a>
-            </u>.
+          </u>.
         </p>
-        </div>
-        <hr class="m-0">
-        <div class="clearfix"></div>
+      </div>
+      <hr class="m-0">
+      <div class="clearfix"></div>
     </div>
-    <% end %>
+  <% end %>
 
-    <div>
+  <div>
     <%= render "shared/documents/signature_code", document: @document %>
-    </div>
+  </div>
 
 </div>

@@ -35,10 +35,12 @@ class DocumentsController < ApplicationController
   end
 
   def confirm_document
-    content = { message: document_not_found_message, status: :not_found }
-    content = { message: document_authenticated_message } if @document&.all_signed?
-
-    render json: content
+    if @document&.all_signed?
+      flash[:success] = I18n.t('json.messages.documents.success.authenticated')
+      redirect_to confirm_document_code_path(@document.code)
+    else
+      flash[:error] = document_not_found_message
+    end
   end
 
   def images
