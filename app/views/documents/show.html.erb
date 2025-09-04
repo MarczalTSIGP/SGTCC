@@ -1,4 +1,2 @@
-<%= turbo_frame_tag "document_#{@document.id}" do %>
-  <%= render partial: "shared/documents/document_types/#{@document.document_type.identifier}",
-             locals: { document: @document } %>
-<% end %>
+<%= render partial: "shared/documents/document_types/#{@document.document_type.identifier}",
+           locals: { document: @document } %>
