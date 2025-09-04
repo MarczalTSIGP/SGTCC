@@ -28,7 +28,7 @@ services:
       RAILS_ENV: development
 
   db:
-    image: postgres:15 # 17.5
+    image: postgres:17.5
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
