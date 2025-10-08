@@ -1,9 +1,8 @@
 <%= render "shared/documents/base_term_layout", document: @document do %>
-  <%# Variáveis locais %>
   <% professor_supervisors = @document.content.dig("professorSupervisors") || [] %>
   <% external_supervisors = @document.content.dig("externalMemberSupervisors") || [] %>
-  <% professor_supervisor_label = professor_supervisors.size == 1 ? "Coorientador da UTFPR" : "Coorientadores da UTFPR" %>
-  <% external_member_supervisor_label = external_supervisors.size == 1 ? "Coorientador externo" : "Coorientadores externos" %>
+  <% professor_supervisor_label = t("supervisors.utfpr",  count: professor_supervisors.size) %>
+  <% external_member_supervisor_label = t("supervisors.external", count: external_supervisors.size) %>
   <% institution = @document.content.dig("institution") %>
   <p>
     Eu, <b><%= institution.dig("responsible") %></b>, como representante da instituição
@@ -20,7 +19,7 @@
   </p>
   <p>
     <b>Tema</b>: <br>
-    <span class="ms-4">
+    <span class="ml-4">
       <%= @document.content.dig("orientation", "title") %>
     </span>
   </p>

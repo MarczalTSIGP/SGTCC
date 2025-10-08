@@ -18,7 +18,7 @@
       <% external_supervisors  = term.dig("externalMemberSupervisors") || [] %>
       <% total_supervisors = professor_supervisors.size + external_supervisors.size %>
       <% if total_supervisors.positive? %>
-        <span class="ml-4"><b><%= total_supervisors > 1 ? "Coorientadores" : "Coorientador" %>:</b></span><br>
+        <span class="ml-4"><b><%= t("supervisors", count: total_supervisors) %>:</b></span><br>
         <% professor_supervisors.each do |prof| %>
           <span class="ml-6"><%= prof["name"] %></span><br>
         <% end %>
@@ -39,7 +39,7 @@
       <% new_external_supervisors  = request.dig("new_orientation", "externalMemberSupervisors") || [] %>
       <% new_total_supervisors = new_professor_supervisors.size + new_external_supervisors.size %>
       <% if new_total_supervisors.positive? %>
-        <span class="ml-4"><b><%= new_total_supervisors > 1 ? "Coorientadores" : "Coorientador" %>:</b></span><br>
+        <span class="ml-4"><b><%= t("supervisors", count: new_total_supervisors) %>:</b></span><br>
         <% new_professor_supervisors.each do |prof| %>
           <span class="ml-6"><%= prof["name"] %></span><br>
         <% end %>
