@@ -819,3 +819,12 @@ pt-BR:
       8 de outubro de 2015 .'
     code: 'A autenticidade deste documento pode ser conferida no site %{url} , informando o código
       verificador %{code}.'
+  supervisors:
+      one: "Coorientador"
+      other: "Coorientadores"
+      utfpr:
+        one: "Coorientador da UTFPR"
+        other: "Coorientadores da UTFPR"
+      external:
+        one: "Coorientador externo"
+        other: "Coorientadores externos"
