@@ -9,3 +9,5 @@ pin 'bootstrap', to: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/boots
 pin '@popperjs/core', to: '@popperjs--core.js' # @2.11.8
 pin 'sweetalert' # @2.1.2
 pin 'process' # @2.1.0
+pin "simplemde", to: "https://cdn.skypack.dev/simplemde"
+pin "marked" # @16.3.0

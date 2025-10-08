@@ -1,0 +1,40 @@
+<%= form_with url: responsible_document_judgment_path(document_id),
+              method: :put,
+              data: { controller: "document-judgment", action: "turbo:submit-end->document-judgment#afterSave" },
+              class: "space-y-4" do |f| %>
+  <div class="form-group">
+    <div class="form-label">Solicitação</div>
+    <div class="flex gap-4">
+      <label class="custom-control custom-radio">
+        <%= f.radio_button :accept, "true",
+              checked: accept_value == "true",
+              class: "custom-control-input" %>
+        <span class="custom-control-label">Deferir</span>
+      </label>
+      <label class="custom-control custom-radio">
+        <%= f.radio_button :accept, "false",
+              checked: accept_value == "false",
+              class: "custom-control-input" %>
+        <span class="custom-control-label">Indeferir</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :justification, "Parecer", class: "form-label" %>
+    <abbr title="Obrigatório">*</abbr>
+    <%= f.text_area :justification,
+          value: justification_value,
+          rows: 5,
+          id: "document_judgment_justification",
+          class: "form-control",
+          data: { document_judgment_target: "textarea" } %>
+  </div>
+  <div class="mt-4 float-right flex gap-2">
+    <%= f.submit "Salvar", class: "btn btn-primary" %>
+    <button type="button"
+            class="btn btn-danger"
+            data-action="document-judgment#cancel">
+      Cancelar
+    </button>
+  </div>
+<% end %>
