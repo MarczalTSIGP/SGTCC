@@ -1,57 +1,62 @@
 <%= render "shared/documents/base_term_layout", document: @document do %>
-  <% academic = @document.content.dig("academic") %>
-  <% advisor = @document.content.dig("advisor") %>
-  <% term = @document.content %>
-  <% request = @document.content.dig("request") || {} %>
+  <% term     = @document.content %>
+  <% academic = term.dig("academic") %>
+  <% advisor  = term.dig("advisor") %>
+  <% request  = @document.request || {} %>
   <p>
     Eu, <b><%= academic.dig("name") %></b>, acadêmico(a) desta instituição,
     solicito a substituição de orientação.
   </p>
   <div>
     <b>Dados da orientação em andamento</b>
-    <span class="ms-4">
+    <span class="ml-4">
       <p>
-        <span class="ms-4"><b>Orientador:</b></span><br>
-        <span class="ms-6"><%= advisor.dig("name") %></span>
+        <span class="ml-4"><b>Orientador:</b></span><br>
+        <span class="ml-6"><%= advisor.dig("name") %></span>
       </p>
-      <% if term.dig("professorSupervisors")&.any? || term.dig("externalMemberSupervisors")&.any? %>
-        <span class="ms-4"><b>
-            <%= (term.dig("professorSupervisors")&.size.to_i + term.dig("externalMemberSupervisors")&.size.to_i) > 1 ? "Coorientadores" : "Coorientador" %>
-          </b>:</span>
-        <% term.dig("professorSupervisors")&.each do |prof| %>
-          <span class="ms-6"><%= prof["name"] %></span><br>
+      <% professor_supervisors = term.dig("professorSupervisors") || [] %>
+      <% external_supervisors  = term.dig("externalMemberSupervisors") || [] %>
+      <% total_supervisors = professor_supervisors.size + external_supervisors.size %>
+      <% if total_supervisors.positive? %>
+        <span class="ml-4"><b><%= total_supervisors > 1 ? "Coorientadores" : "Coorientador" %>:</b></span><br>
+        <% professor_supervisors.each do |prof| %>
+          <span class="ml-6"><%= prof["name"] %></span><br>
         <% end %>
-        <% term.dig("externalMemberSupervisors")&.each do |member| %>
-          <span class="ms-6"><%= member["name"] %></span><br>
+        <% external_supervisors.each do |member| %>
+          <span class="ml-6"><%= member["name"] %></span><br>
         <% end %>
       <% end %>
     </span>
   </div>
-  <div>
+  <div class="mt-3">
     <b>Dados da nova orientação</b>
-    <span class="ms-4">
+    <span class="ml-4">
       <p>
-        <span class="ms-4"><b>Orientador:</b></span><br>
-        <span class="ms-6"><%= request.dig("new_orientation", "advisor", "name") %></span>
+        <span class="ml-4"><b>Orientador:</b></span><br>
+        <span class="ml-6"><%= request.dig("new_orientation", "advisor", "name") %></span>
       </p>
-      <% if (request.dig("new_orientation", "professorSupervisors")&.any? || request.dig("new_orientation", "externalMemberSupervisors")&.any?) %>
-        <span class="ms-4"><b>
-            <%= (request.dig("new_orientation", "professorSupervisors")&.size.to_i + request.dig("new_orientation", "externalMemberSupervisors")&.size.to_i) > 1 ? "Coorientadores" : "Coorientador" %>
-          </b>:</span>
-        <% request.dig("new_orientation", "professorSupervisors")&.each do |prof| %>
-          <span class="ms-6"><%= prof["name"] %></span><br>
+      <% new_professor_supervisors = request.dig("new_orientation", "professorSupervisors") || [] %>
+      <% new_external_supervisors  = request.dig("new_orientation", "externalMemberSupervisors") || [] %>
+      <% new_total_supervisors = new_professor_supervisors.size + new_external_supervisors.size %>
+      <% if new_total_supervisors.positive? %>
+        <span class="ml-4"><b><%= new_total_supervisors > 1 ? "Coorientadores" : "Coorientador" %>:</b></span><br>
+        <% new_professor_supervisors.each do |prof| %>
+          <span class="ml-6"><%= prof["name"] %></span><br>
         <% end %>
-        <% request.dig("new_orientation", "externalMemberSupervisors")&.each do |member| %>
-          <span class="ms-6"><%= member["name"] %></span><br>
+        <% new_external_supervisors.each do |member| %>
+          <span class="ml-6"><%= member["name"] %></span><br>
         <% end %>
       <% end %>
     </span>
   </div>
   <% if request.dig("requester", "justification").present? %>
-    <p>
-      <b>Justificativa</b>: <br>
-      <span class="ms-4">
-        <%= render "shared/markdown_reader", content: request.dig("requester", "justification") %>
+    <p class="mt-3">
+      <b>Justificativa</b>:<br>
+      <span >
+        <div class="ml-4">
+          <%= render "shared/markdown_reader",
+              content: request.dig("requester", "justification") %>
+        </div>
       </span>
     </p>
   <% end %>
