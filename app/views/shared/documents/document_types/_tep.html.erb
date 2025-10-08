@@ -1,7 +1,6 @@
 <%= render "shared/documents/base_term_layout", document: @document do %>
-  <%# Variáveis locais %>
   <% academic = @document.content.dig("academic") %>
-  <% request = @document.content.dig("request") || {} %>
+  <% request = @document.request || {} %>
   <p>
     Eu, <b><%= academic.dig("name") %></b>, acadêmico(a) desta instituição,
     solicito a extensão do prazo de trabalho de conclusão de curso em 1 (um)
@@ -10,8 +9,11 @@
   <% if request.dig("requester", "justification").present? %>
     <p>
       <b>Justificativa</b>:<br>
-      <span class="ms-4">
-        <%= render "shared/markdown_reader", content: request.dig("requester", "justification") %>
+      <span>
+        <div class="ml-4">
+          <%= render "shared/markdown_reader",
+              content: request.dig("requester", "justification") %>
+        </div>
       </span>
     </p>
   <% end %>
