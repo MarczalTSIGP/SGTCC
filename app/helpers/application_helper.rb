@@ -23,4 +23,19 @@ module ApplicationHelper
     (current_professor&.responsible? || current_professor&.tcc_one?) &&
       namespace.in?(%w[responsible tcc_one_professors])
   end
+
+  def flash_type_to_bootstrap(type)
+    case type.to_s
+    when 'error'
+      'danger'
+    when 'alert'
+      'warning'
+    when 'notice'
+      'info'
+    when 'success'
+      'success'
+    else
+      type.to_s
+    end
+  end
 end
