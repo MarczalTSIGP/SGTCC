@@ -1,0 +1,35 @@
+<% request = document.request || {} %>
+<div
+  data-controller="document-review"
+  data-document-review-document-id-value="<%= document.id %>"
+  data-document-review-has-permission-value="<%= has_permission %>"
+  data-document-review-can-edit-value="<%= can_edit %>"
+>
+  <% if has_permission && request["judgment"].blank? %>
+    <%= render "shared/documents/document_judgment",
+      document_id: document.id,
+      accept_value: nil,
+      justification_value: nil %>
+  <% elsif request["judgment"].present? %>
+    <p>
+      <b>Solicitação:</b>
+      <%= request.dig("judgment","responsible","accept") == "true" ? "Deferido" : "Indeferido" %>
+      <% if has_permission && can_edit %>
+        <button
+          data-action="document-review#edit"
+          class="btn btn-outline-primary btn-sm"
+        >
+          Editar
+        </button>
+      <% end %>
+    </p>
+
+    <p><b>Parecer:</b></p>
+    <%= render "shared/markdown_reader", content: request.dig("judgment","responsible","justification") %>
+  <% else %>
+    <p>
+      <b>Solicitação:</b>
+      Em análise pelo professor responsável do TCC
+    </p>
+  <% end %>
+</div>
