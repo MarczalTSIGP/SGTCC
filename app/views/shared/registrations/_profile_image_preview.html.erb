@@ -1,0 +1,36 @@
+<div data-controller="profile-image-preview"
+     data-profile-image-preview-url-value="<%= profile_image_url %>">
+  <div id="box-image-preview"
+       data-bs-toggle="tooltip"
+       data-bs-placement="left"
+       title="<%= t('messages.registration.edit_image') %>">
+    <div class="input-field image_preview">
+      <div class="box-image center">
+        <img
+          src="<%= profile_image_url %>"
+          class="file_preview active"
+          data-profile-image-preview-target="image"
+        >
+          <div class="form-group file optional academic_profile_image">
+            <%= file_field_tag "#{resource_name}[profile_image]",
+        accept: 'image/*',
+        class: 'form-control-file',
+        id: "#{resource_name}_profile_image",
+        data: { action: 'change->profile-image-preview#preview' } %>
+            <% if profile_image_errors.any? %>
+              <div class="invalid-feedback d-block">
+                <% profile_image_errors.each do |error| %>
+                  <p><%= error %></p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="text-box text-center">
+        <p class="text-input">
+          <%= t('messages.registration.edit_image') %>
+        </p>
+      </div>
+    </div>
+  </div>

@@ -21,6 +21,9 @@ pt-BR:
       evaluated_status:
         one: "Faltam %{number} professor para avaliar."
         other: "Faltam %{number} professores para avaliarem."
+    registration:
+      edit_image: Clique na imagem para alterá-la
+      find_image: Selecionar imagem
   titles:
     show: "Visualizar"
     edit: "Editar"
