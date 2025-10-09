@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <%= simple_form_for(@academic_activity, url: url, html: { multipart: true }) do |f| %>
+    <%= simple_form_for(@academic_activity, url: url, html: { multipart: true, data: { turbo: false } }) do |f| %>
       <div class="row">
         <div class="col-12">
           <%= f.input :title,
@@ -14,7 +14,10 @@
 
         <div class="col-12">
           <%= f.input :additional_instructions,
-            input_html: { class: 'markdown-editor' },
+            input_html: { 
+              class: 'markdown-editor', 
+              data: { controller: 'markdown-editor' } 
+            },
             label: AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
         </div>
 
@@ -22,30 +25,26 @@
           <label class="font-weight-bold">
             <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_pdf") %> *
           </label>
-          <div>
-            <file-input
-              name="academic_activity[pdf]"
-              id="academic_activity_pdf"
-              hint="<%= t('hints.file.pdf') %>"
-              label="<%= AcademicActivity.human_attribute_name('pdf') %>"
-              :url="<%= @academic_activity.pdf.url.to_json %>"
-              :errors="<%= @academic_activity.errors[:pdf] %>" />
-          </div>
+          <%= render "shared/file_input",
+                name: "academic_activity[pdf]",
+                id: "academic_activity_pdf",
+                hint: t('hints.file.pdf'),
+                label: AcademicActivity.human_attribute_name('pdf'),
+                url: @academic_activity.pdf.url,
+                errors: @academic_activity.errors[:pdf] %>
           <%= f.hidden_field :pdf_cache %>
         </div>
         <div class="col-md-6">
           <label class="font-weight-bold">
             <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_complementary_files") %> *
           </label>
-          <div>
-            <file-input
-              name="academic_activity[complementary_files]"
-              id="academic_activity_complementary_files"
-              hint="<%= t('hints.file.zip') %>"
-              label="<%= AcademicActivity.human_attribute_name('complementary_files') %>"
-              :url="<%= @academic_activity.complementary_files.url.to_json %>"
-              :errors="<%= @academic_activity.errors[:complementary_files] %>" />
-          </div>
+          <%= render "shared/file_input",
+                name: "academic_activity[complementary_files]",
+                id: "academic_activity_complementary_files",
+                hint: t('hints.file.zip'),
+                label: AcademicActivity.human_attribute_name('complementary_files'),
+                url: @academic_activity.complementary_files.url,
+                errors: @academic_activity.errors[:complementary_files] %>
           <%= f.hidden_field :complementary_files_cache %>
         </div>
       </div>
@@ -80,4 +79,3 @@
     <% end %>
   </div>
 </div>
-

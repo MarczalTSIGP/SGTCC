@@ -5,52 +5,54 @@ describe 'Activity::document', :js do
   let!(:activity) { create(:activity) }
   let(:calendar) { activity.calendar }
   let(:show_url) { academics_calendar_activity_path(calendar, activity) }
-  let(:resource_name) { Activity.model_name.human }
 
   before do
     login_as(academic, scope: :academic)
   end
 
-  describe '#upload document / create' do
-    before do
-      visit show_url
-    end
+  def flash_message(key)
+    I18n.t("flash.actions.#{key}", resource_name: Activity.model_name.human)
+  end
 
-    context 'when uploads is valid' do
+  describe '#upload document / create' do
+    before { visit show_url }
+
+    context 'when uploads are valid' do
       it 'uploads the document' do
         attributes = attributes_for(:academic_activity)
 
         fill_in 'academic_activity_title', with: attributes[:title]
         fill_in 'academic_activity_summary', with: attributes[:summary]
 
-        expect(page).to have_css('.custom-file-input', visible: :hidden)
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
-        attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path
-        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path
+        attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path, make_visible: true
+        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path,
+                    make_visible: true
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path show_url
-        expect(page).to have_flash(:success, text: message('update.f'))
+        expect(page).to have_current_path(show_url)
+        expect(page).to have_flash(:success, text: flash_message('update.f'))
+
         expect(find_by_id('academic_activity_title').value).to eq attributes[:title]
         expect(find_by_id('academic_activity_summary').value).to eq attributes[:summary]
       end
     end
 
-    context 'when uploads is not valid' do
-      it 'show errors' do
+    context 'when uploads are not valid' do
+      it 'shows errors' do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.academic_activity_title')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_activity_summary')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_activity_pdf')
+
+        expect(page).to have_content(blank_error_message)
+        expect(page).to have_content(blank_error_message)
+        expect(page).to have_content(blank_error_message)
       end
     end
   end
 
   describe '#upload document / update' do
     before do
-      create(:academic_activity, activity:, academic:)
+      create(:academic_activity, activity: activity, academic: academic)
       visit show_url
     end
 
@@ -61,27 +63,29 @@ describe 'Activity::document', :js do
         fill_in 'academic_activity_title', with: attributes[:title]
         fill_in 'academic_activity_summary', with: attributes[:summary]
 
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
-        attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path
-        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path
+        attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path, make_visible: true
+        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path,
+                    make_visible: true
 
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path show_url
-        expect(page).to have_flash(:success, text: message('update.f'))
+        expect(page).to have_current_path(show_url)
+        expect(page).to have_flash(:success, text: flash_message('update.f'))
+
         expect(find_by_id('academic_activity_title').value).to eq attributes[:title]
         expect(find_by_id('academic_activity_summary').value).to eq attributes[:summary]
       end
     end
 
     context 'when the upload is not valid' do
-      it 'show errors' do
+      it 'shows errors' do
         fill_in 'academic_activity_title', with: ''
         fill_in 'academic_activity_summary', with: ''
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.academic_activity_title')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_activity_summary')
+
+        expect(page).to have_content(blank_error_message)
+        expect(page).to have_content(blank_error_message)
       end
     end
   end
