@@ -1,9 +1,10 @@
-<%= simple_form_for(@document, url: url) do |f| %>
+<%= simple_form_for(@document, url: url, html: { data: { turbo: false } }) do |f| %>
   <%= f.input :justification,
     as: :text,
     input_html: {
       rows: '8',
       class: 'markdown-editor',
+      data: { controller: 'markdown-editor' },
       value: @document.request.present? ? @document.request['requester']['justification'] : ''
     } %>
 
