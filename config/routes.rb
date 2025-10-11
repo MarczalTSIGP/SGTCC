@@ -650,9 +650,9 @@ Rails.application.routes.draw do
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
       get 'documents/(:id)', to: 'documents#show', as: 'document'
 
-      get  'documents/(:id)/signature_status',
-            to: 'documents#signature_status',
-            as: 'document_signature_status'
+      get 'documents/(:id)/signature_status',
+          to: 'documents#signature_status',
+          as: 'document_signature_status'
 
       get 'calendars', to: 'calendars#index', as: 'calendars'
 

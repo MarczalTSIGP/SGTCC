@@ -19,10 +19,10 @@ describe 'Document::sign', :js do
         within('#signature-confirm') do
           find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
           find('[data-signature-confirm-target="password"]').fill_in(with: 'password')
-          find('button', text: 'Assinar', exact_text: true).click
+          click_button('Assinar', exact_text: true)
         end
 
-        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(page).to have_css('.swal-modal')
         expect(find('.swal-modal')).to have_content(signature_signed_success_message)
 
         find('.swal-button--confirm').click
@@ -44,10 +44,10 @@ describe 'Document::sign', :js do
         within('#signature-confirm') do
           find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
           find('[data-signature-confirm-target="password"]').fill_in(with: '123')
-          find('button', text: 'Assinar', exact_text: true).click
+          click_button('Assinar', exact_text: true)
         end
 
-        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(page).to have_css('.swal-modal')
         expect(find('.swal-modal')).to have_content(signature_login_alert_message)
       end
     end

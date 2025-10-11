@@ -1,15 +1,15 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   connect() {
-    const selects = this.element.querySelectorAll('[data-selectize]')
+    const selects = this.element.querySelectorAll("[data-selectize]");
     selects.forEach(select => {
       $(select).selectize({
-        plugins: ['remove_button'],
+        plugins: ["remove_button"],
         create: false,
-        sortField: 'text',
-        placeholder: select.getAttribute('placeholder') || ''
-      })
-    })
+        sortField: "text",
+        placeholder: select.getAttribute("placeholder") || ""
+      });
+    });
   }
 }

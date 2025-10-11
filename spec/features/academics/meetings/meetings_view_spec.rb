@@ -17,7 +17,7 @@ describe 'Meeting::view', :js do
         click_on_label(confirm_judgment_label, in: 'meeting_viewed')
         first('.swal-button--danger').click
 
-        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(page).to have_css('.swal-modal')
         expect(find('.swal-modal')).to have_content(message('update.f'))
       end
     end

@@ -37,7 +37,7 @@ export default class extends Controller {
     if (!confirmed) return;
 
     try {
-      const token = document?.querySelector('meta[name="csrf-token"]')?.content;
+      const token = document?.querySelector("meta[name=\"csrf-token\"]")?.content;
       const response = await fetch(this.urlValue, {
         method: "PATCH",
         headers: {
@@ -53,8 +53,8 @@ export default class extends Controller {
       this.valueValue = data;
       this.renderCheckbox();
 
-      await swal('', this.successMessageValue, "success");
-    } catch (e) {
+      await swal("", this.successMessageValue, "success");
+    } catch {
       await swal("Erro interno no servidor", "", "error");
       this.checkbox.checked = !this.checkbox.checked;
     }

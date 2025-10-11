@@ -7,17 +7,17 @@ export default class extends Controller {
     hint: String,
     url: String,
     errors: Array
-  }
+  };
 
   connect() {
-    this.input = this.element.querySelector('input[type="file"]');
-    this.labelElement = this.element.querySelector('label');
+    this.input = this.element.querySelector("input[type=\"file\"]");
+    this.labelElement = this.element.querySelector("label");
     this.updateLabel();
   }
 
   updateLabel() {
     if (this.urlValue) {
-      this.labelElement.textContent = this.urlValue.split('/').pop();
+      this.labelElement.textContent = this.urlValue.split("/").pop();
     } else {
       this.labelElement.textContent = "Procurar arquivo...";
     }

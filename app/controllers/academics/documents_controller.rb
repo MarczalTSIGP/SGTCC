@@ -29,8 +29,8 @@ class Academics::DocumentsController < Academics::BaseController
     @document = current_academic.documents.find(params[:id])
     @signatures = @document.status_table
 
-    render partial: "shared/documents/signature_status",
-          locals: { signatures: @signatures }
+    render partial: 'shared/documents/signature_status',
+           locals: { signatures: @signatures }
   end
 
   def sign

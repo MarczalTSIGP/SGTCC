@@ -38,7 +38,7 @@ export default class extends Controller {
     if (this.hasConfirmBoxTarget) this.confirmBoxTarget.classList.add("d-none");
 
     const hiddenElements = this.mainContentTarget.querySelectorAll(
-      '[style*="display: none"]'
+      "[style*=\"display: none\"]"
     );
     hiddenElements.forEach((el) => (el.style.display = ""));
   }
