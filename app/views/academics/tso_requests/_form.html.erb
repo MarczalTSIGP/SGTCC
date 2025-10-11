@@ -1,29 +1,34 @@
-<%= simple_form_for(@document, url: url) do |f| %>
+<%= simple_form_for(@document, url: url, html: { data: { turbo: false } }) do |f| %>
+  <%= f.error_notification %>
+
   <div class="row">
     <div class="col-sm-4">
       <%= f.input :advisor_id,
         input_html: { data: 'selectize' },
         collection: Professor.all.order(:name),
-        selected: @document.request.present? ? @document.request['new_orientation']['advisor']['id'] : '',
-        prompt: t('prompt.select.m', name: Document.human_attribute_name('advisor_id')) %>
+        selected: @document.request.present? ? @document.request['new_orientation']['advisor']['id'] : nil,
+        prompt: t('prompt.select.m', name: Document.human_attribute_name('advisor_id')),
+        include_blank: true %>
     </div>
 
     <div class="col-sm-4">
       <%= f.input :professor_supervisor_ids,
         input_html: { data: 'selectize', multiple: 'multiple' },
         collection: Professor.select(:id, :name).order(:name),
-        selected: @document.request.present? ? @document.request['new_orientation']['professorSupervisors'].map { |p| p['id'] } : '',
+        selected: @document.request.present? ? @document.request['new_orientation']['professorSupervisors'].map { |p| p['id'] } : [],
         label_method: :name,
         value_method: :id,
-        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('professor_supervisor_ids')) %>
+        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('professor_supervisor_ids')),
+        include_blank: false %>
     </div>
 
     <div class="col-sm-4">
       <%= f.input :external_member_supervisor_ids,
         input_html: { data: 'selectize', multiple: 'multiple' },
         collection: ExternalMember.all.order(:name),
-        selected: @document.request.present? ? @document.request['new_orientation']['externalMemberSupervisors'].map { |e| e['id'] } : '',
-        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('external_member_supervisor_ids')) %>
+        selected: @document.request.present? ? @document.request['new_orientation']['externalMemberSupervisors'].map { |e| e['id'] } : [],
+        prompt: t('prompt.select.multiple', name: Document.human_attribute_name('external_member_supervisor_ids')),
+        include_blank: false %>
     </div>
 
     <div class="col-12">
@@ -32,6 +37,7 @@
         input_html: {
           rows: '8',
           class: 'markdown-editor',
+          data: { controller: 'markdown-editor' },
           value: @document.request.present? ? @document.request['requester']['justification'] : ''
         } %>
     </div>
@@ -42,7 +48,6 @@
       academics_tso_requests_path,
       class: 'btn btn-secondary' %>
 
-      <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
+    <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
   </div>
 <% end %>
-
