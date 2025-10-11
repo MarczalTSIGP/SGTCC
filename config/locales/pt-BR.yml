@@ -24,6 +24,7 @@ pt-BR:
     registration:
       edit_image: Clique na imagem para alterá-la
       find_image: Selecionar imagem
+    search: Procurar...
   titles:
     show: "Visualizar"
     edit: "Editar"

@@ -1,0 +1,18 @@
+<div class="input-group input-icon" data-controller="search" 
+     data-search-url-value="<%= url %>" 
+     data-search-term-value="<%= search_term %>">
+  <input
+    type="text"
+    name="term"
+    value="<%= search_term %>"
+    class="form-control"
+    data-search-target="input"
+    data-action="keydown->search#checkEnter"
+    placeholder='<%= t("messages.search") %>'
+  />
+    <span class="input-group-append">
+      <a href="#" class="btn btn-outline-primary" data-action="click->search#submit">
+        <i class="fe fe-search"></i>
+      </a>
+    </span>
+  </div>

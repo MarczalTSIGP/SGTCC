@@ -3,10 +3,12 @@
 
 <div class="row">
   <div class="col-12">
-    <search url="<%= academics_examination_boards_search_path %>" search-term="<%= params[:term] %>" />
+    <%= render 'shared/search', 
+      url: academics_examination_boards_search_path,
+      search_term: params[:term] %>
   </div>
 </div>
 
-<%= render 'shared/examination_boards/table' %>
-
-<%= paginate @examination_boards %>
+<%= turbo_frame_tag "examination_boards_table" do %>
+  <%= render 'shared/examination_boards/table', examination_boards: @examination_boards, namespace: 'academics' %>
+<% end %>
