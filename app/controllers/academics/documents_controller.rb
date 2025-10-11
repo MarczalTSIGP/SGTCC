@@ -21,7 +21,16 @@ class Academics::DocumentsController < Academics::BaseController
   end
 
   def show
+    @signatures = @document.mark
     add_breadcrumb I18n.t('breadcrumbs.documents.show'), academics_document_path(@document)
+  end
+
+  def signature_status
+    @document = current_academic.documents.find(params[:id])
+    @signatures = @document.status_table
+
+    render partial: "shared/documents/signature_status",
+          locals: { signatures: @signatures }
   end
 
   def sign

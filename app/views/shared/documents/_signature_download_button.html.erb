@@ -1,0 +1,21 @@
+<div
+  data-controller="signature-download"
+  data-signature-download-head-title-value="<%= head_title %>"
+  data-signature-download-document-title-value="<%= document_title %>"
+  class="border border-primary rounded p-4 mb-4"
+>
+  <div class="float-left">
+    <strong>Salvar documento em PDF</strong>
+    <p>Este documento será salvo no formato PDF.</p>
+  </div>
+
+  <button
+    class="btn btn-outline-primary float-right mb-2"
+    data-action="click->signature-download#download"
+  >
+    Salvar em PDF
+  </button>
+
+  <div class="clearfix"></div>
+  <hr class="m-0">
+</div>

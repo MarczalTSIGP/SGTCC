@@ -1,37 +1,34 @@
 <% provide(:head_title, t('breadcrumbs.documents.show')) %>
 <% provide(:page_title) do %>
-  <signature-show-title />
+  <%= render "shared/documents/signature_show_title", title: "Visualizar documento" %>
 <% end %>
-
-<div class="container">
-  <div>
-    <%= render 'shared/documents/component', document: @document %>
+<div
+  data-controller="document-page"
+  data-document-page-target="container"
+>
+  <div class="container" data-document-page-target="mainContent">
+    <div id="printable-document">
+      <%= render 'shared/documents/component', document: @document %>
+    </div>
+    <div class="mb-4">
+      <% unless @signature&.status || @not_show_sign_button %>
+        <%= render "shared/documents/signature_button",
+                   show_title: t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
+                                  academic: @document.orientation.academic.name) %>
+      <% end %>
+      <%= render "shared/documents/signature_download_button",
+                 head_title: t('breadcrumbs.documents.show'),
+                 document_title: @document.filename %>
+    </div>
+    <%= render "shared/documents/signature_status", signatures: @document.status_table %>
   </div>
-
-  <div class="mb-4">
-    <% unless @signature&.status || @not_show_sign_button %>
-      <signature-confirm
-        label="<%= label %>"
-        url="<%= confirm_url %>">
-      </signature-confirm>
-
-      <signature-button
-        show-title="<%= t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
-                          academic: @document.orientation.academic.name) %>">
-      </signature-button>
-    <% end %>
-
-    <signature-download-button
-      head-title="<%= t('breadcrumbs.documents.show') %>"
-      document-title="<%= @document.filename %>">
-    </signature-download-button>
-  </div>
-
-  <signature-status url="<%= document_status_path(@document) %>">
-  </signature-status>
-</div>
-
-<div class="d-flex">
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
+  <div
+    data-document-page-target="confirmBox"
+    class="d-none"
+  >
+    <%= render "shared/documents/signature_confirm",
+               label: label,
+               url: confirm_url %>
+  </div>
 </div>
-
