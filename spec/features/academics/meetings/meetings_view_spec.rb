@@ -16,9 +16,9 @@ describe 'Meeting::view', :js do
       it 'shows success message' do
         click_on_label(confirm_judgment_label, in: 'meeting_viewed')
         first('.swal-button--danger').click
-        # expect(page).to have_alert(text: message('update.f'))
-        expect(page).to have_css('div.swal-text', text: message('update.f'))
-        first('.swal-button--confirm').click
+
+        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(find('.swal-modal')).to have_content(message('update.f'))
       end
     end
   end

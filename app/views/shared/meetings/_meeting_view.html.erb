@@ -1,0 +1,21 @@
+<div data-controller="meeting-view"
+     data-meeting-view-url-value="<%= url %>"
+     data-meeting-view-value-value="<%= value %>"
+     data-meeting-view-id-value="meeting_viewed"
+     data-meeting-view-name-value="meeting[viewed]"
+     data-meeting-view-confirmation-message-value="Você tem certeza que deseja dar ciência nessa reunião?"
+     data-meeting-view-success-message-value="Reunião atualizada com sucesso!">
+
+  <div class="form-group checkbox_tabler optional <%= "meeting_viewed" %>"
+       data-action="click->meeting-view#toggle">
+    <label class="custom-control custom-checkbox">
+      <input type="checkbox"
+             id="meeting_viewed"
+             name="meeting[viewed]"
+             class="custom-control-input"
+             <%= "checked" if value %>
+             <%= "disabled" if value %>>
+      <span class="custom-control-label">Dar ciência</span>
+    </label>
+  </div>
+</div>

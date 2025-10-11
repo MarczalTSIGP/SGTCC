@@ -68,7 +68,7 @@ export default class extends Controller {
       this.afterSaveSignature(data.message);
     } catch (error) {
       console.error(error);
-      swal("Erro", `${error}`, "error");
+      swal("Erro", "Erro ao assinar", "error");
     }
   }
 

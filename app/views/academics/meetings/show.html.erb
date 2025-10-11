@@ -1,6 +1,5 @@
 <% provide(:page_title, t('breadcrumbs.meetings.show')) %>
 <% provide(:head_title, t('breadcrumbs.meetings.show')) %>
-
 <div class="card">
   <div class="card-body">
     <p>
@@ -8,7 +7,7 @@
         <%= Meeting.human_attribute_name('content') %>:
       </strong>
       <div class="form-fieldset w-50 text-left">
-        <markdown-reader content="<%= @meeting.content %>" />
+        <%= render "shared/markdown_reader", content: @meeting.content %>
       </div>
     </p>
     <p>
@@ -18,9 +17,7 @@
       <%= complete_date(@meeting.date) %>
     </p>
     <div>
-      <meeting-view
-        url="<%= academics_meeting_update_viewed_path(@meeting) %>"
-        :value="<%= @meeting.viewed %>" />
+      <%= render "shared/meetings/meeting_view", url: academics_meeting_update_viewed_path(@meeting), value: @meeting.viewed %>
     </div>
   </div>
 </div>
@@ -30,4 +27,3 @@
     academics_meetings_path,
     class: 'btn btn-secondary' %>
 </div>
-
