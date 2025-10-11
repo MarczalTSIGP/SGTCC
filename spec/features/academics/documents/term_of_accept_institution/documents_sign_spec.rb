@@ -13,14 +13,19 @@ describe 'Document::sign', :js do
   describe '#sign' do
     context 'when signs the signature of the term of accept institution' do
       it 'signs the document of the term of accept institution' do
-        click_button(signature_button, id: 'signature_button')
+        click_button('Assinar documento')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        fill_in 'login_confirmation', with: academic.ra, visible: false
-        fill_in 'password_confirmation', with: 'password'
-        find_by_id('login_confirmation_button').click
+        within('#signature-confirm') do
+          find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
+          find('[data-signature-confirm-target="password"]').fill_in(with: 'password')
+          find('button', text: 'Assinar', exact_text: true).click
+        end
 
-        expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
+        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(find('.swal-modal')).to have_content(signature_signed_success_message)
+
+        find('.swal-button--confirm').click
 
         academic_signature.reload
 
@@ -33,14 +38,19 @@ describe 'Document::sign', :js do
 
     context 'when the password is wrong' do
       it 'shows alert message' do
-        click_button(signature_button, id: 'signature_button')
+        find('button', text: 'Assinar documento', exact_text: true).click
+
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        fill_in 'login_confirmation', with: academic.ra, visible: false
-        fill_in 'password_confirmation', with: '123'
-        find_by_id('login_confirmation_button').click
+        within('#signature-confirm') do
+          find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
+          find('[data-signature-confirm-target="password"]').fill_in(with: '123')
+          find('button', text: 'Assinar', exact_text: true).click
+        end
 
-        expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
+
+        expect(page).to have_selector('.swal-modal', visible: true)
+        expect(find('.swal-modal')).to have_content(signature_login_alert_message)
       end
     end
   end

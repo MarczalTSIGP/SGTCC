@@ -52,8 +52,8 @@ export default class extends Controller {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
-            .content,
+          "X-CSRF-Token": document?.querySelector('meta[name="csrf-token"]')
+            ?.content,
         },
         body: JSON.stringify({ login, password }),
       });
@@ -68,13 +68,14 @@ export default class extends Controller {
       this.afterSaveSignature(data.message);
     } catch (error) {
       console.error(error);
-      swal("Erro", "Erro ao processar a assinatura", "error");
+      swal("Erro", `${error}`, "error");
     }
   }
 
   afterSaveSignature(message) {
     swal("Sucesso", message, "success").then(() => {
       this.close();
+      window.location.reload();
 
       document.dispatchEvent(new CustomEvent("close-signature-button"));
       document.dispatchEvent(new CustomEvent("show-signatures-mark"));
