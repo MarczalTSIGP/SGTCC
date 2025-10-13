@@ -1,32 +1,31 @@
 <% provide(:head_title, t('breadcrumbs.documents.show')) %>
+
 <% provide(:page_title) do %>
   <%= render "shared/documents/signature_show_title", title: "Visualizar documento" %>
 <% end %>
-<div
-  data-controller="document-page"
-  data-document-page-target="container"
->
-  <div class="container" data-document-page-target="mainContent">
+
+<div>
+  <div class="container">
     <div id="printable-document">
       <%= render 'shared/documents/component', document: @document %>
     </div>
+
     <div class="mb-4">
       <% unless @signature&.status || @not_show_sign_button %>
-        <%= render "shared/documents/signature_button",
-                   show_title: t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
-                                  academic: @document.orientation.academic.name) %>
+        <%= render "shared/documents/signature_button" %>
       <% end %>
+
       <%= render "shared/documents/signature_download_button",
                  head_title: t('breadcrumbs.documents.show'),
                  document_title: @document.filename %>
+
     </div>
+
     <%= render "shared/documents/signature_status", signatures: @document.status_table %>
   </div>
+
   <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
-  <div
-    data-document-page-target="confirmBox"
-    class="d-none"
-  >
+  <div>
     <%= render "shared/documents/signature_confirm",
                label: label,
                url: confirm_url %>

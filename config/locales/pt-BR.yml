@@ -52,7 +52,7 @@ pt-BR:
     labels:
       conceded: 'Deferido'
       dismissed: 'Indeferido'
-      selected: 
+      selected:
         f: 'Selecionada'
         m: 'Selecionado'
     login:
@@ -149,13 +149,13 @@ pt-BR:
           approved: 'Orientações concluídas'
           tcc_one: 'TCC 1'
           tcc_two: 'TCC 2'
-          total: 
+          total:
             one: 'Total de 1 orientação'
             other: 'Total de %{count} orientações'
         supervisions:
           in_progress: 'Coorientações em andamento'
           approved: 'Coorientações concluídas'
-          total: 
+          total:
             one: 'Total de 1 coorientação'
             other: 'Total de %{count} coorientações'
       examination_boards:
@@ -215,10 +215,13 @@ pt-BR:
       submissions:
         to_confirm: "Submissões de atividades que precisam da sua confirmação"
     documents:
+      id: "Documento #%{id}"
+      name: "Documentos"
       show: "Visualizar documento"
       reviewing: "Documentos para análise"
       pending: "Documentos para assinar"
       signed: "Documentos assinados"
+      sign: "Assinar"
       orientation: "Documentos da orientação"
       recent:
         pending: "Últimos documentos com assinaturas pendentes"
@@ -459,7 +462,7 @@ pt-BR:
         hour: "Hora"
         available: "Disponível"
         final_version: "Versão final"
-        total: "Total"  
+        total: "Total"
       academic:
         ra: "RA"
         <<: *commons
@@ -487,7 +490,7 @@ pt-BR:
         judgment: "Parecer"
         <<: *commons
       activity:
-        sent: 
+        sent:
           one: "Enviada"
           other: "Enviadas"
         calendar: "Calendário"
@@ -824,11 +827,11 @@ pt-BR:
     code: 'A autenticidade deste documento pode ser conferida no site %{url} , informando o código
       verificador %{code}.'
   supervisors:
-      one: "Coorientador"
-      other: "Coorientadores"
-      utfpr:
-        one: "Coorientador da UTFPR"
-        other: "Coorientadores da UTFPR"
-      external:
-        one: "Coorientador externo"
-        other: "Coorientadores externos"
+    one: "Coorientador"
+    other: "Coorientadores"
+    utfpr:
+      one: "Coorientador da UTFPR"
+      other: "Coorientadores da UTFPR"
+    external:
+      one: "Coorientador externo"
+      other: "Coorientadores externos"

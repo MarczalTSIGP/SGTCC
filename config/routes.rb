@@ -74,8 +74,8 @@ Rails.application.routes.draw do
                 except: :index,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable do
-                  resources :activities
-                end
+        resources :activities
+      end
 
       resources :examination_boards,
                 except: [:new, :create],
@@ -645,6 +645,7 @@ Rails.application.routes.draw do
             to: 'meetings#update_viewed',
             as: 'meeting_update_viewed'
 
+      get 'documents/(:id)/sign', to: 'documents#new_sign', as: 'new_document_sign'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
@@ -822,7 +823,7 @@ Rails.application.routes.draw do
   get 'professores/(:id)', to: 'site#professor', as: 'site_professor'
   get 'tccs-aprovados', to: 'site#approved_orientations', as: 'site_approved_orientations'
   get 'tccs-aprovados-em-tcc-um', to: 'site#approved_tcc_one_orientations',
-                                  as: 'site_approved_tcc_one_orientations'
+      as: 'site_approved_tcc_one_orientations'
   get 'tccs-em-tcc-um', to: 'site#in_tcc_one_orientations', as: 'site_in_tcc_one_orientations'
 
   # post 'tccs-aprovados/ano/(:year)',
@@ -842,7 +843,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get 'orientations/approved', to: 'orientations#approved', as: 'orientations_approved'
       get 'orientations/approved-tcc-one', to: 'orientations#approved_tcc_one',
-                                           as: 'orientations_approved_tcc_one'
+          as: 'orientations_approved_tcc_one'
       get 'orientations/in-tcc-one', to: 'orientations#in_tcc_one', as: 'orientations_in_tcc_one'
     end
   end

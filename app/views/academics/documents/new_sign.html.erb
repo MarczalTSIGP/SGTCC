@@ -1,0 +1,31 @@
+<% provide(:head_title, t('breadcrumbs.documents.show')) %>
+<% provide(:page_title) do %>
+  <%= t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
+        academic: @document.orientation.academic.name) %>
+<% end %>
+
+<div class="col col-login mx-auto mb-3">
+
+  <div class="card-body p-6 border border-secondary rounded">
+    <div class="card-title">
+      <h5 class="text-center">
+        Entre com seu
+        <%= @username %> institucional e senha para assinar o documento.
+      </h5>
+    </div>
+
+    <%= simple_form_for @confirm_url do |f| %>
+      <div class="form-inputs">
+        <%= f.input :username, label: @username %>
+        <%= f.input :password, as: :password %>
+      </div>
+
+      <div class="d-flex flex-column gap-4">
+        <%= link_to t('simple_form.buttons.cancel'), @back_url,
+                    class: 'btn btn-secondary mb-2' %>
+
+        <%= f.button :submit, "Assinar", class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+  </div>
+</div>
