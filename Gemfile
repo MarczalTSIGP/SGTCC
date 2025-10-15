@@ -45,6 +45,7 @@ gem 'turbo-rails'
 gem 'stimulus-rails'
 
 gem 'psych', '~> 3.0'
+gem 'view_component', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -68,6 +69,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec_rails', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
 

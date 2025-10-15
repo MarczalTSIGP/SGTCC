@@ -23,4 +23,10 @@ module ApplicationHelper
     (current_professor&.responsible? || current_professor&.tcc_one?) &&
       namespace.in?(%w[responsible tcc_one_professors])
   end
+
+  def sanitize_text(text)
+    tags = %w[p br strong em a ul ol li img table tr td th span]
+    attributes = %w[href src alt title width height style target]
+    sanitize text, tags: tags, attributes: attributes
+  end
 end

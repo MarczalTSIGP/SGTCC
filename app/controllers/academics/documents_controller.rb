@@ -23,7 +23,8 @@ class Academics::DocumentsController < Academics::BaseController
   def show
     back_path_or_default = request.referer || academics_documents_pending_path
     add_breadcrumb I18n.t('breadcrumbs.documents.name'), back_path_or_default
-    add_breadcrumb I18n.t('breadcrumbs.documents.id', id: @document.id), academics_document_path(@document)
+    add_breadcrumb I18n.t('breadcrumbs.documents.id', id: @document.id),
+                   academics_document_path(@document)
 
     @signatures = @document.mark
   end

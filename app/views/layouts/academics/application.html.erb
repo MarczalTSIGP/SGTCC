@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>
-      <%= full_title(yield(:head_title)) %>
-    </title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>
+    <%= full_title(yield(:head_title)) %>
+  </title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'public/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'public/application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-	<%= javascript_importmap_tags %>
-	<%= tag.link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" %>
+  <%= javascript_importmap_tags %>
+  <%= tag.link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" %>
 
-    <%= favicon_link_tag %>
-	<%= javascript_include_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" %>
-    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" %>
+  <%= favicon_link_tag %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" %>
 
-	<%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/css/selectize.bootstrap5.css", media: "all" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/css/selectize.bootstrap5.css", media: "all" %>
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/js/standalone/selectize.min.js"></script>
-  </head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/js/standalone/selectize.min.js"></script>
+</head>
 
-  <body>
-    <div id="app" class="page">
-      <div class="page-main">
+<body>
+<div id="app" class="page">
+  <div class="page-main">
 
-	<div class="container-fluid m-0">
-	  <div class="row">
-	    <%= render 'layouts/shared/header', current_user: current_academic %>
-	    <%= render 'layouts/academics/sidebar' %>
+    <div class="container-fluid m-0">
+      <div class="row">
+        <%= render 'layouts/shared/header', current_user: current_academic %>
+        <%= render 'layouts/academics/sidebar' %>
 
-	    <div class="col-md-9 col-lg-10">
-	      <%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder  %>
+        <div class="col-md-9 col-lg-10">
+          <%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder %>
 
-	      <div class="card" id="main-card">
-		<div class="card-header">
-		  <h1 class="page-title mb-3">
-		    <%= yield(:page_title) %>
-		  </h1>
-		</div>
-		<div class="card-body">
-		  <%= render 'shared/flash_messages'%>
-		  <%= yield %>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+          <div class="card" id="main-card">
+            <div class="card-header">
+              <h1 class="page-title mb-3">
+                <%= yield(:page_title) %>
+              </h1>
+            </div>
+            <div class="card-body">
+              <%= render Flash::MessageComponent.new %>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+</body>
 </html>

@@ -1,6 +1,7 @@
 plugins:
   - rubocop-rspec
   - rubocop-rails
+  - rubocop-rspec_rails
   - rubocop-capybara
   - rubocop-factory_bot
 
@@ -12,7 +13,7 @@ AllCops:
   # DisabledByDefault: true
   Exclude:
     - '*/templates//'
-    - 'vendor/**/*'    
+    - 'vendor/**/*'
     - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'railties/test/fixtures/tmp/*/'
     - 'db/schema.rb'
@@ -160,7 +161,7 @@ RSpec/MultipleMemoizedHelpers:
     - 'spec/features/**/*'
 
 RSpec/NamedSubject:
-  Exclude:  
+  Exclude:
     - 'spec/models/base_activity_spec.rb'
     - 'spec/models/examination_board_note_spec.rb'
     - 'spec/models/orientation_supervisor_spec.rb'
@@ -194,3 +195,7 @@ Lint/RaiseException:
 
 Lint/StructNewOverride:
   Enabled: false
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/flash/message_component.rb'
