@@ -645,7 +645,7 @@ Rails.application.routes.draw do
             to: 'meetings#update_viewed',
             as: 'meeting_update_viewed'
 
-      get 'documents/(:id)/sign', to: 'documents#new_sign', as: 'new_document_sign'
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'

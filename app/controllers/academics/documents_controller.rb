@@ -1,6 +1,6 @@
 class Academics::DocumentsController < Academics::BaseController
   include DocumentSignature
-  before_action :set_document, only: [:show, :sign, :new_sign]
+  before_action :set_document, only: [:show, :sign, :sign_form]
   before_action :can_view, only: :show
   before_action :set_signature, only: [:show, :sign]
 
@@ -37,10 +37,11 @@ class Academics::DocumentsController < Academics::BaseController
            locals: { signatures: @signatures }
   end
 
-  def new_sign
+  def sign_form
     add_breadcrumb I18n.t('breadcrumbs.documents.pending'), :academics_documents_pending_path
     add_breadcrumb I18n.t('breadcrumbs.documents.show'), academics_document_path(@document)
-    add_breadcrumb I18n.t('breadcrumbs.documents.sign'), academics_new_document_sign_path(@document)
+    add_breadcrumb I18n.t('breadcrumbs.documents.sign'),
+                   academics_document_sign_form_path(@document)
 
     @username = Academic.human_attribute_name('ra')
     @confirm_url = academics_document_sign_path(@document)

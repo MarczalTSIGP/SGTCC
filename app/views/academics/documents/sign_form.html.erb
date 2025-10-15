@@ -14,7 +14,7 @@
       </h5>
     </div>
 
-    <%= simple_form_for @confirm_url do |f| %>
+    <%= simple_form_for :user, url: @confirm_url do |f| %>
       <div class="form-inputs">
         <%= f.input :username, label: @username %>
         <%= f.input :password, as: :password %>

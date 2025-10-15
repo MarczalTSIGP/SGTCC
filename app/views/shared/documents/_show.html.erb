@@ -24,10 +24,5 @@
     <%= render "shared/documents/signature_status", signatures: @document.status_table %>
   </div>
 
-  <%= link_to t('simple_form.buttons.back'), back_url, class: 'btn btn-secondary' %>
-  <div>
-    <%= render "shared/documents/signature_confirm",
-               label: label,
-               url: confirm_url %>
-  </div>
+  <%= link_to t('simple_form.buttons.back'), @back_url, class: 'btn btn-secondary' %>
 </div>
