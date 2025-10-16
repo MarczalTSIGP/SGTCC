@@ -1,14 +1,13 @@
 module DocumentSignature
   extend ActiveSupport::Concern
 
-  # TODO: Remove after update
   def confirm_and_sign(current_user, login)
     if confirm_authentication(current_user, login)
       @signature.sign
-      flash[:success] = I18n.t('json.messages.orientation.signatures.confirm.success')
+      flash[:sweet_success] = I18n.t('json.messages.orientation.signatures.confirm.success')
       redirect_to academics_document_path(@document)
     else
-      flash.now[:error] = I18n.t('json.messages.orientation.signatures.confirm.error')
+      flash.now[:sweet_error] = I18n.t('json.messages.orientation.signatures.confirm.error')
       render partial: 'shared/sweet_alert'
     end
   end

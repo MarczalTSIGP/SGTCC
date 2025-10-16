@@ -22,7 +22,6 @@ class DocumentsController < ApplicationController
 
   def show
     @signature = @document.signatures.first
-    success_document_authenticated_message
     @signatures = @document.mark
   end
 
@@ -36,10 +35,10 @@ class DocumentsController < ApplicationController
 
   def confirm_document
     if @document&.all_signed?
-      flash[:success] = I18n.t('json.messages.documents.success.authenticated')
+      flash[:sweet_success] = I18n.t('json.messages.documents.success.authenticated')
       redirect_to confirm_document_code_path(@document.code)
     else
-      flash[:error] = document_not_found_message
+      flash[:sweet_error] = document_not_found_message
     end
   end
 

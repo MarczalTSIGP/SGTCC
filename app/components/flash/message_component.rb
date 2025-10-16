@@ -7,6 +7,7 @@ class Flash::MessageComponent < ViewComponent::Base
 
   def messages
     helpers.flash.delete(:timedout)
+    flash.to_hash.select { |key, _| !key.to_s.start_with?('sweet') }
   end
 
   def alert_css_classes(flash_type)

@@ -44,6 +44,7 @@
             </div>
 
             <div class="card-body">
+              <%= render Flash::MessageComponent.new %>
               <%= render 'shared/sweet_alert' %>
               <%= yield %>
             </div>
