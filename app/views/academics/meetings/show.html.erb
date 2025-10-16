@@ -1,29 +1,33 @@
 <% provide(:page_title, t('breadcrumbs.meetings.show')) %>
 <% provide(:head_title, t('breadcrumbs.meetings.show')) %>
+
 <div class="card">
   <div class="card-body">
-    <p>
+    <div class="mb-2">
       <strong>
         <%= Meeting.human_attribute_name('content') %>:
       </strong>
-      <div class="form-fieldset w-50 text-left">
+      <div class="form-fieldset">
         <%= render "shared/markdown_reader", content: @meeting.content %>
       </div>
-    </p>
-    <p>
+    </div>
+
+    <div class="mb-2">
       <strong>
         <%= Meeting.human_attribute_name('date') %>:
       </strong>
       <%= complete_date(@meeting.date) %>
-    </p>
-    <div>
-      <%= render "shared/meetings/meeting_view", url: academics_meeting_update_viewed_path(@meeting), value: @meeting.viewed %>
+    </div>
+
+    <div class="mb-2">
+      <%= render Meeting::AcknowledgeCheckboxComponent.new meeting: @meeting,
+                                                           url: academics_meeting_update_viewed_path(@meeting) %>
     </div>
   </div>
 </div>
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    academics_meetings_path,
-    class: 'btn btn-secondary' %>
+              academics_meetings_path,
+              class: 'btn btn-secondary' %>
 </div>

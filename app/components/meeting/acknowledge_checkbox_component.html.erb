@@ -1,0 +1,12 @@
+<%= form_with url: @url,
+              method: :patch,
+              class: "form-group checkbox_tabler optional" do |form| %>
+  <label class="custom-control custom-checkbox">
+    <%= form.check_box :completed,
+                       checked: acknowledged?,
+                       disabled: acknowledged?,
+                       class: "custom-control-input",
+                       onchange: "confirm('#{t('prompt.confirm')}'); this.form.requestSubmit()" %>
+    <span class="custom-control-label"><%= @label %></span>
+  </label>
+<% end %>
