@@ -1,10 +1,13 @@
-<td class="text-center status-width" 
+<td class="text-center status-width"
     data-controller="examination-board-status"
     data-examination-board-status-status-value="<%= examination_board.status %>"
-    data-examination-board-status-label-value="<%= examination_board.distance_of_date %>">
+    data-examination-board-status-label-value="<%= examination_board.distance_of_date %>"
+>
+
   <span data-examination-board-status-target="badge" class="badge badge-pill">
     <span data-examination-board-status-target="text">-</span>
   </span>
+
 </td>
 <td>
   <span data-bs-toggle="tooltip" title="<%= examination_board.orientation.title %>">

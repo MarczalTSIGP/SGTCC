@@ -9,4 +9,4 @@
   </div>
 </div>
 
-<%= render 'shared/examination_boards/table', examination_boards: @examination_boards, namespace: 'academics' %>
+<%= render ExaminationBoards::TableComponent.new(examination_boards: @examination_boards, namespace: :academics) %>
