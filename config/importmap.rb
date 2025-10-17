@@ -9,4 +9,6 @@ pin 'bootstrap', to: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/boots
 pin 'sweetalert' # @2.1.2
 pin 'process' # @2.1.0
 pin 'simplemde', to: 'https://cdn.skypack.dev/simplemde'
-pin 'marked' # @16.3.0
+pin 'marked' # @16.3.0 "
+
+pin 'slim-select' # @2.13.1

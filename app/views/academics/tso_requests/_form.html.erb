@@ -1,55 +1,53 @@
-<div data-controller="selectize">
-  <%= simple_form_for(@document, url: url, html: { data: { turbo: false } }) do |f| %>
-    <%= f.error_notification %>
+<%= simple_form_for(@document, url: url, html: { data: { turbo: false } }) do |f| %>
+  <%= f.error_notification %>
 
-    <div class="row">
-      <div class="col-sm-4">
-        <%= f.input :advisor_id,
-          input_html: { 'data-selectize': true },
-          collection: Professor.all.order(:name),
-          selected: @document.request.present? ? @document.request['new_orientation']['advisor']['id'] : nil,
-          prompt: t('prompt.select.m', name: Document.human_attribute_name('advisor_id')),
-          include_blank: true %>
-      </div>
-
-      <div class="col-sm-4">
-        <%= f.input :professor_supervisor_ids,
-          input_html: { 'data-selectize': true, multiple: 'multiple' },
-          collection: Professor.select(:id, :name).order(:name),
-          selected: @document.request.present? ? @document.request['new_orientation']['professorSupervisors'].map { |p| p['id'] } : [],
-          label_method: :name,
-          value_method: :id,
-          prompt: t('prompt.select.multiple', name: Document.human_attribute_name('professor_supervisor_ids')),
-          include_blank: false %>
-      </div>
-
-      <div class="col-sm-4">
-        <%= f.input :external_member_supervisor_ids,
-          input_html: { 'data-selectize': true, multiple: 'multiple' },
-          collection: ExternalMember.all.order(:name),
-          selected: @document.request.present? ? @document.request['new_orientation']['externalMemberSupervisors'].map { |e| e['id'] } : [],
-          prompt: t('prompt.select.multiple', name: Document.human_attribute_name('external_member_supervisor_ids')),
-          include_blank: false %>
-      </div>
-
-      <div class="col-12">
-        <%= f.input :justification,
-          as: :text,
-          input_html: {
-            rows: '8',
-            class: 'markdown-editor',
-            data: { controller: 'markdown-editor' },
-            value: @document.request.present? ? @document.request['requester']['justification'] : ''
-          } %>
-      </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.input :advisor_id,
+                  input_html: { data: { controller: "utils--slim-select" } },
+                  collection: Professor.all.order(:name),
+                  selected: @document.request.present? ? @document.request['new_orientation']['advisor']['id'] : nil,
+                  include_blank: true %>
     </div>
 
-    <div class="d-flex mt-3">
-      <%= link_to t('simple_form.buttons.back'),
-        academics_tso_requests_path,
-        class: 'btn btn-secondary' %>
-
-      <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ms-auto' %>
+    <div class="col-sm-4">
+      <%= f.input :professor_supervisor_ids,
+                  input_html: { data: { controller: "utils--slim-select" }, multiple: 'multiple' },
+                  collection: Professor.select(:id, :name).order(:name),
+                  selected: @document.request.present? ? @document.request['new_orientation']['professorSupervisors'].map { |p| p['id'] } : [],
+                  label_method: :name,
+                  value_method: :id,
+                  include_blank: false %>
     </div>
-  <% end %>
-</div>
+
+    <div class="col-sm-4">
+      <%= f.input :external_member_supervisor_ids,
+                  input_html: { data: { controller: "utils--slim-select" }, multiple: 'multiple' },
+                  collection: ExternalMember.all.order(:name),
+                  selected: @document.request.present? ? @document.request['new_orientation']['externalMemberSupervisors'].map { |e| e['id'] } : [],
+                  include_blank: false %>
+    </div>
+
+
+    <div class="col-12">
+      <%= f.input :justification,
+                  as: :text,
+                  input_html: {
+                    rows: '8',
+                    class: 'markdown-editor',
+                    data: { controller: 'markdown-editor' },
+                    value: @document.request.present? ? @document.request['requester']['justification'] : ''
+                  } %>
+    </div>
+  </div>
+
+
+  <div class="d-flex mt-3">
+    <%= link_to t('simple_form.buttons.back'),
+                academics_tso_requests_path,
+                class: 'btn btn-secondary' %>
+
+    <%= f.button :submit, 'Solicitar', class: 'btn btn-primary ml-auto' %>
+  </div>
+
+<% end %>
