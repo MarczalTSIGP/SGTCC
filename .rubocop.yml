@@ -198,4 +198,4 @@ Lint/StructNewOverride:
 
 Lint/MissingSuper:
   Exclude:
-    - 'app/components/flash/message_component.rb'
+    - 'app/components/**/*'

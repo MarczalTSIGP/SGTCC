@@ -1,12 +1,12 @@
 class Academics::MeetingsController < Academics::BaseController
-  before_action :set_meeting, only: [ :show, :update_viewed ]
+  before_action :set_meeting, only: [:show, :update_viewed]
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
                  :academics_meetings_path
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.show'),
                  :academics_meeting_path,
-                 only: [ :show ]
+                 only: [:show]
 
   def index
     @meetings = current_academic.meetings
@@ -24,8 +24,8 @@ class Academics::MeetingsController < Academics::BaseController
 
   private
 
-    def set_meeting
-      @meeting = current_academic.meetings.find_by(id: params[:id])
-      redirect_to academics_meetings_path if @meeting.blank?
-    end
+  def set_meeting
+    @meeting = current_academic.meetings.find_by(id: params[:id])
+    redirect_to academics_meetings_path if @meeting.blank?
+  end
 end
