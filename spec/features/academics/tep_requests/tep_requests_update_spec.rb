@@ -19,14 +19,19 @@ describe 'TepRequest::update', :js do
 
     context 'when request is valid' do
       it 'updates the justification of the term of extension' do
-        find('.fa-italic').click
-        submit_form('input[name="commit"]')
+        new_justification = "new_justification"
 
+        within("form.edit_document") do
+          fill_in(:document_justification, with: new_justification)
+          click_on("Solicitar")
+        end
+
+        expect(page).to have_selector("h4", text: document_tep.document_type.name.upcase)
         expect(page).to have_current_path academics_document_path(document_tep)
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_contents([academic.name,
-                                       document_tep.document_type.name.upcase,
-                                       new_justification])
+        expect(page).to have_contents([ academic.name,
+                                        document_tep.document_type.name.upcase,
+                                        new_justification ])
       end
     end
 

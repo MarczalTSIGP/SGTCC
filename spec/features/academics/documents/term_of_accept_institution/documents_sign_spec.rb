@@ -13,12 +13,13 @@ describe 'Document::sign', :js do
   describe '#sign' do
     context 'when signs the signature of the term of accept institution' do
       it 'signs the document of the term of accept institution' do
-        click_button('Assinar documento', exact_text: true)
+        click_link('Assinar documento', exact_text: true)
+
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        within('#signature-confirm') do
-          find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
-          find('[data-signature-confirm-target="password"]').fill_in(with: 'password')
+        within('form') do
+          fill_in(:user_username, with: academic.ra)
+          fill_in(:user_password, with: 'password')
           click_button('Assinar', exact_text: true)
         end
 
@@ -38,12 +39,12 @@ describe 'Document::sign', :js do
 
     context 'when the password is wrong' do
       it 'shows alert message' do
-        click_button('Assinar documento', exact_text: true)
+        click_link('Assinar documento', exact_text: true)
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        within('#signature-confirm') do
-          find('[data-signature-confirm-target="login"]').fill_in(with: academic.ra)
-          find('[data-signature-confirm-target="password"]').fill_in(with: '123')
+        within('form') do
+          fill_in(:user_username, with: academic.ra)
+          fill_in(:user_password, with: 'wrongpassword')
           click_button('Assinar', exact_text: true)
         end
 

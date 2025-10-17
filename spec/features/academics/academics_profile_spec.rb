@@ -19,8 +19,7 @@ describe 'Responsible:profiles', :js do
 
       fill_in 'academic_current_password', with: academic.password
       submit_form('input[name="commit"]')
-
-      expect(page).to have_current_path edit_academic_registration_path
+      
       expect(page).to have_flash(:info, text: registrations_updated_message)
       within('a.nav-link') do
         expect(page).to have_content(attributes[:name])

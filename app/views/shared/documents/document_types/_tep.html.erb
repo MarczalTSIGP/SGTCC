@@ -11,14 +11,13 @@
       <b>Justificativa</b>:<br>
       <span>
         <div class="ml-4">
-          <%= render "shared/markdown_reader",
-              content: request.dig("requester", "justification") %>
+          <span data-controller="markdown--viewer" data-markdown="<%= request.dig("requester", "justification") %>"></span>
         </div>
       </span>
     </p>
   <% end %>
   <%= render "shared/documents/document_review",
-      document: @document,
-      can_edit: !@document.professor_signed?(current_professor),
-      has_permission: current_professor&.responsible? %>
+             document: @document,
+             can_edit: !@document.professor_signed?(current_professor),
+             has_permission: current_professor&.responsible? %>
 <% end %>

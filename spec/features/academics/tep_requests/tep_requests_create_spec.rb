@@ -20,20 +20,26 @@ describe 'TepRequest::create', :js do
 
     context 'when request is valid' do
       it 'create a term of extension' do
-        find('.fa-bold').click
-        submit_form('input[name="commit"]')
 
+        within("#new_document") do
+          fill_in(:document_justification, with: "hello")
+          click_on("Solicitar")
+        end
+
+        expect(page).to have_selector("h4", text: document_type.name.upcase)
         expect(page).to have_current_path academics_document_path(Document.last)
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_contents([academic.name,
-                                       document_type.name.upcase])
+        expect(page).to have_contents([ academic.name,
+                                        document_type.name.upcase ])
       end
     end
 
     context 'when request is not valid' do
       it 'show errors' do
-        submit_form('input[name="commit"]')
-        expect(page).to have_message(blank_error_message, in: 'div.document_justification')
+        within("#new_document") do
+          click_on("Solicitar")
+          expect(page).to have_message(blank_error_message, in: 'div.document_justification')
+        end
       end
     end
   end
