@@ -10,9 +10,10 @@
     <div class="flex-right">
       <div class="mb-3">
         <a href="#"
-          data-controller="toggle"
-          data-action="click->toggle#toggle"
-          data-eb-id="<%= examination_board.id %>">
+           data-controller="ui--toggle"
+           data-action="click->ui--toggle#toggle"
+           data-eb-id="<%= examination_board.id %>"
+        >
           <%= examination_board.academic_activity&.title %><br>
         </a>
       </div>
@@ -23,7 +24,7 @@
     </div>
   </div>
 
-  <div id="eb-<%= examination_board.id %>" class="d-none" data-toggle-target="details">
+  <div id="eb-<%= examination_board.id %>" class="d-none" data-ui--toggle-target="details">
     <hr />
 
     <div class="section">

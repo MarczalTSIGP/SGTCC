@@ -27,7 +27,7 @@
             <%= badge_html(examination_board) %>
           </td>
           <td>
-              <span data-controller="tooltip" title="<%= examination_board.orientation.title %>">
+              <span data-controller="ui--tooltip" title="<%= examination_board.orientation.title %>">
                 <%= link_to examination_board.orientation.academic_with_calendar,
                             show_path(examination_board) %>
               </span>
