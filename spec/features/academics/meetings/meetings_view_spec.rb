@@ -14,7 +14,7 @@ describe 'Meeting::view', :js do
   describe '#view' do
     context 'when mark as viewed the meeting' do
       it 'shows success message' do
-        accept_confirm "Você tem certeza?" do
+        accept_confirm 'Você tem certeza?' do
           find('#acknowledge_form .acknowledge_submit').click
         end
 

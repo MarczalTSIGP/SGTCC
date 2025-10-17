@@ -1,6 +1,6 @@
 class Academics::TsoRequestsController < Academics::BaseController
-  before_action :set_document, only: [ :edit, :update, :destroy ]
-  before_action :can_change, only: [ :edit, :update, :destroy ]
+  before_action :set_document, only: [:edit, :update, :destroy]
+  before_action :can_change, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.index'),
                  :academics_tso_requests_path
@@ -39,13 +39,11 @@ class Academics::TsoRequestsController < Academics::BaseController
       destroy_and_update
       feminine_success_update_message
       redirect_to academics_document_path(@document)
+    elsif @document.update_requester_justification(request_params)
+      feminine_success_update_message
+      redirect_to academics_document_path(@document)
     else
-      if (@document.update_requester_justification(request_params))
-        feminine_success_update_message
-        redirect_to academics_document_path(@document)
-      else
-        render :edit, status: :unprocessable_entity
-      end
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -58,46 +56,46 @@ class Academics::TsoRequestsController < Academics::BaseController
 
   private
 
-    def set_document
-      @document = current_academic.documents.find_by(id: params[:id])
-    end
+  def set_document
+    @document = current_academic.documents.find_by(id: params[:id])
+  end
 
-    def model_human
-      I18n.t('flash.request.index')
-    end
+  def model_human
+    I18n.t('flash.request.index')
+  end
 
-    def request_params
-      params.require(:document)
-            .permit(:justification, :advisor_id,
-                    professor_supervisor_ids: [], external_member_supervisor_ids: [])
-    end
+  def request_params
+    params.require(:document)
+          .permit(:justification, :advisor_id,
+                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
+  end
 
-    def diff_advisor?
-      request_params[:advisor_id].to_i != @document.request['new_orientation']['advisor']['id']
-    end
+  def diff_advisor?
+    request_params[:advisor_id].to_i != @document.request['new_orientation']['advisor']['id']
+  end
 
-    def diff_supervisors?(param_name, request_name)
-      supervisor_ids = request_params[param_name]
-      supervisor_ids.shift
-      supervisor_ids = supervisor_ids.map(&:to_i)
-      supervisor_ids != @document.request['new_orientation'][request_name].pluck('id')
-    end
+  def diff_supervisors?(param_name, request_name)
+    supervisor_ids = request_params[param_name]
+    supervisor_ids.shift
+    supervisor_ids = supervisor_ids.map(&:to_i)
+    supervisor_ids != @document.request['new_orientation'][request_name].pluck('id')
+  end
 
-    def can_destroy_and_update?
-      diff_advisor? || diff_supervisors?('professor_supervisor_ids', 'professorSupervisors') ||
-        diff_supervisors?('external_member_supervisor_ids', 'externalMemberSupervisors')
-    end
+  def can_destroy_and_update?
+    diff_advisor? || diff_supervisors?('professor_supervisor_ids', 'professorSupervisors') ||
+      diff_supervisors?('external_member_supervisor_ids', 'externalMemberSupervisors')
+  end
 
-    def destroy_and_update
-      @document.destroy
-      @document = Document.new_tso(current_academic, request_params)
-      @document.save
-    end
+  def destroy_and_update
+    @document.destroy
+    @document = Document.new_tso(current_academic, request_params)
+    @document.save
+  end
 
-    def can_change
-      return unless @document.academic_signed?(current_academic)
+  def can_change
+    return unless @document.academic_signed?(current_academic)
 
-      flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
-      redirect_to academics_tso_requests_path
-    end
+    flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
+    redirect_to academics_tso_requests_path
+  end
 end

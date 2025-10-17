@@ -1,6 +1,6 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 export default class extends Controller {
 
@@ -17,9 +17,9 @@ export default class extends Controller {
     const message = this.messageTextValue;
     let type = this.messageTypeValue;
 
-    if (type.includes('sweet')) {
-      type = type.replace('sweet_', '');
-      swal('', message, type);
+    if (type.includes("sweet")) {
+      type = type.replace("sweet_", "");
+      swal("", message, type);
     }
   };
 }

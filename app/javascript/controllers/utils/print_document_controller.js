@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = {
@@ -7,9 +7,9 @@ export default class extends Controller {
   };
 
   print() {
-    const printable = document.querySelector('#printable-document');
+    const printable = document.querySelector("#printable-document");
     if (!printable) {
-      console.error('Element #printable-document not found!');
+      console.error("Element #printable-document not found!");
       return;
     }
 

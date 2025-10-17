@@ -78,12 +78,12 @@ Rails.application.routes.draw do
       end
 
       resources :examination_boards,
-                except: [ :new, :create ],
+                except: [:new, :create],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
       resources :site,
-                only: [ :edit, :update ],
+                only: [:edit, :update],
                 constraints: { id: /[0-9]+/ }
 
       resources :pages,
@@ -324,12 +324,12 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :orientations,
-                except: [ :index, :destroy ],
+                except: [:index, :destroy],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
       resources :supervisions,
-                only: [ :show ],
+                only: [:show],
                 constraints: { id: /[0-9]+/ }
 
       resources :requests,
@@ -342,7 +342,7 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :examination_boards,
-                only: [ :index, :show ],
+                only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
       post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
@@ -567,7 +567,7 @@ Rails.application.routes.draw do
   #========================================
   # Professors
   #========================================
-  devise_for :professors, skip: [ :sessions ]
+  devise_for :professors, skip: [:sessions]
 
   as :professor do
     get '/professors/login',
@@ -594,7 +594,7 @@ Rails.application.routes.draw do
   #========================================
   # Academics
   #========================================
-  devise_for :academics, skip: [ :sessions ]
+  devise_for :academics, skip: [:sessions]
   as :academic do
     get '/academics/login',
         to: 'devise/sessions#new',
@@ -632,12 +632,12 @@ Rails.application.routes.draw do
                 concerns: :paginatable
 
       resources :meetings,
-                only: [ :index, :show ],
+                only: [:index, :show],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
       resources :examination_boards,
-                only: [ :index, :show ],
+                only: [:index, :show],
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable
 
@@ -695,7 +695,7 @@ Rails.application.routes.draw do
   #========================================
   # External members
   #========================================
-  devise_for :external_members, skip: [ :sessions ]
+  devise_for :external_members, skip: [:sessions]
   as :external_member do
     get '/external_members/login',
         to: 'devise/sessions#new',
@@ -722,10 +722,10 @@ Rails.application.routes.draw do
     namespace :external_members do
       root to: 'dashboard#index'
 
-      resources :supervisions, only: [ :show ], constraints: { id: /[0-9]+/ }
+      resources :supervisions, only: [:show], constraints: { id: /[0-9]+/ }
 
       resources :examination_boards,
-                only: [ :index, :show ],
+                only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
@@ -819,7 +819,7 @@ Rails.application.routes.draw do
   get 'professores/(:id)', to: 'site#professor', as: 'site_professor'
   get 'tccs-aprovados', to: 'site#approved_orientations', as: 'site_approved_orientations'
   get 'tccs-aprovados-em-tcc-um', to: 'site#approved_tcc_one_orientations',
-      as: 'site_approved_tcc_one_orientations'
+                                  as: 'site_approved_tcc_one_orientations'
   get 'tccs-em-tcc-um', to: 'site#in_tcc_one_orientations', as: 'site_in_tcc_one_orientations'
 
   # post 'tccs-aprovados/ano/(:year)',
@@ -839,7 +839,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get 'orientations/approved', to: 'orientations#approved', as: 'orientations_approved'
       get 'orientations/approved-tcc-one', to: 'orientations#approved_tcc_one',
-          as: 'orientations_approved_tcc_one'
+                                           as: 'orientations_approved_tcc_one'
       get 'orientations/in-tcc-one', to: 'orientations#in_tcc_one', as: 'orientations_in_tcc_one'
     end
   end

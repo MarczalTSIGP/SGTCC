@@ -1,7 +1,7 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['input'];
+  static targets = ["input"];
   static values = {
     url: String,
     term: String
@@ -12,12 +12,12 @@ export default class extends Controller {
       this.inputTarget.value = this.termValue;
     }
 
-    document.addEventListener('search-with-filter', (e) => {
+    document.addEventListener("search-with-filter", (e) => {
       this.updateUrlWithFilter(e.detail.filter);
       this.submit();
     });
 
-    document.addEventListener('update-search-url', (e) => {
+    document.addEventListener("update-search-url", (e) => {
       this.updateUrlWithFilter(e.detail.filter[0]);
     });
   }
@@ -25,7 +25,7 @@ export default class extends Controller {
   submit(event) {
     if (event) event.preventDefault();
 
-    const term = this.inputTarget.value.replace(/\\|\//g, '');
+    const term = this.inputTarget.value.replace(/\\|\//g, "");
     this.inputTarget.value = term;
 
     const url = this.updatedUrl || this.urlValue;
@@ -43,7 +43,7 @@ export default class extends Controller {
   }
 
   checkEnter(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       this.submit();
     }

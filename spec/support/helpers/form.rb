@@ -14,7 +14,7 @@ module Helpers
       within("div.#{options[:from]}") do
         find("[data-id^='ss-']").click
       end
-      within("div.ss-content") do
+      within('div.ss-content') do
         find("div[role='option']", text: name).click
       end
     end

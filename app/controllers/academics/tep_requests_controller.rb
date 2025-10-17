@@ -1,6 +1,6 @@
 class Academics::TepRequestsController < Academics::BaseController
-  before_action :set_document, only: [ :edit, :update, :destroy ]
-  before_action :can_change, only: [ :edit, :update, :destroy ]
+  before_action :set_document, only: [:edit, :update, :destroy]
+  before_action :can_change, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tep.index'),
                  :academics_tep_requests_path
@@ -52,22 +52,22 @@ class Academics::TepRequestsController < Academics::BaseController
 
   private
 
-    def set_document
-      @document = current_academic.documents.find_by(id: params[:id])
-    end
+  def set_document
+    @document = current_academic.documents.find_by(id: params[:id])
+  end
 
-    def model_human
-      I18n.t('flash.request.index')
-    end
+  def model_human
+    I18n.t('flash.request.index')
+  end
 
-    def request_params
-      params.require(:document).permit(:justification)
-    end
+  def request_params
+    params.require(:document).permit(:justification)
+  end
 
-    def can_change
-      return unless @document.academic_signed?(current_academic)
+  def can_change
+    return unless @document.academic_signed?(current_academic)
 
-      flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
-      redirect_to academics_tep_requests_path
-    end
+    flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
+    redirect_to academics_tep_requests_path
+  end
 end

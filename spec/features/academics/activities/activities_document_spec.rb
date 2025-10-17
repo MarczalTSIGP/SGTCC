@@ -25,7 +25,8 @@ describe 'Activity::document', :js do
         fill_in 'academic_activity_summary', with: attributes[:summary]
 
         attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path, make_visible: true
-        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path, make_visible: true
+        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path,
+                    make_visible: true
 
         submit_form('input[name="commit"]')
 
@@ -63,7 +64,8 @@ describe 'Activity::document', :js do
         fill_in 'academic_activity_summary', with: attributes[:summary]
 
         attach_file 'academic_activity_pdf', FileSpecHelper.pdf.path, make_visible: true
-        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path, make_visible: true
+        attach_file 'academic_activity_complementary_files', FileSpecHelper.zip.path,
+                    make_visible: true
 
         submit_form('input[name="commit"]')
 

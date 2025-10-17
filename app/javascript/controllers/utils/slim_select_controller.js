@@ -1,5 +1,5 @@
-import { Controller } from '@hotwired/stimulus';
-import SlimSelect from 'slim-select';
+import { Controller } from "@hotwired/stimulus";
+import SlimSelect from "slim-select";
 
 export default class extends Controller {
 
@@ -9,9 +9,9 @@ export default class extends Controller {
     this.slim = new SlimSelect({
       select: this.element,
       settings: {
-        placeholderText: 'Selecione...',
-        searchPlaceholder: 'Buscar...',
-        searchText: 'Sem resultados',
+        placeholderText: "Selecione...",
+        searchPlaceholder: "Buscar...",
+        searchText: "Sem resultados",
         closeOnSelect: false,
         allowDeselect: true,
         showSearch: true
@@ -27,8 +27,8 @@ export default class extends Controller {
   }
 
   fixPlaceholer() {
-    let blank = this.element.querySelector('option[value=""]');
+    let blank = this.element.querySelector("option[value=\"\"]");
     if (blank)
-      blank.setAttribute('data-placeholder', 'true');
+      blank.setAttribute("data-placeholder", "true");
   }
 }
