@@ -1,8 +1,8 @@
 class Academics::DocumentsController < Academics::BaseController
   include DocumentSignature
-  before_action :set_document, only: [:show, :sign, :sign_form]
+  before_action :set_document, only: [ :show, :sign, :sign_form ]
   before_action :can_view, only: :show
-  before_action :set_signature, only: [:show, :sign]
+  before_action :set_signature, only: [ :show, :sign ]
 
   add_breadcrumb I18n.t('breadcrumbs.documents.pending'),
                  :academics_documents_pending_path,
@@ -29,14 +29,6 @@ class Academics::DocumentsController < Academics::BaseController
     @signatures = @document.mark
   end
 
-  def signature_status
-    @document = current_academic.documents.find(params[:id])
-    @signatures = @document.status_table
-
-    render partial: 'shared/documents/signature_status',
-           locals: { signatures: @signatures }
-  end
-
   def sign_form
     add_breadcrumb I18n.t('breadcrumbs.documents.pending'), :academics_documents_pending_path
     add_breadcrumb I18n.t('breadcrumbs.documents.show'), academics_document_path(@document)
@@ -54,18 +46,18 @@ class Academics::DocumentsController < Academics::BaseController
 
   private
 
-  def set_document
-    @document = current_academic.documents.find_by(id: params[:id])
-  end
+    def set_document
+      @document = current_academic.documents.find_by(id: params[:id])
+    end
 
-  def set_signature
-    @signature = @document.signature_by_user(current_academic.id, :academic)
-  end
+    def set_signature
+      @signature = @document.signature_by_user(current_academic.id, :academic)
+    end
 
-  def can_view
-    return if @document.present?
+    def can_view
+      return if @document.present?
 
-    flash[:alert] = I18n.t('flash.not_authorized')
-    redirect_to academics_documents_pending_path
-  end
+      flash[:alert] = I18n.t('flash.not_authorized')
+      redirect_to academics_documents_pending_path
+    end
 end

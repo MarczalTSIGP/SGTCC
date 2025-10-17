@@ -54,7 +54,11 @@ class Document < ApplicationRecord
   def update_requester_justification(params)
     new_request = request
     justification = params[:justification]
-    return true if justification.blank?
+
+    if justification.blank?
+      errors.add(:justification, I18n.t('errors.messages.blank'))
+      return false
+    end
 
     new_request['requester']['justification'] = justification
     update_attribute(:request, new_request)
@@ -110,7 +114,7 @@ class Document < ApplicationRecord
       examination_board: examination_board_data }
   end
 
-  def self.by_user(user_id, user_types, status = [true, false])
+  def self.by_user(user_id, user_types, status = [ true, false ])
     conditions = { user_id:, user_type: user_types, status: }
     distinct_query = 'DISTINCT ON (documents.id) documents.*'
     joins(:signatures).select(distinct_query).where(signatures: conditions)
@@ -118,11 +122,11 @@ class Document < ApplicationRecord
 
   private
 
-  def create_signatures
-    Documents::SaveSignatures.new(self).send("save_#{document_type.identifier}")
-  end
+    def create_signatures
+      Documents::SaveSignatures.new(self).send("save_#{document_type.identifier}")
+    end
 
-  def generate_unique_code
-    update(code: Time.now.to_i + id)
-  end
+    def generate_unique_code
+      update(code: Time.now.to_i + id)
+    end
 end
