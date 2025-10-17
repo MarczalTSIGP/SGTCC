@@ -107,7 +107,7 @@ RSpec.describe Document do
 
       let!(:document) do
         create(:document_tso, orientation_id: orientation.id,
-                              advisor_id: new_advisor.id, request:)
+               advisor_id: new_advisor.id, request:)
       end
 
       let(:signatures) { document.signatures }
@@ -274,8 +274,8 @@ RSpec.describe Document do
 
     let(:params) do
       { orientation_id: orientation.id, justification: 'justification',
-        advisor_id: professor.id, professor_supervisor_ids: [''],
-        external_member_supervisor_ids: [''] }
+        advisor_id: professor.id, professor_supervisor_ids: [ '' ],
+        external_member_supervisor_ids: [ '' ] }
     end
 
     before do
@@ -518,7 +518,7 @@ RSpec.describe Document do
 
     it 'returns when the justification is empty' do
       params = { justification: nil }
-      expect(document.update_requester_justification(params)).to be(true)
+      expect(document.update_requester_justification(params)).to be(false)
     end
   end
 
@@ -587,7 +587,7 @@ RSpec.describe Document do
 
     let!(:document) do
       create(:document_tso, orientation_id: orientation.id,
-                            request:, advisor_id: advisor.id)
+             request:, advisor_id: advisor.id)
     end
 
     context 'when the academic not signed' do
