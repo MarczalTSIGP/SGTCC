@@ -5,10 +5,8 @@
 <% elsif @academic_activity&.pdf&.present? && @activity.expired? %>
   <%= render 'academics/activities/document_card' %>
 <% elsif @activity.open? %>
-  <turbo-frame id="academic_activity_form">
-    <%= render 'academics/activities/academic_activity_form',
-         activity: @activity,
-         academic_activity: @academic_activity,
-         url: url %>
-   </turbo-frame>
-   <% end %>
+  <%= render 'academics/activities/academic_activity_form',
+             activity: @activity,
+             academic_activity: @academic_activity,
+             url: url %>
+<% end %>

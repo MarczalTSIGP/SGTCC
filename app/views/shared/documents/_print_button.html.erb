@@ -1,7 +1,7 @@
 <div
-  data-controller="signature-download"
-  data-signature-download-head-title-value="<%= head_title %>"
-  data-signature-download-document-title-value="<%= document_title %>"
+  data-controller="utils--print-document"
+  data-utils--print-document-head-title-value="<%= head_title %>"
+  data-utils--print-document-title-value="<%= document_title %>"
   class="border border-primary rounded p-4 mb-4"
 >
   <div class="float-left">
@@ -11,7 +11,7 @@
 
   <button
     class="btn btn-outline-primary float-right mb-2"
-    data-action="click->signature-download#download"
+    data-action="click->utils--print-document#print"
   >
     Salvar em PDF
   </button>

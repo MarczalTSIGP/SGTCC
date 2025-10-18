@@ -4,47 +4,37 @@
       <div class="row">
         <div class="col-12">
           <%= f.input :title,
-            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>
+                      label: AcademicActivity.human_attribute_name("#{@activity.identifier}_title") %>
         </div>
 
         <div class="col-12">
           <%= f.input :summary,
-            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>
+                      label: AcademicActivity.human_attribute_name("#{@activity.identifier}_summary") %>
         </div>
 
         <div class="col-12">
           <%= f.input :additional_instructions,
-            input_html: { 
-              class: 'markdown-editor', 
-              data: { controller: 'markdown-editor' } 
-            },
-            label: AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
+                      input_html: {
+                        class: 'markdown-editor',
+                        data: { controller: 'markdown-editor' }
+                      },
+                      label: AcademicActivity.human_attribute_name("#{@activity.identifier}_additional_instructions") %>
         </div>
 
         <div class="col-md-6 mb-6">
-          <label class="font-weight-bold">
-            <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_pdf") %> *
-          </label>
-          <%= render "shared/file_input",
-                name: "academic_activity[pdf]",
-                id: "academic_activity_pdf",
-                hint: t('hints.file.pdf'),
-                label: AcademicActivity.human_attribute_name('pdf'),
-                url: @academic_activity.pdf.url,
-                errors: @academic_activity.errors[:pdf] %>
+          <%= f.input :pdf,
+                      as: :file_tabler,
+                      hint: "Arquivo no formato PDF",
+                      label: AcademicActivity.human_attribute_name("send_#{@activity.identifier}_pdf") %>
+
           <%= f.hidden_field :pdf_cache %>
         </div>
         <div class="col-md-6">
-          <label class="font-weight-bold">
-            <%= AcademicActivity.human_attribute_name("send_#{@activity.identifier}_complementary_files") %> *
-          </label>
-          <%= render "shared/file_input",
-                name: "academic_activity[complementary_files]",
-                id: "academic_activity_complementary_files",
-                hint: t('hints.file.zip'),
-                label: AcademicActivity.human_attribute_name('complementary_files'),
-                url: @academic_activity.complementary_files.url,
-                errors: @academic_activity.errors[:complementary_files] %>
+          <%= f.input :complementary_files,
+                      as: :file_tabler,
+                      hint: "Arquivo no formato zip",
+                      label: AcademicActivity.human_attribute_name("send_#{@activity.identifier}_complementary_files") %>
+
           <%= f.hidden_field :complementary_files_cache %>
         </div>
       </div>

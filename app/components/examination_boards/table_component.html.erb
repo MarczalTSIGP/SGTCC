@@ -1,0 +1,45 @@
+<%= render 'shared/examination_boards/legend_status' %>
+
+<div class="text-right mt-3">
+  <%= helpers.page_entries_info @examination_boards,
+                                entry_name: t('entry_names.examination_boards', count: @examination_boards.size) %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap no-table-padding-horizontal">
+    <thead>
+    <tr>
+      <th><%= ExaminationBoard.human_attribute_name('status') %></th>
+      <th><%= ExaminationBoard.human_attribute_name('academic') %></th>
+      <th><%= ExaminationBoard.human_attribute_name('place') %></th>
+      <th><%= ExaminationBoard.human_attribute_name('date') %></th>
+      <th><%= ExaminationBoard.human_attribute_name('advisor') %></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% if @examination_boards.empty? %>
+      <%= render 'shared/no_results' %>
+    <% else %>
+      <% @examination_boards.each do |examination_board| %>
+        <tr>
+          <td>
+            <%= badge_html(examination_board) %>
+          </td>
+          <td>
+              <span data-controller="ui--tooltip" title="<%= examination_board.orientation.title %>">
+                <%= link_to examination_board.orientation.academic_with_calendar,
+                            show_path(examination_board) %>
+              </span>
+          </td>
+          <td><%= examination_board.place %></td>
+          <td><%= helpers.datetime(examination_board.date) %></td>
+          <td><%= examination_board.orientation.advisor.name_with_scholarity %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= helpers.paginate @examination_boards %>
+</div>

@@ -36,25 +36,17 @@ describe 'TsoRequest::update', :js do
 
     context 'when request is valid' do
       it 'updates the justification of the term of substitution' do
-        find('.fa-bold').click
-        submit_form('input[name="commit"]')
+        slim_select(new_advisor.name, from: 'document_advisor_id')
+        fill_in(:document_justification, with: new_justification)
+        click_on('Solicitar')
 
-        expect(page).to have_current_path academics_document_path(document_tso)
-        expect(page).to have_flash(:success, text: message('update.f'))
         expect(page).to have_contents([academic.name,
                                        document_tso.document_type.name.upcase,
-                                       new_justification])
-      end
-
-      it 'updates the new advisor of the term of substitution' do
-        selectize(new_advisor.name, from: 'document_advisor_id')
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_current_path academics_document_path(Document.last)
-        expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_contents([academic.name,
-                                       document_tso.document_type.name.upcase,
+                                       new_justification,
                                        new_advisor.name])
+        # increment id because recreate document
+        expect(page).to have_current_path academics_document_path(document_tso.id + 1)
+        expect(page).to have_flash(:success, text: message('update.f'))
       end
     end
 

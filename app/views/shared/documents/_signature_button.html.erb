@@ -1,19 +1,11 @@
-<div
-  data-controller="signature-button"
-  data-signature-button-show-title-value="<%= show_title %>"
-  class="border border-primary rounded p-4 mb-2"
->
+<div class="border border-primary rounded p-4 mb-2">
   <div class="float-left">
     <strong>Assinar documento</strong>
     <p>Este documento será assinado eletronicamente.</p>
   </div>
 
-  <button
-    class="btn btn-outline-primary float-right mb-2"
-    data-action="click->signature-button#openLoginConfirmation"
-  >
-    Assinar documento
-  </button>
+  <%= link_to "Assinar documento", academics_document_sign_form_path(@document),
+              class: "btn btn-outline-primary float-right mb-2" %>
 
   <div class="clearfix"></div>
   <hr class="m-0">

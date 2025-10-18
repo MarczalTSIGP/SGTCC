@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["input"];
   static values = {
     url: String,
-    term: String,
+    term: String
   };
 
   connect() {
@@ -31,7 +31,7 @@ export default class extends Controller {
     const url = this.updatedUrl || this.urlValue;
     const finalUrl = `${url}/${encodeURIComponent(term)}`;
 
-    Turbo.visit(finalUrl, { frame: "examination_boards_table" });
+    Turbo.visit(finalUrl);
   }
 
   updateUrlWithFilter(filter) {

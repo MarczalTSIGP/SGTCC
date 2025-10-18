@@ -30,19 +30,21 @@ class Academics::TsoRequestsController < Academics::BaseController
       feminine_success_create_message
       redirect_to academics_document_path(@document)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if can_destroy_and_update?
       destroy_and_update
+      feminine_success_update_message
+      redirect_to academics_document_path(@document)
+    elsif @document.update_requester_justification(request_params)
+      feminine_success_update_message
+      redirect_to academics_document_path(@document)
     else
-      update_justification
+      render :edit, status: :unprocessable_entity
     end
-
-    feminine_success_update_message
-    redirect_to academics_document_path(@document)
   end
 
   def destroy
@@ -88,10 +90,6 @@ class Academics::TsoRequestsController < Academics::BaseController
     @document.destroy
     @document = Document.new_tso(current_academic, request_params)
     @document.save
-  end
-
-  def update_justification
-    @document.update_requester_justification(request_params)
   end
 
   def can_change

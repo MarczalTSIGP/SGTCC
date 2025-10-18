@@ -1,0 +1,9 @@
+<div id="<%= @id %>" data-turbo-stream="true">
+  <% messages.each do |type, message| %>
+
+    <div class="<%= alert_css_classes(type) %>" role="alert">
+      <button data-bs-dismiss="alert" aria-label="close" class="close"></button>
+      <%= helpers.sanitize_text message %>
+    </div>
+  <% end %>
+</div>

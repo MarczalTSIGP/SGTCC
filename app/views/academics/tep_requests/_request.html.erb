@@ -3,13 +3,13 @@
   <td>
     <% unless document.academic_signed?(current_academic) %>
       <%= link_to edit_academics_tep_request_path(document) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="Editar justificativa"></i>
+        <i class="fe fe-edit" data-controller="ui--tooltip" title="Editar justificativa"></i>
       <% end %>
 
       <%= link_to academics_tep_request_path(document),
-          data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
-          class: 'destroy' do %>
-        <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+                  data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
+                  class: 'destroy' do %>
+        <i class="fe fe-trash" data-controller="ui--tooltip" title="Deletar"></i>
       <% end %>
     <% end %>
   </td>
