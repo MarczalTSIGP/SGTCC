@@ -1,0 +1,21 @@
+<div
+  data-controller="utils--print-document"
+  data-utils--print-document-head-title-value="<%= head_title %>"
+  data-utils--print-document-title-value="<%= document_title %>"
+  class="border border-primary rounded p-4 mb-4"
+>
+  <div class="float-left">
+    <strong>Salvar documento em PDF</strong>
+    <p>Este documento será salvo no formato PDF.</p>
+  </div>
+
+  <button
+    class="btn btn-outline-primary float-right mb-2"
+    data-action="click->utils--print-document#print"
+  >
+    Salvar em PDF
+  </button>
+
+  <div class="clearfix"></div>
+  <hr class="m-0">
+</div>

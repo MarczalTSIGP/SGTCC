@@ -1,0 +1,17 @@
+<%= form_with url: @url,
+              method: :patch,
+              class: "form-group checkbox_tabler optional",
+              data: { controller: "utils--confirm-submit" },
+              html: { id: "acknowledge_form" } do |form| %>
+  <label class="custom-control custom-checkbox">
+    <%= form.check_box :completed,
+                       checked: acknowledged?,
+                       disabled: acknowledged?,
+                       class: "custom-control-input",
+                       data: {
+                         action: "change->utils--confirm-submit#confirm",
+                         confirm_message: t('prompt.confirm')
+                       } %>
+    <span class="custom-control-label acknowledge_submit"><%= @label %></span>
+  </label>
+<% end %>

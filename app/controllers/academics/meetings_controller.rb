@@ -18,7 +18,8 @@ class Academics::MeetingsController < Academics::BaseController
   def show; end
 
   def update_viewed
-    render json: @meeting.update_viewed
+    @meeting.update_viewed
+    redirect_to academics_meeting_path(@meeting)
   end
 
   private

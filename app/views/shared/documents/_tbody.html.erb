@@ -1,5 +1,5 @@
 <td>
-   <span data-toggle="tooltip" title="<%= document.orientation.title %>">
+   <span data-controller="ui--tooltip" title="<%= document.orientation.title %>">
       <%= link_to document.orientation.short_title, show_path %>
    </span>
 </td>
@@ -7,13 +7,13 @@
 <td><%= document.orientation.academic.name %></td>
 
 <td>
-   <span data-toggle="tooltip" title="<%= document.document_type.name %>">
+   <span data-controller="ui--tooltip" title="<%= document.document_type.name %>">
       <%= document.document_type.identifier.upcase %>
    </span>
 </td>
 
 <td>
-   <%= t("helpers.boolean.#{document.all_signed?}") %>
+  <%= t("helpers.boolean.#{document.all_signed?}") %>
 </td>
 
 <td><%= short_date(document.created_at) %></td>

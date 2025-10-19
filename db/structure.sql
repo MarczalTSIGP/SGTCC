@@ -1974,6 +1974,9 @@ ALTER TABLE ONLY public.meetings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250423190259'),
+('20250423190258'),
+('20250423190257'),
 ('20231017133608'),
 ('20231004230530'),
 ('20200710170737'),

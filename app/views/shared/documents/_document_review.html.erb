@@ -1,4 +1,7 @@
+<h1 class="text-red">TODO: refactor when working in responsible or professor area</h1>
+
 <% request = document.request || {} %>
+
 <div
   data-controller="document-review"
   data-document-review-document-id-value="<%= document.id %>"
@@ -7,13 +10,13 @@
 >
   <% if has_permission && request["judgment"].blank? %>
     <%= render "shared/documents/document_judgment",
-      document_id: document.id,
-      accept_value: nil,
-      justification_value: nil %>
+               document_id: document.id,
+               accept_value: nil,
+               justification_value: nil %>
   <% elsif request["judgment"].present? %>
     <p>
       <b>Solicitação:</b>
-      <%= request.dig("judgment","responsible","accept") == "true" ? "Deferido" : "Indeferido" %>
+      <%= request.dig("judgment", "responsible", "accept") == "true" ? "Deferido" : "Indeferido" %>
       <% if has_permission && can_edit %>
         <button
           data-action="document-review#edit"
@@ -25,7 +28,7 @@
     </p>
 
     <p><b>Parecer:</b></p>
-    <%= render "shared/markdown_reader", content: request.dig("judgment","responsible","justification") %>
+    <%= render "shared/markdown_reader", content: request.dig("judgment", "responsible", "justification") %>
   <% else %>
     <p>
       <b>Solicitação:</b>

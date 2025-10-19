@@ -15,7 +15,11 @@ export default class extends Controller {
 
   show = () => {
     const message = this.messageTextValue;
-    const type = this.messageTypeValue;
-    swal("", message, type);
+    let type = this.messageTypeValue;
+
+    if (type.includes("sweet")) {
+      type = type.replace("sweet_", "");
+      swal("", message, type);
+    }
   };
 }

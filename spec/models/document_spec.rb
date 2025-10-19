@@ -518,7 +518,7 @@ RSpec.describe Document do
 
     it 'returns when the justification is empty' do
       params = { justification: nil }
-      expect(document.update_requester_justification(params)).to be(true)
+      expect(document.update_requester_justification(params)).to be(false)
     end
   end
 

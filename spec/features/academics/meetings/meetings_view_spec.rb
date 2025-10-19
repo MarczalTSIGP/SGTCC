@@ -14,11 +14,13 @@ describe 'Meeting::view', :js do
   describe '#view' do
     context 'when mark as viewed the meeting' do
       it 'shows success message' do
-        click_on_label(confirm_judgment_label, in: 'meeting_viewed')
-        first('.swal-button--danger').click
-        # expect(page).to have_alert(text: message('update.f'))
-        expect(page).to have_css('div.swal-text', text: message('update.f'))
-        first('.swal-button--confirm').click
+        accept_confirm 'Você tem certeza?' do
+          find('#acknowledge_form .acknowledge_submit').click
+        end
+
+        within('form#acknowledge_form') do
+          expect(page).to have_checked_field('completed', disabled: true, visible: :all)
+        end
       end
     end
   end
