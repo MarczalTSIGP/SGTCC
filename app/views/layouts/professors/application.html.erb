@@ -8,11 +8,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-	<%= stylesheet_link_tag 'print', media: 'print' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'public/application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_importmap_tags %>
+  <%= tag.link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" %>
+
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" %>
 
     <%= favicon_link_tag %>
   </head>
@@ -35,10 +37,11 @@
 		    <%= yield(:page_title) %>
 		  </h1>
 		</div>
-		<div class="card-body">
-		  <%= render 'shared/flash_messages'%>
-		  <%= yield %>
-		</div>
+            <div class="card-body">
+              <%= render Flash::MessageComponent.new %>
+              <%= render 'shared/sweet_alert' %>
+              <%= yield %>
+            </div>
 	      </div>
 	    </div>
 	  </div>
