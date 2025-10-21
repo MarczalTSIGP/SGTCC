@@ -12,3 +12,4 @@ pin 'simplemde', to: 'https://cdn.skypack.dev/simplemde'
 pin 'marked' # @16.3.0 "
 
 pin 'slim-select' # @2.13.1
+pin "apexcharts" # @5.3.5

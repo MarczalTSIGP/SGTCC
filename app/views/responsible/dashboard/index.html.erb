@@ -3,6 +3,17 @@
 
 <%= render 'shared/dashboard/documents_table' %>
 
-<div>
-   <responsible-dashboard />
+<div class="row">
+  <div class="col-12">
+    <%= render 'shared/dashboard/academics_report', academics: @dashboard_data[:academics] %>
+  </div>
+  <div class="col-12">
+    <%= render 'shared/dashboard/orientations_report', data: @dashboard_data[:orientations] %>
+  </div>
+  <div class="col-12">
+    <%= render 'shared/dashboard/professors_report', professors: @dashboard_data[:professors] %>
+  </div>
+  <div class="col-12">
+    <%= render 'shared/dashboard/professors_ranking', ranking: @dashboard_data[:orientations][:ranking] %>
+  </div>
 </div>
