@@ -1,14 +1,9 @@
-# app/components/dashboard/bar_chart_component.rb
 class Dashboard::BarChartComponent < ViewComponent::Base
     def initialize(series:, categories:, title:, height: 350)
       @series = series
       @categories = categories
       @title = title
       @height = height
-    end
-  
-    def chart_id
-      "bar-chart-#{SecureRandom.hex(4)}"
     end
   
     def chart_options

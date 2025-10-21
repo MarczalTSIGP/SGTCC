@@ -1,5 +1,5 @@
 class Dashboard::PieChartComponent < ViewComponent::Base
-  def initialize(series:, title:, labels:, colors: [], links: [], width: '90%', height: 280, legend_position: 'right', **kwargs)
+  def initialize(series:, title:, labels:, colors: [], links: [], width: '90%', height: 280, legend_position: 'right')
     @series = series
     @title = title
     @labels = labels
@@ -8,12 +8,11 @@ class Dashboard::PieChartComponent < ViewComponent::Base
     @width = width
     @height = height
     @legend_position = legend_position
-    @kwargs = kwargs
   end
 
   private
 
-  attr_reader :series, :title, :labels, :colors, :links, :width, :height, :legend_position, :kwargs
+  attr_reader :series, :title, :labels, :colors, :links, :width, :height, :legend_position
 
   def chart_title
     total = series.sum
