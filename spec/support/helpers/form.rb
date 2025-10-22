@@ -14,9 +14,9 @@ module Helpers
       within("div.#{options[:from]}") do
         find("[data-id^='ss-']").click
       end
-      within('div.ss-content') do
-        find("div[role='option']", text: name).click
-      end
+      # Aguardar o dropdown abrir e selecionar a opção
+      sleep 0.3
+      find_all('div.ss-content', visible: true).first.find("div[role='option']", text: name).click
     end
 
     # def accept_alert
