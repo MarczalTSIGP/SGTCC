@@ -3,8 +3,7 @@
 <% end %>
 
 <%= link_to resource_link,
-  method: :delete,
-  data: { confirm: t('prompt.confirm') },
+  data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
   class: 'destroy' do %>
   <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
 <% end %>
