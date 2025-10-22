@@ -50,7 +50,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
       redirect_to responsible_professors_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -60,7 +60,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
       redirect_to responsible_professor_path
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
