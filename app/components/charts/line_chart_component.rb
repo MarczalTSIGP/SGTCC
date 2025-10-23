@@ -1,4 +1,4 @@
-class Dashboard::LineChartComponent < ViewComponent::Base
+class Charts::LineChartComponent < ViewComponent::Base
     def initialize(series:, categories:, title:, xAxisTitle:, yAxisTitle:, colors: [], height: 350)
       @series = series
       @categories = categories

@@ -1,4 +1,4 @@
-class Dashboard::PieChartComponent < ViewComponent::Base
+class Charts::PieChartComponent < ViewComponent::Base
   def initialize(series:, title:, labels:, colors: [], links: [], width: '90%', height: 280, legend_position: 'right')
     @series = series
     @title = title
