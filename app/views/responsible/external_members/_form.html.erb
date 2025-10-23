@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-6">
         <%= f.association :scholarity,
-          input_html: { data: 'selectize' },
+          input_html: { data: { controller: 'utils--slim-select' } },
           prompt: t('prompt.select.f', name: ExternalMember.human_attribute_name('scholarity')) %>
       </div>
       <div class="col-md-6">
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <%= f.input :working_area, input_html: { class: 'markdown-editor' } %>
+    <%= f.input :working_area, input_html: { class: 'markdown-editor', data: { controller: 'markdown--editor' } } %>
   </div>
 
   <div class="d-flex">
