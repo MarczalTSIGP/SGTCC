@@ -1,10 +1,16 @@
 <div class="mb-2">
-  <%= simple_form_for(Activity.model_name.param_key, url: responsible_calendar_activities_by_calendar_path) do |f| %>
+  <%= simple_form_for(Activity.model_name.param_key, 
+                      url: responsible_calendar_activities_by_calendar_path) do |f| %>
     <%= f.input :calendar,
       as: :select,
       collection: Calendar.select_data(@calendar.tcc),
       class: 'form-control',
-      input_html: { data: 'calendar-selectize' },
+      input_html: { 
+        data: { 
+          controller: 'utils--slim-select',
+          action: 'change->utils--slim-select#submitForm'
+        } 
+      },
       label: false,
       label_method: :second,
       value_method: :first,

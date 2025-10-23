@@ -20,9 +20,15 @@ export default class extends Controller {
   }
 
   disconnect() {
-    // Cleanup when Turbo replaces the element
     if (this.slim) {
       this.slim.destroy();
+    }
+  }
+
+  submitForm() {
+    const form = this.element.closest('form')
+    if (form) {
+      form.requestSubmit()
     }
   }
 

@@ -17,7 +17,7 @@ describe 'Activity::create', :js do
         attributes = attributes_for(:activity)
         fill_in 'activity_name', with: attributes[:name]
         click_on_label(Activity.human_tcc_one_identifiers.first[0], in: 'activity_identifier')
-        selectize(base_activity_types.first.name, from: 'activity_base_activity_type_id')
+        slim_select(base_activity_types.first.name, from: 'activity_base_activity_type')
 
         expect(page).to have_no_field('activity_identifier')
         expect(page).to have_no_field('activity_judgment')

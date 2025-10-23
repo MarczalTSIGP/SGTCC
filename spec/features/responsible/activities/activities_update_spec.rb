@@ -18,7 +18,7 @@ describe 'Activity::update', :js do
           base_activity_type: base_activity_types.last
         )
         fill_in 'activity_name', with: attributes[:name]
-        selectize(attributes[:base_activity_type].name, from: 'activity_base_activity_type_id')
+        slim_select(attributes[:base_activity_type].name, from: 'activity_base_activity_type')
         submit_form('input[name="commit"]')
 
         current_path = responsible_calendar_activities_path(activity.calendar)
