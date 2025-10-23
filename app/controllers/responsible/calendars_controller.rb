@@ -48,7 +48,7 @@ class Responsible::CalendarsController < Responsible::BaseController
       redirect_to calendar_tcc_url
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -58,7 +58,7 @@ class Responsible::CalendarsController < Responsible::BaseController
       redirect_to calendar_tcc_url
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
