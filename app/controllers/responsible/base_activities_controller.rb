@@ -46,7 +46,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
       redirect_to tcc_url
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -56,7 +56,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
       redirect_to responsible_base_activity_path(@base_activity)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

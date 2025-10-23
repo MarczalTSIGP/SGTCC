@@ -23,7 +23,7 @@ describe 'Basebase_activity::update', :js do
         )
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label(attributes[:tcc], in: 'base_activity_tcc')
-        selectize(attributes[:base_activity_type].name, from: 'base_activity_base_activity_type_id')
+        slim_select(attributes[:base_activity_type].name, from: 'base_activity_base_activity_type')
 
         submit_form('input[name="commit"]')
 
