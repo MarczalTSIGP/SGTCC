@@ -39,7 +39,7 @@ describe 'Orientation::search' do
         visit responsible_orientations_tcc_two_path
         calendar = create(:current_calendar_tcc_two)
         orientation = create(:orientation_approved, calendars: [calendar])
-        selectize(orientation_approved_option, from: 'orientation_status')
+        slim_select(orientation_approved_option, from: 'orientation_status')
 
         within('table tbody tr:nth-child(1)') do
           expect(page).to have_content(orientation.short_title)

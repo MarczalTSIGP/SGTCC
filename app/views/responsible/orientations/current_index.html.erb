@@ -2,4 +2,7 @@
 <% provide(:head_title, @title) %>
 
 <%= render('responsible/orientations/head') %>
-<%= render('shared/orientations/table') %>
+
+<% cache(@orientations) do %>
+  <%= render Orientations::TableComponent.new(orientations: @orientations, namespace: :responsible) %>
+<% end %>

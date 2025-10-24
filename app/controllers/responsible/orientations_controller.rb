@@ -91,7 +91,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientations_tcc_one_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -101,7 +101,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientation_path(@orientation)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -114,6 +114,14 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def document
     @document = @orientation.documents.find(params[:document_id])
+    @signatures = @document.signatures.where(status: true).map do |signature|
+      {
+        name: signature.user.name,
+        role: I18n.t("activerecord.attributes.signature.user_types.#{signature.user_type}"),
+        date: I18n.l(signature.updated_at.to_date, format: :document),
+        time: signature.updated_at.strftime('%H:%M')
+      }
+    end
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    responsible_orientation_document_path(@orientation, @document)

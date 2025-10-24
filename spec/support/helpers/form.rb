@@ -15,18 +15,29 @@ module Helpers
     end
 
     def slim_select(name, options = {})
-      within("div.#{options[:from]}") do
-        find("[data-id^='ss-']").click
+      select_element = find("select##{options[:from]}", visible: :all)
+      parent_element = select_element.find(:xpath, './..')
+
+      within(parent_element) do
+        button = find("[data-id^='ss-']", wait: 5)
+        button.click
       end
+
+      dropdowns = all('div.ss-content', visible: true, wait: 5)
       
-      sleep 0.3
-      dropdown = find_all('div.ss-content', visible: true).first
-      option = dropdown.find("div[role='option']", text: name)
+      dropdown = dropdowns.last
+
+      option = dropdown.find("div[role='option']", text: name, exact_text: true, wait: 5)
       option.click
-      
-      begin
-        expect(page).to have_no_css('div.ss-content', visible: true, wait: 2)
-      rescue RSpec::Expectations::ExpectationNotMetError
+
+      multiple = select_element[:multiple].present?
+
+      if multiple
+        within(parent_element) do
+          button = find("[data-id^='ss-']", wait: 5)
+          button.click
+        end
+      else
         page.execute_script("document.querySelectorAll('.ss-content').forEach(el => el.remove())")
       end
     end

@@ -74,6 +74,11 @@ pt-BR:
         abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
+      models:
+        orientation:
+          cancel:
+            label: 'Cancelar orientação'
+            details: 'Esta ação irá cancelar a orientação.'
       defense_minutes:
         view: 'Visualizar Ata de Defesa'
       migrate: 'Migrar'
@@ -129,6 +134,9 @@ pt-BR:
     activities:
       one: "atividade"
       other: "atividades"
+    orientations:
+      one: "orientação"
+      other: "orientações"
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
@@ -775,6 +783,9 @@ pt-BR:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
       multiple: 'Selecionar %{name}'
+      all:
+        m: 'Todos'
+        f: 'Todas'
   mailer:
     login: 'Acessar sistema'
     external_member:

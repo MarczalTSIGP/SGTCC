@@ -15,11 +15,7 @@
 
 <%= provide(:orientation_options) do %>
   <div class="mt-3">
-    <orientation-cancel
-      :id="<%= @orientation.id %>"
-      label="<%= Orientation.human_attribute_name('cancellation_justification') %>"
-      error-message="<%= t('errors.messages.blank') %>"
-      :has-permission="<%= @orientation.can_be_canceled?(current_professor) %>" />
+    <%= render 'shared/orientations/cancel', orientation: @orientation %>
   </div>
 
   <div class="clearfix"></div>

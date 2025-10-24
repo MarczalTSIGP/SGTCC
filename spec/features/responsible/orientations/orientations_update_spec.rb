@@ -22,12 +22,12 @@ describe 'Orientation::update' do
         fill_in 'orientation_title', with: attributes[:title]
         supervisor = professors.first
         external_member_supervisor = external_members.last
-        selectize(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_ids')
-        selectize(academic.name, from: 'orientation_academic_id')
-        selectize(advisor.name, from: 'orientation_advisor_id')
-        selectize(external_member_supervisor.name,
+        slim_select(calendar.year_with_semester_and_tcc, from: 'orientation_calendar_ids')
+        slim_select(academic.name, from: 'orientation_academic_id')
+        slim_select(advisor.name, from: 'orientation_advisor_id')
+        slim_select(external_member_supervisor.name,
                   from: 'orientation_external_member_supervisor_ids')
-        selectize(supervisor.name,
+        slim_select(supervisor.name,
                   from: 'orientation_professor_supervisor_ids')
         submit_form('input[name="commit"]')
 

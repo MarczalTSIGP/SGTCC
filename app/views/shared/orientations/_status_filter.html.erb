@@ -1,5 +1,47 @@
-<div>
-  <orientation-status-filter
-    :options="<%= Orientation.select_status_data %>" />
+<div class="form-group select orientation_status_filter">
+  <select
+    id="orientation_status"
+    name="orientation[status]"
+    class="form-control select required"
+    data-controller="utils--slim-select"
+  >
+    <option value="ALL">
+      <%= t('prompt.select.all.f') %>
+    </option>
+    <% Orientation.select_status_data.each do |option| %>
+      <option value="<%= option[0] %>" <%= 'selected' if request.path.include?("/#{option[0]}/") %>>
+        <%= option[1] %>
+      </option>
+    <% end %>
+  </select>
 </div>
 
+<script>
+  (() => {
+    const STATUS_PATTERN = /\/(APPROVED_TCC_ONE|APPROVED|IN_PROGRESS|CANCELED|REPROVED_TCC_ONE|REPROVED)\//;
+    
+    const filterByStatus = (event) => {
+      const selectedStatus = event.target.value === 'ALL' ? '' : event.target.value;
+      const currentPath = window.location.pathname;
+      
+      let newPath = currentPath.replace(STATUS_PATTERN, '/');
+      
+      if (selectedStatus) {
+        newPath = newPath.replace(/\/search\//, `/${selectedStatus}/search/`);
+      }
+      
+      Turbo.visit(newPath);
+    };
+    
+    const initStatusFilter = () => {
+      const select = document.getElementById('orientation_status');
+      if (!select || select.dataset.initialized) return;
+      
+      select.addEventListener('change', filterByStatus);
+      select.dataset.initialized = 'true';
+    };
+    
+    document.addEventListener('turbo:load', initStatusFilter);
+    document.addEventListener('turbo:render', initStatusFilter);
+  })();
+</script>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12 col-lg-5 mb-2">
-    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" /> 
+    <%= render 'shared/search', url: @search_url, search_term: params[:term] %>
   </div>
   
   <div class="col-sm-12 col-lg-3">
@@ -13,10 +13,4 @@
          <%= t('breadcrumbs.orientations.new') %>
      <% end %>
   </div>
-</div>
-
-<%= render('shared/orientations/legend_status') %>
-
-<div class="text-right mt-3">
-  <%= page_entries_info @orientations %>
 </div>
