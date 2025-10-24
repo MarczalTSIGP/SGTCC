@@ -20,7 +20,7 @@ describe 'BaseActivity::create', :js do
         attributes = attributes_for(:base_activity)
 
         fill_in 'base_activity_name', with: attributes[:name]
-        slim_select(base_activity_info.name, from: 'base_activity_base_activity_type')
+        slim_select(base_activity_info.name, from: 'base_activity_base_activity_type_id')
         click_on_label('1', in: 'base_activity_tcc')
 
         submit_form('input[name="commit"]')
@@ -37,7 +37,7 @@ describe 'BaseActivity::create', :js do
         attributes = attributes_for(:base_activity)
 
         fill_in 'base_activity_name', with: attributes[:name]
-        slim_select(base_activity_info.name, from: 'base_activity_base_activity_type')
+        slim_select(base_activity_info.name, from: 'base_activity_base_activity_type_id')
         click_on_label('2', in: 'base_activity_tcc')
 
         submit_form('input[name="commit"]')
@@ -54,7 +54,7 @@ describe 'BaseActivity::create', :js do
         attributes = attributes_for(:base_activity)
         fill_in 'base_activity_name', with: attributes[:name]
         click_on_label('1', in: 'base_activity_tcc')
-        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type')
+        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
         click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
                        in: 'base_activity_identifier')
         submit_form('input[name="commit"]')
@@ -70,7 +70,7 @@ describe 'BaseActivity::create', :js do
         click_on_label('2', in: 'base_activity_tcc')
         click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
                        in: 'base_activity_identifier')
-        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type')
+        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_base_activities_tcc_two_path
@@ -87,7 +87,7 @@ describe 'BaseActivity::create', :js do
         click_on_label('1', in: 'base_activity_tcc')
         click_on_label(BaseActivity.human_tcc_one_identifiers.first[0],
                        in: 'base_activity_identifier')
-        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type')
+        slim_select(base_activity_types.first.name, from: 'base_activity_base_activity_type_id')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_base_activities_tcc_one_path
