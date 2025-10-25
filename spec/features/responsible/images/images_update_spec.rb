@@ -16,8 +16,8 @@ describe 'Image:update', :js do
 
         fill_in 'image_name', with: attributes[:name]
 
-        page.execute_script("$('#image_url').css('opacity','1')")
-        attach_file 'image_url', FileSpecHelper.image.path
+        page.execute_script("document.querySelector('#image_url').style.opacity = '1'")
+        attach_file 'image[url]', FileSpecHelper.image.path
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_images_path
@@ -29,8 +29,8 @@ describe 'Image:update', :js do
       it 'does not update' do
         fill_in 'image_name', with: ''
 
-        page.execute_script("$('#image_url').css('opacity','1')")
-        attach_file 'image_url', FileSpecHelper.pdf.path
+        page.execute_script("document.querySelector('#image_url').style.opacity = '1'")
+        attach_file 'image[url]', FileSpecHelper.pdf.path
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:danger, text: default_error_message)

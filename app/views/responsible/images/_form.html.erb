@@ -4,12 +4,13 @@
       <%= f.input :name %>
     </div>
     <div class="col-md-6">
-      <image-preview
-        resource="image"
-        name="url"
-        :image-url="<%= @image.url.url.to_json %>"
-        :image-errors="<%= @image.errors[:url] %>">
-      </image-preview>
+      <%= render Forms::ImagePreviewComponent.new(
+        resource: 'image',
+        name: 'url',
+        image_url: @image.url.url,
+        image_errors: @image.errors[:url],
+        form: f
+      ) %>
       <%= f.hidden_field :url_cache %>
     </div>
   </div>
