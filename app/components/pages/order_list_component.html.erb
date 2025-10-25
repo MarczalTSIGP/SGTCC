@@ -1,0 +1,31 @@
+<div class="row">
+  <div 
+    class="mx-auto col-md-8"
+    data-controller="pages--order"
+    data-pages--order-sidebar-url-value="<%= sidebar_url %>"
+    data-pages--order-update-url-value="<%= update_sidebar_url %>"
+  >
+    <div class="card">
+      <ul 
+        class="list-group list-group-transparent"
+        data-pages--order-target="list"
+      >
+        <!-- As páginas serão carregadas via JavaScript -->
+        <li class="list-group-item text-center text-muted">
+          <i class="fa fa-spinner fa-spin"></i> Carregando...
+        </li>
+      </ul>
+    </div>
+
+    <button
+      type="button"
+      class="my-3 btn btn-block btn-outline-primary"
+      data-pages--order-target="updateButton"
+      data-action="click->pages--order#updateOrder"
+      disabled
+    >
+      Atualizar menu
+    </button>
+  </div>
+</div>
+

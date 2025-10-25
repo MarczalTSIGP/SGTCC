@@ -15,3 +15,4 @@ pin 'slim-select' # @2.13.1
 pin "apexcharts" # @5.3.5
 pin "flatpickr" # @4.6.13
 pin "flatpickr/dist/l10n/pt", to: "flatpickr--dist--l10n--pt.js" # @4.6.13
+pin "sortablejs" # @1.15.6
