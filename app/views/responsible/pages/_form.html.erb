@@ -8,13 +8,17 @@
         <%= f.input :url, placeholder: t('placeholders.page.url') %>
       </div>
       <div class="col-sm-4">
-        <fontawesome-picker
-          :icon="<%= @page&.fa_icon.to_json %>"
-          :errors="<%= @page.errors[:fa_icon] %>" />
+        <%= render Forms::FontawesomePickerComponent.new(
+          name: 'page[fa_icon]',
+          id: 'page_fa_icon',
+          label: 'Ícone do FontAwesome',
+          icon: @page&.fa_icon,
+          errors: @page.errors[:fa_icon]
+        ) %>
       </div>
     </div>
     <%= f.input :publish, as: :checkbox_tabler %>
-    <%= f.input :content, input_html: { class: 'markdown-editor' } %>
+    <%= f.input :content, input_html: { class: 'markdown-editor', data: { controller: 'markdown--editor' } } %>
   </div>
 
   <div class="d-flex">
