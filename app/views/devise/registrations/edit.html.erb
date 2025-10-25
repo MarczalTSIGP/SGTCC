@@ -4,7 +4,7 @@
 
 <%= simple_form_for(resource, as: resource_name,
                     url: send("professor_registration_path"),
-                    html: { method: :put, multipart: true }) do |f| %>
+                    html: { method: :put, multipart: true, data: { turbo: false } }) do |f| %>
 
   <%= f.error_notification %>
 
@@ -31,10 +31,12 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
-          <%= f.association :scholarity %>
+          <%= f.association :scholarity,
+            input_html: { data: { controller: 'utils--slim-select' } } %>
         </div>
         <div class="col-sm-6">
           <%= f.association :professor_type,
+            input_html: { data: { controller: 'utils--slim-select' } },
             prompt: t('prompt.select.m', name: 'tipo') %>
         </div>
       </div>
@@ -45,7 +47,7 @@
         item_wrapper_class: 'custom-control custom-radio custom-control-inline' %>
 
       <%= f.association :roles,
-        input_html: { data: 'selectize' },
+        input_html: { data: { controller: 'utils--slim-select' } },
         disabled: true %>
 
       <%= f.input :available_advisor, as: :checkbox_tabler %>
@@ -58,11 +60,10 @@
     </div>
 
     <div class="col-sm-4">
-      <profile-image-preview
-        :resource="<%= resource_name.to_json %>"
-        :profile-image-url="<%= resource.profile_image.url.to_json %>"
-        :profile-image-errors="<%= resource.errors[:profile_image] %>">
-      </profile-image-preview>
+      <%= render 'shared/registrations/profile_image_preview',
+          resource_name: resource_name,
+          profile_image_url: resource.profile_image.url,
+          profile_image_errors: resource.errors[:profile_image] %>
       <%= f.hidden_field :profile_image_cache %>
     </div>
   </div>

@@ -13,7 +13,7 @@
           class="file_preview active"
           data-forms--image-preview-target="image"
         >
-        <div class="form-group file optional academic_profile_image">
+        <div class="form-group file optional <%= resource_name %>_profile_image">
           <%= file_field_tag "#{resource_name}[profile_image]",
                              accept: 'image/*',
                              class: 'form-control-file',
