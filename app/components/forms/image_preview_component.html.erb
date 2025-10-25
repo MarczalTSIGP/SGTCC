@@ -5,7 +5,7 @@
        data-toggle="tooltip" 
        data-placement="left" 
        title="Editar imagem"
-       style="<%= 'display: none;' unless has_image? %>">
+       style="<%= 'display: none;' unless image? %>">
     <div class="input-field image_preview">
       <div class="box-image center">
         <img class="file_preview active" 
@@ -33,7 +33,7 @@
 
   <!-- Campo de upload inicial quando não há imagem -->
   <div data-forms--image-preview-target="uploadBox"
-       style="<%= 'display: none;' if has_image? %>">
+       style="<%= 'display: none;' if image? %>">
     <label>
       <strong>Imagem *</strong>
     </label>
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <% if has_errors? %>
+  <% if errors? %>
     <div class="invalid-feedback d-block <%= input_id %>">
       <% image_errors.each do |error| %>
         <p>Imagem <%= error %></p>

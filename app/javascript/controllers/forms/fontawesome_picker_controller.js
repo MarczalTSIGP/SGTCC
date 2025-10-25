@@ -149,7 +149,7 @@ export default class extends Controller {
       clearTimeout(this.blurTimeout);
     }
 
-    const iconElement = event.target.closest('.icon-wrapper');
+    const iconElement = event.target.closest(".icon-wrapper");
     if (!iconElement) return;
 
     const iconTitle = iconElement.dataset.iconTitle;
@@ -174,23 +174,23 @@ export default class extends Controller {
 
   hoverIn() {
     this.hoverPanel = true;
-    this.previewerTarget.classList.add('shadow');
-    this.previewerTarget.classList.remove('shadow-sm');
+    this.previewerTarget.classList.add("shadow");
+    this.previewerTarget.classList.remove("shadow-sm");
   }
 
   hoverOut() {
     this.hoverPanel = false;
-    this.previewerTarget.classList.remove('shadow');
-    this.previewerTarget.classList.add('shadow-sm');
+    this.previewerTarget.classList.remove("shadow");
+    this.previewerTarget.classList.add("shadow-sm");
   }
 
   showPreview() {
-    this.previewContainerTarget.style.display = 'block';
+    this.previewContainerTarget.style.display = "block";
     this.renderIcons();
   }
 
   hidePreview() {
-    this.previewContainerTarget.style.display = 'none';
+    this.previewContainerTarget.style.display = "none";
   }
 
   getFilteredIcons() {
@@ -214,14 +214,14 @@ export default class extends Controller {
     previewer.innerHTML = filtered.map(icon => `
       <div class="icon-preview">
         <div 
-          class="icon-wrapper rounded shadow-sm ${icon.title === this.selected ? 'selected' : ''}"
+          class="icon-wrapper rounded shadow-sm ${icon.title === this.selected ? "selected" : ""}"
           data-icon-title="${icon.title}"
           data-action="click->forms--fontawesome-picker#select"
         >
           <i class="${icon.title}"></i>
         </div>
       </div>
-    `).join('');
+    `).join("");
   }
 }
 

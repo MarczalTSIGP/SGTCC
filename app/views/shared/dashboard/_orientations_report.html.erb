@@ -24,10 +24,7 @@
               series: series,
               title: 'Orientações de TCC 1 no Total',
               labels: labels,
-              colors: colors,
-              links: links,
-              width: '100%',
-              height: 280
+              options: { colors: colors, links: links, width: '100%', height: 280 }
             ) %>
           </div>
         </div>
@@ -49,10 +46,7 @@
               series: series,
               title: "Orientações em (#{data[:calendar]})",
               labels: labels,
-              colors: colors,
-              links: links,
-              width: '100%',
-              height: 280
+              options: { colors: colors, links: links, width: '100%', height: 280 }
             ) %>
           </div>
         </div>
@@ -85,10 +79,7 @@
               series: series,
               title: 'Orientações de TCC 2 no Total',
               labels: labels,
-              colors: colors,
-              links: links,
-              width: '100%',
-              height: 280
+              options: { colors: colors, links: links, width: '100%', height: 280 }
             ) %>
           </div>
         </div>
@@ -109,10 +100,7 @@
               series: series,
               title: "Orientações em (#{data[:calendar]})",
               labels: labels,
-              colors: colors,
-              links: links,
-              width: '100%',
-              height: 280
+              options: { colors: colors, links: links, width: '100%', height: 280 }
             ) %>
           </div>
         </div>
@@ -141,10 +129,12 @@
       series: series,
       categories: categories,
       title: 'Ano/Semestre',
-      xAxisTitle: 'Ano/Semestre',
-      yAxisTitle: 'Nº de orientações',
-      colors: ['#85CC00', '#009900', '#FFFF00', '#FF9933', '#E35665', '#D9041A'],
-      height: 350
+      options: {
+        x_axis_title: 'Ano/Semestre',
+        y_axis_title: 'Nº de orientações',
+        colors: ['#85CC00', '#009900', '#FFFF00', '#FF9933', '#E35665', '#D9041A'],
+        height: 350
+      }
     ) %>
   </div>
 </div>

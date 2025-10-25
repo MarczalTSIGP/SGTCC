@@ -8,4 +8,3 @@ class Pages::OrderListComponent < ViewComponent::Base
     @sidebar_url = sidebar_url
   end
 end
-

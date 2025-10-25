@@ -1,13 +1,13 @@
 class Charts::PieChartComponent < ViewComponent::Base
-  def initialize(series:, title:, labels:, colors: [], links: [], width: '90%', height: 280, legend_position: 'right')
+  def initialize(series:, title:, labels:, options: {})
     @series = series
     @title = title
     @labels = labels
-    @colors = colors
-    @links = links
-    @width = width
-    @height = height
-    @legend_position = legend_position
+    @colors = options[:colors] || []
+    @links = options[:links] || []
+    @width = options[:width] || '90%'
+    @height = options[:height] || 280
+    @legend_position = options[:legend_position] || 'right'
   end
 
   private
@@ -25,15 +25,16 @@ class Charts::PieChartComponent < ViewComponent::Base
       colors: colors,
       legend: { position: legend_position },
       title: { text: chart_title },
-      responsive: [
-        {
-          breakpoint: 1000,
-          options: {
-            chart: { width: 200 },
-            legend: { position: 'bottom' }
-          }
-        }
-      ]
+      responsive: responsive_config
     }
+  end
+
+  def responsive_config
+    [
+      {
+        breakpoint: 1000,
+        options: { chart: { width: 200 }, legend: { position: 'bottom' } }
+      }
+    ]
   end
 end

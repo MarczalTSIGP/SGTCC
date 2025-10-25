@@ -31,7 +31,7 @@ describe 'Professor::create', :js do
         slim_select(professor_type.name, from: 'professor_professor_type_id')
 
         submit_form('input[name="commit"]')
-        
+
         expect(page).to have_current_path responsible_professors_path
         expect(page).to have_flash(:success, text: message('create.m'))
         expect(page).to have_message(attributes[:name], in: 'table tbody')

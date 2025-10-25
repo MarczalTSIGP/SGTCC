@@ -7,7 +7,7 @@ export default class extends Controller {
     if (this.hasToggleTarget && window.bootstrap) {
       this.dropdown = new window.bootstrap.Dropdown(this.toggleTarget, {
         autoClose: true,
-        boundary: 'viewport'
+        boundary: "viewport"
       });
     }
   }

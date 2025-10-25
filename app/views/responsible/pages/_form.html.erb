@@ -12,8 +12,7 @@
           name: 'page[fa_icon]',
           id: 'page_fa_icon',
           label: 'Ícone do FontAwesome',
-          icon: @page&.fa_icon,
-          errors: @page.errors[:fa_icon]
+          options: { icon: @page&.fa_icon, errors: @page.errors[:fa_icon] }
         ) %>
       </div>
     </div>

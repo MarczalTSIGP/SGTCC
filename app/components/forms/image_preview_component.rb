@@ -19,16 +19,15 @@ class Forms::ImagePreviewComponent < ViewComponent::Base
     "#{resource}[#{name}]"
   end
 
-  def has_image?
+  def image?
     image_url.present?
   end
 
-  def has_errors?
+  def errors?
     image_errors.any?
   end
 
   def error_class
-    has_errors? ? 'is-invalid' : ''
+    errors? ? 'is-invalid' : ''
   end
 end
-

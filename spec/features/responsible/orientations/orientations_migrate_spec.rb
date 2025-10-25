@@ -19,7 +19,7 @@ describe 'Orientation::migrate' do
 
         # Verifica que a orientação ainda está na lista (não foi migrada)
         expect(page).to have_content(orientation.short_title)
-        expect(page).to have_current_path(/orientations\/migration/)
+        expect(page).to have_current_path(%r{orientations/migration})
       end
     end
 

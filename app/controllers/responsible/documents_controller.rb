@@ -6,32 +6,50 @@ class Responsible::DocumentsController < Responsible::BaseController
                  only: :orientation
 
   def judgment
-    if @document.professor_signed?(current_professor)
-      flash.now[:sweet_error] = I18n.t('json.messages.documents.errors.update')
-    elsif @document.save_judgment(current_professor, judgment_params)
-      flash.now[:sweet_success] = I18n.t('json.messages.documents.success.update')
-      @document.reload
-    else
-      flash.now[:sweet_error] = I18n.t('json.messages.empty_fields')
-    end
-
+    process_judgment
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.replace(
-            "document_review_#{@document.id}",
-            partial: 'shared/documents/document_review',
-            locals: { 
-              document: @document,
-              has_permission: current_professor.role?('responsible'),
-              can_edit: true
-            }
-          ),
-          turbo_stream.append('app', partial: 'shared/sweet_alert')
-        ]
-      end
+      format.turbo_stream { render_turbo_stream_response }
       format.html { redirect_back(fallback_location: responsible_root_path) }
     end
+  end
+
+  def process_judgment
+    return handle_already_signed if @document.professor_signed?(current_professor)
+    return handle_judgment_saved if @document.save_judgment(current_professor, judgment_params)
+
+    handle_judgment_failed
+  end
+
+  def handle_already_signed
+    flash.now[:sweet_error] = I18n.t('json.messages.documents.errors.update')
+  end
+
+  def handle_judgment_saved
+    flash.now[:sweet_success] = I18n.t('json.messages.documents.success.update')
+    @document.reload
+  end
+
+  def handle_judgment_failed
+    flash.now[:sweet_error] = I18n.t('json.messages.empty_fields')
+  end
+
+  def render_turbo_stream_response
+    render turbo_stream: [
+      turbo_stream.replace(
+        "document_review_#{@document.id}",
+        partial: 'shared/documents/document_review',
+        locals: document_review_locals
+      ),
+      turbo_stream.append('app', partial: 'shared/sweet_alert')
+    ]
+  end
+
+  def document_review_locals
+    {
+      document: @document,
+      has_permission: current_professor.role?('responsible'),
+      can_edit: true
+    }
   end
 
   private

@@ -1,5 +1,5 @@
 class Charts::CardReportNumberComponent < ViewComponent::Base
-  def initialize(label:, number:, title:, redirect:, background_color: "default")
+  def initialize(label:, number:, title:, redirect:, background_color: 'default')
     @label = label
     @number = number
     @title = title

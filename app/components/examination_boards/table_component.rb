@@ -21,12 +21,24 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
   def actions(examination_board)
     return '' unless @namespace == :responsible
 
+    edit_link(examination_board) + ' '.html_safe + delete_link(examination_board)
+  end
+
+  def edit_link(examination_board)
     helpers.link_to(edit_path(examination_board)) do
-      helpers.content_tag(:i, '', class: 'fe fe-edit', data: { controller: 'ui--tooltip' }, title: I18n.t('titles.edit'))
-    end +
-    ' '.html_safe +
-    helpers.link_to(show_path(examination_board), data: { turbo_method: :delete, turbo_confirm: I18n.t('prompt.confirm') }, class: 'destroy') do
-      helpers.content_tag(:i, '', class: 'fe fe-trash', data: { controller: 'ui--tooltip' }, title: I18n.t('titles.delete'))
+      helpers.content_tag(:i, '', class: 'fe fe-edit', data: { controller: 'ui--tooltip' },
+                                  title: I18n.t('titles.edit'))
+    end
+  end
+
+  def delete_link(examination_board)
+    delete_options = {
+      data: { turbo_method: :delete, turbo_confirm: I18n.t('prompt.confirm') },
+      class: 'destroy'
+    }
+    helpers.link_to(show_path(examination_board), delete_options) do
+      helpers.content_tag(:i, '', class: 'fe fe-trash', data: { controller: 'ui--tooltip' },
+                                  title: I18n.t('titles.delete'))
     end
   end
 

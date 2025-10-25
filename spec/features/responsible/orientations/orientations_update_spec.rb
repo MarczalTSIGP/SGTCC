@@ -26,9 +26,9 @@ describe 'Orientation::update' do
         slim_select(academic.name, from: 'orientation_academic_id')
         slim_select(advisor.name, from: 'orientation_advisor_id')
         slim_select(external_member_supervisor.name,
-                  from: 'orientation_external_member_supervisor_ids')
+                    from: 'orientation_external_member_supervisor_ids')
         slim_select(supervisor.name,
-                  from: 'orientation_professor_supervisor_ids')
+                    from: 'orientation_professor_supervisor_ids')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_orientation_path(orientation)

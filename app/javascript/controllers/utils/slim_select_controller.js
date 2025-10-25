@@ -26,9 +26,9 @@ export default class extends Controller {
   }
 
   submitForm() {
-    const form = this.element.closest('form')
+    const form = this.element.closest("form");
     if (form) {
-      form.requestSubmit()
+      form.requestSubmit();
     }
   }
 

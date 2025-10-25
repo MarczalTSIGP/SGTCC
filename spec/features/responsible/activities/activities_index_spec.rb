@@ -46,7 +46,7 @@ describe 'Activity::index', :js do
         activity = create(:activity_tcc_one, calendar: second_calendar)
 
         visit responsible_calendar_activities_path(calendar)
-        
+
         slim_select(second_calendar.year_with_semester, from: 'activity_calendar')
         sleep 0.5
 

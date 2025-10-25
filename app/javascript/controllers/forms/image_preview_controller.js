@@ -20,8 +20,8 @@ export default class extends Controller {
         }
         
         if (this.hasUploadBoxTarget && this.hasPreviewBoxTarget) {
-          this.uploadBoxTarget.style.display = 'none';
-          this.previewBoxTarget.style.display = 'block';
+          this.uploadBoxTarget.style.display = "none";
+          this.previewBoxTarget.style.display = "block";
         }
         
         this.updateFileLabel(input);
@@ -32,7 +32,7 @@ export default class extends Controller {
 
   updateFileLabel(input) {
     if (this.hasFileLabelTarget) {
-      const fileName = input.files[0]?.name || 'Selecionar imagem';
+      const fileName = input.files[0]?.name || "Selecionar imagem";
       this.fileLabelTarget.textContent = fileName;
     }
   }

@@ -114,17 +114,29 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def document
     @document = @orientation.documents.find(params[:document_id])
-    @signatures = @document.signatures.where(status: true).map do |signature|
-      {
-        name: signature.user.name,
-        role: I18n.t("activerecord.attributes.signature.user_types.#{signature.user_type}"),
-        date: I18n.l(signature.updated_at.to_date, format: :document),
-        time: signature.updated_at.strftime('%H:%M')
-      }
-    end
+    @signatures = build_signatures_list(@document)
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    responsible_orientation_document_path(@orientation, @document)
+  end
+
+  def build_signatures_list(document)
+    document.signatures.where(status: true).map do |signature|
+      format_signature_data(signature)
+    end
+  end
+
+  def format_signature_data(signature)
+    {
+      name: signature.user.name,
+      role: signature_role_translation(signature.user_type),
+      date: I18n.l(signature.updated_at.to_date, format: :document),
+      time: signature.updated_at.strftime('%H:%M')
+    }
+  end
+
+  def signature_role_translation(user_type)
+    I18n.t("activerecord.attributes.signature.user_types.#{user_type}")
   end
 
   def documents

@@ -1,13 +1,13 @@
-import { Controller } from "@hotwired/stimulus"
-import flatpickr from "flatpickr"
-import { Portuguese } from "flatpickr/dist/l10n/pt"
+import { Controller } from "@hotwired/stimulus";
+import flatpickr from "flatpickr";
+import { Portuguese } from "flatpickr/dist/l10n/pt";
 
 export default class extends Controller {
-  static targets = ["field", "input"]
-  static values = { id: String }
+  static targets = ["field", "input"];
+  static values = { id: String };
 
   connect() {
-    const initialDate = this.parseInitialDate()
+    const initialDate = this.parseInitialDate();
     
     this.picker = flatpickr(this.fieldTarget, {
       enableTime: true,
@@ -17,144 +17,144 @@ export default class extends Controller {
       defaultDate: initialDate,
       allowInput: true,
       onChange: this.updateHidden.bind(this)
-    })
+    });
 
-    this.setupDateValidation()
+    this.setupDateValidation();
     
     if (this.picker.selectedDates.length > 0) {
-      this.updateHidden(this.picker.selectedDates, '')
+      this.updateHidden(this.picker.selectedDates, "");
     } else {
-      const now = new Date()
-      this.picker.setDate(now)
-      this.updateHidden([now], '')
+      const now = new Date();
+      this.picker.setDate(now);
+      this.updateHidden([now], "");
     }
   }
 
   disconnect() {
     if (this.picker) {
-      this.picker.destroy()
+      this.picker.destroy();
     }
   }
 
   toggle(event) {
-    event.preventDefault()
+    event.preventDefault();
     if (this.picker) {
-      this.picker.open()
+      this.picker.open();
     }
   }
 
   parseInitialDate() {
-    const value = this.inputTarget.value
-    if (!value || value === '') {
-      return new Date()
+    const value = this.inputTarget.value;
+    if (!value || value === "") {
+      return new Date();
     }
 
-    const match = value.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/)
+    const match = value.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/);
     if (match) {
-      const [, day, month, year, hours, minutes] = match
-      return new Date(year, month - 1, day, hours, minutes)
+      const [, day, month, year, hours, minutes] = match;
+      return new Date(year, month - 1, day, hours, minutes);
     }
 
-    const isoMatch = value.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2})/)
+    const isoMatch = value.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2})/);
     if (isoMatch) {
-      const [, year, month, day, hours, minutes] = isoMatch
-      return new Date(year, month - 1, day, hours, minutes)
+      const [, year, month, day, hours, minutes] = isoMatch;
+      return new Date(year, month - 1, day, hours, minutes);
     }
 
-    const parsed = new Date(value)
-    return isNaN(parsed.getTime()) ? new Date() : parsed
+    const parsed = new Date(value);
+    return isNaN(parsed.getTime()) ? new Date() : parsed;
   }
 
-  updateHidden(selectedDates, dateStr) {
+  updateHidden(selectedDates) {
     if (selectedDates.length > 0) {
-      const date = selectedDates[0]
-      const displayFormat = flatpickr.formatDate(date, "d/m/Y H:i")
-      const railsFormat = flatpickr.formatDate(date, "Y-m-d H:i:S")
+      const date = selectedDates[0];
+      const displayFormat = flatpickr.formatDate(date, "d/m/Y H:i");
+      const railsFormat = flatpickr.formatDate(date, "Y-m-d H:i:S");
       
-      this.fieldTarget.value = displayFormat
-      this.inputTarget.value = railsFormat
+      this.fieldTarget.value = displayFormat;
+      this.inputTarget.value = railsFormat;
       
-      this.notifyLinkedPickers()
+      this.notifyLinkedPickers();
     }
   }
 
   setupDateValidation() {
-    const isInitialDate = this.idValue.includes('initial')
-    const isFinalDate = this.idValue.includes('final')
+    const isInitialDate = this.idValue.includes("initial");
+    const isFinalDate = this.idValue.includes("final");
     
-    if (!isInitialDate && !isFinalDate) return
+    if (!isInitialDate && !isFinalDate) return;
 
     setTimeout(() => {
       if (isInitialDate) {
-        this.setupAsInitialDate()
+        this.setupAsInitialDate();
       } else if (isFinalDate) {
-        this.setupAsFinalDate()
+        this.setupAsFinalDate();
       }
-    }, 100)
+    }, 100);
   }
 
   setupAsInitialDate() {
-    const finalPicker = this.findLinkedPicker('final')
+    const finalPicker = this.findLinkedPicker("final");
     if (finalPicker?.picker) {
-      const finalDate = finalPicker.picker.selectedDates[0]
+      const finalDate = finalPicker.picker.selectedDates[0];
       if (finalDate) {
-        this.picker.set('maxDate', finalDate)
+        this.picker.set("maxDate", finalDate);
       }
     }
   }
 
   setupAsFinalDate() {
-    const initialPicker = this.findLinkedPicker('initial')
+    const initialPicker = this.findLinkedPicker("initial");
     if (initialPicker?.picker) {
-      const initialDate = initialPicker.picker.selectedDates[0]
+      const initialDate = initialPicker.picker.selectedDates[0];
       if (initialDate) {
-        this.picker.set('minDate', initialDate)
+        this.picker.set("minDate", initialDate);
       }
-      this.picker.config.useCurrent = false
+      this.picker.config.useCurrent = false;
     }
   }
 
   notifyLinkedPickers() {
-    const isInitialDate = this.idValue.includes('initial')
-    const isFinalDate = this.idValue.includes('final')
+    const isInitialDate = this.idValue.includes("initial");
+    const isFinalDate = this.idValue.includes("final");
     
-    if (!isInitialDate && !isFinalDate) return
+    if (!isInitialDate && !isFinalDate) return;
 
-    const selectedDate = this.picker.selectedDates[0]
-    if (!selectedDate) return
+    const selectedDate = this.picker.selectedDates[0];
+    if (!selectedDate) return;
 
     if (isInitialDate) {
-      const finalPicker = this.findLinkedPicker('final')
+      const finalPicker = this.findLinkedPicker("final");
       if (finalPicker?.picker) {
-        finalPicker.picker.set('minDate', selectedDate)
+        finalPicker.picker.set("minDate", selectedDate);
       }
     } else if (isFinalDate) {
-      const initialPicker = this.findLinkedPicker('initial')
+      const initialPicker = this.findLinkedPicker("initial");
       if (initialPicker?.picker) {
-        initialPicker.picker.set('maxDate', selectedDate)
+        initialPicker.picker.set("maxDate", selectedDate);
       }
     }
   }
 
   findLinkedPicker(type) {
-    const form = this.element.closest('form')
-    if (!form) return null
+    const form = this.element.closest("form");
+    if (!form) return null;
 
-    const searchId = type === 'initial' ? 'initial' : 'final'
-    const allPickers = form.querySelectorAll('[data-controller*="forms--datetimepicker"]')
+    const searchId = type === "initial" ? "initial" : "final";
+    const allPickers = form.querySelectorAll("[data-controller*=\"forms--datetimepicker\"]");
     
     for (const pickerElement of allPickers) {
-      if (pickerElement === this.element) continue
+      if (pickerElement === this.element) continue;
       
-      const idValue = pickerElement.getAttribute('data-forms--datetimepicker-id-value')
+      const idValue = pickerElement.getAttribute("data-forms--datetimepicker-id-value");
       if (idValue?.includes(searchId)) {
         return this.application.getControllerForElementAndIdentifier(
           pickerElement,
-          'forms--datetimepicker'
-        )
+          "forms--datetimepicker"
+        );
       }
     }
     
-    return null
+    return null;
   }
 }

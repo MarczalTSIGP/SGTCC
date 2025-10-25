@@ -1,8 +1,8 @@
 module Helpers
   module Form
     def submit_form(submit = '//input[type=submit]')
-      expect(page).to have_no_css('div.ss-content', visible: true, wait: 1)
-      
+      expect(page).to have_no_css('div.ss-content', visible: :visible, wait: 1)
+
       submit_button = find(submit)
       submit_button.scroll_to(submit_button, align: :center)
       sleep 0.2
@@ -18,18 +18,26 @@ module Helpers
       select_element = find("select##{options[:from]}", visible: :all)
       parent_element = select_element.find(:xpath, './..')
 
+      open_slim_select_dropdown(parent_element)
+      select_option_from_dropdown(name)
+      close_dropdown_if_needed(select_element, parent_element)
+    end
+
+    def open_slim_select_dropdown(parent_element)
       within(parent_element) do
         button = find("[data-id^='ss-']", wait: 5)
         button.click
       end
+    end
 
-      dropdowns = all('div.ss-content', visible: true, wait: 5)
-      
+    def select_option_from_dropdown(name)
+      dropdowns = all('div.ss-content', visible: :visible, wait: 5)
       dropdown = dropdowns.last
-
       option = dropdown.find("div[role='option']", text: name, exact_text: true, wait: 5)
       option.click
+    end
 
+    def close_dropdown_if_needed(select_element, parent_element)
       multiple = select_element[:multiple].present?
 
       if multiple

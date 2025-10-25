@@ -18,15 +18,15 @@ export default class extends Controller {
   async loadPages() {
     try {
       const response = await fetch(this.sidebarUrlValue, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': this.csrfToken()
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken()
         }
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao carregar páginas');
+        throw new Error("Erro ao carregar páginas");
       }
 
       this.pages = await response.json();
@@ -34,8 +34,8 @@ export default class extends Controller {
       this.initializeSortable();
       this.checkButtonState();
     } catch (error) {
-      console.error('Erro ao carregar páginas:', error);
-      this.showError('Erro ao carregar as páginas');
+      console.error("Erro ao carregar páginas:", error);
+      this.showError("Erro ao carregar as páginas");
     }
   }
 
@@ -57,7 +57,7 @@ export default class extends Controller {
         ${page.menu_title}
         <i class="ml-3 fa fa-list-ul" style="font-size: 8px;"></i>
       </li>
-    `).join('');
+    `).join("");
   }
 
   initializeSortable() {
@@ -67,8 +67,8 @@ export default class extends Controller {
 
     this.sortable = Sortable.create(this.listTarget, {
       animation: 150,
-      handle: 'li',
-      draggable: 'li',
+      handle: "li",
+      draggable: "li",
       onStart: () => {
         this.isDragging = true;
       },
@@ -80,7 +80,7 @@ export default class extends Controller {
   }
 
   updatePagesOrder() {
-    const items = Array.from(this.listTarget.querySelectorAll('li'));
+    const items = Array.from(this.listTarget.querySelectorAll("li"));
     const newOrder = items.map(item => {
       const pageId = parseInt(item.dataset.pageId);
       return this.pages.find(page => page.id === pageId);
@@ -91,7 +91,7 @@ export default class extends Controller {
 
   async updateOrder() {
     if (this.pages.length <= 1) {
-      this.showWarning('É necessário ter pelo menos 2 páginas para reordenar');
+      this.showWarning("É necessário ter pelo menos 2 páginas para reordenar");
       return;
     }
 
@@ -101,26 +101,26 @@ export default class extends Controller {
 
     try {
       const response = await fetch(this.updateUrlValue, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': this.csrfToken()
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken()
         },
         body: JSON.stringify(data)
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao atualizar ordem');
+        throw new Error("Erro ao atualizar ordem");
       }
 
       const result = await response.json();
       
       if (result) {
-        this.showSuccess('Menu atualizado com sucesso!');
+        this.showSuccess("Menu atualizado com sucesso!");
       }
     } catch (error) {
-      console.error('Erro ao atualizar ordem:', error);
-      this.showError('Erro ao atualizar o menu');
+      console.error("Erro ao atualizar ordem:", error);
+      this.showError("Erro ao atualizar o menu");
     }
   }
 
@@ -137,20 +137,20 @@ export default class extends Controller {
   }
 
   csrfToken() {
-    const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta ? meta.content : '';
+    const meta = document.querySelector("meta[name=\"csrf-token\"]");
+    return meta ? meta.content : "";
   }
 
   showSuccess(message) {
-    swal('', message, 'success');
+    swal("", message, "success");
   }
 
   showError(message) {
-    swal('', message, 'error');
+    swal("", message, "error");
   }
 
   showWarning(message) {
-    swal('', message, 'warning');
+    swal("", message, "warning");
   }
 }
 

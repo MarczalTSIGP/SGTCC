@@ -11,7 +11,9 @@ describe 'ExaminationBoard::update', :js do
   end
 
   describe '#update' do
-    let(:examination_board) { create(:examination_board_tcc_two, orientation: create(:current_orientation_tcc_two)) }
+    let(:examination_board) do
+      create(:examination_board_tcc_two, orientation: create(:current_orientation_tcc_two))
+    end
 
     before do
       visit edit_responsible_examination_board_path(examination_board)
@@ -58,16 +60,26 @@ describe 'ExaminationBoard::update', :js do
                                                                            visible: :hidden
 
         expect(page).to have_field 'examination_board_professor_ids', disabled: true, visible: :all
-        expect(page).to have_field 'examination_board_external_member_ids', disabled: true, visible: :all
+        expect(page).to have_field 'examination_board_external_member_ids', disabled: true,
+                                                                            visible: :all
         expect(page).to have_field 'examination_board_place', disabled: true
 
-        date_field_selector = 'div[data-controller="forms--datetimepicker"][data-forms--datetimepicker-id-value="examination_board_date"] input[data-forms--datetimepicker-target="field"][disabled]'
+        date_field_selector =
+          'div[data-controller="forms--datetimepicker"]' \
+          '[data-forms--datetimepicker-id-value="examination_board_date"] ' \
+          'input[data-forms--datetimepicker-target="field"][disabled]'
         expect(page).to have_css(date_field_selector)
 
-        available_until_field_selector = 'div[data-controller="forms--datetimepicker"][data-forms--datetimepicker-id-value="examination_board_document_available_until"] input[data-forms--datetimepicker-target="field"]'
+        available_until_field_selector =
+          'div[data-controller="forms--datetimepicker"]' \
+          '[data-forms--datetimepicker-id-value="examination_board_document_available_until"] ' \
+          'input[data-forms--datetimepicker-target="field"]'
         expect(page).to have_css(available_until_field_selector)
-        
-        available_until_disabled_selector = 'div[data-controller="forms--datetimepicker"][data-forms--datetimepicker-id-value="examination_board_document_available_until"] input[data-forms--datetimepicker-target="field"][disabled]'
+
+        available_until_disabled_selector =
+          'div[data-controller="forms--datetimepicker"]' \
+          '[data-forms--datetimepicker-id-value="examination_board_document_available_until"] ' \
+          'input[data-forms--datetimepicker-target="field"][disabled]'
         expect(page).to have_no_css(available_until_disabled_selector)
       end
     end

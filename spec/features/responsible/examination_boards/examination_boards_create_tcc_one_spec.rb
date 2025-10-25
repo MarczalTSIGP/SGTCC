@@ -32,7 +32,7 @@ describe 'ExaminationBoard::create', :js do
 
         dropdown = find('div.ss-content', visible: true, wait: 5)
         options = dropdown.all("div[role='option']", wait: 5)
-        
+
         options.each do |option|
           expect(option.text).not_to match(/TCC: 2/i)
         end
