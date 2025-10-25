@@ -34,10 +34,10 @@ class Documents::StatusBadgeComponent < ViewComponent::Base
   end
 
   def accepted?
-    has_judgment? && accept_value == 'true'
+    judgment? && accept_value == 'true'
   end
 
   def refused?
-    has_judgment? && accept_value == 'false'
+    judgment? && accept_value == 'false'
   end
 end
