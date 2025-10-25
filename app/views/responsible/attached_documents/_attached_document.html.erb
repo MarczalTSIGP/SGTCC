@@ -9,13 +9,12 @@
   <td>
     <copy-to-clipboard value="<%= asset_url(attached_document.file) %>"></copy-to-clipboard>
     <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
-      <i class="fe fe-edit" data-toggle="tooltip" title="Editar"></i>
+      <i class="fe fe-edit" data-controller="ui--tooltip" title="Editar"></i>
     <% end %>
     <%= link_to responsible_attached_document_path(attached_document),
-      method: :delete,
-      data: { confirm: t('prompt.confirm') },
+      data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
       class: 'destroy' do %>
-      <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+      <i class="fe fe-trash" data-controller="ui--tooltip" title="Deletar"></i>
     <% end %>
   </td>
 </tr>
