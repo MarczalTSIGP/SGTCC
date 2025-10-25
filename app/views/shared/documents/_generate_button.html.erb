@@ -1,0 +1,48 @@
+<%
+  # Parametros:
+  # - url: URL para gerar o documento
+  # - title: Título do card (default: "Gerar documento")
+  # - description: Descrição do que o botão faz
+  # - button_text: Texto do botão (default: "Gerar documento")
+  # - button_id: ID do botão
+  # - confirmation_message: Mensagem de confirmação
+  # - color: Cor da borda (default: "primary")
+  # - disabled: Se o botão deve estar desabilitado
+  # - document_url: URL do documento gerado (se já existir)
+  # - view_text: Texto do botão de visualização (default: "Visualizar documento")
+%>
+
+<%
+  color ||= "primary"
+  disabled ||= false
+  title ||= "Gerar documento"
+  button_text ||= "Gerar documento"
+  view_text ||= "Visualizar documento"
+  confirmation_message ||= "Você tem certeza que deseja gerar este documento?"
+%>
+
+<% if document_url.present? %>
+  <div class="border border-primary rounded p-4 mb-4">
+    <div class="m-3">
+      <strong><%= title %></strong>
+      <p><%= description %></p>
+      <%= link_to view_text, document_url,
+                  id: button_id,
+                  class: "btn btn-outline-primary btn-sm btn-block" %>
+    </div>
+  </div>
+<% else %>
+  <div class="border border-<%= color %> rounded p-4 mb-4">
+    <div class="m-3">
+      <strong><%= title %></strong>
+      <p><%= description %></p>
+      <%= button_to button_text, url,
+                    method: :post,
+                    id: button_id,
+                    class: "btn btn-outline-#{color} btn-sm btn-block",
+                    disabled: disabled,
+                    form: { data: { turbo_confirm: confirmation_message } } %>
+    </div>
+  </div>
+<% end %>
+

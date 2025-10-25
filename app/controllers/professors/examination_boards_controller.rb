@@ -19,25 +19,36 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def defense_minutes
-    if @examination_board.defense_minutes.present?
-      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
-    elsif !@examination_board.all_evaluated?
-      render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'),
-                     status: :error }
-    else
-      document = @examination_board.create_defense_minutes
-      render json: { message: I18n.t('json.messages.defense_minutes.success'),
-                     status: :success, id: document.id }
+    respond_to do |format|
+      if @examination_board.defense_minutes.present?
+        flash.now[:sweet_error] = I18n.t('json.messages.defense_minutes.existent')
+        format.turbo_stream { render 'shared/sweet_alert' }
+        format.json { render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error } }
+      elsif !@examination_board.all_evaluated?
+        flash.now[:sweet_error] = I18n.t('json.messages.defense_minutes.not_evaluated')
+        format.turbo_stream { render 'shared/sweet_alert' }
+        format.json { render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'), status: :error } }
+      else
+        @examination_board.create_defense_minutes
+        flash.now[:sweet_success] = I18n.t('json.messages.defense_minutes.success')
+        format.turbo_stream
+        format.json { render json: { message: I18n.t('json.messages.defense_minutes.success'), status: :success, id: @examination_board.defense_minutes.id } }
+      end
     end
   end
 
   def non_attendance_defense_minutes
-    if @examination_board.defense_minutes.present?
-      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
-    else
-      document = @examination_board.create_non_attendance_defense_minutes
-      render json: { message: I18n.t('json.messages.defense_minutes.success'),
-                     status: :success, id: document.id }
+    respond_to do |format|
+      if @examination_board.defense_minutes.present?
+        flash.now[:sweet_error] = I18n.t('json.messages.defense_minutes.existent')
+        format.turbo_stream { render 'shared/sweet_alert' }
+        format.json { render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error } }
+      else
+        @examination_board.create_non_attendance_defense_minutes
+        flash.now[:sweet_success] = I18n.t('json.messages.defense_minutes.success')
+        format.turbo_stream
+        format.json { render json: { message: I18n.t('json.messages.defense_minutes.success'), status: :success, id: @examination_board.defense_minutes.id } }
+      end
     end
   end
 

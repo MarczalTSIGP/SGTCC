@@ -97,7 +97,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       @activities = Activity.human_tcc_one_identifiers
 
       error_message
-      render :new_to_tcc_one
+      render :new_to_tcc_one, status: :unprocessable_entity
     end
   end
 
@@ -112,7 +112,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       @activities = Activity.human_tcc_two_identifiers
 
       error_message
-      render :new_to_tcc_two
+      render :new_to_tcc_two, status: :unprocessable_entity
     end
   end
 
@@ -130,7 +130,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     else
       set_orientations_and_activities
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

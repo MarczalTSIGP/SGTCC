@@ -1,0 +1,18 @@
+<%= render 'shared/sweet_alert' %>
+
+<%= turbo_stream.replace 'generate_defense_minutes' do %>
+  <div id="generate_defense_minutes">
+    <% if @examination_board.defense_minutes.present? %>
+      <div class="border border-primary rounded p-4 mb-4">
+        <div class="m-3">
+          <strong>Visualizar Ata de Defesa</strong>
+          <p>Visualizar documento gerado desta banca de defesa.</p>
+          <%= link_to t('views.buttons.defense_minutes.view'),
+                        professors_document_path(@examination_board.defense_minutes),
+            class: 'btn btn-outline-primary btn-sm btn-block' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
