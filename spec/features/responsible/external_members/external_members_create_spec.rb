@@ -26,7 +26,7 @@ describe 'ExternalMember::create', :js do
         click_on_label(ExternalMember.human_attribute_name('is_active'),
                        in: 'external_member_is_active')
         find('.fa-bold').click
-        slim_select(Scholarity.first.name, from: 'external_member_scholarity')
+        slim_select(Scholarity.first.name, from: 'external_member_scholarity_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_external_members_path

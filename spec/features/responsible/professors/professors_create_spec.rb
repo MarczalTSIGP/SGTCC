@@ -27,8 +27,8 @@ describe 'Professor::create', :js do
         click_on_label(Professor.human_attribute_name('available_advisor'),
                        in: 'professor_available_advisor')
         fill_in_simple_mde('Área de atuação do professor')
-        slim_select(scholarity.name, from: 'professor_scholarity')
-        slim_select(professor_type.name, from: 'professor_professor_type')
+        slim_select(scholarity.name, from: 'professor_scholarity_id')
+        slim_select(professor_type.name, from: 'professor_professor_type_id')
 
         submit_form('input[name="commit"]')
         
