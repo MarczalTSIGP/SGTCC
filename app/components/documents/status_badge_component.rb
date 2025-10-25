@@ -25,8 +25,8 @@ class Documents::StatusBadgeComponent < ViewComponent::Base
     'primary'
   end
 
-  def has_judgment?
-    @request.dig('judgment').is_a?(Hash)
+  def judgment?
+    @request['judgment'].is_a?(Hash)
   end
 
   def accept_value
@@ -41,4 +41,3 @@ class Documents::StatusBadgeComponent < ViewComponent::Base
     has_judgment? && accept_value == 'false'
   end
 end
-
