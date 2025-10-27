@@ -11,6 +11,10 @@ class AcademicActivity < ApplicationRecord
 
   after_commit :clear_examination_boards_cache
 
+  after_commit :trigger_create_notification, on: :create
+
+  after_commit :trigger_update_notification, on: :update
+
   def update_judgment
     update(judgment: true)
   end
@@ -38,5 +42,15 @@ class AcademicActivity < ApplicationRecord
       examination_board.touch if examination_board.academic_activity == self
       # rubocop:enable Rails/SkipsModelValidations
     end
+  end
+
+  private
+
+  def trigger_create_notification
+    Notifications::Hooks.document_uploaded(self)
+  end
+
+  def trigger_update_notification
+    Notifications::Hooks.document_updated(self)
   end
 end

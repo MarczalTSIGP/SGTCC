@@ -84,6 +84,8 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
+  after_commit :trigger_create_notifications, on: :create
+
   def self.cs_asc_from_now_desc_ago
     current_calendar = current_calendar_for_site
     return none unless current_calendar
@@ -211,5 +213,11 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  private
+
+  def trigger_create_notifications
+    Notifications::Hooks.atendees_examination_board_assigned(self)
   end
 end

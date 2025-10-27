@@ -290,6 +290,8 @@ GEM
       addressable (~> 2.8)
       childprocess (~> 5.0)
       logger (~> 1.6)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
     lint_roller (1.1.0)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -646,6 +648,7 @@ DEPENDENCIES
   jsonapi-serializer
   kamal
   kaminari
+  letter_opener
   listen
   mechanize
   mini_magick

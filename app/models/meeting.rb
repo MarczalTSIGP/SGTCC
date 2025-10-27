@@ -11,11 +11,19 @@ class Meeting < ApplicationRecord
     joins(orientation: [:academic]).order('academics.name ASC, meetings.date DESC')
   }
 
+  after_commit :trigger_create_notifications, on: :create
+
   def update_viewed
     update(viewed: true)
   end
 
   def can_update?
     viewed == false
+  end
+
+  private
+
+  def trigger_create_notifications
+      Notifications::Hooks.meeting_participation_acknowledgment(self)
   end
 end

@@ -65,6 +65,8 @@ group :development, :test do
   # gem 'apparition'
   gem 'faker'
   gem 'rspec-rails'
+
+  gem 'letter_opener'
 end
 
 group :development do

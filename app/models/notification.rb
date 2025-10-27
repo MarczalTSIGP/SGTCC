@@ -16,7 +16,7 @@ class Notification < NotificationDbBase
   scope :pending_to_send, -> { where(status: %w[pending scheduled]).where('scheduled_at IS NULL OR scheduled_at <= ?', Time.current) }
 
   def mark_sent!(time: Time.current)
-    update!(status: 'sent', send_at: time)
+    update!(status: 'sent', sent_at: time)
   end
 
   def mark_failed!(time: Time.current)
