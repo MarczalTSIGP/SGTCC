@@ -50,6 +50,8 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
+  after_commit :trigger_create_notifications, on: :create
+
   def self.cs_asc_from_now_desc_ago
     ebs_from_now = where(date: 1.hour.from_now..).order(date: :asc)
     ebs_ago = where(date: Calendar.start_date...1.hour.from_now).order(date: :desc)
@@ -143,5 +145,11 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  private
+
+  def trigger_create_notifications
+    Notifications::Hooks.atendees_examination_board_assigned(self)
   end
 end

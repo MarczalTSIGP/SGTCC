@@ -14,8 +14,12 @@ development:
 
   queue:
     adapter: sqlite3
-    database: db/queue_development.sqlite3
+    database: storage/queue_development.sqlite3
     migrations_paths: db/queue_migrate
+    pool: 5
+    timeout: 10000
+    properties:
+      journal_mode: WAL
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,8 +31,12 @@ test:
 
   queue:
     adapter: sqlite3
-    database: db/queue_test.sqlite3
+    database: storage/queue_test.sqlite3
     migrations_paths: db/queue_migrate
+    pool: 5
+    timeout: 5000
+    propierties:
+      journal_mode: WAL
 
 production:
   primary:
@@ -37,5 +45,9 @@ production:
 
   queue:
     adapter: sqlite3
-    database: db/queue_production.sqlite3
+    database: storage/queue_production.sqlite3
     migrations_paths: db/queue_migrate
+    pool: 5
+    timeout: 5000
+    propierties:
+      journal_mode: WAL
