@@ -28,5 +28,8 @@ module SistemaGestaoTcc
     config.i18n.default_locale = :'pt-BR'
 
     config.active_record.schema_format = :sql
+
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
   end
 end

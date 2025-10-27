@@ -7,8 +7,14 @@ default: &default
   host: <%= Rails.application.credentials.dig(:db, :host) %>
 
 development:
-  <<: *default
-  database: sgtcc_production
+  primary:
+    <<: *default
+    database: sgtcc_development
+
+  queue:
+    adapter: sqlite3
+    database: db/queue_development.sqlite3
+    migrations_paths: db/queue_migrate
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,6 +23,17 @@ test:
   <<: *default
   database: sgtcc_test
 
+  queue:
+    adapter: sqlite3
+    database: db/queue_test.sqlite3
+    migrations_paths: db/queue_migrate
+
 production:
-  <<: *default
-  database: sgtcc_production
+  primary:
+    <<: *default
+    database: sgtcc_production
+
+  queue:
+    adapter: sqlite3
+    database: db/queue_production.sqlite3
+    migrations_paths: db/queue_migrate

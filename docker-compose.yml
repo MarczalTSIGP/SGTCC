@@ -88,6 +88,15 @@ services:
       - ./eslint.config.js:/eslint/eslint.config.js:ro
       - ./app/javascript:/app/javascript
 
+  workers:
+    <<: *app
+    command: >
+      bash -c "
+        bundle exec bin/jobs
+        "
+    environment:
+      RAILS_ENV: development
+
 volumes:
   pgdata:
     driver: local

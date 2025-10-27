@@ -75,7 +75,8 @@ RUN apt-get update -qq && \
   rsync        \
   procps       \
   cron         \
-  vim
+  vim          \
+  sqlite3
 
 # --------------------------
 # INSTALL LAST VERSION OF postgresql-client

@@ -52,6 +52,9 @@ gem 'kamal', require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem 'thruster', require: false
 
+gem 'solid_queue'
+gem 'sqlite3'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
