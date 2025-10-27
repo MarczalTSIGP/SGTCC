@@ -1,3 +1,8 @@
+\restrict tVBKI2uK9H4EkQqzNVehds7LsaoXSKWPFxSoeqmrS9HAmr7btqmF7FqBwUCYpaP
+
+-- Dumped from database version 17.5 (Debian 17.5-1.pgdg130+1)
+-- Dumped by pg_dump version 18.0 (Debian 18.0-1.pgdg12+3)
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -1956,6 +1961,8 @@ ALTER TABLE ONLY public.meetings
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict tVBKI2uK9H4EkQqzNVehds7LsaoXSKWPFxSoeqmrS9HAmr7btqmF7FqBwUCYpaP
 
 SET search_path TO "$user", public;
 

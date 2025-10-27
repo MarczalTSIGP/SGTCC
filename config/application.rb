@@ -29,6 +29,9 @@ module SistemaGestaoTcc
 
     config.active_record.schema_format = :sql
 
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
+
     ENV.update YAML.load_file('config/application.yml')[Rails.env]
   end
 end

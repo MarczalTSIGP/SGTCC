@@ -47,6 +47,9 @@ gem 'stimulus-rails'
 gem 'psych', '~> 3.0'
 gem 'view_component', '~> 4.0'
 
+gem 'solid_queue'
+gem 'sqlite3'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'

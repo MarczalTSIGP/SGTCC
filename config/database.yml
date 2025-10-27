@@ -5,18 +5,37 @@ default: &default
   username: <%= ENV['db.username'] %>
   password: <%= ENV['db.password'] %>
   host: <%= ENV['db.host'] %>
+  migrations_paths: db/migrate
 
 development:
-  <<: *default
-  database: sgtcc_production
+  primary:
+    <<: *default
+    database: sgtcc_development
+
+  queue:
+    adapter: sqlite3
+    database: db/queue_development.sqlite3
+    migrations_paths: db/queue_migrate
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: sgtcc_test
+  primary:
+    <<: *default
+    database: sgtcc_test
+
+  queue:
+    adapter: sqlite3
+    database: db/queue_test.sqlite3
+    migrations_paths: db/queue_migrate
 
 production:
-  <<: *default
-  database: sgtcc_production
+  primary:
+    <<: *default
+    database: sgtcc_production
+
+  queue:
+    adapter: sqlite3
+    database: db/queue_production.sqlite3
+    migrations_paths: db/queue_migrate
