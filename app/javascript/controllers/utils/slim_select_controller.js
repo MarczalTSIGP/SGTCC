@@ -4,7 +4,7 @@ import SlimSelect from "slim-select";
 export default class extends Controller {
 
   connect() {
-    this.fixPlaceholer();
+    this.fixPlaceholder();
 
     this.slim = new SlimSelect({
       select: this.element,
@@ -32,7 +32,7 @@ export default class extends Controller {
     }
   }
 
-  fixPlaceholer() {
+  fixPlaceholder() {
     let blank = this.element.querySelector("option[value=\"\"]");
     if (blank)
       blank.setAttribute("data-placeholder", "true");
