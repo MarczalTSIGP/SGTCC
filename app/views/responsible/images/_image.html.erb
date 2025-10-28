@@ -6,13 +6,20 @@
     <p class="text-center my-2"><%= image.name %></p>
     <div class="d-flex align-items-center px-2">
       <div class="ml-auto text-muted mt-3">
-        <copy-to-clipboard value="<%= image_url(image.url) %>"></copy-to-clipboard>
+        <a href="#"
+           data-controller="utils--clipboard"
+           data-utils--clipboard-target="content"
+           data-utils--clipboard-content-value="<%= image_url(image.url) %>"
+           data-action="click->utils--clipboard#copy">
+          <i class="fe fe-link" aria-hidden="true"></i>
+        </a>
+        
         <%= link_to(edit_responsible_image_path(image)) do %>
           <i class="fe fe-edit" data-controller="ui--tooltip" title="Editar"></i>
         <% end %>
         <%= link_to responsible_image_path(image),
-          data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
-          class: 'destroy' do %>
+                    data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
+                    class: 'destroy' do %>
           <i class="fe fe-trash" data-controller="ui--tooltip" title="Deletar"></i>
         <% end %>
       </div>

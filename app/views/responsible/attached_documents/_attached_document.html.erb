@@ -7,13 +7,20 @@
   <td><%= short_date(attached_document.created_at) %></td>
   <td><%= short_date(attached_document.updated_at) %></td>
   <td>
-    <copy-to-clipboard value="<%= asset_url(attached_document.file) %>"></copy-to-clipboard>
+    <a href="#"
+       data-controller="utils--clipboard"
+       data-utils--clipboard-target="content"
+       data-utils--clipboard-content-value="<%= asset_url(attached_document.file) %>"
+       data-action="click->utils--clipboard#copy">
+      <i class="fe fe-link" aria-hidden="true"></i>
+    </a>
+
     <%= link_to(edit_responsible_attached_document_path(attached_document)) do %>
       <i class="fe fe-edit" data-controller="ui--tooltip" title="Editar"></i>
     <% end %>
     <%= link_to responsible_attached_document_path(attached_document),
-      data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
-      class: 'destroy' do %>
+                data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
+                class: 'destroy' do %>
       <i class="fe fe-trash" data-controller="ui--tooltip" title="Deletar"></i>
     <% end %>
   </td>
