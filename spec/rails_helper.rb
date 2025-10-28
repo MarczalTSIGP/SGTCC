@@ -52,6 +52,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.use_transactional_fixtures = false
 
+  config.include ActiveSupport::Testing::TimeHelpers
+
   config.include ApplicationHelper
   config.include DateHelper
 end

@@ -5,7 +5,7 @@ class Notification < NotificationDbBase
 
   serialize :data, coder: JSON
 
-  enum status: { 
+  enum :status, { 
     pending: 'pending', 
     scheduled: 'scheduled', 
     sent: 'sent', 
