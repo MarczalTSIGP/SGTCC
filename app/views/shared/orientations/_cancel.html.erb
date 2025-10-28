@@ -1,73 +1,65 @@
 <% if orientation.can_be_canceled?(current_professor) %>
-  <div class="border border-danger rounded p-4" data-controller="orientations--cancel">
-    <div class="m-3">
-      <div class="float-left">
-        <strong>
-          <%= t('views.buttons.models.orientation.cancel.label') %>
-        </strong>
-        <p><%= t('views.buttons.models.orientation.cancel.details') %></p>
-      </div>
-      
-      <button
-        id="orientation_cancel"
-        type="button"
-        class="float-right btn btn-outline-danger btn-sm"
-        data-orientations--cancel-target="button"
-        data-action="click->orientations--cancel#confirmCancellation">
-        <%= t('views.buttons.models.orientation.cancel.label') %>
-      </button>
-    </div>
-    
-    <div class="clearfix"></div>
-    <hr class="m-0">
-    
-    <%= form_with url: responsible_orientations_cancel_path(id: orientation.id), 
-                  method: :post,
-                  class: "m-3 d-none",
-                  data: { orientations__cancel_target: "form" } do |f| %>
-      
-      <div class="form-group orientation_cancel_justification">
-        <%= f.label :cancellation_justification, 
-                    Orientation.human_attribute_name('cancellation_justification'),
-                    class: "form-label" do %>
-          <%= Orientation.human_attribute_name('cancellation_justification') %>
-          <abbr title="Obrigatório">*</abbr>
-        <% end %>
-        
-        <%= f.text_area 'orientation[cancellation_justification]',
-                        id: "orientation_cancel_justification",
-                        rows: 5,
-                        class: "form-control",
-                        data: { 
-                          orientations__cancel_target: "textarea",
-                          action: "keyup->orientations--cancel#handleKeyup"
-                        } %>
-        
-        <div class="invalid-feedback d-none"
-             data-orientations--cancel-target="invalidFeedback">
-          <%= Orientation.human_attribute_name('cancellation_justification') %>
-          <%= t('errors.messages.blank') %>
+  <%= turbo_frame_tag "cancel_orientation_#{orientation.id}" do %>
+    <div class="border border-danger rounded p-4">
+      <div class="m-3">
+        <div class="float-left">
+          <strong>
+            <%= t('views.buttons.models.orientation.cancel.label') %>
+          </strong>
+          <p><%= t('views.buttons.models.orientation.cancel.details') %></p>
         </div>
-      </div>
-      
-      <div class="mt-4 float-right">
-        <%= f.button t('views.buttons.save'),
-                     type: "submit",
-                     id: "save_justification",
-                     class: "btn btn-primary",
-                     data: { action: "click->orientations--cancel#validateAndSubmit" } %>
         
         <button
-          id="cancel_justification"
+          id="orientation_cancel"
           type="button"
-          class="mr-2 btn btn-outline-danger"
-          data-action="click->orientations--cancel#hideForm">
-          <%= t('views.buttons.cancel') %>
+          class="float-right btn btn-outline-danger btn-sm"
+          onclick="document.getElementById('cancel_form_<%= orientation.id %>').classList.toggle('d-none'); 
+                   this.classList.toggle('d-none')">
+          <%= t('views.buttons.models.orientation.cancel.label') %>
         </button>
       </div>
       
       <div class="clearfix"></div>
-    <% end %>
-  </div>
+      <hr class="m-0">
+      
+      <div id="cancel_form_<%= orientation.id %>" class="m-3 d-none">
+        <%= form_with url: responsible_orientations_cancel_path(id: orientation.id), 
+                      method: :post,
+                      data: { turbo_frame: "_top" } do |f| %>
+          
+          <div class="form-group orientation_cancel_justification">
+            <%= f.label :cancellation_justification, 
+                        Orientation.human_attribute_name('cancellation_justification'),
+                        class: "form-label" do %>
+              <%= Orientation.human_attribute_name('cancellation_justification') %>
+              <abbr title="Obrigatório">*</abbr>
+            <% end %>
+            
+            <%= f.text_area 'orientation[cancellation_justification]',
+                            id: "orientation_cancel_justification",
+                            rows: 5,
+                            class: "form-control" %>
+          </div>
+          
+          <div class="mt-4 float-right">
+            <%= f.button t('views.buttons.save'),
+                         type: "submit",
+                         id: "save_justification",
+                         class: "btn btn-primary" %>
+            
+            <button
+              id="cancel_justification"
+              type="button"
+              class="mr-2 btn btn-outline-danger"
+              onclick="window.location.reload()">
+              <%= t('views.buttons.cancel') %>
+            </button>
+          </div>
+          
+          <div class="clearfix"></div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
