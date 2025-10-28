@@ -73,10 +73,10 @@
       <strong>
         <%= Professor.human_attribute_name('working_area') %>:
       </strong>
-      <div class="form-fieldset w-50 mx-auto text-left">
-        <markdown-reader content="<%= @professor.working_area %>" />
-      </div>
     </p>
+    <div class="form-fieldset w-50 mx-auto text-left">
+      <div data-controller="markdown--viewer" data-markdown="<%= @professor.working_area %>"></div>
+    </div>
     <p>
       <strong>
         <%= Professor.human_attribute_name('created_at') %>:
