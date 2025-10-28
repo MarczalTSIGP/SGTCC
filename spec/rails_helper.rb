@@ -54,6 +54,11 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+
+  config.before(:all, type: :feature) do
+    require 'support/capybara'
+    require 'capybara-screenshot/rspec'
+  end
 end
 
 begin
@@ -62,3 +67,4 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
