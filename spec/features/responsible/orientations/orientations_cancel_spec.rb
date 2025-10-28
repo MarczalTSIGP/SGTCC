@@ -16,7 +16,7 @@ describe 'Orientation::cancel' do
         click_button(orientation_cancel_button, id: 'orientation_cancel')
         fill_in 'orientation_cancel_justification', with: 'Justification'
         click_button(save_button, id: 'save_justification')
-        
+
         expect(page).to have_current_path responsible_orientation_path(orientation)
         flash_message = I18n.t('json.messages.orientation.cancel.success')
         expect(page).to have_flash(:success, text: flash_message)
@@ -29,7 +29,7 @@ describe 'Orientation::cancel' do
       it 'shows blank error message' do
         click_button(orientation_cancel_button, id: 'orientation_cancel')
         click_button(save_button, id: 'save_justification')
-        
+
         flash_message = I18n.t('json.messages.empty_fields')
         expect(page).to have_flash(:danger, text: flash_message)
       end
