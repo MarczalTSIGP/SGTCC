@@ -1,4 +1,7 @@
 pt-BR:
+  date:
+    formats:
+      document: '%d de %B de %Y'
   time:
     deadline: "De %{initial_date} à %{final_date}"
     formats:
@@ -557,6 +560,17 @@ pt-BR:
         <<: *commons
       signature:
         document_type: "Tipo do documento"
+        user_types:
+          academic: "Acadêmico(a)"
+          advisor: "Orientador(a)"
+          new_advisor: "Novo(a) Orientador(a)"
+          coordinator: "Coordenador(a) do Curso"
+          professor_evaluator: "Avaliador(a)"
+          external_member_evaluator: "Avaliador(a)"
+          professor_supervisor: "Coorientador(a) da UTFPR"
+          professor_responsible: "Professor(a) responsável"
+          external_member_supervisor: "Coorientador(a) externo(a)"
+          responsible_institution: "Responsável de instituição"
         <<: *commons
       document:
         orientation_id: "Orientação"
