@@ -1,7 +1,7 @@
 <% provide(:title, t("devise.sessions.new.sign_in")) %>
 <% provide(:head_title, t("devise.sessions.new.sign_in")) %>
 
-<%= simple_form_for(resource, as: resource_name, url: external_members_session_path) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: external_members_session_path, data: { turbo: false }) do |f| %>
   <div class="form-inputs">
     <%= f.input :email, required: false, autofocus: true %>
     <%= f.input :password, required: false %>

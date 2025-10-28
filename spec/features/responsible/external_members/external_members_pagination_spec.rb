@@ -5,7 +5,7 @@ describe 'ExternalMember::pagination', :js do
 
   before do
     login_as(responsible, scope: :professor)
-    create_list(:external_member, 10)
+    create_list(:external_member, 30) # rubocop:disable FactoryBot/ExcessiveCreateList
     visit responsible_external_members_path
   end
 

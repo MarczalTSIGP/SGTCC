@@ -1,0 +1,14 @@
+<% categories = ranking.map.with_index { |(name, _), i| "#{i + 1}º #{name}" } %>
+<% series = [
+  {
+    name: "Número de orientações concluídas",
+    data: ranking.map { |(_, count)| count }
+  }
+] %>
+
+<%= render Charts::BarComponent.new(
+  series: series,
+  categories: categories,
+  title: "Ranking dos Professores",
+  height: 350
+) %>

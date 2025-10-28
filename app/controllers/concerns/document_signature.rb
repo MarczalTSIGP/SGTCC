@@ -1,11 +1,11 @@
 module DocumentSignature
   extend ActiveSupport::Concern
 
-  def confirm_and_sign(current_user, login)
+  def confirm_and_sign(current_user, login, redirect_url)
     if confirm_authentication(current_user, login)
       @signature.sign
       flash[:sweet_success] = I18n.t('json.messages.orientation.signatures.confirm.success')
-      redirect_to academics_document_path(@document)
+      redirect_to redirect_url
     else
       flash.now[:sweet_error] = I18n.t('json.messages.orientation.signatures.confirm.error')
       render partial: 'shared/sweet_alert'

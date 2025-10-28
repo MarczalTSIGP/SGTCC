@@ -1,40 +1,47 @@
 <%= form_with url: responsible_document_judgment_path(document_id),
-              method: :put,
-              data: { controller: "document-judgment", action: "turbo:submit-end->document-judgment#afterSave" },
-              class: "space-y-4" do |f| %>
-  <div class="form-group">
-    <div class="form-label">Solicitação</div>
-    <div class="flex gap-4">
-      <label class="custom-control custom-radio">
+              method: :put do |f| %>
+  <div class="form-group radio_button_tabler required document_judgment">
+    <div class="custom-controls-stacked">
+      <div class="form-label">Solicitação</div>
+      <label class="custom-control custom-radio custom-control-inline">
         <%= f.radio_button :accept, "true",
+              id: "document_accept_#{document_id}",
               checked: accept_value == "true",
               class: "custom-control-input" %>
         <span class="custom-control-label">Deferir</span>
       </label>
-      <label class="custom-control custom-radio">
+      <label class="custom-control custom-radio custom-control-inline">
         <%= f.radio_button :accept, "false",
+              id: "document_refuse_#{document_id}",
               checked: accept_value == "false",
               class: "custom-control-input" %>
         <span class="custom-control-label">Indeferir</span>
       </label>
     </div>
   </div>
+  
   <div class="form-group">
-    <%= f.label :justification, "Parecer", class: "form-label" %>
-    <abbr title="Obrigatório">*</abbr>
+    <%= f.label :justification, class: "form-label" do %>
+      Parecer
+      <abbr title="Obrigatório">*</abbr>
+    <% end %>
     <%= f.text_area :justification,
           value: justification_value,
           rows: 5,
-          id: "document_judgment_justification",
+          id: "document_judgment_justification_#{document_id}",
           class: "form-control",
-          data: { document_judgment_target: "textarea" } %>
+          data: { controller: "markdown--editor" } %>
   </div>
-  <div class="mt-4 float-right flex gap-2">
-    <%= f.submit "Salvar", class: "btn btn-primary" %>
-    <button type="button"
-            class="btn btn-danger"
-            data-action="document-judgment#cancel">
-      Cancelar
-    </button>
+  
+  <div class="mt-4 float-right">
+    <%= f.submit "Salvar", 
+          id: "save_document_judgment",
+          class: "btn btn-primary" %>
+    <% if accept_value.present? %>
+      <label for="edit_judgment_<%= document_id %>" class="btn btn-danger" style="cursor: pointer; margin: 0;">
+        Cancelar
+      </label>
+    <% end %>
   </div>
+  <div class="clearfix"></div>
 <% end %>

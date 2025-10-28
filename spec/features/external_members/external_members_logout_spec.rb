@@ -10,7 +10,7 @@ describe 'ExternalMember:logout', :js do
 
   it 'displays success logout message' do
     click_link external_member.name
-    click_link(sign_out_button)
+    click_button(sign_out_button)
 
     expect(page).to have_current_path new_external_member_session_path
     expect(page).to have_flash(:info, text: already_signed_out_message)

@@ -129,3 +129,4 @@ jobs:
           bundle exec rspec spec/models
           bundle exec rspec spec/features/site
           bundle exec rspec spec/features/academics
+          bundle exec rspec spec/features/responsible

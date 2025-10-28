@@ -1,0 +1,141 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bold">
+      Orientações de TCC 1
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <% orientations_data = data[:tcc_one] %>
+            <% series = [
+              orientations_data[:in_progress] || 0,
+              orientations_data[:approved] || 0,
+              orientations_data[:canceled] || 0,
+              orientations_data[:reproved] || 0
+            ] %>
+            <% labels = ['Em andamento', 'Aprovadas', 'Canceladas', 'Reprovadas'] %>
+            <% colors = ['#FFFF00', '#009900', '#FF9933', '#D9041A'] %>
+            <% links = orientations_data[:links] %>
+
+            <%= render Charts::PieComponent.new(
+              series: series,
+              title: 'Orientações de TCC 1 no Total',
+              labels: labels,
+              options: { colors: colors, links: links, width: '100%', height: 280 }
+            ) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <% orientations_data = data[:current_tcc_one] %>
+            <% series = [
+              orientations_data[:in_progress] || 0,
+              orientations_data[:approved] || 0,
+              orientations_data[:canceled] || 0,
+              orientations_data[:reproved] || 0
+            ] %>
+            <% links = orientations_data[:links] %>
+
+            <%= render Charts::PieComponent.new(
+              series: series,
+              title: "Orientações em (#{data[:calendar]})",
+              labels: labels,
+              options: { colors: colors, links: links, width: '100%', height: 280 }
+            ) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bold">
+      Orientações de TCC 2
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <% orientations_data = data[:tcc_two] %>
+            <% series = [
+              orientations_data[:in_progress] || 0,
+              orientations_data[:approved] || 0,
+              orientations_data[:canceled] || 0,
+              orientations_data[:reproved] || 0
+            ] %>
+            <% links = orientations_data[:links] %>
+
+            <%= render Charts::PieComponent.new(
+              series: series,
+              title: 'Orientações de TCC 2 no Total',
+              labels: labels,
+              options: { colors: colors, links: links, width: '100%', height: 280 }
+            ) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <% orientations_data = data[:current_tcc_two] %>
+            <% series = [
+              orientations_data[:in_progress] || 0,
+              orientations_data[:approved] || 0,
+              orientations_data[:canceled] || 0,
+              orientations_data[:reproved] || 0
+            ] %>
+            <% links = orientations_data[:links] %>
+            <%= render Charts::PieComponent.new(
+              series: series,
+              title: "Orientações em (#{data[:calendar]})",
+              labels: labels,
+              options: { colors: colors, links: links, width: '100%', height: 280 }
+            ) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bold">
+      Orientações
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <% calendar_data = data[:calendar_report] %>
+
+    <% series = calendar_data.map do |item| 
+      { name: item[:label], data: item[:data][:total] }
+    end %>
+
+    <% categories = calendar_data.first[:data][:years] rescue [] %>
+
+    <%= render Charts::LineComponent.new(
+      series: series,
+      categories: categories,
+      title: 'Ano/Semestre',
+      options: {
+        x_axis_title: 'Ano/Semestre',
+        y_axis_title: 'Nº de orientações',
+        colors: ['#85CC00', '#009900', '#FFFF00', '#FF9933', '#E35665', '#D9041A'],
+        height: 350
+      }
+    ) %>
+  </div>
+</div>
+

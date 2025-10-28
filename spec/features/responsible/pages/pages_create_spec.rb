@@ -20,7 +20,9 @@ describe 'Page::create', :js do
         fill_in 'page_menu_title', with: attributes[:menu_title]
         fill_in 'page_url', with: attributes[:url]
         fill_in 'page_fa_icon', with: attributes[:fa_icon]
-        find('.fa-bold').click ## fill markdown editor
+
+        expect(page).to have_css('.CodeMirror', wait: 5)
+        fill_in_simple_mde(attributes[:content])
 
         submit_form('input[name="commit"]')
 

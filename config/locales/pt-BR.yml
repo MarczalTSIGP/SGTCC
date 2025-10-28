@@ -1,4 +1,7 @@
 pt-BR:
+  date:
+    formats:
+      document: '%d de %B de %Y'
   time:
     deadline: "De %{initial_date} à %{final_date}"
     formats:
@@ -74,6 +77,11 @@ pt-BR:
         abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
+      models:
+        orientation:
+          cancel:
+            label: 'Cancelar orientação'
+            details: 'Esta ação irá cancelar a orientação.'
       defense_minutes:
         view: 'Visualizar Ata de Defesa'
       migrate: 'Migrar'
@@ -129,6 +137,9 @@ pt-BR:
     activities:
       one: "atividade"
       other: "atividades"
+    orientations:
+      one: "orientação"
+      other: "orientações"
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
@@ -549,6 +560,17 @@ pt-BR:
         <<: *commons
       signature:
         document_type: "Tipo do documento"
+        user_types:
+          academic: "Acadêmico(a)"
+          advisor: "Orientador(a)"
+          new_advisor: "Novo(a) Orientador(a)"
+          coordinator: "Coordenador(a) do Curso"
+          professor_evaluator: "Avaliador(a)"
+          external_member_evaluator: "Avaliador(a)"
+          professor_supervisor: "Coorientador(a) da UTFPR"
+          professor_responsible: "Professor(a) responsável"
+          external_member_supervisor: "Coorientador(a) externo(a)"
+          responsible_institution: "Responsável de instituição"
         <<: *commons
       document:
         orientation_id: "Orientação"
@@ -775,6 +797,9 @@ pt-BR:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
       multiple: 'Selecionar %{name}'
+      all:
+        m: 'Todos'
+        f: 'Todas'
   mailer:
     login: 'Acessar sistema'
     external_member:

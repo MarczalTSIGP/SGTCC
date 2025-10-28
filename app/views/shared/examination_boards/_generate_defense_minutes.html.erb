@@ -1,10 +1,25 @@
 <% if @examination_board.can_create_defense_minutes_by?(current_professor) %>
-   <generate-defense-minutes
-    :can-generate="<%= !@examination_board.all_evaluated? %>"
-    url="<%= professors_examination_board_defense_minutes_path(@examination_board) %>" />
-   </generate-defense-minutes>
+  <%= render "shared/documents/generate_button",
+             url: professors_examination_board_defense_minutes_path(@examination_board),
+             title: "Gerar Ata de Defesa",
+             description: "Este documento deve ser gerado somente após a atribuição de nota para o acadêmico por todos os avaliadores da banca de defesa, depois da geração não será possível alterar a nota.",
+             button_text: "Gerar Ata de Defesa",
+             button_id: "generate_defense_minutes",
+             confirmation_message: "Você tem certeza que deseja gerar a Ata de Defesa?",
+             color: "primary",
+             disabled: !@examination_board.all_evaluated?,
+             document_url: @examination_board.defense_minutes.present? ? send("#{resource}_document_path", @examination_board.defense_minutes) : nil,
+             view_text: "Visualizar Ata de Defesa" %>
 
-   <generate-non-attendance-defense-minutes
-    url="<%= professors_examination_board_non_attendance_defense_minutes_path(@examination_board) %>" />
-   </generate-non-attendance-defense-minutes>
+  <%= render "shared/documents/generate_button",
+             url: professors_examination_board_non_attendance_defense_minutes_path(@examination_board),
+             title: "Gerar Ata de Defesa de não comparecimento do acadêmico",
+             description: "Este documento deve ser gerado quando o acadêmico não compareceu para defender seu TCC.",
+             button_text: "Gerar Ata de Defesa",
+             button_id: "generate_non_attendance_defense_minutes",
+             confirmation_message: "Você tem certeza que deseja gerar a Ata de Defesa de não comparecimento do acadêmico?",
+             color: "danger",
+             disabled: false,
+             document_url: nil,
+             view_text: "Visualizar Ata de Defesa" %>
 <% end %>

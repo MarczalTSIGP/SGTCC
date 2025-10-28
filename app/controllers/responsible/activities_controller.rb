@@ -32,7 +32,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
       redirect_to responsible_calendar_activities_path(@calendar)
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -42,7 +42,7 @@ class Responsible::ActivitiesController < Responsible::BaseController
       redirect_to responsible_calendar_activities_path(@calendar)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

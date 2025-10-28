@@ -28,14 +28,14 @@
       <%= @institution.external_member.name %>
     </p>
     <% unless @institution.working_area.nil? %>
-    <p>
-      <strong>
-        <%= Institution.human_attribute_name('working_area') %>:
-      </strong>
+      <p>
+        <strong>
+          <%= Institution.human_attribute_name('working_area') %>:
+        </strong>
+      </p>
       <div class="form-fieldset w-50">
-        <markdown-reader content="<%= @institution.working_area %>" />
+        <div data-controller="markdown--viewer" data-markdown="<%= @institution.working_area %>"></div>
       </div>
-    </p>
     <% end %>
     <p>
       <strong>
@@ -54,11 +54,11 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_institutions_path,
-    class: 'btn btn-secondary' %>
+              responsible_institutions_path,
+              class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),
-    edit_responsible_institution_path(@institution),
-    class: 'btn btn-primary ml-auto' %>
+              edit_responsible_institution_path(@institution),
+              class: 'btn btn-primary ml-auto' %>
 </div>
 

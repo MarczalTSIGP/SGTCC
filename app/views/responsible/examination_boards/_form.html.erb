@@ -8,7 +8,7 @@
 
       <%= f.association :orientation,
                         label: Academic.model_name.human,
-                        input_html: { data: 'selectize' },
+                        input_html: { data: { controller: 'utils--slim-select' } },
                         value_method: :id,
                         label_method: :academic_with_calendar,
                         collection: @orientations.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
@@ -19,7 +19,7 @@
          <div class="col-md-6">
             <%= f.association :professors,
                               label: ExaminationBoard.human_attribute_name('utfpr_evaluators'),
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' }, multiple: true },
                               collection: Professor.all.order(:name),
                               prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('professors')),
                               disabled: @disabled_field %>
@@ -27,7 +27,7 @@
          <div class="col-md-6">
             <%= f.association :external_members,
                               label: ExaminationBoard.human_attribute_name('external_member_evaluators'),
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' }, multiple: true },
                               collection: ExternalMember.all.order(:name),
                               prompt: t('prompt.select.multiple', name: ExaminationBoard.human_attribute_name('external_members')),
                               disabled: @disabled_field %>
@@ -39,21 +39,23 @@
             <%= f.input :place, disabled: @disabled_field %>
          </div>
          <div class="col-md-6">
-            <datetimepicker
-              name="examination_board[date]"
-              id="examination_board_date"
-              label="<%= ExaminationBoard.human_attribute_name('date') %>"
-              datetime="<%= @examination_board.date %>"
-              :disabled="<%= @disabled_field %>" />
+            <%= render Forms::DatetimepickerComponent.new(
+              name: "examination_board[date]",
+              id: "examination_board_date",
+              label: ExaminationBoard.human_attribute_name('date'),
+              datetime: @examination_board.date,
+              disabled: @disabled_field
+            ) %>
          </div>
       </div>
 
       <div>
-         <datetimepicker
-            name="examination_board[document_available_until]"
-            id="examination_board_document_available_until"
-            label="<%= ExaminationBoard.human_attribute_name('document_available_until') %>"
-            datetime="<%= @examination_board.document_available_until %>" />
+         <%= render Forms::DatetimepickerComponent.new(
+            name: "examination_board[document_available_until]",
+            id: "examination_board_document_available_until",
+            label: ExaminationBoard.human_attribute_name('document_available_until'),
+            datetime: @examination_board.document_available_until
+         ) %>
       </div>
    </div>
 

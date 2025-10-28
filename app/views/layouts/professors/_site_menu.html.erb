@@ -1,12 +1,12 @@
 <span class="sidebar-heading">
-  <%= icon('fas', 'sliders-h', class: 'mr-2') %>
+  <i class="fas fa-sliders-h mr-2"></i>
   <%= t('views.sidebar.site') %>
 </span>
 
 <%= active_link_to(responsible_pages_path,
                    class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('fas', 'pencil-alt') %>
+    <i class="fas fa-pencil-alt"></i>
   </span>
   <%= t('breadcrumbs.site.pages') %>
 <% end %>
@@ -14,7 +14,7 @@
 <%= active_link_to(responsible_pages_order_path,
                    class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('fas', 'sort') %>
+    <i class="fas fa-sort"></i>
   </span>
   <%= t('breadcrumbs.site.menu_order') %>
 <% end %>
@@ -22,7 +22,7 @@
 <%= active_link_to(responsible_images_path,
                    class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('far', 'images') %>
+    <i class="far fa-images"></i>
   </span>
   <%= t('breadcrumbs.site.images') %>
 <% end %>
@@ -30,7 +30,7 @@
 <%= active_link_to(responsible_attached_documents_path,
                    class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('far', 'folder-open') %>
+    <i class="far fa-folder-open"></i>
   </span>
   <%= t('breadcrumbs.site.attached_documents') %>
 <% end %>
@@ -39,7 +39,7 @@
   <%= active_link_to(edit_responsible_site_path(Site.first),
                      class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'cogs') %>
+      <i class="fas fa-cogs"></i>
     </span>
     <%= t('breadcrumbs.site.configs') %>
   <% end %>

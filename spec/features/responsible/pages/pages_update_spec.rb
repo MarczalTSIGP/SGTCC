@@ -22,6 +22,9 @@ describe 'Page::update', :js do
         fill_in 'page_url', with: attributes[:url]
         fill_in 'page_fa_icon', with: attributes[:fa_icon]
 
+        find('label[for="page_fa_icon"]').click
+        expect(page).to have_no_css('.preview-container .previewer', visible: :visible, wait: 1)
+
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_page_path(site_page)

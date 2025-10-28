@@ -41,7 +41,7 @@ class Responsible::PagesController < Responsible::BaseController
       redirect_to responsible_pages_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -51,7 +51,7 @@ class Responsible::PagesController < Responsible::BaseController
       redirect_to responsible_page_path(@page)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -44,6 +44,11 @@ class Document < ApplicationRecord
 
   # rubocop:disable Rails/SkipsModelValidations
   def save_judgment(user, params)
+    if params[:accept].blank? || params[:justification].blank?
+      errors.add(:base, I18n.t('json.messages.empty_fields'))
+      return false
+    end
+
     json_judgment = { responsible: { id: user.id,
                                      accept: params[:accept],
                                      justification: params[:justification] } }

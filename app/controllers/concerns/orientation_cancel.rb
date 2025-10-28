@@ -3,18 +3,27 @@ module OrientationCancel
 
   def cancel
     orientation = Orientation.find(params[:id])
-    justification = params['orientation']['cancellation_justification']
-    success_cancel_json_message(orientation.status) if orientation.cancel(justification)
+    justification = cancellation_justification
+
+    return handle_empty_justification(orientation) if justification.blank?
+    return unless orientation.cancel(justification)
+
+    handle_successful_cancellation(orientation)
   end
 
   private
 
-  def success_cancel_json_message(status)
-    render json: {
-      message: I18n.t('json.messages.orientation.cancel.success'),
-      orientation: {
-        status: { enum: Orientation.statuses[status], label: status }
-      }
-    }
+  def cancellation_justification
+    params['orientation']['cancellation_justification']
+  end
+
+  def handle_empty_justification(orientation)
+    flash[:error] = I18n.t('json.messages.empty_fields')
+    redirect_to responsible_orientation_path(orientation)
+  end
+
+  def handle_successful_cancellation(orientation)
+    flash[:success] = I18n.t('json.messages.orientation.cancel.success')
+    redirect_to responsible_orientation_path(orientation)
   end
 end

@@ -34,7 +34,7 @@ class Responsible::ImagesController < Responsible::BaseController
       redirect_to responsible_images_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -44,7 +44,7 @@ class Responsible::ImagesController < Responsible::BaseController
       redirect_to responsible_images_path
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

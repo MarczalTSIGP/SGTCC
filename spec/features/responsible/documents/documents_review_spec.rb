@@ -74,7 +74,7 @@ describe 'Document::review', :js do
 
     context 'when the document is updated' do
       it 'shows success message' do
-        find_by_id('edit_button_judgment').click
+        find("label[for='edit_judgment_#{new_document.id}']", text: 'Editar').click
         click_on_label(dismiss_label, in: 'document_judgment')
         fill_in_simple_mde('Hakuna Matata')
 
@@ -93,7 +93,7 @@ describe 'Document::review', :js do
       end
 
       it 'shows errors message' do
-        find_by_id('edit_button_judgment').click
+        find("label[for='edit_judgment_#{new_document.id}']", text: 'Editar').click
         click_on_label(dismiss_label, in: 'document_judgment')
         find('.fa-bold').click
 

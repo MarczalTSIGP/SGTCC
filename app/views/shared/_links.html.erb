@@ -1,11 +1,10 @@
 <%= link_to(edit_link) do %>
-  <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
+  <i class="fe fe-edit" data-controller="ui--tooltip" title="<%= t('titles.edit') %>"></i>
 <% end %>
 
 <%= link_to resource_link,
-  method: :delete,
-  data: { confirm: t('prompt.confirm') },
+  data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
   class: 'destroy' do %>
-  <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
+  <i class="fe fe-trash" data-controller="ui--tooltip" title="<%= t('titles.delete') %>"></i>
 <% end %>
 

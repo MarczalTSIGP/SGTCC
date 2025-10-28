@@ -1,7 +1,9 @@
 class Responsible::DashboardController < Responsible::BaseController
   before_action :set_documents, only: :index
 
-  def index; end
+  def index
+    @dashboard_data = Dashboard::ResponsibleReport.new.report
+  end
 
   def report
     dashboard = Dashboard::ResponsibleReport.new

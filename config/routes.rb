@@ -379,7 +379,10 @@ Rails.application.routes.draw do
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
+      # post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
+
       get 'documents/reviewing', to: 'documents#reviewing', as: 'documents_reviewing'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'

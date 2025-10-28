@@ -23,17 +23,28 @@ describe 'ExaminationBoard::new', :js do
       end
 
       it 'does not show "tcc 1" in the identifier input' do
-        find_by_id('examination_board_orientation_id-selectized').click
+        select_element = find('select#examination_board_orientation_id', visible: :all)
+        parent_element = select_element.find(:xpath, './..')
 
-        all('.selectize-dropdown-content .option').each do |option|
+        within(parent_element) do
+          button = find("[data-id^='ss-']", wait: 5)
+          button.click
+        end
+
+        dropdown = find('div.ss-content', visible: true, wait: 5)
+        options = dropdown.all("div[role='option']", wait: 5)
+
+        options.each do |option|
           expect(option.text).not_to match(/TCC: 1/i)
         end
+
+        page.execute_script("document.querySelectorAll('.ss-content').forEach(el => el.remove())")
       end
 
       it 'create an examination_board tcc two' do
         attributes = attributes_for(:examination_board_tcc_two)
         # click_on_label('Monografia', in: 'examination_board_identifier')
-        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 

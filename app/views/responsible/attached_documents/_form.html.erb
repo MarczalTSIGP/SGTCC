@@ -4,13 +4,9 @@
       <%= f.input :name %>
     </div>
     <div class="col-12">
-      <%= f.label :file, class: 'font-weight-bold' %>
-      <file-input
-        name="attached_document[file]"
-        id="attached_document_file"
-        label="<%= AttachedDocument.human_attribute_name('file') %>"
-        :url="<%= @attached_document.file.url.to_json %>"
-        :errors="<%= @attached_document.errors[:file] %>" />
+      <%= f.input :file,
+                  as: :file_tabler,
+                  label: AttachedDocument.human_attribute_name('file') %>
       <%= f.hidden_field :file_cache %>
     </div>
   </div>

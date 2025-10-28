@@ -6,7 +6,7 @@
       <div class="row">
          <div class="col-sm-6">
             <%= f.association :calendars,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: Calendar.select_for_orientation,
                               label_method: :second,
                               value_method: :first,
@@ -14,7 +14,7 @@
          </div>
          <div class="col-sm-6">
             <%= f.association :academic,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: Academic.all.order(:name),
                               prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
          </div>
@@ -22,13 +22,13 @@
       <div class="row">
          <div class="col-sm-6">
             <%= f.association :advisor,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: Professor.all.order(:name),
                               prompt: t('prompt.select.m', name: Orientation.human_attribute_name('advisor')) %>
          </div>
          <div class="col-sm-6">
             <%= f.association :institution,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: Institution.all.order(:trade_name),
                               label_method: :trade_name,
                               prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
@@ -37,13 +37,13 @@
       <div class="row">
          <div class="col-sm-6">
             <%= f.association :professor_supervisors,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: Professor.all.order(:name),
                               prompt: t('prompt.select.multiple', name: Orientation.human_attribute_name('professor_supervisors')) %>
          </div>
          <div class="col-sm-6">
             <%= f.association :external_member_supervisors,
-                              input_html: { data: 'selectize' },
+                              input_html: { data: { controller: 'utils--slim-select' } },
                               collection: ExternalMember.all.order(:name),
                               prompt: t('prompt.select.multiple', name: Orientation.human_attribute_name('external_member_supervisors')) %>
          </div>

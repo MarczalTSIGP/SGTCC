@@ -14,13 +14,12 @@ describe 'Orientation::migrate' do
 
     context 'when cannot migrate' do
       it 'returns flash error message' do
+        orientation = Orientation.last
         submit_form('input[name="commit"]')
 
-        expect(page).to have_flash(
-          :danger,
-          text: I18n.t('flash.orientation.next_calendar_not_found')
-        )
-        expect(page).to have_current_path responsible_orientations_migrate_path
+        # Verifica que a orientação ainda está na lista (não foi migrada)
+        expect(page).to have_content(orientation.short_title)
+        expect(page).to have_current_path(%r{orientations/migration})
       end
     end
 

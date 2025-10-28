@@ -1,7 +1,19 @@
-<div class="item-action dropdown">
-   <%= link_to orientation.academic.name, show_path, "data-toggle" => "dropdown", "aria-expanded" => "false" %>
+<div class="item-action dropdown" data-controller="ui--dropdown">
+   <%= link_to orientation.academic.name, 
+               show_path, 
+               data: { 
+                 "ui--dropdown-target": "toggle",
+                 action: "click->ui--dropdown#toggle",
+                 turbo: false
+               },
+               class: "dropdown-toggle",
+               role: "button",
+               "aria-expanded" => "false" %>
 
-   <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" x-out-of-boundaries="">
+   <div class="dropdown-menu dropdown-menu-right" 
+        data-ui--dropdown-target="menu"
+        x-placement="top-end" 
+        x-out-of-boundaries="">
 
       <% dropdown_links.each do |link| %>
          <%= render partial: "shared/orientations/menu/links/#{link[:name]}",

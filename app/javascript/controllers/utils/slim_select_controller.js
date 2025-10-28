@@ -4,7 +4,7 @@ import SlimSelect from "slim-select";
 export default class extends Controller {
 
   connect() {
-    this.fixPlaceholer();
+    this.fixPlaceholder();
 
     this.slim = new SlimSelect({
       select: this.element,
@@ -20,13 +20,19 @@ export default class extends Controller {
   }
 
   disconnect() {
-    // Cleanup when Turbo replaces the element
     if (this.slim) {
       this.slim.destroy();
     }
   }
 
-  fixPlaceholer() {
+  submitForm() {
+    const form = this.element.closest("form");
+    if (form) {
+      form.requestSubmit();
+    }
+  }
+
+  fixPlaceholder() {
     let blank = this.element.querySelector("option[value=\"\"]");
     if (blank)
       blank.setAttribute("data-placeholder", "true");

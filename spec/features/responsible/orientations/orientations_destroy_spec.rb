@@ -14,9 +14,10 @@ describe 'Orientation::destroy', :js do
     context 'when orientation is destroyed' do
       it 'shows the success message' do
         within('table.table tbody tr', text: orientation.academic.name) do
-          find('.dropdown').click
-          click_link('Remover', match: :first)
-          page.driver.browser.switch_to.alert.accept
+          find('a', text: orientation.academic.name).click
+          accept_confirm do
+            click_link('Remover', match: :first)
+          end
         end
 
         expect(page).to have_flash(:success, text: message('destroy.f'))

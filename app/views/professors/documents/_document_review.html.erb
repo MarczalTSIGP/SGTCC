@@ -1,15 +1,15 @@
 <tr>
   <td>
-    <span data-toggle="tooltip" title="<%= document.orientation.title %>">
+    <span data-controller="ui--tooltip" title="<%= document.orientation.title %>">
       <%= link_to document.orientation.short_title, professors_document_path(document) %>
     </span>
   </td>
   <td><%= document.orientation.academic.name %></td>
   <td>
-    <span data-toggle="tooltip" title="<%= document.document_type.name %>">
+    <span data-controller="ui--tooltip" title="<%= document.document_type.name %>">
       <%= document.document_type.identifier.upcase %>
     </span>
   </td>
-  <td><document-status :request="<%= document.request.to_json %>" /></td>
+  <td><%= render Documents::StatusBadgeComponent.new(request: document.request) %></td>
   <td><%= short_date(document.created_at) %></td>
 </tr>

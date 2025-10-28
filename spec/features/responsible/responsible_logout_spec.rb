@@ -11,7 +11,7 @@ describe 'Responsible:logout', :js do
   context 'when responsible logout' do
     it 'show success message' do
       click_link professor.name
-      click_link(sign_out_button)
+      click_button(sign_out_button)
 
       expect(page).to have_current_path new_professor_session_path
       expect(page).to have_flash(:info, text: already_signed_out_message)

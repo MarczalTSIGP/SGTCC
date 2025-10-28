@@ -16,7 +16,7 @@
           <%= link_to send("edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
             <i class="dropdown-icon fe fe-user"></i> <%= t('sessions.profile') %>
           <% end %>
-          <%= button_to destroy_academic_session_path,
+          <%= button_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"),
               method: :delete,
               data: { turbo: false },
               class: 'dropdown-item w-100 text-start py-2' do %>

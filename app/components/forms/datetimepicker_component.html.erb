@@ -1,0 +1,31 @@
+<div class="form-group" data-controller="forms--datetimepicker" data-forms--datetimepicker-id-value="<%= id %>">
+  <label for="<%= id %>" class="form-control-label string required">
+    <%= label %>
+    <abbr title="obrigatório">*</abbr>
+  </label>
+
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      data-forms--datetimepicker-target="field"
+      value="<%= datetime %>"
+      <%= 'disabled' if disabled %>
+      placeholder="DD/MM/YYYY HH:mm"
+      autocomplete="off"
+    >
+    <div class="input-group-append" data-action="click->forms--datetimepicker#toggle">
+      <div class="input-group-text" style="cursor: pointer;">
+        <i class="fe fe-calendar"></i>
+      </div>
+    </div>
+  </div>
+
+  <input
+    type="hidden"
+    name="<%= name %>"
+    id="<%= id %>"
+    value="<%= datetime %>"
+    data-forms--datetimepicker-target="input"
+  >
+</div>

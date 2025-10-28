@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Professor::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Professor.model_name.human }
+  let!(:scholarity) { create(:scholarity) }
+  let!(:professor_type) { create(:professor_type) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -24,9 +26,9 @@ describe 'Professor::create', :js do
         click_on_label(Professor.human_attribute_name('is_active'), in: 'professor_is_active')
         click_on_label(Professor.human_attribute_name('available_advisor'),
                        in: 'professor_available_advisor')
-        find('.fa-bold').click
-        selectize(Scholarity.first.name, from: 'professor_scholarity_id')
-        selectize(ProfessorType.first.name, from: 'professor_professor_type_id')
+        fill_in_simple_mde('Área de atuação do professor')
+        slim_select(scholarity.name, from: 'professor_scholarity_id')
+        slim_select(professor_type.name, from: 'professor_professor_type_id')
 
         submit_form('input[name="commit"]')
 
