@@ -1,6 +1,6 @@
 class Professors::DocumentsController < Professors::BaseController
   include DocumentSignature
-  before_action :set_document, only: [:show, :sign]
+  before_action :set_document, only: [:show, :sign, :sign_form]
   before_action :set_document_for_responsible, only: :show
   before_action :set_show_sign, only: :show
   before_action :can_view, only: :show
@@ -36,8 +36,20 @@ class Professors::DocumentsController < Professors::BaseController
     @signatures = @document.mark
   end
 
+  def sign_form
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'), professors_document_path(@document)
+    add_breadcrumb I18n.t('breadcrumbs.documents.sign'),
+                   professors_document_sign_form_path(@document)
+
+    @username = Professor.human_attribute_name('username')
+    @confirm_url = professors_document_sign_path(@document)
+    @back_url = professors_document_path(@document)
+  end
+
   def sign
-    confirm_and_sign(current_professor, current_professor.username)
+    confirm_and_sign(current_professor,
+                     current_professor.username,
+                     professors_document_path(@document))
   end
 
   private

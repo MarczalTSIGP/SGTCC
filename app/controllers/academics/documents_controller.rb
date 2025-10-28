@@ -41,7 +41,7 @@ class Academics::DocumentsController < Academics::BaseController
   end
 
   def sign
-    confirm_and_sign(current_academic, current_academic.ra)
+    confirm_and_sign(current_academic, current_academic.ra, academics_document_path(@document))
   end
 
   private

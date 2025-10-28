@@ -30,6 +30,7 @@ class Responsible::OrientationsController < Responsible::BaseController
 
     render :index
   end
+
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
@@ -48,6 +49,7 @@ class Responsible::OrientationsController < Responsible::BaseController
     @search_url = responsible_orientations_search_tcc_two_path
     render :index
   end
+
   # rubocop:enable Metrics/AbcSize
 
   def current_tcc_one
@@ -118,6 +120,8 @@ class Responsible::OrientationsController < Responsible::BaseController
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    responsible_orientation_document_path(@orientation, @document)
+
+    @not_show_sign_button = true
   end
 
   def build_signatures_list(document)
