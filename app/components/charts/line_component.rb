@@ -1,4 +1,4 @@
-class Charts::LineChartComponent < ViewComponent::Base
+class Charts::LineComponent < ViewComponent::Base
   def initialize(series:, categories:, title:, options: {})
     @series = series
     @categories = categories

@@ -1,4 +1,4 @@
-class Charts::PieChartComponent < ViewComponent::Base
+class Charts::PieComponent < ViewComponent::Base
   def initialize(series:, title:, labels:, options: {})
     @series = series
     @title = title

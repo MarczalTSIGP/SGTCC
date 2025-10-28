@@ -1,4 +1,4 @@
-class Charts::BarChartComponent < ViewComponent::Base
+class Charts::BarComponent < ViewComponent::Base
   def initialize(series:, categories:, title:, height: 350)
     @series = series
     @categories = categories

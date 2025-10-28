@@ -20,7 +20,7 @@
             <% colors = ['#FFFF00', '#009900', '#FF9933', '#D9041A'] %>
             <% links = orientations_data[:links] %>
 
-            <%= render Charts::PieChartComponent.new(
+            <%= render Charts::PieComponent.new(
               series: series,
               title: 'Orientações de TCC 1 no Total',
               labels: labels,
@@ -42,7 +42,7 @@
             ] %>
             <% links = orientations_data[:links] %>
 
-            <%= render Charts::PieChartComponent.new(
+            <%= render Charts::PieComponent.new(
               series: series,
               title: "Orientações em (#{data[:calendar]})",
               labels: labels,
@@ -75,7 +75,7 @@
             ] %>
             <% links = orientations_data[:links] %>
 
-            <%= render Charts::PieChartComponent.new(
+            <%= render Charts::PieComponent.new(
               series: series,
               title: 'Orientações de TCC 2 no Total',
               labels: labels,
@@ -96,7 +96,7 @@
               orientations_data[:reproved] || 0
             ] %>
             <% links = orientations_data[:links] %>
-            <%= render Charts::PieChartComponent.new(
+            <%= render Charts::PieComponent.new(
               series: series,
               title: "Orientações em (#{data[:calendar]})",
               labels: labels,
@@ -125,7 +125,7 @@
 
     <% categories = calendar_data.first[:data][:years] rescue [] %>
 
-    <%= render Charts::LineChartComponent.new(
+    <%= render Charts::LineComponent.new(
       series: series,
       categories: categories,
       title: 'Ano/Semestre',
