@@ -45,10 +45,10 @@
       <strong>
         <%= ExternalMember.human_attribute_name('working_area') %>:
       </strong>
-      <div class="form-fieldset w-50 mx-auto text-left">
-        <markdown-reader content="<%= @external_member.working_area %>" />
-      </div>
     </p>
+    <div class="form-fieldset w-50 mx-auto text-left">
+      <div data-controller="markdown--viewer" data-markdown="<%= @external_member.working_area %>"></div>
+    </div>
     <p>
       <strong>
         <%= ExternalMember.human_attribute_name('created_at') %>:
@@ -66,11 +66,11 @@
 
 <div class="d-flex">
   <%= link_to t('simple_form.buttons.back'),
-    responsible_external_members_path,
-    class: 'btn btn-secondary' %>
+              responsible_external_members_path,
+              class: 'btn btn-secondary' %>
 
   <%= link_to t('simple_form.buttons.edit'),
-    edit_responsible_external_member_path(@external_member),
-    class: 'btn btn-primary ml-auto' %>
+              edit_responsible_external_member_path(@external_member),
+              class: 'btn btn-primary ml-auto' %>
 </div>
 
