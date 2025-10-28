@@ -7,10 +7,7 @@ class Responsible::DocumentsController < Responsible::BaseController
 
   def judgment
     process_judgment
-    respond_to do |format|
-      format.turbo_stream { render_turbo_stream_response }
-      format.html { redirect_back(fallback_location: responsible_root_path) }
-    end
+    render_turbo_stream_response
   end
 
   def process_judgment

@@ -38,15 +38,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def render_defense_minutes_error(error_type)
     flash.now[:sweet_error] = I18n.t("json.messages.defense_minutes.#{error_type}")
-    respond_to do |format|
-      format.turbo_stream { render 'shared/sweet_alert' }
-      format.json do
-        render json: {
-          message: I18n.t("json.messages.defense_minutes.#{error_type}"),
-          status: :error
-        }
-      end
-    end
+    render 'shared/sweet_alert'
   end
 
   def create_and_render_defense_minutes
@@ -61,18 +53,6 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def render_defense_minutes_success
     flash.now[:sweet_success] = I18n.t('json.messages.defense_minutes.success')
-    respond_to do |format|
-      format.turbo_stream
-      format.json { render json: defense_minutes_success_json }
-    end
-  end
-
-  def defense_minutes_success_json
-    {
-      message: I18n.t('json.messages.defense_minutes.success'),
-      status: :success,
-      id: @examination_board.defense_minutes.id
-    }
   end
 
   private
