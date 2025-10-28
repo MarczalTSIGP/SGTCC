@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Cadastrados no SGTCC",
         background_color: "primary",
         number: professors[:total],
@@ -10,7 +10,7 @@
   </div>
 
   <div class="col-md-4 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Disponíveis para orientação",
         background_color: "green",
         number: professors[:available],
@@ -20,7 +20,7 @@
   </div>
 
   <div class="col-md-4 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Indisponíveis para orientação",
         background_color: "red",
         number: professors[:unavailable],

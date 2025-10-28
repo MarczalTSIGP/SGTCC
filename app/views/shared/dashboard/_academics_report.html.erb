@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-3 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Cadastrados no SGTCC",
         background_color: "default",
         number: academics[:total],
@@ -10,7 +10,7 @@
   </div>
 
   <div class="col-md-3 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Em orientação",
         background_color: "primary",
         number: academics[:orientations][:all][:in_progress],
@@ -20,7 +20,7 @@
   </div>
 
   <div class="col-md-3 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Concluíram o TCC 1",
         background_color: "lime",
         number: academics[:orientations][:tcc_one][:approved],
@@ -30,7 +30,7 @@
   </div>
 
   <div class="col-md-3 col-sm-12">
-    <%= render Charts::CardReportNumberComponent.new(
+    <%= render Dashboard::CardReportNumberComponent.new(
         label: "Concluíram o TCC 2",
         background_color: "green",
         number: academics[:orientations][:tcc_two][:approved],
