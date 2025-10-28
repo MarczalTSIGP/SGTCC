@@ -5,7 +5,7 @@
                        placeholder: t("messages.search") %>
 
     <div class="input-group-append">
-      <%= button_tag type: "submit", class: "btn btn-outline-primary", name: nil do %>
+      <%= button_tag type: "submit", class: "btn btn-outline-primary", id: "search", name: nil do %>
         <i class="fe fe-search"></i>
       <% end %>
     </div>
@@ -14,7 +14,7 @@
   <div class="ml-4">
     <%= select_tag "status",
                    options_for_select(
-                     [[t('prompt.select.all.f'), "ALL"]] +
+                     [[t('prompt.select.all.f'), ""]] +
                      Orientation.select_status_data.map { |key, label| [label, key] },
                      selected: params[:status]
                    ),
