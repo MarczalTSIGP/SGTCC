@@ -126,6 +126,34 @@ module Notifications
       ).schedule!;
     end
 
+    def self.daily_deadline_notifications
+      [7, 3, 1, 0].each do |days_before|
+        target_date = Date.current + days_before
+        range = (target_date.beginning_of_day.in_time_zone)..(target_date.end_of_day.in_time_zone)
+        
+        Activity.where(final_date: range).find_each do |activity|
+          orientations = activity.calendar.orientations
+          orientations.each do |orientation|
+            users = ([orientation.academic] + [orientation.advisor]).uniq
+            users.each do |recipient|
+              class_name = recipient.class.name.downcase
+              ::Notifications::SchedulerService.new(
+                notification_type: "#{class_name}_deadline_upcoming",
+                recipient: recipient,
+                data: {
+                  activity_title: activity.name,
+                  tcc: I18n.t("enums.tcc.#{activity.tcc}"),
+                  final_date: activity.final_date,
+                  days_before: days_before,
+                },
+                event_key: "activity:#{activity.id}:deadline:#{days_before}:final_date:#{activity.final_date}:user:#{class_name}:#{recipient.id}"
+              ).schedule!
+            end
+          end
+        end
+      end
+    end
+
     private
 
     def self.notify_responsible(document, orientation)
