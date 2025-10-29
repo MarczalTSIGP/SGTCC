@@ -144,7 +144,7 @@ module Notifications
                   activity_title: activity.name,
                   tcc: I18n.t("enums.tcc.#{activity.tcc}"),
                   final_date: activity.final_date,
-                  days_before: days_before,
+                  days_left: days_before,
                 },
                 event_key: "activity:#{activity.id}:deadline:#{days_before}:final_date:#{activity.final_date}:user:#{class_name}:#{recipient.id}"
               ).schedule!
