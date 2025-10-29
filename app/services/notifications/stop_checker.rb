@@ -34,7 +34,7 @@ module Notifications
       user_type = parts[3]
       user_id = parts[4]
 
-      user_class = user_type.split('_').first.classify.safe_constantize
+      user_class = user_type.split('_').first.classify
     
       signature = Signature.find_by(
         id: doc_id,
