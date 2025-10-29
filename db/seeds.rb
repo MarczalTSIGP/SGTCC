@@ -161,21 +161,33 @@ templates = [
     <br> Data: %{date}
     <br> Horário: %{time}
     <br> Local: %{place}
-    <br> Por favor, confirme sua disponibilidade.
-',
+    <br> Por favor, confirme sua disponibilidade.',
     notification_rule_attributes: { hours_after: 1, max_retries: 2, retry_interval_hours: 48 }
   },
   {
-    title: 'Banca de avaliação agendada',
-    key: 'academic_examination_board_scheduled',
+    title: 'Confirmação de banca de avaliação',
+    key: 'atendee_confirmed_examination_board',
     channel: 'email',
     subject: 'Agendamento de banca confirmado',
     body: '
-    Olá %{academic_name}, sua banca foi agendada com os seguintes detalhes:
+    A banca de avaliação do aluno %{academic_name}, com TCC intitulado %{orientation_title}, foi confirmada com os seguintes detalhes:
     <br> Data: %{date}
     <br> Horário: %{time}
     <br> Local: %{place}
-    <br> Confira os detalhes no sistema.',
+    <br> Acesse o sistema para mais detalhes.',
+    notification_rule_attributes: { extra_notes: 'Envio único' }
+  },
+  {
+    title: 'Banca de avaliação agendada',
+    key: 'academic_confirmed_examination_board',
+    channel: 'email',
+    subject: 'Agendamento de banca confirmado',
+    body: '
+    Olá %{academic_name}, a banca de defesa do seu TCC com os seguintes detalhes foi confirmada:
+    <br> Data: %{date}
+    <br> Horário: %{time}
+    <br> Local: %{place}
+    <br> Acesse o sistema para mais detalhes.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
   {
@@ -185,8 +197,7 @@ templates = [
     subject: 'Apontamentos da banca disponíveis',
     body: '
     Os apontamentos registrados pela banca do seu TCC, realizada no dia %{date}, já estão disponíveis no sistema.
-    <br> Acesse sua área para consultá-los.
-',
+    <br> Acesse sua área para consultá-los.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
   {

@@ -92,6 +92,29 @@ module Notifications
       end
     end
 
+    def self.confirmed_examination_board(board)
+      recipients = ([board.orientation.academic] + board.professors + board.external_members + [board.orientation.advisor]).uniq
+      recipients.each do |user|
+        if user.class.name == 'Academic'
+          notification_type = 'academic_confirmed_examination_board'
+        else
+          notification_type = 'atendee_confirmed_examination_board'
+        end
+        ::Notifications::SchedulerService.new(
+          notification_type: notification_type,
+          recipient: user,
+          data: {
+            date: board.date.strftime('%d/%m/%Y'),
+            place: board.place,
+            time: board.date.strftime('%H:%M'),
+            academic_name: board.orientation.academic.name,
+            orientation_title: board.orientation.title
+          },
+          event_key: "examination_board:#{board.id}:confirmed:user:#{user.class.name}:#{user.id}"
+        ).schedule!;
+      end
+    end
+
     def self.academic_examination_board_appointments(examination_board)
       ::Notifications::SchedulerService.new(
         notification_type: 'academic_examination_board_appointments',
