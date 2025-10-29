@@ -1,4 +1,4 @@
-\restrict SnfLKjO65JjMh5dJ5lqchLMOFTcE3fCaebe3fOlGkkV1JxyaRJneHxoG6VyKCjN
+\restrict 0XK1XyT98H7fKgkfsUcAv3m6NjgpTHBpyVdwxWPl23Z5vGQuT4OdOhJTjEXhiFo
 
 -- Dumped from database version 17.5 (Debian 17.5-1.pgdg130+1)
 -- Dumped by pg_dump version 18.0 (Debian 18.0-1.pgdg12+3)
@@ -549,7 +549,8 @@ CREATE TABLE public.examination_boards (
     identifier public.examination_board_identifiers,
     document_available_until timestamp without time zone,
     final_note integer,
-    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations
+    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations,
+    confirm boolean DEFAULT false NOT NULL
 );
 
 
@@ -1962,7 +1963,7 @@ ALTER TABLE ONLY public.meetings
 -- PostgreSQL database dump complete
 --
 
-\unrestrict SnfLKjO65JjMh5dJ5lqchLMOFTcE3fCaebe3fOlGkkV1JxyaRJneHxoG6VyKCjN
+\unrestrict 0XK1XyT98H7fKgkfsUcAv3m6NjgpTHBpyVdwxWPl23Z5vGQuT4OdOhJTjEXhiFo
 
 SET search_path TO "$user", public;
 
@@ -1970,6 +1971,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20251104201959'),
 ('20251104201958'),
 ('20251104201957'),
+('20251028213703'),
 ('20231017133608'),
 ('20231004230530'),
 ('20200710170737'),

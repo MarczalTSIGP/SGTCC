@@ -147,6 +147,15 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:enable Rails/SkipsModelValidations
   end
 
+  def confirm?
+    confirm
+  end
+
+  def confirm!
+    update(confirm: true)
+    Notifications::Hooks.confirmed_examination_board(self)
+  end
+
   private
 
   def trigger_create_notifications

@@ -132,6 +132,10 @@ Rails.application.routes.draw do
            to: 'examination_boards#create_to_tcc_two',
            as: 'examination_boards_create_tcc_two'
 
+      patch 'examination_boards/(:id)/confirm',
+            to: 'examination_boards#confirm',
+            as: 'examination_boards_confirm'
+
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
            as: 'calendar_activities_by_calendar'

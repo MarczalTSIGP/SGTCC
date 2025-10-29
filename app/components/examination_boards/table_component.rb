@@ -47,6 +47,25 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
     end
   end
 
+  def confirm_button(examination_board)
+    return '' unless @namespace == :responsible
+
+    if examination_board.confirm?
+      helpers.content_tag(:button, 'Banca Confirmada',
+                          class: 'btn btn-primary w-100',
+                          disabled: true)
+    else
+      helpers.button_to(
+        helpers.responsible_examination_boards_confirm_path(examination_board),
+        method: :patch,
+        class: 'btn btn-outline-primary w-100',
+        data: { turbo_stream: true, turbo_confirm: 'Deseja confirmar esta banca?' }
+      ) do
+        '✓ Confirmar Banca'
+      end
+    end
+  end
+
   def badge_html(examination_board)
     badge = badge_style(examination_board)
 

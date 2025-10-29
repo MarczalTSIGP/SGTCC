@@ -146,6 +146,17 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     end
   end
 
+  def confirm
+    @examination_board = ExaminationBoard.find(params[:id])
+    @examination_board.confirm!
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to responsible_examination_boards_path, notice: 'Banca confirmada com sucesso.' }
+    end
+  end
+
+
   private
 
   def set_examination_board
