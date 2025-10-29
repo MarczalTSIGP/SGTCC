@@ -9,7 +9,7 @@ default: &default
 development:
   primary:
     <<: *default
-    database: sgtcc_development
+    database: postgres
 
   queue:
     adapter: sqlite3
