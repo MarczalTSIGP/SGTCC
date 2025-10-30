@@ -42,7 +42,7 @@ class Professors::MeetingsController < Professors::BaseController
       redirect_to professors_meetings_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
