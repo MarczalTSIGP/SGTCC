@@ -131,3 +131,4 @@ jobs:
           bundle exec rspec spec/features/academics
           bundle exec rspec spec/features/responsible
           bundle exec rspec spec/features/professors
+          bundle exec rspec spec/features/tcc_one_professors
