@@ -11,9 +11,9 @@ export default class extends Controller {
         popperConfig: {
           modifiers: [
             {
-              name: 'preventOverflow',
+              name: "preventOverflow",
               options: {
-                rootBoundary: 'viewport',
+                rootBoundary: "viewport",
               },
             },
           ],
@@ -40,11 +40,11 @@ export default class extends Controller {
   }
 
   closeAllDropdowns() {
-    const allDropdowns = document.querySelectorAll('.dropdown');
+    const allDropdowns = document.querySelectorAll(".dropdown");
     
     allDropdowns.forEach((dropdown) => {
       if (dropdown !== this.element) {
-        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const toggle = dropdown.querySelector(".dropdown-toggle");
         if (toggle) {
           const dropdownInstance = window.bootstrap.Dropdown.getInstance(toggle);
           if (dropdownInstance) {
