@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-sm-12 col-lg-8 mb-2">
-    <search url="<%= @search_url %>" search-term="<%= params[:term] %>" />
+    <%= render 'shared/search', url: @search_url, search_term: params[:term] %>
   </div>
   <div class="col-sm-12 col-lg-4">
     <%= link_to(new_tcc_one_professors_examination_board_path, class: 'btn btn-outline-primary d-block') do %>
@@ -13,8 +13,11 @@
   </div>
 </div>
 
-<%= provide(:orienation_tabs) do%>
-  <%= render('tabs') %>
+<%= render ExaminationBoards::TableComponent.new(
+  examination_boards: @examination_boards,
+  namespace: :tcc_one_professors
+) do |component| %>
+  <% component.with_tabs do %>
+    <%= render('tabs') %>
+  <% end %>
 <% end %>
-
-<%= render 'shared/examination_boards/table' %>

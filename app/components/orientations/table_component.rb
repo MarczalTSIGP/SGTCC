@@ -16,7 +16,7 @@ class Orientations::TableComponent < ViewComponent::Base
 
   def show_path(orientation)
     if @path_helper
-      send(@path_helper, orientation)
+      @path_helper.call(orientation)
     else
       send("#{@namespace}_orientation_path", orientation)
     end

@@ -22,16 +22,24 @@ describe 'ExaminationBoard::create', :js do
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        find_by_id('examination_board_orientation_id-selectized').click
-
-        all('.selectize-dropdown-content .option').each do |option|
+        select_element = find('select#examination_board_orientation_id', visible: :all)
+        parent_element = select_element.find(:xpath, './..')
+        
+        open_slim_select_dropdown(parent_element)
+        
+        dropdown = find('div.ss-content', visible: :visible, wait: 5)
+        options = dropdown.all("div[role='option']")
+        
+        options.each do |option|
           expect(option.text).not_to match(/TCC: 2/i)
         end
+        
+        close_dropdown_if_needed(select_element, parent_element)
       end
 
       it 'create an examination_board' do
         attributes = attributes_for(:examination_board_tcc_one)
-        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         click_on_label(ExaminationBoard.human_tcc_one_identifiers.first[0],
                        in: 'examination_board_identifier')
         fill_in 'examination_board_place', with: attributes[:place]
