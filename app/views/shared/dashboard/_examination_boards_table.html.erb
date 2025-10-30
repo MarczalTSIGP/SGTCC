@@ -6,7 +6,7 @@
       </h3>
     </div>
     <div class="table-sm table-responsive">
-      <%= render 'shared/examination_boards/table' %>
+      <%= render ExaminationBoards::TableComponent.new(examination_boards: @examination_boards, namespace: :tcc_one_professors) %>
     </div>
   </div>
 <% end %>
