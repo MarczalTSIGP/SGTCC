@@ -1,6 +1,6 @@
 class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   include DocumentSignature
-  before_action :set_document, only: [:show, :sign]
+  before_action :set_document, only: [:show, :sign, :sign_form]
   before_action :can_view, only: :show
   before_action :set_signature, only: [:show, :sign]
 
@@ -23,10 +23,23 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   def show
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    external_members_document_path(@document)
+    @signatures = @document.mark
+  end
+
+  def sign_form
+    add_breadcrumb I18n.t('breadcrumbs.documents.show'), external_members_document_path(@document)
+    add_breadcrumb I18n.t('breadcrumbs.documents.sign'),
+                   external_members_document_sign_form_path(@document)
+
+    @username = ExternalMember.human_attribute_name('email')
+    @confirm_url = external_members_document_sign_path(@document)
+    @back_url = external_members_document_path(@document)
   end
 
   def sign
-    confirm_and_sign(current_external_member, current_external_member.email)
+    confirm_and_sign(current_external_member,
+                     current_external_member.email,
+                     external_members_document_path(@document))
   end
 
   private
