@@ -19,6 +19,9 @@ describe 'ExaminationBoardApointments::create', :js do
         fill_in 'examination_board_note_note', with: attributes[:note]
         submit_form('input[id="examination_board_note_button"]')
 
+        # Wait for page to update after Turbo request
+        sleep 0.5
+
         page.execute_script(<<~JS)
           document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
             var input = document.createElement('input');
@@ -28,7 +31,10 @@ describe 'ExaminationBoardApointments::create', :js do
             el.replaceWith(input);
           });
         JS
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+        
+        # Wait for element to be replaced in DOM
+        sleep 0.1
+        find('#examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
         submit_form('input[id="examination_board_file_button"]')
 
         expect(page).to have_current_path professors_examination_board_path(examination_board)
@@ -64,7 +70,10 @@ describe 'ExaminationBoardApointments::create', :js do
             el.replaceWith(input);
           });
         JS
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+        
+        # Wait for element to be replaced in DOM
+        sleep 0.1
+        find('#examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
 
         content = 'Teste2'
         page.execute_script("document.getElementsByClassName('CodeMirror')[0]

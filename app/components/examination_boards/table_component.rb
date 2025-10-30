@@ -5,13 +5,18 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
 
   renders_one :tabs
 
-  def initialize(examination_boards:, namespace:)
+  def initialize(examination_boards:, namespace:, path_helper: nil)
     @examination_boards = examination_boards
     @namespace = namespace
+    @path_helper = path_helper
   end
 
   def show_path(examination_board)
-    send("#{@namespace}_examination_board_path", examination_board)
+    if @path_helper
+      send(@path_helper, examination_board)
+    else
+      send("#{@namespace}_examination_board_path", examination_board)
+    end
   end
 
   def edit_path(examination_board)

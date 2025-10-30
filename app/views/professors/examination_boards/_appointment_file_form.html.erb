@@ -24,7 +24,7 @@
       </div>
 
       <div class="mt-5 <%= @examination_board_note.appointment_text.present? ? 'border-green' : '' %>">
-         <%= f.input :appointment_text, input_html: { class: 'markdown-editor' } %>
+         <%= f.input :appointment_text, input_html: { class: 'markdown-editor', data: { controller: 'markdown--editor' } } %>
       </div>
 
       <%= f.hidden_field :professor_id, value: current_professor.id %>

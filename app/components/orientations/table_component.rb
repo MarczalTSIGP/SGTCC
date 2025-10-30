@@ -4,21 +4,27 @@ class Orientations::TableComponent < ViewComponent::Base
   Badge = Struct.new(:class_name, :label)
 
   def initialize(orientations:, namespace:, show_legend: true, show_actions: false,
-                 action_partial: nil, &action_block)
+                 action_partial: nil, path_helper: nil, service_class: nil, &action_block)
     @orientations = orientations
     @namespace = namespace
     @show_legend = show_legend
     @show_actions = show_actions
     @action_partial = action_partial
+    @path_helper = path_helper
+    @service_class = service_class
     @action_block = action_block
   end
 
   def show_path(orientation)
-    send("#{@namespace}_orientation_path", orientation)
+    if @path_helper
+      send(@path_helper, orientation)
+    else
+      send("#{@namespace}_orientation_path", orientation)
+    end
   end
 
   def dropdown_links(orientation)
-    service_class = "Orientations::Links::#{service_class_name}Service"
+    service_class = @service_class || "Orientations::Links::#{service_class_name}Service"
     service_class.constantize.perform(orientation)
   end
 

@@ -14,9 +14,9 @@ describe 'Document::sign', :js do
     context 'when signs the signature of the term of commitment' do
       it 'signs the document of the term of commitment' do
         click_button(signature_button, id: 'signature_button')
-        fill_in 'login_confirmation', with: professor.username
-        fill_in 'password_confirmation', with: 'password'
-        click_button(sign_button, id: 'login_confirmation_button')
+        fill_in 'user_username', with: professor.username
+        fill_in 'user_password', with: 'password'
+        click_button(sign_button)
 
         expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
 
@@ -31,9 +31,9 @@ describe 'Document::sign', :js do
     context 'when the password is wrong' do
       it 'shows alert message' do
         click_button(signature_button, id: 'signature_button')
-        fill_in 'login_confirmation', with: professor.username
-        fill_in 'password_confirmation', with: '123'
-        click_button(sign_button, id: 'login_confirmation_button')
+        fill_in 'user_username', with: professor.username
+        fill_in 'user_password', with: '123'
+        click_button(sign_button)
 
         expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
       end

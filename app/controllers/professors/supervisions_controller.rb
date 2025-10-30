@@ -43,6 +43,8 @@ class Professors::SupervisionsController < Professors::BaseController
 
   def document
     @document = @orientation.documents.find(params[:document_id])
+    @signatures = @document.mark
+    @signature = @document.signature_by_user(current_professor.id, current_professor.user_types)
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    professors_supervision_document_path(@orientation, @document)
