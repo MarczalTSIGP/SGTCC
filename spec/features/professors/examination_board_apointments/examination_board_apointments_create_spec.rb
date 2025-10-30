@@ -19,7 +19,15 @@ describe 'ExaminationBoardApointments::create', :js do
         fill_in 'examination_board_note_note', with: attributes[:note]
         submit_form('input[id="examination_board_note_button"]')
 
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        page.execute_script(<<~JS)
+          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'examination_board_note[appointment_file]';
+            input.id = 'examination_board_note_appointment_file';
+            el.replaceWith(input);
+          });
+        JS
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_file_button"]')
 
@@ -47,7 +55,15 @@ describe 'ExaminationBoardApointments::create', :js do
 
     context 'when the file and the apointment text is valid' do
       it 'create a apointment text' do
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        page.execute_script(<<~JS)
+          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'examination_board_note[appointment_file]';
+            input.id = 'examination_board_note_appointment_file';
+            el.replaceWith(input);
+          });
+        JS
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
 
         content = 'Teste2'

@@ -40,16 +40,17 @@ describe 'ExaminationBoard::show' do
 
     context 'when generates the non attendance defense minutes', :js do
       it 'shows the view defense minutes button' do
-        find_by_id('generate_non_attendance_defense_minutes').click
-        expect(page).to have_alert(text: 'Você tem certeza que deseja gerar a Ata de Defesa')
+        message = accept_confirm do
+          find_by_id('generate_non_attendance_defense_minutes').click
+        end
+        expect(message).to include('Você tem certeza que deseja gerar a Ata de Defesa')
 
-        first('.swal-button--confirm').click # confirmation
         expect(page).to have_alert(text: 'Ata de Defesa gerada com sucesso!')
 
         first('.swal-button--confirm').click # success message
         expect(page).to have_link(text: 'Visualizar Ata de Defesa')
 
-        find_by_id('view_defense_minutes').click
+        click_link('Visualizar Ata de Defesa')
 
         examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,
