@@ -6,7 +6,7 @@
     as: :select,
     collection: current_professor.orientations_to_form,
     class: 'form-control',
-    input_html: { data: 'selectize' },
+    input_html: { data: { controller: 'utils--slim-select' } },
     label_method: :second,
     value_method: :first,
     prompt: t('prompt.select.f', name: Orientation.model_name.human) %>
@@ -16,6 +16,7 @@
     input_html: {
       rows: '8',
       class: 'markdown-editor',
+      data: { controller: 'markdown--editor' },
     } %>
 
   <div class="d-flex">
