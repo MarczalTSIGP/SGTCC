@@ -20,11 +20,11 @@ describe 'Orientation::update' do
         fill_in 'orientation_title', with: attributes[:title]
         advisor = professors.first
         supervisor = external_members.last
-        selectize(academic.name, from: 'orientation_academic_id')
-        selectize(supervisor.name,
-                  from: 'orientation_external_member_supervisor_ids')
-        selectize(advisor.name,
-                  from: 'orientation_professor_supervisor_ids')
+        slim_select(academic.name, from: 'orientation_academic_id')
+        slim_select(supervisor.name,
+                    from: 'orientation_external_member_supervisor_ids')
+        slim_select(advisor.name,
+                    from: 'orientation_professor_supervisor_ids')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_orientation_path(orientation)

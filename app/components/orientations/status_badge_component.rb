@@ -16,7 +16,7 @@ class Orientations::StatusBadgeComponent < ViewComponent::Base
 
   def text_color_class
     return 'text-dark' if @status == 'em andamento'
-    
+
     ''
   end
 
@@ -38,4 +38,3 @@ class Orientations::StatusBadgeComponent < ViewComponent::Base
     }
   end
 end
-

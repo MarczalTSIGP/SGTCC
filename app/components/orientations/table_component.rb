@@ -18,8 +18,19 @@ class Orientations::TableComponent < ViewComponent::Base
   end
 
   def dropdown_links(orientation)
-    service_class = "Orientations::Links::#{@namespace.to_s.classify}Service"
+    service_class = "Orientations::Links::#{service_class_name}Service"
     service_class.constantize.perform(orientation)
+  end
+
+  def service_class_name
+    case @namespace.to_s
+    when 'professors'
+      'Professors'
+    when 'tcc_one_professors'
+      'TccOneProfessors'
+    else
+      @namespace.to_s.classify
+    end
   end
 
   def status_badge_html(orientation)

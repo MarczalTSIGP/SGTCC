@@ -4,13 +4,13 @@
     <div class="row">
       <div class="col-sm-6">
         <%= f.association :academic,
-          input_html: { data: 'selectize' },
+          input_html: { data: { controller: 'utils--slim-select' } },
           collection: Academic.all.order(:name),
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('academic')) %>
       </div>
       <div class="col-sm-6">
         <%= f.association :institution,
-          input_html: { data: 'selectize' },
+          input_html: { data: { controller: 'utils--slim-select' } },
           label_method: :trade_name,
           collection: Institution.all.order(:trade_name),
           prompt: t('prompt.select.f', name: Orientation.human_attribute_name('institution')) %>
@@ -27,13 +27,13 @@
     <div class="row">
       <div class="col-sm-6">
         <%= f.association :professor_supervisors,
-          input_html: { data: 'selectize' },
+          input_html: { data: { controller: 'utils--slim-select' } },
           collection: Professor.where.not(username: current_professor.username).order(:name),
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('professor_supervisors')) %>
       </div>
       <div class="col-sm-6">
         <%= f.association :external_member_supervisors,
-          input_html: { data: 'selectize' },
+          input_html: { data: { controller: 'utils--slim-select' } },
           collection: ExternalMember.all.order(:name),
           prompt: t('prompt.select.m', name: Orientation.human_attribute_name('external_member_supervisors')) %>
       </div>
