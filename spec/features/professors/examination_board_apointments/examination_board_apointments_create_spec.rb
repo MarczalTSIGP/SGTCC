@@ -31,10 +31,10 @@ describe 'ExaminationBoardApointments::create', :js do
             el.replaceWith(input);
           });
         JS
-        
+
         # Wait for element to be replaced in DOM
         sleep 0.1
-        find('#examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
+        find_by_id('examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
         submit_form('input[id="examination_board_file_button"]')
 
         expect(page).to have_current_path professors_examination_board_path(examination_board)
@@ -70,10 +70,10 @@ describe 'ExaminationBoardApointments::create', :js do
             el.replaceWith(input);
           });
         JS
-        
+
         # Wait for element to be replaced in DOM
         sleep 0.1
-        find('#examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
+        find_by_id('examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
 
         content = 'Teste2'
         page.execute_script("document.getElementsByClassName('CodeMirror')[0]

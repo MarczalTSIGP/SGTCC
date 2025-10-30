@@ -25,7 +25,7 @@ describe 'Request::update', :js do
         submit_form('input[name="commit"]')
 
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_current_path(/\/professors\/documents\/\d+/)
+        expect(page).to have_current_path(%r{/professors/documents/\d+})
         expect(page).to have_contents([professor.name,
                                        document.document_type.name.upcase,
                                        new_justification])

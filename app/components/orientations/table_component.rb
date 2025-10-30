@@ -3,15 +3,14 @@
 class Orientations::TableComponent < ViewComponent::Base
   Badge = Struct.new(:class_name, :label)
 
-  def initialize(orientations:, namespace:, show_legend: true, show_actions: false,
-                 action_partial: nil, path_helper: nil, service_class: nil, &action_block)
+  def initialize(orientations:, namespace:, **options, &action_block)
     @orientations = orientations
     @namespace = namespace
-    @show_legend = show_legend
-    @show_actions = show_actions
-    @action_partial = action_partial
-    @path_helper = path_helper
-    @service_class = service_class
+    @show_legend = options.fetch(:show_legend, true)
+    @show_actions = options.fetch(:show_actions, false)
+    @action_partial = options[:action_partial]
+    @path_helper = options[:path_helper]
+    @service_class = options[:service_class]
     @action_block = action_block
   end
 

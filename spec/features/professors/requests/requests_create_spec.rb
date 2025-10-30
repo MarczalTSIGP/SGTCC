@@ -21,11 +21,11 @@ describe 'Request::create' do
       it 'create a term of abandonment' do
         slim_select(orientation.academic_with_calendar, from: 'document_orientation_id')
         find('.fa-bold').click
-        
-        expect {
+
+        expect do
           submit_form('input[name="commit"]')
           expect(page).to have_flash(:success, text: message('create.f'), wait: 10)
-        }.to change(Document, :count).by(1)
+        end.to change(Document, :count).by(1)
 
         expect(page).to have_current_path professors_document_path(Document.last)
         expect(page).to have_content(orientation.title)
