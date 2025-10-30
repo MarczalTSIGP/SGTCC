@@ -60,16 +60,20 @@ describe 'ExaminationBoard::update', :js do
 
         expect(page).to have_field 'examination_board_professor_ids', disabled: true, visible: :all
         expect(page).to have_field 'examination_board_external_member_ids', disabled: true,
-                                   visible: :all
+                                                                            visible: :all
         expect(page).to have_field 'examination_board_place', disabled: true
 
-        datetime_selector = 'div[data-controller="forms--datetimepicker"][data-forms--datetimepicker-id-value="examination_board_date"] input[disabled]'
-        expect(page).to have_css(datetime_selector)
+        date_selector = 'div[data-controller="forms--datetimepicker"]' \
+                        '[data-forms--datetimepicker-id-value="examination_board_date"] ' \
+                        'input[disabled]'
+        expect(page).to have_css(date_selector)
 
-        datetime_selector = 'div[data-controller="forms--datetimepicker"][data-forms--datetimepicker-id-value="examination_board_document_available_until"] input'
-        expect(page).to have_css(datetime_selector)
+        doc_selector = 'div[data-controller="forms--datetimepicker"]' \
+                       '[data-forms--datetimepicker-id-value=' \
+                       '"examination_board_document_available_until"] input'
+        expect(page).to have_css(doc_selector)
 
-        expect(page).to have_no_css("#{datetime_selector}[disabled]")
+        expect(page).to have_no_css("#{doc_selector}[disabled]")
       end
     end
   end

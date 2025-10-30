@@ -24,7 +24,7 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
   end
 
   def actions(examination_board)
-    return '' unless %i[responsible tcc_one_professors].include?(@namespace)
+    return '' unless [:responsible, :tcc_one_professors].include?(@namespace)
 
     edit_link(examination_board) + ' '.html_safe + delete_link(examination_board)
   end

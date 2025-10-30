@@ -24,16 +24,16 @@ describe 'ExaminationBoard::create', :js do
       it 'does not show "tcc 2" in the identifier input' do
         select_element = find('select#examination_board_orientation_id', visible: :all)
         parent_element = select_element.find(:xpath, './..')
-        
+
         open_slim_select_dropdown(parent_element)
-        
+
         dropdown = find('div.ss-content', visible: :visible, wait: 5)
         options = dropdown.all("div[role='option']")
-        
+
         options.each do |option|
           expect(option.text).not_to match(/TCC: 2/i)
         end
-        
+
         close_dropdown_if_needed(select_element, parent_element)
       end
 

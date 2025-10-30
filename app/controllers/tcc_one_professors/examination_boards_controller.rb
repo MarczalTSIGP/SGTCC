@@ -60,7 +60,8 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
       set_orientations_and_activities
 
       error_message
-      render :new, orientations: @orientations, activities: @activities, status: :unprocessable_entity
+      render :new, orientations: @orientations, activities: @activities,
+                   status: :unprocessable_entity
     end
   end
 
