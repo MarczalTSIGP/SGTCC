@@ -18,7 +18,15 @@ describe 'ExaminationBoardNote::create', :js do
       it 'create an note' do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        page.execute_script(<<~JS)
+          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'examination_board_note[appointment_file]';
+            input.id = 'examination_board_note_appointment_file';
+            el.replaceWith(input);
+          });
+        JS
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_note_button"]')
 
@@ -40,7 +48,15 @@ describe 'ExaminationBoardNote::create', :js do
       it 'redirect to the examination board page' do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
+        page.execute_script(<<~JS)
+          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'examination_board_note[appointment_file]';
+            input.id = 'examination_board_note_appointment_file';
+            el.replaceWith(input);
+          });
+        JS
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_note_button"]')
 
