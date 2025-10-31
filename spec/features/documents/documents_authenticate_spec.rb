@@ -14,8 +14,8 @@ describe 'Document::authenticate', :js do
     context 'when authenticate the signature code of the term of commitment' do
       it 'signs the document of the term of commitment' do
         visit document_path
-        fill_in 'signature_code', with: document.code
-        click_button(authenticate_button, id: 'signature_authenticate_button')
+        fill_in 'Código', with: document.code
+        click_button 'Autenticar'
         expect(page).to have_current_path confirm_document_code_path(document.code)
         expect(page).to have_alert(text: document_authenticated_message)
         click_button(ok_button, class: 'swal-button swal-button--confirm')
@@ -25,9 +25,10 @@ describe 'Document::authenticate', :js do
     context 'when the code is wrong' do
       it 'shows alert message' do
         visit document_path
-        fill_in 'signature_code', with: ''
-        click_button(authenticate_button, id: 'signature_authenticate_button')
-        expect(page).to have_alert(text: invalid_code_message)
+        fill_in 'Código', with: ''
+        click_button 'Autenticar'
+        expect(page).to have_current_path document_path
+        expect(page).to have_alert(text: document_not_found_message)
         click_button(ok_button, class: 'swal-button swal-button--confirm')
       end
     end
@@ -35,9 +36,11 @@ describe 'Document::authenticate', :js do
     context 'when the not found code' do
       it 'shows alert message' do
         visit document_path
-        fill_in 'signature_code', with: '343'
-        click_button(authenticate_button, id: 'signature_authenticate_button')
+        fill_in 'Código', with: '343'
+        click_button 'Autenticar'
+        expect(page).to have_current_path document_path
         expect(page).to have_alert(text: document_not_found_message)
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
       end
     end
   end

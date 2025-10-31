@@ -29,6 +29,8 @@ describe 'ExaminationBoardFile::create', :js do
             el.replaceWith(input);
           });
         JS
+        
+        expect(page).to have_css('input#examination_board_note_appointment_file', wait: 5)
         attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_file_button"]')
 

@@ -17,10 +17,13 @@ describe 'Document::show', :js do
 
     context 'when shows the signed signature of the term of commitment' do
       before do
-        visit confirm_document_code_path(document.code)
+        visit document_path
+        fill_in 'Código', with: document.code
+        click_button 'Autenticar'
       end
 
       it 'shows the document of the term of commitment' do
+        expect(page).to have_current_path confirm_document_code_path(document.code)
         expect(page).to have_alert(text: document_authenticated_message)
         click_button(ok_button, class: 'swal-button swal-button--confirm')
 
@@ -55,6 +58,7 @@ describe 'Document::show', :js do
       it 'redirect to the signature document page' do
         expect(page).to have_current_path document_path
         expect(page).to have_alert(text: document_not_found_message)
+        click_button(ok_button, class: 'swal-button swal-button--confirm')
       end
     end
   end
