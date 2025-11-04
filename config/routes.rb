@@ -731,6 +731,7 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'

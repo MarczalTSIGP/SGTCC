@@ -3,17 +3,13 @@
 
 <div class="row">
   <div class="col-sm-12 col-lg-8">
-    <search url="<%= professors_orientations_search_history_path %>" search-term="<%= params[:term] %>" />
-  </div>
-  <div class="col-sm-12 col-lg-4">
-    <%= render 'shared/orientations/status_filter' %>
+    <%= render 'shared/orientations/search', url: professors_orientations_search_history_path, search_term: params[:term] %>
   </div>
 </div>
 
-<%= render('shared/orientations/legend_status') %>
-
-<div class="text-right mt-3">
-  <%= page_entries_info @orientations %>
-</div>
-
-<%= render('shared/orientations/table') %>
+<%= render(
+  Orientations::TableComponent.new(
+    orientations: @orientations,
+    namespace: namespace
+  )
+) %>

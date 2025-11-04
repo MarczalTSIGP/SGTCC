@@ -3,13 +3,12 @@
   <td>
     <% unless document.professor_signed?(current_professor) %>
       <%= link_to(edit_professors_request_path(document)) do %>
-        <i class="fe fe-edit" data-toggle="tooltip" title="Editar solicitação"></i>
+        <i class="fe fe-edit" data-controller="ui--tooltip" title="Editar solicitação"></i>
       <% end %>
       <%= link_to professors_request_path(document),
-        method: :delete,
-        data: { confirm: t('prompt.confirm') },
+        data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
         class: 'destroy' do %>
-        <i class="fe fe-trash" data-toggle="tooltip" title="Deletar"></i>
+        <i class="fe fe-trash" data-controller="ui--tooltip" title="Deletar"></i>
       <% end %>
     <% end %>
   </td>

@@ -3,6 +3,7 @@ class Professors::DashboardController < Professors::BaseController
   before_action :submissions_to_confirm, only: :index
   before_action :set_documents, only: :index
   before_action :set_examination_boards, only: :index
+  before_action :set_orientations_report, only: :index
   before_action :set_professor, only: :report
 
   def index; end
@@ -34,6 +35,11 @@ class Professors::DashboardController < Professors::BaseController
   def set_examination_boards
     data = current_professor.examination_boards(params[:term])
     @examination_boards = Kaminari.paginate_array(data).page(params[:page]).per(6)
+  end
+
+  def set_orientations_report
+    dashboard = Dashboard::ProfessorReport.new(current_professor, current_professor)
+    @orientations_report = dashboard.report[:orientations]
   end
 
   def set_professor

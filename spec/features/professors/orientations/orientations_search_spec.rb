@@ -27,7 +27,7 @@ describe 'Orientation::search' do
       end
 
       it 'finds the orientation by status' do
-        selectize(orientation_in_progress_option, from: 'orientation_status')
+        slim_select(orientation_in_progress_option, from: 'orientation_status')
 
         expect(page).to have_content(first_orientation.short_title)
         expect(page).to have_content(first_orientation.advisor.name)

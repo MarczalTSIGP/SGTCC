@@ -47,8 +47,8 @@ describe 'ExaminationBoardNote::create', :js do
 
     context 'when add a file save and later update with a note and save' do
       it 'create a file' do
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
         submit_form('input[id="examination_board_file_button"]')
 
         expect(page).to have_current_path professors_examination_board_path(examination_board)

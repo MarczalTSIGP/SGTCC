@@ -11,4 +11,24 @@ module Professors::DashboardHelper
                              orientation, calendar, activity
                            ), class: options[:class])
   end
+
+  def tcc_report?(orientations_report)
+    tcc_one_report?(orientations_report) || tcc_two_report?(orientations_report)
+  end
+
+  def tcc_one_report?(orientations_report)
+    orientations_report[:tcc_one][:total].positive?
+  end
+
+  def tcc_two_report?(orientations_report)
+    orientations_report[:tcc_two][:total].positive?
+  end
+
+  def both_tcc_report?(orientations_report)
+    tcc_one_report?(orientations_report) && tcc_two_report?(orientations_report)
+  end
+
+  def card_responsive_class(orientations_report)
+    both_tcc_report?(orientations_report) ? 'col-md-6' : 'col-12'
+  end
 end

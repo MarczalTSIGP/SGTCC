@@ -11,7 +11,7 @@ class ExternalMembers::ExaminationBoardFilesController < ExternalMembers::BaseCo
       redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
-      render 'external_members/examination_boards/show'
+      render 'external_members/examination_boards/show', status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class ExternalMembers::ExaminationBoardFilesController < ExternalMembers::BaseCo
       redirect_to external_members_examination_board_path(@examination_board)
     else
       error_message
-      render 'external_members/examination_boards/show'
+      render 'external_members/examination_boards/show', status: :unprocessable_entity
     end
   end
 

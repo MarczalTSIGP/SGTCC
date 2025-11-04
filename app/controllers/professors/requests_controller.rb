@@ -30,7 +30,7 @@ class Professors::RequestsController < Professors::BaseController
       feminine_success_create_message
       redirect_to professors_document_path(@document)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

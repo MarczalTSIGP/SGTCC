@@ -11,9 +11,6 @@
     </div>
 
     <div class="mb-4">
-      <div>
-        oi: <%= @not_show_sign_button == true %>
-      </div>
       <% unless @signature&.status || @not_show_sign_button %>
         <%= render "shared/documents/signature_button" %>
       <% end %>

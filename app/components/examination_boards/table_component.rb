@@ -5,13 +5,18 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
 
   renders_one :tabs
 
-  def initialize(examination_boards:, namespace:)
+  def initialize(examination_boards:, namespace:, path_helper: nil)
     @examination_boards = examination_boards
     @namespace = namespace
+    @path_helper = path_helper
   end
 
   def show_path(examination_board)
-    send("#{@namespace}_examination_board_path", examination_board)
+    if @path_helper
+      send(@path_helper, examination_board)
+    else
+      send("#{@namespace}_examination_board_path", examination_board)
+    end
   end
 
   def edit_path(examination_board)
@@ -19,7 +24,7 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
   end
 
   def actions(examination_board)
-    return '' unless @namespace == :responsible
+    return '' unless [:responsible, :tcc_one_professors].include?(@namespace)
 
     edit_link(examination_board) + ' '.html_safe + delete_link(examination_board)
   end

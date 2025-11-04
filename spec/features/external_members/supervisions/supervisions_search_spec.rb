@@ -19,7 +19,7 @@ describe 'Supervision::search' do
       it 'finds the supervision by status' do
         visit external_members_supervisions_tcc_one_path
 
-        selectize(orientation_canceled_option, from: 'orientation_status')
+        slim_select(orientation_canceled_option, from: 'orientation_status')
 
         expect(page).to have_content(canceled_orientation.short_title)
         expect(page).to have_content(canceled_orientation.advisor.name)

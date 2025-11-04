@@ -37,6 +37,10 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
 
   def document
     @document = @orientation.documents.find(params[:document_id])
+    @signatures = @document.mark
+    @signature = @document.signature_by_user(current_external_member.id,
+                                             current_external_member.user_types)
+
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    external_members_supervision_document_path(@orientation, @document)
   end

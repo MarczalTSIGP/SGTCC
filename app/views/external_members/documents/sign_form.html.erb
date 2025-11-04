@@ -1,0 +1,8 @@
+<% provide(:head_title, t('breadcrumbs.documents.show')) %>
+<% provide(:page_title) do %>
+  <%= t("breadcrumbs.signatures.#{@document.document_type.identifier}.show",
+        academic: @document.orientation.academic.name) %>
+<% end %>
+
+<%= render Documents::SignFormComponent.new(username: @username, confirm_url: @confirm_url, back_url: @back_url) %>
+

@@ -1,6 +1,6 @@
 <%= render 'layouts/shared/sidebar' do %>
   <span class="sidebar-heading">
-    <%= icon('fas', 'compass', class: 'mr-1') %>
+    <i class="fas fa-compass mr-1"></i>
     <%= t('views.sidebar.external_members') %>
   </span>
 
@@ -8,7 +8,7 @@
 		     active: :exact,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'home') %>
+      <i class="fas fa-home"></i>
     </span>
     <%= t('breadcrumbs.homepage') %>
   <% end %>
@@ -18,7 +18,7 @@
 		       active: external_members_activities_tcc_one_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'file-alt') %>
+        <i class="far fa-file-alt"></i>
       </span>
       <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
     <% end %>
@@ -29,7 +29,7 @@
 		       active: external_members_activities_tcc_two_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'file-alt') %>
+        <i class="far fa-file-alt"></i>
       </span>
       <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
     <% end %>
@@ -40,7 +40,7 @@
 		       active: external_members_calendars_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'calendar-plus') %>
+        <i class="far fa-calendar-plus"></i>
       </span>
       <%= t('breadcrumbs.calendars.index') %>
     <% end %>
@@ -53,7 +53,7 @@
   <%= active_link_to(external_members_examination_boards_path,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'user-friends') %>
+      <i class="fas fa-user-friends"></i>
     </span>
     <%= t('breadcrumbs.examination_boards.index') %>
   <% end %>

@@ -21,7 +21,7 @@ describe 'Orientation::create' do
       it 'create an orientation' do
         attributes = attributes_for(:orientation)
         fill_in 'orientation_title', with: attributes[:title]
-        selectize(academic.name, from: 'orientation_academic_id')
+        slim_select(academic.name, from: 'orientation_academic_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_orientations_tcc_one_path

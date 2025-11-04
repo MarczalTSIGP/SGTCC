@@ -17,7 +17,7 @@ describe 'Meeting::create', :js do
 
     context 'when meeting is valid' do
       it 'create a meeting' do
-        selectize(orientation.academic_with_calendar, from: 'meeting_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'meeting_orientation_id')
         find('.fa-bold').click
         submit_form('input[name="commit"]')
 

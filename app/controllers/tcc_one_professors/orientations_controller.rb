@@ -22,6 +22,8 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
 
   def document
     @document = @orientation.documents.find(params[:document_id])
+    @signatures = @document.mark
+    @not_show_sign_button = true
 
     params_url = { calendar_id: @calendar, id: @orientation, document_id: @document }
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),

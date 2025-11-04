@@ -19,12 +19,15 @@ describe 'Request::create' do
 
     context 'when request is valid', :js do
       it 'create a term of abandonment' do
-        selectize(orientation.academic_with_calendar, from: 'document_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'document_orientation_id')
         find('.fa-bold').click
-        submit_form('input[name="commit"]')
+
+        expect do
+          submit_form('input[name="commit"]')
+          expect(page).to have_flash(:success, text: message('create.f'), wait: 10)
+        end.to change(Document, :count).by(1)
 
         expect(page).to have_current_path professors_document_path(Document.last)
-        expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_content(orientation.title)
       end
     end

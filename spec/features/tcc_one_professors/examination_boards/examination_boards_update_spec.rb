@@ -21,7 +21,7 @@ describe 'ExaminationBoard::update', :js do
       it 'updates the examination_board' do
         attributes = attributes_for(:examination_board)
         fill_in 'examination_board_place', with: attributes[:place]
-        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         submit_form('input[name="commit"]')
 
         updated_path = tcc_one_professors_examination_board_path(examination_board)
@@ -58,18 +58,22 @@ describe 'ExaminationBoard::update', :js do
         expect(page).to have_field 'examination_board_identifier_project', disabled: true,
                                                                            visible: :hidden
 
-        expect(page).to have_field 'examination_board_professor_ids-selectized', disabled: true
-        expect(page).to have_field 'examination_board_external_member_ids-selectized',
-                                   disabled: true
+        expect(page).to have_field 'examination_board_professor_ids', disabled: true, visible: :all
+        expect(page).to have_field 'examination_board_external_member_ids', disabled: true,
+                                                                            visible: :all
         expect(page).to have_field 'examination_board_place', disabled: true
 
-        datetime_selector = 'div#datetimepicker_examination_board_date input[disabled="disabled"]'
-        expect(page).to have_css(datetime_selector)
+        date_selector = 'div[data-controller="forms--datetimepicker"]' \
+                        '[data-forms--datetimepicker-id-value="examination_board_date"] ' \
+                        'input[disabled]'
+        expect(page).to have_css(date_selector)
 
-        datetime_selector = 'div#datetimepicker_examination_board_document_available_until input'
-        expect(page).to have_css(datetime_selector)
+        doc_selector = 'div[data-controller="forms--datetimepicker"]' \
+                       '[data-forms--datetimepicker-id-value=' \
+                       '"examination_board_document_available_until"] input'
+        expect(page).to have_css(doc_selector)
 
-        expect(page).to have_no_css("#{datetime_selector}[disabled='disabled']")
+        expect(page).to have_no_css("#{doc_selector}[disabled]")
       end
     end
   end

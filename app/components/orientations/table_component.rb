@@ -3,23 +3,43 @@
 class Orientations::TableComponent < ViewComponent::Base
   Badge = Struct.new(:class_name, :label)
 
-  def initialize(orientations:, namespace:, show_legend: true, show_actions: false,
-                 action_partial: nil, &action_block)
+  def initialize(orientations:, namespace:, **options, &action_block)
     @orientations = orientations
     @namespace = namespace
-    @show_legend = show_legend
-    @show_actions = show_actions
-    @action_partial = action_partial
+    @show_legend = options.fetch(:show_legend, true)
+    @show_actions = options.fetch(:show_actions, false)
+    @action_partial = options[:action_partial]
+    @path_helper = options[:path_helper]
+    @service_class = options[:service_class]
     @action_block = action_block
   end
 
   def show_path(orientation)
-    send("#{@namespace}_orientation_path", orientation)
+    if @path_helper
+      if @path_helper.respond_to?(:call)
+        @path_helper.call(orientation)
+      else
+        send(@path_helper, orientation)
+      end
+    else
+      send("#{@namespace}_orientation_path", orientation)
+    end
   end
 
   def dropdown_links(orientation)
-    service_class = "Orientations::Links::#{@namespace.to_s.classify}Service"
+    service_class = @service_class || "Orientations::Links::#{service_class_name}Service"
     service_class.constantize.perform(orientation)
+  end
+
+  def service_class_name
+    case @namespace.to_s
+    when 'professors'
+      'Professors'
+    when 'tcc_one_professors'
+      'TccOneProfessors'
+    else
+      @namespace.to_s.classify
+    end
   end
 
   def status_badge_html(orientation)

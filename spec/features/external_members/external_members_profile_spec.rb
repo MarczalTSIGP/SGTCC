@@ -15,7 +15,6 @@ describe 'ExternalMember:profiles', :js do
       fill_in 'external_member_email', with: attributes[:email]
       fill_in 'external_member_personal_page', with: attributes[:personal_page]
 
-      page.execute_script("$('#external_member_profile_image').css('opacity', '1')")
       attach_file 'external_member_profile_image', FileSpecHelper.image.path
 
       fill_in 'external_member_current_password', with: external_member.password
@@ -34,7 +33,6 @@ describe 'ExternalMember:profiles', :js do
       fill_in 'external_member_email', with: 'email'
       fill_in 'external_member_current_password', with: external_member.password
 
-      page.execute_script("$('#external_member_profile_image').css('opacity', '1')")
       attach_file 'external_member_profile_image', FileSpecHelper.pdf.path
 
       submit_form('input[name="commit"]')
