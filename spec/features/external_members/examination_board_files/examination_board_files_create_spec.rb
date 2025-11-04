@@ -10,31 +10,49 @@ describe 'ExaminationBoardFile::create', :js do
     create(:document_type_adpp)
     examination_board.external_members << external_member
     login_as(external_member, scope: :external_member)
-    visit external_members_examination_board_path(examination_board)
   end
 
   describe '#created' do
     context 'when the file is valid' do
-      it 'create a file' do
+      it 'creates a file' do
+        visit external_members_examination_board_path(examination_board)
+
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
-        submit_form('input[id="examination_board_note_button"]')
 
-        page.execute_script(<<~JS)
-          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.name = 'examination_board_note[appointment_file]';
-            input.id = 'examination_board_note_appointment_file';
-            el.replaceWith(input);
-          });
-        JS
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
 
-        expect(page).to have_field('examination_board_note_appointment_file', wait: 5)
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
         submit_form('input[id="examination_board_file_button"]')
 
-        expect(page).to have_current_path external_members_examination_board_path(examination_board)
+        expect(page).to have_current_path(
+          external_members_examination_board_path(examination_board), wait: 5
+        )
+        expect(page).to have_flash(:success, text: message('create.m'))
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'when the file is valid' do
+      it 'creates a file' do
+        visit external_members_examination_board_path(examination_board)
+
+        attributes = attributes_for(:examination_board_note)
+        fill_in 'examination_board_note_note', with: attributes[:note]
+
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
+
+        submit_form('input[id="examination_board_file_button"]')
+
+        expect(page).to have_current_path(
+          external_members_examination_board_path(examination_board), wait: 5
+        )
+
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
+        submit_form('input[id="examination_board_file_button"]')
         expect(page).to have_flash(:success, text: message('update.m'))
       end
     end

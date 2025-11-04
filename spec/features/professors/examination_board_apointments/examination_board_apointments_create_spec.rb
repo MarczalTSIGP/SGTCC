@@ -15,30 +15,13 @@ describe 'ExaminationBoardApointments::create', :js do
   describe '#created' do
     context 'when the file is valid' do
       it 'create a file' do
-        attributes = attributes_for(:examination_board_note)
-        fill_in 'examination_board_note_note', with: attributes[:note]
-        submit_form('input[id="examination_board_note_button"]')
-
-        # Wait for page to update after Turbo request
-        sleep 0.5
-
-        page.execute_script(<<~JS)
-          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.name = 'examination_board_note[appointment_file]';
-            input.id = 'examination_board_note_appointment_file';
-            el.replaceWith(input);
-          });
-        JS
-
-        # Wait for element to be replaced in DOM
-        sleep 0.1
-        find_by_id('examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
         submit_form('input[id="examination_board_file_button"]')
 
-        expect(page).to have_current_path professors_examination_board_path(examination_board)
-        expect(page).to have_flash(:success, text: message('update.m'))
+        expect(page).to have_current_path professors_examination_board_path(examination_board),
+                                          wait: 5
+        expect(page).to have_flash(:success, text: message('create.m'))
       end
     end
 
@@ -61,20 +44,6 @@ describe 'ExaminationBoardApointments::create', :js do
 
     context 'when the file and the apointment text is valid' do
       it 'create a apointment text' do
-        page.execute_script(<<~JS)
-          document.querySelectorAll('file-input#examination_board_note_appointment_file').forEach(function(el){
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.name = 'examination_board_note[appointment_file]';
-            input.id = 'examination_board_note_appointment_file';
-            el.replaceWith(input);
-          });
-        JS
-
-        # Wait for element to be replaced in DOM
-        sleep 0.1
-        find_by_id('examination_board_note_appointment_file').attach_file(FileSpecHelper.pdf.path)
-
         content = 'Teste2'
         page.execute_script("document.getElementsByClassName('CodeMirror')[0]
                                                         .CodeMirror.getDoc()
