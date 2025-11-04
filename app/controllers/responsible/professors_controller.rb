@@ -105,13 +105,13 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def professor_params
-    params.require(:professor).permit(
-      :name, :email,
-      :username, :lattes,
-      :gender, :is_active,
-      :working_area, :available_advisor,
-      :professor_type_id, :scholarity_id,
-      role_ids: []
+    params.expect(
+      professor: [:name, :email,
+                  :username, :lattes,
+                  :gender, :is_active,
+                  :working_area, :available_advisor,
+                  :professor_type_id, :scholarity_id,
+                  { role_ids: [] }]
     )
   end
 end

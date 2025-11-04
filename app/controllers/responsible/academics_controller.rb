@@ -64,6 +64,6 @@ class Responsible::AcademicsController < Responsible::BaseController
   end
 
   def academic_params
-    params.require(:academic).permit(:name, :email, :ra, :gender)
+    params.expect(academic: [:name, :email, :ra, :gender])
   end
 end

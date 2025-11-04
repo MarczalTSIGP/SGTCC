@@ -61,7 +61,7 @@ class Academics::TepRequestsController < Academics::BaseController
   end
 
   def request_params
-    params.require(:document).permit(:justification)
+    params.expect(document: [:justification])
   end
 
   def can_change

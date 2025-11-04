@@ -45,7 +45,7 @@ class Orientation < ApplicationRecord
                                          dependent: :destroy
 
   validates :title, presence: true
-  validate :validates_supervisor_ids
+  validate :validate_supervisor_ids
   validates :calendars, presence: true
 
   scope :tcc_one, lambda { |status, year = nil, semester = nil|

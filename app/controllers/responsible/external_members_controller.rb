@@ -76,9 +76,9 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def external_member_params
-    params.require(:external_member).permit(:name, :email, :gender,
-                                            :password, :password_confirmation,
-                                            :is_active, :personal_page,
-                                            :working_area, :scholarity_id)
+    params.expect(external_member: [:name, :email, :gender,
+                                    :password, :password_confirmation,
+                                    :is_active, :personal_page,
+                                    :working_area, :scholarity_id])
   end
 end

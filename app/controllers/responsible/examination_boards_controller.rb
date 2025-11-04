@@ -158,11 +158,16 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def examination_board_params
     if @examination_board&.defense_minutes.blank?
-      params.require(:examination_board)
-            .permit(:place, :date, :orientation_id, :tcc, :identifier,
-                    :document_available_until, professor_ids: [], external_member_ids: [])
+      params
+        .expect(examination_board: [:place,
+                                    :date,
+                                    :orientation_id,
+                                    :tcc,
+                                    :identifier,
+                                    :document_available_until,
+                                    { professor_ids: [], external_member_ids: [] }])
     else
-      params.require(:examination_board).permit(:document_available_until)
+      params.expect(examination_board: [:document_available_until])
     end
   end
 

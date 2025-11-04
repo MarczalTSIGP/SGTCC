@@ -75,6 +75,6 @@ class Responsible::PagesController < Responsible::BaseController
   end
 
   def page_params
-    params.require(:page).permit(:menu_title, :fa_icon, :content, :url, :publish)
+    params.expect(page: [:menu_title, :fa_icon, :content, :url, :publish])
   end
 end

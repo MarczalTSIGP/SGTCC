@@ -81,7 +81,7 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:date, :content, :orientation_id)
+    params.expect(meeting: [:date, :content, :orientation_id])
   end
 
   def can_update(action)

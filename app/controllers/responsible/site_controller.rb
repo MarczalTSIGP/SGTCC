@@ -24,6 +24,6 @@ class Responsible::SiteController < Responsible::BaseController
   end
 
   def site_params
-    params.require(:site).permit(:title)
+    params.expect(site: [:title])
   end
 end

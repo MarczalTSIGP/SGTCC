@@ -67,7 +67,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
   end
 
   def institution_params
-    params.require(:institution).permit(:name, :trade_name, :working_area,
-                                        :cnpj, :external_member_id)
+    params.expect(institution: [:name, :trade_name, :working_area,
+                                :cnpj, :external_member_id])
   end
 end
