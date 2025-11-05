@@ -99,8 +99,8 @@ templates = [
     title: 'Documento pendente de assinatura',
     key: 'document_pending_signature',
     channel: 'email',
-    subject: 'Assinatura pendente no documento %{document_type}!',
-    body: 'O documento %{document_type}, criado em %{created_at}, ainda não foi assinado.
+    subject: 'Assinatura pendente no documento %<document_type>!',
+    body: 'O documento %<document_type>, criado em %<created_at>, ainda não foi assinado.
     <br> Sua assinatura é necessária para dar continuidade ao processo.',
     notification_rule_attributes: { max_retries: 30, hours_after: 24 }
   },
@@ -109,7 +109,7 @@ templates = [
     key: 'document_ad_signature_pending',
     channel: 'email',
     subject: 'Assinatura pendente da Ata de Defesa',
-    body: 'A Ata de Defesa referente ao TCC %{orientation} precisa ser assinada com urgência.
+    body: 'A Ata de Defesa referente ao TCC %<orientation> precisa ser assinada com urgência.
     <br> O prazo de assinatura é reduzido devido à relevância do documento.',
     notification_rule_attributes: { hours_after: 2, max_retries: 30, retry_interval_hours: 2 }
   },
@@ -117,9 +117,9 @@ templates = [
     title: 'Lembrete de prazo acadêmico',
     key: 'academic_deadline_upcoming',
     channel: 'email',
-    subject: 'Lembrete de prazo para a atividade %{activity_title}',
-    body: 'O prazo final para %{activity_title} é %{final_date}.
-    <br> Faltam %{days_left} para o encerramento. Não deixe para a última hora!',
+    subject: 'Lembrete de prazo para a atividade %<activity_title>',
+    body: 'O prazo final para %<activity_title> é %<final_date>.
+    <br> Faltam %<days_left> para o encerramento. Não deixe para a última hora!',
     notification_rule_attributes: { extra_notes: 'DailyDeadLineJob' }
   },
   {
@@ -128,16 +128,18 @@ templates = [
     channel: 'email',
     subject: 'Lembrete de prazo para as atividades de seu(s) orientando(s)',
     body: '
-    O prazo final para %{activity_title} de seus orientandos é %{final_date}.
-    <br> Faltam %{days_left} dias para o encerramento. Acompanhe o progresso no sistema para evitar atrasos.',
-    notification_rule_attributes: { extra_notes:'DailyDeadLineJob' }
+    O prazo final para %<activity_title> de seus orientandos é %<final_date>.
+    <br> Faltam %<days_left> dias para o encerramento.
+    Acompanhe o progresso no sistema para evitar atrasos.',
+    notification_rule_attributes: { extra_notes: 'DailyDeadLineJob' }
   },
   {
     title: 'Documento enviado pelo acadêmico',
     key: 'document_uploaded',
     channel: 'email',
-    subject: 'Novo envio de %{academic_activity_title} por %{academic_name}',
-    body: 'O aluno %{academic_name} concluiu a atividade %{academic_activity_title} em %{submission_date}.
+    subject: 'Novo %<academic_activity_title> por %<academic_name>',
+    body: 'O aluno %<academic_name> concluiu a atividade
+     %<academic_activity_title> em %<submission_date>.
     <br> O documento já está disponível para avaliação.',
     notification_rule_attributes: { hours_before: 0 }
   },
@@ -145,9 +147,9 @@ templates = [
     title: 'Documento atualizado pelo acadêmico',
     key: 'document_updated',
     channel: 'email',
-    subject: 'Atualização de envio de %{academic_activity_title} por %{academic_name}',
+    subject: 'Atualização de envio de %<academic_activity_title> por %<academic_name>',
     body: '
-    O aluno %{academic_name} atualizou a atividade %{academic_activity_title} em %{submission_date}.
+    O aluno %<academic_name> atualizou a atividade %<academic_activity_title> em %<submission_date>.
     <br> A nova versão já está disponível no sistema para avaliação.',
     notification_rule_attributes: { hours_before: 0 }
   },
@@ -157,10 +159,11 @@ templates = [
     channel: 'email',
     subject: 'Agendamento de banca para avaliação',
     body: '
-    Você foi designado como avaliador na banca do aluno %{academic_name}, com TCC intitulado %{orientation_title}.
-    <br> Data: %{date}
-    <br> Horário: %{time}
-    <br> Local: %{place}
+    Você foi designado como avaliador na banca do aluno %<academic_name>,
+    com TCC intitulado %<orientation_title>.
+    <br> Data: %<date>
+    <br> Horário: %<time>
+    <br> Local: %<place>
     <br> Por favor, confirme sua disponibilidade.',
     notification_rule_attributes: { hours_after: 1, max_retries: 2, retry_interval_hours: 48 }
   },
@@ -170,10 +173,12 @@ templates = [
     channel: 'email',
     subject: 'Agendamento de banca confirmado',
     body: '
-    A banca de avaliação do aluno %{academic_name}, com TCC intitulado %{orientation_title}, foi confirmada com os seguintes detalhes:
-    <br> Data: %{date}
-    <br> Horário: %{time}
-    <br> Local: %{place}
+    A banca de avaliação do aluno %<academic_name>,
+     com TCC intitulado %<orientation_title>,
+     foi confirmada com os seguintes detalhes:
+    <br> Data: %<date>
+    <br> Horário: %<time>
+    <br> Local: %<place>
     <br> Acesse o sistema para mais detalhes.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
@@ -183,10 +188,10 @@ templates = [
     channel: 'email',
     subject: 'Agendamento de banca confirmado',
     body: '
-    Olá %{academic_name}, a banca de defesa do seu TCC com os seguintes detalhes foi confirmada:
-    <br> Data: %{date}
-    <br> Horário: %{time}
-    <br> Local: %{place}
+    Olá %<academic_name>, a banca de defesa do seu TCC com os seguintes detalhes foi confirmada:
+    <br> Data: %<date>
+    <br> Horário: %<time>
+    <br> Local: %<place>
     <br> Acesse o sistema para mais detalhes.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
@@ -196,7 +201,8 @@ templates = [
     channel: 'email',
     subject: 'Apontamentos da banca disponíveis',
     body: '
-    Os apontamentos registrados pela banca do seu TCC, realizada no dia %{date}, já estão disponíveis no sistema.
+    Os apontamentos registrados pela banca do seu TCC, realizada no dia %<date>,
+       já estão disponíveis no sistema.
     <br> Acesse sua área para consultá-los.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
@@ -204,9 +210,10 @@ templates = [
     title: 'Submissão de termo registrada',
     key: 'term_submission',
     channel: 'email',
-    subject: 'Submissão de %{document_type} registrada',
+    subject: 'Submissão de %<document_type> registrada',
     body: '
-    Foi registrado um %{document_type} para o TCC %{orientation} do aluno %{academic_name} orientado por %{advisor_name}.
+    Foi registrado um %<document_type> para o TCC %<orientation>
+     do aluno %<academic_name> orientado por %<advisor_name>.
     <br> Verifique os detalhes no sistema.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
@@ -216,7 +223,7 @@ templates = [
     channel: 'email',
     subject: 'Registro de reunião disponível',
     body: '
-    Seu orientador, %{advisor_name}, registrou uma reunião no sistema.
+    Seu orientador, %<advisor_name>, registrou uma reunião no sistema.
     <br> Por favor, confirme a ciência das informações acessando sua área no SGTCC.',
     notification_rule_attributes: { max_retries: 30, retry_interval_hours: 48 }
   },
@@ -224,10 +231,10 @@ templates = [
     title: 'Criação de atividade no calendário acadêmico',
     key: 'activity_calendar_created',
     channel: 'email',
-    subject: 'Criação de nova atividade no calendário acadêmico para TCC %{tcc_type} em %{year}/%{semester}',
+    subject: 'Criação de nova atividade no calendário para TCC %<tcc_type> em %<year>/%<semester>',
     body: '
-    Uma nova atividade foi criada no calendário acadêmico de TCC %{tcc_type} em %{year}/%{semester}.
-    <br> A atividade %{activity_name} foi cadastrada em %{created_at}.
+    Uma nova atividade foi criada no calendário acadêmico de TCC %<tcc_type> em %<year>/%<semester>.
+    <br> A atividade %<activity_name> foi cadastrada em %<created_at>.
     <br> Por favor, consulte o sistema para verificar as atividades atualizadas.',
     notification_rule_attributes: { hours_after: 1, extra_notes: 'Envio único' }
   },
@@ -235,10 +242,10 @@ templates = [
     title: 'Atualização de atividade no calendário acadêmico',
     key: 'activity_calendar_updated',
     channel: 'email',
-    subject: 'Atualização de atividade no calendário acadêmico para TCC %{tcc_type} em %{year}/%{semester}',
+    subject: 'Atualização de atividade no calendário para TCC %<tcc_type> em %<year>/%<semester>',
     body: '
-    Uma atividade foi atualizada no calendário acadêmico de TCC %{tcc_type} em %{year}/%{semester}.
-    <br> A atividade %{activity_name} foi atualizada em %{updated_at}.
+    Uma atividade foi atualizada no calendário acadêmico de TCC %<tcc_type> em %<year>/%<semester>.
+    <br> A atividade %<activity_name> foi atualizada em %<updated_at>.
     <br> Por favor, consulte o sistema para verificar as atividades atualizadas.',
     notification_rule_attributes: { hours_after: 1, extra_notes: 'Envio único' }
   }

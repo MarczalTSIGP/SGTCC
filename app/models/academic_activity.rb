@@ -47,10 +47,10 @@ class AcademicActivity < ApplicationRecord
   private
 
   def trigger_create_notification
-    Notifications::Hooks.document_uploaded(self)
+    Notifications::Hooks::Documents.document_uploaded(self)
   end
 
   def trigger_update_notification
-    Notifications::Hooks.document_updated(self)
+    Notifications::Hooks::Documents.document_updated(self)
   end
 end

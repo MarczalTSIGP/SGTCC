@@ -221,12 +221,12 @@ class ExaminationBoard < ApplicationRecord
 
   def confirm!
     update(confirm: true)
-    Notifications::Hooks.confirmed_examination_board(self)
+    Notifications::Hooks::ExaminationBoard.confirmed_examination_board(self)
   end
 
   private
 
   def trigger_create_notifications
-    Notifications::Hooks.atendees_examination_board_assigned(self)
+    Notifications::Hooks::ExaminationBoard.atendees_examination_board_assigned(self)
   end
 end

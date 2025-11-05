@@ -10,36 +10,27 @@ module Notifications
 
     def process
       return unless @notification
-      return if @notification.sent? || @notification.cancelled? || @notification.failed?
 
-      if Notifications::StopChecker.met?(@notification)
-        @notification.update!(status: 'cancelled')
-        return
-      end
-
-      if @notification.attempts >= @notification.max_attempts
-        @notification.update!(status: 'failed', last_attempted_at: Time.current)
-        return
-      end
+      return if handle_cancellation
+      return if handle_max_attempts
 
       Notifications::DispatchJob.perform_later(@notification.id)
 
       handle_post_enqueue_status(@notification)
-
     rescue ActiveRecord::RecordNotFound
       Rails.logger.warn("[ProcessorService] Notification #{@notification&.id} not found.")
-    rescue => e
-      Rails.logger.error("[ProcessorService] Error processing Notification #{@notification&.id}: #{e.message}\n#{e.backtrace.join("\n")}")
+    rescue StandardError => e
+      handle_processing_error(e)
     end
 
     private
 
     def handle_post_enqueue_status(notification)
-      notification.increment!(:attempts)
+      notification.increment_attempts
 
       template = NotificationTemplate.find_by(key: notification.notification_type)
       rule = template&.notification_rule
-      is_single_send = rule&.retry_interval_hours.nil? || rule&.retry_interval_hours == 0
+      is_single_send = rule&.retry_interval_hours.nil? || rule&.retry_interval_hours&.zero?
 
       if is_single_send || notification.attempts >= notification.max_attempts
         notification.update!(status: 'sent', sent_at: Time.current)
@@ -49,9 +40,30 @@ module Notifications
       end
     end
 
+    def handle_not_notificate
+      if Notifications::StopChecker.met?(@notification)
+        @notification.update!(status: 'cancelled')
+        return true
+      end
+      false
+    end
+
+    def handle_max_attempts
+      return unless @notification.attempts >= @notification.max_attempts
+
+      @notification.update!(status: 'failed', last_attempted_at: Time.current)
+      nil
+    end
+
+    def handle_processing_error(_error)
+      error_message = "[ProcessorService] Error processing Notification #{@notification&.id}: " \
+                      "#{e.message}\n#{e.backtrace.join("\n")}"
+
+      Rails.logger.error(error_message)
+    end
+
     def calculate_next_attempt_time(rule)
       (rule&.retry_interval_hours || 24).hours.from_now
     end
-
   end
 end

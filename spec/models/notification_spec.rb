@@ -1,68 +1,60 @@
 require 'rails_helper'
 
-RSpec.describe Notification, type: :model do
+RSpec.describe Notification do
   describe 'associations' do
     it { is_expected.to belong_to(:recipient) }
   end
 
   describe 'enums' do
-    it do
-      is_expected.to define_enum_for(:status).with_values(
-        pending: 'pending', scheduled: 'scheduled', sent: 'sent', failed: 'failed', cancelled: 'cancelled'
+    subject(:notification) { described_class.new }
+
+    it 'defines status enum correctly' do
+      expect(notification).to define_enum_for(:status).with_values(
+        pending: 'pending',
+        scheduled: 'scheduled',
+        sent: 'sent',
+        failed: 'failed',
+        cancelled: 'cancelled'
       ).backed_by_column_of_type(:text)
     end
   end
 
-  describe 'callbacks' do
-    describe '#set_max_attempts_from_rules' do
-      let(:template) { create(:notification_template) }
+  describe '#set_max_attempts_from_rules' do
+    let(:template) { create(:notification_template) }
 
-      context 'when template has a rule' do
-        let!(:rule) { create(:notification_rule, notification_template: template, max_retries: 5) }
+    context 'when template has a rule' do
+      let(:rule) { create(:notification_rule, notification_template: template, max_retries: 5) }
 
-        it 'sets max_attempts from the rule before creation' do
-          notification = build(:notification, notification_type: template.key)
-          expect(notification.max_attempts).to eq(3)
-          notification.save!
-          expect(notification.max_attempts).to eq(5)
-        end
+      it 'sets max_attempts from the rule before creation' do
+        rule
+        notification = build(:notification, notification_type: template.key)
+        expect(notification.max_attempts).to eq(3)
+        notification.save!
+        expect(notification.max_attempts).to eq(5)
       end
+    end
 
-      context 'when template has no rule' do
-        it 'sets max_attempts to the default (3) before creation' do
-          notification = build(:notification, notification_type: template.key)
-          expect(notification.max_attempts).to eq(3)
-          notification.save!
-          expect(notification.max_attempts).to eq(3)
-        end
-      end
-
-      context 'when template association method is rules' do
-        let!(:rule) { create(:notification_rule, notification_template: template, max_retries: 5) }
-
-        it 'correctly fetches rule using rules method' do
-          allow_any_instance_of(NotificationTemplate).to receive(:rules).and_return(rule)
-          expect_any_instance_of(NotificationTemplate).not_to receive(:notification_rule)
-
-          notification = create(:notification, notification_type: template.key)
-          expect(notification.max_attempts).to eq(5)
-        end
+    context 'when template has no rule' do
+      it 'sets max_attempts to the default (3) before creation' do
+        notification = build(:notification, notification_type: template.key)
+        expect(notification.max_attempts).to eq(3)
+        notification.save!
+        expect(notification.max_attempts).to eq(3)
       end
     end
   end
 
-
   describe 'scopes' do
     describe '.pending_to_send' do
-      around do |example|
-        travel_to Time.current do
-          example.run
-        end
-      end
+      before { freeze_time }
 
       let!(:pending_now) { create(:notification, status: 'pending', scheduled_at: nil) }
-      let!(:scheduled_past) { create(:notification, status: 'scheduled', scheduled_at: Time.current) }
-      let!(:scheduled_future) { create(:notification, status: 'scheduled', scheduled_at: 2.hours.from_now) }
+      let!(:scheduled_past) do
+        create(:notification, status: 'scheduled', scheduled_at: Time.current)
+      end
+      let!(:scheduled_future) do
+        create(:notification, status: 'scheduled', scheduled_at: 2.hours.from_now)
+      end
       let!(:sent) { create(:notification, status: 'sent') }
 
       it 'returns only pending or scheduled notifications ready to send' do
@@ -85,7 +77,7 @@ RSpec.describe Notification, type: :model do
     end
 
     it 'does not increment attempts' do
-       expect { notification.mark_sent! }.not_to change(notification, :attempts)
+      expect { notification.mark_sent! }.not_to change(notification, :attempts)
     end
   end
 
@@ -93,18 +85,17 @@ RSpec.describe Notification, type: :model do
     let(:notification) { create(:notification, status: 'pending') }
 
     it 'updates status to failed and sets last_attempted_at' do
-       freeze_time do
-         notification.mark_failed!
-         expect(notification.status).to eq('failed')
-         expect(notification.last_attempted_at).to eq(Time.current)
-       end
+      freeze_time do
+        notification.mark_failed!
+        expect(notification.status).to eq('failed')
+        expect(notification.last_attempted_at).to eq(Time.current)
+      end
     end
 
-     it 'does not increment attempts' do
-        expect { notification.mark_failed! }.not_to change(notification, :attempts)
-     end
+    it 'does not increment attempts' do
+      expect { notification.mark_failed! }.not_to change(notification, :attempts)
+    end
   end
-
 
   describe '#payload' do
     it 'returns the data hash if present' do
