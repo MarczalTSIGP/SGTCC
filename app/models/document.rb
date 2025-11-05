@@ -23,7 +23,7 @@ class Document < ApplicationRecord
   after_create :generate_unique_code,
                :create_signatures,
                :save_to_json
-               
+
   after_commit :trigger_create_notification, on: :create
 
   def orientation
@@ -138,6 +138,6 @@ class Document < ApplicationRecord
   end
 
   def trigger_create_notification
-      Notifications::Hooks.document_created(self)
+    Notifications::Hooks::Documents.document_created(self)
   end
 end

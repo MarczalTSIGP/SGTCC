@@ -60,10 +60,10 @@ class Activity < ApplicationRecord
   private
 
   def trigger_create_notification
-    Notifications::Hooks.activity_calendar_(self, 'created')
+    Notifications::Hooks::Activity.activity_calendar_(self, 'created')
   end
 
   def trigger_update_notification
-    Notifications::Hooks.activity_calendar_(self, 'updated')
+    Notifications::Hooks::Activity.activity_calendar_(self, 'updated')
   end
 end

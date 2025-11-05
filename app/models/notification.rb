@@ -5,15 +5,22 @@ class Notification < NotificationDbBase
 
   serialize :data, coder: JSON
 
-  enum :status, { 
-    pending: 'pending', 
-    scheduled: 'scheduled', 
-    sent: 'sent', 
-    failed: 'failed', 
-    cancelled: 'cancelled' 
+  enum :status, {
+    pending: 'pending',
+    scheduled: 'scheduled',
+    sent: 'sent',
+    failed: 'failed',
+    cancelled: 'cancelled'
   }
 
-  scope :pending_to_send, -> { where(status: %w[pending scheduled]).where('scheduled_at IS NULL OR scheduled_at <= ?', Time.current) }
+  scope :pending_to_send, lambda {
+    where(status: %w[pending scheduled])
+      .where('scheduled_at IS NULL OR scheduled_at <= ?', Time.current)
+  }
+
+  def increment_attempts
+    update(attempts: attempts + 1)
+  end
 
   def mark_sent!(time: Time.current)
     update!(status: 'sent', sent_at: time)
@@ -31,7 +38,7 @@ class Notification < NotificationDbBase
 
   def set_max_attempts_from_rules
     notification_template = NotificationTemplate.find_by(key: notification_type)
-    notification_rule = notification_template&.rules()
+    notification_rule = notification_template&.rules
     self.max_attempts = notification_rule&.max_retries || 3
   end
 end

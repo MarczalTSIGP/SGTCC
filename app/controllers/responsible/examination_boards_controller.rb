@@ -152,10 +152,12 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to responsible_examination_boards_path, notice: 'Banca confirmada com sucesso.' }
+      format.html do
+        redirect_to responsible_examination_boards_path,
+                    notice: t('flash.examination_boards.confirm.success')
+      end
     end
   end
-
 
   private
 

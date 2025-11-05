@@ -24,6 +24,6 @@ class Meeting < ApplicationRecord
   private
 
   def trigger_create_notifications
-      Notifications::Hooks.meeting_participation_acknowledgment(self)
+    Notifications::Hooks.meeting_participation_acknowledgment(self)
   end
 end

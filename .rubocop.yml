@@ -18,6 +18,8 @@ AllCops:
     - 'railties/test/fixtures/tmp/*/'
     - 'db/schema.rb'
     - 'db/migrate/20180925232654_devise_create_professors.rb'
+    - 'db/queue_schema.rb'
+    - 'db/queue_migrate/20251027193144_create_notifications.rb'
     - 'config/initializers/simple_form.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'

@@ -35,7 +35,7 @@ class ExaminationBoardNote < ApplicationRecord
       # rubocop:enable Rails/SkipsModelValidations
 
       if examination_board.appointments?
-        ::Notifications::Hooks.academic_examination_board_appointments(examination_board)
+        ::Notifications::Hooks::ExaminationBoard.academic_eb_appointments(examination_board)
       end
     end
   end
