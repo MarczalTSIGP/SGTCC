@@ -109,7 +109,7 @@ module Notifications
 
       private_class_method def self.pending_signature_data(signature, document, orientation)
         { document_id: signature.document.id,
-          document_name: signature.document.document_type.name,
+          created_at: signature.document.created_at.strftime('%d/%m/%Y %H:%M'),
           orientation_id: orientation.id,
           orientation_title: orientation.title,
           user_type: signature.user_type,

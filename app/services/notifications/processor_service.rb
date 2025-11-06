@@ -11,7 +11,7 @@ module Notifications
     def process
       return unless @notification
 
-      return if handle_cancellation
+      return if handle_not_notificate
       return if handle_max_attempts
 
       Notifications::DispatchJob.perform_later(@notification.id)
@@ -49,15 +49,15 @@ module Notifications
     end
 
     def handle_max_attempts
-      return unless @notification.attempts >= @notification.max_attempts
+      return false unless @notification.attempts >= @notification.max_attempts
 
       @notification.update!(status: 'failed', last_attempted_at: Time.current)
-      nil
+      true
     end
 
-    def handle_processing_error(_error)
+    def handle_processing_error(errors)
       error_message = "[ProcessorService] Error processing Notification #{@notification&.id}: " \
-                      "#{e.message}\n#{e.backtrace.join("\n")}"
+                      "#{errors.message}\n#{errors.backtrace.join("\n")}"
 
       Rails.logger.error(error_message)
     end

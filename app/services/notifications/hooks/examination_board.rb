@@ -11,7 +11,7 @@ module Notifications
           schedule_notification(
             recipient: user,
             data: data,
-            notification_type: 'atendee_examination_board_assigned',
+            notification_type: 'atendees_examination_board_assigned',
             event_key: event_key('examination_board', board.id, 'assigned', user_identifier(user))
           )
         end

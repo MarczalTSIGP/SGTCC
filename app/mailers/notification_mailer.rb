@@ -16,17 +16,16 @@ class NotificationMailer < ApplicationMailer
     template = NotificationTemplate.find_by(key: @notification.notification_type)
     @recipient = @notification.recipient
     @payload = @notification.payload.with_indifferent_access.symbolize_keys
-    @template_subject = template&.subject
-    @template_body = template&.body
+    @template_subject = "[SGTCC] #{template&.subject.to_s}"
+    @template_body = template&.body.to_s
   end
 
   def build_subject
-    subject_template = @template_subject || @payload[:subject] || 'Notificação'
-    "[SGTCC] #{subject_template % @payload}"
+    format(@template_subject, @payload)
   end
 
   def render_body_html
-    @template_body.to_s % @payload
+    format(@template_body, @payload)
   end
 
   def send_email(subject, body_html)
