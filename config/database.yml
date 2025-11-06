@@ -16,7 +16,7 @@ development:
     database: storage/queue_development.sqlite3
     migrations_paths: db/queue_migrate
     pool: 5
-    timeout: 10000
+    timeout: 15000
     properties:
       journal_mode: WAL
 
@@ -32,7 +32,7 @@ test:
     database: storage/queue_test.sqlite3
     migrations_paths: db/queue_migrate
     pool: 5
-    timeout: 10000
+    timeout: 15000
     propierties:
       journal_mode: WAL
 
@@ -46,6 +46,6 @@ production:
     database: storage/queue_production.sqlite3
     migrations_paths: db/queue_migrate
     pool: 5
-    timeout: 10000
+    timeout: 15000
     propierties:
       journal_mode: WAL
