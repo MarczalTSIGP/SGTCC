@@ -93,7 +93,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientations_tcc_one_path
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -103,7 +103,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientation_path(@orientation)
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

@@ -52,7 +52,7 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
     set_minimum_password_length
 
     respond_to do |format|
-      format.html { render :edit, status: :unprocessable_entity }
+      format.html { render :edit, status: :unprocessable_content }
       format.json { render_failed_update_json }
     end
   end
@@ -61,6 +61,6 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
     render json: {
       success: false,
       errors: resource.errors.full_messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 end

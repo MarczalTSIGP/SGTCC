@@ -13,7 +13,7 @@ class Responsible::SiteController < Responsible::BaseController
       redirect_to edit_responsible_site_path(@site)
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

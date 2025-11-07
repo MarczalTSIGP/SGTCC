@@ -39,7 +39,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
       redirect_to responsible_institutions_path
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -49,7 +49,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
       redirect_to responsible_institution_path(@institution)
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

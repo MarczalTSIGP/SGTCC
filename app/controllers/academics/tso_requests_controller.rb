@@ -30,7 +30,7 @@ class Academics::TsoRequestsController < Academics::BaseController
       feminine_success_create_message
       redirect_to academics_document_path(@document)
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -43,7 +43,7 @@ class Academics::TsoRequestsController < Academics::BaseController
       feminine_success_update_message
       redirect_to academics_document_path(@document)
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
