@@ -149,7 +149,8 @@ templates = [
     channel: 'email',
     subject: 'Atualização de envio de %<academic_activity_title>s por %<academic_name>s',
     body: '
-    O aluno %<academic_name>s atualizou a atividade %<academic_activity_title>s em %<submission_date>s.
+    O aluno %<academic_name>s atualizou a atividade %<academic_activity_title>s
+     em %<submission_date>s.
     <br> A nova versão já está disponível no sistema para avaliação.',
     notification_rule_attributes: { hours_before: 0 }
   },
@@ -201,7 +202,8 @@ templates = [
     channel: 'email',
     subject: 'Apontamentos da banca disponíveis',
     body: '
-    Os apontamentos registrados pela banca do seu TCC, realizada no dia %<date>s, já estão disponíveis no sistema.
+    Os apontamentos registrados pela banca do seu TCC, realizada no dia %<date>s,
+     já estão disponíveis no sistema.
     <br> Acesse sua área para consultá-los.',
     notification_rule_attributes: { extra_notes: 'Envio único' }
   },
@@ -230,9 +232,11 @@ templates = [
     title: 'Criação de atividade no calendário acadêmico',
     key: 'activity_calendar_created',
     channel: 'email',
-    subject: 'Criação de nova atividade no calendário para TCC %<tcc_type>s em %<year>s/%<semester>s',
+    subject: 'Criação de nova atividade no calendário para TCC %<tcc_type>s
+     em %<year>s/%<semester>s',
     body: '
-    Uma nova atividade foi criada no calendário acadêmico de TCC %<tcc_type>s em %<year>s/%<semester>s.
+    Uma nova atividade foi criada no calendário acadêmico de TCC %<tcc_type>s
+     em %<year>s/%<semester>s.
     <br> A atividade %<activity_name>s foi cadastrada em %<created_at>s.
     <br> Por favor, consulte o sistema para verificar as atividades atualizadas.',
     notification_rule_attributes: { hours_after: 1, extra_notes: 'Envio único' }
@@ -241,9 +245,11 @@ templates = [
     title: 'Atualização de atividade no calendário acadêmico',
     key: 'activity_calendar_updated',
     channel: 'email',
-    subject: 'Atualização de atividade no calendário para TCC %<tcc_type>s em %<year>s/%<semester>s',
+    subject: 'Atualização de atividade no calendário para TCC %<tcc_type>s em
+     %<year>s/%<semester>s',
     body: '
-    Uma atividade foi atualizada no calendário acadêmico de TCC %<tcc_type>s em %<year>s/%<semester>s.
+    Uma atividade foi atualizada no calendário acadêmico de TCC %<tcc_type>s
+     em %<year>s/%<semester>s.
     <br> A atividade %<activity_name>s foi atualizada em %<updated_at>s.
     <br> Por favor, consulte o sistema para verificar as atividades atualizadas.',
     notification_rule_attributes: { hours_after: 1, extra_notes: 'Envio único' }
