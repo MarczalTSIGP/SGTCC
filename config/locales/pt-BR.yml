@@ -781,6 +781,9 @@ pt-BR:
     sign_in_with: "Entrar com"
     register: "Cadastrar"
   errors:
+    messages:
+      extension_allowlist_error: "Você não tem permissão para fazer o upload de arquivos %{extension}. Extensões permitidas: %{allowed_types}"
+      extension_whitelist_error: "Você não tem permissão para fazer o upload de arquivos %{extension}. Extensões permitidas: %{allowed_types}"
     page_not_found:
       label: "Página não encontrada!"
       message: "Essa página não foi encontrada..."

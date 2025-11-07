@@ -12,7 +12,7 @@ gem 'active_link_to'
 # gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
-gem 'carrierwave', '~> 2.2'
+gem 'carrierwave', '~> 3.0'
 gem 'carrierwave-i18n'
 gem 'cpf_cnpj'
 gem 'devise'
