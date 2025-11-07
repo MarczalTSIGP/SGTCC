@@ -35,7 +35,7 @@ test:
     migrations_paths: db/queue_migrate
     pool: 5
     timeout: 15000
-    propierties:
+    properties:
       journal_mode: WAL
 
 production:
@@ -49,5 +49,5 @@ production:
     migrations_paths: db/queue_migrate
     pool: 5
     timeout: 15000
-    propierties:
+    properties:
       journal_mode: WAL

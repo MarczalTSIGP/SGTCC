@@ -21,7 +21,7 @@ RSpec.configure do |config|
 
   config.before do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner[:active_record, db: :queue].strategy = :transaction
+    DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
   end
 
   config.before(:each, type: :feature) do
