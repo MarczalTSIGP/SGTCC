@@ -9,7 +9,7 @@ module Notifications
 
         schedule_notification(
           notification_type: 'document_uploaded',
-          recipient: submission.academic,
+          recipient: submission_recipient(submission),
           data: submission_data(submission),
           event_key: ek
         )
@@ -21,7 +21,7 @@ module Notifications
 
         schedule_notification(
           notification_type: 'document_updated',
-          recipient: submission.academic,
+          recipient: submission_recipient(submission),
           data: submission_data(submission, is_update: true),
           event_key: ek
         )
@@ -114,6 +114,10 @@ module Notifications
           orientation_title: orientation.title,
           user_type: signature.user_type,
           document_type: document.document_type.name }
+      end
+
+      private_class_method def self.submission_recipient(submission)
+        submission.academic.orientations.first.advisor
       end
     end
   end

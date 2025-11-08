@@ -120,31 +120,26 @@ Editar os seguintes campos do arquivo `application.yml` conforme necessidade do 
 mailer.smtp.username: 'username'
 mailer.smtp.password: 'password'
 ```
-**7. Criação do Banco de Dados**
-```
-$ docker compose run --rm web bundle exec rails db:create
-```
-Cria o banco de dados especificado na aplicação Rails
 
-**8. Criação das tabelas**
-```
-$ docker compose run --rm web bundle exec rails db:migrate
-```
-Executa as migrações do banco de dados na aplicação Rails
-
-**9. Criação dados necesssários para rodar aplicação**
-```
-$ docker compose run --rm web bundle exec rails db:seed
-```
-Executa o arquivo de seed da aplicação Rails, que preenche o banco de dados com dados iniciais da aplicação
-
-**10. Levantar todos serviços**
+**7. Criação das tabelas**
 ```
 $ docker compose up web -d
 ```
-Iniciar o serviços específicados no `docker-compose.yml` em segundo plano.
+Iniciar o serviços web específicados no docker-compose.yml e suas dependências em segundo plano.
 
-**11. Popular a aplicação com registros fake**
+**8. Criação do Banco de Dados**
+```
+$ docker compose exec web bundle exec rails db:prepare
+```
+Cria o banco de dados, roda as migrações e aplica os seeds na aplicação Rails
+
+**9. Criação dados necesssários para rodar aplicação**
+```
+$ docker compose up -d workers
+```
+Iniciar o serviços workers específicados no docker-compose.yml e suas dependências em segundo plano.
+
+**10. Popular a aplicação com registros fake**
 ```
 $ docker compose exec web bundle exec rails db:populate
 ```
