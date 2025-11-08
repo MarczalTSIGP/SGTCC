@@ -53,6 +53,15 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ActiveJob::TestHelper
+
+  config.before(:suite) do
+    ActiveJob::Base.queue_adapter = :test
+  end
+
+  config.before do
+    clear_enqueued_jobs
+  end
 
   config.include ApplicationHelper
   config.include DateHelper

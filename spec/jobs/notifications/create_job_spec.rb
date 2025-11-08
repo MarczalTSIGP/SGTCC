@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Notifications::CreateJob do
   let(:scheduler_service) { instance_double(Notifications::SchedulerService, schedule!: true) }
-  let(:recipient) { create(:academic) }
+  let!(:recipient) { ApplicationRecord.connected_to(role: :writing) { create(:academic) } }
   let(:job_args) do
     {
       notification_type: 'test_notification',
@@ -36,9 +36,8 @@ RSpec.describe Notifications::CreateJob do
 
     allow(Rails.logger).to receive(:error)
 
+    expect { described_class.perform_now(**job_args) }.not_to raise_error
     expect(Rails.logger).to have_received(:error)
       .with(a_string_including('Failed to create notification: Erro de Teste'))
-
-    expect { described_class.perform_now(**job_args) }.not_to raise_error
   end
 end

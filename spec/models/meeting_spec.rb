@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Meeting do
+  let(:meeting) { create(:meeting) }
+
   describe 'validates' do
     it { is_expected.to validate_presence_of(:content) }
   end
@@ -55,5 +57,14 @@ RSpec.describe Meeting do
         expect(professor.meetings.recent).to match_array(meetings_ordered)
       end
     end
+  end
+
+  describe 'callbacks'
+
+  it 'enqueues Notifications::CreateJob after create' do
+    expect do
+      meeting
+    end.to have_enqueued_job(Notifications::CreateJob)
+      .with(hash_including(notification_type: 'meeting_participation_acknowledgment'))
   end
 end
