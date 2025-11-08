@@ -15,7 +15,7 @@ module Notifications
           target_date = Date.current + days_before
           range = target_date.beginning_of_day.in_time_zone..target_date.end_of_day.in_time_zone
 
-          Activity.where(final_date: range).find_each do |activity|
+          ::Activity.where(final_date: range).find_each do |activity|
             schedule_deadline_notifications_for_activity(activity, days_before)
           end
         end
