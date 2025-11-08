@@ -159,7 +159,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def examination_board_data
-    { id:, evaluators: evaluators_object, document_title: academic_document_title,
+    { id:, evs: evaluators_object, document_title: academic_document_title,
       date: I18n.l(date, format: :document), time: I18n.l(date, format: :time),
       situation: situation_translated }
   end

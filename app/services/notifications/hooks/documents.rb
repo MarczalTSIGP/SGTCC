@@ -22,7 +22,7 @@ module Notifications
         schedule_notification(
           notification_type: 'document_updated',
           recipient: submission.academic,
-          data: submission_data(submission, true),
+          data: submission_data(submission, is_update: true),
           event_key: ek
         )
       end

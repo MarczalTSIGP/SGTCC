@@ -21,10 +21,15 @@ RSpec.describe Notifications::SchedulerPollerJob do
 
       described_class.perform_now
 
-      expect(Notifications::ProcessorService)
-        .to have_received(:new).with(notification_pending).once
-        .and have_received(:new).with(notification_scheduled_past).once
-        .and have_received(:new).exactly(2).times
+      aggregate_failures 'chama ProcessorService corretamente' do
+        expect(Notifications::ProcessorService)
+          .to have_received(:new).with(notification_pending).once
+
+        expect(Notifications::ProcessorService)
+          .to have_received(:new).with(notification_scheduled_past).once
+
+        expect(Notifications::ProcessorService).to have_received(:new).exactly(2).times
+      end
 
       expect(processor_instance_spy).to have_received(:process).with(no_args).exactly(2).times
     end
