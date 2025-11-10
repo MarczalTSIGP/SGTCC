@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '3.4.3'
+ruby '3.4.7'
 
 gem 'bootsnap', require: false
 gem 'puma', '~> 6'
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1.1'
 # gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'

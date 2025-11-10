@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:3.4.3
+FROM ruby:3.4.7
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -80,11 +80,10 @@ RUN apt-get update -qq && \
 # --------------------------
 # INSTALL LAST VERSION OF postgresql-client
 # --------------------------
-RUN apt-get install -y lsb-release
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" >>  /etc/apt/sources.list.d/pgdg.list     &&  \
-  sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
-  apt-get install -y wget ca-certificates && \
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+RUN apt-get install -y lsb-release wget ca-certificates gnupg
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
+  echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
   apt-get update -qq && \
   apt-get install -y postgresql-client
 
@@ -120,5 +119,5 @@ USER ${_USER}:${_USER}
 WORKDIR $APP
 
 # Install bundler and rails
-RUN gem install bundler -v 2.6.8 \
-  && gem install rails -v 7.2.2.1
+RUN gem install bundler -v 2.7.2 \
+  && gem install rails -v 8.1.1
