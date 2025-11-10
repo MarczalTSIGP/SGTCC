@@ -117,7 +117,7 @@ module Notifications
       end
 
       private_class_method def self.submission_recipient(submission)
-        submission.academic.orientations.first.advisor
+        submission.academic.orientations.first&.advisor
       end
     end
   end

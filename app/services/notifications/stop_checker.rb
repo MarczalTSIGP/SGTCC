@@ -11,13 +11,13 @@ module Notifications
     def met?
       case @notification.notification_type
       when 'document_pending_signature'
-        check_signature_status
+        check_signature_status?
 
       when 'document_ad_signature_pending'
         ad_date_limit_reached
 
       when 'meeting_participation_acknowledgment'
-        check_meeting_acknowledgment_status
+        check_meeting_acknowledgment_status?
 
       else
         false
@@ -36,13 +36,13 @@ module Notifications
       { id: doc_id, user_type: user_class, user_id: user_id }
     end
 
-    def check_signature_status
+    def check_signature_status?
       signature = Signature.find_by(signature_details_from_event_key)
 
       signature.nil? || signature.status == true # L5
     end
 
-    def check_meeting_acknowledgment_status
+    def check_meeting_acknowledgment_status?
       parts = @notification.event_key.split(':')
 
       meeting_id = parts[1]
