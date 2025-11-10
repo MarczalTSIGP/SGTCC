@@ -9,14 +9,14 @@ module Notifications
     end
 
     def schedule!
-      return unless load_and_check_template
+      return unless load_and_check_template?
 
       rule = @template.notification_rule
       scheduled_at_time = compute_scheduled_at(rule)
 
       notification = find_or_initialize_notification
 
-      return notification if handle_skip_and_log(notification)
+      return notification if handle_skip_and_log?(notification)
 
       status = scheduled_at_time <= Time.current ? 'pending' : 'scheduled'
       notification.assign_attributes(data: @data, scheduled_at: scheduled_at_time, status: status)
@@ -30,7 +30,7 @@ module Notifications
 
     private
 
-    def load_and_check_template
+    def load_and_check_template?
       @template = NotificationTemplate.find_by(key: @notification_type)
       @template&.active?
     end
@@ -43,7 +43,7 @@ module Notifications
       )
     end
 
-    def handle_skip_and_log(notification)
+    def handle_skip_and_log?(notification)
       if notification.persisted? && notification.status.in?(%w[sent failed cancelled])
         # Correção do LineLength aqui
         Rails.logger.info "[SchedulerService] Notification #{notification.id} already finalized. " \

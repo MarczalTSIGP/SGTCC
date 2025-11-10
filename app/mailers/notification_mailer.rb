@@ -1,5 +1,6 @@
 class NotificationMailer < ApplicationMailer
   include ActionView::Helpers::TextHelper
+
   def generic_email(notification_id)
     prepare_email_data(notification_id)
 

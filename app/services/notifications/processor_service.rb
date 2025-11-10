@@ -11,8 +11,8 @@ module Notifications
     def process
       return unless @notification
 
-      return if handle_not_notificate
-      return if handle_max_attempts
+      return if handle_not_notificate?
+      return if handle_max_attempts?
 
       Notifications::DispatchJob.perform_later(@notification.id)
 
@@ -40,7 +40,9 @@ module Notifications
       end
     end
 
-    def handle_not_notificate
+    def handle_not_notificate?
+      return true if @notification.sent? || @notification.cancelled? || @notification.failed?
+
       if Notifications::StopChecker.met?(@notification)
         @notification.update!(status: 'cancelled')
         return true
@@ -48,7 +50,7 @@ module Notifications
       false
     end
 
-    def handle_max_attempts
+    def handle_max_attempts?
       return false unless @notification.attempts >= @notification.max_attempts
 
       @notification.update!(status: 'failed', last_attempted_at: Time.current)
