@@ -48,7 +48,7 @@ gem 'psych', '~> 3.0'
 gem 'view_component', '~> 4.0'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'capybara'
@@ -91,4 +91,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]
