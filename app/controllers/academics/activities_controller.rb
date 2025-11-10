@@ -58,9 +58,9 @@ class Academics::ActivitiesController < Academics::BaseController
   end
 
   def academic_activity_params
-    params.require(:academic_activity)
-          .permit(:title, :summary, :pdf, :pdf_cache,
-                  :additional_instructions, :academic_id, :activity_id,
-                  :complementary_files, :complementary_files_cache)
+    params
+      .expect(academic_activity: [:title, :summary, :pdf, :pdf_cache,
+                                  :additional_instructions, :academic_id, :activity_id,
+                                  :complementary_files, :complementary_files_cache])
   end
 end

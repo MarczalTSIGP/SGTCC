@@ -1,5 +1,6 @@
 class ExternalMembers::DocumentsController < ExternalMembers::BaseController
   include DocumentSignature
+
   before_action :set_document, only: [:show, :sign, :sign_form]
   before_action :can_view, only: :show
   before_action :set_signature, only: [:show, :sign]

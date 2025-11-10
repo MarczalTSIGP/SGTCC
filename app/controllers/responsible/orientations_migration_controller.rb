@@ -23,7 +23,7 @@ class Responsible::OrientationsMigrationController < Responsible::BaseController
   private
 
   def orientation_params_id
-    params.require(:orientation).permit(:id)
+    params.expect(orientation: [:id])
   end
 
   def orientations

@@ -30,7 +30,7 @@ class Academics::TsoRequestsController < Academics::BaseController
       feminine_success_create_message
       redirect_to academics_document_path(@document)
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -43,7 +43,7 @@ class Academics::TsoRequestsController < Academics::BaseController
       feminine_success_update_message
       redirect_to academics_document_path(@document)
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -65,9 +65,9 @@ class Academics::TsoRequestsController < Academics::BaseController
   end
 
   def request_params
-    params.require(:document)
-          .permit(:justification, :advisor_id,
-                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
+    params
+      .expect(document: [:justification, :advisor_id,
+                         { professor_supervisor_ids: [], external_member_supervisor_ids: [] }])
   end
 
   def diff_advisor?

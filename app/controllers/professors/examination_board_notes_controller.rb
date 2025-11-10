@@ -36,7 +36,7 @@ class Professors::ExaminationBoardNotesController < Professors::BaseController
   end
 
   def examination_board_note_params
-    params.require(:examination_board_note).permit(:note, :professor_id, :examination_board_id)
+    params.expect(examination_board_note: [:note, :professor_id, :examination_board_id])
   end
 
   def can_edit_note

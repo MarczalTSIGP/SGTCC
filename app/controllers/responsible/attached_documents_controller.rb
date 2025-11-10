@@ -36,7 +36,7 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
       redirect_to responsible_attached_documents_path
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -46,7 +46,7 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
       redirect_to responsible_attached_documents_path
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -64,6 +64,6 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
   end
 
   def attached_document_params
-    params.require(:attached_document).permit(:name, :file, :file_cache)
+    params.expect(attached_document: [:name, :file, :file_cache])
   end
 end

@@ -30,7 +30,7 @@ class Professors::RequestsController < Professors::BaseController
       feminine_success_create_message
       redirect_to professors_document_path(@document)
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -63,7 +63,7 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def request_params
-    params.require(:document).permit(:orientation_id, :justification)
+    params.expect(document: [:orientation_id, :justification])
   end
 
   def update_justification

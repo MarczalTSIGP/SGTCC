@@ -14,7 +14,7 @@ jobs:
     env:
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
-      image: ruby:3.4.3
+      image: ruby:3.4.7
       options: --network-alias testHost
       volumes:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
@@ -82,11 +82,10 @@ jobs:
       - name: Install libpq-dev for postgres
         run: |
           apt-get update
-          apt-get install -y lsb-release
-          echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" >>  /etc/apt/sources.list.d/pgdg.list
-          sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-          apt-get install -y wget ca-certificates
-          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+          apt-get install -y lsb-release wget ca-certificates gnupg
+          echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
           apt-get update -qq
           apt-get install -y postgresql-client
 
@@ -100,7 +99,7 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.6.8
+          gem install bundler -v 2.7.2
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 

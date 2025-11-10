@@ -19,7 +19,7 @@ module SGTCC
     end
 
     def self.base_authenticate(user, pwd, base)
-      return moodle_authenticate(user, pwd) if ENV['ldap.by'].eql?('moodle')
+      return moodle_authenticate?(user, pwd) if ENV['ldap.by'].eql?('moodle')
 
       ldap = Net::LDAP.new
 
@@ -34,7 +34,7 @@ module SGTCC
       false
     end
 
-    def self.moodle_authenticate(user, pwd)
+    def self.moodle_authenticate?(user, pwd)
       url = 'https://moodle.utfpr.edu.br/login/index.php'
 
       mechanize = Mechanize.new

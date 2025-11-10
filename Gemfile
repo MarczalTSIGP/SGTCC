@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '3.4.3'
+ruby '3.4.7'
 
 gem 'bootsnap', require: false
 gem 'puma', '~> 6'
-gem 'rails', '~> 7.2.2.1'
+gem 'rails', '~> 8.1.1'
 # gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
@@ -12,7 +12,7 @@ gem 'active_link_to'
 # gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
-gem 'carrierwave', '~> 2.2'
+gem 'carrierwave', '~> 3.0'
 gem 'carrierwave-i18n'
 gem 'cpf_cnpj'
 gem 'devise'
@@ -48,7 +48,7 @@ gem 'psych', '~> 3.0'
 gem 'view_component', '~> 4.0'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'capybara'
@@ -91,4 +91,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]

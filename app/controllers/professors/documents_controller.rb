@@ -1,5 +1,6 @@
 class Professors::DocumentsController < Professors::BaseController
   include DocumentSignature
+
   before_action :set_document, only: [:show, :sign, :sign_form]
   before_action :set_document_for_responsible, only: :show
   before_action :set_show_sign, only: :show

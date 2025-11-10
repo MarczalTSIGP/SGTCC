@@ -41,7 +41,7 @@ class Responsible::PagesController < Responsible::BaseController
       redirect_to responsible_pages_path
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -51,7 +51,7 @@ class Responsible::PagesController < Responsible::BaseController
       redirect_to responsible_page_path(@page)
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -75,6 +75,6 @@ class Responsible::PagesController < Responsible::BaseController
   end
 
   def page_params
-    params.require(:page).permit(:menu_title, :fa_icon, :content, :url, :publish)
+    params.expect(page: [:menu_title, :fa_icon, :content, :url, :publish])
   end
 end

@@ -48,7 +48,7 @@ class Responsible::CalendarsController < Responsible::BaseController
       redirect_to calendar_tcc_url
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -58,7 +58,7 @@ class Responsible::CalendarsController < Responsible::BaseController
       redirect_to calendar_tcc_url
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -81,7 +81,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   end
 
   def calendar_params
-    params.require(:calendar).permit(:tcc, :semester, :year)
+    params.expect(calendar: [:tcc, :semester, :year])
   end
 
   def calendar_tcc_url

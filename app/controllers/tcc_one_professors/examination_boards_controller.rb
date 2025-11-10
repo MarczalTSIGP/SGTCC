@@ -61,7 +61,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
       error_message
       render :new, orientations: @orientations, activities: @activities,
-                   status: :unprocessable_entity
+                   status: :unprocessable_content
     end
   end
 
@@ -73,7 +73,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
       set_orientations_and_activities
 
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -110,11 +110,16 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
 
   def examination_board_params
     if @examination_board&.defense_minutes.blank?
-      params.require(:examination_board)
-            .permit(:place, :date, :orientation_id, :tcc, :identifier,
-                    :document_available_until, professor_ids: [], external_member_ids: [])
+      params
+        .expect(examination_board: [:place,
+                                    :date,
+                                    :orientation_id,
+                                    :tcc,
+                                    :identifier,
+                                    :document_available_until,
+                                    { professor_ids: [], external_member_ids: [] }])
     else
-      params.require(:examination_board).permit(:document_available_until)
+      params.expect(examination_board: [:document_available_until])
     end
   end
 

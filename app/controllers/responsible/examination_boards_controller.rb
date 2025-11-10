@@ -97,7 +97,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       @activities = Activity.human_tcc_one_identifiers
 
       error_message
-      render :new_to_tcc_one, status: :unprocessable_entity
+      render :new_to_tcc_one, status: :unprocessable_content
     end
   end
 
@@ -112,7 +112,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       @activities = Activity.human_tcc_two_identifiers
 
       error_message
-      render :new_to_tcc_two, status: :unprocessable_entity
+      render :new_to_tcc_two, status: :unprocessable_content
     end
   end
 
@@ -130,7 +130,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     else
       set_orientations_and_activities
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -158,11 +158,16 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
 
   def examination_board_params
     if @examination_board&.defense_minutes.blank?
-      params.require(:examination_board)
-            .permit(:place, :date, :orientation_id, :tcc, :identifier,
-                    :document_available_until, professor_ids: [], external_member_ids: [])
+      params
+        .expect(examination_board: [:place,
+                                    :date,
+                                    :orientation_id,
+                                    :tcc,
+                                    :identifier,
+                                    :document_available_until,
+                                    { professor_ids: [], external_member_ids: [] }])
     else
-      params.require(:examination_board).permit(:document_available_until)
+      params.expect(examination_board: [:document_available_until])
     end
   end
 

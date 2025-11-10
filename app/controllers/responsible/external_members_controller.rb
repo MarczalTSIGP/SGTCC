@@ -37,7 +37,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
       redirect_to responsible_external_members_path
     else
       error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -49,7 +49,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
       redirect_to responsible_external_member_path(@external_member)
     else
       error_message
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -76,9 +76,9 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def external_member_params
-    params.require(:external_member).permit(:name, :email, :gender,
-                                            :password, :password_confirmation,
-                                            :is_active, :personal_page,
-                                            :working_area, :scholarity_id)
+    params.expect(external_member: [:name, :email, :gender,
+                                    :password, :password_confirmation,
+                                    :is_active, :personal_page,
+                                    :working_area, :scholarity_id])
   end
 end

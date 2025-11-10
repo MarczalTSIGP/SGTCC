@@ -20,12 +20,12 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:external_member)
-          .permit(:name, :email, :personal_page,
-                  :password, :password_confirmation,
-                  :gender, :scholarity_id,
-                  :is_active, :current_password,
-                  :profile_image, :profile_image_cache)
+    params
+      .expect(external_member: [:name, :email, :personal_page,
+                                :password, :password_confirmation,
+                                :gender, :scholarity_id,
+                                :is_active, :current_password,
+                                :profile_image, :profile_image_cache])
   end
 
   private
@@ -52,7 +52,7 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
     set_minimum_password_length
 
     respond_to do |format|
-      format.html { render :edit, status: :unprocessable_entity }
+      format.html { render :edit, status: :unprocessable_content }
       format.json { render_failed_update_json }
     end
   end
@@ -61,6 +61,6 @@ class ExternalMembers::RegistrationsController < Devise::RegistrationsController
     render json: {
       success: false,
       errors: resource.errors.full_messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 end
