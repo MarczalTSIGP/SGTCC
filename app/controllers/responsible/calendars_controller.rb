@@ -80,8 +80,8 @@ class Responsible::CalendarsController < Responsible::BaseController
     @calendar = Calendar.find(params[:id])
   end
 
-  def calendar_params
-    params.expect(calendar: [:tcc, :semester, :year])
+ def calendar_params
+    params.require(:calendar).permit(:tcc, :semester, :year, :start_date, :end_date)
   end
 
   def calendar_tcc_url

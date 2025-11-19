@@ -2,9 +2,18 @@ require 'rails_helper'
 
 describe 'Supervision::show' do
   let(:professor) { create(:professor) }
-  let(:orientation) { create(:orientation, advisor: professor) }
-  let(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
-  let(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+  let(:other_professor) { create(:professor) }
+  let(:orientation) { create(:orientation, advisor: other_professor) }
+  let(:calendar_tcc_one) do
+      Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) || 
+      create(:current_calendar_tcc_one)
+  end
+
+  let(:calendar_tcc_two) do
+    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:two]) || 
+    create(:current_calendar_tcc_two)
+  end
+  
   let(:orientation_tcc_one) do
     create(:orientation, advisor: professor,
                          calendars: [calendar_tcc_one])
@@ -29,7 +38,7 @@ describe 'Supervision::show' do
         expect_contents_of(orientation)
 
         breadcrumb_text = I18n.t('breadcrumbs.supervisions.history')
-        first("a[href='#{professors_supervisions_history_path}']", text: breadcrumb_text).click
+        first("a[href='#{professors_supervisions_history_path}']", text: 'Histórico').click
         expect(page).to have_current_path professors_supervisions_history_path
       end
     end

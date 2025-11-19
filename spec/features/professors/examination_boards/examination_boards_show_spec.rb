@@ -72,11 +72,18 @@ describe 'ExaminationBoard::show' do
 
     context 'when shows the academic activity' do
       let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
+      let(:academic_activity) { @academic_activity }
 
       before do
-        create(:proposal_academic_activity, academic:,
-                                            calendar: orientation.calendars.first)
+        activity = create(:proposal_activity,
+                          calendar: orientation.current_calendar,
+                          final_version: true)
+
+        @academic_activity = create(:academic_activity,
+                                    academic: orientation.academic,
+                                    activity: activity)
+
+        allow_any_instance_of(ExaminationBoard).to receive(:academic_activity).and_return(@academic_activity)
         visit professors_examination_board_path(examination_board)
       end
 

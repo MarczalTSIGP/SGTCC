@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Orientation::activity_update_judgment', :js do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
-  let(:activity) { orientation.current_calendar.activities.first }
+  let(:calendar) { orientation.current_calendar }
+  let(:activity) { create(:project_activity, calendar: calendar) }
   let(:resource_name) { Activity.model_name.human }
 
   before do

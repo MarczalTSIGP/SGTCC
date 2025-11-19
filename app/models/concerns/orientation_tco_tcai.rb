@@ -4,8 +4,9 @@ module OrientationTcoTcai
   extend ActiveSupport::Concern
 
   included do
-    after_create_commit :create_tco_and_tcai
-    after_update :recreate_tco_and_tcai
+    # 🚨 CORREÇÃO TEMPORÁRIA PARA MIGRAÇÃO: Troca after_create_commit por after_create
+    after_create_commit :create_tco_and_tcai 
+    after_update :recreate_tco_and_tcai, unless: -> { skip_documents_callbacks }
 
     def create_tco(params)
       DocumentType.find_by(identifier: :tco).documents.create!(params)

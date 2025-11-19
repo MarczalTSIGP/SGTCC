@@ -6,7 +6,8 @@ FactoryBot.define do
     initial_date { Faker::Date.backward(days: 1) }
     final_date { Faker::Date.forward(days: 2) }
     base_activity_type
-    calendar
+    association :calendar, factory: :calendar
+
     judgment { true }
 
     factory :activity_tcc_one do

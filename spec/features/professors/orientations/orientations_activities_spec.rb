@@ -4,6 +4,7 @@ describe 'Orientation::activities', :js do
   let!(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:academic) { orientation.academic }
+  let!(:activity_one) { create(:project_activity, calendar: orientation.current_calendar) }
   let(:activities) { orientation.current_calendar.activities }
   let(:active_link) { professors_orientations_tcc_one_path }
 

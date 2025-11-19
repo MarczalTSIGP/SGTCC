@@ -15,6 +15,26 @@
         <%= f.input :year %>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= render Forms::DatetimepickerComponent.new(
+          name: "calendar[start_date]",
+          id: "calendar_start_date",
+          label: Calendar.human_attribute_name("start_date"),
+          datetime: @calendar.start_date
+        ) %>
+      </div>
+
+      <div class="col-sm-6">
+        <%= render Forms::DatetimepickerComponent.new(
+          name: "calendar[end_date]",
+          id: "calendar_end_date",
+          label: Calendar.human_attribute_name("end_date"),
+          datetime: @calendar.end_date
+        ) %>
+      </div>
+    </div>
   </div>
 
   <div class="d-flex">

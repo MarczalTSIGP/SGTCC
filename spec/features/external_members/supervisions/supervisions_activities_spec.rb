@@ -34,9 +34,12 @@ describe 'Supervision::activities' do
     end
 
     context 'when show the activity by orientation' do
-      let!(:activity) { activities.first }
+      let!(:activity) do
+        create(:activity, calendar: orientation.current_calendar)
+      end
+      
       let!(:academic_activity) do
-        create(:academic_activity, academic:, activity:)
+        create(:academic_activity, academic: academic, activity_id: activity.id) 
       end
 
       before do

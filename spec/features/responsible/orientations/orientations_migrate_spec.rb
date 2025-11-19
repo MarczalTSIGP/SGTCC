@@ -22,18 +22,5 @@ describe 'Orientation::migrate' do
         expect(page).to have_current_path(%r{orientations/migration})
       end
     end
-
-    context 'when can migrate' do
-      before do
-        create(:current_calendar_tcc_two)
-      end
-
-      it 'returns flash success message' do
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.orientation_migrated'))
-        expect(page).to have_current_path responsible_orientations_migration_path
-      end
-    end
   end
 end

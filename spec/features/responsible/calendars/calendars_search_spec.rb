@@ -16,10 +16,15 @@ describe 'Calendar::search', :js do
 
         fill_in 'term', with: calendar.year
         first('#search').click
+
         expect(page).to have_link(calendar.year_with_semester,
                                   href: responsible_calendar_path(calendar))
-        expect(page).to have_contents([I18n.t("enums.tcc.#{calendar.tcc}"),
-                                       short_date(calendar.created_at)])
+
+        expect(page).to have_contents([
+          I18n.t("enums.tcc.#{calendar.tcc}"),
+          short_date(calendar.start_date),  
+          short_date(calendar.end_date)      
+        ])
       end
     end
 
@@ -27,6 +32,7 @@ describe 'Calendar::search', :js do
       it 'returns not found message' do
         fill_in 'term', with: 'a1#\231/ere'
         first('#search').click
+
         expect(page).to have_message(no_results_message, in: 'table tbody')
       end
     end

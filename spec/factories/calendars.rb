@@ -1,75 +1,103 @@
 FactoryBot.define do
-  tccs = Calendar.tccs.values
-  current_year = Calendar.current_year
-  current_semester = Calendar.current_semester
-  tcc_one = tccs.first
-  tcc_two = tccs.last
-
   factory :calendar do
-    extend FactoryBotEnhancements
+    sequence(:year) { |n| (2020 + n).to_s }
+    semester { :one }
+    tcc { :one }
 
-    change_factory_to_find_or_create
-
-    sequence(:year) { |n| Faker::Number.unique.number(digits: 4) || "20#{n}" }
-    sequence(:semester) { tccs.first || tccs.last }
-    tcc { tccs.sample }
-
-    before :create do
-      create_list(:base_activity_tcc_one, 2)
-      create_list(:base_activity_tcc_two, 2)
+    start_date do
+      sem = semester.to_s
+      month = (sem == 'one'|| sem == '1') ? 1 : 7
+      Date.new(year.to_i, month, 1)
     end
 
-    before :destroy do
-      activities.destroy_all
-    end
+  end_date do
+    sem = semester.to_s
+    month = (sem == :one || sem == '1') ? 6 : 12
+    Date.new(year.to_i, month, -1)
+  end
 
     factory :current_calendar do
-      year { current_year }
-      semester { current_semester }
+      year     { Calendar.current_year }
+      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
+      tcc      { :one }
     end
 
     factory :current_calendar_tcc_one do
-      year { current_year }
-      semester { current_semester }
-      tcc { tcc_one }
+      tcc      { :one }
+      year     { Calendar.current_year }
+      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
     end
 
     factory :current_calendar_tcc_two do
-      year { current_year }
-      semester { current_semester }
-      tcc { tcc_two }
-    end
-
-    factory :previous_calendar_tcc_one do
-      year { current_semester == 2 ? current_year : current_year.to_i - 1 }
-      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
-      tcc { tcc_one }
-    end
-
-    factory :previous_calendar_tcc_two do
-      year { current_semester == 2 ? current_year : current_year.to_i - 1 }
-      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
-      tcc { tcc_two }
-    end
-
-    factory :next_calendar_tcc_one do
-      year { current_semester == 1 ? current_year : current_year.to_i + 1 }
-      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
-      tcc { tcc_one }
-    end
-
-    factory :next_calendar_tcc_two do
-      year { current_semester == 1 ? current_year : current_year.to_i + 1 }
-      semester { current_semester == 1 ? current_semester + 1 : current_semester - 1 }
-      tcc { tcc_two }
+      tcc      { :two }
+      year     { Calendar.current_year }
+      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
     end
 
     factory :calendar_tcc_one do
-      tcc { tcc_one }
+      tcc { :one }
+      sequence(:year) { |n| (2030 + n).to_s }
     end
 
     factory :calendar_tcc_two do
-      tcc { tcc_two }
+      tcc { :two }
+      sequence(:year) { |n| (2040 + n).to_s }
+    end
+
+    factory :next_calendar_tcc_one do
+      tcc { :one }
+
+      transient do
+        current_calendar { nil }
+      end
+
+      year do
+        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year, semester: Calendar.current_semester)
+        base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
+      end
+
+      semester do
+        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year, semester: Calendar.current_semester)
+        base.semester.to_i == 1 ? :two : :one
+      end
+    end
+
+    factory :next_calendar_tcc_two do
+      tcc { :two }
+
+      transient do
+        current_calendar { nil }
+      end
+
+      year do
+        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year, semester: Calendar.current_semester)
+        base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
+      end
+
+      semester do
+        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year, semester: Calendar.current_semester)
+        base.semester.to_i == 1 ? :two : :one
+      end
+    end
+
+    factory :previous_calendar_tcc_one do
+      tcc { :one }
+      year do
+        Calendar.current_semester == 1 ? Calendar.current_year - 1 : Calendar.current_year
+      end
+      semester do
+        Calendar.current_semester.to_i == 1 ? :two : :one
+      end
+    end
+
+    factory :previous_calendar_tcc_two do
+      tcc { :two }
+      year do
+        Calendar.current_semester == 1 ? Calendar.current_year - 1 : Calendar.current_year
+      end
+      semester do
+        Calendar.current_semester.to_i == 1 ? :two : :one
+      end
     end
   end
 end

@@ -10,6 +10,7 @@ class Orientation < ApplicationRecord
   include OrientationValidation
   include AcademicDocumentsInfo
   include UsersToDocument
+  attr_accessor :skip_documents_callbacks
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendars: { fields: [:year] },
@@ -91,6 +92,7 @@ class Orientation < ApplicationRecord
     where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
   }
 
+
   def migrate
     if can_be_migrated?
       new_calendar = Calendar.next_semester_tcc_two(current_calendar)
@@ -117,9 +119,7 @@ class Orientation < ApplicationRecord
   end
 
   def current_calendar
-    calendars.order(
-      year: :asc, semester: :asc, tcc: :asc
-    ).last
+    calendars.order(year: :desc, semester: :desc, tcc: :desc).first
   end
 
   def self.last_tcc_one_calendars
@@ -244,8 +244,6 @@ class Orientation < ApplicationRecord
                        .order('calendars.year DESC, calendars.semester DESC')
                        .try(:first)
   end
-  # END Acadmic activities documents CONTEXT
-  #-------------------------------
 
   public
 

@@ -4,7 +4,7 @@ module Semester
   extend ActiveSupport::Concern
 
   included do
-    enum :semester, I18n.t('enums.tcc_number'), prefix: :semester
+   enum :semester, { one: 1, two: 2 }, prefix: :semester
 
     def self.human_semesters
       hash = {}

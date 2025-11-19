@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Flash::MessageComponent < ViewComponent::Base
+  attr_reader :id
+
   def initialize(id: nil)
     @id = id || 'flash_messages'
   end
 
   def messages
     helpers.flash.delete(:timedout)
-    flash.to_hash.reject { |key, _| key.to_s.start_with?('sweet') }
+    helpers.flash.to_hash.reject { |key, _| key.to_s.start_with?('sweet') }
   end
 
   def alert_css_classes(flash_type)

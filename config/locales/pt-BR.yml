@@ -371,6 +371,8 @@ pt-BR:
           show: "Visualizar Coorientação de TCC 2 (%{calendar})"
   activerecord:
     errors:
+      messages:
+        after_start_date: "deve ser posterior à data de início"
       models:
         page:
           attributes:
@@ -546,6 +548,8 @@ pt-BR:
         semester: "Semestre"
         year: "Ano"
         year_semester: "Ano / Semestre"
+        start_date: "Data de início"
+        end_date: "Data final"
         <<: *commons
       orientation:
         calendars:
@@ -660,8 +664,8 @@ pt-BR:
       not_appear: 'Não compareceu'
       under_evaluation: 'Sob avaliação'
     semesters:
-      first: '1º'
-      second: '2º'
+      one: "1"
+      two: "2"
     roles:
       responsible: 'Professor responsável'
       tcc1: 'Professor de TCC 1'
@@ -673,11 +677,11 @@ pt-BR:
         project: 'Projeto'
         monograph: 'Monografia'
     tcc_number:
-      one: 1
-      two: 2
+      one: "1"
+      two: "2"
     semester:
-      one: '1'
-      two: '2'
+      one: "1"
+      two: "2"
     orientation:
       status:
         RENEWED: 'renovada'

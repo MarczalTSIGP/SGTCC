@@ -1,4 +1,4 @@
-class Academics::BaseController < ActionController::Base
+class Academics::BaseController < ApplicationController
   protect_from_forgery with: :exception
   include FlashMessage
 

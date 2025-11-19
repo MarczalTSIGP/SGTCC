@@ -41,15 +41,25 @@ describe 'ExaminationBoard::show' do
     end
 
     context 'when shows the academic activity' do
-      let(:academic_activity) { examination_board.academic_activity }
-
       before do
-        create(:monograph_academic_activity, academic:,
-                                             calendar: orientation.calendars.first)
+        activity = create(:monograph_activity, 
+                           calendar: orientation.current_calendar, 
+                           final_version: true)
+                          
+        @academic_activity = create(:academic_activity, 
+                                    academic: academic,
+                                    activity: activity)
+        orientation.reload
+        examination_board.reload
+        allow_any_instance_of(ExaminationBoard).to receive(:academic_activity).and_return(@academic_activity)
+
         visit academics_examination_board_path(examination_board)
       end
 
+      let(:academic_activity) { @academic_activity }
+
       it 'shows the academic activity' do
+        expect(orientation.final_monograph).to eq(academic_activity)
         expect(page).to have_contents([academic.name,
                                        academic_activity.title,
                                        academic_activity.summary])
