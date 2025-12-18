@@ -1,8 +1,3 @@
-\restrict vYSMMLQdvLV1d7lIKaACWiQUdy9oC2cYYvrUc2ZZ2psy69Z64B7jBFD2IhcJSgu
-
--- Dumped from database version 17.5 (Debian 17.5-1.pgdg130+1)
--- Dumped by pg_dump version 18.0 (Debian 18.0-1.pgdg12+3)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -1964,11 +1959,13 @@ ALTER TABLE ONLY public.meetings
 -- PostgreSQL database dump complete
 --
 
-\unrestrict vYSMMLQdvLV1d7lIKaACWiQUdy9oC2cYYvrUc2ZZ2psy69Z64B7jBFD2IhcJSgu
-
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251106190118'),
+('20251104201959'),
+('20251104201958'),
+('20251104201957'),
 ('20250423190259'),
 ('20250423190258'),
 ('20250423190257'),

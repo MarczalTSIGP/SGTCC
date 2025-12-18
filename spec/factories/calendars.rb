@@ -10,11 +10,11 @@ FactoryBot.define do
       Date.new(year.to_i, month, 1)
     end
 
-  end_date do
-    sem = semester.to_s
-    month = (sem == :one || sem == '1') ? 6 : 12
-    Date.new(year.to_i, month, -1)
-  end
+    end_date do
+      sem = semester.to_s
+      month = (sem == :one || sem == '1') ? 6 : 12
+      Date.new(year.to_i, month, -1)
+    end
 
     factory :current_calendar do
       year     { Calendar.current_year }
