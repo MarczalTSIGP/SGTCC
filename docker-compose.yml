@@ -26,6 +26,8 @@ services:
       - 3000:3000
     environment:
       RAILS_ENV: development
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      MAILER_HOST: "localhost:3000"
 
   db:
     image: postgres:17.5

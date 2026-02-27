@@ -47,6 +47,9 @@ gem 'stimulus-rails'
 gem 'psych', '~> 3.0'
 gem 'view_component', '~> 4.0'
 
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "kamal", require: false
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
