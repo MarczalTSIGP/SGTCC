@@ -49,9 +49,11 @@ gem 'view_component', '~> 4.0'
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :windows]
+  gem 'byebug', platforms: [ :mri, :windows ]
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'capybara'
@@ -94,4 +96,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:windows, :jruby]
+gem 'tzinfo-data', platforms: [ :windows, :jruby ]

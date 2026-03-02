@@ -20,11 +20,9 @@ servers:
 proxy:
   ssl: true
   host: tccu.tsi.pro.br
-  # Proxy connects to your container on port 80 by default.
-  # app_port: 3000
+  app_port: 3000
 
 registry:
-  server: registry.hub.docker.com
   username:
     - KAMAL_REGISTRY_USERNAME
   # Always use an access token rather than real password when possible.
@@ -59,8 +57,8 @@ builder:
   #   RUBY_VERSION: <%= ENV["RBENV_VERSION"] || ENV["rvm_ruby_string"] || "#{RUBY_ENGINE}-#{RUBY_ENGINE_VERSION}" %>
 
   # Use a different ssh user than root
-  ssh:
-    user: tsi
+ssh:
+  user: tsi
 
 accessories:
   postgres:
