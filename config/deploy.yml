@@ -38,6 +38,13 @@ env:
     - MAILER_FROM
   clear:
     SOLID_QUEUE_IN_PUMA: true
+    MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+    MAILER_HOST: "tcc.tsi.pro.br"
+    LDAP_ON: 'true'
+    LDAP_BY: 'moodle'
+    LDAP_HOST: 'localhost'
+    LDAP_PORT: '3389'
+    LDAP_BASE: ''
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
