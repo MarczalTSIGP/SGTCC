@@ -34,8 +34,6 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-    - MAILER_HOST
-    - MAILER_FROM
   clear:
     SOLID_QUEUE_IN_PUMA: true
     MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
@@ -54,6 +52,7 @@ aliases:
 
 # Configure builder setup.
 builder:
+  dockerfile: Dockerfile.production
   arch: amd64
   # Pass in additional build args needed for your Dockerfile.
   # args:
@@ -62,3 +61,17 @@ builder:
   # Use a different ssh user than root
   ssh:
     user: tsi
+
+accessories:
+  postgres:
+    image: postgres:17.5
+    host: 172.20.11.20
+    port: 5432
+    env:
+      clear:
+        POSTGRES_DB: sgtcc_production
+        POSTGRES_USER: postgres
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
