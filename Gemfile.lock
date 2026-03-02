@@ -566,6 +566,7 @@ GEM
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.4.0)
+    thruster (0.1.18-x86_64-linux)
     tilt (2.6.1)
     timeout (0.4.4)
     tsort (0.2.0)
@@ -669,6 +670,7 @@ DEPENDENCIES
   simplecov-console
   solargraph
   stimulus-rails
+  thruster
   turbo-rails
   tzinfo-data
   validators
