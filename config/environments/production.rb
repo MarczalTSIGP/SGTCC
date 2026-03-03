@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -94,9 +94,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: ENV.fetch("MAILER_HOST", nil) }
-  config.action_mailer.asset_host = "https://#{ENV.fetch("MAILER_HOST", nil)}"
-  config.asset_host = "https://#{ENV.fetch("MAILER_HOST", nil)}"
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", nil) }
+  config.action_mailer.asset_host = "https://#{ENV.fetch("APP_HOST", nil)}"
+  config.asset_host = "https://#{ENV.fetch("APP_HOST", nil)}"
 end
 
-Rails.application.routes.default_url_options[:host] = ENV.fetch("MAILER_HOST", nil)
+Rails.application.routes.default_url_options[:host] = ENV.fetch("APP_HOST", nil)

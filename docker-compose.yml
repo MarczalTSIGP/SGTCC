@@ -27,7 +27,7 @@ services:
     environment:
       RAILS_ENV: development
       MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
-      MAILER_HOST: "localhost:3000"
+      APP_HOST: "localhost:3000"
       LDAP_ON: 'false'
       LDAP_BY: 'moodle'
       LDAP_HOST: 'localhost'
@@ -58,7 +58,7 @@ services:
       # https://github.com/DatabaseCleaner/database_cleaner#safeguards
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
       MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
-      MAILER_HOST: "localhost:3000"
+      APP_HOST: "localhost:3000"
       LDAP_ON: 'false'
       LDAP_BY: 'moodle'
       LDAP_HOST: 'localhost'
