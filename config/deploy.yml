@@ -34,7 +34,7 @@ env:
     - RAILS_MASTER_KEY
   clear:
     SOLID_QUEUE_IN_PUMA: true
-    APP_HOST: "tccu.tsi.pro.br"
+    APP_HOST: "tcc.tsi.pro.br"
     MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
     LDAP_ON: 'true'
     LDAP_BY: 'moodle'
