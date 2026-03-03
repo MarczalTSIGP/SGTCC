@@ -73,3 +73,7 @@ accessories:
         - POSTGRES_PASSWORD
     directories:
       - data:/var/lib/postgresql/data
+
+volumes:
+  - "sgtcc_uploads:/rails/public/uploads"
+  - "sgtcc_storage:/rails/storage"
