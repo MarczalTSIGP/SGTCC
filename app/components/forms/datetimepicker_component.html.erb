@@ -7,7 +7,7 @@
   <div class="input-group">
     <input
       type="text"
-      class="form-control"
+      class="<%= input_class %>"
       data-forms--datetimepicker-target="field"
       value="<%= datetime %>"
       <%= 'disabled' if disabled %>
@@ -28,4 +28,12 @@
     value="<%= datetime %>"
     data-forms--datetimepicker-target="input"
   >
+
+  <% if errors? %>
+    <div class="invalid-feedback d-block">
+      <% errors.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>

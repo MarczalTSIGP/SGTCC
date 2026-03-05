@@ -44,7 +44,8 @@
               id: "examination_board_date",
               label: ExaminationBoard.human_attribute_name('date'),
               datetime: @examination_board.date,
-              disabled: @disabled_field
+              disabled: @disabled_field,
+              errors: @examination_board.errors[:date]
             ) %>
          </div>
       </div>
@@ -54,7 +55,8 @@
             name: "examination_board[document_available_until]",
             id: "examination_board_document_available_until",
             label: ExaminationBoard.human_attribute_name('document_available_until'),
-            datetime: @examination_board.document_available_until
+            datetime: @examination_board.document_available_until,
+            errors: @examination_board.errors[:document_available_until]
          ) %>
       </div>
    </div>

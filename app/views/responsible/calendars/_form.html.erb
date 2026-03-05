@@ -22,7 +22,8 @@
           name: "calendar[start_date]",
           id: "calendar_start_date",
           label: Calendar.human_attribute_name("start_date"),
-          datetime: @calendar.start_date
+          datetime: @calendar.start_date,
+          errors: @calendar.errors[:start_date]
         ) %>
       </div>
 
@@ -31,7 +32,8 @@
           name: "calendar[end_date]",
           id: "calendar_end_date",
           label: Calendar.human_attribute_name("end_date"),
-          datetime: @calendar.end_date
+          datetime: @calendar.end_date,
+          errors: @calendar.errors[:end_date]
         ) %>
       </div>
     </div>

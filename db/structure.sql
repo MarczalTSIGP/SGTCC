@@ -368,12 +368,12 @@ ALTER SEQUENCE public.base_activity_types_id_seq OWNED BY public.base_activity_t
 CREATE TABLE public.calendars (
     id bigint NOT NULL,
     year character varying,
-    start_date date,
-    end_date date,
     semester integer,
     tcc integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    start_date timestamp(6) without time zone,
+    end_date timestamp(6) without time zone
 );
 
 
@@ -1966,9 +1966,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20251104201959'),
 ('20251104201958'),
 ('20251104201957'),
-('20250423190259'),
-('20250423190258'),
-('20250423190257'),
 ('20231017133608'),
 ('20231004230530'),
 ('20200710170737'),
