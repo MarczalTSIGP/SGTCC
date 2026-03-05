@@ -1,5 +1,5 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe WelcomeMailer, type: :mailer do
+RSpec.describe WelcomeMailer do
   pending "add some examples to (or delete) #{__FILE__}"
 end

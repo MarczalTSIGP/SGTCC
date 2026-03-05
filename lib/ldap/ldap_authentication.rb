@@ -18,7 +18,7 @@ module SGTCC
       end
     end
 
-    def self.base_authenticate(user, pwd, base)
+    def self.base_authenticate(user, pwd, base = ENV.fetch('LDAP_BASE', nil))
       return moodle_authenticate?(user, pwd) if ENV['LDAP_BY'].eql?('moodle')
 
       ldap = Net::LDAP.new
@@ -26,7 +26,6 @@ module SGTCC
       ldap.host = ENV.fetch('LDAP_HOST', nil)
       ldap.port = ENV.fetch('LDAP_PORT', nil)
 
-      base = ENV.fetch('LDAP_BASE', nil)
       ldap.authenticate "uid=#{user},#{base}", pwd
 
       return true if ldap.bind

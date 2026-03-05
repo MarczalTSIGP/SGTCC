@@ -804,6 +804,8 @@ pt-BR:
         m: 'Todos'
         f: 'Todas'
   mailer:
+    welcome:
+      subject: 'Bem-vindo ao SGTCC'
     login: 'Acessar sistema'
     external_member:
       registration:
