@@ -3,6 +3,8 @@ name: Tests
 on:
   workflow_call:
     secrets:
+      RAILS_MASTER_KEY_TEST:
+        required: true
       MAILER_USERNAME:
         required: true
       MAILER_PASSWORD:
@@ -14,6 +16,10 @@ jobs:
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY_TEST }}
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
       MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
       APP_HOST: localhost:3000
       LDAP_ON: 'false'
@@ -50,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install libpq-dev for postgres
         run: |
