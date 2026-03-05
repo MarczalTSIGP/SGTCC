@@ -582,8 +582,9 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     validators (3.4.2)
-    view_component (4.1.0)
-      activesupport (>= 7.1.0, < 8.2)
+    view_component (4.5.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -674,7 +675,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   validators
-  view_component (~> 4.0)
+  view_component (~> 4.5)
   web-console (>= 3.3.0)
   webdrivers
   yard
