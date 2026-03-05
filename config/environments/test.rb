@@ -37,9 +37,8 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { host: ENV.fetch('APP_HOST', nil) }
-  config.action_mailer.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
-  config.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
+  config.action_mailer.default_url_options = { host: 'example.com' }
+  config.action_mailer.asset_host = 'http://example.com'
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -49,7 +48,7 @@ Rails.application.configure do
   #
 end
 
-Rails.application.routes.default_url_options[:host] = ENV.fetch('APP_HOST', 'localhost')
+Rails.application.routes.default_url_options[:host] = 'example.com'
 
 CarrierWave.configure do |config|
   config.storage = :file

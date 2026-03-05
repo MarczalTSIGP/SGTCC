@@ -19,12 +19,12 @@ RSpec.describe ExaminationBoard do
     end
 
     it 'return all the tccs one' do
-      expect(described_class.tcc_one.pluck(:id)).to eq(tccs)
+      expect(described_class.tcc_one.pluck(:id).sort).to eq(tccs.sort)
     end
 
     it 'return all the current semester tccs one' do
       tccs.pop(2)
-      expect(described_class.tcc_one_current_semester.pluck(:id)).to match_array(tccs)
+      expect(described_class.tcc_one_current_semester.pluck(:id).sort).to match_array(tccs.sort)
     end
   end
 

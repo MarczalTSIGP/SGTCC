@@ -17,7 +17,7 @@ describe 'Document::sign', :js do
 
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        within('form') do
+        within('form#sign_form_id') do
           fill_in(:user_username, with: academic.ra)
           fill_in(:user_password, with: 'password')
           click_button('Assinar', exact_text: true)
@@ -42,7 +42,7 @@ describe 'Document::sign', :js do
         click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        within('form') do
+        within('form#sign_form_id') do
           fill_in(:user_username, with: academic.ra)
           fill_in(:user_password, with: 'wrongpassword')
           click_button('Assinar', exact_text: true)
