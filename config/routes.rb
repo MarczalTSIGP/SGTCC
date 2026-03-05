@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
   %w[404 422 500].each do |code|
     get code, to: 'errors#show', code:, as: "error_#{code}"
   end

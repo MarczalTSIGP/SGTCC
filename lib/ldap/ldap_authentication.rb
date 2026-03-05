@@ -4,7 +4,7 @@ require 'mechanize'
 module SGTCC
   class LDAP
     def self.enable?
-      ENV['ldap.on'].eql?('true')
+      ENV['LDAP_ON'].eql?('true')
     end
 
     def self.authenticate(user, password)
@@ -18,15 +18,14 @@ module SGTCC
       end
     end
 
-    def self.base_authenticate(user, pwd, base)
-      return moodle_authenticate?(user, pwd) if ENV['ldap.by'].eql?('moodle')
+    def self.base_authenticate(user, pwd, base = ENV.fetch('LDAP_BASE', nil))
+      return moodle_authenticate?(user, pwd) if ENV['LDAP_BY'].eql?('moodle')
 
       ldap = Net::LDAP.new
 
-      ldap.host = ENV.fetch('ldap.host', nil)
-      ldap.port = ENV.fetch('ldap.port', nil)
+      ldap.host = ENV.fetch('LDAP_HOST', nil)
+      ldap.port = ENV.fetch('LDAP_PORT', nil)
 
-      base = ENV.fetch("ldap.base.#{base}", nil)
       ldap.authenticate "uid=#{user},#{base}", pwd
 
       return true if ldap.bind

@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module SistemaGestaoTcc
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.1
 
     config.exceptions_app = routes
 
@@ -28,7 +28,5 @@ module SistemaGestaoTcc
     config.i18n.default_locale = :'pt-BR'
 
     config.active_record.schema_format = :sql
-
-    ENV.update YAML.load_file('config/application.yml')[Rails.env]
   end
 end

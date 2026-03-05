@@ -45,7 +45,12 @@ gem 'turbo-rails'
 gem 'stimulus-rails'
 
 gem 'psych', '~> 3.0'
-gem 'view_component', '~> 4.0'
+gem 'view_component', '~> 4.5'
+
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem 'kamal', require: false
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem 'thruster', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :windows]

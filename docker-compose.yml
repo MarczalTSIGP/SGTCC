@@ -26,6 +26,13 @@ services:
       - 3000:3000
     environment:
       RAILS_ENV: development
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      APP_HOST: "localhost:3000"
+      LDAP_ON: 'false'
+      LDAP_BY: 'moodle'
+      LDAP_HOST: 'localhost'
+      LDAP_PORT: '3389'
+      LDAP_BASE: ''
 
   db:
     image: postgres:17.5
@@ -50,6 +57,13 @@ services:
       TEST_APP_HOST: tests
       # https://github.com/DatabaseCleaner/database_cleaner#safeguards
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      APP_HOST: "localhost:3000"
+      LDAP_ON: 'false'
+      LDAP_BY: 'moodle'
+      LDAP_HOST: 'localhost'
+      LDAP_PORT: '3389'
+      LDAP_BASE: ''
     shm_size: "2gb" #set shared memory
     depends_on:
       - db

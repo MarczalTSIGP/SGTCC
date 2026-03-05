@@ -1,0 +1,79 @@
+# Name of your application. Used to uniquely configure containers.
+service: sgtcc
+
+# Name of the container image.
+image: dmarczal/sgtcc-production
+
+# Deploy to these servers.
+servers:
+  web:
+    - 172.20.11.20
+  # job:
+  #   hosts:
+  #     - 192.168.0.1
+  #   cmd: bin/jobs
+
+# Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
+# Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
+#
+# Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
+proxy:
+  ssl: true
+  host: tcc.tsi.pro.br
+  app_port: 3000
+
+registry:
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  # Always use an access token rather than real password when possible.
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+  clear:
+    SOLID_QUEUE_IN_PUMA: true
+    APP_HOST: "tcc.tsi.pro.br"
+    MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+    LDAP_ON: 'true'
+    LDAP_BY: 'moodle'
+    LDAP_HOST: 'localhost'
+    LDAP_PORT: '3389'
+    LDAP_BASE: ''
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+# Configure builder setup.
+builder:
+  dockerfile: Dockerfile.production
+  arch: amd64
+  # Pass in additional build args needed for your Dockerfile.
+  # args:
+  #   RUBY_VERSION: <%= ENV["RBENV_VERSION"] || ENV["rvm_ruby_string"] || "#{RUBY_ENGINE}-#{RUBY_ENGINE_VERSION}" %>
+
+  # Use a different ssh user than root
+ssh:
+  user: tsi
+
+accessories:
+  postgres:
+    image: postgres:17.5
+    host: 172.20.11.20
+    port: 5432
+    env:
+      clear:
+        POSTGRES_DB: sgtcc_production
+        POSTGRES_USER: postgres
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  - "sgtcc_uploads:/rails/public/uploads"
+  - "sgtcc_storage:/rails/storage"

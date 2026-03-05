@@ -3,6 +3,8 @@ name: Tests
 on:
   workflow_call:
     secrets:
+      RAILS_MASTER_KEY_TEST:
+        required: true
       MAILER_USERNAME:
         required: true
       MAILER_PASSWORD:
@@ -12,6 +14,19 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY_TEST }}
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      APP_HOST: localhost:3000
+      LDAP_ON: 'false'
+      LDAP_BY: moodle
+      LDAP_HOST: localhost
+      LDAP_PORT: '3389'
+      LDAP_BASE: ''
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
       image: ruby:3.4.7
@@ -21,7 +36,7 @@ jobs:
     services:
       db:
         image: postgres:17.5
-        ports: ["5432:5432"]
+        ports: [ "5432:5432" ]
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -34,50 +49,14 @@ jobs:
 
       selenium:
         image: selenium/standalone-chrome-debug:latest
-        ports: ["4444:4444"]
+        ports: [ "4444:4444" ]
         volumes:
           - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
 
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Setup application.yml
-        run: |
-          echo "
-              database: &database
-                db.username: postgres
-                db.password: postgres
-                db.host: db 
-
-              mailer: &mailer
-                mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
-                mailer.host: localhost
-                mailer.host.port: '3000'
-                mailer.smtp: 'smtp.mailtrap.io'
-                mailer.smtp.port: '2525'
-                mailer.smtp.domain: 'smtp.mailtrap.io'
-                mailer.smtp.username: '{{ secrets.MAILER_USERNAME }}'
-                mailer.smtp.password: '${{ secrets.MAILER_PASSWORD }}'
-                mailer.smtp.authentication: 'cram_md5'
-                mailer.exception.prefix: '[SGTCC]'
-                mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
-                mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
-
-              ldap: &ldap
-                ldap.on: 'false'
-
-              development:
-                <<: *database
-                <<: *mailer
-                <<: *ldap
-
-              test:
-                <<: *database
-                <<: *mailer
-                <<: *ldap
-          " > config/application.yml
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install libpq-dev for postgres
         run: |
