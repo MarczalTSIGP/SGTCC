@@ -371,7 +371,9 @@ CREATE TABLE public.calendars (
     semester integer,
     tcc integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    start_date timestamp(6) without time zone,
+    end_date timestamp(6) without time zone
 );
 
 
@@ -1960,6 +1962,7 @@ ALTER TABLE ONLY public.meetings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251106190118'),
 ('20251104201959'),
 ('20251104201958'),
 ('20251104201957'),

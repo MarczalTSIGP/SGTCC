@@ -11,6 +11,8 @@ class Orientation < ApplicationRecord
   include AcademicDocumentsInfo
   include UsersToDocument
 
+  attr_accessor :skip_documents_callbacks
+
   searchable :status, title: { unaccent: true }, relationships: {
     calendars: { fields: [:year] },
     academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
@@ -117,9 +119,7 @@ class Orientation < ApplicationRecord
   end
 
   def current_calendar
-    calendars.order(
-      year: :asc, semester: :asc, tcc: :asc
-    ).last
+    calendars.order(year: :desc, semester: :desc, tcc: :desc).first
   end
 
   def self.last_tcc_one_calendars
@@ -244,8 +244,6 @@ class Orientation < ApplicationRecord
                        .order('calendars.year DESC, calendars.semester DESC')
                        .try(:first)
   end
-  # END Acadmic activities documents CONTEXT
-  #-------------------------------
 
   public
 

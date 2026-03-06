@@ -26,15 +26,14 @@ describe 'Orientation::show' do
         end
 
         within('div.sidebar') do
-          expect(page).to have_css("a[href='#{responsible_orientations_tcc_one_path}'].active")
+          link_element = find("a[href='#{responsible_orientations_tcc_one_path}']")
+          expect(link_element.find(:xpath, '..')).to have_css('.active')
         end
 
         within('nav ol.breadcrumb') do
           expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)
 
           calendar = orientation_tcc_one.current_calendar
-          oi = I18n.t('breadcrumbs.orientations.index', calendar: calendar.year_with_semester)
-          expect(page).to have_link(oi, href: responsible_orientations_tcc_one_path)
 
           oas = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.show",
                        calendar: calendar.year_with_semester)

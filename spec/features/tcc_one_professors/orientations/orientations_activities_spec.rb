@@ -26,7 +26,7 @@ describe 'Orientation::activities' do
     end
 
     context 'when show the activity by orientation' do
-      let(:activity) { orientation.current_calendar.activities.first }
+      let!(:activity) { create(:activity, calendar: orientation.current_calendar) }
       let!(:academic_activity) do
         create(:academic_activity, academic: orientation.academic, activity:)
       end

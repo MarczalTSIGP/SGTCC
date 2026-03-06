@@ -14,13 +14,27 @@ class Calendar < ApplicationRecord
 
   validates :tcc, presence: true
   validates :semester, presence: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  validate :end_date_after_start_date
   validates :year,
             presence: true,
             format: { with: /\A\d{4}\z/ },
-            uniqueness: { scope: [:semester, :tcc], case_sensetive: false,
+            uniqueness: { scope: [:semester, :tcc], case_sensitive: false,
                           message: I18n.t('activerecord.errors.models.calendar.attributes.year') }
 
+  before_validation :set_dates
   after_create :clone_base_activities
+
+  def set_dates
+    return if start_date.present? && end_date.present?
+
+    y = year.to_i
+    s = semester.to_i
+
+    self.start_date ||= Date.new(y, s == 1 ? 1 : 7, 1)
+    self.end_date   ||= Date.new(y, s == 1 ? 6 : 12, -1)
+  end
 
   def year_with_semester
     "#{year}/#{I18n.t("enums.semester.#{semester}")}"
@@ -38,23 +52,6 @@ class Calendar < ApplicationRecord
     Calendar.current_calendar?(self)
   end
 
-  def start_date
-    month = ['one', 1].include?(semester) ? 1 : 8
-    Date.parse("1/#{month}/#{year}")
-  end
-
-  def end_date
-    month = ['one', 1].include?(semester) ? 7 : 12
-    Date.parse("31/#{month}/#{year}")
-  end
-
-  def self.start_date
-    # TODO: remove
-    # "01/#{current_month}/#{current_year}"
-    month = ['one', 1].include?(current_semester) ? 1 : 8
-    Date.parse("1/#{month}/#{current_year}")
-  end
-
   def self.search_by_semester(calendar, semester)
     find_by(semester:, year: calendar.year, tcc: tccs[calendar.tcc])
   end
@@ -68,6 +65,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.previous_semester(calendar)
+    return nil if calendar.nil?
     return search_by_semester(calendar, 1) if calendar.semester == 'two'
 
     search_by_second_semester_previous_year(calendar)
@@ -83,10 +81,10 @@ class Calendar < ApplicationRecord
     return next_semester(calendar) if calendar.tcc == 'two'
 
     if calendar.semester == 'one'
-      find_by(semester: 2, year: calendar.year, tcc: tccs[:two])
-    else
-      find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[:two])
+      return find_by(semester: 'two', year: calendar.year, tcc: tccs[:two])
     end
+
+    find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: tccs[:two])
   end
 
   def self.search_by_tcc(tcc, page, term)
@@ -137,5 +135,13 @@ class Calendar < ApplicationRecord
 
   def clone_base_activities
     Calendars::CloneBaseActivities.to(self)
+  end
+
+  def end_date_after_start_date
+    return if end_date.blank? || start_date.blank?
+
+    return unless end_date <= start_date
+
+    errors.add(:end_date, 'deve ser posterior à data de início')
   end
 end

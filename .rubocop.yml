@@ -110,6 +110,7 @@ Layout/LineLength:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/initializers/content_security_policy.rb'
     - 'config/initializers/new_framework_defaults_8_1.rb'
+
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'config/environments/production.rb'
@@ -132,6 +133,7 @@ Metrics/MethodLength:
     - 'app/services/populate/base_activities.rb'
     - 'app/controllers/responsible/examination_boards_controller.rb'
     - 'app/controllers/tcc_one_professors/examination_boards_controller.rb'
+    - 'app/models/examination_board.rb'
 
 Metrics/AbcSize:
   Exclude:
@@ -161,7 +163,7 @@ RSpec/MultipleExpectations:
     - 'spec/controllers/responsible/examination_boards_controller_spec.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 30
 
 RSpec/MultipleMemoizedHelpers:
   Exclude:
@@ -173,6 +175,9 @@ RSpec/NamedSubject:
     - 'spec/models/base_activity_spec.rb'
     - 'spec/models/examination_board_note_spec.rb'
     - 'spec/models/orientation_supervisor_spec.rb'
+
+RSpecRails/InferredSpecType:
+  Enabled: false
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false

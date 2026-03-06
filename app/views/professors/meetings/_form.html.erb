@@ -15,7 +15,8 @@
         name: "meeting[date]",
         id: "meeting_date",
         label: Meeting.human_attribute_name('date'),
-        datetime: @meeting.date
+        datetime: @meeting.date,
+        errors: @meeting.errors[:date]
       ) %>
     </div>
   </div>

@@ -70,14 +70,15 @@ ActiveRecord::Schema.define(version: 2019_10_11_133608) do
 # Could not dump table "base_activity_types" because of following StandardError
 #   Unknown type 'base_activity_type_identifiers' for column 'identifier'
 
-  create_table "calendars", force: :cascade do |t|
-    t.string "year"
-    t.integer "semester"
-    t.integer "tcc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+create_table "calendars", force: :cascade do |t|
+  t.string "year"
+  t.integer "semester"
+  t.integer "tcc"
+  t.date "start_date"
+  t.date "end_date"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
 # Could not dump table "document_types" because of following StandardError
 #   Unknown type 'document_type_identifiers' for column 'identifier'
 

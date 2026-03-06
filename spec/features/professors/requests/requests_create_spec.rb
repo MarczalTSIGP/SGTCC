@@ -13,7 +13,15 @@ describe 'Request::create' do
   describe '#create' do
     before do
       create(:document_type_tdo)
-      create(:current_calendar_tcc_one)
+      Calendar.find_by(year: Calendar.current_year,
+                       semester: Calendar.current_semester,
+                       tcc: Calendar.tccs[:one]) ||
+        create(:current_calendar_tcc_one)
+      Calendar.find_by(year: Calendar.current_year,
+                       semester: Calendar.current_semester,
+                       tcc: Calendar.tccs[:two]) ||
+        create(:current_calendar_tcc_two)
+
       visit new_professors_request_path
     end
 

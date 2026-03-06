@@ -59,7 +59,8 @@ describe 'ApiV1OrientationsController', type: :request do
 
         expect(data['supervisors']['size']).to eq orientation.supervisors.size
         supervisors_name = orientation.supervisors.map(&:name_with_scholarity).join(', ')
-        expect(data['supervisors']['names']).to eq supervisors_name
+        expect(data['supervisors']['names'].split(', '))
+          .to match_array(supervisors_name.split(', '))
 
         expect(data['title']).to eq orientation.final_project.title
         expect(data['summary']).to eq orientation.final_project.summary

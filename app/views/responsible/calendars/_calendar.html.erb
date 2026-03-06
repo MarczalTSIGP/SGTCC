@@ -1,6 +1,8 @@
 <tr>
-  <td><%= link_to t("enums.semester.#{calendar.year_with_semester}"), responsible_calendar_path(calendar) %></td>
+  <td><%= link_to calendar.year_with_semester, responsible_calendar_path(calendar) %></td>
   <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
+  <td><%= short_date(calendar.start_date) %></td>
+  <td><%= short_date(calendar.end_date) %></td>
   <td><%= short_date(calendar.created_at) %></td>
   <td>
     <%= render 'shared/links',

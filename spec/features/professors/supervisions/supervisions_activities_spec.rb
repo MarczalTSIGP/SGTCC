@@ -32,10 +32,10 @@ describe 'Supervision::activities', :js do
     end
 
     context 'when show the activity by orientation' do
-      let(:activity) { activities.first }
+      let!(:activity) { create(:activity, calendar: calendar) }
 
       let!(:academic_activity) do
-        create(:academic_activity, academic:, activity:)
+        create(:academic_activity, academic:, activity: activity)
       end
 
       before do

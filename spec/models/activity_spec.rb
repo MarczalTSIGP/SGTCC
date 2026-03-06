@@ -138,15 +138,24 @@ RSpec.describe Activity do
   describe '#academic_responses' do
     let(:activity) { create(:activity) }
 
-    let(:academic_one)   { create(:academic, name: 'A') }
-    let(:academic_two)   { create(:academic, name: 'B') }
+    let(:academic_one) { create(:academic, name: 'A') }
+    let(:academic_two) { create(:academic, name: 'B') }
 
-    let(:orientation_one) { create(:orientation, academic: academic_one) }
-    let(:orientation_two) { create(:orientation, academic: academic_two) }
+    let(:orientation_one) do
+      create(:orientation, academic: academic_one, skip_calendar_association: true)
+    end
+    let(:orientation_two) do
+      create(:orientation, academic: academic_two, skip_calendar_association: true)
+    end
 
     before do
-      create(:orientation_calendar, orientation: orientation_one, calendar: activity.calendar)
-      create(:orientation_calendar, orientation: orientation_two, calendar: activity.calendar)
+      orientation_one.calendars.clear
+      orientation_two.calendars.clear
+
+      activity_calendar = activity.calendar
+
+      orientation_one.calendars << activity_calendar
+      orientation_two.calendars << activity_calendar
     end
 
     it 'returns all academics associated with the calendar' do
@@ -163,14 +172,14 @@ RSpec.describe Activity do
     end
 
     it 'has an academic response with property sent' do
-      create(:academic_activity, academic: academic_one, activity:)
+      # Cria um academic_activity para academic_one, marcando como enviado
+      create(:academic_activity, academic: academic_one, activity: activity)
 
-      academic_response_one = activity.responses.academics.first
-      academic_response_two = activity.responses.academics.second
+      academic_response_one = activity.responses.academics.find { |a| a.id == academic_one.id }
+      academic_response_two = activity.responses.academics.find { |a| a.id == academic_two.id }
 
       expect(academic_response_one.sent?).to be(true)
       expect(academic_response_two.sent?).to be(false)
-
       expect(activity.responses.total_sent).to eq(1)
     end
   end

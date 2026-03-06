@@ -147,9 +147,15 @@ RSpec.describe Orientation do
     let!(:invalid_orientation_three) { create(:orientation_canceled) }
 
     it 'returns the orientations that can be migrated' do
+      current_cal = find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:one])
+      find_or_create_calendar(year: 2025, semester: 2, tcc: Calendar.tccs[:one])
+      create(:orientation, calendars: [current_cal])
+
       expect(described_class.to_migrate.count).to eq(2)
-      expect(described_class.to_migrate).to contain_exactly(valid_orientation,
-                                                            valid_orientation_two)
+      expect(described_class.to_migrate).to contain_exactly(
+        valid_orientation,
+        valid_orientation_two
+      )
     end
 
     it 'do not returns the orientations that can not be migrated' do
@@ -159,54 +165,134 @@ RSpec.describe Orientation do
   end
 
   describe '#migrate' do
+    before do
+      Calendar.delete_all
+      described_class.delete_all
+      OrientationCalendar.delete_all
+    end
+
     context 'when calendar for next semester is not found' do
       it 'does not migrate' do
-        orientation = create(:orientation_tcc_one_approved)
+        temp_current = find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester,
+          tcc: Calendar.tccs[:two]
+        )
+        orientation = create(:orientation, calendars: [temp_current])
+
         expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
       end
     end
 
-    # rubocop:disable RSpec/MultipleExpectations
     context 'when calendar for next semester is found' do
-      it 'migrates to next semester related to orientation calendar' do
-        create(:current_calendar_tcc_two)
-        orientation = create(:orientation_tcc_one_approved)
-
-        expect(orientation.migrate).not_to be(false)
-        expect(orientation.calendars.count).to be >= 2
-        expect(orientation.tcc_two?).to be(true)
-        expect(orientation.current_calendar).to eq(Calendar.current_by_tcc_two)
+      before do
+        travel_to Date.new(2025, 8, 1)
+        DocumentType.find_or_create_by!(identifier: :tco, name: 'TCO Test')
+        DocumentType.find_or_create_by!(identifier: :tcai, name: 'TCAI Test')
       end
 
-      it 'migrates to next semester related to current calendar' do
-        next_calendar = create(:next_calendar_tcc_two)
-        orientation = create(:orientation_tcc_one_approved_current_calendar)
-
-        expect(orientation.migrate).not_to be(false)
-        expect(orientation.calendars.count).to eq(2)
-        expect(orientation.tcc_two?).to be(true)
-        expect(orientation.current_calendar).to eq(next_calendar)
+      let!(:current_calendar_second_semester_tcc_one) do
+        create(
+          :calendar, year: '2025', semester: 'two', tcc: :one,
+                     start_date: Date.new(2025, 7, 1),
+                     end_date: Date.new(2025, 12, 31)
+        )
       end
 
-      it 'migrates to times to when can' do
-        current_calendar = create(:current_calendar_tcc_two)
-        next_calendar = create(:next_calendar_tcc_two)
+      let!(:next_year_calendar_first_semester_tcc_two) do
+        create(
+          :calendar, year: '2026', semester: 'one', tcc: :two,
+                     start_date: Date.new(2026, 1, 1),
+                     end_date: Date.new(2026, 6, 30)
+        )
+      end
 
-        orientation = create(:orientation_tcc_one_approved)
+      let!(:current_calendar_tcc_one) do
+        create(
+          :calendar, year: '2025', semester: 'one', tcc: Calendar.tccs[:one],
+                     start_date: Date.new(2025, 1, 1),
+                     end_date: Date.new(2025, 6, 30)
+        )
+      end
+
+      let!(:current_calendar_tcc_two) do
+        find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:two])
+      end
+
+      let!(:next_calendar_tcc_two) do
+        create(
+          :calendar, year: '2025', semester: 'two', tcc: Calendar.tccs[:two],
+                     start_date: Date.new(2025, 7, 1), end_date: Date.new(2025, 12, 31)
+        )
+      end
+
+      it 'migrates TCC one orientation to the next semester' do
+        orientation = create(
+          :orientation_tcc_one_approved,
+          calendars: [current_calendar_second_semester_tcc_one]
+        )
 
         expect(orientation.migrate).to be(true)
-        expect(orientation.calendars.pluck(:id)).to include(current_calendar.id)
+        orientation.reload
 
+        expect(orientation.calendars).to include(
+          current_calendar_second_semester_tcc_one,
+          next_year_calendar_first_semester_tcc_two
+        )
+        expect(orientation.current_calendar).to eq(next_year_calendar_first_semester_tcc_two)
+      end
+
+      it 'changes migrated TCC one orientation to TCC two' do
+        orientation = create(
+          :orientation_tcc_one_approved,
+          calendars: [current_calendar_second_semester_tcc_one]
+        )
+
+        orientation.migrate
+        orientation.reload
+
+        expect(orientation.tcc_two?).to be(true)
+      end
+
+      it 'migrates TCC two orientation to the next semester' do
+        orientation_tcc_two = create(
+          :orientation, calendars: [current_calendar_tcc_two],
+                        status: 'APPROVED_TCC_ONE'
+        )
+        orientation_tcc_two.migrate
+        orientation_tcc_two.reload
+
+        expect(orientation_tcc_two.calendars).to include(
+          current_calendar_tcc_two,
+          next_calendar_tcc_two
+        )
+        expect(orientation_tcc_two.current_calendar).to eq(next_calendar_tcc_two)
+      end
+
+      it 'keeps source calendar and adds destination calendar after migration' do
+        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
+
+        initial_calendar_id = orientation.current_calendar.id
         expect(orientation.migrate).to be(true)
-        expect(orientation.calendars.pluck(:id)).to include(next_calendar.id)
+        orientation.reload
+
+        destination_calendar = orientation.calendars.where.not(id: initial_calendar_id).first
+        expect(destination_calendar).not_to be_nil
+        expect(orientation.calendars.pluck(:id)).to include(initial_calendar_id)
+      end
+
+      it 'does not migrate twice' do
+        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
+
+        orientation.migrate
+        expect(orientation.migrate).to be(false)
       end
     end
-    # rubocop:enable RSpec/MultipleExpectations
 
-    context 'when orientation is not approved tcc one' do
+    context 'when orientation is not approved TCC one' do
       it 'does not migrate' do
-        orientation = create(:orientation) # status: 'IN_PROGRESS'
+        orientation = create(:orientation) # status default não é APPROVED_TCC_ONE
         expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
       end
@@ -298,10 +384,12 @@ RSpec.describe Orientation do
     end
 
     let(:orientations_json) do
-      orientations.to_json(methods: orientation_methods,
-                           include: [:academic,
-                                     { supervisors: { methods: [:name_with_scholarity] } },
-                                     { advisor: { methods: [:name_with_scholarity] } }])
+      orientations.to_json(
+        methods: orientation_methods,
+        include: [:academic,
+                  { supervisors: { methods: [:name_with_scholarity] } },
+                  { advisor: { methods: [:name_with_scholarity] } }]
+      )
     end
 
     it 'returns the orientation to json table' do
@@ -315,7 +403,7 @@ RSpec.describe Orientation do
     # Must consider the last one the correct.
     describe '.proposal' do
       let(:previous_calendar) { create(:previous_calendar_tcc_one) }
-      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
+      let(:current_calendar) { create(:current_calendar_tcc_one) }
 
       let(:orientation) { create(:orientation_tcc_one) }
       let(:orientation_two) { create(:orientation_tcc_one) }
@@ -345,7 +433,7 @@ RSpec.describe Orientation do
 
     describe '.project' do
       let(:previous_calendar) { create(:previous_calendar_tcc_one) }
-      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
+      let(:current_calendar) { create(:current_calendar_tcc_one) }
 
       let(:orientation) { create(:orientation_tcc_one) }
       let!(:academic_activity_two) do
@@ -371,7 +459,7 @@ RSpec.describe Orientation do
 
     describe '.monograph' do
       let(:previous_calendar) { create(:previous_calendar_tcc_two) }
-      let(:current_calendar)  { create(:current_calendar_tcc_two)  }
+      let(:current_calendar) { create(:current_calendar_tcc_two) }
 
       let(:orientation) { create(:orientation_tcc_two) }
       let!(:academic_activity) do
@@ -428,23 +516,84 @@ RSpec.describe Orientation do
   end
 
   describe '#cs_asc_from_now_desc_ago' do
-    it 'returns just current semester examination boards asc order from now desc order for past' do
-      examination_board_one = create(:examination_board, date: 2.hours.from_now)
-      examination_board_two = create(:examination_board, date: 1.day.from_now)
-      examination_board_three = create(:examination_board, date: 1.day.ago)
+    let!(:current_calendar) do
+      create(:calendar_tcc_one, start_date: 1.year.ago, end_date: 1.year.from_now)
+    end
 
-      create(:examination_board, date: 6.months.ago)
-      create(:examination_board, date: 1.year.ago)
+    it 'returns only examination boards from current semester' do
+      current_board = create(
+        :examination_board,
+        date: 2.hours.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
+      previous_calendar = create(:previous_calendar_tcc_one)
+      create(
+        :examination_board,
+        date: 2.hours.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [previous_calendar]
+        )
+      )
 
-      result = ExaminationBoard.cs_asc_from_now_desc_ago
+      expect(ExaminationBoard.cs_asc_from_now_desc_ago).to contain_exactly(current_board)
+    end
 
-      expected_result = [
-        examination_board_one,
-        examination_board_two,
-        examination_board_three
-      ]
+    it 'orders upcoming examination boards ascending by date' do
+      board_soon = create(
+        :examination_board,
+        date: 2.hours.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
+      board_later = create(
+        :examination_board,
+        date: 1.day.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
 
-      expect(result).to eq(expected_result)
+      expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id)).to eq(
+        [board_soon.id,
+         board_later.id]
+      )
+    end
+
+    it 'appends past examination boards in descending order after upcoming' do
+      board_soon = create(
+        :examination_board,
+        date: 2.hours.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
+      board_recent_past = create(
+        :examination_board,
+        date: 1.day.ago,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
+      board_old_past = create(
+        :examination_board,
+        date: 6.months.ago,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar]
+        )
+      )
+
+      expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id))
+        .to eq([board_soon.id, board_recent_past.id, board_old_past.id])
     end
   end
 end

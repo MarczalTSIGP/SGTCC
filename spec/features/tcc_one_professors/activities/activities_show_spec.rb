@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Activity::show' do
   let(:professor_tcc_one) { create(:professor_tcc_one) }
   let(:calendar)          { create(:current_calendar_tcc_one) }
-  let(:activity)          { calendar.activities.first }
+  let!(:activity)         { create(:activity, calendar: calendar) }
   let(:orientation_one)   { create(:orientation, calendar_ids: [calendar.id]) }
   let(:orientation_two)   { create(:orientation, calendar_ids: [calendar.id]) }
 

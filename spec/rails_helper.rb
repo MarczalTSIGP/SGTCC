@@ -1,9 +1,6 @@
 require 'spec_helper'
-
 ENV['RAILS_ENV'] ||= 'test'
-
 require File.expand_path('../../config/environment', __FILE__)
-
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
@@ -16,28 +13,18 @@ require 'support/helpers/link'
 require 'support/helpers/label'
 require 'support/helpers/string'
 require 'support/helpers/flash_message'
-
 require 'support/file_spec_helper'
-
 require 'support/matchers/have_flash'
 require 'support/matchers/have_alert'
 require 'support/matchers/have_message'
 require 'support/matchers/have_contents'
 require 'support/matchers/have_selectors'
 
-begin
-  ActiveRecord::Migration.maintain_test_schema!
-rescue ActiveRecord::PendingMigrationError => e
-  puts e.to_s.strip
-  exit 1
-end
+# Carrega todos os arquivos de support
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 RSpec.configure do |config|
-  config.before(:all, type: :feature) do
-    require 'support/capybara'
-    require 'capybara-screenshot/rspec'
-  end
-
+  config.include CalendarHelper # Inclui o helper globalmente
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature
@@ -47,11 +34,31 @@ RSpec.configure do |config|
   config.include Helpers::Link, type: :feature
   config.include Helpers::String, type: :feature
   config.include Helpers::FlashMessage, type: :feature
-  config.infer_spec_type_from_file_location!
+  config.include ApplicationHelper
+  config.include DateHelper
+  config.include ActiveSupport::Testing::TimeHelpers
 
+  config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.use_transactional_fixtures = false
 
-  config.include ApplicationHelper
-  config.include DateHelper
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+end
+
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError => e
+  puts e.to_s.strip
+  exit 1
 end

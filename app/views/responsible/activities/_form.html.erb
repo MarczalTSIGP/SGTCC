@@ -22,7 +22,8 @@
           name: "activity[initial_date]",
           id: "activity_initial_date",
           label: Activity.human_attribute_name("initial_date"),
-          datetime: @activity.initial_date
+          datetime: @activity.initial_date,
+          errors: @activity.errors[:initial_date]
         ) %>
       </div>
 
@@ -31,7 +32,8 @@
           name: "activity[final_date]",
           id: "activity_final_date",
           label: Activity.human_attribute_name("final_date"),
-          datetime: @activity.final_date
+          datetime: @activity.final_date,
+          errors: @activity.errors[:final_date]
         ) %>
       </div>
     </div>

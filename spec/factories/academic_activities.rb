@@ -1,11 +1,19 @@
 FactoryBot.define do
   factory :academic_activity do
+    academic
+
     transient do
       calendar { nil }
     end
 
-    academic
     activity
+
+    after(:build) do |academic_activity, evaluator|
+      if evaluator.calendar.present?
+        academic_activity.activity = create(:activity, calendar: evaluator.calendar)
+      end
+    end
+
     pdf { File.open(FileSpecHelper.pdf.path) }
     complementary_files { File.open(FileSpecHelper.zip.path) }
     sequence(:title) { Faker::Name.name }
@@ -21,13 +29,6 @@ FactoryBot.define do
 
     factory :monograph_academic_activity do
       activity { association(:monograph_activity) }
-    end
-
-    after(:create) do |academic_activity, evaluator|
-      if evaluator.calendar
-        activity = academic_activity.activity
-        activity.update(calendar_id: evaluator.calendar.id)
-      end
     end
   end
 

@@ -41,15 +41,23 @@ describe 'ExaminationBoard::show' do
     end
 
     context 'when shows the academic activity' do
-      let(:academic_activity) { examination_board.academic_activity }
+      let(:activity) do
+        create(:monograph_activity,
+               calendar: orientation.current_calendar)
+      end
+      let(:academic_activity) do
+        create(:academic_activity,
+               academic: orientation.academic,
+               activity: activity)
+      end
 
       before do
-        create(:monograph_academic_activity, academic:,
-                                             calendar: orientation.calendars.first)
+        academic_activity
         visit academics_examination_board_path(examination_board)
       end
 
       it 'shows the academic activity' do
+        expect(orientation.monograph).to eq(academic_activity)
         expect(page).to have_contents([academic.name,
                                        academic_activity.title,
                                        academic_activity.summary])

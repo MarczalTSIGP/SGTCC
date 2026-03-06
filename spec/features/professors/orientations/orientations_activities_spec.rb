@@ -8,6 +8,7 @@ describe 'Orientation::activities', :js do
   let(:active_link) { professors_orientations_tcc_one_path }
 
   before do
+    create(:project_activity, calendar: orientation.current_calendar)
     login_as(professor, scope: :professor)
     visit professors_orientation_calendar_activities_path(orientation, orientation.current_calendar)
   end
