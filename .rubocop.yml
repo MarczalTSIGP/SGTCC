@@ -111,8 +111,12 @@ Layout/LineLength:
     - 'config/initializers/content_security_policy.rb'
     - 'config/initializers/new_framework_defaults_8_1.rb'
 Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: space
   Exclude:
     - 'config/environments/production.rb'
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
 
 Layout/IndentationStyle:
   Enabled: false
