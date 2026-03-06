@@ -13,7 +13,8 @@ describe 'Calendar::show', :js do
     context 'when shows the calendar' do
       it 'shows basic calendar header info' do
         tcc_label = I18n.t("enums.tcc.#{calendar.tcc}")
-        expect(page).to have_content("Calendário de Atividades de TCC #{tcc_label} (#{calendar.year_with_semester})")
+        title = "Calendário de Atividades de TCC #{tcc_label} (#{calendar.year_with_semester})"
+        expect(page).to have_content(title)
         expect(page).to have_content(calendar.year_with_semester)
       end
 

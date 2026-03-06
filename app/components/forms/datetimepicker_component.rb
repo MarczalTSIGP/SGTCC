@@ -3,13 +3,13 @@
 class Forms::DatetimepickerComponent < ViewComponent::Base
   attr_reader :name, :id, :label, :datetime, :disabled, :errors
 
-  def initialize(name:, id:, label:, datetime: nil, disabled: false, errors: [])
+  def initialize(name:, id:, label:, **options)
     @name = name
     @id = id
     @label = label
-    @datetime = datetime
-    @disabled = disabled
-    @errors = errors || []
+    @datetime = options.fetch(:datetime, nil)
+    @disabled = options.fetch(:disabled, false)
+    @errors = options.fetch(:errors, []) || []
   end
 
   def input_class

@@ -133,6 +133,7 @@ Metrics/MethodLength:
     - 'app/services/populate/base_activities.rb'
     - 'app/controllers/responsible/examination_boards_controller.rb'
     - 'app/controllers/tcc_one_professors/examination_boards_controller.rb'
+    - 'app/models/examination_board.rb'
 
 Metrics/AbcSize:
   Exclude:

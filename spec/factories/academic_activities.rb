@@ -6,7 +6,7 @@ FactoryBot.define do
       calendar { nil }
     end
 
-    association :activity
+    activity
 
     after(:build) do |academic_activity, evaluator|
       if evaluator.calendar.present?

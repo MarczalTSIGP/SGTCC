@@ -11,13 +11,15 @@ module CalendarHelper
   private
 
   def normalize_period(year, semester)
-    case semester.to_i
-    when 1 then [year.to_i, 'one']
-    when 2 then [year.to_i, 'two']
-    when 3 then [year.to_i + 1, 'one']
-    else
-      raise "Invalid semester #{semester}"
-    end
+    normalized_year = year.to_i
+    normalized_semester = semester.to_s.downcase
+
+    return [normalized_year, 'one'] if %w[one 1].include?(normalized_semester)
+    return [normalized_year, 'two'] if %w[two 2].include?(normalized_semester)
+    return [normalized_year + 1, 'one'] if normalized_semester == '3'
+    return [normalized_year - 1, 'two'] if normalized_semester == '0'
+
+    raise "Invalid semester #{semester}"
   end
 
   def date_range_for(year, semester)

@@ -4,15 +4,10 @@ describe 'Academics:login', :js do
   let(:academic) { create(:academic) }
   let(:resource_name) { Academic.human_attribute_name(:ra) }
 
-  let!(:calendar) do
-    create(
-      :calendar,
-      start_date: Date.current.beginning_of_year,
-      end_date: Date.current.end_of_year
-    )
-  end
-
   before do
+    create(:calendar,
+           start_date: Date.current.beginning_of_year,
+           end_date: Date.current.end_of_year)
     visit new_academic_session_path
   end
 

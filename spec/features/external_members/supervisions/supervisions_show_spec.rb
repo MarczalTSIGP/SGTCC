@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Supervision::show' do
-  before(:all) do
+  before do
     ProfessorType.find_or_create_by(id: 2) { |pt| pt.name = 'Tipo 2' }
     ProfessorType.find_or_create_by(id: 12) { |pt| pt.name = 'Tipo 12' }
 
@@ -11,6 +11,10 @@ describe 'Supervision::show' do
     ActiveRecord::Base.connection.execute(
       "SELECT setval('#{sequence_name}', #{max_id + 1}, false);"
     )
+    external_member.supervisions << orientation
+    external_member.supervisions << orientation_tcc_one
+    external_member.supervisions << orientation_tcc_two
+    login_as(external_member, scope: :external_member)
   end
 
   let(:external_member) { create(:external_member) }
@@ -19,13 +23,6 @@ describe 'Supervision::show' do
   let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
   let(:calendar_tcc_one) { orientation_tcc_one.current_calendar }
   let(:calendar_tcc_two) { orientation_tcc_two.current_calendar }
-
-  before do
-    external_member.supervisions << orientation
-    external_member.supervisions << orientation_tcc_one
-    external_member.supervisions << orientation_tcc_two
-    login_as(external_member, scope: :external_member)
-  end
 
   describe '#show' do
     context 'when shows the orientation' do

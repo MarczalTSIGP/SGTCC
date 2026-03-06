@@ -41,7 +41,7 @@ class ExaminationBoard < ApplicationRecord
                       .order(year: :desc, end_date: :desc)
                       .first
 
-    return none unless current.present?
+    return none if current.blank?
 
     joins(orientation: :calendars)
       .where(calendars: { id: current.id })
@@ -57,7 +57,7 @@ class ExaminationBoard < ApplicationRecord
                       .order(year: :desc, end_date: :desc)
                       .first
 
-    return none unless current.present?
+    return none if current.blank?
 
     joins(orientation: :calendars)
       .where(calendars: { id: current.id })
@@ -85,30 +85,44 @@ class ExaminationBoard < ApplicationRecord
   }
 
   def self.cs_asc_from_now_desc_ago
-    now = Time.current
-
-    current_calendar =
-      Calendar.where('? BETWEEN start_date AND end_date', now.to_date).first ||
-      Calendar.order(year: :desc, semester: :desc).first
-
+    current_calendar = current_calendar_for_site
     return none unless current_calendar
 
-    base_scope = joins(orientation: :calendars)
-                 .where(calendars: { id: current_calendar.id })
-                 .where(date: current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day)
-
-    upcoming = base_scope.where(date: now..)
-                         .order(date: :asc)
-                         .site_with_relationships
-                         .to_a
-
-    past = base_scope.where(date: current_calendar.start_date.beginning_of_day...now)
-                     .order(date: :desc)
-                     .site_with_relationships
-                     .to_a
-
-    upcoming + past
+    upcoming_from_now(current_calendar) + past_until_now(current_calendar)
   end
+
+  def self.current_calendar_for_site
+    Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
+      Calendar.order(year: :desc, semester: :desc).first
+  end
+  private_class_method :current_calendar_for_site
+
+  def self.base_scope_for_calendar(current_calendar)
+    period = current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day
+
+    joins(orientation: :calendars)
+      .where(calendars: { id: current_calendar.id })
+      .where(date: period)
+  end
+  private_class_method :base_scope_for_calendar
+
+  def self.upcoming_from_now(current_calendar)
+    base_scope_for_calendar(current_calendar)
+      .where(date: Time.current..)
+      .order(date: :asc)
+      .site_with_relationships
+      .to_a
+  end
+  private_class_method :upcoming_from_now
+
+  def self.past_until_now(current_calendar)
+    base_scope_for_calendar(current_calendar)
+      .where(date: current_calendar.start_date.beginning_of_day...Time.current)
+      .order(date: :desc)
+      .site_with_relationships
+      .to_a
+  end
+  private_class_method :past_until_now
 
   def status
     current_date = Date.current.to_s

@@ -1,17 +1,12 @@
 require 'rails_helper'
 
 describe 'Academics:logout', :js do
-  let!(:calendar) do
-    create(
-      :calendar,
-      start_date: Date.current.beginning_of_year,
-      end_date: Date.current.end_of_year
-    )
-  end
-
   let(:academic) { create(:academic) }
 
   before do
+    create(:calendar,
+           start_date: Date.current.beginning_of_year,
+           end_date: Date.current.end_of_year)
     login_as(academic, scope: :academic)
     visit academics_root_path
   end
