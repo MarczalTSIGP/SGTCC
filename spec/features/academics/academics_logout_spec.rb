@@ -8,7 +8,7 @@ describe 'Academics:logout', :js do
       end_date: Date.current.end_of_year
     )
   end
-  
+
   let(:academic) { create(:academic) }
 
   before do

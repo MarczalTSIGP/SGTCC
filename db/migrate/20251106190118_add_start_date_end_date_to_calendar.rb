@@ -1,7 +1,9 @@
 class AddStartDateEndDateToCalendar < ActiveRecord::Migration[7.2]
   def change
-    add_column :calendars, :start_date, :datetime, null: true unless column_exists?(:calendars, :start_date)
-    add_column :calendars, :end_date, :datetime, null: true unless column_exists?(:calendars, :end_date)
+    add_column :calendars, :start_date, :datetime, null: true unless column_exists?(:calendars,
+                                                                                    :start_date)
+    add_column :calendars, :end_date, :datetime, null: true unless column_exists?(:calendars,
+                                                                                  :end_date)
 
     # Dados para atualizar os calendários existentes
     calendars_data = [

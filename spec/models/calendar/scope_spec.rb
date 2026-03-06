@@ -28,9 +28,9 @@ RSpec.describe Calendar, type: :model do
     end
   end
 
-    it 'returns first semester of next year' do
-      current = create(:current_calendar_tcc_one, semester: 2)
-      next_cal = create(:current_calendar_tcc_one, semester: 1, year: current.year.to_i + 1)
-      expect(described_class.next_semester(current)).to eq(next_cal)
-    end
+  it 'returns first semester of next year' do
+    current = create(:current_calendar_tcc_one, semester: 2)
+    next_cal = create(:current_calendar_tcc_one, semester: 1, year: current.year.to_i + 1)
+    expect(described_class.next_semester(current)).to eq(next_cal)
   end
+end

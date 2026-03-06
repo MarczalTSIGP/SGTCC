@@ -15,19 +15,21 @@ module CurrentCalendar
 
     # Se não houver, pega o último calendário e usa seu semester.
     def self.current_semester
-      calendar = where("start_date <= ? AND end_date >= ?", Date.current, Date.current).first
+      calendar = where('start_date <= ? AND end_date >= ?', Date.current, Date.current).first
 
       if calendar.present?
         # normalizamos para string minuscula e comparamos.
         sem = calendar.semester.to_s.downcase
-        return 2 if sem == 'two' || sem == '2'
+        return 2 if %w[two 2].include?(sem)
+
         return 1
       end
 
       last_calendar = order(year: :desc, semester: :desc).first
       if last_calendar.present?
         sem = last_calendar.semester.to_s.downcase
-        return 2 if sem == 'two' || sem == '2'
+        return 2 if %w[two 2].include?(sem)
+
         return 1
       end
 
@@ -36,18 +38,18 @@ module CurrentCalendar
 
     def self.current_by_tcc_one
       where(tcc: tccs[:one])
-        .where("start_date <= ? AND end_date >= ?", Date.current, Date.current)
+        .where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
         .order(year: :desc, semester: :desc)
         .first ||
-      where(tcc: tccs[:one]).order(end_date: :desc).first
+        where(tcc: tccs[:one]).order(end_date: :desc).first
     end
 
     def self.current_by_tcc_two
       where(tcc: tccs[:two])
-        .where("start_date <= ? AND end_date >= ?", Date.current, Date.current)
+        .where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
         .order(year: :desc, semester: :desc)
         .first ||
-      where(tcc: tccs[:two]).order(end_date: :desc).first
+        where(tcc: tccs[:two]).order(end_date: :desc).first
     end
 
     def self.current_by_tcc_one?(calendar)

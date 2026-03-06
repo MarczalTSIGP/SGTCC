@@ -6,13 +6,13 @@ FactoryBot.define do
 
     start_date do
       sem = semester.to_s
-      month = (sem == 'one'|| sem == '1') ? 1 : 7
+      month = %w[one 1].include?(sem) ? 1 : 7
       Date.new(year.to_i, month, 1)
     end
 
     end_date do
       sem = semester.to_s
-      month = (sem == :one || sem == '1') ? 6 : 12
+      month = [:one, '1'].include?(sem) ? 6 : 12
       Date.new(year.to_i, month, -1)
     end
 
@@ -52,12 +52,14 @@ FactoryBot.define do
       end
 
       year do
-        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year, semester: Calendar.current_semester)
+        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year,
+                                                    semester: Calendar.current_semester)
         base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
       end
 
       semester do
-        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year, semester: Calendar.current_semester)
+        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year,
+                                                    semester: Calendar.current_semester)
         base.semester.to_i == 1 ? :two : :one
       end
     end
@@ -70,12 +72,14 @@ FactoryBot.define do
       end
 
       year do
-        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year, semester: Calendar.current_semester)
+        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year,
+                                                    semester: Calendar.current_semester)
         base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
       end
 
       semester do
-        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year, semester: Calendar.current_semester)
+        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year,
+                                                    semester: Calendar.current_semester)
         base.semester.to_i == 1 ? :two : :one
       end
     end

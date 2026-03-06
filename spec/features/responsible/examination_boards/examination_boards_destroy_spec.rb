@@ -6,11 +6,11 @@ describe 'ExaminationBoard::destroy', :js do
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
-    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) || 
-    create(:current_calendar_tcc_one)
+    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) ||
+      create(:current_calendar_tcc_one)
 
-    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:two]) || 
-    create(:current_calendar_tcc_two)
+    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:two]) ||
+      create(:current_calendar_tcc_two)
 
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path

@@ -6,14 +6,14 @@ FactoryBot.define do
       calendar { nil }
     end
 
-    association :activity, factory: :activity
+    association :activity
 
     after(:build) do |academic_activity, evaluator|
       if evaluator.calendar.present?
-         academic_activity.activity = create(:activity, calendar: evaluator.calendar)
+        academic_activity.activity = create(:activity, calendar: evaluator.calendar)
       end
     end
-    
+
     pdf { File.open(FileSpecHelper.pdf.path) }
     complementary_files { File.open(FileSpecHelper.zip.path) }
     sequence(:title) { Faker::Name.name }

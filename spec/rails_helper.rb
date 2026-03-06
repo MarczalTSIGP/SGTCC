@@ -21,10 +21,10 @@ require 'support/matchers/have_contents'
 require 'support/matchers/have_selectors'
 
 # Carrega todos os arquivos de support
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  config.include CalendarHelper   # Inclui o helper globalmente
+  config.include CalendarHelper # Inclui o helper globalmente
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Helpers::Form, type: :feature
@@ -46,11 +46,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 end

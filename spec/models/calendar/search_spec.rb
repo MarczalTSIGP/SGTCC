@@ -13,7 +13,7 @@ RSpec.describe Calendar, type: :model do
       create(:calendar, year: '2022')
       create(:calendar, year: '2023')
       create(:calendar, year: '2024')
-      
+
       expected = described_class.order(year: :desc).first.year
       results = described_class.search.order(year: :desc).first.year
       expect(results).to eq(expected)

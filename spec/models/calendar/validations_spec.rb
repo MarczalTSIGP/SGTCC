@@ -31,13 +31,13 @@ RSpec.describe Calendar, type: :model do
       expect(calendar.errors[:end_date]).to include('deve ser posterior à data de início')
     end
 
-  it 'is valid when end_date is after start_date' do
-    start_date = Date.today
-    end_date   = start_date + 1.day
-    calendar = build(:calendar, start_date: start_date, end_date: end_date)
-    expect(calendar).to be_valid
+    it 'is valid when end_date is after start_date' do
+      start_date = Date.today
+      end_date   = start_date + 1.day
+      calendar = build(:calendar, start_date: start_date, end_date: end_date)
+      expect(calendar).to be_valid
+    end
   end
-end
 
   describe 'year validation' do
     it 'is invalid for non-numeric year' do

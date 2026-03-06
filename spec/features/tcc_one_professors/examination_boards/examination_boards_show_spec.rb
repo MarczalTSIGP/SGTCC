@@ -47,7 +47,6 @@ describe 'ExaminationBoard::show' do
                           calendar: orientation.current_calendar,
                           final_version: true)
 
-
         @academic_activity = create(:academic_activity,
                                     academic: academic,
                                     activity: activity)

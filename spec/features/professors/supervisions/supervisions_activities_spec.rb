@@ -35,7 +35,7 @@ describe 'Supervision::activities', :js do
       let!(:activity) { create(:activity, calendar: calendar) }
 
       let!(:academic_activity) do
-        create(:academic_activity, academic:, activity: activity) 
+        create(:academic_activity, academic:, activity: activity)
       end
 
       before do

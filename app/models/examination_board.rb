@@ -34,61 +34,61 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
-  scope :tcc_one_current_semester, -> {
-      tcc_value = Calendar.tccs[:one]
-      current = Calendar.current_by_tcc_one ||
-                Calendar.where(tcc: tcc_value)
-                        .order(year: :desc, end_date: :desc)
-                        .first
+  scope :tcc_one_current_semester, lambda {
+    tcc_value = Calendar.tccs[:one]
+    current = Calendar.current_by_tcc_one ||
+              Calendar.where(tcc: tcc_value)
+                      .order(year: :desc, end_date: :desc)
+                      .first
 
-      return none unless current.present?
+    return none unless current.present?
 
-      joins(orientation: :calendars)
-        .where(calendars: { id: current.id })
-        .where(tcc: tcc_value)
-        .distinct
-    }
+    joins(orientation: :calendars)
+      .where(calendars: { id: current.id })
+      .where(tcc: tcc_value)
+      .distinct
+  }
 
-    scope :tcc_two_current_semester, -> {
-      tcc_value = Calendar.tccs[:two]
+  scope :tcc_two_current_semester, lambda {
+    tcc_value = Calendar.tccs[:two]
 
-      current = Calendar.current_by_tcc_two ||
-                Calendar.where(tcc: tcc_value)
-                        .order(year: :desc, end_date: :desc)
-                        .first
+    current = Calendar.current_by_tcc_two ||
+              Calendar.where(tcc: tcc_value)
+                      .order(year: :desc, end_date: :desc)
+                      .first
 
-      return none unless current.present?
+    return none unless current.present?
 
-      joins(orientation: :calendars)
-        .where(calendars: { id: current.id })
-        .where(tcc: tcc_value)
-        .distinct
-    }
+    joins(orientation: :calendars)
+      .where(calendars: { id: current.id })
+      .where(tcc: tcc_value)
+      .distinct
+  }
 
-    scope :current_semester, -> { 
-      current_calendar = Calendar.order(year: :desc, semester: :desc).first
-      return none unless current_calendar
+  scope :current_semester, lambda {
+    current_calendar = Calendar.order(year: :desc, semester: :desc).first
+    return none unless current_calendar
 
-      where(date: current_calendar.start_date..current_calendar.end_date)
-    }
-    
-    scope :recent, -> { order(date: :desc) }
+    where(date: current_calendar.start_date..current_calendar.end_date)
+  }
 
-    scope :with_relationships, lambda {
-      includes(orientation: [:academic, :calendars, { advisor: [:scholarity] }])
-    }
+  scope :recent, -> { order(date: :desc) }
 
-    scope :site_with_relationships, lambda {
-      includes(external_members: [:scholarity], professors: [:scholarity],
-              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
-                            :external_member_supervisors, { advisor: [:scholarity] }])
-    }
+  scope :with_relationships, lambda {
+    includes(orientation: [:academic, :calendars, { advisor: [:scholarity] }])
+  }
+
+  scope :site_with_relationships, lambda {
+    includes(external_members: [:scholarity], professors: [:scholarity],
+             orientation: [:academic, :orientation_supervisors, :professor_supervisors,
+                           :external_member_supervisors, { advisor: [:scholarity] }])
+  }
 
   def self.cs_asc_from_now_desc_ago
     now = Time.current
 
     current_calendar =
-      Calendar.where("? BETWEEN start_date AND end_date", now.to_date).first ||
+      Calendar.where('? BETWEEN start_date AND end_date', now.to_date).first ||
       Calendar.order(year: :desc, semester: :desc).first
 
     return none unless current_calendar
@@ -98,14 +98,14 @@ class ExaminationBoard < ApplicationRecord
                  .where(date: current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day)
 
     upcoming = base_scope.where(date: now..)
-               .order(date: :asc)
-               .site_with_relationships
-               .to_a
+                         .order(date: :asc)
+                         .site_with_relationships
+                         .to_a
 
     past = base_scope.where(date: current_calendar.start_date.beginning_of_day...now)
-           .order(date: :desc)
-           .site_with_relationships
-           .to_a
+                     .order(date: :desc)
+                     .site_with_relationships
+                     .to_a
 
     upcoming + past
   end

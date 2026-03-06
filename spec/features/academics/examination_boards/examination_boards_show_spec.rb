@@ -42,11 +42,11 @@ describe 'ExaminationBoard::show' do
 
     context 'when shows the academic activity' do
       before do
-        activity = create(:monograph_activity, 
-                           calendar: orientation.current_calendar, 
-                           final_version: true)
-                          
-        @academic_activity = create(:academic_activity, 
+        activity = create(:monograph_activity,
+                          calendar: orientation.current_calendar,
+                          final_version: true)
+
+        @academic_activity = create(:academic_activity,
                                     academic: academic,
                                     activity: activity)
         orientation.reload

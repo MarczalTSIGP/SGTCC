@@ -21,10 +21,10 @@ describe 'Calendar::search', :js do
                                   href: responsible_calendar_path(calendar))
 
         expect(page).to have_contents([
-          I18n.t("enums.tcc.#{calendar.tcc}"),
-          short_date(calendar.start_date),  
-          short_date(calendar.end_date)      
-        ])
+                                        I18n.t("enums.tcc.#{calendar.tcc}"),
+                                        short_date(calendar.start_date),
+                                        short_date(calendar.end_date)
+                                      ])
       end
     end
 

@@ -37,9 +37,9 @@ describe 'Supervision::activities' do
       let!(:activity) do
         create(:activity, calendar: orientation.current_calendar)
       end
-      
+
       let!(:academic_activity) do
-        create(:academic_activity, academic: academic, activity_id: activity.id) 
+        create(:academic_activity, academic: academic, activity_id: activity.id)
       end
 
       before do

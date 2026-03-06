@@ -141,13 +141,17 @@ RSpec.describe Activity do
     let(:academic_one) { create(:academic, name: 'A') }
     let(:academic_two) { create(:academic, name: 'B') }
 
-    let(:orientation_one) { create(:orientation, academic: academic_one, skip_calendar_association: true) }
-    let(:orientation_two) { create(:orientation, academic: academic_two, skip_calendar_association: true) }
+    let(:orientation_one) do
+      create(:orientation, academic: academic_one, skip_calendar_association: true)
+    end
+    let(:orientation_two) do
+      create(:orientation, academic: academic_two, skip_calendar_association: true)
+    end
 
     before do
-      orientation_one.calendars.clear 
+      orientation_one.calendars.clear
       orientation_two.calendars.clear
-      
+
       activity_calendar = activity.calendar
 
       orientation_one.calendars << activity_calendar

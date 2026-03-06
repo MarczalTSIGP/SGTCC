@@ -16,7 +16,7 @@ FactoryBot.define do
       create(:document_type_tcai) if DocumentType.tcai.empty?
     end
 
-    after(:build) do |orientation, evaluator|
+    after(:build) do |orientation, _evaluator|
       next unless orientation.calendars.empty?
 
       calendar = find_or_create_calendar(
@@ -62,13 +62,13 @@ FactoryBot.define do
 
     factory :current_orientation_tcc_one do
       after(:build) do |orientation|
-    calendar = find_or_create_calendar(
-      year: Calendar.current_year,
-      semester: Calendar.current_semester,
-      tcc: Calendar.tccs[:one]
-    )
+        calendar = find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester,
+          tcc: Calendar.tccs[:one]
+        )
 
-    orientation.calendars = [calendar] 
+        orientation.calendars = [calendar]
       end
     end
 
@@ -112,7 +112,7 @@ FactoryBot.define do
           tcc: Calendar.tccs[:one]
         )
         activity = create(:activity, calendar:, identifier: :project,
-                                    final_version: true)
+                                     final_version: true)
         create(:academic_activity, activity:, academic: orientation.academic)
         create(:examination_board, orientation:, identifier: :project, situation: :approved)
         orientation.calendars = [calendar]
@@ -121,11 +121,9 @@ FactoryBot.define do
       after(:create) do |orientation|
         professor = create(:professor)
         external_member = create(:external_member)
-        
-        unless orientation.institution
-          orientation.institution = create(:institution)
-        end
-        
+
+        orientation.institution = create(:institution) unless orientation.institution
+
         orientation.professor_supervisors << professor
         orientation.external_member_supervisors << external_member
       end
@@ -141,7 +139,7 @@ FactoryBot.define do
           tcc: Calendar.tccs[:two]
         )
         activity = create(:activity, calendar:, identifier: :monograph,
-                                    final_version: true)
+                                     final_version: true)
         create(:academic_activity, activity:, academic: orientation.academic)
         create(:examination_board, orientation:, identifier: :monograph,
                                    situation: :approved)
@@ -160,7 +158,7 @@ FactoryBot.define do
           tcc: Calendar.tccs[:one]
         )
         activity = create(:activity, calendar:, identifier: :project,
-                                    final_version: true)
+                                     final_version: true)
         create(:academic_activity, activity:, academic: orientation.academic)
         create(:examination_board, orientation:, identifier: :project,
                                    situation: :approved)
@@ -180,10 +178,10 @@ FactoryBot.define do
         )
 
         activity = create(:activity, calendar:, identifier: :project,
-                                    final_version: true)
+                                     final_version: true)
         create(:academic_activity, activity:, academic: orientation.academic)
         create(:examination_board, orientation:, identifier: :project,
-                                  situation: :approved)
+                                   situation: :approved)
 
         orientation.calendars = [calendar]
       end

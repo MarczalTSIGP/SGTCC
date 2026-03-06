@@ -21,16 +21,15 @@ describe 'Calendar::update', :js do
 
         fill_in 'calendar_year', with: attributes[:year]
         tcc_text = I18n.t("enums.tcc.#{attributes[:tcc]}")
-        within('.col-2:nth-child(1)') do 
+        within('.col-2:nth-child(1)') do
           find('span.custom-control-label', text: tcc_text).click
         end
 
         semester_text = I18n.t("enums.semester.#{attributes[:semester]}")
-        within('.col-2:nth-child(2)') do 
+        within('.col-2:nth-child(2)') do
           find('span.custom-control-label', text: semester_text).click
         end
 
-        
         start_value = attributes[:start_date].strftime('%Y-%m-%d')
         end_value   = attributes[:end_date].strftime('%Y-%m-%d')
 
@@ -45,15 +44,15 @@ describe 'Calendar::update', :js do
 
         expect(page).to have_current_path responsible_calendars_tcc_two_path
         expect(page).to have_flash(:success, text: message('update.m'))
-        
-        tcc_display = I18n.t("enums.tcc.#{attributes[:tcc]}") 
-        semester_display = I18n.t("enums.semester.#{attributes[:semester]}") 
-        
+
+        tcc_display = I18n.t("enums.tcc.#{attributes[:tcc]}")
+        semester_display = I18n.t("enums.semester.#{attributes[:semester]}")
+
         expect(page).to have_contents([
-          attributes[:year].to_s,
-          tcc_display,
-          semester_display
-        ])
+                                        attributes[:year].to_s,
+                                        tcc_display,
+                                        semester_display
+                                      ])
       end
     end
 

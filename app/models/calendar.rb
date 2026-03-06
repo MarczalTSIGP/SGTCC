@@ -23,8 +23,8 @@ class Calendar < ApplicationRecord
             uniqueness: { scope: [:semester, :tcc], case_sensitive: false,
                           message: I18n.t('activerecord.errors.models.calendar.attributes.year') }
 
-  after_create :clone_base_activities
   before_validation :set_dates
+  after_create :clone_base_activities
 
   def set_dates
     return if start_date.present? && end_date.present?
@@ -81,11 +81,10 @@ class Calendar < ApplicationRecord
     return next_semester(calendar) if calendar.tcc == 'two'
 
     if calendar.semester == 'one'
-     return find_by(semester: 'two', year: calendar.year, tcc: tccs[:two])
-
-    else
-     return find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: tccs[:two])
+      return find_by(semester: 'two', year: calendar.year, tcc: tccs[:two])
     end
+
+    find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: tccs[:two])
   end
 
   def self.search_by_tcc(tcc, page, term)
@@ -138,10 +137,11 @@ class Calendar < ApplicationRecord
     Calendars::CloneBaseActivities.to(self)
   end
 
- def end_date_after_start_date
-  return if end_date.blank? || start_date.blank?
-  if end_date <= start_date
+  def end_date_after_start_date
+    return if end_date.blank? || start_date.blank?
+
+    return unless end_date <= start_date
+
     errors.add(:end_date, 'deve ser posterior à data de início')
-    end
   end
 end

@@ -12,18 +12,18 @@ describe 'Calendar::create', :js do
   describe '#create' do
     context 'when calendar is valid' do
       it 'creates a calendar' do
-        attributes = attributes_for(:calendar, tcc: :two, semester: :one) 
+        attributes = attributes_for(:calendar, tcc: :two, semester: :one)
 
         fill_in 'calendar_year', with: attributes[:year]
-        
-        tcc_text = I18n.t("enums.tcc.two")
+
+        tcc_text = I18n.t('enums.tcc.two')
         within('.col-2:nth-child(1)') do
-          find("span.custom-control-label", text: tcc_text).click
+          find('span.custom-control-label', text: tcc_text).click
         end
-        
-        semester_text = I18n.t("enums.semester.one")
+
+        semester_text = I18n.t('enums.semester.one')
         within('.col-2:nth-child(2)') do
-          find("span.custom-control-label", text: semester_text).click
+          find('span.custom-control-label', text: semester_text).click
         end
 
         start_value = attributes[:start_date].strftime('%Y-%m-%d')

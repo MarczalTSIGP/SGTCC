@@ -11,11 +11,11 @@ describe 'Calendar::show', :js do
 
   describe '#show' do
     context 'when shows the calendar' do
-  it 'shows basic calendar header info' do
-    tcc_label = I18n.t("enums.tcc.#{calendar.tcc}")
-    expect(page).to have_content("Calendário de Atividades de TCC #{tcc_label} (#{calendar.year_with_semester})")
-    expect(page).to have_content(calendar.year_with_semester)
-  end
+      it 'shows basic calendar header info' do
+        tcc_label = I18n.t("enums.tcc.#{calendar.tcc}")
+        expect(page).to have_content("Calendário de Atividades de TCC #{tcc_label} (#{calendar.year_with_semester})")
+        expect(page).to have_content(calendar.year_with_semester)
+      end
 
       it 'shows its activities or empty message' do
         if calendar.activities.empty?
@@ -25,12 +25,12 @@ describe 'Calendar::show', :js do
             tcc = I18n.t("enums.tcc.#{activity.tcc}")
 
             expect(page).to have_contents([
-              activity.name,
-              activity.base_activity_type.name,
-              tcc,
-              short_date(activity.initial_date),
-              short_date(activity.final_date)
-            ])
+                                            activity.name,
+                                            activity.base_activity_type.name,
+                                            tcc,
+                                            short_date(activity.initial_date),
+                                            short_date(activity.final_date)
+                                          ])
           end
         end
       end

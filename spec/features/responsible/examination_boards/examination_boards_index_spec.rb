@@ -6,7 +6,7 @@ describe 'ExaminationBoard::index', :js do
 
   before do
     create(:current_calendar_tcc_one)
-    @current_calendar_tcc_two = create(:current_calendar_tcc_two, 
+    @current_calendar_tcc_two = create(:current_calendar_tcc_two,
                                        start_date: 2.days.ago,
                                        end_date: 2.days.from_now)
 
@@ -24,8 +24,8 @@ describe 'ExaminationBoard::index', :js do
     it 'shows all the examination boards of the tcc one with options' do
       ebs.each do |examination_board|
         academic_link_text = examination_board.orientation.academic_with_calendar
-        expect(page).to have_link(academic_link_text, 
-                                  href: responsible_examination_board_path(examination_board), 
+        expect(page).to have_link(academic_link_text,
+                                  href: responsible_examination_board_path(examination_board),
                                   match: :first)
         expect(page).to have_contents([examination_board.orientation.advisor.name_with_scholarity,
                                        examination_board.place,
@@ -44,10 +44,10 @@ describe 'ExaminationBoard::index', :js do
 
     it 'shows all the examination boards of the tcc one with options' do
       ebs.each do |examination_board|
-      academic_link_text = examination_board.orientation.academic_with_calendar
-      expect(page).to have_link(academic_link_text, 
-                                href: responsible_examination_board_path(examination_board), 
-                                match: :first)
+        academic_link_text = examination_board.orientation.academic_with_calendar
+        expect(page).to have_link(academic_link_text,
+                                  href: responsible_examination_board_path(examination_board),
+                                  match: :first)
         expect(page).to have_contents([examination_board.orientation.advisor.name,
                                        examination_board.place,
                                        datetime(examination_board.date)])
@@ -65,10 +65,10 @@ describe 'ExaminationBoard::index', :js do
 
     it 'shows all the examination boards of the tcc two with options' do
       ebs.each do |examination_board|
-      academic_link_text = examination_board.orientation.academic_with_calendar
-      expect(page).to have_link(academic_link_text, 
-                                href: responsible_examination_board_path(examination_board), 
-                                match: :first)
+        academic_link_text = examination_board.orientation.academic_with_calendar
+        expect(page).to have_link(academic_link_text,
+                                  href: responsible_examination_board_path(examination_board),
+                                  match: :first)
         expect(page).to have_contents([examination_board.orientation.advisor.name,
                                        examination_board.place,
                                        datetime(examination_board.date)])

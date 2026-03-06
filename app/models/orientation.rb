@@ -10,6 +10,7 @@ class Orientation < ApplicationRecord
   include OrientationValidation
   include AcademicDocumentsInfo
   include UsersToDocument
+
   attr_accessor :skip_documents_callbacks
 
   searchable :status, title: { unaccent: true }, relationships: {
@@ -91,7 +92,6 @@ class Orientation < ApplicationRecord
 
     where.not(id: subquery).where(status: 'APPROVED_TCC_ONE')
   }
-
 
   def migrate
     if can_be_migrated?

@@ -7,9 +7,6 @@ describe 'Calendar::destroy', :js do
 
   before do
     calendar.activities.destroy_all if calendar.respond_to?(:activities)
-  end
-
-  before do
     login_as(responsible, scope: :professor)
     visit send("responsible_calendars_tcc_#{calendar.tcc}_path")
   end
@@ -38,4 +35,3 @@ describe 'Calendar::destroy', :js do
     end
   end
 end
-

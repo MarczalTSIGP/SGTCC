@@ -2,16 +2,17 @@ require 'rails_helper'
 
 describe 'Supervision::show' do
   before(:all) do
-     ProfessorType.find_or_create_by(id: 2) { |pt| pt.name = 'Tipo 2' }
-     ProfessorType.find_or_create_by(id: 12) { |pt| pt.name = 'Tipo 12' }
+    ProfessorType.find_or_create_by(id: 2) { |pt| pt.name = 'Tipo 2' }
+    ProfessorType.find_or_create_by(id: 12) { |pt| pt.name = 'Tipo 12' }
 
-     max_id = ProfessorType.maximum(:id) || 0
-     sequence_name = "#{ProfessorType.table_name}_id_seq"
-     
-     ActiveRecord::Base.connection.execute(
-       "SELECT setval('#{sequence_name}', #{max_id + 1}, false);"
-     )
+    max_id = ProfessorType.maximum(:id) || 0
+    sequence_name = "#{ProfessorType.table_name}_id_seq"
+
+    ActiveRecord::Base.connection.execute(
+      "SELECT setval('#{sequence_name}', #{max_id + 1}, false);"
+    )
   end
+
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation) }
   let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
@@ -42,7 +43,7 @@ describe 'Supervision::show' do
         expect(page).to have_content(complete_date(orientation.created_at))
         expect(page).to have_content(complete_date(orientation.updated_at))
 
-        breadcrumb_text = I18n.t('breadcrumbs.supervisions.history')
+        I18n.t('breadcrumbs.supervisions.history')
         first("a[href='#{external_members_supervisions_history_path}']",
               text: 'Histórico').click
         expect(page).to have_current_path external_members_supervisions_history_path

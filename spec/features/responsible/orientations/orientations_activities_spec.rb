@@ -58,11 +58,11 @@ describe 'Orientation::activities', :js do
   end
 
   describe '#show' do
-    let!(:activity) { create(:activity, calendar: orientation.current_calendar) } 
+    let!(:activity) { create(:activity, calendar: orientation.current_calendar) }
     let!(:academic) { orientation.academic }
     let!(:academic_activity) do
       # Agora 'activity' está definido e é um objeto válido
-      create(:academic_activity, academic:, activity:) 
+      create(:academic_activity, academic:, activity:)
     end
 
     before do
