@@ -136,12 +136,14 @@ Metrics/MethodLength:
     - 'app/controllers/responsible/examination_boards_controller.rb'
     - 'app/controllers/tcc_one_professors/examination_boards_controller.rb'
     - 'app/models/examination_board.rb'
+    - 'db/queue_migrate/20260306170000_create_solid_queue_tables.rb'
 
 Metrics/AbcSize:
   Exclude:
     - spec/features/professors/supervisions/supervisions_show_spec.rb
     - spec/features/professors/orientations/orientations_show_spec.rb
     - app/services/populate/base_activities.rb
+    - db/queue_migrate/20260306170000_create_solid_queue_tables.rb
 
 Metrics/ClassLength:
   Enabled: false

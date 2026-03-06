@@ -10,7 +10,7 @@ module Notifications
     end
 
     def event_key(*parts)
-      parts.flatten.map(&:to_s).join(':')
+      parts.flatten.join(':')
     end
 
     def user_identifier(user)
