@@ -1,8 +1,3 @@
-\restrict iv4Gn2ZjulvMZdmyagtsx9wYvhfkJNS6bJ51XL6abIkPLN0RnmwnwORLOWnb5oL
-
--- Dumped from database version 17.5 (Debian 17.5-1.pgdg130+1)
--- Dumped by pg_dump version 18.0 (Debian 18.0-1.pgdg12+3)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -552,7 +547,7 @@ CREATE TABLE public.examination_boards (
     document_available_until timestamp without time zone,
     final_note integer,
     situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations,
-    confirm boolean DEFAULT false NOT NULL
+    confirmed boolean DEFAULT false NOT NULL
 );
 
 
@@ -1964,8 +1959,6 @@ ALTER TABLE ONLY public.meetings
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict iv4Gn2ZjulvMZdmyagtsx9wYvhfkJNS6bJ51XL6abIkPLN0RnmwnwORLOWnb5oL
 
 SET search_path TO "$user", public;
 

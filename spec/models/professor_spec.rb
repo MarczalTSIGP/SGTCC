@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Professor do
+  subject(:professor) { described_class.new }
+
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:username) }
@@ -44,14 +46,18 @@ RSpec.describe Professor do
   end
 
   describe 'associations' do
-    professor_sfk = 'professor_supervisor_id'
     it { is_expected.to belong_to(:professor_type) }
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:roles).through(:assignments) }
     it { is_expected.to have_many(:meetings).through(:orientations) }
     it { is_expected.to have_many(:assignments).dependent(:destroy) }
     it { is_expected.to have_many(:orientations).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:professor_supervisors).with_foreign_key(professor_sfk) }
+
+    it {
+      expect(professor)
+        .to(have_many(:professor_supervisors).with_foreign_key('professor_supervisor_id'))
+    }
+
     it { is_expected.to have_many(:supervisions).through(:professor_supervisors) }
     it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees) }
@@ -227,8 +233,8 @@ RSpec.describe Professor do
       order_by = 'calendars.year DESC, calendars.semester ASC, calendars.tcc ASC, academics.name'
       data = professor.orientations.includes(:academic, :calendars)
                       .order(order_by).map do |orientation|
-                        [orientation.id, orientation.academic_with_calendar]
-                      end
+        [orientation.id, orientation.academic_with_calendar]
+      end
       expect(professor.orientations_to_form).to eq(data)
     end
   end

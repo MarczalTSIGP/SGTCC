@@ -12,7 +12,7 @@
   <td><%= datetime(examination_board.date) %></td>
   <td><%= examination_board.orientation.advisor.name_with_scholarity %></td>
   <td>
-    <% if examination_board.confirm? %>
+    <% if examination_board.confirmed? %>
       <button class="btn btn-primary w-100" disabled>
         Banca Confirmada
       </button>

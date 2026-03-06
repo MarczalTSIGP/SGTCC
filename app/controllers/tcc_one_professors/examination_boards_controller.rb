@@ -136,6 +136,6 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
     return false unless @examination_board.monograph?
 
     flash[:error] = I18n.t('flash.not_authorized')
-    redirect_back(fallback_location: tcc_one_professors_examination_boards_tcc_one_path)
+    redirect_back_or_to(tcc_one_professors_examination_boards_tcc_one_path)
   end
 end

@@ -15,9 +15,9 @@ class Orientation < ApplicationRecord
 
   searchable :status, title: { unaccent: true }, relationships: {
     calendars: { fields: [:year] },
-    academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
-    institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
-    advisor: { table_name: 'professors', fields: [name: { unaccent: true }] }
+    academic: { fields: [{ name: { unaccent: true }, ra: { unaccent: false } }] },
+    institution: { fields: [{ name: { unaccent: true }, trade_name: { unaccent: true } }] },
+    advisor: { table_name: 'professors', fields: [{ name: { unaccent: true } }] }
   }
 
   belongs_to :academic

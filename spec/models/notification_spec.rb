@@ -15,7 +15,7 @@ RSpec.describe Notification do
         sent: 'sent',
         failed: 'failed',
         cancelled: 'cancelled'
-      ).backed_by_column_of_type(:text)
+      ).backed_by_column_of_type(:string)
     end
   end
 

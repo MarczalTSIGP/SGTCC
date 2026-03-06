@@ -9,7 +9,7 @@ class ExaminationBoard < ApplicationRecord
   include Tcc
 
   searchable place: { unaccent: true }, relationships: {
-    orientation: { fields: [title: { unaccent: true }] }
+    orientation: { fields: [{ title: { unaccent: true } }] }
   }
 
   belongs_to :orientation
@@ -97,6 +97,7 @@ class ExaminationBoard < ApplicationRecord
     Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
       Calendar.order(year: :desc, semester: :desc).first
   end
+
   private_class_method :current_calendar_for_site
 
   def self.base_scope_for_calendar(current_calendar)
@@ -106,6 +107,7 @@ class ExaminationBoard < ApplicationRecord
       .where(calendars: { id: current_calendar.id })
       .where(date: period)
   end
+
   private_class_method :base_scope_for_calendar
 
   def self.upcoming_from_now(current_calendar)
@@ -115,6 +117,7 @@ class ExaminationBoard < ApplicationRecord
       .site_with_relationships
       .to_a
   end
+
   private_class_method :upcoming_from_now
 
   def self.past_until_now(current_calendar)
@@ -124,6 +127,7 @@ class ExaminationBoard < ApplicationRecord
       .site_with_relationships
       .to_a
   end
+
   private_class_method :past_until_now
 
   def status
@@ -215,12 +219,8 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:enable Rails/SkipsModelValidations
   end
 
-  def confirm?
-    confirm
-  end
-
   def confirm!
-    update(confirm: true)
+    update(confirmed: true)
     Notifications::Hooks::ExaminationBoard.confirmed_examination_board(self)
   end
 

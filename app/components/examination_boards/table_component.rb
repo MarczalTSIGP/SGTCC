@@ -50,7 +50,7 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
   def confirm_button(examination_board)
     return '' unless @namespace == :responsible
 
-    if examination_board.confirm?
+    if examination_board.confirmed?
       confirmed_html
     else
       confirmation_form(examination_board)

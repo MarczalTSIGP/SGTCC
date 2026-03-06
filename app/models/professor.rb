@@ -11,7 +11,7 @@ class Professor < ApplicationRecord
          authentication_keys: [:username]
 
   searchable :username, :email, name: { unaccent: true }, relationships: {
-    roles: { fields: [identifier: { unaccent: true }, name: { unaccent: true }] }
+    roles: { fields: [{ identifier: { unaccent: true }, name: { unaccent: true } }] }
   }
 
   belongs_to :professor_type
