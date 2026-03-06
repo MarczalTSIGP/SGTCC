@@ -5,12 +5,14 @@ describe 'Supervision::show' do
   let(:other_professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: other_professor) }
   let(:calendar_tcc_one) do
-    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) ||
+    Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
+                     tcc: Calendar.tccs[:one]) ||
       create(:current_calendar_tcc_one)
   end
 
   let(:calendar_tcc_two) do
-    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:two]) ||
+    Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
+                     tcc: Calendar.tccs[:two]) ||
       create(:current_calendar_tcc_two)
   end
 
