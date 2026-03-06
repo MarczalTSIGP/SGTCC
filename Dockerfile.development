@@ -78,14 +78,6 @@ RUN apt-get update -qq && \
   vim
 
 # --------------------------
-# INSTALA NODE.JS E YARN
-# --------------------------
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && \
-    sudo apt-get install -y nodejs && \
-    sudo npm install -g yarn
-
-
-# --------------------------
 # INSTALL LAST VERSION OF postgresql-client
 # --------------------------
 RUN apt-get install -y lsb-release wget ca-certificates gnupg

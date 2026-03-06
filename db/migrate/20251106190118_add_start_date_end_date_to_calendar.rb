@@ -66,5 +66,3 @@ class AddStartDateEndDateToCalendar < ActiveRecord::Migration[7.2]
     end
   end
 end
-# Colocar os poupulates para atualizar os calendarios existentes aqui.
-# Criar um teste para verificar o examination board a questão do start_date que foi comentada no model do calendar
