@@ -14,7 +14,10 @@ RSpec.describe Calendar, type: :model do
       calendar = create(:current_calendar)
       semester = I18n.t("enums.semester.#{calendar.semester}")
       tcc = I18n.t("enums.tcc.#{calendar.tcc}")
-      expect(calendar.year_with_semester_and_tcc).to eq("#{calendar.year}/#{semester} - TCC: #{tcc}")
+
+      expected_text = calendar.year_with_semester_and_tcc
+      result_text = "#{calendar.year}/#{semester} - TCC: #{tcc}"
+      expect(expected_text).to eq(result_text)
     end
   end
 end
