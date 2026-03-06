@@ -27,7 +27,7 @@ RSpec.describe Orientation do
 
     it 'is expected to have many external member supervisors' do
       expect(orientation).to have_many(:external_member_supervisors)
-        .through(:orientation_supervisors).dependent(:destroy)
+                               .through(:orientation_supervisors).dependent(:destroy)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe Orientation do
   describe '#select_status_data' do
     it 'returns the select status data' do
       status_data = described_class.statuses.map do |index, field|
-        [field, index.capitalize]
+        [ field, index.capitalize ]
       end.sort!
       expect(described_class.select_status_data).to eq(status_data)
     end
@@ -149,7 +149,7 @@ RSpec.describe Orientation do
     it 'returns the orientations that can be migrated' do
       current_cal = find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:one])
       find_or_create_calendar(year: 2025, semester: 2, tcc: Calendar.tccs[:one])
-      create(:orientation, calendars: [current_cal])
+      create(:orientation, calendars: [ current_cal ])
 
       expect(described_class.to_migrate.count).to eq(2)
       expect(described_class.to_migrate).to contain_exactly(valid_orientation,
@@ -158,60 +158,15 @@ RSpec.describe Orientation do
 
     it 'do not returns the orientations that can not be migrated' do
       expect(described_class.to_migrate)
-        .not_to include([invalid_orientation, invalid_orientation_two, invalid_orientation_three])
+        .not_to include([ invalid_orientation, invalid_orientation_two, invalid_orientation_three ])
     end
   end
 
   describe '#migrate' do
-    Calendar.delete_all
-    Orientation.delete_all
-    OrientationCalendar.delete_all
-
-    let!(:current_calendar_s2_tcc1) do
-      create(:calendar, year: '2025', semester: 'two', tcc: :one, start_date: Date.new(2025, 7, 1),
-                        end_date: Date.new(2025, 12, 31))
-    end
-
-    let!(:next_year_calendar_s1_tcc2) do
-      create(:calendar, year: '2026', semester: 'one', tcc: :two, start_date: Date.new(2026, 1, 1),
-                        end_date: Date.new(2026, 6, 30))
-    end
-
-    let!(:current_calendar_tcc_one) do
-      create(:calendar, year: '2025', semester: 'one', tcc: Calendar.tccs[:one],
-                        start_date: Date.new(2025, 1, 1), end_date: Date.new(2025, 6, 30))
-    end
-
-    let!(:next_calendar_tcc_two) do
-      create(:calendar, year: '2025', semester: 'two', tcc: Calendar.tccs[:two],
-                        start_date: Date.new(2025, 7, 1), end_date: Date.new(2025, 12, 31))
-    end
-
-    let!(:next_calendar_tcc_one) do
-      find_or_create_calendar(year: 2025, semester: 2, tcc: Calendar.tccs[:one])
-    end
-    let!(:next_year_calendar_tcc_one) do
-      find_or_create_calendar(year: 2026, semester: 1, tcc: Calendar.tccs[:one])
-    end
-    let!(:current_calendar_tcc_two) do
-      find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:two])
-    end
-
-    let!(:orientation_tcc_one) do
-      create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
-    end
-
-    let!(:orientation_tcc_two) do
-      create(:orientation, calendars: [current_calendar_tcc_two], status: 'APPROVED_TCC_ONE')
-    end
-
-    let!(:next_year_calendar_tcc_one) do
-      create(:calendar,
-             year: '2026',
-             semester: 'one',
-             tcc: :one,
-             start_date: Date.new(2026, 1, 1),
-             end_date: Date.new(2026, 6, 30))
+    before do
+      Calendar.delete_all
+      Orientation.delete_all
+      OrientationCalendar.delete_all
     end
 
     context 'when calendar for next semester is not found' do
@@ -221,7 +176,7 @@ RSpec.describe Orientation do
           semester: Calendar.current_semester,
           tcc: Calendar.tccs[:two]
         )
-        orientation = create(:orientation, calendars: [temp_current])
+        orientation = create(:orientation, calendars: [ temp_current ])
 
         expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
@@ -230,13 +185,44 @@ RSpec.describe Orientation do
 
     context 'when calendar for next semester is found' do
       before do
+        travel_to Date.new(2025, 8, 1)
+      end
+
+      after do
+        travel_back
+      end
+
+      let!(:current_calendar_s2_tcc1) do
+        create(:calendar, year: '2025', semester: 'two', tcc: :one, start_date: Date.new(2025, 7, 1),
+               end_date: Date.new(2025, 12, 31))
+      end
+
+      let!(:next_year_calendar_s1_tcc2) do
+        create(:calendar, year: '2026', semester: 'one', tcc: :two, start_date: Date.new(2026, 1, 1),
+               end_date: Date.new(2026, 6, 30))
+      end
+
+      let!(:current_calendar_tcc_one) do
+        create(:calendar, year: '2025', semester: 'one', tcc: Calendar.tccs[:one],
+               start_date: Date.new(2025, 1, 1), end_date: Date.new(2025, 6, 30))
+      end
+
+      let!(:current_calendar_tcc_two) do
+        find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:two])
+      end
+
+      let!(:next_calendar_tcc_two) do
+        create(:calendar, year: '2025', semester: 'two', tcc: Calendar.tccs[:two],
+               start_date: Date.new(2025, 7, 1), end_date: Date.new(2025, 12, 31))
+      end
+
+      before do
         DocumentType.find_or_create_by!(identifier: :tco, name: 'TCO Test')
         DocumentType.find_or_create_by!(identifier: :tcai, name: 'TCAI Test')
       end
 
       it 'migrates TCC one orientation to the next semester' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_s2_tcc1])
-        orientation.reload
+        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_s2_tcc1 ])
 
         expect(orientation.migrate).to be(true)
         orientation.reload
@@ -244,12 +230,19 @@ RSpec.describe Orientation do
         expect(orientation.calendars).to include(current_calendar_s2_tcc1,
                                                  next_year_calendar_s1_tcc2)
         expect(orientation.current_calendar).to eq(next_year_calendar_s1_tcc2)
+      end
+
+      it 'changes migrated TCC one orientation to TCC two' do
+        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_s2_tcc1 ])
+
+        orientation.migrate
+        orientation.reload
+
         expect(orientation.tcc_two?).to be(true)
       end
 
       it 'migrates TCC two orientation to the next semester' do
-        orientation_tcc_two.calendars = [current_calendar_tcc_two]
-        orientation_tcc_two.save!
+        orientation_tcc_two = create(:orientation, calendars: [ current_calendar_tcc_two ], status: 'APPROVED_TCC_ONE')
         orientation_tcc_two.migrate
         orientation_tcc_two.reload
 
@@ -258,18 +251,22 @@ RSpec.describe Orientation do
         expect(orientation_tcc_two.current_calendar).to eq(next_calendar_tcc_two)
       end
 
-      it 'migrates to times to when can' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
+      it 'keeps source calendar and adds destination calendar after migration' do
+        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_tcc_one ])
 
         initial_calendar_id = orientation.current_calendar.id
         expect(orientation.migrate).to be(true)
         orientation.reload
 
-        calendar_destino_encontrado = orientation.calendars.where.not(id: initial_calendar_id).first
+        destination_calendar = orientation.calendars.where.not(id: initial_calendar_id).first
+        expect(destination_calendar).not_to be_nil
+        expect(orientation.calendars.pluck(:id)).to include(initial_calendar_id)
+      end
 
-        expect(calendar_destino_encontrado).not_to be_nil
-        expect(orientation.calendars.pluck(:id)).to include(initial_calendar_id) # Usa o ID 42
-        expect(orientation.calendars.pluck(:id)).to include(calendar_destino_encontrado.id)
+      it 'does not migrate twice' do
+        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_tcc_one ])
+
+        orientation.migrate
         expect(orientation.migrate).to be(false)
       end
     end
@@ -319,8 +316,8 @@ RSpec.describe Orientation do
     let(:professor) { orientation.professor_supervisors.first }
 
     it 'returns the array with professor supervisors name formatted' do
-      formatted = [{ id: professor.id,
-                     name: "#{professor.scholarity.abbr} #{professor.name}" }]
+      formatted = [ { id: professor.id,
+                      name: "#{professor.scholarity.abbr} #{professor.name}" } ]
       expect(orientation.professor_supervisors_to_document).to match_array(formatted)
     end
   end
@@ -330,8 +327,8 @@ RSpec.describe Orientation do
     let(:external_member) { orientation.external_member_supervisors.first }
 
     it 'returns the array with professor supervisors name formatted' do
-      formatted = [{ id: external_member.id,
-                     name: "#{external_member.scholarity.abbr} #{external_member.name}" }]
+      formatted = [ { id: external_member.id,
+                      name: "#{external_member.scholarity.abbr} #{external_member.name}" } ]
       expect(orientation.external_member_supervisors_to_document).to match_array(formatted)
     end
   end
@@ -353,7 +350,7 @@ RSpec.describe Orientation do
 
     it 'returns the professors ranking data' do
       ranking = professors.map do |professor|
-        [professor.name_with_scholarity, professor.orientations.size]
+        [ professor.name_with_scholarity, professor.orientations.size ]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse
       expect(described_class.professors_ranking).to match_array(ranking)
@@ -363,15 +360,15 @@ RSpec.describe Orientation do
   describe '#to_json_table' do
     let(:orientations) { create_list(:orientation, 2) }
     let(:orientation_methods) do
-      [:short_title, :final_proposal, :final_project, :final_monograph,
-       :document_title, :document_summary]
+      [ :short_title, :final_proposal, :final_project, :final_monograph,
+        :document_title, :document_summary ]
     end
 
     let(:orientations_json) do
       orientations.to_json(methods: orientation_methods,
-                           include: [:academic,
-                                     { supervisors: { methods: [:name_with_scholarity] } },
-                                     { advisor: { methods: [:name_with_scholarity] } }])
+                           include: [ :academic,
+                                      { supervisors: { methods: [ :name_with_scholarity ] } },
+                                      { advisor: { methods: [ :name_with_scholarity ] } } ])
     end
 
     it 'returns the orientation to json table' do
@@ -385,7 +382,7 @@ RSpec.describe Orientation do
     # Must consider the last one the correct.
     describe '.proposal' do
       let(:previous_calendar) { create(:previous_calendar_tcc_one) }
-      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
+      let(:current_calendar) { create(:current_calendar_tcc_one) }
 
       let(:orientation) { create(:orientation_tcc_one) }
       let(:orientation_two) { create(:orientation_tcc_one) }
@@ -395,7 +392,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [previous_calendar, current_calendar]
+        orientation.calendars = [ previous_calendar, current_calendar ]
         activity_one = create(:project_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -415,7 +412,7 @@ RSpec.describe Orientation do
 
     describe '.project' do
       let(:previous_calendar) { create(:previous_calendar_tcc_one) }
-      let(:current_calendar)  { create(:current_calendar_tcc_one)  }
+      let(:current_calendar) { create(:current_calendar_tcc_one) }
 
       let(:orientation) { create(:orientation_tcc_one) }
       let!(:academic_activity_two) do
@@ -424,7 +421,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [previous_calendar, current_calendar]
+        orientation.calendars = [ previous_calendar, current_calendar ]
         activity_one = create(:project_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -441,7 +438,7 @@ RSpec.describe Orientation do
 
     describe '.monograph' do
       let(:previous_calendar) { create(:previous_calendar_tcc_two) }
-      let(:current_calendar)  { create(:current_calendar_tcc_two)  }
+      let(:current_calendar) { create(:current_calendar_tcc_two) }
 
       let(:orientation) { create(:orientation_tcc_two) }
       let!(:academic_activity) do
@@ -450,7 +447,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [previous_calendar, current_calendar]
+        orientation.calendars = [ previous_calendar, current_calendar ]
         activity_one = create(:monograph_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -470,7 +467,7 @@ RSpec.describe Orientation do
     it 'returns the document tcc one' do
       orientation = create(:orientation_tcc_one)
       document = create(:proposal_academic_activity, academic: orientation.academic)
-      orientation.calendars = [document.activity.calendar]
+      orientation.calendars = [ document.activity.calendar ]
 
       expect(orientation.document_tcc_one).to eq(document)
     end
@@ -503,30 +500,30 @@ RSpec.describe Orientation do
                                 start_date: 1.year.ago,
                                 end_date: 1.year.from_now)
 
-      create(:orientation, calendars: [current_calendar])
+      create(:orientation, calendars: [ current_calendar ])
 
       previous_calendar = create(:previous_calendar_tcc_one)
 
       examination_board_one = create(:examination_board,
                                      date: 2.hours.from_now,
                                      orientation: create(:orientation,
-                                                         calendars: [current_calendar]))
+                                                         calendars: [ current_calendar ]))
 
       examination_board_two = create(:examination_board,
                                      date: 1.day.from_now,
                                      orientation: create(:orientation,
-                                                         calendars: [current_calendar]))
+                                                         calendars: [ current_calendar ]))
 
       examination_board_three = create(:examination_board,
                                        date: 1.day.ago,
                                        orientation: create(:orientation,
-                                                           calendars: [current_calendar]))
+                                                           calendars: [ current_calendar ]))
 
       create(:examination_board, date: 6.months.ago,
-                                 orientation: create(:orientation, calendars: [previous_calendar]))
+             orientation: create(:orientation, calendars: [ previous_calendar ]))
 
       create(:examination_board, date: 1.year.ago,
-                                 orientation: create(:orientation, calendars: [previous_calendar]))
+             orientation: create(:orientation, calendars: [ previous_calendar ]))
 
       result = ExaminationBoard.cs_asc_from_now_desc_ago
 

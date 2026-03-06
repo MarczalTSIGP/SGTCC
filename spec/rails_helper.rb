@@ -21,7 +21,7 @@ require 'support/matchers/have_contents'
 require 'support/matchers/have_selectors'
 
 # Carrega todos os arquivos de support
-Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 RSpec.configure do |config|
   config.include CalendarHelper # Inclui o helper globalmente
@@ -36,6 +36,7 @@ RSpec.configure do |config|
   config.include Helpers::FlashMessage, type: :feature
   config.include ApplicationHelper
   config.include DateHelper
+  config.include ActiveSupport::Testing::TimeHelpers
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!

@@ -161,7 +161,7 @@ RSpec/MultipleExpectations:
     - 'spec/controllers/responsible/examination_boards_controller_spec.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 30
 
 RSpec/MultipleMemoizedHelpers:
   Exclude:
