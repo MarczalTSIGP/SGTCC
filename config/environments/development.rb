@@ -32,6 +32,9 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Set host to be used by links generated in mailer templates.
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.default_url_options = { host: ENV.fetch('APP_HOST', nil) }
   config.action_mailer.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
   config.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
@@ -59,10 +62,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.after_initialize do
     Bullet.enable = true
