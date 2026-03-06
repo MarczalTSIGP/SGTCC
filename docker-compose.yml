@@ -26,6 +26,9 @@ services:
       - 3000:3000
     environment:
       RAILS_ENV: development
+      MAILER_DELIVERY_METHOD: 'letter_opener' # smtp
+      LAUNCHY_DRY_RUN: 'true'
+      BROWSER: '/dev/null'
       MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
       APP_HOST: "localhost:3000"
       LDAP_ON: 'false'
@@ -57,6 +60,9 @@ services:
       TEST_APP_HOST: tests
       # https://github.com/DatabaseCleaner/database_cleaner#safeguards
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
+      MAILER_DELIVERY_METHOD: 'letter_opener'
+      LAUNCHY_DRY_RUN: 'true'
+      BROWSER: '/dev/null'
       MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
       APP_HOST: "localhost:3000"
       LDAP_ON: 'false'
