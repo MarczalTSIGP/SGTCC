@@ -110,13 +110,10 @@ Layout/LineLength:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/initializers/content_security_policy.rb'
     - 'config/initializers/new_framework_defaults_8_1.rb'
+
 Layout/SpaceInsideArrayLiteralBrackets:
-  EnforcedStyle: space
   Exclude:
     - 'config/environments/production.rb'
-
-Layout/FirstMethodArgumentLineBreak:
-  Enabled: true
 
 Layout/IndentationStyle:
   Enabled: false
@@ -177,6 +174,9 @@ RSpec/NamedSubject:
     - 'spec/models/base_activity_spec.rb'
     - 'spec/models/examination_board_note_spec.rb'
     - 'spec/models/orientation_supervisor_spec.rb'
+
+RSpecRails/InferredSpecType:
+  Enabled: false
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false

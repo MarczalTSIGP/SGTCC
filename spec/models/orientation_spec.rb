@@ -48,7 +48,7 @@ RSpec.describe Orientation do
   describe '#select_status_data' do
     it 'returns the select status data' do
       status_data = described_class.statuses.map do |index, field|
-        [ field, index.capitalize ]
+        [field, index.capitalize]
       end.sort!
       expect(described_class.select_status_data).to eq(status_data)
     end
@@ -149,7 +149,7 @@ RSpec.describe Orientation do
     it 'returns the orientations that can be migrated' do
       current_cal = find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:one])
       find_or_create_calendar(year: 2025, semester: 2, tcc: Calendar.tccs[:one])
-      create(:orientation, calendars: [ current_cal ])
+      create(:orientation, calendars: [current_cal])
 
       expect(described_class.to_migrate.count).to eq(2)
       expect(described_class.to_migrate).to contain_exactly(
@@ -160,7 +160,7 @@ RSpec.describe Orientation do
 
     it 'do not returns the orientations that can not be migrated' do
       expect(described_class.to_migrate)
-        .not_to include([ invalid_orientation, invalid_orientation_two, invalid_orientation_three ])
+        .not_to include([invalid_orientation, invalid_orientation_two, invalid_orientation_three])
     end
   end
 
@@ -178,7 +178,7 @@ RSpec.describe Orientation do
           semester: Calendar.current_semester,
           tcc: Calendar.tccs[:two]
         )
-        orientation = create(:orientation, calendars: [ temp_current ])
+        orientation = create(:orientation, calendars: [temp_current])
 
         expect(orientation.migrate).to be(false)
         expect(orientation.calendars.count).to eq(1)
@@ -230,7 +230,7 @@ RSpec.describe Orientation do
       it 'migrates TCC one orientation to the next semester' do
         orientation = create(
           :orientation_tcc_one_approved,
-          calendars: [ current_calendar_second_semester_tcc_one ]
+          calendars: [current_calendar_second_semester_tcc_one]
         )
 
         expect(orientation.migrate).to be(true)
@@ -246,7 +246,7 @@ RSpec.describe Orientation do
       it 'changes migrated TCC one orientation to TCC two' do
         orientation = create(
           :orientation_tcc_one_approved,
-          calendars: [ current_calendar_second_semester_tcc_one ]
+          calendars: [current_calendar_second_semester_tcc_one]
         )
 
         orientation.migrate
@@ -257,7 +257,7 @@ RSpec.describe Orientation do
 
       it 'migrates TCC two orientation to the next semester' do
         orientation_tcc_two = create(
-          :orientation, calendars: [ current_calendar_tcc_two ],
+          :orientation, calendars: [current_calendar_tcc_two],
                         status: 'APPROVED_TCC_ONE'
         )
         orientation_tcc_two.migrate
@@ -271,7 +271,7 @@ RSpec.describe Orientation do
       end
 
       it 'keeps source calendar and adds destination calendar after migration' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_tcc_one ])
+        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
 
         initial_calendar_id = orientation.current_calendar.id
         expect(orientation.migrate).to be(true)
@@ -283,7 +283,7 @@ RSpec.describe Orientation do
       end
 
       it 'does not migrate twice' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [ current_calendar_tcc_one ])
+        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
 
         orientation.migrate
         expect(orientation.migrate).to be(false)
@@ -335,8 +335,8 @@ RSpec.describe Orientation do
     let(:professor) { orientation.professor_supervisors.first }
 
     it 'returns the array with professor supervisors name formatted' do
-      formatted = [ { id: professor.id,
-                      name: "#{professor.scholarity.abbr} #{professor.name}" } ]
+      formatted = [{ id: professor.id,
+                     name: "#{professor.scholarity.abbr} #{professor.name}" }]
       expect(orientation.professor_supervisors_to_document).to match_array(formatted)
     end
   end
@@ -346,8 +346,8 @@ RSpec.describe Orientation do
     let(:external_member) { orientation.external_member_supervisors.first }
 
     it 'returns the array with professor supervisors name formatted' do
-      formatted = [ { id: external_member.id,
-                      name: "#{external_member.scholarity.abbr} #{external_member.name}" } ]
+      formatted = [{ id: external_member.id,
+                     name: "#{external_member.scholarity.abbr} #{external_member.name}" }]
       expect(orientation.external_member_supervisors_to_document).to match_array(formatted)
     end
   end
@@ -369,7 +369,7 @@ RSpec.describe Orientation do
 
     it 'returns the professors ranking data' do
       ranking = professors.map do |professor|
-        [ professor.name_with_scholarity, professor.orientations.size ]
+        [professor.name_with_scholarity, professor.orientations.size]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse
       expect(described_class.professors_ranking).to match_array(ranking)
@@ -379,16 +379,16 @@ RSpec.describe Orientation do
   describe '#to_json_table' do
     let(:orientations) { create_list(:orientation, 2) }
     let(:orientation_methods) do
-      [ :short_title, :final_proposal, :final_project, :final_monograph,
-        :document_title, :document_summary ]
+      [:short_title, :final_proposal, :final_project, :final_monograph,
+       :document_title, :document_summary]
     end
 
     let(:orientations_json) do
       orientations.to_json(
         methods: orientation_methods,
-        include: [ :academic,
-                   { supervisors: { methods: [ :name_with_scholarity ] } },
-                   { advisor: { methods: [ :name_with_scholarity ] } } ]
+        include: [:academic,
+                  { supervisors: { methods: [:name_with_scholarity] } },
+                  { advisor: { methods: [:name_with_scholarity] } }]
       )
     end
 
@@ -413,7 +413,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [ previous_calendar, current_calendar ]
+        orientation.calendars = [previous_calendar, current_calendar]
         activity_one = create(:project_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -442,7 +442,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [ previous_calendar, current_calendar ]
+        orientation.calendars = [previous_calendar, current_calendar]
         activity_one = create(:project_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -468,7 +468,7 @@ RSpec.describe Orientation do
       end
 
       before do
-        orientation.calendars = [ previous_calendar, current_calendar ]
+        orientation.calendars = [previous_calendar, current_calendar]
         activity_one = create(:monograph_activity, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
@@ -488,7 +488,7 @@ RSpec.describe Orientation do
     it 'returns the document tcc one' do
       orientation = create(:orientation_tcc_one)
       document = create(:proposal_academic_activity, academic: orientation.academic)
-      orientation.calendars = [ document.activity.calendar ]
+      orientation.calendars = [document.activity.calendar]
 
       expect(orientation.document_tcc_one).to eq(document)
     end
@@ -526,7 +526,7 @@ RSpec.describe Orientation do
         date: 2.hours.from_now,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
       previous_calendar = create(:previous_calendar_tcc_one)
@@ -535,7 +535,7 @@ RSpec.describe Orientation do
         date: 2.hours.from_now,
         orientation: create(
           :orientation,
-          calendars: [ previous_calendar ]
+          calendars: [previous_calendar]
         )
       )
 
@@ -548,7 +548,7 @@ RSpec.describe Orientation do
         date: 2.hours.from_now,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
       board_later = create(
@@ -556,13 +556,13 @@ RSpec.describe Orientation do
         date: 1.day.from_now,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
 
       expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id)).to eq(
-        [ board_soon.id,
-          board_later.id ]
+        [board_soon.id,
+         board_later.id]
       )
     end
 
@@ -572,7 +572,7 @@ RSpec.describe Orientation do
         date: 2.hours.from_now,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
       board_recent_past = create(
@@ -580,7 +580,7 @@ RSpec.describe Orientation do
         date: 1.day.ago,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
       board_old_past = create(
@@ -588,12 +588,12 @@ RSpec.describe Orientation do
         date: 6.months.ago,
         orientation: create(
           :orientation,
-          calendars: [ current_calendar ]
+          calendars: [current_calendar]
         )
       )
 
       expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id))
-        .to eq([ board_soon.id, board_recent_past.id, board_old_past.id ])
+        .to eq([board_soon.id, board_recent_past.id, board_old_past.id])
     end
   end
 end

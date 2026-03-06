@@ -11,7 +11,8 @@ RSpec.describe Calendar, type: :model do
     it 'validates uniqueness of year scoped to semester and tcc' do
       msg = I18n.t('activerecord.errors.models.calendar.attributes.year')
       scp = [:semester, :tcc]
-      expect(calendar).to validate_uniqueness_of(:year).with_message(msg).scoped_to(scp).case_insensitive
+      expect(calendar).to validate_uniqueness_of(:year)
+        .with_message(msg).scoped_to(scp).case_insensitive
     end
 
     it 'is invalid when start_date and end_date are nil and callback is skipped' do
@@ -26,14 +27,14 @@ RSpec.describe Calendar, type: :model do
 
   describe 'start_date and end_date' do
     it 'is invalid when end_date is before start_date' do
-      calendar = build(:calendar, start_date: Date.today, end_date: Date.yesterday)
+      calendar = build(:calendar, start_date: Time.zone.today, end_date: Date.yesterday)
       expect(calendar).not_to be_valid
       expect(calendar.errors[:end_date]).to include('deve ser posterior à data de início')
     end
 
     it 'is valid when end_date is after start_date' do
-      start_date = Date.today
-      end_date   = start_date + 1.day
+      start_date = Time.zone.today
+      end_date = start_date + 1.day
       calendar = build(:calendar, start_date: start_date, end_date: end_date)
       expect(calendar).to be_valid
     end
