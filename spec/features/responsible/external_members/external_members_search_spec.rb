@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExternalMember::search', :js do
   let(:responsible) { create(:responsible) }
-  let(:external_members) { create_list(:external_member, 25) }
+  let(:external_members) { create_list(:external_member, 10) }
 
   before do
     login_as(responsible, scope: :professor)

@@ -1,4 +1,4 @@
 <%= link_to responsible_orientation_path(orientation),
-            method: :delete, data: { confirm: t('prompt.confirm') }, class: 'destroy dropdown-item' do %>
+            data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') }, class: 'destroy dropdown-item' do %>
     <i class="dropdown-icon fe fe-trash"></i> Remover
 <% end %>

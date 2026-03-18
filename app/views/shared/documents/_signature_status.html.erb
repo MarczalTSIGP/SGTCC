@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "signature_status" do %>
+  <div data-controller="signature-status" class="card">
+    <div class="card-header">
+      <h3 class="card-title">Esse termo deve ser assinado pelos seguintes usuários:</h3>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+        <thead>
+          <tr>
+            <th>Usuário</th>
+            <th>Assinou</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% signatures.each do |signature| %>
+            <tr>
+              <td><%= signature[:name] %> - <%= signature[:role] %></td>
+              <td>
+                <% if signature[:status] %>
+                  <span class="badge badge-primary">sim</span>
+                <% else %>
+                  <span class="badge badge-secondary">não</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

@@ -9,9 +9,10 @@
       </div>
       <div class="rol-6">
         <div>
-          <orientation-status
-            status="<%= Orientation.statuses[@orientation.status] %>"
-            label="<%= @orientation.status %>" />
+          <%= render Orientations::StatusBadgeComponent.new(
+            status: @orientation.status,
+            label: @orientation.status
+          ) %>
         </div>
       </div>
     </div>

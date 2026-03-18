@@ -25,7 +25,7 @@ describe 'Document::show', :js do
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        expect(page).to have_selector("a[href='#{academics_documents_pending_path}'].active")
+        expect(page).to have_css("a[href='#{academics_documents_pending_path}'].active")
       end
     end
 
@@ -59,7 +59,7 @@ describe 'Document::show', :js do
                                signature[:date], signature[:time])
           )
         end
-        expect(page).to have_selector("a[href='#{academics_documents_signed_path}'].active")
+        expect(page).to have_css("a[href='#{academics_documents_signed_path}'].active")
       end
     end
 

@@ -30,7 +30,7 @@ describe 'Orientation::index' do
       end
 
       it 'shows active link for tcc one supervision' do
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
       it 'clicks on academic name and shows "Detalhes da orientação" link' do
@@ -75,7 +75,7 @@ describe 'Orientation::index' do
             href: professors_orientation_meetings_path(orientation)
           )
         else
-          expect(page).not_to have_link('Visualizar reuniões')
+          expect(page).to have_no_link('Visualizar reuniões')
         end
       end
 
@@ -89,7 +89,7 @@ describe 'Orientation::index' do
             href: edit_professors_orientation_path(orientation)
           )
         else
-          expect(page).not_to have_link('Editar')
+          expect(page).to have_no_link('Editar')
         end
       end
     end
@@ -108,7 +108,7 @@ describe 'Orientation::index' do
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
 
@@ -126,7 +126,7 @@ describe 'Orientation::index' do
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Activity::show' do
   let(:external_member) { create(:external_member) }
   let(:calendar)        { create(:current_calendar_tcc_one) }
-  let(:activity)        { calendar.activities.first }
+  let(:activity)        { create(:project_activity, calendar: calendar) }
   let(:orientation_one) { create(:orientation, calendar_ids: [calendar.id]) }
   let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 
@@ -34,7 +34,7 @@ describe 'Activity::show' do
 
             expect(page).to have_content(academic.name)
             expect(page).to have_content(sent_value)
-            expect(page).not_to have_link(sent_value)
+            expect(page).to have_no_link(sent_value)
           end
         end
 

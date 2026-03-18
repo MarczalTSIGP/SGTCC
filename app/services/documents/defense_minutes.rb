@@ -19,11 +19,11 @@ module Documents::DefenseMinutes
     create_signatures
   end
 
-  def add_evaluators(evaluators, user_type)
+  def add_evaluators(evs, user_type)
     examination_board = @document.examination_board
     return if examination_board.blank?
 
-    examination_board[:evaluators][evaluators.to_sym].each do |evaluator|
+    examination_board[:evs][evs.to_sym].each do |evaluator|
       @signature_users.push([evaluator[:id], user_type])
     end
   end

@@ -5,7 +5,7 @@ class DocumentType < ApplicationRecord
 
   validates :identifier, presence: true
 
-  enum identifier: {
+  enum :identifier, {
     tco: 'tco',
     tdo: 'tdo',
     tep: 'tep',

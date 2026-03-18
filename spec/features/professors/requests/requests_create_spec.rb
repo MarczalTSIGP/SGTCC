@@ -13,18 +13,29 @@ describe 'Request::create' do
   describe '#create' do
     before do
       create(:document_type_tdo)
-      create(:current_calendar_tcc_one)
+      Calendar.find_by(year: Calendar.current_year,
+                       semester: Calendar.current_semester,
+                       tcc: Calendar.tccs[:one]) ||
+        create(:current_calendar_tcc_one)
+      Calendar.find_by(year: Calendar.current_year,
+                       semester: Calendar.current_semester,
+                       tcc: Calendar.tccs[:two]) ||
+        create(:current_calendar_tcc_two)
+
       visit new_professors_request_path
     end
 
     context 'when request is valid', :js do
       it 'create a term of abandonment' do
-        selectize(orientation.academic_with_calendar, from: 'document_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'document_orientation_id')
         find('.fa-bold').click
-        submit_form('input[name="commit"]')
+
+        expect do
+          submit_form('input[name="commit"]')
+          expect(page).to have_flash(:success, text: message('create.f'), wait: 10)
+        end.to change(Document, :count).by(1)
 
         expect(page).to have_current_path professors_document_path(Document.last)
-        expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_content(orientation.title)
       end
     end

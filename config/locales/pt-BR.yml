@@ -1,4 +1,7 @@
 pt-BR:
+  date:
+    formats:
+      document: '%d de %B de %Y'
   time:
     deadline: "De %{initial_date} à %{final_date}"
     formats:
@@ -21,6 +24,10 @@ pt-BR:
       evaluated_status:
         one: "Faltam %{number} professor para avaliar."
         other: "Faltam %{number} professores para avaliarem."
+    registration:
+      edit_image: Clique na imagem para alterá-la
+      find_image: Selecionar imagem
+    search: Procurar...
   titles:
     show: "Visualizar"
     edit: "Editar"
@@ -48,7 +55,7 @@ pt-BR:
     labels:
       conceded: 'Deferido'
       dismissed: 'Indeferido'
-      selected: 
+      selected:
         f: 'Selecionada'
         m: 'Selecionado'
     login:
@@ -70,6 +77,11 @@ pt-BR:
         abandon: 'Desistir da orientação'
       signature:
         sign: 'Assinar documento'
+      models:
+        orientation:
+          cancel:
+            label: 'Cancelar orientação'
+            details: 'Esta ação irá cancelar a orientação.'
       defense_minutes:
         view: 'Visualizar Ata de Defesa'
       migrate: 'Migrar'
@@ -125,6 +137,9 @@ pt-BR:
     activities:
       one: "atividade"
       other: "atividades"
+    orientations:
+      one: "orientação"
+      other: "orientações"
   site:
     sign_in: "Acessar SGTCC"
     all_rights_reserved: "Todos os direitos reservados."
@@ -132,18 +147,26 @@ pt-BR:
       professors:
         effective: 'Professores efetivos'
         temporary: 'Professores temporários'
+        approved:
+          total:
+            one: 'Total de <b>1</b> TCC aprovado'
+            other: 'Total de <b>%{count}</b> TCCs aprovados'
+        in_tcc_one:
+          total:
+            one: 'Total de <b>1</b> TCC em andamento'
+            other: 'Total de <b>%{count}</b> TCCs em andamento'
         orientations:
           in_progress: 'Orientações em andamento'
           approved: 'Orientações concluídas'
           tcc_one: 'TCC 1'
           tcc_two: 'TCC 2'
-          total: 
+          total:
             one: 'Total de 1 orientação'
             other: 'Total de %{count} orientações'
         supervisions:
           in_progress: 'Coorientações em andamento'
           approved: 'Coorientações concluídas'
-          total: 
+          total:
             one: 'Total de 1 coorientação'
             other: 'Total de %{count} coorientações'
       examination_boards:
@@ -203,10 +226,13 @@ pt-BR:
       submissions:
         to_confirm: "Submissões de atividades que precisam da sua confirmação"
     documents:
+      id: "Documento #%{id}"
+      name: "Documentos"
       show: "Visualizar documento"
       reviewing: "Documentos para análise"
       pending: "Documentos para assinar"
       signed: "Documentos assinados"
+      sign: "Assinar"
       orientation: "Documentos da orientação"
       recent:
         pending: "Últimos documentos com assinaturas pendentes"
@@ -345,6 +371,8 @@ pt-BR:
           show: "Visualizar Coorientação de TCC 2 (%{calendar})"
   activerecord:
     errors:
+      messages:
+        after_start_date: "deve ser posterior à data de início"
       models:
         page:
           attributes:
@@ -447,7 +475,7 @@ pt-BR:
         hour: "Hora"
         available: "Disponível"
         final_version: "Versão final"
-        total: "Total"  
+        total: "Total"
       academic:
         ra: "RA"
         <<: *commons
@@ -475,7 +503,7 @@ pt-BR:
         judgment: "Parecer"
         <<: *commons
       activity:
-        sent: 
+        sent:
           one: "Enviada"
           other: "Enviadas"
         calendar: "Calendário"
@@ -520,6 +548,8 @@ pt-BR:
         semester: "Semestre"
         year: "Ano"
         year_semester: "Ano / Semestre"
+        start_date: "Data de início"
+        end_date: "Data final"
         <<: *commons
       orientation:
         calendars:
@@ -534,6 +564,17 @@ pt-BR:
         <<: *commons
       signature:
         document_type: "Tipo do documento"
+        user_types:
+          academic: "Acadêmico(a)"
+          advisor: "Orientador(a)"
+          new_advisor: "Novo(a) Orientador(a)"
+          coordinator: "Coordenador(a) do Curso"
+          professor_evaluator: "Avaliador(a)"
+          external_member_evaluator: "Avaliador(a)"
+          professor_supervisor: "Coorientador(a) da UTFPR"
+          professor_responsible: "Professor(a) responsável"
+          external_member_supervisor: "Coorientador(a) externo(a)"
+          responsible_institution: "Responsável de instituição"
         <<: *commons
       document:
         orientation_id: "Orientação"
@@ -623,8 +664,8 @@ pt-BR:
       not_appear: 'Não compareceu'
       under_evaluation: 'Sob avaliação'
     semesters:
-      first: '1º'
-      second: '2º'
+      one: "1"
+      two: "2"
     roles:
       responsible: 'Professor responsável'
       tcc1: 'Professor de TCC 1'
@@ -636,11 +677,11 @@ pt-BR:
         project: 'Projeto'
         monograph: 'Monografia'
     tcc_number:
-      one: 1
-      two: 2
+      one: "1"
+      two: "2"
     semester:
-      one: '1'
-      two: '2'
+      one: "1"
+      two: "2"
     orientation:
       status:
         RENEWED: 'renovada'
@@ -671,6 +712,9 @@ pt-BR:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
         bond: 'Não é possível remover %{resource_name} com vínculos!'
+      examination_boards:
+        confirm:
+          success: 'Banca confirmada com sucesso.'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
     not_authorized: 'Acesso não autorizado!'
     not_found_page: 'Página não encontrada!'
@@ -744,6 +788,9 @@ pt-BR:
     sign_in_with: "Entrar com"
     register: "Cadastrar"
   errors:
+    messages:
+      extension_allowlist_error: "Você não tem permissão para fazer o upload de arquivos %{extension}. Extensões permitidas: %{allowed_types}"
+      extension_whitelist_error: "Você não tem permissão para fazer o upload de arquivos %{extension}. Extensões permitidas: %{allowed_types}"
     page_not_found:
       label: "Página não encontrada!"
       message: "Essa página não foi encontrada..."
@@ -760,7 +807,12 @@ pt-BR:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
       multiple: 'Selecionar %{name}'
+      all:
+        m: 'Todos'
+        f: 'Todas'
   mailer:
+    welcome:
+      subject: 'Bem-vindo ao SGTCC'
     login: 'Acessar sistema'
     external_member:
       registration:
@@ -811,3 +863,12 @@ pt-BR:
       8 de outubro de 2015 .'
     code: 'A autenticidade deste documento pode ser conferida no site %{url} , informando o código
       verificador %{code}.'
+  supervisors:
+    one: "Coorientador"
+    other: "Coorientadores"
+    utfpr:
+      one: "Coorientador da UTFPR"
+      other: "Coorientadores da UTFPR"
+    external:
+      one: "Coorientador externo"
+      other: "Coorientadores externos"

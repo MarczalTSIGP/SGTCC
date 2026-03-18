@@ -1,0 +1,64 @@
+<% if tcc_report?(@orientations_report) %>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title font-weight-bold">
+        Orientações
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <% if tcc_one_report?(@orientations_report) %>
+          <div class="<%= card_responsive_class(@orientations_report) %>">
+            <div class="card">
+              <div class="card-body">
+                <% orientations_data = @orientations_report[:tcc_one] %>
+                <% series = [
+                  orientations_data[:in_progress] || 0,
+                  orientations_data[:approved] || 0,
+                  orientations_data[:canceled] || 0,
+                  orientations_data[:reproved] || 0
+                ] %>
+                <% labels = ['Em andamento', 'Aprovadas', 'Canceladas', 'Reprovadas'] %>
+                <% colors = ['#FFFF00', '#009900', '#FF9933', '#D9041A'] %>
+                <% links = orientations_data[:links] %>
+
+                <%= render Charts::PieComponent.new(
+                  series: series,
+                  title: 'Orientações de TCC 1 no Total',
+                  labels: labels,
+                  options: { colors: colors, links: links, width: '100%', height: 280 }
+                ) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% if tcc_two_report?(@orientations_report) %>
+          <div class="<%= card_responsive_class(@orientations_report) %>">
+            <div class="card">
+              <div class="card-body">
+                <% orientations_data = @orientations_report[:tcc_two] %>
+                <% series = [
+                  orientations_data[:in_progress] || 0,
+                  orientations_data[:approved] || 0,
+                  orientations_data[:canceled] || 0,
+                  orientations_data[:reproved] || 0
+                ] %>
+                <% labels = ['Em andamento', 'Aprovadas', 'Canceladas', 'Reprovadas'] %>
+                <% colors = ['#FFFF00', '#009900', '#FF9933', '#D9041A'] %>
+                <% links = orientations_data[:links] %>
+
+                <%= render Charts::PieComponent.new(
+                  series: series,
+                  title: 'Orientações de TCC 2 no Total',
+                  labels: labels,
+                  options: { colors: colors, links: links, width: '100%', height: 280 }
+                ) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

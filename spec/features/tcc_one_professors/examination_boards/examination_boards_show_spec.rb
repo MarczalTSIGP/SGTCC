@@ -39,12 +39,19 @@ describe 'ExaminationBoard::show' do
     end
 
     context 'when shows the academic activity' do
+      let!(:activity) do
+        create(:project_activity,
+               calendar: orientation.current_calendar,
+               final_version: false)
+      end
       let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
+      let!(:academic_activity) do
+        create(:academic_activity,
+               academic: academic,
+               activity: activity)
+      end
 
       before do
-        create(:project_academic_activity, academic:,
-                                           calendar: orientation.calendars.first)
         visit tcc_one_professors_examination_board_path(examination_board)
       end
 

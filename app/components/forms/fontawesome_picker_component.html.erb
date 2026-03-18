@@ -1,0 +1,38 @@
+<div class="form-group page_fa_icon" data-controller="forms--fontawesome-picker" data-forms--fontawesome-picker-icon-value="<%= icon %>">
+  <label for="<%= id %>" class="form-control-label url <%= 'required' if required %>">
+    <strong><%= label %></strong>
+  </label>
+
+  <input
+    id="<%= id %>"
+    type="text"
+    class="<%= input_class %>"
+    name="<%= name %>"
+    value="<%= icon %>"
+    data-forms--fontawesome-picker-target="input"
+    data-action="blur->forms--fontawesome-picker#blur focus->forms--fontawesome-picker#focus input->forms--fontawesome-picker#search"
+    autocomplete="off"
+  >
+
+  <div 
+    class="preview-container" 
+    data-forms--fontawesome-picker-target="previewContainer"
+    style="display: none;"
+  >
+    <div 
+      class="previewer rounded shadow-sm"
+      data-forms--fontawesome-picker-target="previewer"
+      data-action="click->forms--fontawesome-picker#clearSelection mouseover->forms--fontawesome-picker#hoverIn mouseout->forms--fontawesome-picker#hoverOut"
+    >
+    </div>
+  </div>
+
+  <% if errors? %>
+    <div class="invalid-feedback d-block">
+      <% errors.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

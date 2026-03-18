@@ -42,7 +42,7 @@ class Professors::MeetingsController < Professors::BaseController
       redirect_to professors_meetings_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -81,7 +81,7 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:date, :content, :orientation_id)
+    params.expect(meeting: [:date, :content, :orientation_id])
   end
 
   def can_update(action)

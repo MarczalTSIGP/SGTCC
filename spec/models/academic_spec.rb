@@ -104,7 +104,7 @@ RSpec.describe Academic do
 
     context 'when returns academics ordered by name' do
       it 'returns ordered' do
-        create_list(:academic, 30)
+        create_list(:academic, 10)
         academics_ordered = described_class.order(:name)
         academic = academics_ordered.first
         results_search = described_class.search.order(:name)

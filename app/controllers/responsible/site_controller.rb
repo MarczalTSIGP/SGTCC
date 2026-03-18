@@ -13,7 +13,7 @@ class Responsible::SiteController < Responsible::BaseController
       redirect_to edit_responsible_site_path(@site)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -24,6 +24,6 @@ class Responsible::SiteController < Responsible::BaseController
   end
 
   def site_params
-    params.require(:site).permit(:title)
+    params.expect(site: [:title])
   end
 end

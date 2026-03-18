@@ -25,8 +25,7 @@ describe 'Orientation::show' do
 
         expect_contents_of(orientation)
 
-        breadcrumb_text = I18n.t('breadcrumbs.orientations.history')
-        first("a[href='#{professors_orientations_history_path}']", text: breadcrumb_text).click
+        first("a[href='#{professors_orientations_history_path}']", text: 'Histórico').click
         expect(page).to have_current_path professors_orientations_history_path
       end
     end

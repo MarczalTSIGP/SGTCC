@@ -1,12 +1,18 @@
-<td class="text-center status-width">
-   <examination-board-status
-    status="<%= examination_board.status %>"
-    label="<%= examination_board.distance_of_date %>" />
+<td class="text-center status-width"
+    data-controller="examination-board-status"
+    data-examination-board-status-status-value="<%= examination_board.status %>"
+    data-examination-board-status-label-value="<%= examination_board.distance_of_date %>"
+>
+
+  <span data-examination-board-status-target="badge" class="badge badge-pill">
+    <span data-examination-board-status-target="text">-</span>
+  </span>
+
 </td>
 <td>
-  <span data-toggle="tooltip" title="<%= examination_board.orientation.title %>">
-      <%= link_to examination_board.orientation.academic_with_calendar, show_path %>
-   </span>
+  <span data-bs-toggle="tooltip" title="<%= examination_board.orientation.title %>">
+    <%= link_to examination_board.orientation.academic_with_calendar, show_path %>
+  </span>
 </td>
 <td><%= examination_board.place %></td>
 <td><%= datetime(examination_board.date) %></td>

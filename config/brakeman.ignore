@@ -50,8 +50,61 @@
       "user_input": "params[:id]",
       "confidence": "Weak",
       "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e9f9cee4505d8736de24488d803f3f0641f21686fd20c4a210f1f40b30945b2c",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/shared/documents/_component.html.erb",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => \"shared/documents/document_types/#{current_academic.documents.find_by(:id => params[:id]).document_type.identifier}\", { :locals => ({ :document => current_academic.documents.find_by(:id => params[:id]) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Academics::DocumentsController",
+          "method": "show",
+          "line": 26,
+          "file": "app/controllers/academics/documents_controller.rb",
+          "rendered": {
+            "name": "academics/documents/show",
+            "file": "app/views/academics/documents/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "academics/documents/show",
+          "line": 1,
+          "file": "app/views/academics/documents/show.html.erb",
+          "rendered": {
+            "name": "shared/documents/_show",
+            "file": "app/views/shared/documents/_show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "shared/documents/_show",
+          "line": 11,
+          "file": "app/views/shared/documents/_show.html.erb",
+          "rendered": {
+            "name": "shared/documents/_component",
+            "file": "app/views/shared/documents/_component.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "shared/documents/_component"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
     }
   ],
-  "updated": "2023-10-03 16:07:44 +0000",
-  "brakeman_version": "5.2.1"
+  "brakeman_version": "7.0.2"
 }

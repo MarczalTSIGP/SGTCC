@@ -22,7 +22,7 @@ class DocumentsController < ApplicationController
 
   def show
     @signature = @document.signatures.first
-    success_document_authenticated_message
+    @signatures = @document.mark
   end
 
   def data
@@ -34,10 +34,13 @@ class DocumentsController < ApplicationController
   end
 
   def confirm_document
-    content = { message: document_not_found_message, status: :not_found }
-    content = { message: document_authenticated_message } if @document&.all_signed?
-
-    render json: content
+    if @document&.all_signed?
+      flash[:sweet_success] = I18n.t('json.messages.documents.success.authenticated')
+      redirect_to confirm_document_code_path(@document.code)
+    else
+      flash[:sweet_error] = document_not_found_message
+      redirect_to document_path
+    end
   end
 
   def images
@@ -59,7 +62,7 @@ class DocumentsController < ApplicationController
   def can_show
     return if @document.present? && @document&.all_signed?
 
-    error_document_not_found_message
+    flash[:sweet_error] = document_not_found_message
     redirect_to document_path
   end
 end

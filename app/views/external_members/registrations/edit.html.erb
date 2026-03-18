@@ -4,7 +4,7 @@
 
 <%= simple_form_for(resource, as: resource_name,
                     url: send("external_member_registration_path"),
-                    html: { method: :put, multipart: true }) do |f| %>
+                    html: { method: :put, multipart: true, data: { turbo: false } }) do |f| %>
 
   <%= f.error_notification %>
 
@@ -27,12 +27,12 @@
       <div class="row">
         <div class="col-6">
           <%= f.association :scholarity,
-            prompt: t('prompt.select.f', name: ExternalMember.human_attribute_name('scholarity')) %>
+            input_html: { data: { controller: 'utils--slim-select' } } %>
         </div>
         <div class="col-6">
           <%= f.input :personal_page %>
         </div>
-     </div>
+      </div>
 
       <div class="row">
         <div class="col-6">
@@ -44,16 +44,14 @@
         <div class="col-6">
           <%= f.input :is_active, as: :checkbox_tabler %>
         </div>
-     </div>
+      </div>
+    </div>
 
-   </div>
-
-    <div class="col-sm-12 col-md-4">
-      <profile-image-preview
-        :resource="<%= resource_name.to_json %>"
-        :profile-image-url="<%= resource.profile_image.url.to_json %>"
-        :profile-image-errors="<%= resource.errors[:profile_image] %>">
-      </profile-image-preview>
+    <div class="col-sm-4">
+      <%= render 'shared/registrations/profile_image_preview',
+          resource_name: resource_name,
+          profile_image_url: resource.profile_image.url,
+          profile_image_errors: resource.errors[:profile_image] %>
       <%= f.hidden_field :profile_image_cache %>
     </div>
   </div>

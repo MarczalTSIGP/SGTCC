@@ -3,10 +3,10 @@
 
 <div class="row">
   <div class="col-12">
-    <search url="<%= academics_examination_boards_search_path %>" search-term="<%= params[:term] %>" />
+    <%= render 'shared/search',
+               url: academics_examination_boards_search_path,
+               search_term: params[:term] %>
   </div>
 </div>
 
-<%= render 'shared/examination_boards/table' %>
-
-<%= paginate @examination_boards %>
+<%= render ExaminationBoards::TableComponent.new(examination_boards: @examination_boards, namespace: :academics) %>

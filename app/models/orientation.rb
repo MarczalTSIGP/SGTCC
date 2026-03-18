@@ -11,11 +11,13 @@ class Orientation < ApplicationRecord
   include AcademicDocumentsInfo
   include UsersToDocument
 
+  attr_accessor :skip_documents_callbacks
+
   searchable :status, title: { unaccent: true }, relationships: {
     calendars: { fields: [:year] },
-    academic: { fields: [name: { unaccent: true }, ra: { unaccent: false }] },
-    institution: { fields: [name: { unaccent: true }, trade_name: { unaccent: true }] },
-    advisor: { table_name: 'professors', fields: [name: { unaccent: true }] }
+    academic: { fields: [{ name: { unaccent: true }, ra: { unaccent: false } }] },
+    institution: { fields: [{ name: { unaccent: true }, trade_name: { unaccent: true } }] },
+    advisor: { table_name: 'professors', fields: [{ name: { unaccent: true } }] }
   }
 
   belongs_to :academic
@@ -45,7 +47,7 @@ class Orientation < ApplicationRecord
                                          dependent: :destroy
 
   validates :title, presence: true
-  validate :validates_supervisor_ids
+  validate :validate_supervisor_ids
   validates :calendars, presence: true
 
   scope :tcc_one, lambda { |status, year = nil, semester = nil|
@@ -117,9 +119,7 @@ class Orientation < ApplicationRecord
   end
 
   def current_calendar
-    calendars.order(
-      year: :asc, semester: :asc, tcc: :asc
-    ).last
+    calendars.order(year: :desc, semester: :desc, tcc: :desc).first
   end
 
   def self.last_tcc_one_calendars
@@ -198,6 +198,32 @@ class Orientation < ApplicationRecord
     proposal(final_version: true)
   end
 
+  def orientation_type
+    case status
+    when 'aprovada'
+      :approved if final_monograph.present?
+    when 'Aprovada em TCC 1'
+      :tcc_one if final_project.present?
+    when 'em andamento'
+      :in_tcc_one if final_proposal.present?
+    else
+      :unknown
+    end
+  end
+
+  def summary
+    {
+      approved: final_monograph,
+      tcc_one: final_project,
+      in_tcc_one: final_proposal
+    }.fetch(orientation_type, nil)&.summary.to_s
+  end
+
+  def approved_date(identifier = :monograph)
+    exam_board = examination_boards.find_by(identifier: identifier, situation: :approved)
+    exam_board&.date
+  end
+
   private
 
   def can_be_migrated?
@@ -218,8 +244,6 @@ class Orientation < ApplicationRecord
                        .order('calendars.year DESC, calendars.semester DESC')
                        .try(:first)
   end
-  # END Acadmic activities documents CONTEXT
-  #-------------------------------
 
   public
 

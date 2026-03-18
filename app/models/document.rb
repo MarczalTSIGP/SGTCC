@@ -24,6 +24,8 @@ class Document < ApplicationRecord
                :create_signatures,
                :save_to_json
 
+  after_commit :trigger_create_notification, on: :create
+
   def orientation
     signatures.first.orientation
   end
@@ -44,6 +46,11 @@ class Document < ApplicationRecord
 
   # rubocop:disable Rails/SkipsModelValidations
   def save_judgment(user, params)
+    if params[:accept].blank? || params[:justification].blank?
+      errors.add(:base, I18n.t('json.messages.empty_fields'))
+      return false
+    end
+
     json_judgment = { responsible: { id: user.id,
                                      accept: params[:accept],
                                      justification: params[:justification] } }
@@ -54,7 +61,11 @@ class Document < ApplicationRecord
   def update_requester_justification(params)
     new_request = request
     justification = params[:justification]
-    return true if justification.blank?
+
+    if justification.blank?
+      errors.add(:justification, I18n.t('errors.messages.blank'))
+      return false
+    end
 
     new_request['requester']['justification'] = justification
     update_attribute(:request, new_request)
@@ -124,5 +135,9 @@ class Document < ApplicationRecord
 
   def generate_unique_code
     update(code: Time.now.to_i + id)
+  end
+
+  def trigger_create_notification
+    Notifications::Hooks::Documents.document_created(self)
   end
 end

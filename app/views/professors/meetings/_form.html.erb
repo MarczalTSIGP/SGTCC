@@ -3,7 +3,7 @@
     <div class="col-sm-6">
       <%= f.association :orientation,
         label: Academic.model_name.human,
-        input_html: { data: 'selectize' },
+        input_html: { data: { controller: 'utils--slim-select' } },
         collection: current_professor.orientations_to_form,
         label_method: :second,
         value_method: :first,
@@ -11,17 +11,20 @@
     </div>
 
     <div class="col-sm-6">
-      <datetimepicker
-        name="meeting[date]"
-        id="meeting_date"
-        label="<%= Meeting.human_attribute_name('date') %>"
-        datetime="<%= @meeting.date %>" />
+      <%= render Forms::DatetimepickerComponent.new(
+        name: "meeting[date]",
+        id: "meeting_date",
+        label: Meeting.human_attribute_name('date'),
+        datetime: @meeting.date,
+        errors: @meeting.errors[:date]
+      ) %>
     </div>
   </div>
 
   <%= f.input :content,
     input_html: {
       class: 'markdown-editor',
+      data: { controller: 'markdown--editor' },
       value: @meeting.content.present? ? @meeting.content : t('placeholders.meetings.content') } %>
 
   <div class="d-flex">

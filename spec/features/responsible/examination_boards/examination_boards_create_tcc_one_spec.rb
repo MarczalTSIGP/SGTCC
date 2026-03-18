@@ -18,21 +18,32 @@ describe 'ExaminationBoard::create', :js do
 
     context 'when examination_board tcc one is valid' do
       it 'does not show "Monografia" in the identifier input' do
-        expect(page).not_to have_content('Monografia')
+        expect(page).to have_no_content('Monografia')
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        find_by_id('examination_board_orientation_id-selectized').click
+        select_element = find('select#examination_board_orientation_id', visible: :all)
+        parent_element = select_element.find(:xpath, './..')
 
-        all('.selectize-dropdown-content .option').each do |option|
+        within(parent_element) do
+          button = find("[data-id^='ss-']", wait: 5)
+          button.click
+        end
+
+        dropdown = find('div.ss-content', visible: true, wait: 5)
+        options = dropdown.all("div[role='option']", wait: 5)
+
+        options.each do |option|
           expect(option.text).not_to match(/TCC: 2/i)
         end
+
+        page.execute_script("document.querySelectorAll('.ss-content').forEach(el => el.remove())")
       end
 
       it 'create an examination_board tcc one' do
         attributes = attributes_for(:examination_board_tcc_one)
         click_on_label('Projeto', in: 'examination_board_identifier')
-        selectize(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
+        slim_select(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 

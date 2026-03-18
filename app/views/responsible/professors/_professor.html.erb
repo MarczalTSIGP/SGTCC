@@ -3,7 +3,7 @@
   <td><%= professor.email %></td>
   <td>
     <%= link_to professor.lattes, target: '_blank' do %>
-      <%= icon('fas', 'external-link-alt', 'data-toggle' => 'tooltip', title: 'lattes') %>
+      <i class="fas fa-external-link-alt" data-controller="ui--tooltip" title="lattes"></i>
     <% end %>
   </td>
   <td><%= short_date(professor.created_at) %></td>

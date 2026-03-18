@@ -16,11 +16,17 @@ describe 'Document::sign', :js do
         click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        fill_in 'login_confirmation', with: academic.ra, visible: false
-        fill_in 'password_confirmation', with: 'password'
-        click_button(sign_button, id: 'login_confirmation_button')
+        within('form') do
+          fill_in(:user_username, with: academic.ra)
+          fill_in(:user_password, with: 'password')
+          click_button('Assinar', exact_text: true)
+        end
 
-        expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
+        expect(page).to have_css('.swal-modal')
+        expect(find('.swal-modal')).to have_content(signature_signed_success_message)
+
+        find('.swal-button--confirm').click
+
         academic_signature.reload
         date = I18n.l(academic_signature.updated_at, format: :short)
         time = I18n.l(academic_signature.updated_at, format: :time)
@@ -35,11 +41,14 @@ describe 'Document::sign', :js do
         click_button(signature_button, id: 'signature_button')
         expect(page).to have_content('Entre com seu RA e senha para assinar o documento.')
 
-        fill_in 'login_confirmation', with: academic.ra, visible: false
-        fill_in 'password_confirmation', with: '123'
-        click_button(sign_button, id: 'login_confirmation_button')
+        within('form') do
+          fill_in(:user_username, with: academic.ra)
+          fill_in(:user_password, with: 'wrongpassword')
+          click_button('Assinar', exact_text: true)
+        end
 
-        expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
+        expect(page).to have_css('.swal-modal')
+        expect(find('.swal-modal')).to have_content(signature_login_alert_message)
       end
     end
   end

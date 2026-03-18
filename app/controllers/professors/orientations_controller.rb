@@ -56,7 +56,7 @@ class Professors::OrientationsController < Professors::BaseController
       redirect_to professors_orientations_tcc_one_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -66,7 +66,7 @@ class Professors::OrientationsController < Professors::BaseController
       redirect_to professors_orientation_path(@orientation)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -97,9 +97,9 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def orientation_params
-    params.require(:orientation)
-          .permit(:title, :academic_id, :advisor_id, :institution_id,
-                  professor_supervisor_ids: [], external_member_supervisor_ids: [])
+    params
+      .expect(orientation: [:title, :academic_id, :advisor_id, :institution_id,
+                            { professor_supervisor_ids: [], external_member_supervisor_ids: [] }])
   end
 
   def add_index_breadcrumb

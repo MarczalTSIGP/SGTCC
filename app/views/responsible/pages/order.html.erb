@@ -1,5 +1,6 @@
 <% provide(:page_title, t('breadcrumbs.pages.order')) %>
 <% provide(:head_title, t('breadcrumbs.pages.order')) %>
 
-<sidebar-draggable
-  update-sidebar-url="<%= responsible_update_sidebar_path %>" />
+<%= render Pages::OrderListComponent.new(
+  update_sidebar_url: responsible_update_sidebar_path
+) %>

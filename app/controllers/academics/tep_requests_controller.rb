@@ -30,14 +30,17 @@ class Academics::TepRequestsController < Academics::BaseController
       feminine_success_create_message
       redirect_to academics_document_path(@document)
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
   def update
-    @document.update_requester_justification(request_params)
-    feminine_success_update_message
-    redirect_to academics_document_path(@document)
+    if @document.update_requester_justification(request_params)
+      feminine_success_update_message
+      redirect_to academics_document_path(@document)
+    else
+      render :edit, status: :unprocessable_content
+    end
   end
 
   def destroy
@@ -58,7 +61,7 @@ class Academics::TepRequestsController < Academics::BaseController
   end
 
   def request_params
-    params.require(:document).permit(:justification)
+    params.expect(document: [:justification])
   end
 
   def can_change

@@ -20,7 +20,7 @@ describe 'Activity::index', :js do
         expect(page).to have_contents([activity.base_activity_type.name,
                                        I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
       it 'shows all activities for tcc two with options' do
@@ -35,7 +35,7 @@ describe 'Activity::index', :js do
         expect(page).to have_contents([activity.base_activity_type.name,
                                        I18n.t("enums.tcc.#{activity.tcc}"),
                                        activity.deadline])
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
 
@@ -46,7 +46,9 @@ describe 'Activity::index', :js do
         activity = create(:activity_tcc_one, calendar: second_calendar)
 
         visit responsible_calendar_activities_path(calendar)
-        selectize(second_calendar.year_with_semester, from: 'activity_calendar')
+
+        slim_select(second_calendar.year_with_semester, from: 'activity_calendar')
+        sleep 0.5
 
         expect(page).to have_contents([activity.name,
                                        activity.base_activity_type.name,

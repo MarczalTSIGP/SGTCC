@@ -1,0 +1,27 @@
+@import url("/tabler/tabler.css");
+
+@font-face {
+    font-family: "feather";
+    src: url("/feather/feather-webfont.eot");
+    src: url("/feather/feather-webfont.woff") format("woff"),
+    url("/feather/feather-webfont.ttf") format("truetype"),
+    url("/feather/feather-webfont.svg#feather") format("svg");
+}
+
+.dropdown-menu {
+    position: absolute !important;
+    transform: translate3d(35px, 32px, 0px) !important;
+    top: 0px !important;
+    left: 0px !important;
+    will-change: transform !important;
+    margin-top: .75rem !important;
+}
+
+.custom-dropdown-menu {
+    position: absolute !important;
+    transform: translate3d(-61px, 38px, 0px) !important;
+    top: 0px !important;
+    left: 0px !important;
+    will-change: transform !important;
+    margin-top: .75rem !important;
+}

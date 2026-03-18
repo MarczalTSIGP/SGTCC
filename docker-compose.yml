@@ -1,7 +1,7 @@
 x-app: &app
   build:
     context: .
-    dockerfile: Dockerfile
+    dockerfile: Dockerfile.development
   volumes:
     - .:/var/www/sgtcc
     - bundle_path:/bundle
@@ -19,16 +19,26 @@ services:
     <<: *app
     command: >
       bash -c "
-        rm -f tmp/pids/server.pid &&
+        sudo rm -f tmp/pids/server.pid &&
         bundle exec rails s -p 3000 -b '0.0.0.0'
         " # Removing server.pid is technically a cleanup script
     ports:
       - 3000:3000
     environment:
       RAILS_ENV: development
+      MAILER_DELIVERY_METHOD: 'letter_opener' # smtp
+      LAUNCHY_DRY_RUN: 'true'
+      BROWSER: '/dev/null'
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      APP_HOST: "localhost:3000"
+      LDAP_ON: 'false'
+      LDAP_BY: 'moodle'
+      LDAP_HOST: 'localhost'
+      LDAP_PORT: '3389'
+      LDAP_BASE: ''
 
   db:
-    image: postgres
+    image: postgres:17.5
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -50,6 +60,16 @@ services:
       TEST_APP_HOST: tests
       # https://github.com/DatabaseCleaner/database_cleaner#safeguards
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
+      MAILER_DELIVERY_METHOD: 'letter_opener'
+      LAUNCHY_DRY_RUN: 'true'
+      BROWSER: '/dev/null'
+      MAILER_FROM: "Prof. Responsável pelo TCC <tcc-tsi-gp@utfpr.edu.br>"
+      APP_HOST: "localhost:3000"
+      LDAP_ON: 'false'
+      LDAP_BY: 'moodle'
+      LDAP_HOST: 'localhost'
+      LDAP_PORT: '3389'
+      LDAP_BASE: ''
     shm_size: "2gb" #set shared memory
     depends_on:
       - db
@@ -65,6 +85,23 @@ services:
       - 5900:5900
     networks:
       - app-network
+
+  eslint:
+    build:
+      context: .
+      dockerfile: Dockerfile.eslint
+    volumes:
+      - ./eslint.config.js:/eslint/eslint.config.js:ro
+      - ./app/javascript:/app/javascript
+
+  workers:
+    <<: *app
+    command: >
+      bash -c "
+        bundle exec bin/jobs
+        "
+    environment:
+      RAILS_ENV: development
 
 volumes:
   pgdata:

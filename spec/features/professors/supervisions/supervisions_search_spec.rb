@@ -13,7 +13,7 @@ describe 'Supervision::search' do
   describe '#search', :js do
     context 'when finds the supervision' do
       it 'finds the supervision by status' do
-        selectize(orientation_approved_option, from: 'orientation_status')
+        slim_select(orientation_approved_option, from: 'orientation_status')
 
         expect(page).to have_content(orientation.short_title)
         expect(page).to have_content(orientation.advisor.name)

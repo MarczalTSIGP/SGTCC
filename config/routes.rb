@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
   %w[404 422 500].each do |code|
     get code, to: 'errors#show', code:, as: "error_#{code}"
   end
@@ -74,8 +76,8 @@ Rails.application.routes.draw do
                 except: :index,
                 constraints: { id: /[0-9]+/ },
                 concerns: :paginatable do
-                  resources :activities
-                end
+        resources :activities
+      end
 
       resources :examination_boards,
                 except: [:new, :create],
@@ -131,6 +133,10 @@ Rails.application.routes.draw do
       post 'examination_boards/tcc_two',
            to: 'examination_boards#create_to_tcc_two',
            as: 'examination_boards_create_tcc_two'
+
+      patch 'examination_boards/(:id)/confirm',
+            to: 'examination_boards#confirm',
+            as: 'examination_boards_confirm'
 
       post 'calendars/activities/by-calendar',
            to: 'activities#index_by_calendar',
@@ -379,7 +385,10 @@ Rails.application.routes.draw do
       get 'orientations/history', to: 'orientations#history', as: 'orientations_history'
       get 'supervisions/history', to: 'supervisions#history', as: 'supervisions_history'
 
+      # post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
+
       get 'documents/reviewing', to: 'documents#reviewing', as: 'documents_reviewing'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
@@ -645,6 +654,7 @@ Rails.application.routes.draw do
             to: 'meetings#update_viewed',
             as: 'meeting_update_viewed'
 
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'
@@ -727,6 +737,7 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
+      get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
       get 'documents/pending', to: 'documents#pending', as: 'documents_pending'
       get 'documents/signed', to: 'documents#signed', as: 'documents_signed'

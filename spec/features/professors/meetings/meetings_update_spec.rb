@@ -21,7 +21,7 @@ describe 'Meeting::update', :js do
       end
 
       it 'updates the meeting' do
-        selectize(new_orientation.academic_with_calendar, from: 'meeting_orientation_id')
+        slim_select(new_orientation.academic_with_calendar, from: 'meeting_orientation_id')
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path professors_meeting_path(meeting)

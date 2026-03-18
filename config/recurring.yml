@@ -1,0 +1,9 @@
+notifications_scheduler_poller:
+  class: Notifications::SchedulerPollerJob
+  schedule: every 15 minutes
+  queue: notifications
+
+notifications_daily_deadline:
+  class: Notifications::DailyDeadlineJob
+  schedule: at 06:00
+  queue: notifications

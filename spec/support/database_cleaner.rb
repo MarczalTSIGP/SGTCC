@@ -15,11 +15,13 @@ RSpec.configure do |config|
       MSG
     end
 
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner[:active_record].clean_with(:truncation)
+    DatabaseCleaner[:active_record, db: :queue].clean_with(:truncation)
   end
 
   config.before do
     DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
   end
 
   config.before(:each, type: :feature) do
@@ -32,14 +34,17 @@ RSpec.configure do |config|
       # under test that does *not* share a database connection with the
       # specs, so use truncation strategy.
       DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
     end
   end
 
   config.before do
     DatabaseCleaner.start
+    DatabaseCleaner[:active_record, db: :queue].start
   end
 
   config.append_after do
     DatabaseCleaner.clean
+    DatabaseCleaner[:active_record, db: :queue].clean
   end
 end

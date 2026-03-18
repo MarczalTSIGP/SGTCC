@@ -13,7 +13,7 @@ describe 'Orientation::index', :js do
         orientation = create(:orientation_tcc_two_approved)
         visit index_url
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
 
         within("#orientation_#{orientation.id}") do
           expect(page).to have_content(orientation.document_title)
@@ -29,7 +29,7 @@ describe 'Orientation::index', :js do
         orientation = create(:orientation_tcc_two_approved_no_complementary_files)
         visit index_url
 
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
 
         within("#orientation_#{orientation.id}") do
           expect(page).to have_content(orientation.document_title)
@@ -37,7 +37,7 @@ describe 'Orientation::index', :js do
           expect(page).to have_content(orientation.academic.name)
 
           expect(page).to have_selector(link(orientation.final_monograph.pdf.url))
-          expect(page).not_to have_css('a', text: 'Arquivos complementares')
+          expect(page).to have_no_css('a', text: 'Arquivos complementares')
         end
       end
     end

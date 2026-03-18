@@ -34,7 +34,7 @@ class Responsible::ImagesController < Responsible::BaseController
       redirect_to responsible_images_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -44,7 +44,7 @@ class Responsible::ImagesController < Responsible::BaseController
       redirect_to responsible_images_path
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -62,6 +62,6 @@ class Responsible::ImagesController < Responsible::BaseController
   end
 
   def image_params
-    params.require(:image).permit(:name, :url, :url_cache)
+    params.expect(image: [:name, :url, :url_cache])
   end
 end

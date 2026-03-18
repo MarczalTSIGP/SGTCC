@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@examination_board) do %>
+  <%= render partial: 'responsible/examination_boards/examination_board',
+             locals: { examination_board: @examination_board } %>
+<% end %>
+  

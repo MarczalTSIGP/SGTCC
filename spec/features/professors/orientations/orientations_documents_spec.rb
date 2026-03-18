@@ -23,7 +23,7 @@ describe 'Orientation::documents', :js do
           expect(page).to have_contents([document.orientation.academic.name,
                                          document.document_type.identifier.upcase])
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
@@ -32,7 +32,7 @@ describe 'Orientation::documents', :js do
       let(:active_link) { professors_orientations_tcc_one_path }
 
       before do
-        visit professors_orientation_document_path(orientation, document)
+        visit professors_document_path(document)
       end
 
       it 'shows the document' do
@@ -47,8 +47,11 @@ describe 'Orientation::documents', :js do
         orientation.supervisors do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
+      end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+      it 'renders the document page with print and back actions' do
+        expect(page).to have_content('Salvar documento em PDF')
+        expect(page).to have_button('Salvar em PDF')
       end
     end
   end

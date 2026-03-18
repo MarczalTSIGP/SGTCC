@@ -18,8 +18,9 @@ describe 'ExaminationBoardNote::create', :js do
       it 'create an note' do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
         submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path external_members_examination_board_path(examination_board)
@@ -40,8 +41,9 @@ describe 'ExaminationBoardNote::create', :js do
       it 'redirect to the examination board page' do
         attributes = attributes_for(:examination_board_note)
         fill_in 'examination_board_note_note', with: attributes[:note]
-        page.execute_script("$('.custom-file-input').css('opacity', '1')")
-        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path
+
+        attach_file 'examination_board_note_appointment_file', FileSpecHelper.pdf.path,
+                    make_visible: true
         submit_form('input[id="examination_board_note_button"]')
 
         expect(page).to have_current_path external_members_examination_board_path(examination_board)

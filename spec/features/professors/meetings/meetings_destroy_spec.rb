@@ -17,7 +17,7 @@ describe 'Meeting::destroy', :js do
         click_on_destroy_link(professors_meeting_path(meeting))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_content(meeting.orientation.academic_with_calendar)
+        expect(page).to have_no_content(meeting.orientation.academic_with_calendar)
       end
     end
 

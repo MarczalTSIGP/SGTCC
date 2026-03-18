@@ -1,0 +1,39 @@
+@media print {
+    @page {
+        size: A4 portrait; /* shorthand: same as 8.27in × 11.69in */
+        margin: 0 1cm;
+    }
+
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Hide everything by default */
+    body * {
+        visibility: hidden !important;
+    }
+
+    /* Show only printable area */
+    #printable-document,
+    #printable-document * {
+        visibility: visible !important;
+    }
+
+    /* Fill the page */
+    #printable-document {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; /* ensures it doesn't extend */
+    }
+
+    /* Optional: exact color */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

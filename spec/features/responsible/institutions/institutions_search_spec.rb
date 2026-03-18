@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Institution::search', :js do
   let(:responsible) { create(:responsible) }
-  let(:institutions) { create_list(:institution, 25) }
+  let(:institutions) { create_list(:institution, 10) }
 
   before do
     login_as(responsible, scope: :professor)

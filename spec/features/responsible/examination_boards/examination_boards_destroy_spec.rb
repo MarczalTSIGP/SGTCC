@@ -6,8 +6,13 @@ describe 'ExaminationBoard::destroy', :js do
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
-    create(:current_calendar_tcc_one)
-    create(:current_calendar_tcc_two)
+    Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
+                     tcc: Calendar.tccs[:one]) ||
+      create(:current_calendar_tcc_one)
+
+    Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
+                     tcc: Calendar.tccs[:two]) ||
+      create(:current_calendar_tcc_two)
 
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path
@@ -19,7 +24,7 @@ describe 'ExaminationBoard::destroy', :js do
         click_on_destroy_link(responsible_examination_board_path(examination_board))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).not_to have_content(examination_board.orientation.academic_with_calendar)
+        expect(page).to have_no_content(examination_board.orientation.academic_with_calendar)
       end
     end
 

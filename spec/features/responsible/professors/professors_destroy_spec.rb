@@ -16,7 +16,7 @@ describe 'Professor::destroy', :js do
         click_on_destroy_link(responsible_professor_path(professor))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).not_to have_content(professor.name)
+        expect(page).to have_no_content(professor.name)
       end
     end
   end

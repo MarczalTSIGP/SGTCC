@@ -17,11 +17,11 @@ describe 'Activity::create', :js do
         attributes = attributes_for(:activity)
         fill_in 'activity_name', with: attributes[:name]
         click_on_label(Activity.human_tcc_one_identifiers.first[0], in: 'activity_identifier')
-        selectize(base_activity_types.first.name, from: 'activity_base_activity_type_id')
+        slim_select(base_activity_types.first.name, from: 'activity_base_activity_type_id')
 
-        expect(page).not_to have_field('activity_identifier')
-        expect(page).not_to have_field('activity_judgment')
-        expect(page).not_to have_field('activity_final_version')
+        expect(page).to have_no_field('activity_identifier')
+        expect(page).to have_no_field('activity_judgment')
+        expect(page).to have_no_field('activity_final_version')
 
         submit_form('input[name="commit"]')
         expect(page).to have_current_path responsible_calendar_activities_path(calendar)

@@ -32,7 +32,7 @@ describe 'Supervision::index' do
     end
 
     it 'displays active link' do
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
 
     it 'has links for details, activities, and documents' do
@@ -72,7 +72,7 @@ describe 'Supervision::index' do
         expect(page).to have_content(calendar.year_with_semester_and_tcc)
       end
 
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
   end
 end

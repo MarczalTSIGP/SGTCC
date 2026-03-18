@@ -9,7 +9,7 @@ class ExaminationBoard < ApplicationRecord
   include Tcc
 
   searchable place: { unaccent: true }, relationships: {
-    orientation: { fields: [title: { unaccent: true }] }
+    orientation: { fields: [{ title: { unaccent: true } }] }
   }
 
   belongs_to :orientation
@@ -34,10 +34,44 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
   scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
 
-  scope :tcc_one_current_semester, -> { tcc_one.where('date >= ?', Calendar.start_date) }
-  scope :tcc_two_current_semester, -> { tcc_two.where('date >= ?', Calendar.start_date) }
+  scope :tcc_one_current_semester, lambda {
+    tcc_value = Calendar.tccs[:one]
+    current = Calendar.current_by_tcc_one ||
+              Calendar.where(tcc: tcc_value)
+                      .order(year: :desc, end_date: :desc)
+                      .first
 
-  scope :current_semester, -> { where('date >= ?', Calendar.start_date) }
+    return none if current.blank?
+
+    joins(orientation: :calendars)
+      .where(calendars: { id: current.id })
+      .where(tcc: tcc_value)
+      .distinct
+  }
+
+  scope :tcc_two_current_semester, lambda {
+    tcc_value = Calendar.tccs[:two]
+
+    current = Calendar.current_by_tcc_two ||
+              Calendar.where(tcc: tcc_value)
+                      .order(year: :desc, end_date: :desc)
+                      .first
+
+    return none if current.blank?
+
+    joins(orientation: :calendars)
+      .where(calendars: { id: current.id })
+      .where(tcc: tcc_value)
+      .distinct
+  }
+
+  scope :current_semester, lambda {
+    current_calendar = Calendar.order(year: :desc, semester: :desc).first
+    return none unless current_calendar
+
+    where(date: current_calendar.start_date..current_calendar.end_date)
+  }
+
   scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {
@@ -50,12 +84,51 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
+  after_commit :trigger_create_notifications, on: :create
+
   def self.cs_asc_from_now_desc_ago
-    ebs_from_now = where('date >= ?', 1.hour.from_now).order(date: :asc)
-    ebs_ago = where('date >= ? AND date < ?', Calendar.start_date,
-                    1.hour.from_now).order(date: :desc)
-    ebs_from_now.site_with_relationships + ebs_ago.site_with_relationships
+    current_calendar = current_calendar_for_site
+    return none unless current_calendar
+
+    upcoming_from_now(current_calendar) + past_until_now(current_calendar)
   end
+
+  def self.current_calendar_for_site
+    Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
+      Calendar.order(year: :desc, semester: :desc).first
+  end
+
+  private_class_method :current_calendar_for_site
+
+  def self.base_scope_for_calendar(current_calendar)
+    period = current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day
+
+    joins(orientation: :calendars)
+      .where(calendars: { id: current_calendar.id })
+      .where(date: period)
+  end
+
+  private_class_method :base_scope_for_calendar
+
+  def self.upcoming_from_now(current_calendar)
+    base_scope_for_calendar(current_calendar)
+      .where(date: Time.current..)
+      .order(date: :asc)
+      .site_with_relationships
+      .to_a
+  end
+
+  private_class_method :upcoming_from_now
+
+  def self.past_until_now(current_calendar)
+    base_scope_for_calendar(current_calendar)
+      .where(date: current_calendar.start_date.beginning_of_day...Time.current)
+      .order(date: :desc)
+      .site_with_relationships
+      .to_a
+  end
+
+  private_class_method :past_until_now
 
   def status
     current_date = Date.current.to_s
@@ -90,7 +163,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def examination_board_data
-    { id:, evaluators: evaluators_object, document_title: academic_document_title,
+    { id:, evs: evaluators_object, document_title: academic_document_title,
       date: I18n.l(date, format: :document), time: I18n.l(date, format: :time),
       situation: situation_translated }
   end
@@ -144,5 +217,16 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  def confirm!
+    update(confirmed: true)
+    Notifications::Hooks::ExaminationBoard.confirmed_examination_board(self)
+  end
+
+  private
+
+  def trigger_create_notifications
+    Notifications::Hooks::ExaminationBoard.atendees_examination_board_assigned(self)
   end
 end

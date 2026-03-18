@@ -17,8 +17,12 @@
 !/log/.keep
 !/tmp/.keep
 
-# Ignore uploaded files in development
+# Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 /node_modules
 /yarn-error.log
@@ -53,3 +57,11 @@ reload.sh
 .vscode/
 
 .idea/
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+

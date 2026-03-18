@@ -7,7 +7,7 @@
     collection: current_professor.orientations_to_form,
     selected: @document.orientation.id,
     class: 'form-control',
-    input_html: { data: 'selectize' },
+    input_html: { data: { controller: 'utils--slim-select' } },
     label_method: :second,
     value_method: :first,
     prompt: t('prompt.select.f', name: Orientation.model_name.human) %>
@@ -16,6 +16,7 @@
     as: :text,
     input_html: {
       rows: '8',
+      data: { controller: 'markdown--editor' },
       class: 'markdown-editor',
       value: @document.request['requester']['justification']
     } %>

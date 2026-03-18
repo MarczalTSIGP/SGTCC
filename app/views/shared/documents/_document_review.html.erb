@@ -1,0 +1,48 @@
+<% request = document.request || {} %>
+<% has_judgment = request["judgment"].present? %>
+
+<%= turbo_frame_tag "document_review_#{document.id}" do %>
+  <% if has_judgment %>
+    <%# Parecer existente %>
+    <input type="checkbox" id="edit_judgment_<%= document.id %>" class="d-none" />
+    
+    <div id="judgment_view_<%= document.id %>">
+      <p>
+        <b>Solicitação:</b>
+        <%= request.dig("judgment", "responsible", "accept") == "true" ? "Deferido" : "Indeferido" %>
+        <% if has_permission && can_edit %>
+          <label for="edit_judgment_<%= document.id %>" class="btn btn-outline-primary btn-sm" style="cursor: pointer; margin: 0;">
+            Editar
+          </label>
+        <% end %>
+      </p>
+
+      <p><b>Parecer:</b></p>
+      <div data-controller="markdown--viewer" data-markdown="<%= request.dig('judgment', 'responsible', 'justification') %>"></div>
+    </div>
+
+    <div id="judgment_form_<%= document.id %>">
+      <%= render "shared/documents/document_judgment",
+                 document_id: document.id,
+                 accept_value: request.dig("judgment", "responsible", "accept"),
+                 justification_value: request.dig("judgment", "responsible", "justification") %>
+    </div>
+
+    <style>
+      #edit_judgment_<%= document.id %>:not(:checked) ~ #judgment_form_<%= document.id %> { display: none; }
+      #edit_judgment_<%= document.id %>:checked ~ #judgment_view_<%= document.id %> { display: none; }
+    </style>
+
+  <% elsif has_permission %>
+    <%# Formulário para criar novo parecer %>
+    <%= render "shared/documents/document_judgment",
+               document_id: document.id,
+               accept_value: nil,
+               justification_value: nil %>
+  <% else %>
+    <p>
+      <b>Solicitação:</b>
+      Em análise pelo professor responsável do TCC
+    </p>
+  <% end %>
+<% end %>

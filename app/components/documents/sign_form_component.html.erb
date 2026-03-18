@@ -1,0 +1,25 @@
+<div class="col col-login mx-auto mb-3">
+
+  <div class="card-body p-6 border border-secondary rounded">
+    <div class="card-title">
+      <h5 class="text-center">
+        Entre com seu
+        <%= @username %> e senha para assinar o documento.
+      </h5>
+    </div>
+
+    <%= simple_form_for :user, url: @confirm_url, html: { id: :sign_form_id } do |f| %>
+      <div class="form-inputs">
+        <%= f.input :username, label: @username %>
+        <%= f.input :password, as: :password %>
+      </div>
+
+      <div class="d-flex flex-column gap-4">
+        <%= link_to t('simple_form.buttons.cancel'), @back_url,
+                    class: 'btn btn-secondary mb-2' %>
+
+        <%= f.button :submit, t('views.buttons.sign'), class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+  </div>
+</div>

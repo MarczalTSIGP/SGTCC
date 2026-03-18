@@ -13,18 +13,18 @@ RSpec.describe ExaminationBoard do
                      date: 6.months.ago,
                      orientation: previous_orientation).id
       tccs << create(:examination_board_tcc_one,
-                     date: 6.months.ago,
+                     date: 5.months.ago,
                      identifier: :project,
                      orientation: previous_orientation).id
     end
 
     it 'return all the tccs one' do
-      expect(described_class.tcc_one.pluck(:id)).to eq(tccs)
+      expect(described_class.tcc_one.pluck(:id).sort).to eq(tccs.sort)
     end
 
     it 'return all the current semester tccs one' do
       tccs.pop(2)
-      expect(described_class.tcc_one_current_semester.pluck(:id)).to match_array(tccs)
+      expect(described_class.tcc_one_current_semester.pluck(:id).sort).to match_array(tccs.sort)
     end
   end
 
@@ -46,12 +46,12 @@ RSpec.describe ExaminationBoard do
     end
 
     it 'return all the tccs two' do
-      expect(described_class.tcc_two.pluck(:id)).to eq(tccs)
+      expect(described_class.tcc_two.pluck(:id).sort).to eq(tccs)
     end
 
     it 'return all the current semester tccs two' do
       tccs.pop(2)
-      expect(described_class.tcc_two_current_semester.pluck(:id)).to eq(tccs)
+      expect(described_class.tcc_two_current_semester.pluck(:id).sort).to eq(tccs)
     end
   end
 end

@@ -14,7 +14,7 @@ class Academics::OrientationsController < Academics::BaseController
 
   def document
     params_url = { calendar_id: @calendar, id: @orientation, document_id: @document }
-
+    @signatures = @document.mark
     set_document_orientation_breadcrumb
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    academics_calendar_orientation_document_path(params_url)

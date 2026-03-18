@@ -20,7 +20,7 @@ describe ExternalMemberMailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq([ENV.fetch('mailer.from', nil)])
+      expect(mail.from).to eq(['tcc-tsi-gp@utfpr.edu.br'])
     end
 
     it 'assigns @name and @password' do

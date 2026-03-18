@@ -6,6 +6,7 @@ describe 'Supervision::documents', :js do
 
   before do
     orientation.external_member_supervisors << external_member
+    orientation.documents.each(&:save_to_json)
     login_as(external_member, scope: :external_member)
     visit external_members_supervision_documents_path(orientation)
   end
@@ -23,7 +24,7 @@ describe 'Supervision::documents', :js do
           expect(page).to have_content(document.document_type.identifier.upcase)
         end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
@@ -42,13 +43,13 @@ describe 'Supervision::documents', :js do
                                        orientation.institution.trade_name,
                                        orientation.institution.external_member.name,
                                        scholarity_with_name(orientation.advisor),
-                                       document_date(orientation.created_at)])
+                                       document_date(document.created_at)])
 
-        orientation.supervisors do |supervisor|
+        orientation.supervisors.each do |supervisor|
           expect(page).to have_content(scholarity_with_name(supervisor))
         end
 
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
   end

@@ -1,0 +1,14 @@
+<div class="border border-primary rounded p-4 mb-2">
+  <div class="float-left">
+    <strong>Assinar documento</strong>
+    <p>Este documento será assinado eletronicamente.</p>
+  </div>
+
+  <%= button_to "Assinar documento", send("#{namespace}_document_sign_form_path", @document),
+                method: :get,
+                class: "btn btn-outline-primary float-right mb-2",
+                id: "signature_button" %>
+
+  <div class="clearfix"></div>
+  <hr class="m-0">
+</div>

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ExternalMember do
+  subject(:em) { build(:external_member) }
+
   describe 'validates' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
@@ -28,10 +30,14 @@ RSpec.describe ExternalMember do
   end
 
   describe 'associations' do
-    ems_fk = 'external_member_supervisor_id'
     it { is_expected.to belong_to(:scholarity) }
     it { is_expected.to have_many(:institutions).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:external_member_supervisors).with_foreign_key(ems_fk) }
+
+    it do
+      ems_fk = 'external_member_supervisor_id'
+      expect(em).to have_many(:external_member_supervisors).with_foreign_key(ems_fk)
+    end
+
     it { is_expected.to have_many(:supervisions).through(:external_member_supervisors) }
     it { is_expected.to have_many(:all_documents).through(:supervisions) }
     it { is_expected.to have_many(:examination_board_attendees) }
@@ -95,7 +101,7 @@ RSpec.describe ExternalMember do
 
     context 'when returns external members ordered by name' do
       it 'returns ordered' do
-        create_list(:external_member, 30)
+        create_list(:external_member, 10)
         external_members_ordered = described_class.order(:name)
         external_member = external_members_ordered.first
         results_search = described_class.search.order(:name)
@@ -175,7 +181,7 @@ RSpec.describe ExternalMember do
 
     it 'returns the current examination_boards' do
       examination_boards = (external_member.examination_boards.current_semester +
-                            external_member.supervision_examination_boards.current_semester)
+        external_member.supervision_examination_boards.current_semester)
       expect(external_member.current_examination_boards).to match_array(examination_boards)
       expect(external_member.current_examination_boards.count).to eq(2)
     end

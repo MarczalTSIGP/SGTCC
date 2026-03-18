@@ -5,7 +5,7 @@ describe 'Professors::report', :js do
   let(:resource_name) { Professor.model_name.human }
 
   before do
-    create_list(:professor, 50)
+    create_list(:professor, 10)
     login_as(responsible, scope: :professor)
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Supervision::index', :js do
+describe 'Supervision::index' do
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:current_orientation_tcc_one) }
 
@@ -29,12 +29,12 @@ describe 'Supervision::index', :js do
     end
 
     it 'shows active link for tcc one supervision' do
-      expect(page).to have_selector("a[href='#{index_url}'].active")
+      expect(page).to have_css("a[href='#{index_url}'].active")
     end
 
-    it 'clicks on academic name and shows additional options' do
-      academic_link = page.find("a[href='#{external_members_supervision_path(orientation)}']")
-      academic_link.click
+    it 'clicks on academic name and shows additional options', :js do
+      orientation_link = "a[href='#{external_members_supervision_path(orientation)}']"
+      find(orientation_link).click
 
       expect(page).to have_link(
         'Detalhes da orientação',

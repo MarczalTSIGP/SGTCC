@@ -8,27 +8,33 @@
       <div class="col-md-6">
         <%= f.association :base_activity_type,
         input_html: { class: 'activity_type_hide_event',
-                      data: 'selectize',
-                      "base-activities-types" => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
+                      data: { 
+                        controller: 'utils--slim-select',
+                        'base-activities-types' => BaseActivityType.all.to_h { |b| [b.id, b.identifier] }.to_json
+                      }
                     }, prompt: t('prompt.select.m', name: 'tipo') %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-6">
-        <datetimepicker
-          name="activity[initial_date]"
-          id="activity_initial_date"
-          label="<%= Activity.human_attribute_name('initial_date') %>"
-          datetime="<%= @activity.initial_date %>" />
+        <%= render Forms::DatetimepickerComponent.new(
+          name: "activity[initial_date]",
+          id: "activity_initial_date",
+          label: Activity.human_attribute_name("initial_date"),
+          datetime: @activity.initial_date,
+          errors: @activity.errors[:initial_date]
+        ) %>
       </div>
 
       <div class="col-sm-6">
-        <datetimepicker
-          name="activity[final_date]"
-          id="activity_final_date"
-          label="<%= Activity.human_attribute_name('final_date') %>"
-          datetime="<%= @activity.final_date %>" />
+        <%= render Forms::DatetimepickerComponent.new(
+          name: "activity[final_date]",
+          id: "activity_final_date",
+          label: Activity.human_attribute_name("final_date"),
+          datetime: @activity.final_date,
+          errors: @activity.errors[:final_date]
+        ) %>
       </div>
     </div>
 

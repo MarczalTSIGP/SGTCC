@@ -1,0 +1,86 @@
+<% if show_legend? %>
+  <%= render 'shared/orientations/legend_status' %>
+<% end %>
+
+<div class="text-right mt-3">
+  <%= helpers.page_entries_info @orientations,
+                                entry_name: t('entry_names.orientations', count: @orientations.size) %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100" style="overflow: visible;">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Orientation.human_attribute_name('status') %></th>
+        <th><%= Orientation.human_attribute_name('academic') %></th>
+        <th><%= Orientation.human_attribute_name('ra') %></th>
+        <th><%= Orientation.human_attribute_name('title') %></th>
+        <th><%= Orientation.human_attribute_name('advisor') %></th>
+        <th><%= Orientation.human_attribute_name('calendars') %></th>
+        <% if show_actions? %>
+          <th><%= Orientation.human_attribute_name('actions') %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @orientations.empty? %>
+        <%= render 'shared/no_results' %>
+      <% else %>
+        <% @orientations.each do |orientation| %>
+          <tr>
+            <td class="text-center status-width">
+              <%= status_badge_html(orientation) %>
+            </td>
+
+            <td>
+              <% if show_actions? %>
+                <%= orientation.academic.name %>
+              <% else %>
+                <%= render partial: 'shared/orientations/menu/dropdown',
+                           locals: { 
+                             dropdown_links: dropdown_links(orientation),
+                             show_path: show_path(orientation),
+                             orientation: orientation 
+                           } %>
+              <% end %>
+            </td>
+
+            <td>
+              <%= orientation.academic.ra %>
+            </td>
+
+            <td>
+              <span data-controller="ui--tooltip" title="<%= orientation.title %>">
+                <%= orientation.short_title %>
+              </span>
+            </td>
+
+            <td>
+              <%= orientation.advisor.name %>
+            </td>
+
+            <td>
+              <ul class="list-unstyled">
+                <% orientation.calendars.order(year: :desc, semester: :desc).each do |calendar| %>
+                  <li class="<%= 'text-muted' unless calendar.current? %>">
+                    <%= calendar.year_with_semester_and_tcc %>
+                  </li>
+                <% end %>
+              </ul>
+            </td>
+
+            <% if show_actions? %>
+              <td>
+                <%= render_action(orientation) %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= helpers.paginate @orientations %>
+</div>
+

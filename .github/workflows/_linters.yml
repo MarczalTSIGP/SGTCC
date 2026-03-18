@@ -3,51 +3,18 @@ name: Code Quality
 on:
   workflow_call:
     secrets:
-      MAILER_USERNAME:
-        required: true
-      MAILER_PASSWORD:
+      RAILS_MASTER_KEY_TEST:
         required: true
 
 jobs:
-  linters:
+  rubocop-brakeman:
     runs-on: ubuntu-latest
     container:
-      image: ruby:3.2.2
+      image: ruby:3.4.7
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Setup application.yml
-        run: |
-          echo "
-              database: &database
-                db.username: postgres
-                db.password: postgres
-                db.host: postgres://postgres:@db
-
-              mailer: &mailer
-                mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
-                mailer.host: localhost
-                mailer.host.port: '3000'
-                mailer.smtp: 'smtp.mailtrap.io'
-                mailer.smtp.port: '2525'
-                mailer.smtp.domain: 'smtp.mailtrap.io'
-                mailer.smtp.username: '${{ secrets.MAILER_USERNAME }}'
-                mailer.smtp.password: '${{ secrets.MAILER_PASSWORD }}'
-                mailer.smtp.authentication: 'cram_md5'
-                mailer.exception.prefix: '[SGTCC]'
-                mailer.exception.sender: 'SGTCC <tcc-tsi-gp@utfpr.edu.br>'
-                mailer.exception.recipient: 'tcc-tsi-gp@utfpr.edu.br'
-
-              ldap: &ldap
-                ldap.on: 'false'
-              
-              development:
-                <<: *database
-                <<: *mailer
-                <<: *ldap
-          " > config/application.yml
 
       - name: Cache bundle gems
         uses: actions/cache@v4
@@ -59,26 +26,9 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.4.22
+          gem install bundler -v 2.7.2
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 10.24.1
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install yarn and dependencies
-        run: |
-          npm install -g yarn
-          yarn install
-          yarn install --check-files
 
       - name: Code quality - robocop
         run: |
@@ -88,6 +38,13 @@ jobs:
         run: |
           bundle exec brakeman --ignore-config config/brakeman.ignore
 
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Code quality - eslint
         run: |
-          yarn run eslint --ext .vue --ext .js app/javascript
+          ./run eslint

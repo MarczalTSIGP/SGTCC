@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Activity::show' do
   let(:responsible)     { create(:responsible) }
   let(:calendar)        { create(:current_calendar_tcc_one) }
-  let(:activity)        { calendar.activities.first }
+  let!(:activity)       { create(:activity, calendar: calendar) }
   let(:orientation_one) { create(:orientation, calendar_ids: [calendar.id]) }
   let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 
@@ -52,7 +52,7 @@ describe 'Activity::show' do
                                                            activity)
 
       within('table.table tbody') do
-        expect(page).not_to have_link(I18n.t('helpers.boolean.true'), href: url)
+        expect(page).to have_no_link(I18n.t('helpers.boolean.true'), href: url)
       end
     end
   end

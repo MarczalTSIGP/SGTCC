@@ -1,7 +1,67 @@
-<term-of-substitution
-  :document-id="<%= @document.id %>"
-  :can-edit="<%= !@document.professor_signed?(current_professor) %>"
-  :is-responsible="<%= current_professor&.responsible?.to_json %>" />
+<%= render "shared/documents/base_term_layout", document: @document do %>
+  <% term = @document.content %>
+  <% academic = term.dig("academic") %>
+  <% advisor = term.dig("advisor") %>
+  <% request = @document.request || {} %>
+  <p>
+    Eu, <b><%= academic.dig("name") %></b>, acadêmico(a) desta instituição,
+    solicito a substituição de orientação.
+  </p>
+  <div>
+    <b>Dados da orientação em andamento</b>
+    <span class="ml-4">
+      <p>
+        <span class="ml-4"><b>Orientador:</b></span><br>
+        <span class="ml-6"><%= advisor.dig("name") %></span>
+      </p>
+      <% professor_supervisors = term.dig("professorSupervisors") || [] %>
+      <% external_supervisors = term.dig("externalMemberSupervisors") || [] %>
+      <% total_supervisors = professor_supervisors.size + external_supervisors.size %>
+      <% if total_supervisors.positive? %>
+        <span class="ml-4"><b><%= t("supervisors", count: total_supervisors) %>:</b></span><br>
+        <% professor_supervisors.each do |prof| %>
+          <span class="ml-6"><%= prof["name"] %></span><br>
+        <% end %>
+        <% external_supervisors.each do |member| %>
+          <span class="ml-6"><%= member["name"] %></span><br>
+        <% end %>
+      <% end %>
+    </span>
+  </div>
+  <div class="mt-3">
+    <b>Dados da nova orientação</b>
+    <span class="ml-4">
+      <p>
+        <span class="ml-4"><b>Orientador:</b></span><br>
+        <span class="ml-6"><%= request.dig("new_orientation", "advisor", "name") %></span>
+      </p>
+      <% new_professor_supervisors = request.dig("new_orientation", "professorSupervisors") || [] %>
+      <% new_external_supervisors = request.dig("new_orientation", "externalMemberSupervisors") || [] %>
+      <% new_total_supervisors = new_professor_supervisors.size + new_external_supervisors.size %>
+      <% if new_total_supervisors.positive? %>
+        <span class="ml-4"><b><%= t("supervisors", count: new_total_supervisors) %>:</b></span><br>
+        <% new_professor_supervisors.each do |prof| %>
+          <span class="ml-6"><%= prof["name"] %></span><br>
+        <% end %>
+        <% new_external_supervisors.each do |member| %>
+          <span class="ml-6"><%= member["name"] %></span><br>
+        <% end %>
+      <% end %>
+    </span>
+  </div>
+  <% if request.dig("requester", "justification").present? %>
+    <p class="mt-3">
+      <b>Justificativa</b>:<br>
+      <span>
+        <div class="ml-4">
+          <span data-controller="markdown--viewer" data-markdown="<%= request.dig("requester", "justification") %>"></span>
+        </div>
+      </span>
+    </p>
+  <% end %>
 
-
-
+  <%= render "shared/documents/document_review",
+             document: @document,
+             can_edit: !@document.professor_signed?(current_professor),
+             has_permission: current_professor&.responsible? %>
+<% end %>

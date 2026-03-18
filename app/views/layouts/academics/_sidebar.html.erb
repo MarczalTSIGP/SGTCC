@@ -1,13 +1,13 @@
 <%= render 'layouts/shared/sidebar' do %>
 
   <span class="sidebar-heading pl-0 pt-2 pb-2">
-    <%= icon('fas', 'compass', class: 'mr-2') %>
+    <i class="fas fa-compass mr-2"></i>
     <%= t('views.sidebar.academics') %>
   </span>
 
   <%= active_link_to(academics_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'home') %>
+      <i class="fas fa-home"></i>
     </span>
     <%= t('breadcrumbs.homepage') %>
   <% end %>
@@ -17,7 +17,7 @@
 		       active: academics_activities_tcc_one_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'file-alt') %>
+        <i class="far fa-file-alt"></i>
       </span>
       <%= t('breadcrumbs.tcc.one.calendar', calendar: current_calendar_title) %>
     <% end %>
@@ -28,7 +28,7 @@
 		       active: academics_activities_tcc_two_active_link?,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'file-alt') %>
+        <i class="far fa-file-alt"></i>
       </span>
       <%= t('breadcrumbs.tcc.two.calendar', calendar: current_calendar_title) %>
     <% end %>
@@ -38,7 +38,7 @@
 		     active: academics_calendars_active_link?,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('far', 'calendar-plus') %>
+      <i class="far fa-calendar-plus"></i>
     </span>
     <%= t('breadcrumbs.calendars.index') %>
   <% end %>
@@ -46,7 +46,7 @@
   <%= active_link_to(academics_meetings_path,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'user-check') %>
+      <i class="fas fa-user-check"></i>
     </span>
     <%= t('breadcrumbs.meetings.index') %>
   <% end %>
@@ -54,7 +54,7 @@
   <%= active_link_to(academics_examination_boards_path,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'user-friends') %>
+      <i class="fas fa-user-friends"></i>
     </span>
     <%= t('breadcrumbs.examination_boards.index') %>
   <% end %>

@@ -1,0 +1,66 @@
+<div data-controller="forms--image-preview" data-forms--image-preview-url-value="<%= image_url || '' %>">
+  <!-- Box de preview quando há imagem -->
+  <div id="box-image-preview" 
+       data-forms--image-preview-target="previewBox"
+       data-toggle="tooltip" 
+       data-placement="left" 
+       title="Editar imagem"
+       style="<%= 'display: none;' unless image? %>">
+    <div class="input-field image_preview">
+      <div class="box-image center">
+        <img class="file_preview active" 
+             data-forms--image-preview-target="image" 
+             src="<%= image_url %>" 
+             alt="Preview">
+        <div class="form-group file optional form-group">
+          <input 
+            id="<%= input_id %>"
+            class="form-control-file file optional <%= error_class %>"
+            accept="image/*"
+            type="file"
+            name="<%= input_name %>"
+            data-action="change->forms--image-preview#preview">
+        </div>
+      </div>
+    </div>
+
+    <div class="text-box text-center">
+      <p class="text-input">
+        Editar imagem
+      </p>
+    </div>
+  </div>
+
+  <!-- Campo de upload inicial quando não há imagem -->
+  <div data-forms--image-preview-target="uploadBox"
+       style="<%= 'display: none;' if image? %>">
+    <label>
+      <strong>Imagem *</strong>
+    </label>
+
+    <div class="custom-file">
+      <input 
+        id="<%= input_id %>_initial"
+        class="custom-file-input <%= error_class %>"
+        accept="image/*"
+        type="file"
+        name="<%= input_name %>"
+        data-action="change->forms--image-preview#preview"
+        data-forms--image-preview-target="initialInput">
+      <label class="custom-file-label" 
+             for="<%= input_id %>_initial"
+             data-forms--image-preview-target="fileLabel">
+        Selecionar imagem
+      </label>
+    </div>
+  </div>
+
+  <% if errors? %>
+    <div class="invalid-feedback d-block <%= input_id %>">
+      <% image_errors.each do |error| %>
+        <p>Imagem <%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

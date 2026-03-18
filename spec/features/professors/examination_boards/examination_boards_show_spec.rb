@@ -40,16 +40,17 @@ describe 'ExaminationBoard::show' do
 
     context 'when generates the non attendance defense minutes', :js do
       it 'shows the view defense minutes button' do
-        find_by_id('generate_non_attendance_defense_minutes').click
-        expect(page).to have_alert(text: 'Você tem certeza que deseja gerar a Ata de Defesa')
+        message = accept_confirm do
+          find_by_id('generate_non_attendance_defense_minutes').click
+        end
+        expect(message).to include('Você tem certeza que deseja gerar a Ata de Defesa')
 
-        find('.swal-button--confirm', match: :first).click # confirmation
         expect(page).to have_alert(text: 'Ata de Defesa gerada com sucesso!')
 
-        find('.swal-button--confirm', match: :first).click # success message
+        first('.swal-button--confirm').click # success message
         expect(page).to have_link(text: 'Visualizar Ata de Defesa')
 
-        find_by_id('view_defense_minutes').click
+        click_link('Visualizar Ata de Defesa')
 
         examination_board.reload
         expect(page).to have_contents([examination_board.academic_document_title,
@@ -70,12 +71,19 @@ describe 'ExaminationBoard::show' do
     end
 
     context 'when shows the academic activity' do
+      let(:activity) do
+        create(:proposal_activity,
+               calendar: orientation.current_calendar)
+      end
       let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
+      let(:academic_activity) do
+        create(:academic_activity,
+               academic: orientation.academic,
+               activity: activity)
+      end
 
       before do
-        create(:proposal_academic_activity, academic:,
-                                            calendar: orientation.calendars.first)
+        academic_activity
         visit professors_examination_board_path(examination_board)
       end
 

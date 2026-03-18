@@ -29,14 +29,17 @@ describe 'Supervision::activities' do
           expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
           expect(page).to have_content(activity.deadline)
         end
-        expect(page).to have_selector("a[href='#{active_link}'].active")
+        expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end
 
     context 'when show the activity by orientation' do
-      let!(:activity) { activities.first }
+      let!(:activity) do
+        create(:activity, calendar: orientation.current_calendar)
+      end
+
       let!(:academic_activity) do
-        create(:academic_activity, academic:, activity:)
+        create(:academic_activity, academic: academic, activity_id: activity.id)
       end
 
       before do

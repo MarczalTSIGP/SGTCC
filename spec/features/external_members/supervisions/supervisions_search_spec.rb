@@ -19,7 +19,7 @@ describe 'Supervision::search' do
       it 'finds the supervision by status' do
         visit external_members_supervisions_tcc_one_path
 
-        selectize(orientation_canceled_option, from: 'orientation_status')
+        slim_select(orientation_canceled_option, from: 'orientation_status')
 
         expect(page).to have_content(canceled_orientation.short_title)
         expect(page).to have_content(canceled_orientation.advisor.name)
@@ -30,7 +30,7 @@ describe 'Supervision::search' do
           expect(page).to have_content(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).not_to have_content(current_orientation.short_title)
+        expect(page).to have_no_content(current_orientation.short_title)
       end
     end
   end

@@ -20,20 +20,23 @@ describe 'TsoRequest::create', :js do
 
     context 'when request is valid' do
       it 'create a term of substitution' do
-        selectize(advisor.name, from: 'document_advisor_id')
-        find('.fa-bold').click
-        submit_form('input[name="commit"]')
+        justification = 'justification change'
+        slim_select(advisor.name, from: 'document_advisor_id')
 
+        fill_in(:document_justification, with: justification)
+        click_on('Solicitar')
+
+        expect(page).to have_contents([academic.name,
+                                       document_type.name.upcase,
+                                       justification])
         expect(page).to have_current_path academics_document_path(Document.last)
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_contents([academic.name,
-                                       document_type.name.upcase])
       end
     end
 
     context 'when request is not valid' do
       it 'show errors' do
-        submit_form('input[name="commit"]')
+        click_on('Solicitar')
         expect(page).to have_message(blank_error_message, in: 'div.document_advisor_id')
         expect(page).to have_message(blank_error_message, in: 'div.document_justification')
       end

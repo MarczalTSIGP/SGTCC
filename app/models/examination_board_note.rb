@@ -33,6 +33,10 @@ class ExaminationBoardNote < ApplicationRecord
       # rubocop:disable Rails/SkipsModelValidations
       examination_board.orientation.update_column(:status, orientation_status)
       # rubocop:enable Rails/SkipsModelValidations
+
+      if examination_board.appointments?
+        ::Notifications::Hooks::ExaminationBoard.academic_eb_appointments(examination_board)
+      end
     end
   end
 

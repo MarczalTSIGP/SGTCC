@@ -1,66 +1,88 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.4.7'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.1.7'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
+gem 'puma', '~> 7'
+gem 'rails', '~> 8.1.1'
+# gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
-gem 'bootstrap', '~> 4.6.2'
-gem 'bootstrap4-datetime-picker-rails'
+# gem 'bootstrap', '~> 4.6.2'
+# gem 'bootstrap4-datetime-picker-rails'
 gem 'breadcrumbs_on_rails'
 gem 'bundle-audit', require: false
-gem 'carrierwave', '~> 2.2'
+gem 'carrierwave', '~> 3.0'
 gem 'carrierwave-i18n'
 gem 'cpf_cnpj'
 gem 'devise'
 gem 'devise-i18n'
 gem 'exception_notification'
-gem 'font-awesome-sass'
-gem 'jquery-rails'
+# gem 'font-awesome-sass'
+# gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
-gem 'momentjs-rails'
-gem 'pg', '~> 1.6', '>= 1.6.1'
+# gem 'momentjs-rails'
+gem 'pg', '~> 1.1'
 gem 'rails-i18n'
 gem 'reek', require: false
 gem 'simple_form'
-gem 'sassc-rails'
+# gem 'sassc-rails'
 gem 'validators'
-gem 'webpacker', '5.1.1'
 gem 'net-ldap'
 gem 'mechanize'
 gem 'jsonapi-serializer'
+gem 'rqrcode'
+gem 'chunky_png'
+
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem 'propshaft'
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem 'importmap-rails'
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem 'turbo-rails'
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem 'stimulus-rails'
 
 gem 'psych', '~> 3.0'
+gem 'view_component', '~> 4.5'
+
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem 'kamal', require: false
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem 'thruster', require: false
+
+gem 'solid_queue'
+gem 'sqlite3'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.41'
   gem 'capybara'
   gem 'webdrivers'
 
   # gem 'apparition'
   gem 'faker'
   gem 'rspec-rails'
+
+  gem 'letter_opener'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
@@ -72,11 +94,11 @@ group :test do
   # gem 'database_cleaner', '~> 1.8.5'
   gem 'database_cleaner-active_record'
   gem 'guard-rspec', require: false
-  gem 'simplecov', '0.17.1', require: false
+  gem 'simplecov', '0.22.0', require: false
   gem 'simplecov-console', require: false
-  gem 'shoulda-matchers', '~> 5.3.0'
+  gem 'shoulda-matchers', '~> 7.0.1'
   gem 'capybara-screenshot'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]

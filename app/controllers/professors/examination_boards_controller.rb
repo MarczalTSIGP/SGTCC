@@ -20,25 +20,39 @@ class Professors::ExaminationBoardsController < Professors::BaseController
 
   def defense_minutes
     if @examination_board.defense_minutes.present?
-      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
+      render_defense_minutes_error('existent')
     elsif !@examination_board.all_evaluated?
-      render json: { message: I18n.t('json.messages.defense_minutes.not_evaluated'),
-                     status: :error }
+      render_defense_minutes_error('not_evaluated')
     else
-      document = @examination_board.create_defense_minutes
-      render json: { message: I18n.t('json.messages.defense_minutes.success'),
-                     status: :success, id: document.id }
+      create_and_render_defense_minutes
     end
   end
 
   def non_attendance_defense_minutes
     if @examination_board.defense_minutes.present?
-      render json: { message: I18n.t('json.messages.defense_minutes.existent'), status: :error }
+      render_defense_minutes_error('existent')
     else
-      document = @examination_board.create_non_attendance_defense_minutes
-      render json: { message: I18n.t('json.messages.defense_minutes.success'),
-                     status: :success, id: document.id }
+      create_and_render_non_attendance_defense_minutes
     end
+  end
+
+  def render_defense_minutes_error(error_type)
+    flash.now[:sweet_error] = I18n.t("json.messages.defense_minutes.#{error_type}")
+    render 'shared/sweet_alert'
+  end
+
+  def create_and_render_defense_minutes
+    @examination_board.create_defense_minutes
+    render_defense_minutes_success
+  end
+
+  def create_and_render_non_attendance_defense_minutes
+    @examination_board.create_non_attendance_defense_minutes
+    render_defense_minutes_success
+  end
+
+  def render_defense_minutes_success
+    flash.now[:sweet_success] = I18n.t('json.messages.defense_minutes.success')
   end
 
   private

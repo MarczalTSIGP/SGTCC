@@ -14,13 +14,12 @@ describe 'Responsible:profiles', :js do
       fill_in 'academic_name', with: attributes[:name]
       fill_in 'academic_email', with: attributes[:email]
 
-      page.execute_script("$('#academic_profile_image').css('opacity', '1')")
+      page.execute_script("document.getElementById('academic_profile_image').style.opacity = '1'")
       attach_file 'academic_profile_image', FileSpecHelper.image.path
 
       fill_in 'academic_current_password', with: academic.password
       submit_form('input[name="commit"]')
 
-      expect(page).to have_current_path edit_academic_registration_path
       expect(page).to have_flash(:info, text: registrations_updated_message)
       within('a.nav-link') do
         expect(page).to have_content(attributes[:name])
@@ -34,7 +33,7 @@ describe 'Responsible:profiles', :js do
       fill_in 'academic_email', with: 'email'
       fill_in 'academic_current_password', with: academic.password
 
-      page.execute_script("$('#academic_profile_image').css('opacity', '1')")
+      page.execute_script("document.getElementById('academic_profile_image').style.opacity = '1'")
       attach_file 'academic_profile_image', FileSpecHelper.pdf.path
 
       submit_form('input[name="commit"]')

@@ -30,6 +30,7 @@ class Responsible::OrientationsController < Responsible::BaseController
 
     render :index
   end
+
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
@@ -48,6 +49,7 @@ class Responsible::OrientationsController < Responsible::BaseController
     @search_url = responsible_orientations_search_tcc_two_path
     render :index
   end
+
   # rubocop:enable Metrics/AbcSize
 
   def current_tcc_one
@@ -91,7 +93,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientations_tcc_one_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -101,7 +103,7 @@ class Responsible::OrientationsController < Responsible::BaseController
       redirect_to responsible_orientation_path(@orientation)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -114,9 +116,31 @@ class Responsible::OrientationsController < Responsible::BaseController
 
   def document
     @document = @orientation.documents.find(params[:document_id])
+    @signatures = build_signatures_list(@document)
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    responsible_orientation_document_path(@orientation, @document)
+
+    @not_show_sign_button = true
+  end
+
+  def build_signatures_list(document)
+    document.signatures.where(status: true).map do |signature|
+      format_signature_data(signature)
+    end
+  end
+
+  def format_signature_data(signature)
+    {
+      name: signature.user.name,
+      role: signature_role_translation(signature.user_type),
+      date: I18n.l(signature.updated_at.to_date, format: :document),
+      time: signature.updated_at.strftime('%H:%M')
+    }
+  end
+
+  def signature_role_translation(user_type)
+    I18n.t("activerecord.attributes.signature.user_types.#{user_type}")
   end
 
   def documents
@@ -134,10 +158,10 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def orientation_params
-    params.require(:orientation)
-          .permit(:title, :academic_id, :advisor_id, :institution_id,
-                  calendar_ids: [], professor_supervisor_ids: [],
-                  external_member_supervisor_ids: [])
+    params
+      .expect(orientation: [:title, :academic_id, :advisor_id, :institution_id,
+                            { calendar_ids: [], professor_supervisor_ids: [],
+                              external_member_supervisor_ids: [] }])
   end
 
   def set_document_orientation_breadcrumb

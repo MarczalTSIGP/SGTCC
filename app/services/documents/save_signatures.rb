@@ -1,5 +1,6 @@
 class Documents::SaveSignatures
   include ::Documents::DefenseMinutes
+
   attr_reader :document, :signature_users
 
   def initialize(document)

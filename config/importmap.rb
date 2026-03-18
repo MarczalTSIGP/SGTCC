@@ -1,0 +1,18 @@
+# Pin npm packages by running ./bin/importmap
+
+pin 'application'
+pin '@hotwired/turbo-rails', to: 'turbo.min.js'
+pin '@hotwired/stimulus', to: 'stimulus.min.js'
+pin '@hotwired/stimulus-loading', to: 'stimulus-loading.js'
+pin_all_from 'app/javascript/controllers', under: 'controllers'
+pin 'bootstrap', to: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+pin 'sweetalert' # @2.1.2
+pin 'process' # @2.1.0
+pin 'simplemde', to: 'https://cdn.skypack.dev/simplemde'
+pin 'marked' # @16.3.0 "
+
+pin 'slim-select' # @2.13.1
+pin 'apexcharts' # @5.3.5
+pin 'flatpickr' # @4.6.13
+pin 'flatpickr/dist/l10n/pt', to: 'flatpickr--dist--l10n--pt.js' # @4.6.13
+pin 'sortablejs' # @1.15.6

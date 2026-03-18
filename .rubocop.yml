@@ -1,22 +1,25 @@
-require:
+plugins:
   - rubocop-rspec
   - rubocop-rails
+  - rubocop-rspec_rails
   - rubocop-capybara
   - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.4
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   # DisabledByDefault: true
   Exclude:
     - '*/templates//'
-    - 'vendor/**/*'    
+    - 'vendor/**/*'
     - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'railties/test/fixtures/tmp/*/'
     - 'db/schema.rb'
     - 'db/migrate/20180925232654_devise_create_professors.rb'
+    - 'db/queue_schema.rb'
+    - 'db/queue_migrate/20251027193144_create_notifications.rb'
     - 'config/initializers/simple_form.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
@@ -108,6 +111,8 @@ Layout/LineLength:
     - 'config/environments/production.rb'
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/initializers/content_security_policy.rb'
+    - 'config/initializers/new_framework_defaults_8_1.rb'
+
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'config/environments/production.rb'
@@ -128,12 +133,17 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/services/populate/base_activities.rb'
+    - 'app/controllers/responsible/examination_boards_controller.rb'
+    - 'app/controllers/tcc_one_professors/examination_boards_controller.rb'
+    - 'app/models/examination_board.rb'
+    - 'db/queue_migrate/20260306170000_create_solid_queue_tables.rb'
 
 Metrics/AbcSize:
   Exclude:
     - spec/features/professors/supervisions/supervisions_show_spec.rb
     - spec/features/professors/orientations/orientations_show_spec.rb
     - app/services/populate/base_activities.rb
+    - db/queue_migrate/20260306170000_create_solid_queue_tables.rb
 
 Metrics/ClassLength:
   Enabled: false
@@ -141,6 +151,11 @@ Metrics/ClassLength:
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer
+
+Naming/PredicateMethod:
+  Exclude:
+    - 'app/models/concerns/orientation_validation.rb'
+    - 'lib/ldap/ldap_authentication.rb'
 
 
 RSpec/MultipleExpectations:
@@ -152,7 +167,7 @@ RSpec/MultipleExpectations:
     - 'spec/controllers/responsible/examination_boards_controller_spec.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 30
 
 RSpec/MultipleMemoizedHelpers:
   Exclude:
@@ -160,10 +175,13 @@ RSpec/MultipleMemoizedHelpers:
     - 'spec/features/**/*'
 
 RSpec/NamedSubject:
-  Exclude:  
+  Exclude:
     - 'spec/models/base_activity_spec.rb'
     - 'spec/models/examination_board_note_spec.rb'
     - 'spec/models/orientation_supervisor_spec.rb'
+
+RSpecRails/InferredSpecType:
+  Enabled: false
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
@@ -183,6 +201,10 @@ Rails/ReversibleMigration:
     - 'db/migrate/20190715175442_change_content_from_documents.rb'
     - 'db/migrate/20190411194740_change_tcc_to_be_integer_in_base_activities.rb'
 
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'db/migrate/*active_storage.rb'
+
 Lint/DeprecatedOpenSSLConstant:
   Enabled: false
 
@@ -194,3 +216,7 @@ Lint/RaiseException:
 
 Lint/StructNewOverride:
   Enabled: false
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/**/*'

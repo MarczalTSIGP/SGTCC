@@ -17,7 +17,7 @@ describe 'Institution::create', :js do
     context 'when institution is valid' do
       it 'create an institution' do
         attributes = attributes_for(:institution)
-        selectize(external_member.name, from: 'institution_external_member_id')
+        slim_select(external_member.name, from: 'institution_external_member_id')
         fill_in 'institution_name', with: attributes[:name]
         fill_in 'institution_trade_name', with: attributes[:trade_name]
         fill_in 'institution_cnpj', with: attributes[:cnpj]

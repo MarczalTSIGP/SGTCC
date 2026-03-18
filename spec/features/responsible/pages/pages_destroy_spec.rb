@@ -16,7 +16,7 @@ describe 'Page::destroy', :js do
         click_on_destroy_link(responsible_page_path(site_page))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).not_to have_content(site_page.menu_title)
+        expect(page).to have_no_content(site_page.menu_title)
       end
     end
   end

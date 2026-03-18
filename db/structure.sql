@@ -1,6 +1,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -110,7 +111,7 @@ CREATE TABLE public.academic_activities (
     complementary_files character varying,
     title character varying,
     summary text,
-    judgment boolean DEFAULT false NOT NULL,
+    judgment boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     additional_instructions text
@@ -189,9 +190,9 @@ CREATE TABLE public.activities (
     calendar_id bigint,
     initial_date timestamp without time zone,
     final_date timestamp without time zone,
-    judgment boolean DEFAULT false NOT NULL,
+    judgment boolean DEFAULT false,
     identifier public.activity_identifiers,
-    final_version boolean DEFAULT false NOT NULL
+    final_version boolean DEFAULT false
 );
 
 
@@ -221,8 +222,8 @@ ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -302,8 +303,8 @@ CREATE TABLE public.base_activities (
     updated_at timestamp without time zone NOT NULL,
     tcc integer,
     identifier public.base_activity_identifiers,
-    judgment boolean DEFAULT false NOT NULL,
-    final_version boolean DEFAULT false NOT NULL,
+    judgment boolean DEFAULT false,
+    final_version boolean DEFAULT false,
     days_to_start integer DEFAULT 0,
     duration_in_days integer DEFAULT 0
 );
@@ -370,7 +371,9 @@ CREATE TABLE public.calendars (
     semester integer,
     tcc integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    start_date timestamp(6) without time zone,
+    end_date timestamp(6) without time zone
 );
 
 
@@ -543,7 +546,8 @@ CREATE TABLE public.examination_boards (
     identifier public.examination_board_identifiers,
     document_available_until timestamp without time zone,
     final_note integer,
-    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations
+    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations,
+    confirmed boolean DEFAULT false NOT NULL
 );
 
 
@@ -574,7 +578,7 @@ CREATE TABLE public.external_members (
     id bigint NOT NULL,
     name character varying,
     email character varying,
-    is_active boolean DEFAULT false NOT NULL,
+    is_active boolean DEFAULT false,
     gender character varying(1),
     working_area text,
     created_at timestamp without time zone NOT NULL,
@@ -683,7 +687,7 @@ CREATE TABLE public.meetings (
     id bigint NOT NULL,
     content text,
     date timestamp without time zone,
-    viewed boolean DEFAULT false NOT NULL,
+    viewed boolean DEFAULT false,
     orientation_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -727,7 +731,7 @@ CREATE TABLE public.orientation_calendars (
 --
 
 CREATE SEQUENCE public.orientation_calendars_id_seq
-    START WITH 1
+    START WITH 61
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -822,7 +826,7 @@ CREATE TABLE public.pages (
     url character varying,
     fa_icon character varying,
     "order" integer,
-    publish boolean DEFAULT false NOT NULL,
+    publish boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -896,8 +900,8 @@ CREATE TABLE public.professors (
     name character varying,
     lattes character varying,
     gender character varying(1),
-    is_active boolean DEFAULT false NOT NULL,
-    available_advisor boolean DEFAULT false NOT NULL,
+    is_active boolean DEFAULT false,
+    available_advisor boolean,
     scholarity_id bigint,
     professor_type_id bigint,
     working_area text
@@ -1006,7 +1010,7 @@ CREATE TABLE public.signatures (
     document_id bigint,
     user_id integer,
     user_type character varying(3),
-    status boolean DEFAULT false NOT NULL,
+    status boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1540,13 +1544,6 @@ CREATE INDEX index_base_activities_on_base_activity_type_id ON public.base_activ
 
 
 --
--- Name: index_documents_on_code; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_documents_on_code ON public.documents USING btree (code);
-
-
---
 -- Name: index_documents_on_document_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1719,13 +1716,6 @@ CREATE INDEX index_professors_on_scholarity_id ON public.professors USING btree 
 --
 
 CREATE UNIQUE INDEX index_professors_on_username ON public.professors USING btree (username);
-
-
---
--- Name: index_roles_on_identifier; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_roles_on_identifier ON public.roles USING btree (identifier);
 
 
 --
@@ -1973,87 +1963,91 @@ ALTER TABLE ONLY public.meetings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20180925232654'),
-('20190108180129'),
-('20190110190129'),
-('20190221210736'),
-('20190221235605'),
-('20190227110044'),
-('20190227113434'),
-('20190228200940'),
-('20190301182443'),
-('20190301182724'),
-('20190301200133'),
-('20190305172016'),
-('20190307191331'),
-('20190307191510'),
-('20190313004419'),
-('20190313012819'),
-('20190313024238'),
-('20190313025705'),
-('20190313175459'),
-('20190313235643'),
-('20190320162008'),
-('20190320162252'),
-('20190320174948'),
-('20190326105338'),
-('20190326110109'),
-('20190331143156'),
-('20190407231337'),
-('20190407231606'),
-('20190407232636'),
-('20190408000610'),
-('20190411194740'),
-('20190411203006'),
-('20190416182519'),
-('20190416182626'),
-('20190416205026'),
-('20190423031128'),
-('20190429185922'),
-('20190430114105'),
-('20190528170108'),
-('20190530142431'),
-('20190530143325'),
-('20190601190503'),
-('20190601223851'),
-('20190613174601'),
-('20190613175702'),
-('20190613182041'),
-('20190704195335'),
-('20190710223922'),
-('20190715175442'),
-('20190715202601'),
-('20190715211414'),
-('20190718160910'),
-('20190719182125'),
-('20190725025158'),
-('20190731173754'),
-('20190731215128'),
-('20190802155315'),
-('20190802163145'),
-('20190802181514'),
-('20190808174240'),
-('20190816174008'),
-('20190902121046'),
-('20190906195155'),
-('20190930194124'),
-('20191001130912'),
-('20191002115343'),
-('20191002121129'),
-('20191002131434'),
-('20191002141045'),
-('20191002141405'),
-('20191002142408'),
-('20191002144740'),
-('20191003203113'),
-('20191004173028'),
-('20191004191641'),
-('20191010143250'),
-('20191011133414'),
-('20191011133608'),
-('20191125224723'),
-('20200710170737'),
+('20251106190118'),
+('20251104201959'),
+('20251104201958'),
+('20251104201957'),
+('20251028213703'),
+('20231017133608'),
 ('20231004230530'),
-('20231017133608');
-
+('20200710170737'),
+('20191125224723'),
+('20191011133608'),
+('20191011133414'),
+('20191010143250'),
+('20191004191641'),
+('20191004173028'),
+('20191003203113'),
+('20191002144740'),
+('20191002142408'),
+('20191002141405'),
+('20191002141045'),
+('20191002131434'),
+('20191002121129'),
+('20191002115343'),
+('20191001130912'),
+('20190930194124'),
+('20190906195155'),
+('20190902121046'),
+('20190816174008'),
+('20190808174240'),
+('20190802181514'),
+('20190802163145'),
+('20190802155315'),
+('20190731215128'),
+('20190731173754'),
+('20190725025158'),
+('20190719182125'),
+('20190718160910'),
+('20190715211414'),
+('20190715202601'),
+('20190715175442'),
+('20190710223922'),
+('20190704195335'),
+('20190613182041'),
+('20190613175702'),
+('20190613174601'),
+('20190601223851'),
+('20190601190503'),
+('20190530143325'),
+('20190530142431'),
+('20190528170108'),
+('20190430114105'),
+('20190429185922'),
+('20190423031128'),
+('20190416205026'),
+('20190416182626'),
+('20190416182519'),
+('20190411203006'),
+('20190411194740'),
+('20190408000610'),
+('20190407232636'),
+('20190407231606'),
+('20190407231337'),
+('20190331143156'),
+('20190326110109'),
+('20190326105338'),
+('20190320174948'),
+('20190320162252'),
+('20190320162008'),
+('20190313235643'),
+('20190313175459'),
+('20190313025705'),
+('20190313024238'),
+('20190313012819'),
+('20190313004419'),
+('20190307191510'),
+('20190307191331'),
+('20190305172016'),
+('20190301200133'),
+('20190301182724'),
+('20190301182443'),
+('20190228200940'),
+('20190227113434'),
+('20190227110044'),
+('20190221235605'),
+('20190221210736'),
+('20190110190129'),
+('20190108180129'),
+('20180925232654');
 

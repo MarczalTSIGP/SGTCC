@@ -50,7 +50,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
       redirect_to responsible_professors_path
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -60,7 +60,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
       redirect_to responsible_professor_path
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -105,13 +105,13 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def professor_params
-    params.require(:professor).permit(
-      :name, :email,
-      :username, :lattes,
-      :gender, :is_active,
-      :working_area, :available_advisor,
-      :professor_type_id, :scholarity_id,
-      role_ids: []
+    params.expect(
+      professor: [:name, :email,
+                  :username, :lattes,
+                  :gender, :is_active,
+                  :working_area, :available_advisor,
+                  :professor_type_id, :scholarity_id,
+                  { role_ids: [] }]
     )
   end
 end

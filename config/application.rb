@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module SistemaGestaoTcc
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 8.1
 
     config.exceptions_app = routes
 
@@ -29,6 +29,7 @@ module SistemaGestaoTcc
 
     config.active_record.schema_format = :sql
 
-    ENV.update YAML.load_file('config/application.yml')[Rails.env]
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
   end
 end

@@ -41,12 +41,19 @@ describe 'ExaminationBoard::show' do
     end
 
     context 'when shows the academic activity' do
+      let(:activity) do
+        create(:monograph_activity,
+               calendar: orientation.current_calendar)
+      end
       let(:academic) { orientation.academic }
-      let(:academic_activity) { examination_board.academic_activity }
+      let(:academic_activity) do
+        create(:academic_activity,
+               academic: academic,
+               activity: activity)
+      end
 
       before do
-        create(:monograph_academic_activity, academic:,
-                                             calendar: orientation.calendars.first)
+        academic_activity
         visit responsible_examination_board_path(examination_board)
       end
 

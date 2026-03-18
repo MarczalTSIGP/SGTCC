@@ -1,0 +1,19 @@
+<div class="input-group input-icon" data-controller="utils--search"
+     data-utils--search-url-value="<%= url %>"
+     data-utils--search-term-value="<%= search_term %>"
+>
+  <input
+    type="text"
+    name="term"
+    value="<%= search_term %>"
+    class="form-control"
+    data-utils--search-target="input"
+    data-action="keydown->utils--search#checkEnter"
+    placeholder='<%= t("messages.search") %>'
+    />
+  <span class="input-group-append">
+      <a id="search" href="#" class="btn btn-outline-primary" data-action="click->utils--search#submit">
+        <i class="fe fe-search"></i>
+      </a>
+    </span>
+</div>

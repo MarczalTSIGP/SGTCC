@@ -22,7 +22,7 @@ describe 'BaseActivity::index', :js do
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
 
@@ -40,7 +40,7 @@ describe 'BaseActivity::index', :js do
                                          base_activity.base_activity_type.name,
                                          short_date(base_activity.created_at)])
         end
-        expect(page).to have_selector("a[href='#{index_url}'].active")
+        expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end
   end

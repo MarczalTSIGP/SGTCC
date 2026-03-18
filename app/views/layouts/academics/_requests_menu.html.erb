@@ -1,6 +1,6 @@
 <div class="sidebar-menu">
   <span class="sidebar-heading">
-    <%= icon('fas', 'envelope-open', class: 'mr-2') %>
+    <i class="fas fa-envelope-open mr-2"></i>
     <%= t('views.sidebar.requests') %>
   </span>
 
@@ -8,7 +8,7 @@
     <%= active_link_to(academics_tep_requests_path,
 		       class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
-        <%= icon('far', 'plus-square') %>
+        <i class="far fa-plus-square"></i>
       </span>
       <%= t('breadcrumbs.documents.requests.tep.sidebar') %>
     <% end %>
@@ -17,10 +17,8 @@
   <%= active_link_to(academics_tso_requests_path,
 		     class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
-      <%= icon('fas', 'exchange-alt') %>
+      <i class="fas fa-exchange-alt"></i>
     </span>
     <%= t('breadcrumbs.documents.requests.tso.sidebar') %>
   <% end %>
 </div>
-
-

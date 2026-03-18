@@ -1,0 +1,7 @@
+<% flash.each do |type, message| %>
+  <div data-controller="ui--sweet-alert"
+       data-ui--sweet-alert-message-type-value="<%= type %>"
+       data-ui--sweet-alert-message-text-value="<%= message %>"
+  >
+  </div>
+<% end %>

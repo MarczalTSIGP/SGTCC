@@ -518,7 +518,7 @@ RSpec.describe Document do
 
     it 'returns when the justification is empty' do
       params = { justification: nil }
-      expect(document.update_requester_justification(params)).to be(true)
+      expect(document.update_requester_justification(params)).to be(false)
     end
   end
 
@@ -606,6 +606,35 @@ RSpec.describe Document do
 
       it 'returns true' do
         expect(document.tso_for_review?).to be(true)
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    let(:orientation) { build(:orientation) }
+    let(:document_type) { create(:document_type, identifier: :tep) }
+
+    let(:document) do
+      build(:document,
+            orientation_id: orientation.id,
+            document_type: document_type,
+            justification: 'Justificativa de teste')
+    end
+
+    describe 'when the document is created calls after_commit :on_create' do
+      before do
+        create(:responsible)
+        allow(orientation).to receive(:create_tco_and_tcai).and_return(true)
+        orientation.save!
+
+        allow(document).to receive_messages(generate_unique_code: true, create_signatures: true,
+                                            save_to_json: true, orientation: orientation)
+      end
+
+      it 'enqueues Notifications::CreateJob after create' do
+        expect do
+          document.save!
+        end.to have_enqueued_job(Notifications::CreateJob)
       end
     end
   end

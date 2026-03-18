@@ -46,7 +46,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
       redirect_to tcc_url
     else
       error_message
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -56,7 +56,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
       redirect_to responsible_base_activity_path(@base_activity)
     else
       error_message
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -75,10 +75,10 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   end
 
   def activity_params
-    params.require(:base_activity).permit(:name, :base_activity_type_id,
-                                          :tcc, :identifier, :judgment,
-                                          :final_version, :days_to_start,
-                                          :duration_in_days)
+    params.expect(base_activity: [:name, :base_activity_type_id,
+                                  :tcc, :identifier, :judgment,
+                                  :final_version, :days_to_start,
+                                  :duration_in_days])
   end
 
   def tcc_url

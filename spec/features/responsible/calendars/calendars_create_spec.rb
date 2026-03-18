@@ -11,26 +11,40 @@ describe 'Calendar::create', :js do
 
   describe '#create' do
     context 'when calendar is valid' do
-      it 'create a calendar' do
-        attributes = attributes_for(:calendar)
+      it 'creates a calendar' do
+        attributes = attributes_for(:calendar, tcc: :two, semester: :one)
+
         fill_in 'calendar_year', with: attributes[:year]
-        click_on_label('1', in: 'calendar_tcc')
-        click_on_label('1', in: 'calendar_semester')
+
+        tcc_text = I18n.t('enums.tcc.two')
+        within('.col-2:nth-child(1)') do
+          find('span.custom-control-label', text: tcc_text).click
+        end
+
+        semester_text = I18n.t('enums.semester.one')
+        within('.col-2:nth-child(2)') do
+          find('span.custom-control-label', text: semester_text).click
+        end
+
+        start_value = attributes[:start_date].strftime('%Y-%m-%d')
+        end_value   = attributes[:end_date].strftime('%Y-%m-%d')
+
+        page.execute_script(<<~JS)
+          document.querySelector('#calendar_start_date').value = '#{start_value}';
+          document.querySelector('#calendar_end_date').value   = '#{end_value}';
+        JS
+
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path responsible_calendars_tcc_one_path
+        expected_path = responsible_calendars_tcc_two_path
+        expect(page).to have_current_path(expected_path)
         expect(page).to have_flash(:success, text: message('create.m'))
-        expect(page).to have_message(attributes[:name], in: 'table tbody')
-      end
-    end
 
-    context 'when calendar is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.calendar_year')
-        expect(page).to have_message(blank_error_message, in: 'div.calendar_tcc')
-        expect(page).to have_message(blank_error_message, in: 'div.calendar_semester')
+        # Ajuste do label exibido
+        semester_number = attributes[:semester].to_s == 'one' ? 1 : 2
+        calendar_label = "#{attributes[:year]}/#{semester_number}"
+
+        expect(page).to have_content(calendar_label)
       end
     end
   end

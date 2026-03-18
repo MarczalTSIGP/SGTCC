@@ -1,0 +1,30 @@
+<div class="card">
+  <div id="term" class="card-body signature-document w-80">
+    <header>
+      <%= render "shared/documents/term_header", document: document %>
+    </header>
+
+    <main>
+        <div class="d-block w-80" style="margin-top: 50px; margin-bottom: 50px;">
+          <h4 class="text-center">
+            <%= document.content.dig("title") %>
+          </h4>
+        </div>
+
+      <%= yield %>
+    </main>
+
+    <footer>
+      <%= render "shared/documents/term_footer", created_at: document.content.dig("document", "created_at") || "—" %>
+      <div class="clearfix"></div>
+
+      <%= render "shared/documents/signature_mark", document: document %>
+    </footer>
+
+    <% if document.content.dig("document", "obs").present? %>
+      <p class="fs-6 mt-5">
+        <strong>Observação: </strong> <%= document.content.dig("document", "obs") %>
+      </p>
+    <% end %>
+  </div>
+</div>

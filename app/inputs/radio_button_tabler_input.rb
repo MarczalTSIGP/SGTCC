@@ -14,13 +14,15 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
     template.tag.div(class: 'custom-controls-stacked') do
       collection = options[:collection].to_a
 
-      concat_tags(collection)
+      content = concat_tags(collection)
+
+      content + error_html
     end
   end
 
   def div_tag
     template.tag.div(class: 'form-label') do
-      options[:field_name] ||= object.class.human_attribute_name(attribute_name)
+      options[:field_name] || object.class.human_attribute_name(attribute_name)
     end
   end
 
@@ -40,13 +42,24 @@ class RadioButtonTablerInput < SimpleForm::Inputs::Base
   end
 
   def concat_tags(collection)
-    template.concat div_tag
+    html = ActiveSupport::SafeBuffer.new
+    html << div_tag
     collection.each do |el|
-      template.concat label_tag(el)
+      html << label_tag(el)
     end
+    html
   end
 
   def label(_wrapper_options)
     ''
+  end
+
+  private
+
+  def error_html
+    return ''.html_safe if object.errors[attribute_name].blank?
+
+    template.tag.div(object.errors[attribute_name].join(', '),
+                     class: 'invalid-feedback d-block')
   end
 end

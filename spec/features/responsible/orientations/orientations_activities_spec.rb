@@ -30,7 +30,7 @@ describe 'Orientation::activities', :js do
 
     it 'have links' do
       active_link = responsible_orientations_tcc_one_path
-      expect(page).to have_selector("a[href='#{active_link}'].active")
+      expect(page).to have_css("a[href='#{active_link}'].active")
 
       within('nav ol.breadcrumb') do
         expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)
@@ -58,9 +58,10 @@ describe 'Orientation::activities', :js do
   end
 
   describe '#show' do
-    let!(:activity) { orientation.current_calendar.activities.first }
+    let!(:activity) { create(:activity, calendar: orientation.current_calendar) }
     let!(:academic) { orientation.academic }
     let!(:academic_activity) do
+      # Agora 'activity' está definido e é um objeto válido
       create(:academic_activity, academic:, activity:)
     end
 
@@ -84,7 +85,7 @@ describe 'Orientation::activities', :js do
 
     it 'have links' do
       active_link = responsible_orientations_tcc_one_path
-      expect(page).to have_selector("a[href='#{active_link}'].active")
+      expect(page).to have_css("a[href='#{active_link}'].active")
 
       within('nav ol.breadcrumb') do
         expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)

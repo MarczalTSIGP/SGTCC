@@ -1,5 +1,5 @@
 <span class="sidebar-heading pl-0 pt-2 pb-2">
-  <%= icon('fas', 'users', class: 'mr-2') %>
+  <i class="fas fa-users mr-2"></i>
   <%= t('views.sidebar.supervisor') %>
 </span>
 
@@ -7,7 +7,7 @@
 		   active: external_members_supervisions_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('far', 'file-code') %>
+    <i class="far fa-file-code"></i>
   </span>
   <%= t('breadcrumbs.supervisions.calendar', calendar: current_calendar_title) %>
 <% end %>
@@ -16,7 +16,7 @@
 		   active: external_members_supervisions_history_active_link?,
 		   class: 'list-group-item list-group-item-action') do %>
   <span class="icon mr-2">
-    <%= icon('far', 'folder') %>
+    <i class="far fa-folder"></i>
   </span>
   <%= t('breadcrumbs.history') %>
 <% end %>

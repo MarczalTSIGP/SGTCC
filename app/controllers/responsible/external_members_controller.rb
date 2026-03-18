@@ -1,6 +1,5 @@
 class Responsible::ExternalMembersController < Responsible::BaseController
   before_action :set_external_member, only: [:show, :edit, :update, :destroy]
-  before_action :set_resource_name, only: [:create, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.external_members.index'),
                  :responsible_external_members_path
@@ -34,11 +33,11 @@ class Responsible::ExternalMembersController < Responsible::BaseController
 
     if @external_member.save
       send_registration_email(@external_member, external_member_params[:password])
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: @resource_name)
+      success_create_message
       redirect_to responsible_external_members_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
-      render :new
+      error_message
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -46,19 +45,19 @@ class Responsible::ExternalMembersController < Responsible::BaseController
     @external_member.define_singleton_method(:password_required?) { false }
 
     if @external_member.update(external_member_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: @resource_name)
+      success_update_message
       redirect_to responsible_external_member_path(@external_member)
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
-      render :edit
+      error_message
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     if @external_member.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: @resource_name)
+      success_destroy_message
     else
-      flash[:alert] = I18n.t('flash.actions.destroy.bond', resource_name: @resource_name)
+      alert_destroy_bond_message
     end
 
     redirect_to responsible_external_members_path
@@ -76,14 +75,10 @@ class Responsible::ExternalMembersController < Responsible::BaseController
     @external_member = ExternalMember.find(params[:id])
   end
 
-  def set_resource_name
-    @resource_name = ExternalMember.model_name.human
-  end
-
   def external_member_params
-    params.require(:external_member).permit(:name, :email, :gender,
-                                            :password, :password_confirmation,
-                                            :is_active, :personal_page,
-                                            :working_area, :scholarity_id)
+    params.expect(external_member: [:name, :email, :gender,
+                                    :password, :password_confirmation,
+                                    :is_active, :personal_page,
+                                    :working_area, :scholarity_id])
   end
 end
