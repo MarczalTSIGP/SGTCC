@@ -37,10 +37,19 @@ RSpec.configure do |config|
   config.include ApplicationHelper
   config.include DateHelper
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ActiveJob::TestHelper
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.use_transactional_fixtures = false
+
+  config.before(:suite) do
+    ActiveJob::Base.queue_adapter = :test
+  end
+
+  config.before do
+    clear_enqueued_jobs
+  end
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
@@ -58,7 +67,6 @@ end
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
-rescue ActiveRecord::PendingMigrationError => e
-  puts e.to_s.strip
+rescue ActiveRecord::PendingMigrationError
   exit 1
 end

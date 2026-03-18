@@ -24,6 +24,8 @@ class Document < ApplicationRecord
                :create_signatures,
                :save_to_json
 
+  after_commit :trigger_create_notification, on: :create
+
   def orientation
     signatures.first.orientation
   end
@@ -133,5 +135,9 @@ class Document < ApplicationRecord
 
   def generate_unique_code
     update(code: Time.now.to_i + id)
+  end
+
+  def trigger_create_notification
+    Notifications::Hooks::Documents.document_created(self)
   end
 end

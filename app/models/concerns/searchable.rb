@@ -33,7 +33,7 @@ module Searchable
           search += "#{query_from_string(f, table)} OR "
         end
       end
-      search[0..(search.length - 5)]
+      search[0..-5]
     end
 
     def join_keys

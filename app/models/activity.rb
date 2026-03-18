@@ -15,6 +15,10 @@ class Activity < ApplicationRecord
 
   scope :recent, -> { order(:final_date) }
 
+  after_commit :trigger_create_notification, on: :create
+
+  after_commit :trigger_update_notification, on: :update
+
   def deadline
     I18n.t('time.deadline',
            initial_date: I18n.l(initial_date, format: :datetime),
@@ -51,5 +55,15 @@ class Activity < ApplicationRecord
 
   def expired?
     Time.current > final_date
+  end
+
+  private
+
+  def trigger_create_notification
+    Notifications::Hooks::Activity.activity_calendar_(self, 'created')
+  end
+
+  def trigger_update_notification
+    Notifications::Hooks::Activity.activity_calendar_(self, 'updated')
   end
 end

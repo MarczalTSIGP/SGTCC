@@ -1,7 +1,7 @@
 return if Rails.env.test?
 
 Rails.application.configure do
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = ENV.fetch('MAILER_DELIVERY_METHOD', 'smtp').to_sym
 
   mailer = Rails.application.credentials.mailer
   config.action_mailer.smtp_settings = {

@@ -1,17 +1,39 @@
-<tr>
-   <%= render 'shared/examination_boards/tbody',
-              examination_board: examination_board,
-              show_path: responsible_examination_board_path(examination_board) %>
-   <td>
-      <%= link_to(edit_responsible_examination_board_path(examination_board)) do %>
-         <i class="fe fe-edit" data-toggle="tooltip" title="<%= t('titles.edit') %>"></i>
+<tr id="<%= dom_id(examination_board) %>">
+  <td>
+    <%= ExaminationBoards::TableComponent.new(examination_boards: [examination_board], namespace: :responsible).badge_html(examination_board) %>
+  </td>
+  <td>
+    <span data-controller="ui--tooltip" title="<%= examination_board.orientation.title %>">
+      <%= link_to examination_board.orientation.academic_with_calendar,
+                  responsible_examination_board_path(examination_board) %>
+    </span>
+  </td>
+  <td><%= examination_board.place %></td>
+  <td><%= datetime(examination_board.date) %></td>
+  <td><%= examination_board.orientation.advisor.name_with_scholarity %></td>
+  <td>
+    <% if examination_board.confirmed? %>
+      <button class="btn btn-primary w-100" disabled>
+        Banca Confirmada
+      </button>
+    <% else %>
+      <%= button_to confirm_responsible_examination_board_path(examination_board),
+                    method: :patch,
+                    class: "btn btn-outline-primary w-100",
+                    data: { turbo_confirm: "Tem certeza que deseja confirmar esta banca?" } do %>
+        ✓ Confirmar Banca
       <% end %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to(edit_responsible_examination_board_path(examination_board)) do %>
+      <i class="fe fe-edit" data-controller="ui--tooltip" title="<%= t('titles.edit') %>"></i>
+    <% end %>
 
-      <%= link_to responsible_examination_board_path(examination_board),
-                  method: :delete,
-                  data: { confirm: t('prompt.confirm') },
-                  class: 'destroy' do %>
-         <i class="fe fe-trash" data-toggle="tooltip" title="<%= t('titles.delete') %>"></i>
-      <% end %>
-   </td>
+    <%= link_to responsible_examination_board_path(examination_board),
+                data: { turbo_method: :delete, turbo_confirm: t('prompt.confirm') },
+                class: 'destroy' do %>
+      <i class="fe fe-trash" data-controller="ui--tooltip" title="<%= t('titles.delete') %>"></i>
+    <% end %>
+  </td>
 </tr>

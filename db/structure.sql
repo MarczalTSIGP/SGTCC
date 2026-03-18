@@ -546,7 +546,8 @@ CREATE TABLE public.examination_boards (
     identifier public.examination_board_identifiers,
     document_available_until timestamp without time zone,
     final_note integer,
-    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations
+    situation public.examination_board_situations DEFAULT 'under_evaluation'::public.examination_board_situations,
+    confirmed boolean DEFAULT false NOT NULL
 );
 
 
@@ -1966,6 +1967,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20251104201959'),
 ('20251104201958'),
 ('20251104201957'),
+('20251028213703'),
 ('20231017133608'),
 ('20231004230530'),
 ('20200710170737'),

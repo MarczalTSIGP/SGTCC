@@ -9,7 +9,7 @@ class ExaminationBoard < ApplicationRecord
   include Tcc
 
   searchable place: { unaccent: true }, relationships: {
-    orientation: { fields: [title: { unaccent: true }] }
+    orientation: { fields: [{ title: { unaccent: true } }] }
   }
 
   belongs_to :orientation
@@ -84,6 +84,8 @@ class ExaminationBoard < ApplicationRecord
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
 
+  after_commit :trigger_create_notifications, on: :create
+
   def self.cs_asc_from_now_desc_ago
     current_calendar = current_calendar_for_site
     return none unless current_calendar
@@ -95,6 +97,7 @@ class ExaminationBoard < ApplicationRecord
     Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
       Calendar.order(year: :desc, semester: :desc).first
   end
+
   private_class_method :current_calendar_for_site
 
   def self.base_scope_for_calendar(current_calendar)
@@ -104,6 +107,7 @@ class ExaminationBoard < ApplicationRecord
       .where(calendars: { id: current_calendar.id })
       .where(date: period)
   end
+
   private_class_method :base_scope_for_calendar
 
   def self.upcoming_from_now(current_calendar)
@@ -113,6 +117,7 @@ class ExaminationBoard < ApplicationRecord
       .site_with_relationships
       .to_a
   end
+
   private_class_method :upcoming_from_now
 
   def self.past_until_now(current_calendar)
@@ -122,6 +127,7 @@ class ExaminationBoard < ApplicationRecord
       .site_with_relationships
       .to_a
   end
+
   private_class_method :past_until_now
 
   def status
@@ -157,7 +163,7 @@ class ExaminationBoard < ApplicationRecord
   end
 
   def examination_board_data
-    { id:, evaluators: evaluators_object, document_title: academic_document_title,
+    { id:, evs: evaluators_object, document_title: academic_document_title,
       date: I18n.l(date, format: :document), time: I18n.l(date, format: :time),
       situation: situation_translated }
   end
@@ -211,5 +217,16 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  def confirm!
+    update(confirmed: true)
+    Notifications::Hooks::ExaminationBoard.confirmed_examination_board(self)
+  end
+
+  private
+
+  def trigger_create_notifications
+    Notifications::Hooks::ExaminationBoard.atendees_examination_board_assigned(self)
   end
 end
