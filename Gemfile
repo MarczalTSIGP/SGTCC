@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.4.7'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 6'
+gem 'puma', '~> 7'
 gem 'rails', '~> 8.1.1'
 # gem 'uglifier', '>= 1.3.0'
 
@@ -58,7 +58,7 @@ gem 'sqlite3'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.41'
   gem 'capybara'
   gem 'webdrivers'
 
@@ -94,9 +94,9 @@ group :test do
   # gem 'database_cleaner', '~> 1.8.5'
   gem 'database_cleaner-active_record'
   gem 'guard-rspec', require: false
-  gem 'simplecov', '0.17.1', require: false
+  gem 'simplecov', '0.22.0', require: false
   gem 'simplecov-console', require: false
-  gem 'shoulda-matchers', '~> 5.3.0'
+  gem 'shoulda-matchers', '~> 7.0.1'
   gem 'capybara-screenshot'
 end
 
