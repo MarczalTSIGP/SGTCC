@@ -5,10 +5,6 @@ on:
     secrets:
       RAILS_MASTER_KEY_TEST:
         required: true
-      MAILER_USERNAME:
-        required: true
-      MAILER_PASSWORD:
-        required: true
 
 jobs:
   run-tests:
