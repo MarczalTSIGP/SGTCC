@@ -41,9 +41,18 @@ class NotificationMailer < ApplicationMailer
       I18n.l(value, format: :datetime)
     when Date
       I18n.l(value, format: :short)
+    when String
+      normalize_string_payload_value(value)
     else
       value
     end
+  end
+
+  def normalize_string_payload_value(value)
+    parsed_time = Time.zone.iso8601(value)
+    I18n.l(parsed_time, format: :datetime)
+  rescue ArgumentError
+    value
   end
 
   def html_to_text(html)
