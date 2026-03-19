@@ -35,6 +35,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV.fetch('APP_HOST', nil) }
   config.action_mailer.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
   config.asset_host = "http://#{ENV.fetch('APP_HOST', nil)}"
+  config.action_mailer.preview_paths << Rails.root.join('spec/mailers/previews')
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
