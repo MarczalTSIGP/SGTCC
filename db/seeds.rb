@@ -88,10 +88,9 @@ pages = [
 ]
 
 pages.each do |page|
-  Page.find_or_create_by!(menu_title: page[:menu_title], fa_icon: page[:fa_icon],
-                          url: page[:url],
-                          content: page[:content] || '.',
-                          publish: true)
+  Page.create_with(content: page[:content] || '.', publish: true)
+      .find_or_create_by!(menu_title: page[:menu_title], fa_icon: page[:fa_icon],
+                          url: page[:url])
 end
 
 templates = [
