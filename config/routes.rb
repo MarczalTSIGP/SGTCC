@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   root to: 'site#index'
 
+  # Search engines commonly probe this path even when no sitemap is published.
+  get 'sitemap.xml', to: 'errors#show', defaults: { code: 404, format: :xml }, as: :sitemap
+
   get 'documents/images',
       to: 'documents#images',
       as: 'document_images'
