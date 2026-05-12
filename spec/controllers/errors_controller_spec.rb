@@ -22,5 +22,14 @@ RSpec.describe ErrorsController do
         expect(response).to have_http_status(:internal_server_error)
       end
     end
+
+    context 'when the request format is xml' do
+      it 'responds with 404 without rendering an html template' do
+        get :show, params: { code: '404' }, format: :xml
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to be_blank
+      end
+    end
   end
 end

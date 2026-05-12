@@ -1,6 +1,9 @@
 class ErrorsController < ApplicationController
   def show
-    render status_code.to_s, status: status_code
+    respond_to do |format|
+      format.html { render status_code.to_s, status: status_code }
+      format.any  { head status_code }
+    end
   end
 
   protected
