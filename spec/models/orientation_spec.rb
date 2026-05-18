@@ -517,10 +517,10 @@ RSpec.describe Orientation do
 
   describe '#cs_asc_from_now_desc_ago' do
     let!(:current_calendar) do
-      create(:calendar_tcc_one, start_date: 1.year.ago, end_date: 1.year.from_now)
+      create(:calendar_tcc_one, start_date: 6.months.ago, end_date: Date.current)
     end
 
-    it 'returns only examination boards from current semester' do
+    it 'returns only examination boards within the current calendar period' do
       current_board = create(
         :examination_board,
         date: 2.hours.from_now,
@@ -529,10 +529,11 @@ RSpec.describe Orientation do
           calendars: [current_calendar]
         )
       )
-      previous_calendar = create(:previous_calendar_tcc_one)
+      previous_calendar = create(:previous_calendar_tcc_one, start_date: 12.months.ago,
+                                                             end_date: 5.months.ago)
       create(
         :examination_board,
-        date: 2.hours.from_now,
+        date: current_calendar.start_date.beginning_of_day - 1.hour,
         orientation: create(
           :orientation,
           calendars: [previous_calendar]
@@ -594,6 +595,25 @@ RSpec.describe Orientation do
 
       expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id))
         .to eq([board_soon.id, board_recent_past.id, board_old_past.id])
+    end
+
+    it 'does not duplicate examination boards when the orientation has multiple calendars' do
+      overlapping_calendar = create(
+        :calendar_tcc_one,
+        start_date: current_calendar.start_date,
+        end_date: current_calendar.end_date
+      )
+
+      board = create(
+        :examination_board,
+        date: 2.hours.from_now,
+        orientation: create(
+          :orientation,
+          calendars: [current_calendar, overlapping_calendar]
+        )
+      )
+
+      expect(ExaminationBoard.cs_asc_from_now_desc_ago).to contain_exactly(board)
     end
   end
 end
