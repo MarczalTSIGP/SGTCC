@@ -11,9 +11,7 @@ class RangeTablerInput < SimpleForm::Inputs::Base
     value = object.public_send(attribute_name) || input_html_options[:value] || 0
 
     template.tag.label(class: 'form-label range-label') do
-      template.concat current_note_badge(value)
-      template.concat(" | #{I18n.t('views.labels.selected.f')}: ")
-      template.concat selected_note_span(value)
+      template.concat summary_card(value)
     end
   end
 
@@ -36,16 +34,38 @@ class RangeTablerInput < SimpleForm::Inputs::Base
     [custom_classes, 'form-control-range', input_error_class].compact.join(' ')
   end
 
-  def current_note_badge(value)
-    template.content_tag(
-      :span,
-      "#{I18n.t('activerecord.attributes.examination_board_note.actual_note')} #{value}",
-      class: 'badge bg-blue font-size-13'
-    )
+  def summary_card(value)
+    template.tag.div(class: 'range-summary-card') do
+      template.concat current_note_card(value)
+      template.concat selected_note_card(value)
+    end
+  end
+
+  def current_note_card(value)
+    template.tag.div(class: 'range-summary-item range-summary-item-current') do
+      template.concat summary_title(I18n.t('activerecord.attributes.examination_board_note.actual_note'))
+      template.concat summary_value(value)
+    end
+  end
+
+  def selected_note_card(value)
+    template.tag.div(class: 'range-summary-item range-summary-item-selected') do
+      template.concat summary_title(I18n.t('views.labels.selected.f'))
+      template.concat selected_note_span(value)
+    end
+  end
+
+  def summary_title(text)
+    template.content_tag(:span, text, class: 'range-summary-title')
+  end
+
+  def summary_value(value)
+    template.content_tag(:span, value, class: 'range-summary-value')
   end
 
   def selected_note_span(value)
-    template.tag.span(value, data: { range_tabler_selected_note: true })
+    template.tag.span(value, class: 'range-summary-value',
+                             data: { range_tabler_selected_note: true })
   end
 
   def error_html
