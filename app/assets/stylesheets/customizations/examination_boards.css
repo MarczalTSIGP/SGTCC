@@ -40,5 +40,17 @@
 
   hr {
     margin: 0;
-  }  
+  }
+}
+
+input.form-control-range.is-valid:focus {
+  box-shadow: none;
+}
+
+input.form-control-range.is-valid:focus::-webkit-slider-thumb {
+  box-shadow: none;
+}
+
+input.form-control-range.is-valid:focus::-moz-range-thumb {
+  box-shadow: none;
 }
