@@ -43,7 +43,8 @@ class RangeTablerInput < SimpleForm::Inputs::Base
 
   def current_note_card(value)
     template.tag.div(class: 'range-summary-item range-summary-item-current') do
-      template.concat summary_title(I18n.t('activerecord.attributes.examination_board_note.actual_note'))
+      title = I18n.t('activerecord.attributes.examination_board_note.actual_note')
+      template.concat summary_title(title)
       template.concat summary_value(value)
     end
   end
