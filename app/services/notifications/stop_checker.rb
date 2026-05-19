@@ -29,17 +29,15 @@ module Notifications
     def signature_details_from_event_key
       parts = @notification.event_key.split(':')
       doc_id = parts[1]
-      user_type = parts[3]
-      user_id = parts[4]
-      user_class = user_type.split('_').first.classify
+      user_type, user_id = extract_signature_recipient(parts)
 
-      { id: doc_id, user_type: user_class, user_id: user_id }
+      { document_id: doc_id, user_type:, user_id: user_id }
     end
 
     def check_signature_status?
       signature = Signature.find_by(signature_details_from_event_key)
 
-      signature.nil? || signature.status == true # L5
+      signature.nil? || signature.status == true
     end
 
     def check_meeting_acknowledgment_status?
@@ -58,19 +56,27 @@ module Notifications
 
       return unless Time.current >= ad_available_until
 
-      @notification.update(notification_type: 'document_signature_pending')
+      @notification.update(notification_type: 'document_pending_signature')
     end
 
     def ad_date_limit_reached
-      parts = @notification.event_key.split(':')
-      document_id = parts[1]
-      ad = Signature.find_by(id: document_id)
+      ad = Signature.find_by(signature_details_from_event_key)
 
       return if ad.nil? || ad.status == true
 
       check_and_update_ad_limit
 
       false
+    end
+
+    def extract_signature_recipient(parts)
+      return [parts[3], parts[4]] if parts[4].present?
+
+      combined = parts[3].to_s
+      match = combined.match(/\A(.+?)(\d+)\z/)
+      return [match[1], match[2]] if match
+
+      [combined, nil]
     end
   end
 end

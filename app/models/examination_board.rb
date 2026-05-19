@@ -104,7 +104,7 @@ class ExaminationBoard < ApplicationRecord
     period = current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day
 
     joins(orientation: :calendars)
-      .where(calendars: { id: current_calendar.id })
+      .distinct
       .where(date: period)
   end
 
