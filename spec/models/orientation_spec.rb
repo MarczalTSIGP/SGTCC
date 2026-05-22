@@ -27,7 +27,7 @@ RSpec.describe Orientation do
 
     it 'is expected to have many external member supervisors' do
       expect(orientation).to have_many(:external_member_supervisors)
-        .through(:orientation_supervisors).dependent(:destroy)
+                               .through(:orientation_supervisors).dependent(:destroy)
     end
   end
 
@@ -153,9 +153,9 @@ RSpec.describe Orientation do
 
       expect(described_class.to_migrate.count).to eq(2)
       expect(described_class.to_migrate).to contain_exactly(
-        valid_orientation,
-        valid_orientation_two
-      )
+                                              valid_orientation,
+                                              valid_orientation_two
+                                            )
     end
 
     it 'do not returns the orientations that can not be migrated' do
@@ -195,24 +195,24 @@ RSpec.describe Orientation do
       let!(:current_calendar_second_semester_tcc_one) do
         create(
           :calendar, year: '2025', semester: 'two', tcc: :one,
-                     start_date: Date.new(2025, 7, 1),
-                     end_date: Date.new(2025, 12, 31)
+          start_date: Date.new(2025, 7, 1),
+          end_date: Date.new(2025, 12, 31)
         )
       end
 
       let!(:next_year_calendar_first_semester_tcc_two) do
         create(
           :calendar, year: '2026', semester: 'one', tcc: :two,
-                     start_date: Date.new(2026, 1, 1),
-                     end_date: Date.new(2026, 6, 30)
+          start_date: Date.new(2026, 1, 1),
+          end_date: Date.new(2026, 6, 30)
         )
       end
 
       let!(:current_calendar_tcc_one) do
         create(
           :calendar, year: '2025', semester: 'one', tcc: Calendar.tccs[:one],
-                     start_date: Date.new(2025, 1, 1),
-                     end_date: Date.new(2025, 6, 30)
+          start_date: Date.new(2025, 1, 1),
+          end_date: Date.new(2025, 6, 30)
         )
       end
 
@@ -223,7 +223,7 @@ RSpec.describe Orientation do
       let!(:next_calendar_tcc_two) do
         create(
           :calendar, year: '2025', semester: 'two', tcc: Calendar.tccs[:two],
-                     start_date: Date.new(2025, 7, 1), end_date: Date.new(2025, 12, 31)
+          start_date: Date.new(2025, 7, 1), end_date: Date.new(2025, 12, 31)
         )
       end
 
@@ -237,9 +237,9 @@ RSpec.describe Orientation do
         orientation.reload
 
         expect(orientation.calendars).to include(
-          current_calendar_second_semester_tcc_one,
-          next_year_calendar_first_semester_tcc_two
-        )
+                                           current_calendar_second_semester_tcc_one,
+                                           next_year_calendar_first_semester_tcc_two
+                                         )
         expect(orientation.current_calendar).to eq(next_year_calendar_first_semester_tcc_two)
       end
 
@@ -258,15 +258,15 @@ RSpec.describe Orientation do
       it 'migrates TCC two orientation to the next semester' do
         orientation_tcc_two = create(
           :orientation, calendars: [current_calendar_tcc_two],
-                        status: 'APPROVED_TCC_ONE'
+          status: 'APPROVED_TCC_ONE'
         )
         orientation_tcc_two.migrate
         orientation_tcc_two.reload
 
         expect(orientation_tcc_two.calendars).to include(
-          current_calendar_tcc_two,
-          next_calendar_tcc_two
-        )
+                                                   current_calendar_tcc_two,
+                                                   next_calendar_tcc_two
+                                                 )
         expect(orientation_tcc_two.current_calendar).to eq(next_calendar_tcc_two)
       end
 
@@ -517,7 +517,7 @@ RSpec.describe Orientation do
 
   describe '#cs_asc_from_now_desc_ago' do
     let!(:current_calendar) do
-      create(:calendar_tcc_one, start_date: 6.months.ago, end_date: Date.current)
+      create(:calendar_tcc_one, start_date: 6.months.ago, end_date: 1.day.from_now)
     end
 
     it 'returns only examination boards within the current calendar period' do
@@ -530,7 +530,7 @@ RSpec.describe Orientation do
         )
       )
       previous_calendar = create(:previous_calendar_tcc_one, start_date: 12.months.ago,
-                                                             end_date: 5.months.ago)
+                                 end_date: 5.months.ago)
       create(
         :examination_board,
         date: current_calendar.start_date.beginning_of_day - 1.hour,
@@ -562,9 +562,9 @@ RSpec.describe Orientation do
       )
 
       expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id)).to eq(
-        [board_soon.id,
-         board_later.id]
-      )
+                                                                       [board_soon.id,
+                                                                        board_later.id]
+                                                                     )
     end
 
     it 'appends past examination boards in descending order after upcoming' do
