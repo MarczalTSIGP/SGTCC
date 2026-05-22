@@ -12,10 +12,8 @@ module Notifications
       case @notification.notification_type
       when 'document_pending_signature'
         check_signature_status?
-
       when 'document_ad_signature_pending'
-        ad_date_limit_reached
-
+        ad_signature_stop_met?
       when 'meeting_participation_acknowledgment'
         check_meeting_acknowledgment_status?
 
@@ -30,7 +28,6 @@ module Notifications
       parts = @notification.event_key.split(':')
       doc_id = parts[1]
       user_type, user_id = extract_signature_recipient(parts)
-
       { document_id: doc_id, user_type:, user_id: user_id }
     end
 
@@ -49,24 +46,20 @@ module Notifications
       Meeting.find_by(id: meeting_id, orientation_id: orientation_id)&.viewed?
     end
 
-    def check_and_update_ad_limit
+    def ad_signature_stop_met?
+      return true if check_signature_status?
+
+      update_to_default_signature_notification_if_deadline_passed
+      false
+    end
+
+    def update_to_default_signature_notification_if_deadline_passed
       return unless @notification.data['ad_available_until']
 
       ad_available_until = Time.zone.parse(@notification.data['ad_available_until'].to_s)
+      return unless ad_available_until && Time.current >= ad_available_until
 
-      return unless Time.current >= ad_available_until
-
-      @notification.update(notification_type: 'document_pending_signature')
-    end
-
-    def ad_date_limit_reached
-      ad = Signature.find_by(signature_details_from_event_key)
-
-      return if ad.nil? || ad.status == true
-
-      check_and_update_ad_limit
-
-      false
+      @notification.update!(notification_type: 'document_pending_signature')
     end
 
     def extract_signature_recipient(parts)

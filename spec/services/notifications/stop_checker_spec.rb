@@ -98,7 +98,7 @@ RSpec.describe Notifications::StopChecker, type: :service do
         expect(notification.reload.notification_type).to eq('document_ad_signature_pending')
       end
 
-      it 'returns falsey (stop) if the signature has already been signed (status: true)' do
+      it 'returns true (stop) if the signature has already been signed (status: true)' do
         notification = build_stubbed(:notification,
                                      notification_type: 'document_ad_signature_pending',
                                      event_key: 'document:1:unsigned:advisor5')
@@ -108,7 +108,19 @@ RSpec.describe Notifications::StopChecker, type: :service do
           .with(hash_including(document_id: '1', user_type: 'advisor', user_id: '5'))
           .and_return(signed_signature)
 
-        expect(described_class).not_to be_met(notification)
+        expect(described_class).to be_met(notification)
+      end
+
+      it 'returns true (stop) if the signature was deleted (nil)' do
+        notification = build_stubbed(:notification,
+                                     notification_type: 'document_ad_signature_pending',
+                                     event_key: 'document:1:unsigned:advisor5')
+
+        allow(Signature).to receive(:find_by)
+          .with(hash_including(document_id: '1', user_type: 'advisor', user_id: '5'))
+          .and_return(nil)
+
+        expect(described_class).to be_met(notification)
       end
     end
 
