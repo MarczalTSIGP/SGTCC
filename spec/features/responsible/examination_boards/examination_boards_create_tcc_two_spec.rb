@@ -18,8 +18,8 @@ describe 'ExaminationBoard::new', :js do
 
     context 'when examination_board tcc two is valid' do
       it 'does not show "Projeto" and "Proposta" in the identifier input' do
-        expect(page).to have_no_content('Projeto')
-        expect(page).to have_no_content('Proposta')
+        expect(page).to have_no_text('Projeto')
+        expect(page).to have_no_text('Proposta')
       end
 
       it 'does not show "tcc 1" in the identifier input' do
@@ -52,7 +52,7 @@ describe 'ExaminationBoard::new', :js do
         expect(page).to have_flash(:success, text: message('create.f'))
         expect(page).to have_message(attributes[:place], in: 'table tbody')
 
-        expect(page).to have_content(orientation.academic_with_calendar)
+        expect(page).to have_text(orientation.academic_with_calendar)
       end
     end
 

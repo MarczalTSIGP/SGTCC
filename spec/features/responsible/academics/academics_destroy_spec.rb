@@ -16,7 +16,7 @@ describe 'Academic::destroy', :js do
         click_on_destroy_link(responsible_academic_path(academic))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_content(academic.name)
+        expect(page).to have_no_text(academic.name)
       end
     end
   end

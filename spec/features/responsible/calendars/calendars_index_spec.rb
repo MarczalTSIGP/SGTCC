@@ -19,10 +19,10 @@ describe 'Calendar::index', :js do
           within('table') do
             expect(page).to have_link(calendar.year_with_semester,
                                       href: responsible_calendar_path(calendar))
-            expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
-            expect(page).to have_content(short_date(calendar.start_date))
-            expect(page).to have_content(short_date(calendar.end_date))
-            expect(page).to have_content(short_date(calendar.created_at))
+            expect(page).to have_text(I18n.t("enums.tcc.#{calendar.tcc}"))
+            expect(page).to have_text(short_date(calendar.start_date))
+            expect(page).to have_text(short_date(calendar.end_date))
+            expect(page).to have_text(short_date(calendar.created_at))
           end
         end
 
@@ -39,10 +39,10 @@ describe 'Calendar::index', :js do
           within('table') do
             expect(page).to have_link(calendar.year_with_semester,
                                       href: responsible_calendar_path(calendar))
-            expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
-            expect(page).to have_content(short_date(calendar.start_date))
-            expect(page).to have_content(short_date(calendar.end_date))
-            expect(page).to have_content(short_date(calendar.created_at))
+            expect(page).to have_text(I18n.t("enums.tcc.#{calendar.tcc}"))
+            expect(page).to have_text(short_date(calendar.start_date))
+            expect(page).to have_text(short_date(calendar.end_date))
+            expect(page).to have_text(short_date(calendar.created_at))
           end
         end
 

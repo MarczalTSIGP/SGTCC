@@ -72,7 +72,7 @@ class Responsible::ExternalMembersController < Responsible::BaseController
   end
 
   def set_external_member
-    @external_member = ExternalMember.find(params[:id])
+    @external_member = ExternalMember.find(params.expect(:id))
   end
 
   def external_member_params

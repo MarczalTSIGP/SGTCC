@@ -18,7 +18,7 @@ describe 'ExternalMember::destroy', :js do
         accept_alert
 
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_content(external_member.name)
+        expect(page).to have_no_text(external_member.name)
       end
     end
 
@@ -28,7 +28,7 @@ describe 'ExternalMember::destroy', :js do
         accept_alert
 
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
-        expect(page).to have_content(institution.external_member.name)
+        expect(page).to have_text(institution.external_member.name)
       end
     end
   end

@@ -75,7 +75,7 @@ class Professors::OrientationsController < Professors::BaseController
   end
 
   def document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    professors_orientation_document_path(@orientation, @document)
@@ -84,7 +84,7 @@ class Professors::OrientationsController < Professors::BaseController
   private
 
   def set_orientation
-    @orientation = current_professor.orientations.find(params[:id])
+    @orientation = current_professor.orientations.find(params.expect(:id))
   end
 
   def select_orientations(status: params[:status])

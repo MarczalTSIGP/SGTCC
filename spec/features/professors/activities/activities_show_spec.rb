@@ -32,13 +32,13 @@ describe 'Activity::show' do
           within("tbody tr:nth-child(#{child})") do
             sent_value = I18n.t("helpers.boolean.#{academic.sent?}")
 
-            expect(page).to have_content(academic.name)
-            expect(page).to have_content(sent_value)
+            expect(page).to have_text(academic.name)
+            expect(page).to have_text(sent_value)
             expect(page).to have_no_link(sent_value)
           end
         end
 
-        expect(page).to have_content(activity.responses.entries_info)
+        expect(page).to have_text(activity.responses.entries_info)
       end
     end
   end

@@ -38,7 +38,7 @@ class Academics::ActivitiesController < Academics::BaseController
   private
 
   def set_activity
-    @activity = @calendar.activities.find(params[:id])
+    @activity = @calendar.activities.find(params.expect(:id))
   end
 
   def set_academic_activity
@@ -47,7 +47,7 @@ class Academics::ActivitiesController < Academics::BaseController
   end
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = Calendar.find(params.expect(:calendar_id))
   end
 
   def set_index_breadcrumb

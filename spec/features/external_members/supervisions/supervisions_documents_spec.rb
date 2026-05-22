@@ -20,8 +20,8 @@ describe 'Supervision::documents', :js do
           expect(page).to have_link(document.orientation.short_title,
                                     href: external_members_supervision_document_path(orientation,
                                                                                      document))
-          expect(page).to have_content(document.orientation.academic.name)
-          expect(page).to have_content(document.document_type.identifier.upcase)
+          expect(page).to have_text(document.orientation.academic.name)
+          expect(page).to have_text(document.document_type.identifier.upcase)
         end
 
         expect(page).to have_css("a[href='#{active_link}'].active")
@@ -46,7 +46,7 @@ describe 'Supervision::documents', :js do
                                        document_date(document.created_at)])
 
         orientation.supervisors.each do |supervisor|
-          expect(page).to have_content(scholarity_with_name(supervisor))
+          expect(page).to have_text(scholarity_with_name(supervisor))
         end
 
         expect(page).to have_css("a[href='#{active_link}'].active")

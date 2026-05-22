@@ -23,15 +23,15 @@ class Academics::OrientationsController < Academics::BaseController
   private
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = Calendar.find(params.expect(:calendar_id))
   end
 
   def set_orientation
-    @orientation = @calendar.orientations.find(params[:id])
+    @orientation = @calendar.orientations.find(params.expect(:id))
   end
 
   def set_document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
   end
 
   def set_signature

@@ -60,15 +60,15 @@ describe 'Orientation::show' do
   private
 
   def expect_contents_of(orientation)
-    expect(page).to have_content(orientation.title)
-    expect(page).to have_content(orientation.academic.name)
-    expect(page).to have_content(orientation.advisor.name)
+    expect(page).to have_text(orientation.title)
+    expect(page).to have_text(orientation.academic.name)
+    expect(page).to have_text(orientation.advisor.name)
 
     orientation.calendars.each do |calendar|
-      expect(page).to have_content(calendar.year_with_semester_and_tcc)
+      expect(page).to have_text(calendar.year_with_semester_and_tcc)
     end
 
-    expect(page).to have_content(complete_date(orientation.created_at))
-    expect(page).to have_content(complete_date(orientation.updated_at))
+    expect(page).to have_text(complete_date(orientation.created_at))
+    expect(page).to have_text(complete_date(orientation.updated_at))
   end
 end

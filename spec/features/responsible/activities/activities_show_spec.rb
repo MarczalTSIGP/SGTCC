@@ -30,12 +30,12 @@ describe 'Activity::show' do
         activity.responses.academics.each_with_index do |academic, index|
           child = index + 1
           within("tbody tr:nth-child(#{child})") do
-            expect(page).to have_content(academic.name)
-            expect(page).to have_content(I18n.t("helpers.boolean.#{academic.sent?}"))
+            expect(page).to have_text(academic.name)
+            expect(page).to have_text(I18n.t("helpers.boolean.#{academic.sent?}"))
           end
         end
 
-        expect(page).to have_content(activity.responses.entries_info)
+        expect(page).to have_text(activity.responses.entries_info)
       end
     end
 

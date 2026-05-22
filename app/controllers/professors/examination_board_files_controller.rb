@@ -28,11 +28,12 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
   private
 
   def set_examination_board
-    @examination_board = ExaminationBoard.with_relationships.find(params[:id])
+    @examination_board = ExaminationBoard.with_relationships.find(params.expect(:id))
   end
 
   def set_examination_board_note
-    @examination_board_note = @examination_board.examination_board_notes.find(params[:note_id])
+    @examination_board_note = @examination_board.examination_board_notes
+                                                .find(params.expect(:note_id))
   end
 
   def examination_board_note_params

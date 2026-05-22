@@ -21,16 +21,16 @@ describe 'Supervision::search' do
 
         slim_select(orientation_canceled_option, from: 'orientation_status')
 
-        expect(page).to have_content(canceled_orientation.short_title)
-        expect(page).to have_content(canceled_orientation.advisor.name)
-        expect(page).to have_content(canceled_orientation.academic.name)
-        expect(page).to have_content(canceled_orientation.academic.ra)
+        expect(page).to have_text(canceled_orientation.short_title)
+        expect(page).to have_text(canceled_orientation.advisor.name)
+        expect(page).to have_text(canceled_orientation.academic.name)
+        expect(page).to have_text(canceled_orientation.academic.ra)
 
         canceled_orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_no_content(current_orientation.short_title)
+        expect(page).to have_no_text(current_orientation.short_title)
       end
     end
   end

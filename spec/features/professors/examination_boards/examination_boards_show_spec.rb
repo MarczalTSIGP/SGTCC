@@ -29,9 +29,9 @@ describe 'ExaminationBoard::show' do
           examination_board.evaluators.responses.each_with_index do |response, index|
             child = index + 1
             within("tbody tr:nth-child(#{child})") do
-              expect(page).to have_content(response.evaluator.name_with_scholarity)
-              expect(page).to have_content(I18n.t("helpers.boolean.#{response.appointments_file?}"))
-              expect(page).to have_content(I18n.t("helpers.boolean.#{response.appointments_text?}"))
+              expect(page).to have_text(response.evaluator.name_with_scholarity)
+              expect(page).to have_text(I18n.t("helpers.boolean.#{response.appointments_file?}"))
+              expect(page).to have_text(I18n.t("helpers.boolean.#{response.appointments_text?}"))
             end
           end
         end
@@ -61,11 +61,11 @@ describe 'ExaminationBoard::show' do
                                        examination_board.situation_translated])
 
         orientation.supervisors do |supervisor|
-          expect(page).to have_content(supervisor.name_with_scholarity)
+          expect(page).to have_text(supervisor.name_with_scholarity)
         end
 
         examination_board.professors do |professor|
-          expect(page).to have_content(professor.name_with_scholarity)
+          expect(page).to have_text(professor.name_with_scholarity)
         end
       end
     end

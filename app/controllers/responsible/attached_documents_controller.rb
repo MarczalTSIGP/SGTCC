@@ -60,7 +60,7 @@ class Responsible::AttachedDocumentsController < Responsible::BaseController
   private
 
   def set_attached_document
-    @attached_document = AttachedDocument.find(params[:id])
+    @attached_document = AttachedDocument.find(params.expect(:id))
   end
 
   def attached_document_params

@@ -24,14 +24,14 @@ describe 'Orientation::search' do
         #                                orientation.calendar.year_with_semester_and_tcc])
 
         within('table tbody tr:nth-child(1)') do
-          expect(page).to have_content(orientation.short_title)
-          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_text(orientation.short_title)
+          expect(page).to have_text(orientation.advisor.name)
           expect(page).to have_link(orientation.academic.name,
                                     href: responsible_orientation_path(orientation))
-          expect(page).to have_content(orientation.academic.ra)
+          expect(page).to have_text(orientation.academic.ra)
 
           orientation.calendars.each do |calendar|
-            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+            expect(page).to have_text(calendar.year_with_semester_and_tcc)
           end
         end
       end
@@ -43,13 +43,13 @@ describe 'Orientation::search' do
         slim_select(orientation_approved_option, from: 'orientation_status')
 
         within('table tbody tr:nth-child(1)') do
-          expect(page).to have_content(orientation.short_title)
-          expect(page).to have_content(orientation.advisor.name)
-          expect(page).to have_content(orientation.academic.name)
-          expect(page).to have_content(orientation.academic.ra)
+          expect(page).to have_text(orientation.short_title)
+          expect(page).to have_text(orientation.advisor.name)
+          expect(page).to have_text(orientation.academic.name)
+          expect(page).to have_text(orientation.academic.ra)
 
           orientation.calendars.each do |cal|
-            expect(page).to have_content(cal.year_with_semester_and_tcc)
+            expect(page).to have_text(cal.year_with_semester_and_tcc)
           end
         end
         # expect(page).to have_contents([orientation.short_title,

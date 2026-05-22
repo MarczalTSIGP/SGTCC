@@ -63,7 +63,7 @@ class Responsible::InstitutionsController < Responsible::BaseController
   private
 
   def set_institution
-    @institution = Institution.find(params[:id])
+    @institution = Institution.find(params.expect(:id))
   end
 
   def institution_params

@@ -44,7 +44,7 @@ describe 'Calendar::create', :js do
         semester_number = attributes[:semester].to_s == 'one' ? 1 : 2
         calendar_label = "#{attributes[:year]}/#{semester_number}"
 
-        expect(page).to have_content(calendar_label)
+        expect(page).to have_text(calendar_label)
       end
     end
   end

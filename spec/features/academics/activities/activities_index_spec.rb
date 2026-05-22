@@ -19,9 +19,9 @@ describe 'Activity::index' do
 
         expect(page).to have_link(activity.name,
                                   href: academics_calendar_activity_path(calendar, activity))
-        expect(page).to have_content(activity.base_activity_type.name)
-        expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-        expect(page).to have_content(activity.deadline)
+        expect(page).to have_text(activity.base_activity_type.name)
+        expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+        expect(page).to have_text(activity.deadline)
         expect(page).to have_css("a[href='#{index_url}'].active")
       end
 
@@ -35,9 +35,9 @@ describe 'Activity::index' do
 
         expect(page).to have_link(activity.name,
                                   href: academics_calendar_activity_path(calendar, activity))
-        expect(page).to have_content(activity.base_activity_type.name)
-        expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-        expect(page).to have_content(activity.deadline)
+        expect(page).to have_text(activity.base_activity_type.name)
+        expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+        expect(page).to have_text(activity.deadline)
         expect(page).to have_css("a[href='#{index_url}'].active")
       end
     end

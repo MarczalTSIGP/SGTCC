@@ -43,6 +43,6 @@ class Professors::DashboardController < Professors::BaseController
   end
 
   def set_professor
-    @professor = Professor.find(params[:professor_id])
+    @professor = Professor.find(params.expect(:professor_id))
   end
 end

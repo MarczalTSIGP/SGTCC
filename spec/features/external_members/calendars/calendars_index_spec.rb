@@ -17,12 +17,12 @@ describe 'Calendar::index', :js do
         orientation.calendars.each do |calendar|
           expect(page).to have_link(calendar.year_with_semester,
                                     href: external_members_calendar_activities_path(calendar))
-          expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
-          expect(page).to have_content(orientation.title)
-          expect(page).to have_content(short_date(calendar.created_at))
+          expect(page).to have_text(I18n.t("enums.tcc.#{calendar.tcc}"))
+          expect(page).to have_text(orientation.title)
+          expect(page).to have_text(short_date(calendar.created_at))
 
           orientation.supervisors.each do |supervisor|
-            expect(page).to have_content(supervisor.name)
+            expect(page).to have_text(supervisor.name)
           end
         end
 

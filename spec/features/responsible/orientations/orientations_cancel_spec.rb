@@ -21,7 +21,7 @@ describe 'Orientation::cancel' do
         flash_message = I18n.t('json.messages.orientation.cancel.success')
         expect(page).to have_flash(:success, text: flash_message)
         orientation.reload
-        expect(page).to have_content(orientation.status)
+        expect(page).to have_text(orientation.status)
       end
     end
 

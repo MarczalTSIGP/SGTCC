@@ -20,10 +20,10 @@ describe 'Orientation::activities', :js do
         lore, sent = lore_sent_attributes(activity, orientation)
         within("table tbody tr:nth-child(#{child})") do
           expect(page).to have_link(activity.name)
-          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-          expect(page).to have_content(lore)
-          expect(page).to have_content(sent)
-          expect(page).to have_content(activity.deadline)
+          expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+          expect(page).to have_text(lore)
+          expect(page).to have_text(sent)
+          expect(page).to have_text(activity.deadline)
         end
       end
     end
@@ -41,7 +41,7 @@ describe 'Orientation::activities', :js do
 
         oas = I18n.t('breadcrumbs.orientation_activities.index',
                      calendar: calendar.year_with_semester)
-        expect(page).to have_content(oas)
+        expect(page).to have_text(oas)
       end
 
       orientation.calendars.order(year: :desc, semester: :desc).each do |calendar|
@@ -52,7 +52,7 @@ describe 'Orientation::activities', :js do
 
     it 'academic name' do
       within('div.card-header') do
-        expect(page).to have_content(orientation.academic.name)
+        expect(page).to have_text(orientation.academic.name)
       end
     end
   end
@@ -103,7 +103,7 @@ describe 'Orientation::activities', :js do
 
         oas = I18n.t('breadcrumbs.orientation_activities.show',
                      calendar: orientation.current_calendar.year_with_semester)
-        expect(page).to have_content(oas)
+        expect(page).to have_text(oas)
       end
 
       expect(page).to have_link(href: academic_activity.pdf.url)
@@ -112,7 +112,7 @@ describe 'Orientation::activities', :js do
 
     it 'academic name' do
       within('#main-card > div.card-header') do
-        expect(page).to have_content(orientation.academic.name)
+        expect(page).to have_text(orientation.academic.name)
       end
     end
   end

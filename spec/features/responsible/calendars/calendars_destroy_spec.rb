@@ -17,8 +17,8 @@ describe 'Calendar::destroy', :js do
         click_on_destroy_link(responsible_calendar_path(calendar))
         accept_alert
 
-        expect(page).to have_content(message('destroy.m'))
-        expect(page).to have_no_content(calendar.year)
+        expect(page).to have_text(message('destroy.m'))
+        expect(page).to have_no_text(calendar.year)
       end
     end
 
@@ -32,7 +32,7 @@ describe 'Calendar::destroy', :js do
         accept_alert
 
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
-        expect(page).to have_content(calendar.year)
+        expect(page).to have_text(calendar.year)
       end
     end
   end

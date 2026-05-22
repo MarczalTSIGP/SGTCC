@@ -27,10 +27,10 @@ describe 'ExaminationBoard::index', :js do
 
         child = index + 1
         within("div#tabContent .examination-board-site:nth-child(#{child})") do
-          expect(page).to have_content(long_date(eb.date))
-          expect(page).to have_content(eb.place)
-          expect(page).to have_content(academic_name)
-          expect(page).to have_content(advisor_name)
+          expect(page).to have_text(long_date(eb.date))
+          expect(page).to have_text(eb.place)
+          expect(page).to have_text(academic_name)
+          expect(page).to have_text(advisor_name)
         end
       end
 
@@ -63,10 +63,10 @@ describe 'ExaminationBoard::index', :js do
         child = index + 1
 
         within("div#tabContent .examination-board-site:nth-child(#{child})") do
-          expect(page).to have_content(long_date(eb.date))
-          expect(page).to have_content(eb.place)
-          expect(page).to have_content(academic_name)
-          expect(page).to have_content(advisor_name)
+          expect(page).to have_text(long_date(eb.date))
+          expect(page).to have_text(eb.place)
+          expect(page).to have_text(academic_name)
+          expect(page).to have_text(advisor_name)
         end
       end
 

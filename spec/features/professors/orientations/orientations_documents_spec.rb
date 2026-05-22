@@ -45,12 +45,12 @@ describe 'Orientation::documents', :js do
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
-          expect(page).to have_content(scholarity_with_name(supervisor))
+          expect(page).to have_text(scholarity_with_name(supervisor))
         end
       end
 
       it 'renders the document page with print and back actions' do
-        expect(page).to have_content('Salvar documento em PDF')
+        expect(page).to have_text('Salvar documento em PDF')
         expect(page).to have_button('Salvar em PDF')
       end
     end

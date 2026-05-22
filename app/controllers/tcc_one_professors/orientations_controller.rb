@@ -21,7 +21,7 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   end
 
   def document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
     @signatures = @document.mark
     @not_show_sign_button = true
 
@@ -33,11 +33,11 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   private
 
   def set_orientation
-    @orientation = @calendar.orientations.find(params[:id])
+    @orientation = @calendar.orientations.find(params.expect(:id))
   end
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = Calendar.find(params.expect(:calendar_id))
   end
 
   def set_title

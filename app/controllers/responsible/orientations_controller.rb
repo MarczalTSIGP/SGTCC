@@ -115,7 +115,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   end
 
   def document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
     @signatures = build_signatures_list(@document)
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
@@ -150,7 +150,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = Orientation.find(params.expect(:id))
   end
 
   def set_calendar

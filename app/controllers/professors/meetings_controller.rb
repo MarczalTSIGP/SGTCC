@@ -77,7 +77,7 @@ class Professors::MeetingsController < Professors::BaseController
   end
 
   def set_orientation
-    @orientation = Orientation.find(params[:id])
+    @orientation = Orientation.find(params.expect(:id))
   end
 
   def meeting_params

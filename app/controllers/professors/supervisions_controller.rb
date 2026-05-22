@@ -42,7 +42,7 @@ class Professors::SupervisionsController < Professors::BaseController
   end
 
   def document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
     @signatures = @document.mark
     @signature = @document.signature_by_user(current_professor.id, current_professor.user_types)
 
@@ -63,7 +63,7 @@ class Professors::SupervisionsController < Professors::BaseController
   end
 
   def set_orientation
-    @orientation = current_professor.supervisions.find(params[:id])
+    @orientation = current_professor.supervisions.find(params.expect(:id))
   end
 
   def add_index_breadcrumb

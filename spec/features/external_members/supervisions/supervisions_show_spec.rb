@@ -29,16 +29,16 @@ describe 'Supervision::show' do
       it 'shows the orientation' do
         visit external_members_supervision_path(orientation)
 
-        expect(page).to have_content(orientation.title)
-        expect(page).to have_content(orientation.academic.name)
-        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_text(orientation.title)
+        expect(page).to have_text(orientation.academic.name)
+        expect(page).to have_text(orientation.advisor.name)
 
         orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_content(complete_date(orientation.created_at))
-        expect(page).to have_content(complete_date(orientation.updated_at))
+        expect(page).to have_text(complete_date(orientation.created_at))
+        expect(page).to have_text(complete_date(orientation.updated_at))
 
         I18n.t('breadcrumbs.supervisions.history')
         first("a[href='#{external_members_supervisions_history_path}']",
@@ -51,16 +51,16 @@ describe 'Supervision::show' do
       it 'shows the current tcc one orientation' do
         visit external_members_supervision_path(orientation_tcc_one)
 
-        expect(page).to have_content(orientation_tcc_one.title)
-        expect(page).to have_content(orientation_tcc_one.academic.name)
-        expect(page).to have_content(orientation_tcc_one.advisor.name)
+        expect(page).to have_text(orientation_tcc_one.title)
+        expect(page).to have_text(orientation_tcc_one.academic.name)
+        expect(page).to have_text(orientation_tcc_one.advisor.name)
 
         orientation_tcc_one.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_content(complete_date(orientation_tcc_one.created_at))
-        expect(page).to have_content(complete_date(orientation_tcc_one.updated_at))
+        expect(page).to have_text(complete_date(orientation_tcc_one.created_at))
+        expect(page).to have_text(complete_date(orientation_tcc_one.updated_at))
 
         breadcrumb_text = I18n.t('breadcrumbs.supervisions.tcc.one.calendar',
                                  calendar: calendar_tcc_one.year_with_semester)
@@ -74,16 +74,16 @@ describe 'Supervision::show' do
       it 'shows the current tcc two orientation' do
         visit external_members_supervision_path(orientation_tcc_two)
 
-        expect(page).to have_content(orientation_tcc_two.title)
-        expect(page).to have_content(orientation_tcc_two.academic.name)
-        expect(page).to have_content(orientation_tcc_two.advisor.name)
+        expect(page).to have_text(orientation_tcc_two.title)
+        expect(page).to have_text(orientation_tcc_two.academic.name)
+        expect(page).to have_text(orientation_tcc_two.advisor.name)
 
         orientation_tcc_two.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
 
-        expect(page).to have_content(complete_date(orientation_tcc_two.created_at))
-        expect(page).to have_content(complete_date(orientation_tcc_two.updated_at))
+        expect(page).to have_text(complete_date(orientation_tcc_two.created_at))
+        expect(page).to have_text(complete_date(orientation_tcc_two.updated_at))
 
         breadcrumb_text = I18n.t('breadcrumbs.supervisions.tcc.two.calendar',
                                  calendar: calendar_tcc_one.year_with_semester)

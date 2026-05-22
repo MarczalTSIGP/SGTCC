@@ -16,13 +16,13 @@ describe 'Calendar::index' do
         orientation.calendars.each do |calendar|
           expect(page).to have_link(calendar.year_with_semester,
                                     href: academics_calendar_activities_path(calendar))
-          expect(page).to have_content(I18n.t("enums.tcc.#{calendar.tcc}"))
-          expect(page).to have_content(orientation.title)
-          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_text(I18n.t("enums.tcc.#{calendar.tcc}"))
+          expect(page).to have_text(orientation.title)
+          expect(page).to have_text(orientation.advisor.name)
         end
 
         orientation.supervisors.each do |supervisor|
-          expect(page).to have_content(supervisor.name)
+          expect(page).to have_text(supervisor.name)
         end
 
         expect(page).to have_css("a[href='#{index_url}'].active")

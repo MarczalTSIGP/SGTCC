@@ -22,8 +22,8 @@ describe 'Submission::Activities::ToConfirm', :js do
                                 href: professors_orientation_calendar_activity_path(
                                   academic, calendar, submission.activity
                                 ))
-      expect(page).to have_content(submission.activity.name)
-      expect(page).to have_content(calendar.year_with_semester)
+      expect(page).to have_text(submission.activity.name)
+      expect(page).to have_text(calendar.year_with_semester)
     end
   end
 end

@@ -17,7 +17,7 @@ describe 'Request::destroy', :js do
         click_on_destroy_link(professors_request_path(document_tdo))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).to have_no_content(orientation.title)
+        expect(page).to have_no_text(orientation.title)
       end
     end
   end

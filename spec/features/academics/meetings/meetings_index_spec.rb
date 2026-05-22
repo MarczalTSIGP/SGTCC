@@ -19,7 +19,7 @@ describe 'Meeting::index', :js do
           expect(page).to have_link(orientation.academic_with_calendar,
                                     href: academics_meeting_path(meeting))
 
-          expect(page).to have_content(short_date(meeting.date))
+          expect(page).to have_text(short_date(meeting.date))
         end
       end
     end

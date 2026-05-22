@@ -15,8 +15,8 @@ describe 'Document::index', :js do
         orientation.documents.each do |document|
           expect(page).to have_link(document.orientation.short_title,
                                     href: professors_document_path(document))
-          expect(page).to have_content(document.orientation.academic.name)
-          expect(page).to have_content(document.document_type.identifier.upcase)
+          expect(page).to have_text(document.orientation.academic.name)
+          expect(page).to have_text(document.document_type.identifier.upcase)
         end
       end
     end

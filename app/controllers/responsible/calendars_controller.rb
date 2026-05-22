@@ -77,7 +77,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   private
 
   def set_calendar
-    @calendar = Calendar.find(params[:id])
+    @calendar = Calendar.find(params.expect(:id))
   end
 
   def calendar_params
