@@ -55,6 +55,17 @@ input.form-control-range.is-valid:focus::-moz-range-thumb {
   box-shadow: none;
 }
 
+.appointment-text-modal .modal-body {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.appointment-text-modal .modal-body pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .range-label {
   width: 100%;
 }
