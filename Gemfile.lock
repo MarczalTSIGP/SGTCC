@@ -131,7 +131,7 @@ GEM
     capybara-screenshot (1.0.27)
       capybara (>= 1.0, < 4)
       launchy
-    carrierwave (3.1.2)
+    carrierwave (3.1.3)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
       addressable (~> 2.6)
@@ -265,7 +265,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jaro_winkler (1.7.0)
-    json (2.19.5)
+    json (2.19.9)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     kamal (2.11.0)
@@ -688,7 +688,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  carrierwave (~> 3.0)
+  carrierwave (~> 3.1)
   carrierwave-i18n
   chunky_png
   cpf_cnpj
