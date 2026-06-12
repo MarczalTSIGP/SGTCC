@@ -15,13 +15,13 @@
       </strong>
       <%= @document.orientation.academic_with_calendar %>
     </p>
-    <p>
+    <div>
       <strong>
         <%= Document.human_attribute_name('justification') %>:
       </strong>
-      <markdown-reader
-        content="<%= @document.request['requester']['justification'] %>" />
-    </p>
+      <div data-controller="markdown--viewer"
+           data-markdown="<%= @document.request['requester']['justification'] %>"></div>
+    </div>
     <p>
       <strong>
         <%= Document.human_attribute_name('created_at') %>:
