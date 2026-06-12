@@ -10,7 +10,7 @@
   <td><%= professor.email %></td>
   <td class="text-center">
     <%= link_to professor.lattes, target: '_blank' do %>
-      <i class="fas fa-external-link-alt" data-toggle="tooltip" title="lattes"></i>
+      <i class="fas fa-external-link-alt" data-controller="ui--tooltip" title="lattes"></i>
     <% end %>
   </td>
   <td><%= t("helpers.boolean.#{professor.available_advisor}") %></td>

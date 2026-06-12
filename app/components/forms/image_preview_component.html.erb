@@ -2,8 +2,8 @@
   <!-- Box de preview quando há imagem -->
   <div id="box-image-preview" 
        data-forms--image-preview-target="previewBox"
-       data-toggle="tooltip" 
-       data-placement="left" 
+       data-controller="ui--tooltip"
+       data-bs-placement="left"
        title="Editar imagem"
        style="<%= 'display: none;' unless image? %>">
     <div class="input-field image_preview">
@@ -63,4 +63,3 @@
     </div>
   <% end %>
 </div>
-
