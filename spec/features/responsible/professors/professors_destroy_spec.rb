@@ -16,7 +16,7 @@ describe 'Professor::destroy', :js do
         click_on_destroy_link(responsible_professor_path(professor))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_content(professor.name)
+        expect(page).to have_no_text(professor.name)
       end
     end
   end
@@ -31,7 +31,7 @@ describe 'Professor::destroy', :js do
         click_on_destroy_link(responsible_professor_path(orientation.advisor))
         accept_alert
         expect(page).to have_flash(:warning, text: message('destroy.bond'))
-        expect(page).to have_content(advisor.name)
+        expect(page).to have_text(advisor.name)
       end
     end
   end

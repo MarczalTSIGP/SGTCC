@@ -23,9 +23,9 @@ describe 'Document::review', :js do
       within('table tbody') do
         expect(page).to have_link(text: orientation.short_title,
                                   href: professors_document_path(tep))
-        expect(page).to have_content(orientation.academic.name)
-        expect(page).to have_content(tep.document_type.identifier.upcase)
-        expect(page).to have_content(short_date(document.created_at))
+        expect(page).to have_text(orientation.academic.name)
+        expect(page).to have_text(tep.document_type.identifier.upcase)
+        expect(page).to have_text(short_date(document.created_at))
       end
     end
   end

@@ -147,7 +147,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def confirm
-    @examination_board = ExaminationBoard.find(params[:id])
+    @examination_board = ExaminationBoard.find(params.expect(:id))
     @examination_board.confirm!
 
     respond_to do |format|
@@ -162,11 +162,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   private
 
   def set_examination_board
-    @examination_board = ExaminationBoard.find(params[:id])
+    @examination_board = ExaminationBoard.find(params.expect(:id))
   end
 
   def set_examination_board_with_relationships
-    @examination_board = ExaminationBoard.with_relationships.find(params[:id])
+    @examination_board = ExaminationBoard.with_relationships.find(params.expect(:id))
   end
 
   def examination_board_params

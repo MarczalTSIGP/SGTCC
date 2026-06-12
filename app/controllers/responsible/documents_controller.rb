@@ -52,7 +52,7 @@ class Responsible::DocumentsController < Responsible::BaseController
   private
 
   def set_document
-    @document = Document.find(params[:id])
+    @document = Document.find(params.expect(:id))
   end
 
   def judgment_params

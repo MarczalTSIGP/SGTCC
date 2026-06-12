@@ -26,8 +26,8 @@ describe 'Site::calendar', :js do
       visit site_calendar_path
 
       within('table.tcc_two') do
-        expect(page).to have_content(activity_tcc_two.name)
-        expect(page).to have_content(activity_tcc_two.deadline)
+        expect(page).to have_text(activity_tcc_two.name)
+        expect(page).to have_text(activity_tcc_two.deadline)
       end
     end
 

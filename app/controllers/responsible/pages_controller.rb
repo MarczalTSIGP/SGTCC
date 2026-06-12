@@ -71,7 +71,7 @@ class Responsible::PagesController < Responsible::BaseController
   private
 
   def set_page
-    @page = Page.find(params[:id])
+    @page = Page.find(params.expect(:id))
   end
 
   def page_params

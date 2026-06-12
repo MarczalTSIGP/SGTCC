@@ -13,7 +13,7 @@ describe 'Meeting::show' do
   describe '#show' do
     context 'when shows the meeting' do
       it 'shows the meeting' do
-        expect(page).to have_content(complete_date(meeting.date))
+        expect(page).to have_text(complete_date(meeting.date))
       end
     end
 

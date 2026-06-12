@@ -26,7 +26,7 @@ describe 'Meeting::update', :js do
 
         expect(page).to have_current_path professors_meeting_path(meeting)
         expect(page).to have_flash(:success, text: message('update.f'))
-        expect(page).to have_content(new_orientation.academic_with_calendar)
+        expect(page).to have_text(new_orientation.academic_with_calendar)
       end
     end
 

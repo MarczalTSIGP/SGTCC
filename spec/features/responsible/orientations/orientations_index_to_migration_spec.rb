@@ -24,7 +24,7 @@ describe 'Orientation::to_migrate' do
 
     it 'shows all orientations that need to be migrated' do
       orientations.each do |orientation|
-        expect(page).to have_content(orientation.academic.name)
+        expect(page).to have_text(orientation.academic.name)
       end
     end
 
@@ -41,7 +41,7 @@ describe 'Orientation::to_migrate' do
                              semester: 1,
                              tcc: Calendar.tccs[:two])
 
-      expect(page).to have_no_content(next_calendar.year_with_semester_and_tcc)
+      expect(page).to have_no_text(next_calendar.year_with_semester_and_tcc)
     end
   end
 end

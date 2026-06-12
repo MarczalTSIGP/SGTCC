@@ -23,11 +23,11 @@ class TccOneProfessors::OrientationActivitiesController < TccOneProfessors::Base
   private
 
   def set_orientation
-    @orientation = Orientation.find(params[:orientation_id])
+    @orientation = Orientation.find(params.expect(:orientation_id))
   end
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = Calendar.find(params.expect(:calendar_id))
   end
 
   def set_activity

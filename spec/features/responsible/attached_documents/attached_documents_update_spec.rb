@@ -24,7 +24,7 @@ describe 'AttachedDocument::update', :js do
 
         expect(page).to have_current_path responsible_attached_documents_path
         expect(page).to have_flash(:success, text: message('update.m'))
-        expect(page).to have_content(attributes[:name])
+        expect(page).to have_text(attributes[:name])
       end
     end
 

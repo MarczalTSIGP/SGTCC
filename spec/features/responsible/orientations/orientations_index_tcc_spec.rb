@@ -14,14 +14,14 @@ describe 'Orientation::current_tcc' do
         visit responsible_orientations_current_tcc_one_path
 
         within('table tbody tr:nth-child(1)') do
-          expect(page).to have_content(orientation.short_title)
-          expect(page).to have_content(orientation.advisor.name)
+          expect(page).to have_text(orientation.short_title)
+          expect(page).to have_text(orientation.advisor.name)
           expect(page).to have_link(orientation.academic.name,
                                     href: responsible_orientation_path(orientation))
-          expect(page).to have_content(orientation.academic.ra)
+          expect(page).to have_text(orientation.academic.ra)
 
           orientation.calendars.each do |calendar|
-            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+            expect(page).to have_text(calendar.year_with_semester_and_tcc)
           end
         end
       end
@@ -34,13 +34,13 @@ describe 'Orientation::current_tcc' do
         visit responsible_orientations_current_tcc_two_path
 
         within('table tbody tr:nth-child(1)') do
-          expect(page).to have_content(orientation.short_title)
-          expect(page).to have_content(orientation.advisor.name)
-          expect(page).to have_content(orientation.academic.name)
-          expect(page).to have_content(orientation.academic.ra)
+          expect(page).to have_text(orientation.short_title)
+          expect(page).to have_text(orientation.advisor.name)
+          expect(page).to have_text(orientation.academic.name)
+          expect(page).to have_text(orientation.academic.ra)
 
           orientation.calendars.each do |calendar|
-            expect(page).to have_content(calendar.year_with_semester_and_tcc)
+            expect(page).to have_text(calendar.year_with_semester_and_tcc)
           end
         end
       end

@@ -14,8 +14,8 @@ describe 'Supervision::index' do
     let(:index_url) { external_members_supervisions_tcc_one_path }
 
     it 'shows basic information of tcc one supervision' do
-      expect(page).to have_content(orientation.short_title)
-      expect(page).to have_content(orientation.advisor.name)
+      expect(page).to have_text(orientation.short_title)
+      expect(page).to have_text(orientation.advisor.name)
       expect(page).to have_link(
         orientation.academic.name,
         href: external_members_supervision_path(orientation)
@@ -24,7 +24,7 @@ describe 'Supervision::index' do
 
     it 'shows calendar information of tcc one supervision' do
       orientation.calendars.each do |calendar|
-        expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        expect(page).to have_text(calendar.year_with_semester_and_tcc)
       end
     end
 

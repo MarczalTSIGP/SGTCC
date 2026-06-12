@@ -16,9 +16,9 @@ describe 'Orientation::index', :js do
         expect(page).to have_css("a[href='#{index_url}'].active")
 
         within("#orientation_#{orientation.id}") do
-          expect(page).to have_content(orientation.document_title)
-          expect(page).to have_content(orientation.advisor.name)
-          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_text(orientation.document_title)
+          expect(page).to have_text(orientation.advisor.name)
+          expect(page).to have_text(orientation.academic.name)
 
           expect(page).to have_selector(link(orientation.final_monograph.pdf.url))
           expect(page).to have_selector(link(orientation.final_monograph.complementary_files.url))
@@ -32,9 +32,9 @@ describe 'Orientation::index', :js do
         expect(page).to have_css("a[href='#{index_url}'].active")
 
         within("#orientation_#{orientation.id}") do
-          expect(page).to have_content(orientation.document_title)
-          expect(page).to have_content(orientation.advisor.name)
-          expect(page).to have_content(orientation.academic.name)
+          expect(page).to have_text(orientation.document_title)
+          expect(page).to have_text(orientation.advisor.name)
+          expect(page).to have_text(orientation.academic.name)
 
           expect(page).to have_selector(link(orientation.final_monograph.pdf.url))
           expect(page).to have_no_css('a', text: 'Arquivos complementares')

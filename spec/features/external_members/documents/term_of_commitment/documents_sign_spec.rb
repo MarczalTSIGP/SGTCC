@@ -27,7 +27,7 @@ describe 'Document::sign', :js do
         time = I18n.l(external_member_signature.updated_at, format: :time)
         role = signature_role(external_member.gender, external_member_signature.user_type)
 
-        expect(page).to have_content(signature_register(external_member.name, role, date, time))
+        expect(page).to have_text(signature_register(external_member.name, role, date, time))
       end
     end
 

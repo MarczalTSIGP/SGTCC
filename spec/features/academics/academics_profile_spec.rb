@@ -22,7 +22,7 @@ describe 'Responsible:profiles', :js do
 
       expect(page).to have_flash(:info, text: registrations_updated_message)
       within('a.nav-link') do
-        expect(page).to have_content(attributes[:name])
+        expect(page).to have_text(attributes[:name])
       end
       expect(page).to have_field 'academic_name', with: attributes[:name]
       expect(page).to have_field 'academic_email', with: attributes[:email]

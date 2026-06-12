@@ -25,9 +25,9 @@ describe 'Supervision::activities' do
                                     href: external_members_supervision_calendar_activity_path(
                                       orientation, orientation.current_calendar, activity
                                     ))
-          expect(page).to have_content(activity.base_activity_type.name)
-          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-          expect(page).to have_content(activity.deadline)
+          expect(page).to have_text(activity.base_activity_type.name)
+          expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+          expect(page).to have_text(activity.deadline)
         end
         expect(page).to have_css("a[href='#{active_link}'].active")
       end
@@ -49,15 +49,15 @@ describe 'Supervision::activities' do
       end
 
       it 'shows the activity' do
-        expect(page).to have_content(activity.name)
-        expect(page).to have_content(activity.base_activity_type.name)
-        expect(page).to have_content(activity.deadline)
-        expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-        expect(page).to have_content(complete_date(activity.created_at))
-        expect(page).to have_content(complete_date(activity.updated_at))
-        expect(page).to have_content(academic.name)
-        expect(page).to have_content(academic_activity.title)
-        expect(page).to have_content(academic_activity.summary)
+        expect(page).to have_text(activity.name)
+        expect(page).to have_text(activity.base_activity_type.name)
+        expect(page).to have_text(activity.deadline)
+        expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+        expect(page).to have_text(complete_date(activity.created_at))
+        expect(page).to have_text(complete_date(activity.updated_at))
+        expect(page).to have_text(academic.name)
+        expect(page).to have_text(academic_activity.title)
+        expect(page).to have_text(academic_activity.summary)
 
         link_active = "#{link(active_link)}.active"
 

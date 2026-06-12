@@ -14,13 +14,13 @@ describe 'Calendar::show', :js do
       it 'shows basic calendar header info' do
         tcc_label = I18n.t("enums.tcc.#{calendar.tcc}")
         title = "Calendário de Atividades de TCC #{tcc_label} (#{calendar.year_with_semester})"
-        expect(page).to have_content(title)
-        expect(page).to have_content(calendar.year_with_semester)
+        expect(page).to have_text(title)
+        expect(page).to have_text(calendar.year_with_semester)
       end
 
       it 'shows its activities or empty message' do
         if calendar.activities.empty?
-          expect(page).to have_content('Nenhum resultado encontrado.')
+          expect(page).to have_text('Nenhum resultado encontrado.')
         else
           calendar.activities.each do |activity|
             tcc = I18n.t("enums.tcc.#{activity.tcc}")

@@ -21,9 +21,9 @@ describe 'Orientation::activities', :js do
                                     href: academics_calendar_orientation_activity_path(
                                       calendar, orientation, activity
                                     ))
-          expect(page).to have_content(activity.base_activity_type.name)
-          expect(page).to have_content(I18n.t("enums.tcc.#{activity.tcc}"))
-          expect(page).to have_content(activity.deadline)
+          expect(page).to have_text(activity.base_activity_type.name)
+          expect(page).to have_text(I18n.t("enums.tcc.#{activity.tcc}"))
+          expect(page).to have_text(activity.deadline)
         end
 
         expect(page).to have_css("a[href='#{active_link}'].active")

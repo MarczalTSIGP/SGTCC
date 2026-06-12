@@ -21,7 +21,7 @@ describe 'Image:update', :js do
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_images_path
-        expect(page).to have_content(attributes[:name])
+        expect(page).to have_text(attributes[:name])
       end
     end
 

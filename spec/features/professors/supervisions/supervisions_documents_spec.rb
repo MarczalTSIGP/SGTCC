@@ -44,7 +44,7 @@ describe 'Supervision::documents', :js do
                                        document_date(document.created_at)])
 
         orientation.supervisors.each do |supervisor|
-          expect(page).to have_content(scholarity_with_name(supervisor))
+          expect(page).to have_text(scholarity_with_name(supervisor))
         end
 
         expect(page).to have_css("a[href='#{active_link}'].active")

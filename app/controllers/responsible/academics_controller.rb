@@ -60,7 +60,7 @@ class Responsible::AcademicsController < Responsible::BaseController
   private
 
   def set_academic
-    @academic = Academic.find(params[:id])
+    @academic = Academic.find(params.expect(:id))
   end
 
   def academic_params

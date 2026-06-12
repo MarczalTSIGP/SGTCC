@@ -36,7 +36,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   end
 
   def document
-    @document = @orientation.documents.find(params[:document_id])
+    @document = @orientation.documents.find(params.expect(:document_id))
     @signatures = @document.mark
     @signature = @document.signature_by_user(current_external_member.id,
                                              current_external_member.user_types)
@@ -48,7 +48,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   private
 
   def set_orientation
-    @orientation = current_external_member.supervisions.find(params[:id])
+    @orientation = current_external_member.supervisions.find(params.expect(:id))
   end
 
   def set_current_calendar

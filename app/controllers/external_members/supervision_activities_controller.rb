@@ -22,11 +22,11 @@ class ExternalMembers::SupervisionActivitiesController < ExternalMembers::BaseCo
   private
 
   def set_orientation
-    @orientation = current_external_member.supervisions.find(params[:supervision_id])
+    @orientation = current_external_member.supervisions.find(params.expect(:supervision_id))
   end
 
   def set_calendar
-    @calendar = @orientation.calendars.find(params[:calendar_id])
+    @calendar = @orientation.calendars.find(params.expect(:calendar_id))
   end
 
   def set_activity

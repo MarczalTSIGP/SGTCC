@@ -43,9 +43,9 @@ describe 'Activity::document', :js do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
 
-        expect(page).to have_content(blank_error_message)
-        expect(page).to have_content(blank_error_message)
-        expect(page).to have_content(blank_error_message)
+        expect(page).to have_text(blank_error_message)
+        expect(page).to have_text(blank_error_message)
+        expect(page).to have_text(blank_error_message)
       end
     end
   end
@@ -84,8 +84,8 @@ describe 'Activity::document', :js do
         submit_form('input[name="commit"]')
         expect(page).to have_flash(:danger, text: errors_message)
 
-        expect(page).to have_content(blank_error_message)
-        expect(page).to have_content(blank_error_message)
+        expect(page).to have_text(blank_error_message)
+        expect(page).to have_text(blank_error_message)
       end
     end
   end

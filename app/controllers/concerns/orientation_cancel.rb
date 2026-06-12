@@ -2,7 +2,7 @@ module OrientationCancel
   extend ActiveSupport::Concern
 
   def cancel
-    orientation = Orientation.find(params[:id])
+    orientation = Orientation.find(params.expect(:id))
     justification = cancellation_justification
 
     return handle_empty_justification(orientation) if justification.blank?

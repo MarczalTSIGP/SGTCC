@@ -18,7 +18,7 @@ describe 'Orientation::migrate' do
         submit_form('input[name="commit"]')
 
         # Verifica que a orientação ainda está na lista (não foi migrada)
-        expect(page).to have_content(orientation.short_title)
+        expect(page).to have_text(orientation.short_title)
         expect(page).to have_current_path(%r{orientations/migration})
       end
     end

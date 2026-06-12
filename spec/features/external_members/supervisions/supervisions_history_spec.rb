@@ -16,14 +16,14 @@ describe 'Supervision::index' do
         index_url = external_members_supervisions_history_path
         visit index_url
 
-        expect(page).to have_content(orientation.short_title)
-        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_text(orientation.short_title)
+        expect(page).to have_text(orientation.advisor.name)
         expect(page).to have_link(orientation.academic.name,
                                   href: external_members_supervision_path(orientation))
-        expect(page).to have_content(orientation.academic.ra)
+        expect(page).to have_text(orientation.academic.ra)
 
         orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
 
         expect(page).to have_css("a[href='#{index_url}'].active")

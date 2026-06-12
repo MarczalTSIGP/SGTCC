@@ -22,7 +22,7 @@ describe 'Document::show', :js do
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
-          expect(page).to have_content(scholarity_with_name(supervisor))
+          expect(page).to have_text(scholarity_with_name(supervisor))
         end
 
         expect(page).to have_css("a[href='#{academics_documents_pending_path}'].active")
@@ -50,11 +50,11 @@ describe 'Document::show', :js do
                                        document_date(orientation.created_at)])
 
         orientation.supervisors do |supervisor|
-          expect(page).to have_content(scholarity_with_name(supervisor))
+          expect(page).to have_text(scholarity_with_name(supervisor))
         end
 
         document.mark.each do |signature|
-          expect(page).to have_content(
+          expect(page).to have_text(
             signature_register(signature[:name], signature[:role],
                                signature[:date], signature[:time])
           )

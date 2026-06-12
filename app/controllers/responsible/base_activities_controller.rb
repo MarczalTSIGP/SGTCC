@@ -71,7 +71,7 @@ class Responsible::BaseActivitiesController < Responsible::BaseController
   private
 
   def set_base_activity
-    @base_activity = BaseActivity.find(params[:id])
+    @base_activity = BaseActivity.find(params.expect(:id))
   end
 
   def activity_params

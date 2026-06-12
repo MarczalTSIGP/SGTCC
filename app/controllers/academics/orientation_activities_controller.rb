@@ -23,11 +23,11 @@ class Academics::OrientationActivitiesController < Academics::BaseController
   private
 
   def set_orientation
-    @orientation = current_academic.orientations.find(params[:id])
+    @orientation = current_academic.orientations.find(params.expect(:id))
   end
 
   def set_calendar
-    @calendar = Calendar.find(params[:calendar_id])
+    @calendar = Calendar.find(params.expect(:calendar_id))
   end
 
   def set_activity

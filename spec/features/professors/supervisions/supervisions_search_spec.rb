@@ -15,14 +15,14 @@ describe 'Supervision::search' do
       it 'finds the supervision by status' do
         slim_select(orientation_approved_option, from: 'orientation_status')
 
-        expect(page).to have_content(orientation.short_title)
-        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_text(orientation.short_title)
+        expect(page).to have_text(orientation.advisor.name)
         expect(page).to have_link(orientation.academic.name,
                                   href: professors_supervision_path(orientation))
-        expect(page).to have_content(orientation.academic.ra)
+        expect(page).to have_text(orientation.academic.ra)
 
         orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
       end
     end

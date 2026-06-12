@@ -34,10 +34,10 @@ describe 'Orientation::documents', :js do
       end
 
       it 'shows the document' do
-        expect(page).to have_content(orientation.title)
-        expect(page).to have_content(orientation.academic.name)
-        expect(page).to have_content(orientation.academic.ra)
-        expect(page).to have_content(orientation.advisor.name)
+        expect(page).to have_text(orientation.title)
+        expect(page).to have_text(orientation.academic.name)
+        expect(page).to have_text(orientation.academic.ra)
+        expect(page).to have_text(orientation.advisor.name)
         expect(page).to have_css("a[href='#{active_link}'].active")
       end
     end

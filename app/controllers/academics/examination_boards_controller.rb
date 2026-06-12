@@ -24,6 +24,6 @@ class Academics::ExaminationBoardsController < Academics::BaseController
                                          .with_relationships
                                          .includes(examination_board_notes: [:professor,
                                                                              :external_member])
-                                         .find(params[:id])
+                                         .find(params.expect(:id))
   end
 end

@@ -17,8 +17,8 @@ describe 'Supervision::index' do
     end
 
     it 'shows the orientation information' do
-      expect(page).to have_content(orientation.short_title)
-      expect(page).to have_content(orientation.advisor.name)
+      expect(page).to have_text(orientation.short_title)
+      expect(page).to have_text(orientation.advisor.name)
       expect(page).to have_link(
         orientation.academic.name,
         href: professors_supervision_path(orientation)
@@ -27,7 +27,7 @@ describe 'Supervision::index' do
 
     it 'shows the calendar information' do
       orientation.calendars.each do |calendar|
-        expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        expect(page).to have_text(calendar.year_with_semester_and_tcc)
       end
     end
 
@@ -64,12 +64,12 @@ describe 'Supervision::index' do
       index_url = professors_supervisions_tcc_two_path
       visit index_url
 
-      expect(page).to have_content(orientation.short_title)
-      expect(page).to have_content(orientation.advisor.name)
-      expect(page).to have_content(orientation.academic.name)
+      expect(page).to have_text(orientation.short_title)
+      expect(page).to have_text(orientation.advisor.name)
+      expect(page).to have_text(orientation.academic.name)
 
       orientation.calendars.each do |calendar|
-        expect(page).to have_content(calendar.year_with_semester_and_tcc)
+        expect(page).to have_text(calendar.year_with_semester_and_tcc)
       end
 
       expect(page).to have_css("a[href='#{index_url}'].active")

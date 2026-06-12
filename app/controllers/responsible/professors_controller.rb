@@ -101,7 +101,7 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def set_professor
-    @professor = Professor.find(params[:id])
+    @professor = Professor.find(params.expect(:id))
   end
 
   def professor_params

@@ -58,7 +58,7 @@ class Responsible::ImagesController < Responsible::BaseController
   private
 
   def set_image
-    @image = Image.find(params[:id])
+    @image = Image.find(params.expect(:id))
   end
 
   def image_params

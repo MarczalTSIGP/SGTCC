@@ -63,7 +63,7 @@ class Professors::DocumentsController < Professors::BaseController
 
   def set_document_for_responsible
     for_responsible = current_professor.responsible? && @document.blank?
-    @document = Document.find(params[:id]) if for_responsible
+    @document = Document.find(params.expect(:id)) if for_responsible
     @not_show_sign_button = true if for_responsible
   end
 

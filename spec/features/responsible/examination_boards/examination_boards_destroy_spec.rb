@@ -24,7 +24,7 @@ describe 'ExaminationBoard::destroy', :js do
         click_on_destroy_link(responsible_examination_board_path(examination_board))
         accept_alert
         expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).to have_no_content(examination_board.orientation.academic_with_calendar)
+        expect(page).to have_no_text(examination_board.orientation.academic_with_calendar)
       end
     end
 

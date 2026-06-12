@@ -24,7 +24,7 @@ describe 'Image::create', :js do
 
         expect(page).to have_current_path responsible_images_path
         expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_content(attributes[:name])
+        expect(page).to have_text(attributes[:name])
       end
     end
 

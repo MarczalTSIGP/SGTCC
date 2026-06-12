@@ -17,6 +17,6 @@ class Professors::SupervisionExaminationBoardsController < Professors::BaseContr
   private
 
   def set_examination_board
-    @examination_board = ExaminationBoard.with_relationships.find(params[:id])
+    @examination_board = ExaminationBoard.with_relationships.find(params.expect(:id))
   end
 end

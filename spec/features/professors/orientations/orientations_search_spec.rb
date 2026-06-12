@@ -15,27 +15,27 @@ describe 'Orientation::search' do
         fill_in 'term', with: first_orientation.title
         first('#search').click
 
-        expect(page).to have_content(first_orientation.short_title)
-        expect(page).to have_content(first_orientation.advisor.name)
+        expect(page).to have_text(first_orientation.short_title)
+        expect(page).to have_text(first_orientation.advisor.name)
         expect(page).to have_link(first_orientation.academic.name,
                                   href: professors_orientation_path(first_orientation))
-        expect(page).to have_content(first_orientation.academic.ra)
+        expect(page).to have_text(first_orientation.academic.ra)
 
         first_orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
       end
 
       it 'finds the orientation by status' do
         slim_select(orientation_in_progress_option, from: 'orientation_status')
 
-        expect(page).to have_content(first_orientation.short_title)
-        expect(page).to have_content(first_orientation.advisor.name)
-        expect(page).to have_content(first_orientation.academic.name)
-        expect(page).to have_content(first_orientation.academic.ra)
+        expect(page).to have_text(first_orientation.short_title)
+        expect(page).to have_text(first_orientation.advisor.name)
+        expect(page).to have_text(first_orientation.academic.name)
+        expect(page).to have_text(first_orientation.academic.ra)
 
         first_orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
       end
     end

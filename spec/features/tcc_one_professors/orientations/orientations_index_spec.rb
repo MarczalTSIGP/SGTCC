@@ -15,15 +15,15 @@ describe 'Orientation::index' do
       end
 
       it 'shows the basic information' do
-        expect(page).to have_content(orientation.short_title)
-        expect(page).to have_content(orientation.advisor.name)
-        expect(page).to have_content(orientation.academic.name)
-        expect(page).to have_content(orientation.academic.ra)
+        expect(page).to have_text(orientation.short_title)
+        expect(page).to have_text(orientation.advisor.name)
+        expect(page).to have_text(orientation.academic.name)
+        expect(page).to have_text(orientation.academic.ra)
       end
 
       it 'shows calendar information' do
         orientation.calendars.each do |calendar|
-          expect(page).to have_content(calendar.year_with_semester_and_tcc)
+          expect(page).to have_text(calendar.year_with_semester_and_tcc)
         end
       end
 

@@ -36,7 +36,7 @@ describe 'Request::create' do
         end.to change(Document, :count).by(1)
 
         expect(page).to have_current_path professors_document_path(Document.last)
-        expect(page).to have_content(orientation.title)
+        expect(page).to have_text(orientation.title)
       end
     end
 
