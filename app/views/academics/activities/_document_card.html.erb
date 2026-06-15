@@ -51,9 +51,8 @@
       </div>
 
       <div class="card-body">
-         <p>
-            <markdown-reader content="<%= @academic_activity.additional_instructions %>" />
-            </p>
-         </div>
+         <div data-controller="markdown--viewer"
+              data-markdown="<%= @academic_activity.additional_instructions %>"></div>
       </div>
-   <% end %>
+   </div>
+<% end %>

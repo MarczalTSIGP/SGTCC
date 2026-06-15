@@ -32,8 +32,11 @@
               </td>
               <td>
                 <%= link_to_if response.appointments_text?,
-                                 t("helpers.boolean.#{response.appointments_text?}"),'#',  
-                                 data: { toggle: "modal", target: "#appoint-text-#{response.id}" } %>
+                                 t("helpers.boolean.#{response.appointments_text?}"), '#',
+                                 data: {
+                                   bs_toggle: 'modal',
+                                   bs_target: "#appoint-text-#{response.id}"
+                                 } %>
 
                 <%= render('shared/examination_boards/appointment_text_modal', response: response) if response.appointments_text? %>
               </td>

@@ -41,14 +41,15 @@
       </strong>
       <%= @professor.professor_type.name %>
     </p>
-    <p>
+    <div>
       <strong>
         <%= Professor.human_attribute_name('working_area') %>:
       </strong>
       <div class="form-fieldset">
-        <markdown-reader content="<%= @professor.working_area %>" />
+        <div data-controller="markdown--viewer"
+             data-markdown="<%= @professor.working_area %>"></div>
       </div>
-    </p>
+    </div>
   </div>
 </div>
 

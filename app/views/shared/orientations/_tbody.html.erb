@@ -1,6 +1,6 @@
 <td class="text-center status-width">
   <% cache orientation.status do %>
-    <span data-toggle="tooltip" title="<%= orientation.status %>">
+    <span data-controller="ui--tooltip" title="<%= orientation.status %>">
       <orientation-status
         :index="true"
         label="<%= orientation.status %>"
@@ -20,7 +20,7 @@
 </td>
 
 <td>
-  <span data-toggle="tooltip" title="<%= orientation.title %>">
+  <span data-controller="ui--tooltip" title="<%= orientation.title %>">
     <%= orientation.short_title %>
   </span>
 </td>

@@ -3,7 +3,7 @@
     <td><%= link_to calendar.year_with_semester, academics_calendar_activities_path(calendar) %></td>
     <td><%= t("enums.tcc.#{calendar.tcc}") %></td>
     <td>
-      <span data-toggle="tooltip" title="<%= orientation.title %>">
+      <span data-controller="ui--tooltip" title="<%= orientation.title %>">
         <%= orientation.short_title %>
       </span>
     </td>
@@ -15,11 +15,11 @@
     </td>
     <td>
       <%= link_to(academics_calendar_orientation_activities_path(calendar, orientation)) do %>
-        <i class="far fa-file-alt" data-toggle="tooltip" title="Visualizar atividades"></i>
+        <i class="far fa-file-alt" data-controller="ui--tooltip" title="Visualizar atividades"></i>
       <% end %>
 
       <%= link_to(academics_calendar_orientation_documents_path(calendar, orientation)) do %>
-        <i class="fe fe-file" data-toggle="tooltip" title="Visualizar documentos"></i>
+        <i class="fe fe-file" data-controller="ui--tooltip" title="Visualizar documentos"></i>
       <% end %>
     </td>
   </tr>

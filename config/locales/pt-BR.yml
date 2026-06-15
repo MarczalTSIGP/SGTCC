@@ -609,7 +609,8 @@ pt-BR:
         evaluator: "Avaliador"
         note: "Nota:"
         note_assigned: "Nota atribuída"
-        actual_note: 'Nota Atual'
+        actual_note: 'Nota'
+        unassigned_note: 'Nota não atribuída'
         appointment_file: "Apontamentos em arquivo"
         appointment_text: "Apontamentos em texto"
         appointments: "Apontamentos"
