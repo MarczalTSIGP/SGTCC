@@ -26,13 +26,13 @@ describe 'Calendar::create', :js do
           find('span.custom-control-label', text: semester_text).click
         end
 
-        start_value = attributes[:start_date].strftime('%Y-%m-%d')
-        end_value   = attributes[:end_date].strftime('%Y-%m-%d')
+        start_value = attributes[:start_date].strftime('%d/%m/%Y')
+        end_value   = attributes[:end_date].strftime('%d/%m/%Y')
 
-        page.execute_script(<<~JS)
-          document.querySelector('#calendar_start_date').value = '#{start_value}';
-          document.querySelector('#calendar_end_date').value   = '#{end_value}';
-        JS
+        first('input[data-forms--datetimepicker-target="field"]').set(start_value)
+        all('input[data-forms--datetimepicker-target="field"]')[1].set(end_value)
+
+        page.find('body').click
 
         submit_form('input[name="commit"]')
 
