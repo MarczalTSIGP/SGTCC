@@ -36,15 +36,13 @@ describe 'ExternalMember::create', :js do
     end
 
     context 'when external member is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_name')
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_email')
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_gender')
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_working_area')
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.external_member_name'],
+                        ['div.external_member_email'],
+                        ['div.external_member_gender'],
+                        ['div.external_member_working_area']
+                      ]
     end
   end
 end

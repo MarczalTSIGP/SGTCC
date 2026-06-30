@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Calendar::destroy', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Calendar.model_name.human } # << REINSERIDO
-  let!(:calendar) { create(:calendar_tcc_one) }
+  let!(:calendar) { create(:calendar, :tcc_one) }
 
   before do
     calendar.activities.destroy_all if calendar.respond_to?(:activities)

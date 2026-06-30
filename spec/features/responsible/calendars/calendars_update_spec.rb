@@ -9,7 +9,7 @@ describe 'Calendar::update', :js do
   end
 
   describe '#update' do
-    let(:calendar) { create(:calendar_tcc_two) }
+    let(:calendar) { create(:calendar, :tcc_two) }
 
     before do
       visit edit_responsible_calendar_path(calendar)
@@ -54,13 +54,12 @@ describe 'Calendar::update', :js do
     end
 
     context 'when the calendar is not valid' do
-      it 'shows errors' do
-        fill_in 'calendar_year', with: ''
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.calendar_year')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[calendar_year],
+                      selectors: [
+                        ['div.calendar_year']
+                      ],
+                      description: 'shows errors'
     end
   end
 end

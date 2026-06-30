@@ -8,11 +8,11 @@ describe 'ExaminationBoard::destroy', :js do
   before do
     Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
                      tcc: Calendar.tccs[:one]) ||
-      create(:current_calendar_tcc_one)
+      create(:calendar, :current, :tcc_one)
 
     Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
                      tcc: Calendar.tccs[:two]) ||
-      create(:current_calendar_tcc_two)
+      create(:calendar, :current, :tcc_two)
 
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path

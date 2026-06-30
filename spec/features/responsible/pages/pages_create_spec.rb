@@ -33,14 +33,13 @@ describe 'Page::create', :js do
     end
 
     context 'when page is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.page_menu_title')
-        expect(page).to have_message(blank_error_message, in: 'div.page_url')
-        expect(page).to have_message(blank_error_message, in: 'div.page_fa_icon')
-        expect(page).to have_message(blank_error_message, in: 'div.page_content')
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.page_menu_title'],
+                        ['div.page_url'],
+                        ['div.page_fa_icon'],
+                        ['div.page_content']
+                      ]
     end
   end
 end

@@ -12,12 +12,10 @@ describe 'Institution::destroy', :js do
 
   describe '#destroy' do
     context 'when institution is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_institution_path(institution))
-        accept_alert
-        expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).to have_no_text(institution.name)
-      end
+      let(:destroy_path) { responsible_institution_path(institution) }
+      let(:destroyed_record_name) { institution.name }
+
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.f'
     end
   end
 end

@@ -6,6 +6,10 @@ describe 'Document::sign', :js do
     orientation.signatures.where(user_type: :external_member_supervisor).last
   end
   let(:external_member) { external_member_signature.user }
+  let(:document_signature) { external_member_signature }
+  let(:signature_user) { external_member }
+  let(:signature_message_strategy) { :text }
+  let(:confirm_signature_message) { false }
 
   before do
     login_as(external_member, scope: :external_member)
@@ -14,32 +18,20 @@ describe 'Document::sign', :js do
 
   describe '#sign' do
     context 'when signs the signature of the term of accept institution' do
-      it 'signs the document of the term of accept institution' do
-        click_button(signature_button, id: 'signature_button')
-        fill_in 'user_username', with: external_member.email
-        fill_in 'user_password', with: 'password'
-        click_button(sign_button)
-
-        expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
-
-        external_member_signature.reload
-        date = I18n.l(external_member_signature.updated_at, format: :short)
-        time = I18n.l(external_member_signature.updated_at, format: :time)
-        role = signature_role(external_member.gender, external_member_signature.user_type)
-
-        expect(page).to have_text(signature_register(external_member.name, role, date, time))
+      def submit_valid_document_signature
+        submit_document_signature(username: external_member.email, password: 'password')
       end
+
+      it_behaves_like 'a successful document signature flow',
+                      'the term of accept institution'
     end
 
     context 'when the password is wrong' do
-      it 'shows alert message' do
-        click_button(signature_button, id: 'signature_button')
-        fill_in 'user_username', with: external_member.email
-        fill_in 'user_password', with: '123'
-        click_button(sign_button)
-
-        expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
+      def submit_invalid_document_signature
+        submit_document_signature(username: external_member.email, password: '123')
       end
+
+      it_behaves_like 'an invalid document signature flow'
     end
   end
 end

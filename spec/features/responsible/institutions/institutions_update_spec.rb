@@ -34,17 +34,17 @@ describe 'Institution::update', :js do
     end
 
     context 'when the institution is not valid' do
-      it 'show errors' do
-        fill_in 'institution_name', with: ''
-        fill_in 'institution_trade_name', with: ''
-        fill_in 'institution_cnpj', with: ''
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.institution_name')
-        expect(page).to have_message(blank_error_message, in: 'div.institution_trade_name')
-        expect(page).to have_message(blank_error_message, in: 'div.institution_cnpj')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[
+                        institution_name
+                        institution_trade_name
+                        institution_cnpj
+                      ],
+                      selectors: [
+                        ['div.institution_name'],
+                        ['div.institution_trade_name'],
+                        ['div.institution_cnpj']
+                      ]
     end
   end
 end

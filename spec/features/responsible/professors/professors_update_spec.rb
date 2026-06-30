@@ -37,20 +37,19 @@ describe 'Professor::update', :js do
     end
 
     context 'when the professor is not valid' do
-      it 'show errors' do
-        fill_in 'professor_name', with: ''
-        fill_in 'professor_email', with: ''
-        fill_in 'professor_lattes', with: ''
-        fill_in 'professor_username', with: ''
-
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.professor_name')
-        expect(page).to have_message(blank_error_message, in: 'div.professor_email')
-        expect(page).to have_message(blank_error_message, in: 'div.professor_username')
-        expect(page).to have_message(blank_error_message, in: 'div.professor_lattes')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[
+                        professor_name
+                        professor_email
+                        professor_lattes
+                        professor_username
+                      ],
+                      selectors: [
+                        ['div.professor_name'],
+                        ['div.professor_email'],
+                        ['div.professor_username'],
+                        ['div.professor_lattes']
+                      ]
     end
   end
 end

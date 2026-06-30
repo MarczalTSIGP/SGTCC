@@ -6,9 +6,9 @@ describe 'Site::calendar', :js do
   end
 
   describe '#index' do
-    let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
+    let!(:calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
     let!(:activity_tcc_one) { create(:activity_tcc_one, calendar: calendar_tcc_one) }
-    let!(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+    let!(:calendar_tcc_two) { create(:calendar, :current, :tcc_two) }
     let!(:activity_tcc_two) { create(:activity_tcc_two, calendar: calendar_tcc_two) }
 
     before do

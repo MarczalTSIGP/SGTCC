@@ -10,7 +10,7 @@ describe 'Calendar::index', :js do
   describe '#index' do
     context 'when shows all calendars' do
       it 'shows all tcc 1 calendars with correct info' do
-        calendars = create_list(:calendar_tcc_one, 3)
+        calendars = create_list(:calendar, 3, :tcc_one)
         index_url = responsible_calendars_tcc_one_path
 
         visit index_url
@@ -30,7 +30,7 @@ describe 'Calendar::index', :js do
       end
 
       it 'shows all tcc 2 calendars with correct info' do
-        calendars = create_list(:calendar_tcc_two, 3)
+        calendars = create_list(:calendar, 3, :tcc_two)
         index_url = responsible_calendars_tcc_two_path
 
         visit index_url

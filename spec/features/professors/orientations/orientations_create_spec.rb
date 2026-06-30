@@ -8,7 +8,7 @@ describe 'Orientation::create' do
   before do
     create(:document_type_tco)
     create(:document_type_tcai)
-    create(:current_calendar_tcc_one)
+    create(:calendar, :current, :tcc_one)
     login_as(professor, scope: :professor)
   end
 

@@ -5,8 +5,8 @@ describe 'ExaminationBoard::index', :js do
   let!(:ebs) { [] }
 
   before do
-    create(:current_calendar_tcc_one)
-    @current_calendar_tcc_two = create(:current_calendar_tcc_two,
+    create(:calendar, :current, :tcc_one)
+    @current_calendar_tcc_two = create(:calendar, :current, :tcc_two,
                                        start_date: 2.days.ago,
                                        end_date: 2.days.from_now)
 

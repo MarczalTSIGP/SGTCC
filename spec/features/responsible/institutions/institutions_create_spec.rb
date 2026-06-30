@@ -30,15 +30,13 @@ describe 'Institution::create', :js do
     end
 
     context 'when institution is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.institution_name')
-        expect(page).to have_message(blank_error_message, in: 'div.institution_trade_name')
-        expect(page).to have_message(blank_error_message, in: 'div.institution_cnpj')
-        expect(page).to have_message(required_error_message, in: 'div.institution_external_member')
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.institution_name'],
+                        ['div.institution_trade_name'],
+                        ['div.institution_cnpj'],
+                        ['div.institution_external_member', :required_error_message]
+                      ]
     end
   end
 end

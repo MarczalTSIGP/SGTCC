@@ -3,6 +3,16 @@ require 'rails_helper'
 describe 'Document::show', :js do
   let(:orientation) { create(:orientation) }
   let(:document) { orientation.documents.first }
+  let(:document_path) { academics_document_path(document) }
+  let(:pending_documents_path) { academics_documents_pending_path }
+  let(:signed_documents_path) { academics_documents_signed_path }
+  let(:pending_document_created_at) { orientation.created_at }
+  let(:signed_document_created_at) { orientation.created_at }
+  let(:signed_document_extra_contents) do
+    [signature_role(orientation.academic.gender, 'academic')]
+  end
+  let(:unauthorized_document) { create(:orientation).documents.last }
+  let(:unauthorized_document_path) { academics_document_path(unauthorized_document) }
 
   before do
     login_as(orientation.academic, scope: :academic)
@@ -10,69 +20,16 @@ describe 'Document::show', :js do
 
   describe '#show' do
     context 'when shows the document of the term of commitment' do
-      it 'shows the document of the term of commitment' do
-        visit academics_document_path(document)
-
-        expect(page).to have_contents([orientation.title,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.institution.trade_name,
-                                       orientation.institution.external_member.name,
-                                       scholarity_with_name(orientation.advisor),
-                                       document_date(orientation.created_at)])
-
-        orientation.supervisors do |supervisor|
-          expect(page).to have_text(scholarity_with_name(supervisor))
-        end
-
-        expect(page).to have_css("a[href='#{academics_documents_pending_path}'].active")
-      end
+      it_behaves_like 'a pending document show page', 'the term of commitment'
     end
 
     context 'when shows the signed document of the term of commitment' do
-      let(:document_type) { document.document_type }
-
-      before do
-        document.signatures.each(&:sign)
-        visit academics_document_path(document)
-      end
-
-      it 'shows the document of the term of commitment' do
-        role = signature_role(orientation.academic.gender, 'academic')
-        expect(page).to have_contents([orientation.title,
-                                       orientation.academic.name,
-                                       orientation.academic.ra,
-                                       orientation.institution.trade_name,
-                                       orientation.institution.external_member.name,
-                                       scholarity_with_name(orientation.advisor),
-                                       role,
-                                       signature_code_message(document),
-                                       document_date(orientation.created_at)])
-
-        orientation.supervisors do |supervisor|
-          expect(page).to have_text(scholarity_with_name(supervisor))
-        end
-
-        document.mark.each do |signature|
-          expect(page).to have_text(
-            signature_register(signature[:name], signature[:role],
-                               signature[:date], signature[:time])
-          )
-        end
-        expect(page).to have_css("a[href='#{academics_documents_signed_path}'].active")
-      end
+      it_behaves_like 'a signed document show page', 'the term of commitment'
     end
 
     context 'when the document cant be viewed' do
-      before do
-        orientation_not_authorized = create(:orientation)
-        visit academics_document_path(orientation_not_authorized.documents.last)
-      end
-
-      it 'redirect to the documents pending page' do
-        expect(page).to have_current_path academics_documents_pending_path
-        expect(page).to have_flash(:warning, text: not_authorized_message)
-      end
+      it_behaves_like 'an unauthorized document show access',
+                      'redirect to the documents pending page'
     end
   end
 end

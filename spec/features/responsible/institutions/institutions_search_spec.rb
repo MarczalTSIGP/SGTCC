@@ -25,12 +25,6 @@ describe 'Institution::search', :js do
       end
     end
 
-    context 'when the result is not found' do
-      it 'returns not found message' do
-        fill_in 'term', with: 'a1#\231/ere'
-        first('#search').click
-        expect(page).to have_message(no_results_message, in: 'table tbody')
-      end
-    end
+    it_behaves_like 'responsible search with no results', 'a1#\231/ere'
   end
 end

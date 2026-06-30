@@ -29,14 +29,13 @@ describe 'Academic::create', :js do
     end
 
     context 'when academic is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.academic_name')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_email')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_gender')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_ra')
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.academic_name'],
+                        ['div.academic_email'],
+                        ['div.academic_gender'],
+                        ['div.academic_ra']
+                      ]
     end
   end
 end

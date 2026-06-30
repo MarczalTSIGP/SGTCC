@@ -35,16 +35,12 @@ describe 'ExternalMember::update', :js do
     end
 
     context 'when data is not valid' do
-      it 'show errors' do
-        fill_in 'external_member_name', with: ''
-        fill_in 'external_member_email', with: ''
-
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_name')
-        expect(page).to have_message(blank_error_message, in: 'div.external_member_email')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[external_member_name external_member_email],
+                      selectors: [
+                        ['div.external_member_name'],
+                        ['div.external_member_email']
+                      ]
     end
   end
 end

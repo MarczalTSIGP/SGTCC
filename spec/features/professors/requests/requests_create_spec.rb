@@ -16,11 +16,11 @@ describe 'Request::create' do
       Calendar.find_by(year: Calendar.current_year,
                        semester: Calendar.current_semester,
                        tcc: Calendar.tccs[:one]) ||
-        create(:current_calendar_tcc_one)
+        create(:calendar, :current, :tcc_one)
       Calendar.find_by(year: Calendar.current_year,
                        semester: Calendar.current_semester,
                        tcc: Calendar.tccs[:two]) ||
-        create(:current_calendar_tcc_two)
+        create(:calendar, :current, :tcc_two)
 
       visit new_professors_request_path
     end

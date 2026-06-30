@@ -29,12 +29,11 @@ describe 'Activity::update', :js do
     end
 
     context 'when the activity is not valid' do
-      it 'show errors' do
-        fill_in 'activity_name', with: ''
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.activity_name')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[activity_name],
+                      selectors: [
+                        ['div.activity_name']
+                      ]
     end
   end
 end

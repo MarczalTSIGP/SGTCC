@@ -3,10 +3,16 @@ module Helpers
     def submit_form(submit = '//input[type=submit]')
       expect(page).to have_no_css('div.ss-content', visible: :visible, wait: 1)
 
-      submit_button = find(submit)
+      submit_button = find(submit, visible: :visible)
       submit_button.scroll_to(submit_button, align: :center)
-      sleep 0.2
+      submit_button = find(enabled_submit_selector(submit), visible: :visible)
       submit_button.click
+    end
+
+    def enabled_submit_selector(submit)
+      return "#{submit}[not(@disabled)]" if submit.start_with?('/')
+
+      "#{submit}:not([disabled])"
     end
 
     def selectize(name, options = {})

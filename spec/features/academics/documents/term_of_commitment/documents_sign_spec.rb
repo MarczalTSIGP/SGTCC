@@ -4,6 +4,10 @@ describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:academic_signature) { orientation.signatures.where(user_type: :academic).first }
   let(:academic) { academic_signature.user }
+  let(:document_signature) { academic_signature }
+  let(:signature_user) { academic }
+  let(:signature_message_strategy) { :modal }
+  let(:confirm_signature_message) { true }
 
   before do
     login_as(academic, scope: :academic)
@@ -12,44 +16,24 @@ describe 'Document::sign', :js do
 
   describe '#sign' do
     context 'when signs the signature of the term of commitment' do
-      it 'signs the document of the term of commitment' do
-        click_button(signature_button, id: 'signature_button')
-        expect(page).to have_text('Entre com seu RA e senha para assinar o documento.')
-
-        within('form') do
-          fill_in(:user_username, with: academic.ra)
-          fill_in(:user_password, with: 'password')
-          click_button('Assinar', exact_text: true)
-        end
-
-        expect(page).to have_css('.swal-modal')
-        expect(find('.swal-modal')).to have_text(signature_signed_success_message)
-
-        find('.swal-button--confirm').click
-
-        academic_signature.reload
-        date = I18n.l(academic_signature.updated_at, format: :short)
-        time = I18n.l(academic_signature.updated_at, format: :time)
-        role = signature_role(academic.gender, academic_signature.user_type)
-
-        expect(page).to have_text(signature_register(academic.name, role, date, time))
+      def submit_valid_document_signature
+        submit_document_signature_form(username: academic.ra,
+                                       password: 'password',
+                                       form_selector: 'form')
       end
+
+      it_behaves_like 'a successful document signature flow',
+                      'the term of commitment'
     end
 
     context 'when the password is wrong' do
-      it 'shows alert message' do
-        click_button(signature_button, id: 'signature_button')
-        expect(page).to have_text('Entre com seu RA e senha para assinar o documento.')
-
-        within('form') do
-          fill_in(:user_username, with: academic.ra)
-          fill_in(:user_password, with: 'wrongpassword')
-          click_button('Assinar', exact_text: true)
-        end
-
-        expect(page).to have_css('.swal-modal')
-        expect(find('.swal-modal')).to have_text(signature_login_alert_message)
+      def submit_invalid_document_signature
+        submit_document_signature_form(username: academic.ra,
+                                       password: 'wrongpassword',
+                                       form_selector: 'form')
       end
+
+      it_behaves_like 'an invalid document signature flow'
     end
   end
 end

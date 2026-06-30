@@ -37,12 +37,11 @@ describe 'Basebase_activity::update', :js do
     end
 
     context 'when the base activity is not valid' do
-      it 'show errors' do
-        fill_in 'base_activity_name', with: ''
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.base_activity_name')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[base_activity_name],
+                      selectors: [
+                        ['div.base_activity_name']
+                      ]
     end
   end
 end

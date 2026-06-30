@@ -97,18 +97,12 @@ describe 'BaseActivity::create', :js do
     end
 
     context 'when base activity is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.base_activity_name')
-        expect(page).to have_message(
-          required_error_message, in: 'div.base_activity_base_activity_type'
-        )
-        expect(page).to have_message(
-          blank_error_message, in: 'div.base_activity_tcc'
-        )
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.base_activity_name'],
+                        ['div.base_activity_base_activity_type', :required_error_message],
+                        ['div.base_activity_tcc']
+                      ]
     end
   end
 end

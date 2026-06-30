@@ -36,17 +36,13 @@ describe 'Academic::update', :js do
     end
 
     context 'when the academic is not valid' do
-      it 'show errors' do
-        fill_in 'academic_name', with: ''
-        fill_in 'academic_email', with: ''
-        fill_in 'academic_ra', with: ''
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.academic_name')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_email')
-        expect(page).to have_message(blank_error_message, in: 'div.academic_ra')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[academic_name academic_email academic_ra],
+                      selectors: [
+                        ['div.academic_name'],
+                        ['div.academic_email'],
+                        ['div.academic_ra']
+                      ]
     end
   end
 end
