@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Orientation::to_migrate' do
   let!(:current_calendar_tcc_one) do
     Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) ||
-      create(:current_calendar_tcc_one)
+      create(:calendar, :current, :tcc_one)
   end
 
   before do

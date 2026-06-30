@@ -78,7 +78,7 @@ describe 'Document::review', :js do
         click_on_label(dismiss_label, in: 'document_judgment')
         fill_in_simple_mde('Hakuna Matata')
 
-        sleep 1
+        expect(page).to have_css('.CodeMirror-code', text: 'Hakuna Matata')
         click_button(save_button, id: 'save_document_judgment')
 
         expect(page).to have_alert(text: message('update.m'))

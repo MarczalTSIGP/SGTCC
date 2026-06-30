@@ -22,19 +22,7 @@ describe 'ExaminationBoard::create', :js do
       end
 
       it 'does not show "tcc 2" in the identifier input' do
-        select_element = find('select#examination_board_orientation_id', visible: :all)
-        parent_element = select_element.find(:xpath, './..')
-
-        open_slim_select_dropdown(parent_element)
-
-        dropdown = find('div.ss-content', visible: :visible, wait: 5)
-        options = dropdown.all("div[role='option']")
-
-        options.each do |option|
-          expect(option.text).not_to match(/TCC: 2/i)
-        end
-
-        close_dropdown_if_needed(select_element, parent_element)
+        expect_orientation_select_without_tcc(2)
       end
 
       it 'create an examination_board' do
@@ -45,19 +33,18 @@ describe 'ExaminationBoard::create', :js do
         fill_in 'examination_board_place', with: attributes[:place]
         submit_form('input[name="commit"]')
 
-        expect(page).to have_current_path tcc_one_professors_examination_boards_tcc_one_path
-        expect(page).to have_flash(:success, text: message('create.f'))
-        expect(page).to have_message(attributes[:place], in: 'table tbody')
+        expect_examination_board_created(
+          path: tcc_one_professors_examination_boards_tcc_one_path,
+          place: attributes[:place],
+          show_orientation: false
+        )
       end
     end
 
     context 'when examination_board is not valid' do
       it 'show errors' do
         submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.examination_board_place')
-        expect(page).to have_message(required_error_message,
-                                     in: 'div.examination_board_orientation')
+        expect_examination_board_required_errors
       end
     end
   end

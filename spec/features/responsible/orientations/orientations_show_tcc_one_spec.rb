@@ -1,0 +1,45 @@
+require 'rails_helper'
+
+describe 'Orientation::show' do
+  let(:responsible) { create(:responsible) }
+  let(:calendar_tcc_one) { create(:calendar, :tcc_one) }
+  let(:orientation_tcc_one) { create(:orientation, calendars: [calendar_tcc_one]) }
+  let(:current_orientation_tcc_one) { create(:current_orientation_tcc_one) }
+  let(:current_orientation_tcc_two) { create(:current_orientation_tcc_two) }
+
+  before do
+    login_as(responsible, scope: :professor)
+  end
+
+  describe '#show', :js do
+    context 'when shows the tcc one orientation' do
+      it 'shows the tcc one orientation' do
+        visit responsible_orientation_path(orientation_tcc_one)
+
+        expect(page).to have_text(orientation_tcc_one.title)
+        expect(page).to have_text(orientation_tcc_one.academic.name)
+        expect(page).to have_text(complete_date(orientation_tcc_one.created_at))
+        expect(page).to have_text(complete_date(orientation_tcc_one.updated_at))
+
+        orientation_tcc_one.calendars.each do |calendar|
+          expect(page).to have_text(calendar.year_with_semester)
+        end
+
+        within('div.sidebar') do
+          link_element = find("a[href='#{responsible_orientations_tcc_one_path}']")
+          expect(link_element.find(:xpath, '..')).to have_css('.active')
+        end
+
+        within('nav ol.breadcrumb') do
+          expect(page).to have_link(I18n.t('breadcrumbs.homepage'), href: responsible_root_path)
+
+          calendar = orientation_tcc_one.current_calendar
+
+          oas = I18n.t("breadcrumbs.orientations.tcc.#{calendar.tcc}.show",
+                       calendar: calendar.year_with_semester)
+          expect(page).to have_text(oas)
+        end
+      end
+    end
+  end
+end

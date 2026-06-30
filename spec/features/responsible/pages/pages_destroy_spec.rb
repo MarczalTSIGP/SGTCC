@@ -12,12 +12,10 @@ describe 'Page::destroy', :js do
 
   describe '#destroy' do
     context 'when academic is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_page_path(site_page))
-        accept_alert
-        expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_text(site_page.menu_title)
-      end
+      let(:destroy_path) { responsible_page_path(site_page) }
+      let(:destroyed_record_name) { site_page.menu_title }
+
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.m'
     end
   end
 end

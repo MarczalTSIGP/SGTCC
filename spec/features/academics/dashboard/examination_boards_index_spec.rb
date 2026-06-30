@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::index' do
   let!(:orientation) { create(:current_orientation_tcc_one) }
-  let!(:examination_board) { create(:examination_board_tcc_one, orientation:) }
+  let!(:examination_board) do
+    create(:examination_board_tcc_one, orientation:, date: 1.week.ago.to_date)
+  end
 
   before do
     login_as(orientation.academic, scope: :academic)

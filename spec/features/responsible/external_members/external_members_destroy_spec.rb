@@ -13,13 +13,10 @@ describe 'ExternalMember::destroy', :js do
 
   describe '#destroy' do
     context 'when external member is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_external_member_path(external_member))
-        accept_alert
+      let(:destroy_path) { responsible_external_member_path(external_member) }
+      let(:destroyed_record_name) { external_member.name }
 
-        expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_text(external_member.name)
-      end
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.m'
     end
 
     context 'when external member has associations' do
