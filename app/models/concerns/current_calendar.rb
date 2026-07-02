@@ -59,7 +59,7 @@ module CurrentCalendar
     end
 
     def default_semester
-      current_month <= 7 ? 1 : 2
+      current_month <= 6 ? 1 : 2
     end
 
     def current_by_tcc(tcc_key)

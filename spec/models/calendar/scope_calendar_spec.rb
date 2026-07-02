@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Calendar, type: :model do
+  describe '.current_semester' do
+    it 'defaults to the second semester in July' do
+      travel_to Date.new(2026, 7, 2) do
+        expect(described_class.current_semester).to eq(2)
+      end
+    end
+  end
+
   describe '#search_by_tcc' do
     let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
     let!(:calendar_tcc_two) { create(:current_calendar_tcc_two) }

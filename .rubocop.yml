@@ -183,6 +183,14 @@ RSpec/NamedSubject:
 RSpecRails/InferredSpecType:
   Enabled: false
 
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - 'spec/models/calendar/associations_calendar_spec.rb'
+    - 'spec/models/calendar/formatters_calendar_spec.rb'
+    - 'spec/models/calendar/scope_calendar_spec.rb'
+    - 'spec/models/calendar/search_calendar_spec.rb'
+    - 'spec/models/calendar/validations_calendar_spec.rb'
+
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
