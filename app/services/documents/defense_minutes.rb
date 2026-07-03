@@ -23,7 +23,7 @@ module Documents::DefenseMinutes
     examination_board = @document.examination_board
     return if examination_board.blank?
 
-    examination_board[:evs][evs.to_sym].each do |evaluator|
+    examination_board[:evaluators][evs.to_sym].each do |evaluator|
       @signature_users.push([evaluator[:id], user_type])
     end
   end

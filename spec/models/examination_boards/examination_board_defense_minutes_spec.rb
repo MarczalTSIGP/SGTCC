@@ -77,6 +77,21 @@ RSpec.describe ExaminationBoard do
       it 'returns the document created' do
         expect(examination_board.create_defense_minutes).to eq(Document.last)
       end
+
+      it 'stores the examination board evaluators in the document content' do
+        defense_minutes = examination_board.create_defense_minutes
+        expected_evaluators = {
+          'professors' => examination_board.users_to_document(
+            examination_board.professors
+          ).as_json,
+          'external_members' => examination_board.users_to_document(
+            examination_board.external_members
+          ).as_json
+        }
+
+        expect(defense_minutes.content.dig('examination_board', 'evaluators'))
+          .to eq(expected_evaluators)
+      end
     end
   end
 
