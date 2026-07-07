@@ -30,16 +30,13 @@ describe 'Calendar::update', :js do
           find('span.custom-control-label', text: semester_text).click
         end
 
-        start_value = attributes[:start_date].strftime('%Y-%m-%d')
-        end_value   = attributes[:end_date].strftime('%Y-%m-%d')
+        start_value = attributes[:start_date].strftime('%d/%m/%Y')
+        end_value   = attributes[:end_date].strftime('%d/%m/%Y')
 
-        page.execute_script(<<~JS)
-          var s = document.querySelector('input[name="calendar[start_date]"]');
-          if (s) { s.value = '#{start_value}'; s.dispatchEvent(new Event('change', { bubbles: true })); }
+        first('input[data-forms--datetimepicker-target="field"]').set(start_value)
+        all('input[data-forms--datetimepicker-target="field"]')[1].set(end_value)
 
-          var e = document.querySelector('input[name="calendar[end_date]"]');
-          if (e) { e.value = '#{end_value}'; e.dispatchEvent(new Event('change', { bubbles: true })); }
-        JS
+        page.find('body').click
         submit_form('input[name="commit"]')
 
         expect(page).to have_current_path responsible_calendars_tcc_two_path

@@ -1,4 +1,7 @@
-<div class="form-group" data-controller="forms--datetimepicker" data-forms--datetimepicker-id-value="<%= id %>">
+<div class="form-group"
+     data-controller="forms--datetimepicker"
+     data-forms--datetimepicker-id-value="<%= id %>"
+     data-forms--datetimepicker-enable-time-value="<%= enable_time %>">
   <label for="<%= id %>" class="form-control-label string required">
     <%= label %>
     <abbr title="obrigatório">*</abbr>
@@ -9,9 +12,14 @@
       type="text"
       class="<%= input_class %>"
       data-forms--datetimepicker-target="field"
-      value="<%= datetime %>"
+      data-action="beforeinput->forms--datetimepicker#allowOnlyDateCharacters input->forms--datetimepicker#maskManualValue blur->forms--datetimepicker#commitManualValue change->forms--datetimepicker#commitManualValue keydown.enter->forms--datetimepicker#submitManualValue"
+      value="<%= field_value %>"
       <%= 'disabled' if disabled %>
-      placeholder="DD/MM/YYYY HH:mm"
+      placeholder="<%= placeholder %>"
+      maxlength="<%= maxlength %>"
+      inputmode="numeric"
+      pattern="<%= pattern %>"
+      title="<%= placeholder %>"
       autocomplete="off"
     >
     <div class="input-group-append" data-action="click->forms--datetimepicker#toggle">

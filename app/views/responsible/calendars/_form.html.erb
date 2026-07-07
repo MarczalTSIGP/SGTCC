@@ -23,6 +23,7 @@
           id: "calendar_start_date",
           label: Calendar.human_attribute_name("start_date"),
           datetime: @calendar.start_date,
+          enable_time: false,
           errors: @calendar.errors[:start_date]
         ) %>
       </div>
@@ -33,6 +34,7 @@
           id: "calendar_end_date",
           label: Calendar.human_attribute_name("end_date"),
           datetime: @calendar.end_date,
+          enable_time: false,
           errors: @calendar.errors[:end_date]
         ) %>
       </div>
