@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ExaminationBoard do
   describe '#minutes_type' do
     context 'when the examination board is a proposal' do
-      let(:examination_board) { create(:proposal_examination_board) }
+      let(:examination_board) { create(:examination_board, :proposal) }
 
       it 'retuns the adpp' do
         expect(examination_board.minutes_type).to eq(:adpp)
@@ -11,7 +11,7 @@ RSpec.describe ExaminationBoard do
     end
 
     context 'when the examination board is a project' do
-      let(:examination_board) { create(:project_examination_board) }
+      let(:examination_board) { create(:examination_board, :project) }
 
       it 'retuns the adpj' do
         expect(examination_board.minutes_type).to eq(:adpj)
@@ -19,7 +19,7 @@ RSpec.describe ExaminationBoard do
     end
 
     context 'when the examination board is a monograph' do
-      let(:examination_board) { create(:monograph_examination_board) }
+      let(:examination_board) { create(:examination_board, :monograph) }
 
       it 'retuns the admg' do
         expect(examination_board.minutes_type).to eq(:admg)
@@ -68,7 +68,7 @@ RSpec.describe ExaminationBoard do
 
   describe '#create_defense_minutes' do
     context 'when create the defense minutes' do
-      let(:examination_board) { create(:proposal_examination_board) }
+      let(:examination_board) { create(:examination_board, :proposal) }
 
       before do
         create(:document_type_adpp)
@@ -97,7 +97,7 @@ RSpec.describe ExaminationBoard do
 
   describe '#create_non_attendance_defense_minutes' do
     context 'when create the non attendance defense minutes' do
-      let(:examination_board) { create(:proposal_examination_board) }
+      let(:examination_board) { create(:examination_board, :proposal) }
 
       before do
         create(:document_type_adpp)
@@ -111,7 +111,7 @@ RSpec.describe ExaminationBoard do
 
   describe '#defense_minutes' do
     context 'when returns the defense minutes' do
-      let(:examination_board) { create(:proposal_examination_board) }
+      let(:examination_board) { create(:examination_board, :proposal) }
 
       before do
         create(:document_type_adpp)

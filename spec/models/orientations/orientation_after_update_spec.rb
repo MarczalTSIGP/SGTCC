@@ -35,7 +35,7 @@ RSpec.describe Orientation do
       end
 
       it 'not recreate tco and tcai with adpp' do
-        eb = create(:proposal_examination_board, orientation:)
+        eb = create(:examination_board, :proposal, orientation:)
         eb.create_defense_minutes
 
         orientation.update(title: 'New title')
@@ -45,7 +45,7 @@ RSpec.describe Orientation do
       end
 
       it 'not recreate tco and tcai with adpj' do
-        eb = create(:project_examination_board, orientation:)
+        eb = create(:examination_board, :project, orientation:)
         eb.create_defense_minutes
 
         orientation.update(title: 'New title')
@@ -55,7 +55,7 @@ RSpec.describe Orientation do
       end
 
       it 'not recreate tco and tcai with admg' do
-        eb = create(:monograph_examination_board, orientation:)
+        eb = create(:examination_board, :monograph, orientation:)
         eb.create_defense_minutes
 
         orientation.update(title: 'New title')

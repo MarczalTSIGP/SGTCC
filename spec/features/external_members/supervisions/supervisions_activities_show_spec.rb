@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::activities show' do
   let(:external_member) { create(:external_member) }
-  let(:orientation) { create(:current_orientation_tcc_one) }
+  let(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:academic) { orientation.academic }
   let(:active_link) { external_members_supervisions_tcc_one_path }
   let!(:activity) do

@@ -15,8 +15,8 @@ describe 'ExaminationBoard::index', :js do
 
   context 'when shows all the examination boards of the tcc one calendar' do
     before do
-      ebs.concat(create_list(:examination_board_tcc_one, 2, date: 6.months.ago))
-      ebs.concat(create_list(:examination_board_tcc_one, 2, date: 1.day.ago))
+      ebs.concat(create_list(:examination_board, 2, :tcc_one, date: 6.months.ago))
+      ebs.concat(create_list(:examination_board, 2, :tcc_one, date: 1.day.ago))
 
       visit responsible_examination_boards_tcc_one_path
     end
@@ -36,8 +36,8 @@ describe 'ExaminationBoard::index', :js do
 
   context 'when shows the current examination boards of the tcc one' do
     before do
-      ebs.concat(create_list(:examination_board_tcc_one, 2, date: 1.day.ago))
-      create_list(:examination_board_tcc_one, 2, date: 6.months.ago)
+      ebs.concat(create_list(:examination_board, 2, :tcc_one, date: 1.day.ago))
+      create_list(:examination_board, 2, :tcc_one, date: 6.months.ago)
 
       visit responsible_examination_boards_tcc_one_current_semester_path
     end
@@ -57,8 +57,8 @@ describe 'ExaminationBoard::index', :js do
 
   context 'when shows all the examination boards of the tcc two calendar' do
     before do
-      ebs.concat(create_list(:examination_board_tcc_two, 2, date: 1.day.ago))
-      ebs.concat(create_list(:examination_board_tcc_two, 2, date: 6.months.ago))
+      ebs.concat(create_list(:examination_board, 2, :tcc_two, date: 1.day.ago))
+      ebs.concat(create_list(:examination_board, 2, :tcc_two, date: 6.months.ago))
 
       visit responsible_examination_boards_tcc_two_path
     end

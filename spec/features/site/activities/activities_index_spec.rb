@@ -7,9 +7,9 @@ describe 'Site::calendar', :js do
 
   describe '#index' do
     let!(:calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
-    let!(:activity_tcc_one) { create(:activity_tcc_one, calendar: calendar_tcc_one) }
+    let!(:activity_one) { create(:activity, :tcc_one, calendar: calendar_tcc_one) }
     let!(:calendar_tcc_two) { create(:calendar, :current, :tcc_two) }
-    let!(:activity_tcc_two) { create(:activity_tcc_two, calendar: calendar_tcc_two) }
+    let!(:activity_two) { create(:activity, :tcc_two, calendar: calendar_tcc_two) }
 
     before do
       visit site_calendar_path
@@ -17,8 +17,8 @@ describe 'Site::calendar', :js do
 
     it 'shows all activities for tcc one' do
       within('table.tcc_one') do
-        expect(page).to have_contents([activity_tcc_one.name,
-                                       activity_tcc_one.deadline])
+        expect(page).to have_contents([activity_one.name,
+                                       activity_one.deadline])
       end
     end
 
@@ -26,13 +26,13 @@ describe 'Site::calendar', :js do
       visit site_calendar_path
 
       within('table.tcc_two') do
-        expect(page).to have_text(activity_tcc_two.name)
-        expect(page).to have_text(activity_tcc_two.deadline)
+        expect(page).to have_text(activity_two.name)
+        expect(page).to have_text(activity_two.deadline)
       end
     end
 
     it 'shows icon to info activities' do
-      activity_tcc_one.update(base_activity_type: create(:base_activity_type_info))
+      activity_one.update(base_activity_type: create(:base_activity_type_info))
 
       visit site_calendar_path
 

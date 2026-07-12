@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ExaminationBoardNote do
   describe '#after_save' do
     context 'when proposal' do
-      let!(:eb) { create(:proposal_examination_board) }
+      let!(:eb) { create(:examination_board, :proposal) }
 
       it 'is approved' do
         note = 60
@@ -42,7 +42,7 @@ RSpec.describe ExaminationBoardNote do
     end
 
     context 'when project' do
-      let!(:eb) { create(:project_examination_board) }
+      let!(:eb) { create(:examination_board, :project) }
 
       it 'is approved' do
         note = 60
@@ -68,7 +68,7 @@ RSpec.describe ExaminationBoardNote do
     end
 
     context 'when monograph' do
-      let!(:eb) { create(:monograph_examination_board) }
+      let!(:eb) { create(:examination_board, :monograph) }
 
       it 'is approved' do
         note = 60

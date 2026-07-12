@@ -8,7 +8,7 @@ describe 'Orientation::index' do
 
   describe '#index', :js do
     context 'when showing orientation action links' do
-      let!(:orientations) { create_list(:orientation_tcc_one, 2) }
+      let!(:orientations) { create_list(:orientation, 2, :tcc_one) }
       let(:index_url) { responsible_orientations_tcc_one_path }
 
       before do

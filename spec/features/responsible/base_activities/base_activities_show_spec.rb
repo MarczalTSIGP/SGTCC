@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'BaseActivities::show' do
   let(:responsible) { create(:responsible) }
-  let!(:base_activity) { create(:base_activity_tcc_one) }
+  let!(:base_activity) { create(:base_activity, :tcc_one) }
 
   before do
     login_as(responsible, scope: :professor)

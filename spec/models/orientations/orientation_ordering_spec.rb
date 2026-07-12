@@ -4,7 +4,9 @@ RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
   describe '#professors_ranking' do
-    let!(:professor_orientations) { create_list(:orientation_tcc_two_approved, 4) }
+    let!(:professor_orientations) do
+      create_list(:orientation, 4, :tcc_two, :approved, :with_final_monograph)
+    end
     let!(:professors) { professor_orientations.map(&:advisor) }
 
     it 'returns the professors ranking data' do
@@ -18,7 +20,12 @@ RSpec.describe Orientation do
 
   describe '#cs_asc_from_now_desc_ago' do
     let!(:current_calendar) do
-      create(:calendar, :tcc_one, start_date: 6.months.ago, end_date: 1.day.from_now)
+      Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
+        create(:calendar, :tcc_one,
+               year: '2099',
+               semester: :one,
+               start_date: 1.month.ago.to_date,
+               end_date: 1.month.from_now.to_date)
     end
 
     it 'returns only examination boards within the current calendar period' do
@@ -31,8 +38,9 @@ RSpec.describe Orientation do
         )
       )
       previous_calendar = create(:calendar, :previous, :tcc_one,
-                                 start_date: 12.months.ago,
-                                 end_date: 5.months.ago)
+                                 year: current_calendar.year.to_i - 1,
+                                 start_date: current_calendar.start_date - 1.year,
+                                 end_date: current_calendar.end_date - 1.year)
       create(
         :examination_board,
         date: current_calendar.start_date.beginning_of_day - 1.hour,
@@ -88,7 +96,7 @@ RSpec.describe Orientation do
       )
       board_old_past = create(
         :examination_board,
-        date: 6.months.ago,
+        date: current_calendar.start_date.beginning_of_day,
         orientation: create(
           :orientation,
           calendars: [current_calendar]

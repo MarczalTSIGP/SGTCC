@@ -19,20 +19,20 @@ FactoryBot.define do
     sequence(:title) { Faker::Name.name }
     summary { Faker::Lorem.paragraph }
 
-    factory :proposal_academic_activity do
-      activity { association(:proposal_activity) }
+    trait :proposal do
+      activity { association(:activity, :proposal) }
     end
 
-    factory :project_academic_activity do
-      activity { association(:project_activity) }
+    trait :project do
+      activity { association(:activity, :project) }
     end
 
-    factory :monograph_academic_activity do
-      activity { association(:monograph_activity) }
+    trait :monograph do
+      activity { association(:activity, :monograph) }
     end
-  end
 
-  factory :academic_activity_no_complementary_files, parent: :academic_activity do
-    complementary_files { nil }
+    trait :without_complementary_files do
+      complementary_files { nil }
+    end
   end
 end

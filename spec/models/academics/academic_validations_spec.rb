@@ -36,16 +36,16 @@ RSpec.describe Academic do
 
   describe '#current_orientation' do
     it 'returns the current orientation when it is tcc one' do
-      orientation = create(:current_orientation_tcc_one)
+      orientation = create(:orientation, :current, :tcc_one)
       academic = orientation.academic
       expect(academic.current_orientation.tcc_one?).to be true
       expect(academic.current_orientation).to eq(orientation)
     end
 
     it 'returns the current orientation when it is tcc two' do
-      orientation = create(:previous_orientation_tcc_one)
+      orientation = create(:orientation, :previous, :tcc_one)
       academic = orientation.academic
-      current_orientation = create(:current_orientation_tcc_two, academic:)
+      current_orientation = create(:orientation, :current, :tcc_two, academic:)
 
       expect(academic.current_orientation.tcc_two?).to be true
       expect(academic.current_orientation).to eq(current_orientation)

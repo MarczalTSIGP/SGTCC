@@ -4,7 +4,7 @@ describe 'TccOneProfessorsExaminationBoardsController', type: :request do
   context 'when update examimation boards with defense minutes generated' do
     let(:responsible) { create(:professor_tcc_one) }
     let(:resource_name) { ExaminationBoard.model_name.human }
-    let(:examination_board) { create(:current_examination_board_tcc_one) }
+    let(:examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
     before do
       create(:document_type_adpp)
@@ -44,7 +44,7 @@ describe 'TccOneProfessorsExaminationBoardsController', type: :request do
   context 'when destroy examimation boards' do
     let(:professor) { create(:professor_tcc_one) }
     let(:resource_name) { ExaminationBoard.model_name.human }
-    let(:examination_board) { create(:current_examination_board_tcc_one) }
+    let(:examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
     before do
       create(:document_type_adpp)

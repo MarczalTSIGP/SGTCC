@@ -47,7 +47,7 @@ describe 'Orientation::update' do
     context 'when the orientation cant be edited' do
       before do
         create(:document_type_adpp)
-        eb = create(:proposal_examination_board, orientation:)
+        eb = create(:examination_board, :proposal, orientation:)
         eb.create_defense_minutes
         visit edit_professors_orientation_path(orientation)
       end

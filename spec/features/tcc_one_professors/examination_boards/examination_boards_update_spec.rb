@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::update', :js do
   let(:professor) { create(:professor_tcc_one) }
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+  let!(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
@@ -11,7 +11,7 @@ describe 'ExaminationBoard::update', :js do
   end
 
   describe '#update' do
-    let(:examination_board) { create(:current_examination_board_tcc_one) }
+    let(:examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
     before do
       visit edit_tcc_one_professors_examination_board_path(examination_board)
@@ -44,7 +44,7 @@ describe 'ExaminationBoard::update', :js do
   end
 
   describe '#defense_minute_update' do
-    let(:examination_board) { create(:current_examination_board_tcc_one) }
+    let(:examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
     before do
       examination_board.create_defense_minutes

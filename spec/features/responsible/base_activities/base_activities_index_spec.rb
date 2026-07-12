@@ -10,7 +10,7 @@ describe 'BaseActivity::index', :js do
   describe '#index' do
     context 'when shows all base activities with tcc 1' do
       it 'shows all base activities with tcc 1 options' do
-        base_activities = create_list(:base_activity_tcc_one, 3)
+        base_activities = create_list(:base_activity, 3, :tcc_one)
 
         index_url = responsible_base_activities_tcc_one_path
         visit index_url
@@ -28,7 +28,7 @@ describe 'BaseActivity::index', :js do
 
     context 'when shows all base activities with tcc 2' do
       it 'shows all base activities with tcc 2 options' do
-        base_activities = create_list(:base_activity_tcc_two, 3)
+        base_activities = create_list(:base_activity, 3, :tcc_two)
 
         index_url = responsible_base_activities_tcc_two_path
         visit index_url

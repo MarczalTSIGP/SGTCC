@@ -1,4 +1,18 @@
 FactoryBot.define do
+  professor_roles = {
+    responsible: { name: 'Professor', identifier: 'responsible' },
+    coordinator: { name: 'Coordinator', identifier: 'coordinator' },
+    tcc_one: { name: 'Professor tcc one', identifier: 'tcc_one' }
+  }.freeze
+
+  assign_professor_role = lambda do |professor, role_key|
+    role_attributes = professor_roles.fetch(role_key)
+    role = Role.find_by(identifier: role_attributes[:identifier]) ||
+           FactoryBot.create(:role, role_attributes)
+
+    professor.roles << role unless professor.roles.exists?(role.id)
+  end
+
   factory :professor do
     sequence(:name) { |n| "Professor #{n}" }
     sequence(:username) { |n| "professor#{n}" }
@@ -20,31 +34,19 @@ FactoryBot.define do
 
     factory :responsible do
       after :create do |professor|
-        if Role.find_by(identifier: :responsible).blank?
-          role = create(:role, name: 'Professor', identifier: 'responsible')
-          professor.roles << role
-          professor.save
-        end
+        assign_professor_role.call(professor, :responsible)
       end
     end
 
     factory :coordinator do
       after :create do |professor|
-        if Role.find_by(identifier: :coordinator).blank?
-          role = create(:role, name: 'Coordinator', identifier: 'coordinator')
-          professor.roles << role
-          professor.save
-        end
+        assign_professor_role.call(professor, :coordinator)
       end
     end
 
     factory :professor_tcc_one do
       after :create do |professor|
-        if Role.find_by(identifier: :tcc_one).blank?
-          role = create(:role, name: 'Professor tcc one', identifier: 'tcc_one')
-          professor.roles << role
-          professor.save
-        end
+        assign_professor_role.call(professor, :tcc_one)
       end
     end
   end

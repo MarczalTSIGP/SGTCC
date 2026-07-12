@@ -7,9 +7,9 @@ RSpec.describe Professor do
     before do
       academic = orientation.academic
 
-      create(:proposal_academic_activity, academic:).update_judgment
-      create(:project_academic_activity, academic:)
-      activity = create(:project_academic_activity, academic:).activity
+      create(:academic_activity, :proposal, academic:).update_judgment
+      create(:academic_activity, :project, academic:)
+      activity = create(:academic_activity, :project, academic:).activity
       activity.update(judgment: false)
     end
 

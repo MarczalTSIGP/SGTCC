@@ -5,21 +5,21 @@ RSpec.describe Orientation do
 
   describe '#calendar_tcc_one?' do
     it 'returns if the calendar orientation is the tcc one?' do
-      orientation = create(:orientation_tcc_one)
+      orientation = create(:orientation, :tcc_one)
       expect(orientation.calendar_tcc_one?).to be(true)
     end
   end
 
   describe '#calendar_tcc_two?' do
     it 'returns if the calendar orientation is the tcc two?' do
-      orientation = create(:orientation_tcc_two)
+      orientation = create(:orientation, :tcc_two)
       expect(orientation.calendar_tcc_two?).to be(true)
     end
   end
 
   describe '#by_tcc' do
-    let!(:tcc_one_orientations) { create_list(:orientation_tcc_one, 5) }
-    let!(:tcc_two_orientations) { create_list(:orientation_tcc_two, 5) }
+    let!(:tcc_one_orientations) { create_list(:orientation, 5, :tcc_one) }
+    let!(:tcc_two_orientations) { create_list(:orientation, 5, :tcc_two) }
 
     it 'returns the orientations by tcc one' do
       tcc_one_orientations_found = described_class.by_tcc_one(1, '', 'IN_PROGRESS')
@@ -37,8 +37,8 @@ RSpec.describe Orientation do
   end
 
   describe '#by_current_tcc' do
-    let!(:current_tcc_one_orientation) { create(:current_orientation_tcc_one) }
-    let!(:current_tcc_two_orientation) { create(:current_orientation_tcc_two) }
+    let!(:current_tcc_one_orientation) { create(:orientation, :current, :tcc_one) }
+    let!(:current_tcc_two_orientation) { create(:orientation, :current, :tcc_two) }
 
     it 'returns the current orientations by tcc one' do
       current_tcc_one_orientations_found = described_class.by_current_tcc_one(1, '')

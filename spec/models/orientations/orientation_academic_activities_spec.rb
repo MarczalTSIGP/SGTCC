@@ -8,19 +8,31 @@ RSpec.describe Orientation do
     # and sends files in both.
     # Must consider the last one the correct.
     describe '.proposal' do
-      let(:previous_calendar) { create(:calendar, :previous, :tcc_one) }
-      let(:current_calendar) { create(:calendar, :current, :tcc_one) }
+      let(:previous_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester - 1,
+          tcc: Calendar.tccs[:one]
+        )
+      end
+      let(:current_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester,
+          tcc: Calendar.tccs[:one]
+        )
+      end
 
-      let(:orientation) { create(:orientation_tcc_one) }
-      let(:orientation_two) { create(:orientation_tcc_one) }
+      let(:orientation) { create(:orientation, :tcc_one) }
+      let(:orientation_two) { create(:orientation, :tcc_one) }
       let!(:academic_activity_two) do
-        activity_two = create(:proposal_activity, calendar: current_calendar)
+        activity_two = create(:activity, :proposal, calendar: current_calendar)
         create(:academic_activity, activity: activity_two, academic: orientation.academic)
       end
 
       before do
         orientation.calendars = [previous_calendar, current_calendar]
-        activity_one = create(:project_activity, calendar: previous_calendar)
+        activity_one = create(:activity, :project, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
 
@@ -38,18 +50,30 @@ RSpec.describe Orientation do
     end
 
     describe '.project' do
-      let(:previous_calendar) { create(:calendar, :previous, :tcc_one) }
-      let(:current_calendar) { create(:calendar, :current, :tcc_one) }
+      let(:previous_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester - 1,
+          tcc: Calendar.tccs[:one]
+        )
+      end
+      let(:current_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester,
+          tcc: Calendar.tccs[:one]
+        )
+      end
 
-      let(:orientation) { create(:orientation_tcc_one) }
+      let(:orientation) { create(:orientation, :tcc_one) }
       let!(:academic_activity_two) do
-        activity_two = create(:project_activity, calendar: current_calendar)
+        activity_two = create(:activity, :project, calendar: current_calendar)
         create(:academic_activity, activity: activity_two, academic: orientation.academic)
       end
 
       before do
         orientation.calendars = [previous_calendar, current_calendar]
-        activity_one = create(:project_activity, calendar: previous_calendar)
+        activity_one = create(:activity, :project, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
 
@@ -64,18 +88,30 @@ RSpec.describe Orientation do
     end
 
     describe '.monograph' do
-      let(:previous_calendar) { create(:calendar, :previous, :tcc_two) }
-      let(:current_calendar) { create(:calendar, :current, :tcc_two) }
+      let(:previous_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester - 1,
+          tcc: Calendar.tccs[:two]
+        )
+      end
+      let(:current_calendar) do
+        find_or_create_calendar(
+          year: Calendar.current_year,
+          semester: Calendar.current_semester,
+          tcc: Calendar.tccs[:two]
+        )
+      end
 
-      let(:orientation) { create(:orientation_tcc_two) }
+      let(:orientation) { create(:orientation, :tcc_two) }
       let!(:academic_activity) do
-        activity_two = create(:monograph_activity, calendar: current_calendar)
+        activity_two = create(:activity, :monograph, calendar: current_calendar)
         create(:academic_activity, activity: activity_two, academic: orientation.academic)
       end
 
       before do
         orientation.calendars = [previous_calendar, current_calendar]
-        activity_one = create(:monograph_activity, calendar: previous_calendar)
+        activity_one = create(:activity, :monograph, calendar: previous_calendar)
         create(:academic_activity, activity: activity_one, academic: orientation.academic)
       end
 

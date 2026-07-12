@@ -4,11 +4,30 @@ RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
   describe '#to_migrate' do
-    let!(:valid_orientation) { create(:orientation_tcc_one_approved) }
-    let!(:valid_orientation_two) { create(:orientation_tcc_one_approved_current_calendar) }
-    let!(:invalid_orientation) { create(:orientation_tcc_one_approved_next_calendar) }
-    let!(:invalid_orientation_two) { create(:orientation_approved) }
-    let!(:invalid_orientation_three) { create(:orientation_canceled) }
+    before do
+      travel_to Date.new(2025, 5, 15)
+      OrientationCalendar.delete_all
+      described_class.delete_all
+      Calendar.delete_all
+    end
+
+    let!(:valid_orientation) do
+      create(
+        :orientation,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors
+      )
+    end
+    let!(:valid_orientation_two) do
+      create(:orientation, :tcc_one, :current, :approved_tcc_one, :with_final_project)
+    end
+    let!(:invalid_orientation) do
+      create(:orientation, :tcc_one, :next, :approved_tcc_one, :with_final_project)
+    end
+    let!(:invalid_orientation_two) { create(:orientation, :approved) }
+    let!(:invalid_orientation_three) { create(:orientation, :canceled) }
 
     it 'returns the orientations that can be migrated' do
       current_cal = find_or_create_calendar(year: 2025, semester: 1, tcc: Calendar.tccs[:one])
@@ -93,7 +112,11 @@ RSpec.describe Orientation do
 
       it 'migrates TCC one orientation to the next semester' do
         orientation = create(
-          :orientation_tcc_one_approved,
+          :orientation,
+          :tcc_one,
+          :approved_tcc_one,
+          :with_final_project,
+          :with_extra_supervisors,
           calendars: [current_calendar_second_semester_tcc_one]
         )
 
@@ -109,7 +132,11 @@ RSpec.describe Orientation do
 
       it 'changes migrated TCC one orientation to TCC two' do
         orientation = create(
-          :orientation_tcc_one_approved,
+          :orientation,
+          :tcc_one,
+          :approved_tcc_one,
+          :with_final_project,
+          :with_extra_supervisors,
           calendars: [current_calendar_second_semester_tcc_one]
         )
 
@@ -135,7 +162,14 @@ RSpec.describe Orientation do
       end
 
       it 'keeps source calendar and adds destination calendar after migration' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
+        orientation = create(
+          :orientation,
+          :tcc_one,
+          :approved_tcc_one,
+          :with_final_project,
+          :with_extra_supervisors,
+          calendars: [current_calendar_tcc_one]
+        )
 
         initial_calendar_id = orientation.current_calendar.id
         expect(orientation.migrate).to be(true)
@@ -147,7 +181,14 @@ RSpec.describe Orientation do
       end
 
       it 'does not migrate twice' do
-        orientation = create(:orientation_tcc_one_approved, calendars: [current_calendar_tcc_one])
+        orientation = create(
+          :orientation,
+          :tcc_one,
+          :approved_tcc_one,
+          :with_final_project,
+          :with_extra_supervisors,
+          calendars: [current_calendar_second_semester_tcc_one]
+        )
 
         orientation.migrate
         expect(orientation.migrate).to be(false)

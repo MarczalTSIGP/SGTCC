@@ -1,18 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe ExaminationBoard do
+  before { travel_to Date.new(2026, 5, 15) }
+
   describe '.tcc_one' do
     let(:tccs) { [] }
 
     before do
-      tccs << create(:current_examination_board_tcc_one).id
-      tccs << create(:current_examination_board_tcc_one_project).id
+      tccs << create(:examination_board, :current_tcc_one, :proposal).id
+      tccs << create(:examination_board, :current_tcc_one, :project).id
 
-      previous_orientation = create(:previous_orientation_tcc_one)
-      tccs << create(:examination_board_tcc_one,
+      previous_orientation = create(:orientation, :previous, :tcc_one)
+      tccs << create(:examination_board, :tcc_one,
                      date: 6.months.ago,
                      orientation: previous_orientation).id
-      tccs << create(:examination_board_tcc_one,
+      tccs << create(:examination_board, :tcc_one,
                      date: 5.months.ago,
                      identifier: :project,
                      orientation: previous_orientation).id
@@ -32,14 +34,14 @@ RSpec.describe ExaminationBoard do
     let(:tccs) { [] }
 
     before do
-      tccs << create(:current_examination_board_tcc_two).id
-      tccs << create(:current_examination_board_tcc_two).id
+      tccs << create(:examination_board, :current_tcc_two, :monograph).id
+      tccs << create(:examination_board, :current_tcc_two, :monograph).id
 
-      previous_orientation = create(:previous_orientation_tcc_two)
-      tccs << create(:examination_board_tcc_two,
+      previous_orientation = create(:orientation, :previous, :tcc_two)
+      tccs << create(:examination_board, :tcc_two,
                      date: 6.months.ago,
                      orientation: previous_orientation).id
-      tccs << create(:examination_board_tcc_two,
+      tccs << create(:examination_board, :tcc_two,
                      date: 6.months.ago,
                      identifier: :project,
                      orientation: previous_orientation).id

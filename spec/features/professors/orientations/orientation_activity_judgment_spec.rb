@@ -4,7 +4,7 @@ describe 'Orientation::activity_update_judgment', :js do
   let(:orientation) { create(:orientation) }
   let(:professor) { orientation.advisor }
   let(:calendar) { orientation.current_calendar }
-  let(:activity) { create(:project_activity, calendar: calendar) }
+  let(:activity) { create(:activity, :project, calendar: calendar) }
   let(:resource_name) { Activity.model_name.human }
 
   before do

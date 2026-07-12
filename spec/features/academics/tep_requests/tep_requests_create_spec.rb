@@ -5,7 +5,7 @@ describe 'TepRequest::create', :js do
   let(:resource_name) { request_resource_name }
 
   before do
-    create(:current_orientation_tcc_two, academic_id: academic.id)
+    create(:orientation, :current, :tcc_two, academic_id: academic.id)
     create(:responsible)
     create(:coordinator)
     login_as(academic, scope: :academic)

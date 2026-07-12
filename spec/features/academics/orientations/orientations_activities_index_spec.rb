@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Orientation::activities index', :js do
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+  let!(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:academic) { orientation.academic }
   let(:calendar) { orientation.current_calendar }
   let(:activities) { calendar.activities }

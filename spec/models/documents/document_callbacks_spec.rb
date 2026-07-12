@@ -5,7 +5,7 @@ RSpec.describe Document do
   describe '#after_create' do
     let!(:coordinator) { create(:coordinator) }
     let!(:responsible) { create(:responsible) }
-    let!(:orientation) { create(:current_orientation_tcc_two) }
+    let!(:orientation) { create(:orientation, :current, :tcc_two) }
 
     context 'when returns the tdo signatures' do
       let!(:document) { create(:document_tdo, orientation_id: orientation.id) }

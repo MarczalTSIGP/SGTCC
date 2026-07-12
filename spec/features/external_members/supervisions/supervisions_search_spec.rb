@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::search' do
   let(:external_member) { create(:external_member) }
-  let(:canceled_orientation) { create(:current_orientation_tcc_one, status: 'CANCELED') }
+  let(:canceled_orientation) { create(:orientation, :current, :tcc_one, status: 'CANCELED') }
   let(:current_orientation) do
     create(:orientation,
            calendars: [canceled_orientation.current_calendar])

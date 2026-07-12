@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Activity::show' do
   let(:external_member) { create(:external_member) }
   let(:calendar)        { create(:calendar, :current, :tcc_one) }
-  let(:activity)        { create(:project_activity, calendar: calendar) }
+  let(:activity)        { create(:activity, :project, calendar: calendar) }
   let(:orientation_one) { create(:orientation, calendar_ids: [calendar.id]) }
   let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 

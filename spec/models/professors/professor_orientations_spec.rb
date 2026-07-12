@@ -19,7 +19,7 @@ RSpec.describe Professor do
 
   describe '#tcc_one_approved' do
     let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
+    let(:orientation) { create(:orientation, :tcc_one, advisor: professor) }
 
     it 'returns the tcc one approved' do
       orientations_approved = professor.orientations.tcc_one('APPROVED')
@@ -29,7 +29,7 @@ RSpec.describe Professor do
 
   describe '#tcc_two_approved' do
     let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
+    let(:orientation) { create(:orientation, :tcc_two, advisor: professor) }
 
     it 'returns the tcc two approved' do
       orientations_approved = professor.orientations.tcc_two('APPROVED')
@@ -39,7 +39,7 @@ RSpec.describe Professor do
 
   describe '#tcc_one_in_progress' do
     let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_one, advisor: professor) }
+    let(:orientation) { create(:orientation, :tcc_one, advisor: professor) }
 
     it 'returns the tcc one in progress' do
       orientations_approved = professor.orientations.tcc_one('IN_PROGRESS')
@@ -49,7 +49,7 @@ RSpec.describe Professor do
 
   describe '#tcc_two_in_progress' do
     let(:professor) { create(:professor) }
-    let(:orientation) { create(:orientation_tcc_two, advisor: professor) }
+    let(:orientation) { create(:orientation, :tcc_two, advisor: professor) }
 
     it 'returns the tcc two in progress' do
       orientations_approved = professor.orientations.tcc_two('IN_PROGRESS')

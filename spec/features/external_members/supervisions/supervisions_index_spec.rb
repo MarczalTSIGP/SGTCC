@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::index' do
   let(:external_member) { create(:external_member) }
-  let(:orientation) { create(:current_orientation_tcc_one) }
+  let(:orientation) { create(:orientation, :current, :tcc_one) }
 
   before do
     login_as(external_member, scope: :external_member)

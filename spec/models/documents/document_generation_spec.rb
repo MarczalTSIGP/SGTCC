@@ -24,7 +24,7 @@ RSpec.describe Document do
     let!(:academic) { create(:academic) }
 
     let!(:orientation) do
-      create(:current_orientation_tcc_two, academic_id: academic.id)
+      create(:orientation, :current, :tcc_two, academic_id: academic.id)
     end
 
     before do
@@ -46,7 +46,7 @@ RSpec.describe Document do
     let!(:professor) { create(:professor) }
 
     let!(:orientation) do
-      create(:current_orientation_tcc_two, advisor: professor, academic:)
+      create(:orientation, :current, :tcc_two, advisor: professor, academic:)
     end
 
     let(:requester_data) do

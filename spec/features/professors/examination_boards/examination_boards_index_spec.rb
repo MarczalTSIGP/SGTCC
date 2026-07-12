@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::index', :js do
   let(:professor) { create(:professor) }
-  let!(:examination_board) { create(:examination_board_tcc_one, date: 1.week.ago.to_date) }
+  let!(:examination_board) { create(:examination_board, :tcc_one, date: 1.week.ago.to_date) }
 
   before do
     examination_board.professors << professor

@@ -4,17 +4,34 @@ RSpec.describe ExternalMember do
   subject(:em) { build(:external_member) }
 
   describe '#current_examination_boards' do
-    let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
-    let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
+    let(:current_date) { Date.new(2026, 7, 15) }
+    let(:orientation_tcc_one) do
+      calendar = find_or_create_calendar(year: 2026, semester: 2, tcc: Calendar.tccs[:one])
+      create(:orientation, calendars: [calendar])
+    end
+    let(:orientation_tcc_two) do
+      calendar = find_or_create_calendar(year: 2026, semester: 2, tcc: Calendar.tccs[:two])
+      create(:orientation, calendars: [calendar])
+    end
     let(:external_member) { orientation_tcc_one.external_member_supervisors.first }
 
-    let(:examination_board_tcc_two) do
-      create(:examination_board_tcc_two, orientation: orientation_tcc_two, date: 1.week.ago.to_date)
+    let(:tcc_two_examination_board) do
+      create(
+        :examination_board,
+        :tcc_two,
+        orientation: orientation_tcc_two,
+        date: current_date
+      )
     end
 
     before do
-      create(:examination_board_tcc_one, orientation: orientation_tcc_one, date: 1.week.ago.to_date)
-      examination_board_tcc_two.external_members << external_member
+      create(
+        :examination_board,
+        :tcc_one,
+        orientation: orientation_tcc_one,
+        date: current_date
+      )
+      tcc_two_examination_board.external_members << external_member
     end
 
     it 'returns the current examination_boards' do

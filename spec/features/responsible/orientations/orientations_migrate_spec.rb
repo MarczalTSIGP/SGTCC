@@ -8,7 +8,13 @@ describe 'Orientation::migrate' do
 
   describe '#migrate', :js do
     before do
-      create(:orientation_tcc_one_approved)
+      create(
+        :orientation,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors
+      )
       visit responsible_orientations_migration_path
     end
 

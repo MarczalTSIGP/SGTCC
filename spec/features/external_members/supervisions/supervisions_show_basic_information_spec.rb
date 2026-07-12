@@ -19,8 +19,8 @@ describe 'Supervision::show' do
 
   let(:external_member) { create(:external_member) }
   let(:orientation) { create(:orientation) }
-  let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
-  let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
+  let(:orientation_tcc_one) { create(:orientation, :current, :tcc_one) }
+  let(:orientation_tcc_two) { create(:orientation, :current, :tcc_two) }
 
   describe '#show' do
     context 'when shows the orientation' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::documents show', :js do
   let!(:academic) { create(:academic) }
-  let!(:orientation) { create(:current_orientation_tcc_one, academic:) }
+  let!(:orientation) { create(:orientation, :current, :tcc_one, academic:) }
   let(:active_link) { academics_calendars_path }
   let(:document) { orientation.documents.first }
 

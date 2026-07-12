@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ExaminationBoardNote do
   describe '#after_save' do
     context 'when all notes are submitted (triggering notifications)' do
-      let!(:eb) { create(:monograph_examination_board) }
+      let!(:eb) { create(:examination_board, :monograph) }
       let(:academic) { eb.orientation.academic }
       let(:advisor) { eb.orientation.advisor }
 

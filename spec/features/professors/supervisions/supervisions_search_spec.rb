@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::search' do
   let(:professor) { create(:professor) }
-  let(:orientation) { create(:current_orientation_tcc_one, status: 'APPROVED') }
+  let(:orientation) { create(:orientation, :current, :tcc_one, status: 'APPROVED') }
 
   before do
     professor.supervisions << orientation

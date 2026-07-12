@@ -64,8 +64,8 @@ RSpec.describe Orientation do
 
   describe '.document_tcc_one' do
     it 'returns the document tcc one' do
-      orientation = create(:orientation_tcc_one)
-      document = create(:proposal_academic_activity, academic: orientation.academic)
+      orientation = create(:orientation, :tcc_one)
+      document = create(:academic_activity, :proposal, academic: orientation.academic)
       orientation.calendars = [document.activity.calendar]
 
       expect(orientation.document_tcc_one).to eq(document)
