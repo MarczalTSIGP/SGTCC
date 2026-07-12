@@ -10,7 +10,7 @@ describe 'Orientation::index' do
   describe '#index', :js do
     context 'when shows all the orientations' do
       it 'shows basic information of history orientation' do
-        orientation = create(:orientation_tcc_one, advisor: professor)
+        orientation = create(:orientation, :tcc_one, advisor: professor)
         index_url = professors_orientations_history_path
         visit index_url
 

@@ -8,7 +8,7 @@ describe 'Supervision::index' do
   end
 
   context 'when shows all the supervisions of tcc one calendar' do
-    let(:orientation) { create(:current_orientation_tcc_one) }
+    let(:orientation) { create(:orientation, :current, :tcc_one) }
     let(:index_url) { professors_supervisions_tcc_one_path }
 
     before do
@@ -58,7 +58,7 @@ describe 'Supervision::index' do
 
   context 'when shows all the supervisions of tcc two calendar' do
     it 'shows all the supervisions of tcc two with options' do
-      orientation = create(:current_orientation_tcc_two)
+      orientation = create(:orientation, :current, :tcc_two)
       orientation.professor_supervisors << professor
 
       index_url = professors_supervisions_tcc_two_path

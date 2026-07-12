@@ -12,14 +12,14 @@ RSpec.describe Orientation do
 
   describe '#approved?' do
     it 'returns if the orientation is approved?' do
-      orientation = create(:orientation_approved)
+      orientation = create(:orientation, :approved)
       expect(orientation.approved?).to be(true)
     end
   end
 
   describe '#canceled?' do
     it 'returns if the orientation is canceled?' do
-      orientation = create(:orientation_canceled)
+      orientation = create(:orientation, :canceled)
       expect(orientation.canceled?).to be(true)
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe Orientation do
   describe '#can_be_canceled?' do
     it 'returns true' do
       professor = create(:responsible)
-      orientation = create(:orientation_tcc_two)
+      orientation = create(:orientation, :tcc_two)
       expect(orientation.can_be_canceled?(professor)).to be(true)
     end
   end
@@ -42,9 +42,15 @@ RSpec.describe Orientation do
   describe '#by_status' do
     before do
       create(:orientation) # IN_PROGRESS
-      create(:orientation_tcc_one_approved)
-      create(:orientation_tcc_two_approved)
-      create(:orientation_canceled)
+      create(
+        :orientation,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors
+      )
+      create(:orientation, :tcc_two, :approved, :with_final_monograph)
+      create(:orientation, :canceled)
     end
 
     it 'return in progress orientations' do

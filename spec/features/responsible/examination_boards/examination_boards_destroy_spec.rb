@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::destroy', :js do
   let(:responsible) { create(:responsible) }
-  let!(:examination_board) { create(:examination_board_tcc_one) }
+  let!(:examination_board) { create(:examination_board, :tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
@@ -29,7 +29,7 @@ describe 'ExaminationBoard::destroy', :js do
     end
 
     context 'when the examination board cant be destroyed' do
-      let!(:current_examination_board) { create(:current_examination_board_tcc_one) }
+      let!(:current_examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
       before do
         create(:document_type_adpp)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::index', :js do
   let(:external_member) { create(:external_member) }
-  let!(:examination_boards) { create_list(:examination_board_tcc_one, 2) }
+  let!(:examination_boards) { create_list(:examination_board, 2, :tcc_one) }
 
   before do
     examination_boards.each do |examination_board|

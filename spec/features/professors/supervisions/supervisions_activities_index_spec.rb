@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::activities', :js do
   let!(:professor) { create(:professor) }
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+  let!(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:calendar) { orientation.current_calendar }
   let(:activities) { calendar.activities }
   let(:active_link) { professors_supervisions_tcc_one_path }

@@ -4,13 +4,19 @@ RSpec.describe Professor do
   subject(:professor) { described_class.new }
 
   describe '#examination_boards' do
+    let(:current_date) { Date.new(2026, 7, 15) }
+    let(:calendar) do
+      find_or_create_calendar(year: 2026, semester: 2, tcc: Calendar.tccs[:one])
+    end
     let!(:professor) { create(:professor) }
-    let!(:orientation) { create(:orientation, advisor: professor) }
-    let(:examination_board_tcc_one) { create(:examination_board_tcc_one, date: 1.week.ago.to_date) }
+    let!(:orientation) { create(:orientation, advisor: professor, calendars: [calendar]) }
+    let(:tcc_one_examination_board) do
+      create(:examination_board, :tcc_one, date: current_date)
+    end
 
     before do
-      create(:examination_board, orientation:, date: 1.week.ago.to_date)
-      examination_board_tcc_one.professors << professor
+      create(:examination_board, orientation:, date: current_date)
+      tcc_one_examination_board.professors << professor
     end
 
     it 'is equal guest_examination_boards' do

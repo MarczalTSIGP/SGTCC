@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ApiV1OrientationsController', type: :request do
   context 'when in tcc one' do
-    let!(:orientations) { create_list(:orientation_tcc_one, 2) }
+    let!(:orientations) { create_list(:orientation, 2, :tcc_one) }
 
     it 'returns status ok' do
       get api_v1_orientations_in_tcc_one_path

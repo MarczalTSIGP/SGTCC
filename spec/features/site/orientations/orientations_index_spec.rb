@@ -9,7 +9,7 @@ describe 'Orientation::index', :js do
     end
 
     context 'when shows all the approved orientations' do
-      let!(:orientation) { create(:orientation_tcc_two_approved) }
+      let!(:orientation) { create(:orientation, :tcc_two, :approved, :with_final_monograph) }
       let(:index_url) { site_approved_orientations_path }
 
       before do
@@ -28,7 +28,15 @@ describe 'Orientation::index', :js do
     end
 
     context 'when shows all approved in tcc one orientations' do
-      let!(:orientation) { create(:orientation_tcc_one_approved) }
+      let!(:orientation) do
+        create(
+          :orientation,
+          :tcc_one,
+          :approved_tcc_one,
+          :with_final_project,
+          :with_extra_supervisors
+        )
+      end
       let(:index_url) { site_approved_tcc_one_orientations_path }
 
       before do

@@ -6,38 +6,28 @@ FactoryBot.define do
     user_type { 'AD' }
     status { false }
 
-    factory :signature_tcai do
+    trait :tcai do
       document { association(:document_tcai) }
     end
 
-    factory :signature_tco do
+    trait :tco do
       document { association(:document_tco) }
     end
 
-    factory :signature_signed do
+    trait :signed do
       status { true }
     end
 
-    factory :academic_signature do
+    trait :academic do
       user_type { 'AC' }
     end
 
-    factory :external_member_signature do
+    trait :external_member_supervisor do
       user_type { 'ES' }
     end
 
-    factory :professor_supervisor_signature do
+    trait :professor_supervisor do
       user_type { 'PS' }
-    end
-
-    factory :academic_signature_signed do
-      user_type { 'AC' }
-      status { true }
-    end
-
-    factory :external_member_signature_signed do
-      user_type { 'ES' }
-      status { true }
     end
   end
 end

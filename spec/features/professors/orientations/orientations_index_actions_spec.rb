@@ -9,7 +9,7 @@ describe 'Orientation::index' do
 
   describe '#index', :js do
     context 'when shows orientation action links' do
-      let!(:orientation) { create(:current_orientation_tcc_one, advisor: professor) }
+      let!(:orientation) { create(:orientation, :current, :tcc_one, advisor: professor) }
       let(:index_url) { professors_orientations_tcc_one_path }
       let(:orientation_link) { "a[href='#{professors_orientation_path(orientation)}']" }
 

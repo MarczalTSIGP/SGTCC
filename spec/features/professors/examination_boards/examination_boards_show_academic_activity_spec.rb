@@ -4,7 +4,7 @@ describe 'ExaminationBoard::show academic activity' do
   include_context 'professor proposal examination board setup'
 
   let(:activity) do
-    create(:proposal_activity,
+    create(:activity, :proposal,
            calendar: orientation.current_calendar)
   end
   let(:academic) { orientation.academic }

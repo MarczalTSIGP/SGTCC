@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::search' do
   let(:responsible) { create(:responsible) }
-  let!(:orientations) { create_list(:orientation_tcc_one, 2) }
+  let!(:orientations) { create_list(:orientation, 2, :tcc_one) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -42,7 +42,7 @@ describe 'Orientation::search' do
       it 'finds the orientation by status' do
         visit responsible_orientations_tcc_two_path
         calendar = create(:calendar, :current, :tcc_two)
-        orientation = create(:orientation_approved, calendars: [calendar])
+        orientation = create(:orientation, :approved, calendars: [calendar])
         slim_select(orientation_approved_option, from: 'orientation_status')
 
         within('table tbody tr:nth-child(1)') do

@@ -6,12 +6,12 @@ FactoryBot.define do
     base_activity_type
     judgment { true }
 
-    factory :base_activity_tcc_one do
+    trait :tcc_one do
       tcc { BaseActivity.tccs.values.first }
       identifier { %w[proposal project].sample }
     end
 
-    factory :base_activity_tcc_two do
+    trait :tcc_two do
       tcc { BaseActivity.tccs.values.last }
       identifier { :monograph }
     end

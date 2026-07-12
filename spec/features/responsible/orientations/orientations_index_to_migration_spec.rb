@@ -13,7 +13,15 @@ describe 'Orientation::to_migrate' do
 
   describe '#to_migrate', :js do
     let!(:orientations) do
-      create_list(:orientation_tcc_one_approved, 2, calendars: [current_calendar_tcc_one])
+      create_list(
+        :orientation,
+        2,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors,
+        calendars: [current_calendar_tcc_one]
+      )
     end
 
     let(:index_url) { responsible_orientations_migration_path }

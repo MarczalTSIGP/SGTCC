@@ -10,7 +10,7 @@ describe 'Supervision::index' do
   describe '#index', :js do
     context 'when shows all the supervisions' do
       it 'shows all the supervisions' do
-        orientation = create(:current_orientation_tcc_one)
+        orientation = create(:orientation, :current, :tcc_one)
         orientation.professor_supervisors << professor
 
         index_url = professors_supervisions_history_path

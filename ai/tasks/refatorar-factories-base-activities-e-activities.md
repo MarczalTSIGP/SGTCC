@@ -1,6 +1,6 @@
 # Task
 
-Refatorar as factories `base_activities.rb` e `activities.rb` para usar traits, atualizar os testes que usam os nomes antigos dessas factories e garantir que a suíte termine verde.
+Refatorar as factories `base_activities.rb` e `activities.rb` para usar traits reais do domínio, atualizar os testes que usam os nomes antigos dessas factories e garantir que a suíte termine verde.
 
 # Contexto
 
@@ -15,9 +15,9 @@ Agora o foco é refatorar:
 
 Essas duas factories possuem padrão parecido e devem ser refatoradas juntas, pois uma espelha a outra em vários pontos.
 
-Volume estimado:
+Volume real identificado:
 
-- `base_activities.rb` + `activities.rb` possuem aproximadamente 62 referências nos testes;
+- aproximadamente 45 ocorrências em 21 arquivos;
 - essas factories mudam nomes ou passam a usar traits, então os specs devem ser atualizados nesta mesma task.
 
 A estratégia desta task é:
@@ -31,7 +31,7 @@ A estratégia desta task é:
 
 # Objetivo
 
-Refatorar `base_activities.rb` e `activities.rb` para reduzir duplicação e melhorar clareza, usando traits para representar variações de TCC, tipo, status, prazo ou contexto.
+Refatorar `base_activities.rb` e `activities.rb` para reduzir duplicação e melhorar clareza, usando traits reais que representem variações já existentes nas factories atuais.
 
 Ao final da task:
 
@@ -121,7 +121,7 @@ Identifique em `spec/factories/base_activities.rb`:
 - nomes de factories existentes;
 - traits já existentes, se houver;
 - atributos padrão;
-- valores de `identifier`, `tcc`, `title`, `description`, `deadline`, `date` ou equivalentes;
+- valores reais de `tcc`, `identifier`, `title`, `description` ou equivalentes;
 - callbacks;
 - associações;
 - factories aninhadas;
@@ -132,15 +132,15 @@ Identifique em `spec/factories/activities.rb`:
 - nomes de factories existentes;
 - traits já existentes, se houver;
 - atributos padrão;
-- vínculo com `base_activity`;
-- vínculo com `calendar`, `orientation`, `document`, `academic_activity` ou outros models;
-- variações por TCC;
-- variações por status;
+- valor de `base_activity_type`;
+- vínculo com `calendar`;
+- variações reais por TCC;
+- variações reais por tipo de banca/documento, se existirem;
 - callbacks;
 - factories aninhadas;
 - nomes antigos usados nos specs.
 
-Depois, crie uma nova estrutura baseada em traits.
+Depois, crie uma nova estrutura baseada em traits reais.
 
 # Padrão desejado para `base_activities.rb`
 
@@ -152,23 +152,25 @@ factory :base_activity do
 end
 ```
 
-Os comportamentos específicos devem ser expressos com traits.
+Os comportamentos específicos devem ser expressos com traits baseadas nas factories antigas reais.
 
-Traits possíveis, se fizerem sentido com o modelo atual:
+Traits esperadas, se corresponderem ao código atual:
 
 ```ruby
 trait :tcc_one
 trait :tcc_two
-trait :proposal
-trait :project
-trait :monograph
-trait :with_deadline
-trait :without_deadline
-trait :active
-trait :inactive
 ```
 
-Use apenas traits que façam sentido com os atributos reais da factory e do model.
+Não crie traits sem base em atributos reais do model.
+
+Não crie traits como:
+
+- `:with_deadline`;
+- `:without_deadline`;
+- `:active`;
+- `:inactive`.
+
+Esses traits não devem ser criados se `BaseActivity` não possuir campos correspondentes.
 
 Não invente valores novos.
 
@@ -184,9 +186,9 @@ factory :activity do
 end
 ```
 
-Os comportamentos específicos devem ser expressos com traits.
+Os comportamentos específicos devem ser expressos com traits baseadas nas factories antigas reais.
 
-Traits possíveis, se fizerem sentido com o modelo atual:
+Traits esperadas, se corresponderem ao código atual:
 
 ```ruby
 trait :tcc_one
@@ -194,19 +196,34 @@ trait :tcc_two
 trait :proposal
 trait :project
 trait :monograph
-trait :current
-trait :past
-trait :future
-trait :with_base_activity
-trait :with_orientation
-trait :with_calendar
-trait :answered
-trait :pending
 ```
 
-Use apenas traits compatíveis com o projeto.
+Esses traits devem substituir factories antigas como:
 
-Não crie traits que não sejam necessárias para substituir os usos atuais.
+- `activity_tcc_one`;
+- `activity_tcc_two`;
+- `proposal_activity`;
+- `project_activity`;
+- `monograph_activity`.
+
+Não crie traits sem base em atributos reais do model.
+
+Não crie traits como:
+
+- `:with_base_activity`;
+- `:with_orientation`;
+- `:with_calendar`;
+- `:answered`;
+- `:pending`.
+
+Esses traits não devem ser criados se `Activity` não possuir associações ou campos correspondentes.
+
+Observações importantes:
+
+- `Activity` não deve receber trait `:with_base_activity` se o model não possuir `belongs_to :base_activity`.
+- `Activity` não deve receber trait `:with_orientation` se não houver associação direta com `orientation`.
+- `Activity` não precisa receber trait `:with_calendar` se `calendar` já for atributo padrão da factory.
+- Não crie traits de status como `:answered` ou `:pending` se o model não possuir esse conceito diretamente.
 
 Não altere regras do model `Activity`.
 
@@ -236,54 +253,7 @@ create(:activity, :project)
 create(:activity, :monograph)
 ```
 
-Esses nomes são exemplos.
-
-Antes de substituir, verifique os nomes reais existentes no projeto.
-
-# Aliases temporários
-
-Durante a migração, você pode manter aliases temporários para facilitar a transição.
-
-Porém, ao final desta task, se todos os specs tiverem sido atualizados para traits, remova os aliases antigos.
-
-A task deve terminar preferencialmente sem factories antigas duplicando comportamento.
-
-Se algum alias antigo precisar permanecer por compatibilidade, explique no relatório final:
-
-- qual alias ficou;
-- por que não foi removido;
-- onde ainda é usado;
-- qual task futura deve removê-lo.
-
-# Atualização dos testes
-
-Atualize todos os specs que usam nomes antigos de factories de base activities e activities.
-
-Faça substituições de forma segura e mecânica.
-
-Exemplos esperados:
-
-```ruby
-create(:base_activity_antiga)
-```
-
-para:
-
-```ruby
-create(:base_activity, :trait_equivalente)
-```
-
-ou:
-
-```ruby
-build(:activity_antiga)
-```
-
-para:
-
-```ruby
-build(:activity, :trait_equivalente)
-```
+Esses nomes devem ser confirmados contra as factories reais antes da substituição.
 
 Preserve atributos sobrescritos.
 
@@ -301,6 +271,21 @@ create(:activity, :tcc_one, title: "Entrega da proposta")
 
 Não remova atributos explícitos sem necessidade.
 
+# Aliases temporários
+
+Durante a migração, você pode manter aliases temporários para facilitar a transição.
+
+Porém, ao final desta task, se todos os specs tiverem sido atualizados para traits, remova os aliases antigos.
+
+A task deve terminar preferencialmente sem factories antigas duplicando comportamento.
+
+Se algum alias antigo precisar permanecer por compatibilidade, explique no relatório final:
+
+- qual alias ficou;
+- por que não foi removido;
+- onde ainda é usado;
+- qual task futura deve removê-lo.
+
 # Cuidados importantes
 
 `BaseActivity` e `Activity` podem possuir regras sensíveis, como:
@@ -309,12 +294,10 @@ Não remova atributos explícitos sem necessidade.
 - TCC II;
 - tipo de atividade;
 - identificador;
-- prazos;
 - calendário;
-- orientação;
-- status;
-- associação com atividade base;
-- associação com documentos ou respostas.
+- status ou tipo derivado, se existir;
+- associação com calendário;
+- associação com documentos ou respostas, se existir no domínio real.
 
 Ao refatorar as factories:
 
@@ -353,6 +336,9 @@ Use comandos equivalentes a:
 ```bash
 grep -R "base_activity_" spec
 grep -R "activity_" spec
+grep -R "proposal_activity" spec
+grep -R "project_activity" spec
+grep -R "monograph_activity" spec
 ```
 
 Atenção: esses comandos podem retornar nomes legítimos de arquivos, métodos ou atributos.
@@ -370,13 +356,13 @@ Se alguma referência antiga permanecer, explique no relatório final.
 
 # Testes esperados
 
-Primeiro rode os testes mais diretamente relacionados:
+Primeiro rode os testes mais diretamente relacionados.
+
+Use apenas caminhos existentes:
 
 ```bash
 ./run rspec \
-  spec/models/base_activity_spec.rb \
   spec/models/base_activities \
-  spec/models/activity_spec.rb \
   spec/models/activities
 ```
 
@@ -412,12 +398,22 @@ Comando mínimo esperado:
 
 Se possível, rode RuboCop nos specs alterados também.
 
+Não use caminhos inexistentes como:
+
+```bash
+spec/models/base_activity_spec.rb
+spec/models/activity_spec.rb
+```
+
+Esses arquivos não existem no estado atual do projeto.
+
 # Critérios de aceite
 
 A task será considerada concluída se:
 
-- `spec/factories/base_activities.rb` usar uma estrutura baseada em traits;
-- `spec/factories/activities.rb` usar uma estrutura baseada em traits;
+- `spec/factories/base_activities.rb` usar uma estrutura baseada em traits reais;
+- `spec/factories/activities.rb` usar uma estrutura baseada em traits reais;
+- não forem criados traits sem correspondência com atributos/associações reais;
 - os nomes antigos de factories de base activities e activities forem substituídos nos specs;
 - aliases antigos forem removidos quando não forem mais necessários;
 - os cenários dos testes forem preservados;
@@ -447,6 +443,8 @@ Liste os nomes antigos encontrados.
 
 Liste os traits criados ou mantidos.
 
+Não liste traits especulativos que não foram criados.
+
 ## Mapeamento de migração
 
 Informe o mapeamento usado, por exemplo:
@@ -454,7 +452,10 @@ Informe o mapeamento usado, por exemplo:
 - `:base_activity_tcc_one` → `:base_activity, :tcc_one`;
 - `:base_activity_tcc_two` → `:base_activity, :tcc_two`;
 - `:activity_tcc_one` → `:activity, :tcc_one`;
-- `:activity_tcc_two` → `:activity, :tcc_two`.
+- `:activity_tcc_two` → `:activity, :tcc_two`;
+- `:proposal_activity` → `:activity, :proposal`;
+- `:project_activity` → `:activity, :project`;
+- `:monograph_activity` → `:activity, :monograph`.
 
 Use os nomes reais encontrados no projeto.
 

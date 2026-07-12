@@ -4,7 +4,7 @@ describe 'ExaminationBoard::show academic activity' do
   include_context 'responsible monograph examination board setup'
 
   let(:activity) do
-    create(:monograph_activity,
+    create(:activity, :monograph,
            calendar: orientation.current_calendar)
   end
   let(:academic) { orientation.academic }

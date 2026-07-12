@@ -5,7 +5,7 @@ RSpec.describe ExternalMember do
 
   describe '#current_supervision_tcc_one' do
     let(:external_member) { create(:external_member) }
-    let(:orientation_tcc_one) { create(:current_orientation_tcc_one) }
+    let(:orientation_tcc_one) { create(:orientation, :current, :tcc_one) }
 
     it 'returns the current supervision by tcc one' do
       orientation_tcc_one.external_member_supervisors << external_member
@@ -15,7 +15,7 @@ RSpec.describe ExternalMember do
 
   describe '#current_supervision_tcc_two' do
     let(:external_member) { create(:external_member) }
-    let(:orientation_tcc_two) { create(:current_orientation_tcc_two) }
+    let(:orientation_tcc_two) { create(:orientation, :current, :tcc_two) }
 
     it 'returns the current supervision by tcc two' do
       orientation_tcc_two.external_member_supervisors << external_member

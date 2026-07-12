@@ -4,8 +4,8 @@ describe 'Orientation::show' do
   let(:responsible) { create(:responsible) }
   let(:calendar_tcc_one) { create(:calendar, :tcc_one) }
   let(:orientation_tcc_one) { create(:orientation, calendars: [calendar_tcc_one]) }
-  let(:current_orientation_tcc_one) { create(:current_orientation_tcc_one) }
-  let(:current_orientation_tcc_two) { create(:current_orientation_tcc_two) }
+  let(:current_orientation_tcc_one) { create(:orientation, :current, :tcc_one) }
+  let(:current_orientation_tcc_two) { create(:orientation, :current, :tcc_two) }
 
   before do
     login_as(responsible, scope: :professor)

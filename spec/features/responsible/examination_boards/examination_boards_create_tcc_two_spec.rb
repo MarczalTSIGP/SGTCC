@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'ExaminationBoard::new', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { ExaminationBoard.model_name.human }
-  let!(:orientation) { create(:current_orientation_tcc_two) }
+  let!(:orientation) { create(:orientation, :current, :tcc_two) }
 
   before do
     login_as(responsible, scope: :professor)
-    create(:current_orientation_tcc_one)
-    create(:current_orientation_tcc_two)
+    create(:orientation, :current, :tcc_one)
+    create(:orientation, :current, :tcc_two)
   end
 
   describe '#new' do
@@ -27,7 +27,7 @@ describe 'ExaminationBoard::new', :js do
       end
 
       it 'create an examination_board tcc two' do
-        attributes = attributes_for(:examination_board_tcc_two)
+        attributes = attributes_for(:examination_board, :tcc_two)
         # click_on_label('Monografia', in: 'examination_board_identifier')
         slim_select(orientation.academic_with_calendar, from: 'examination_board_orientation_id')
         fill_in 'examination_board_place', with: attributes[:place]

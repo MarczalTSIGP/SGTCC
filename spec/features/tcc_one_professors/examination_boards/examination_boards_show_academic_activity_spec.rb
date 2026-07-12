@@ -4,7 +4,7 @@ describe 'ExaminationBoard::show academic activity' do
   include_context 'tcc one professor project examination board setup'
 
   let!(:activity) do
-    create(:project_activity,
+    create(:activity, :project,
            calendar: orientation.current_calendar,
            final_version: false)
   end

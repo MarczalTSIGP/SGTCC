@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Supervision::documents show', :js do
   let!(:external_member) { create(:external_member) }
-  let!(:orientation) { create(:current_orientation_tcc_one) }
+  let!(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:document) { orientation.documents.first }
   let(:active_link) { external_members_supervisions_tcc_one_path }
 

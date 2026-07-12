@@ -2,7 +2,16 @@ require 'rails_helper'
 
 describe 'ApiV1OrientationsController', type: :request do
   context 'when approved in tcc one' do
-    let!(:orientations) { create_list(:orientation_tcc_one_approved, 2) }
+    let!(:orientations) do
+      create_list(
+        :orientation,
+        2,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors
+      )
+    end
 
     before do
       get api_v1_orientations_approved_tcc_one_path

@@ -1,4 +1,20 @@
 FactoryBot.define do
+  calendar_from_traits = lambda do |traits|
+    period = (traits & [:current, :previous, :next]).first || :current
+    tcc_trait = (traits & [:tcc_one, :tcc_two]).first || :tcc_one
+    calendar = FactoryBot.build(:calendar, period, tcc_trait)
+
+    Calendar.find_by(year: calendar.year, semester: calendar.semester, tcc: calendar.tcc) ||
+      FactoryBot.create(
+        :calendar,
+        year: calendar.year,
+        semester: calendar.semester,
+        tcc: calendar.tcc,
+        start_date: calendar.start_date,
+        end_date: calendar.end_date
+      )
+  end
+
   factory :orientation do
     title { Faker::Lorem.sentence(word_count: 3) }
     advisor { association(:professor) }
@@ -8,6 +24,8 @@ FactoryBot.define do
     status { Orientation.statuses.key('IN_PROGRESS') }
 
     transient do
+      calendar_period { :current }
+      calendar_tcc { :tcc_one }
       skip_calendar_association { false }
     end
 
@@ -16,16 +34,12 @@ FactoryBot.define do
       create(:document_type_tcai) if DocumentType.tcai.empty?
     end
 
-    after(:build) do |orientation, _evaluator|
+    after(:build) do |orientation, evaluator|
       next unless orientation.calendars.empty?
 
-      calendar = find_or_create_calendar(
-        year: Calendar.current_year,
-        semester: Calendar.current_semester,
-        tcc: Calendar.tccs[:one]
-      )
-
-      orientation.calendars = [calendar]
+      orientation.calendars = [
+        calendar_from_traits.call([evaluator.calendar_period, evaluator.calendar_tcc])
+      ]
     end
 
     after :create do |orientation|
@@ -36,192 +50,96 @@ FactoryBot.define do
       orientation.save(validate: false)
     end
 
-    factory :orientation_tcc_one do
-      after(:build) do |orientation|
-        orientation.calendars = [
-          Calendar.find_or_create_by!(
-            year: Calendar.current_year,
-            semester: Calendar.current_semester,
-            tcc: :one
-          )
-        ]
-      end
+    trait :tcc_one do
+      calendar_tcc { :tcc_one }
     end
 
-    factory :orientation_tcc_two do
-      after(:build) do |orientation|
-        orientation.calendars = [
-          Calendar.find_or_create_by!(
-            year: Calendar.current_year,
-            semester: Calendar.current_semester,
-            tcc: :two
-          )
-        ]
-      end
+    trait :tcc_two do
+      calendar_tcc { :tcc_two }
     end
 
-    factory :current_orientation_tcc_one do
-      after(:build) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:one]
-        )
-
-        orientation.calendars = [calendar]
-      end
+    trait :current do
+      calendar_period { :current }
     end
 
-    factory :current_orientation_tcc_two do
-      after(:build) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:two]
-        )
-
-        orientation.calendars = [calendar]
-      end
+    trait :previous do
+      calendar_period { :previous }
     end
 
-    factory :previous_orientation_tcc_one do
-      after(:build) do |orientation|
-        orientation.calendars = [find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester - 1,
-          tcc: Calendar.tccs[:one]
-        )]
-      end
+    trait :next do
+      calendar_period { :next }
     end
 
-    factory :previous_orientation_tcc_two do
-      after(:build) do |orientation|
-        orientation.calendars = [find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester - 1,
-          tcc: Calendar.tccs[:two]
-        )]
-      end
-    end
-
-    factory :orientation_tcc_one_approved do
-      before(:create) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:one]
-        )
-        activity = create(:activity, calendar:, identifier: :project,
-                                     final_version: true)
-        create(:academic_activity, activity:, academic: orientation.academic)
-        create(:examination_board, orientation:, identifier: :project, situation: :approved)
-        orientation.calendars = [calendar]
-      end
-
-      after(:create) do |orientation|
-        professor = create(:professor)
-        external_member = create(:external_member)
-
-        orientation.institution = create(:institution) unless orientation.institution
-
-        orientation.professor_supervisors << professor
-        orientation.external_member_supervisors << external_member
-      end
-
+    trait :approved_tcc_one do
       status { Orientation.statuses.key('APPROVED_TCC_ONE') }
     end
 
-    factory :orientation_tcc_two_approved do
-      after(:create) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:two]
-        )
-        activity = create(:activity, calendar:, identifier: :monograph,
-                                     final_version: true)
-        create(:academic_activity, activity:, academic: orientation.academic)
-        create(:examination_board, orientation:, identifier: :monograph,
-                                   situation: :approved)
-
-        orientation.calendars = [calendar]
-      end
-
+    trait :approved do
       status { Orientation.statuses.key('APPROVED') }
     end
 
-    factory :orientation_tcc_one_approved_current_calendar do
-      before(:create) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:one]
-        )
-        activity = create(:activity, calendar:, identifier: :project,
-                                     final_version: true)
-        create(:academic_activity, activity:, academic: orientation.academic)
-        create(:examination_board, orientation:, identifier: :project,
-                                   situation: :approved)
-
-        orientation.calendars = [calendar]
-      end
-
-      status { Orientation.statuses.key('APPROVED_TCC_ONE') }
-    end
-
-    factory :orientation_tcc_one_approved_next_calendar do
-      before(:create) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester + 1, # próximo semestre
-          tcc: Calendar.tccs[:one]
-        )
-
-        activity = create(:activity, calendar:, identifier: :project,
-                                     final_version: true)
-        create(:academic_activity, activity:, academic: orientation.academic)
-        create(:examination_board, orientation:, identifier: :project,
-                                   situation: :approved)
-
-        orientation.calendars = [calendar]
-      end
-
-      status { Orientation.statuses.key('APPROVED_TCC_ONE') }
-    end
-
-    factory :orientation_tcc_two_approved_no_complementary_files do
-      after(:create) do |orientation|
-        calendar = find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:two]
-        )
-        orientation.calendars = [calendar]
-
-        activity = create(:activity, calendar:, identifier: :monograph,
-                                     final_version: true)
-        create(
-          :academic_activity_no_complementary_files,
-          activity:,
-          academic: orientation.academic
-        )
-        create(:examination_board, orientation:, identifier: :monograph,
-                                   situation: :approved)
-      end
-
-      status { Orientation.statuses.key('APPROVED') }
-    end
-
-    factory :orientation_approved do
-      status { Orientation.statuses.key('APPROVED') }
-    end
-
-    factory :orientation_canceled do
+    trait :canceled do
       status { Orientation.statuses.key('CANCELED') }
     end
 
-    factory :orientation_reproved do
+    trait :reproved_tcc_one do
+      status { Orientation.statuses.key('REPROVED_TCC_ONE') }
+    end
+
+    trait :reproved do
       status { Orientation.statuses.key('REPROVED') }
+    end
+
+    trait :with_final_project do
+      before(:create) do |orientation, evaluator|
+        calendar = if orientation.calendars.empty?
+                     calendar_from_traits.call([evaluator.calendar_period, evaluator.calendar_tcc])
+                   else
+                     orientation.calendars.first
+                   end
+
+        activity = create(:activity, :project, calendar:, final_version: true)
+        create(:academic_activity, :project, activity:, academic: orientation.academic)
+        create(:examination_board, :project, orientation:, situation: :approved)
+
+        orientation.calendars = [calendar]
+      end
+    end
+
+    trait :with_final_monograph do
+      after(:create) do |orientation, evaluator|
+        calendar = if orientation.calendars.empty?
+                     calendar_from_traits.call([evaluator.calendar_period, evaluator.calendar_tcc])
+                   else
+                     orientation.calendars.first
+                   end
+
+        activity = create(:activity, :monograph, calendar:, final_version: true)
+        create(:academic_activity, :monograph, activity:, academic: orientation.academic)
+        create(:examination_board, :monograph, orientation:, situation: :approved)
+
+        orientation.calendars = [calendar]
+      end
+    end
+
+    trait :without_complementary_files do
+      after(:create) do |orientation|
+        orientation
+          .academic_activities
+          .joins(:activity)
+          .where(activities: { identifier: :monograph })
+          .last
+          &.update!(complementary_files: nil)
+      end
+    end
+
+    trait :with_extra_supervisors do
+      after(:create) do |orientation|
+        orientation.institution = create(:institution) unless orientation.institution
+
+        orientation.professor_supervisors << create(:professor)
+        orientation.external_member_supervisors << create(:external_member)
+      end
     end
   end
 end

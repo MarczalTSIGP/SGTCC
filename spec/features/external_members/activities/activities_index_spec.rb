@@ -11,7 +11,7 @@ describe 'Activity::index', :js do
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
         calendar = create(:calendar, :current, :tcc_one)
-        activity = create(:activity_tcc_one, calendar:)
+        activity = create(:activity, :tcc_one, calendar:)
 
         orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
@@ -29,7 +29,7 @@ describe 'Activity::index', :js do
 
       it 'shows all activities for tcc two with options' do
         calendar = create(:calendar, :current, :tcc_two)
-        activity = create(:activity_tcc_two, calendar:)
+        activity = create(:activity, :tcc_two, calendar:)
         orientation = create(:orientation, calendars: [calendar])
         orientation.external_member_supervisors << external_member
 

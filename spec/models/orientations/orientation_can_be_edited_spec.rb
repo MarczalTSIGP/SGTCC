@@ -25,21 +25,21 @@ RSpec.describe Orientation do
       end
 
       it 'when the proposal defense minute is generated' do
-        eb = create(:proposal_examination_board, orientation:)
+        eb = create(:examination_board, :proposal, orientation:)
         eb.create_defense_minutes
 
         expect(orientation.can_be_edited?).to be(false)
       end
 
       it 'when the project defense minute is generated' do
-        eb = create(:project_examination_board, orientation:)
+        eb = create(:examination_board, :project, orientation:)
         eb.create_defense_minutes
 
         expect(orientation.can_be_edited?).to be(false)
       end
 
       it 'when the monograpth defense minute is generated' do
-        eb = create(:monograph_examination_board, orientation:)
+        eb = create(:examination_board, :monograph, orientation:)
         eb.create_defense_minutes
 
         expect(orientation.can_be_edited?).to be(false)

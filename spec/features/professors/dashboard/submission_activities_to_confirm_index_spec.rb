@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 describe 'Submission::Activities::ToConfirm', :js do
-  let(:orientation) { create(:current_orientation_tcc_one) }
+  let(:orientation) { create(:orientation, :current, :tcc_one) }
   let(:advisor) { orientation.advisor }
   let(:calendar) { orientation.current_calendar }
   let(:academic) { orientation.academic }
 
-  let(:proposal_activity) { create(:proposal_activity, calendar:) }
+  let(:activity) { create(:activity, :proposal, calendar:) }
   let!(:submission) do
-    create(:project_academic_activity, academic:, activity: proposal_activity)
+    create(:academic_activity, :project, academic:, activity:)
   end
 
   before do

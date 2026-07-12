@@ -11,7 +11,7 @@ describe 'Orientation::index' do
       let(:index_url) { responsible_orientations_tcc_two_path }
 
       before do
-        create_list(:orientation_tcc_two, 2)
+        create_list(:orientation, 2, :tcc_two)
 
         visit index_url
       end

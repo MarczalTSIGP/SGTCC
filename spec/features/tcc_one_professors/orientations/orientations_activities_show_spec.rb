@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::activities show' do
   let!(:professor) { create(:professor_tcc_one) }
-  let(:orientation) { create(:current_orientation_tcc_two) }
+  let(:orientation) { create(:orientation, :current, :tcc_two) }
   let!(:activity) { create(:activity, calendar: orientation.current_calendar) }
   let!(:academic_activity) do
     create(:academic_activity, academic: orientation.academic, activity:)
