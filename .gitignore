@@ -67,3 +67,5 @@ reload.sh
 
 .codex
 
+# RubyCritic HTML report
+/tmp/rubycritic

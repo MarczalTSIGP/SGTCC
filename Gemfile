@@ -83,6 +83,10 @@ group :development do
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
 
+  gem 'rubycritic', require: false
+  gem 'flog', require: false
+  gem 'flay', require: false
+
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
