@@ -53,15 +53,15 @@ class Calendar < ApplicationRecord
   end
 
   def self.search_by_semester(calendar, semester)
-    find_by(semester:, year: calendar.year, tcc: tccs[calendar.tcc])
+    find_by(semester:, year: calendar.year, tcc: calendar.tcc.to_sym)
   end
 
   def self.search_by_first_semester_next_year(calendar)
-    find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[calendar.tcc])
+    find_by(semester: 1, year: calendar.year.to_i + 1, tcc: calendar.tcc.to_sym)
   end
 
   def self.search_by_second_semester_previous_year(calendar)
-    find_by(semester: 2, year: calendar.year.to_i - 1, tcc: tccs[calendar.tcc])
+    find_by(semester: 2, year: calendar.year.to_i - 1, tcc: calendar.tcc.to_sym)
   end
 
   def self.previous_semester(calendar)
@@ -78,13 +78,11 @@ class Calendar < ApplicationRecord
   end
 
   def self.next_semester_tcc_two(calendar)
-    return next_semester(calendar) if calendar.tcc == 'two'
+    return next_semester(calendar) if calendar.tcc_two?
 
-    if calendar.semester == 'one'
-      return find_by(semester: 'two', year: calendar.year, tcc: tccs[:two])
-    end
+    return find_by(semester: 'two', year: calendar.year, tcc: :two) if calendar.semester == 'one'
 
-    find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: tccs[:two])
+    find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: :two)
   end
 
   def self.search_by_tcc(tcc, page, term)
@@ -92,11 +90,11 @@ class Calendar < ApplicationRecord
   end
 
   def self.search_by_tcc_one(page, term)
-    search_by_tcc(tccs[:one], page, term)
+    search_by_tcc(:one, page, term)
   end
 
   def self.search_by_tcc_two(page, term)
-    search_by_tcc(tccs[:two], page, term)
+    search_by_tcc(:two, page, term)
   end
 
   def self.select_data(tcc)
@@ -120,7 +118,7 @@ class Calendar < ApplicationRecord
   end
 
   def self.orientations_report_by_status(status, years: [], total: [])
-    calendar = by_first_year_and_tcc('two')
+    calendar = by_first_year_and_tcc(:two)
     loop do
       break if calendar.blank?
 

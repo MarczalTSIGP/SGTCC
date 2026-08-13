@@ -1,6 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe Calendar, type: :model do
+  describe 'tcc enum persistence contract' do
+    it 'keeps the persisted enum mapping unchanged' do
+      expect(described_class.tccs).to eq({ 'one' => 1, 'two' => 2 })
+    end
+
+    it 'persists symbolic tcc assignments as the existing integer values' do
+      tcc_one = create(:calendar, :tcc_one)
+      tcc_two = create(:calendar, :tcc_two)
+
+      expect(tcc_one.read_attribute_before_type_cast(:tcc)).to eq(1)
+      expect(tcc_two.read_attribute_before_type_cast(:tcc)).to eq(2)
+    end
+
+    it 'reads previously persisted integer tcc values through the enum API' do
+      tcc_one = create(:calendar)
+      tcc_two = create(:calendar)
+
+      # rubocop:disable Rails/SkipsModelValidations
+      tcc_one.update_column(:tcc, 1)
+      tcc_two.update_column(:tcc, 2)
+      # rubocop:enable Rails/SkipsModelValidations
+
+      expect(tcc_one.reload.tcc).to eq('one')
+      expect(tcc_two.reload.tcc).to eq('two')
+    end
+  end
+
   describe 'validations' do
     subject(:calendar) { create(:calendar) }
 

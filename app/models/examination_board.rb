@@ -31,11 +31,11 @@ class ExaminationBoard < ApplicationRecord
   has_many :external_members, class_name: 'ExternalMember', foreign_key: :external_member_id,
                               through: :examination_board_attendees, dependent: :destroy
 
-  scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
-  scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
+  scope :tcc_one, -> { where(tcc: :one) }
+  scope :tcc_two, -> { where(tcc: :two) }
 
   scope :tcc_one_current_semester, lambda {
-    tcc_value = Calendar.tccs[:one]
+    tcc_value = :one
     current = Calendar.current_by_tcc_one ||
               Calendar.where(tcc: tcc_value)
                       .order(year: :desc, end_date: :desc)
@@ -50,7 +50,7 @@ class ExaminationBoard < ApplicationRecord
   }
 
   scope :tcc_two_current_semester, lambda {
-    tcc_value = Calendar.tccs[:two]
+    tcc_value = :two
 
     current = Calendar.current_by_tcc_two ||
               Calendar.where(tcc: tcc_value)

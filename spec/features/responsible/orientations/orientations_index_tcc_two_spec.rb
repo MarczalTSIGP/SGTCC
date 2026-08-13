@@ -37,5 +37,21 @@ describe 'Orientation::index' do
         end
       end
     end
+
+    context 'when an orientation has advanced from TCC one to TCC two' do
+      let(:tcc_one_calendar) { create(:calendar, :tcc_one) }
+      let(:tcc_two_calendar) { create(:calendar, :tcc_two) }
+      let!(:advanced_orientation) do
+        create(:orientation, calendars: [tcc_one_calendar, tcc_two_calendar])
+      end
+
+      before do
+        visit responsible_orientations_tcc_two_path
+      end
+
+      it 'shows the advanced orientation in the TCC two listing' do
+        expect(page).to have_text(advanced_orientation.academic.name)
+      end
+    end
   end
 end

@@ -26,11 +26,11 @@ module OrientationJoin
     end
 
     def self.join_current_calendar_tcc_one
-      join_current_calendar(Calendar.tccs[:one])
+      join_current_calendar(:one)
     end
 
     def self.join_current_calendar_tcc_two
-      join_current_calendar(Calendar.tccs[:two])
+      join_current_calendar(:two)
     end
   end
 end

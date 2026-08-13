@@ -22,7 +22,7 @@ class Dashboard::ProfessorReport
   # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_one
     orientations = @professor.orientations.joins(:calendars)
-                             .distinct.where(calendars: { tcc: 'one' }).select(&:tcc_one?)
+                             .distinct.where(calendars: { tcc: :one }).select(&:tcc_one?)
     {
       total: orientations.count,
       in_progress: orientations.count { |o| o.status.eql?('em andamento') },
@@ -37,7 +37,7 @@ class Dashboard::ProfessorReport
   # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_two
     orientations = @professor.orientations
-    orientations = orientations.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
+    orientations = orientations.joins(:calendars).distinct.where(calendars: { tcc: :two })
     {
       total: orientations.select(&:tcc_two?).count,
       in_progress: orientations.tcc_two('APPROVED_TCC_ONE').count,

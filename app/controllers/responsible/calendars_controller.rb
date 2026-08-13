@@ -85,7 +85,7 @@ class Responsible::CalendarsController < Responsible::BaseController
   end
 
   def calendar_tcc_url
-    return responsible_calendars_tcc_one_path if @calendar.tcc == 'one'
+    return responsible_calendars_tcc_one_path if @calendar.tcc_one?
 
     responsible_calendars_tcc_two_path
   end

@@ -20,11 +20,11 @@ class BaseActivity < ApplicationRecord
   end
 
   def self.by_tcc_one(term)
-    by_tcc(tccs[:one], term)
+    by_tcc(:one, term)
   end
 
   def self.by_tcc_two(term)
-    by_tcc(tccs[:two], term)
+    by_tcc(:two, term)
   end
 
   private

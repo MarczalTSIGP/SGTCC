@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::to_migrate' do
   let!(:current_calendar_tcc_one) do
-    Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) ||
+    Calendar.find_by(year: 2025, semester: 2, tcc: :one) ||
       create(:calendar, :current, :tcc_one)
   end
 
@@ -47,7 +47,7 @@ describe 'Orientation::to_migrate' do
       next_calendar = create(:calendar,
                              year: base_calendar.year.to_i + 1,
                              semester: 1,
-                             tcc: Calendar.tccs[:two])
+                             tcc: :two)
 
       expect(page).to have_no_text(next_calendar.year_with_semester_and_tcc)
     end

@@ -11,7 +11,7 @@ module Calendars
     end
 
     def clone
-      base_activities = BaseActivity.where(tcc: @calendar.tcc)
+      base_activities = BaseActivity.where(tcc: @calendar.tcc.to_sym)
 
       base_activities.each do |base_activity|
         initial_date = initial_date_to(base_activity)

@@ -51,11 +51,11 @@ class Orientation < ApplicationRecord
   validates :calendars, presence: true
 
   scope :tcc_one, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc('one', status, year, semester)
+    join_with_status_by_tcc(:one, status, year, semester)
   }
 
   scope :tcc_two, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc('two', status, year, semester)
+    join_with_status_by_tcc(:two, status, year, semester)
   }
 
   scope :current_tcc_one, lambda { |status = nil|
@@ -123,7 +123,7 @@ class Orientation < ApplicationRecord
   end
 
   def self.last_tcc_one_calendars
-    Calendar.where(tcc: 'one')
+    Calendar.where(tcc: :one)
             .select('DISTINCT ON (orientation_id) *')
             .order(:orientation_id, year: :asc, semester: :asc, tcc: :asc)
   end
@@ -135,20 +135,22 @@ class Orientation < ApplicationRecord
 
   # TODO: Refactored and Remove
   def calendar_tcc_one?
-    current_calendar.tcc == 'one'
+    current_calendar.tcc_one?
   end
 
   # TODO: Refactore and Remove
   def calendar_tcc_two?
-    current_calendar.tcc == 'two'
+    current_calendar.tcc_two?
   end
 
   def tcc_one?
-    current_calendar.tcc.eql?('one')
+    calendar = current_calendar
+    calendar.tcc_one?
   end
 
   def tcc_two?
-    current_calendar.tcc.eql?('two')
+    calendar = current_calendar
+    calendar.tcc_two?
   end
 
   def professor_supervisors_to_document

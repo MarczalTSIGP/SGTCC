@@ -73,7 +73,7 @@ class Dashboard::ResponsibleReport
   # TODO: Refactor this method
   # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_one
-    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'one' })
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: :one })
                               .select(&:tcc_one?)
     {
       total: orientations.count,
@@ -88,7 +88,7 @@ class Dashboard::ResponsibleReport
   # TODO: Refactor this method
   # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_two
-    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: 'two' })
+    orientations = Orientation.joins(:calendars).distinct.where(calendars: { tcc: :two })
     {
       total: orientations.count,
       in_progress: orientations.tcc_two('APPROVED_TCC_ONE').count,
@@ -156,7 +156,7 @@ class Dashboard::ResponsibleReport
   end
 
   def count_orientations(tcc_type, year, semester)
-    Orientation.joins(:calendars).where(calendars: { tcc: tcc_type, year:,
+    Orientation.joins(:calendars).where(calendars: { tcc: tcc_type.to_sym, year:,
                                                      semester: }).count
   end
 

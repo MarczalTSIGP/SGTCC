@@ -20,7 +20,7 @@ class Responsible::OrientationsController < Responsible::BaseController
     @orientations = Orientation.joins(:calendars)
                                .group('orientations.id')
                                .having('COUNT(DISTINCT calendars.tcc) = 1
-                                        AND MIN(calendars.tcc) = 1')
+                                        AND MIN(calendars.tcc) = ?', Calendar.tccs.fetch(:one))
                                .order('orientations.created_at DESC')
 
     @orientations = @orientations.where(status: params[:status]) if params[:status].present?
@@ -40,7 +40,7 @@ class Responsible::OrientationsController < Responsible::BaseController
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_two_path
 
     # @orientations = Orientation.by_tcc_two(params[:page], params[:term], params[:status])
-    @orientations = Orientation.includes(:calendars).where(calendars: { tcc: 2 })
+    @orientations = Orientation.includes(:calendars).where(calendars: { tcc: :two })
                                .order('orientations.created_at DESC')
 
     @orientations = @orientations.where(status: params[:status]) if params[:status].present?
