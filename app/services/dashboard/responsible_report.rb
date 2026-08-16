@@ -129,7 +129,7 @@ class Dashboard::ResponsibleReport
   #   { total:, in_progress:, approved:, canceled:, reproved:, links: }
   # end
   def current_tcc_one_orientations
-    current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
+    current_year, current_semester = current_period
 
     { total: count_orientations('one', current_year, current_semester),
       in_progress: count_orientation_status('one', current_year, current_semester,
@@ -144,7 +144,7 @@ class Dashboard::ResponsibleReport
 
   def current_tcc_two_orientations
     tcc_type = 'two'
-    current_year = Date.current.year, current_semester = Date.current.month <= 6 ? 1 : 2
+    current_year, current_semester = current_period
 
     { total: count_orientations(tcc_type, current_year, current_semester),
       in_progress: count_orientation_status(tcc_type, current_year, current_semester,
@@ -158,6 +158,10 @@ class Dashboard::ResponsibleReport
   def count_orientations(tcc_type, year, semester)
     Orientation.joins(:calendars).where(calendars: { tcc: tcc_type.to_sym, year:,
                                                      semester: }).count
+  end
+
+  def current_period
+    [Calendar.current_year, Calendar.current_semester]
   end
 
   def count_orientation_status(tcc_type, _year, _semester, status)
