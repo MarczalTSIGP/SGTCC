@@ -2,16 +2,12 @@ name: Tests
 
 on:
   workflow_call:
-    secrets:
-      RAILS_MASTER_KEY_TEST:
-        required: true
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY_TEST }}
       DB_HOST: db
       DB_PORT: "5432"
       DB_USERNAME: postgres
@@ -50,9 +46,7 @@ jobs:
           - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/checkout@v7
 
       - name: Install libpq-dev for postgres
         run: |
@@ -65,7 +59,7 @@ jobs:
           apt-get install -y postgresql-client sqlite3
 
       - name: Cache bundle gems
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}

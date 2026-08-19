@@ -2,9 +2,6 @@ name: Code Quality
 
 on:
   workflow_call:
-    secrets:
-      RAILS_MASTER_KEY_TEST:
-        required: true
 
 jobs:
   rubocop-brakeman:
@@ -12,12 +9,10 @@ jobs:
     container:
       image: ruby:3.4.7
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v7
 
       - name: Cache bundle gems
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -41,9 +36,7 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v7
 
       - name: Code quality - eslint
         run: |
