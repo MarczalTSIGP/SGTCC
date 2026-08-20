@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Activity::index', :js do
-  let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
-  let!(:activity) { create(:activity_tcc_one, calendar: calendar_tcc_one) }
+  let!(:calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
+  let!(:activity) { create(:activity, :tcc_one, calendar: calendar_tcc_one) }
 
   describe '#index' do
     before do

@@ -35,15 +35,12 @@ describe 'Page::update', :js do
     end
 
     context 'when the page is not valid' do
-      it 'show errors' do
-        fill_in 'page_menu_title', with: ''
-        fill_in 'page_url', with: ''
-        submit_form('input[name="commit"]')
-
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.page_menu_title')
-        expect(page).to have_message(blank_error_message, in: 'div.page_url')
-      end
+      it_behaves_like 'responsible update blank errors',
+                      fields: %w[page_menu_title page_url],
+                      selectors: [
+                        ['div.page_menu_title'],
+                        ['div.page_url']
+                      ]
     end
   end
 end

@@ -10,8 +10,8 @@ describe 'Activity::index' do
 
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options' do
-        calendar = create(:current_calendar_tcc_one)
-        activity = create(:activity_tcc_one, calendar:)
+        calendar = create(:calendar, :current, :tcc_one)
+        activity = create(:activity, :tcc_one, calendar:)
         create(:orientation, calendars: [calendar], academic:)
 
         index_url = academics_calendar_activities_path(calendar)
@@ -26,8 +26,8 @@ describe 'Activity::index' do
       end
 
       it 'shows all activities for tcc two with options' do
-        calendar = create(:current_calendar_tcc_two)
-        activity = create(:activity_tcc_one, calendar:)
+        calendar = create(:calendar, :current, :tcc_two)
+        activity = create(:activity, :tcc_one, calendar:)
         create(:orientation, calendars: [calendar], academic:)
 
         index_url = academics_calendar_activities_path(calendar)

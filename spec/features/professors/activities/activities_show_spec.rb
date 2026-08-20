@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Activity::show' do
   let(:professor)       { create(:professor) }
-  let(:calendar)        { create(:current_calendar_tcc_one) }
-  let(:activity)        { create(:project_activity, calendar: calendar) }
+  let(:calendar)        { create(:calendar, :current, :tcc_one) }
+  let(:activity)        { create(:activity, :project, calendar: calendar) }
   let(:orientation_one) { create(:orientation, calendar_ids: [calendar.id]) }
   let(:orientation_two) { create(:orientation, calendar_ids: [calendar.id]) }
 
@@ -14,32 +14,11 @@ describe 'Activity::show' do
     visit professors_calendar_activity_path(calendar, activity)
   end
 
-  it 'base info' do
-    tcc = I18n.t("enums.tcc.#{activity.tcc}")
-    expect(page).to have_contents([activity.name,
-                                   activity.base_activity_type.name,
-                                   activity.deadline,
-                                   tcc,
-                                   complete_date(activity.created_at),
-                                   complete_date(activity.updated_at)])
-  end
+  it_behaves_like 'activity show basic information'
 
   context 'with responses' do
     it 'show all' do
-      within('table.table') do
-        activity.responses.academics.each_with_index do |academic, index|
-          child = index + 1
-          within("tbody tr:nth-child(#{child})") do
-            sent_value = I18n.t("helpers.boolean.#{academic.sent?}")
-
-            expect(page).to have_text(academic.name)
-            expect(page).to have_text(sent_value)
-            expect(page).to have_no_link(sent_value)
-          end
-        end
-
-        expect(page).to have_text(activity.responses.entries_info)
-      end
+      expect_activity_responses(show_response_links: false)
     end
   end
 end

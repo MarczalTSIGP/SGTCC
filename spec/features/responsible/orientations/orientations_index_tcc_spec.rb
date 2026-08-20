@@ -9,7 +9,7 @@ describe 'Orientation::current_tcc' do
   describe '#index', :js do
     context 'when shows all the orientations of tcc one calendar' do
       it 'shows all the orientations of tcc one with options' do
-        orientation = create(:current_orientation_tcc_one)
+        orientation = create(:orientation, :current, :tcc_one)
 
         visit responsible_orientations_current_tcc_one_path
 
@@ -29,7 +29,7 @@ describe 'Orientation::current_tcc' do
 
     context 'when shows all the orientations of tcc two calendar' do
       it 'shows all the orientations of tcc two with options' do
-        orientation = create(:current_orientation_tcc_two)
+        orientation = create(:orientation, :current, :tcc_two)
 
         visit responsible_orientations_current_tcc_two_path
 

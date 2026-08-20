@@ -34,8 +34,11 @@ class Academic < ApplicationRecord
             uniqueness: { case_sensetive: false }
 
   def current_orientation
-    orientations.joins(:calendars).find_by(calendars: { year: Calendar.current_year,
-                                                        semester: Calendar.current_semester })
+    orientations
+      .joins(:calendars)
+      .where(calendars: { year: Calendar.current_year, semester: Calendar.current_semester })
+      .order('calendars.tcc DESC')
+      .first
   end
 
   def documents(status = [true, false], document_type = nil, query: {})

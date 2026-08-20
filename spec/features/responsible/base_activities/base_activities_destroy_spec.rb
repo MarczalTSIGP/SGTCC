@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'BaseActivity::destroy', :js do
   let(:responsible) { create(:responsible) }
-  let!(:base_activity) { create(:base_activity_tcc_one) }
+  let!(:base_activity) { create(:base_activity, :tcc_one) }
   let(:resource_name) { BaseActivity.model_name.human }
 
   before do
@@ -12,12 +12,10 @@ describe 'BaseActivity::destroy', :js do
 
   describe '#destroy' do
     context 'when base activity is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_base_activity_path(base_activity))
-        accept_alert
-        expect(page).to have_flash(:success, text: message('destroy.f'))
-        expect(page).to have_no_text(base_activity.name)
-      end
+      let(:destroy_path) { responsible_base_activity_path(base_activity) }
+      let(:destroyed_record_name) { base_activity.name }
+
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.f'
     end
   end
 end

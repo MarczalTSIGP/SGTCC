@@ -8,8 +8,8 @@ describe 'ExaminationBoard::index', :js do
   end
 
   describe '#index' do
-    let!(:examination_boards_tcc_one) { create_list(:examination_board_tcc_one, 5) }
-    let!(:examination_boards_tcc_two) { create_list(:examination_board_tcc_two, 5) }
+    let!(:examination_boards_tcc_one) { create_list(:examination_board, 5, :tcc_one) }
+    let!(:examination_boards_tcc_two) { create_list(:examination_board, 5, :tcc_two) }
 
     context 'when shows all the examination boards of the tcc one calendar' do
       before do

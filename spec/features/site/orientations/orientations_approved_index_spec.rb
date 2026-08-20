@@ -10,7 +10,7 @@ describe 'Orientation::index', :js do
       let(:index_url) { site_approved_orientations_path }
 
       it 'shows complementary files' do
-        orientation = create(:orientation_tcc_two_approved)
+        orientation = create(:orientation, :tcc_two, :approved, :with_final_monograph)
         visit index_url
 
         expect(page).to have_css("a[href='#{index_url}'].active")
@@ -26,7 +26,13 @@ describe 'Orientation::index', :js do
       end
 
       it 'not shows complementary files' do
-        orientation = create(:orientation_tcc_two_approved_no_complementary_files)
+        orientation = create(
+          :orientation,
+          :tcc_two,
+          :approved,
+          :with_final_monograph,
+          :without_complementary_files
+        )
         visit index_url
 
         expect(page).to have_css("a[href='#{index_url}'].active")

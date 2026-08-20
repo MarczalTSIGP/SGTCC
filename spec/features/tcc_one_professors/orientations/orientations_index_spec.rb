@@ -8,7 +8,7 @@ describe 'Orientation::index' do
 
   describe '#index', :js do
     context 'when shows all the orientations of the current tcc one calendar' do
-      let(:orientation) { create(:current_orientation_tcc_one) }
+      let(:orientation) { create(:orientation, :current, :tcc_one) }
 
       before do
         visit tcc_one_professors_calendar_orientations_path(orientation.current_calendar)

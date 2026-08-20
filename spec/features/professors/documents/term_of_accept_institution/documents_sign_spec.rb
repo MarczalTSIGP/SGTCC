@@ -4,6 +4,10 @@ describe 'Document::sign', :js do
   let(:orientation) { create(:orientation) }
   let(:professor_signature) { orientation.signatures.find_by(user_type: :advisor) }
   let(:professor) { professor_signature.user }
+  let(:document_signature) { professor_signature }
+  let(:signature_user) { professor }
+  let(:signature_message_strategy) { :text }
+  let(:confirm_signature_message) { false }
 
   before do
     login_as(professor, scope: :professor)
@@ -12,31 +16,20 @@ describe 'Document::sign', :js do
 
   describe '#sign' do
     context 'when signs the signature of the term of accept institution' do
-      it 'signs the document of the term of accept institution' do
-        click_button(signature_button, id: 'signature_button')
-        fill_in 'user_username', with: professor.username
-        fill_in 'user_password', with: 'password'
-        click_button(sign_button)
-
-        expect(page).to have_message(signature_signed_success_message, in: 'div.swal-text')
-        professor_signature.reload
-        date = I18n.l(professor_signature.updated_at, format: :short)
-        time = I18n.l(professor_signature.updated_at, format: :time)
-        role = signature_role(professor.gender, professor_signature.user_type)
-
-        expect(page).to have_text(signature_register(professor.name, role, date, time))
+      def submit_valid_document_signature
+        submit_document_signature(username: professor.username, password: 'password')
       end
+
+      it_behaves_like 'a successful document signature flow',
+                      'the term of accept institution'
     end
 
     context 'when the password is wrong' do
-      it 'shows alert message' do
-        click_button(signature_button, id: 'signature_button')
-        fill_in 'user_username', with: professor.username
-        fill_in 'user_password', with: '123'
-        click_button(sign_button)
-
-        expect(page).to have_message(signature_login_alert_message, in: 'div.swal-text')
+      def submit_invalid_document_signature
+        submit_document_signature(username: professor.username, password: '123')
       end
+
+      it_behaves_like 'an invalid document signature flow'
     end
   end
 end

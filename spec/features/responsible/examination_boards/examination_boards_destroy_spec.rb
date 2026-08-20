@@ -2,17 +2,17 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::destroy', :js do
   let(:responsible) { create(:responsible) }
-  let!(:examination_board) { create(:examination_board_tcc_one) }
+  let!(:examination_board) { create(:examination_board, :tcc_one) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
     Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
                      tcc: Calendar.tccs[:one]) ||
-      create(:current_calendar_tcc_one)
+      create(:calendar, :current, :tcc_one)
 
     Calendar.find_by(year: Calendar.current_year, semester: Calendar.current_semester,
                      tcc: Calendar.tccs[:two]) ||
-      create(:current_calendar_tcc_two)
+      create(:calendar, :current, :tcc_two)
 
     login_as(responsible, scope: :professor)
     visit responsible_examination_boards_path
@@ -29,7 +29,7 @@ describe 'ExaminationBoard::destroy', :js do
     end
 
     context 'when the examination board cant be destroyed' do
-      let!(:current_examination_board) { create(:current_examination_board_tcc_one) }
+      let!(:current_examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
       before do
         create(:document_type_adpp)

@@ -12,12 +12,10 @@ describe 'AttachedDocument::destroy', :js do
 
   describe '#destroy' do
     context 'when attached_document is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_attached_document_path(attached_document))
-        accept_alert
-        expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_text(attached_document.name)
-      end
+      let(:destroy_path) { responsible_attached_document_path(attached_document) }
+      let(:destroyed_record_name) { attached_document.name }
+
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.m'
     end
   end
 end

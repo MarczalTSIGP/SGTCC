@@ -1,4 +1,6 @@
 FactoryBot.define do
+  sequence(:activity_calendar_year) { |n| (2100 + n).to_s }
+
   factory :activity do
     sequence(:name) { |n| "activity#{n}" }
     tcc { BaseActivity.tccs.values.sample }
@@ -6,29 +8,29 @@ FactoryBot.define do
     initial_date { Faker::Date.backward(days: 1) }
     final_date { Faker::Date.forward(days: 2) }
     base_activity_type
-    calendar
+    calendar { association(:calendar, year: generate(:activity_calendar_year), tcc:) }
 
     judgment { true }
 
-    factory :activity_tcc_one do
+    trait :tcc_one do
       tcc { Activity.tccs.values.first }
     end
 
-    factory :activity_tcc_two do
+    trait :tcc_two do
       tcc { Activity.tccs.values.last }
     end
 
-    factory :proposal_activity do
+    trait :proposal do
       tcc { Activity.tccs.values.first }
       identifier { :proposal }
     end
 
-    factory :project_activity do
+    trait :project do
       tcc { Activity.tccs.values.first }
       identifier { :project }
     end
 
-    factory :monograph_activity do
+    trait :monograph do
       tcc { Activity.tccs.values.last }
       identifier { :monograph }
     end

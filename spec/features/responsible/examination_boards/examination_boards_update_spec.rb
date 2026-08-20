@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::update', :js do
   let(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:current_orientation_tcc_two) }
+  let!(:orientation) { create(:orientation, :current, :tcc_two) }
   let(:resource_name) { ExaminationBoard.model_name.human }
 
   before do
@@ -12,7 +12,7 @@ describe 'ExaminationBoard::update', :js do
 
   describe '#update' do
     let(:examination_board) do
-      create(:examination_board_tcc_two, orientation: create(:current_orientation_tcc_two))
+      create(:examination_board, :tcc_two, orientation: create(:orientation, :current, :tcc_two))
     end
 
     before do
@@ -45,7 +45,7 @@ describe 'ExaminationBoard::update', :js do
   end
 
   describe '#defense_minute_update' do
-    let(:examination_board) { create(:current_examination_board_tcc_one) }
+    let(:examination_board) { create(:examination_board, :current_tcc_one, :proposal) }
 
     before do
       examination_board.create_defense_minutes

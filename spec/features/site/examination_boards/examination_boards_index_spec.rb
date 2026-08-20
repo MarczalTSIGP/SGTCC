@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'ExaminationBoard::index', :js do
   before do
+    travel_to Date.new(2026, 5, 15)
     create(:page, url: 'bancas-de-tcc')
   end
 
@@ -14,9 +15,9 @@ describe 'ExaminationBoard::index', :js do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one = [
-        create(:current_examination_board_tcc_one, date: 2.hours.from_now),
-        create(:current_examination_board_tcc_one, date: 1.day.from_now),
-        create(:current_examination_board_tcc_one, date: 1.day.ago)
+        create(:examination_board, :current_tcc_one, :proposal, date: 2.hours.from_now),
+        create(:examination_board, :current_tcc_one, :proposal, date: 1.day.from_now),
+        create(:examination_board, :current_tcc_one, :proposal, date: 1.day.ago)
       ]
 
       visit site_examination_boards_path
@@ -49,9 +50,9 @@ describe 'ExaminationBoard::index', :js do
 
     it 'displays the examinations boards of the current semester' do
       ebs_tcc_one_project = [
-        create(:current_examination_board_tcc_one_project, date: 2.hours.from_now),
-        create(:current_examination_board_tcc_one_project, date: 1.day.from_now),
-        create(:current_examination_board_tcc_one_project, date: 1.day.ago)
+        create(:examination_board, :current_tcc_one, :project, date: 2.hours.from_now),
+        create(:examination_board, :current_tcc_one, :project, date: 1.day.from_now),
+        create(:examination_board, :current_tcc_one, :project, date: 1.day.ago)
       ]
 
       visit site_examination_boards_path

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::destroy', :js do
   let(:responsible) { create(:responsible) }
-  let!(:orientation) { create(:orientation_tcc_one) }
+  let!(:orientation) { create(:orientation, :tcc_one) }
   let(:resource_name) { Orientation.model_name.human }
 
   before do

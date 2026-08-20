@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Calendar::index', :js do
   let(:professor) { create(:professor_tcc_one) }
-  let!(:calendars) { create_list(:calendar_tcc_one, 3) }
-  let!(:current_calendar_tcc_one) { create(:current_calendar_tcc_one) }
+  let!(:calendars) { create_list(:calendar, 3, :tcc_one) }
+  let!(:current_calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
 
   before do
     login_as(professor, scope: :professor)
@@ -27,15 +27,8 @@ describe 'Calendar::index', :js do
       index_url = tcc_one_professors_calendar_orientations_path(current_calendar_tcc_one)
       visit index_url
 
-      expect(page).to have_text(orientation.short_title)
-      expect(page).to have_text(orientation.advisor.name)
-      expect(page).to have_text(orientation.academic.name)
-
-      orientation.calendars.each do |calendar|
-        expect(page).to have_text(calendar.year_with_semester_and_tcc)
-      end
-
-      expect(page).to have_css("a[href='#{index_url}'].active")
+      expect_orientation_index_basic_information(orientation)
+      expect_active_index_link(index_url)
     end
   end
 end

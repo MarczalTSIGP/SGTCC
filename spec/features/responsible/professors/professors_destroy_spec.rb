@@ -12,12 +12,10 @@ describe 'Professor::destroy', :js do
 
   describe '#destroy' do
     context 'when professor is destroyed' do
-      it 'show success message' do
-        click_on_destroy_link(responsible_professor_path(professor))
-        accept_alert
-        expect(page).to have_flash(:success, text: message('destroy.m'))
-        expect(page).to have_no_text(professor.name)
-      end
+      let(:destroy_path) { responsible_professor_path(professor) }
+      let(:destroyed_record_name) { professor.name }
+
+      it_behaves_like 'responsible destroy success flow', message_key: 'destroy.m'
     end
   end
 

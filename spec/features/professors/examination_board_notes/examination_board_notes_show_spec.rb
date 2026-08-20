@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'ExaminationBoardNote::show', :js do
   let(:professor) { create(:professor) }
   let(:orientation) { create(:orientation, advisor: professor) }
-  let!(:examination_board) { create(:proposal_examination_board, orientation:) }
+  let!(:examination_board) { create(:examination_board, :proposal, orientation:) }
   let(:resource_name) { ExaminationBoardNote.model_name.human }
 
   before do

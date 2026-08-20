@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Orientation::search' do
   let(:responsible) { create(:responsible) }
-  let!(:orientations) { create_list(:orientation_tcc_one, 2) }
+  let!(:orientations) { create_list(:orientation, 2, :tcc_one) }
 
   before do
     login_as(responsible, scope: :professor)
@@ -13,9 +13,12 @@ describe 'Orientation::search' do
     context 'when finds the orientation' do
       it 'finds the orientation by the title' do
         orientation = orientations.first
-        sleep 20
+
         fill_in 'term', with: orientation.title
-        first('#search').click
+        find_by_id('search').click
+
+        expect(page).to have_css('table tbody tr:nth-child(1)',
+                                 text: orientation.short_title)
 
         # expect(page).to have_contents([orientation.short_title,
         #                                orientation.advisor.name,
@@ -38,8 +41,8 @@ describe 'Orientation::search' do
 
       it 'finds the orientation by status' do
         visit responsible_orientations_tcc_two_path
-        calendar = create(:current_calendar_tcc_two)
-        orientation = create(:orientation_approved, calendars: [calendar])
+        calendar = create(:calendar, :current, :tcc_two)
+        orientation = create(:orientation, :approved, calendars: [calendar])
         slim_select(orientation_approved_option, from: 'orientation_status')
 
         within('table tbody tr:nth-child(1)') do

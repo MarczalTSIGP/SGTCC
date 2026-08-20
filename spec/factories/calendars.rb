@@ -16,92 +16,27 @@ FactoryBot.define do
       Date.new(year.to_i, month, -1)
     end
 
-    factory :current_calendar do
-      year     { Calendar.current_year }
-      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
-      tcc      { :one }
-    end
-
-    factory :current_calendar_tcc_one do
-      tcc      { :one }
-      year     { Calendar.current_year }
-      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
-    end
-
-    factory :current_calendar_tcc_two do
-      tcc      { :two }
-      year     { Calendar.current_year }
-      semester { { 1 => :one, 2 => :two }[Calendar.current_semester] }
-    end
-
-    factory :calendar_tcc_one do
+    trait :tcc_one do
       tcc { :one }
-      sequence(:year) { |n| (2030 + n).to_s }
     end
 
-    factory :calendar_tcc_two do
+    trait :tcc_two do
       tcc { :two }
-      sequence(:year) { |n| (2040 + n).to_s }
     end
 
-    factory :next_calendar_tcc_one do
-      tcc { :one }
-
-      transient do
-        current_calendar { nil }
-      end
-
-      year do
-        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year,
-                                                    semester: Calendar.current_semester)
-        base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
-      end
-
-      semester do
-        base = current_calendar || Calendar.find_by(tcc: :one, year: Calendar.current_year,
-                                                    semester: Calendar.current_semester)
-        base.semester.to_i == 1 ? :two : :one
-      end
+    trait :current do
+      year { Calendar.current_year }
+      semester { Calendar.current_semester == 1 ? :one : :two }
     end
 
-    factory :next_calendar_tcc_two do
-      tcc { :two }
-
-      transient do
-        current_calendar { nil }
-      end
-
-      year do
-        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year,
-                                                    semester: Calendar.current_semester)
-        base.semester.to_i == 1 ? base.year.to_i : base.year.to_i + 1
-      end
-
-      semester do
-        base = current_calendar || Calendar.find_by(tcc: :two, year: Calendar.current_year,
-                                                    semester: Calendar.current_semester)
-        base.semester.to_i == 1 ? :two : :one
-      end
+    trait :previous do
+      year { Calendar.current_semester == 1 ? Calendar.current_year - 1 : Calendar.current_year }
+      semester { Calendar.current_semester == 1 ? :two : :one }
     end
 
-    factory :previous_calendar_tcc_one do
-      tcc { :one }
-      year do
-        Calendar.current_semester == 1 ? Calendar.current_year - 1 : Calendar.current_year
-      end
-      semester do
-        Calendar.current_semester.to_i == 1 ? :two : :one
-      end
-    end
-
-    factory :previous_calendar_tcc_two do
-      tcc { :two }
-      year do
-        Calendar.current_semester == 1 ? Calendar.current_year - 1 : Calendar.current_year
-      end
-      semester do
-        Calendar.current_semester.to_i == 1 ? :two : :one
-      end
+    trait :next do
+      year { Calendar.current_semester == 1 ? Calendar.current_year : Calendar.current_year + 1 }
+      semester { Calendar.current_semester == 1 ? :two : :one }
     end
   end
 end

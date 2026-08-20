@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Activity::create', :js do
   let(:responsible) { create(:responsible) }
   let(:resource_name) { Activity.model_name.human }
-  let(:calendar) { create(:calendar_tcc_one) }
+  let(:calendar) { create(:calendar, :tcc_one) }
   let!(:base_activity_types) { create_list(:base_activity_type, 3) }
 
   before do
@@ -31,12 +31,11 @@ describe 'Activity::create', :js do
     end
 
     context 'when activity is not valid' do
-      it 'show errors' do
-        submit_form('input[name="commit"]')
-        expect(page).to have_flash(:danger, text: errors_message)
-        expect(page).to have_message(blank_error_message, in: 'div.activity_name')
-        expect(page).to have_message(required_error_message, in: 'div.activity_base_activity_type')
-      end
+      it_behaves_like 'responsible form blank errors',
+                      [
+                        ['div.activity_name'],
+                        ['div.activity_base_activity_type', :required_error_message]
+                      ]
     end
   end
 end

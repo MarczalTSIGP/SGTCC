@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Orientation::to_migrate' do
   let!(:current_calendar_tcc_one) do
     Calendar.find_by(year: 2025, semester: 2, tcc: Calendar.tccs[:one]) ||
-      create(:current_calendar_tcc_one)
+      create(:calendar, :current, :tcc_one)
   end
 
   before do
@@ -13,7 +13,15 @@ describe 'Orientation::to_migrate' do
 
   describe '#to_migrate', :js do
     let!(:orientations) do
-      create_list(:orientation_tcc_one_approved, 2, calendars: [current_calendar_tcc_one])
+      create_list(
+        :orientation,
+        2,
+        :tcc_one,
+        :approved_tcc_one,
+        :with_final_project,
+        :with_extra_supervisors,
+        calendars: [current_calendar_tcc_one]
+      )
     end
 
     let(:index_url) { responsible_orientations_migration_path }

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Activity::index' do
-  let!(:calendar_tcc_one) { create(:current_calendar_tcc_one) }
-  let!(:calendar_tcc_two) { create(:current_calendar_tcc_two) }
+  let!(:calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
+  let!(:calendar_tcc_two) { create(:calendar, :current, :tcc_two) }
 
   describe '#index' do
     before do
@@ -12,7 +12,7 @@ describe 'Activity::index' do
 
     context 'when shows all activities' do
       it 'shows all activities for tcc one with options', :js do
-        activity = create(:activity_tcc_one, calendar: calendar_tcc_one)
+        activity = create(:activity, :tcc_one, calendar: calendar_tcc_one)
 
         index_url = professors_calendar_activities_path(calendar_tcc_one)
         visit index_url
@@ -27,7 +27,7 @@ describe 'Activity::index' do
       end
 
       it 'shows all activities for tcc two with options', :js do
-        activity = create(:activity_tcc_two, calendar: calendar_tcc_two)
+        activity = create(:activity, :tcc_two, calendar: calendar_tcc_two)
 
         index_url = professors_calendar_activities_path(calendar_tcc_two)
         visit index_url
