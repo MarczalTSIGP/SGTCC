@@ -2,9 +2,10 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: 5
-  username: <%= Rails.application.credentials.dig(:db, :username) %>
-  password: <%= Rails.application.credentials.dig(:db, :password) %>
-  host: <%= Rails.application.credentials.dig(:db, :host) %>
+  username: <%= ENV.fetch('DB_USERNAME') { Rails.application.credentials.dig(:db, :username) } %>
+  password: <%= ENV.fetch('DB_PASSWORD') { Rails.application.credentials.dig(:db, :password) } %>
+  host: <%= ENV.fetch('DB_HOST') { Rails.application.credentials.dig(:db, :host) } %>
+  port: <%= ENV.fetch('DB_PORT', 5432) %>
 
 development:
   primary:

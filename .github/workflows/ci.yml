@@ -1,20 +1,17 @@
 name: CI
 on:
   push:
-  pull_request_target:
+    branches:
+      - main
+  pull_request:
     types: [opened, synchronize, reopened]
-#  push:
-#    branches:
-#      - 'main'
-#      - 'epic-upgrade-rails'
+
+permissions:
+  contents: read
 
 jobs:
   tests:
     uses: ./.github/workflows/_tests.yml
-    secrets:
-      RAILS_MASTER_KEY_TEST: ${{ secrets.RAILS_MASTER_KEY_TEST }}
 
   code_quality:
     uses: ./.github/workflows/_linters.yml
-    secrets:
-      RAILS_MASTER_KEY_TEST: ${{ secrets.RAILS_MASTER_KEY_TEST }}
