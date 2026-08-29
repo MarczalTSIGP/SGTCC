@@ -20,9 +20,7 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   end
 
   def history
-    @orientations = current_external_member.supervisions
-    @orientations = @orientations.where(status: params[:status]) if params[:status]
-    @orientations = @orientations.search(params[:term]).page(params[:page])
+    @orientations = list_supervisions(:history)
   end
 
   def show
@@ -68,10 +66,33 @@ class ExternalMembers::SupervisionsController < ExternalMembers::BaseController
   end
 
   def load_orientations_by_tcc(tcc)
-    @search_url = send("external_members_supervisions_search_tcc_#{tcc}_path")
-    @orientations = current_external_member.supervisions
-                                           .send("current_tcc_#{tcc}", params[:status])
-                                           .search(params[:term]).page(params[:page])
+    @search_url = search_url_by_tcc(tcc)
+    @orientations = list_supervisions(segment_by_tcc(tcc))
+  end
+
+  def list_supervisions(segment)
+    Orientations::ParticipantListQuery.call(
+      relation: current_external_member.supervisions,
+      segment:,
+      status: params[:status],
+      term: params[:term],
+      page: params[:page],
+      profile: :external_member_supervision
+    )
+  end
+
+  def search_url_by_tcc(tcc)
+    {
+      one: external_members_supervisions_search_tcc_one_path,
+      two: external_members_supervisions_search_tcc_two_path
+    }.fetch(tcc)
+  end
+
+  def segment_by_tcc(tcc)
+    {
+      one: :tcc_one,
+      two: :tcc_two
+    }.fetch(tcc)
   end
 
   def add_index_breadcrumb

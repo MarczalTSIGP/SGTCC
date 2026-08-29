@@ -27,41 +27,25 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def tcc_one_current_semester
-    @examination_boards = ExaminationBoard.tcc_one_current_semester
-                                          .search(params[:term])
-                                          .page(params[:page])
-                                          .order(date: :desc)
-
+    @examination_boards = list_examination_boards(tcc: :one, period: :current)
     @search_url = responsible_examination_boards_tcc_one_current_semester_search_path
     render_with_data_to_tcc_one
   end
 
   def tcc_one
-    @examination_boards = ExaminationBoard.tcc_one
-                                          .search(params[:term])
-                                          .page(params[:page])
-                                          .order(date: :desc)
-
+    @examination_boards = list_examination_boards(tcc: :one, period: :history)
     @search_url = responsible_examination_boards_tcc_one_search_path
     render_with_data_to_tcc_one
   end
 
   def tcc_two_current_semester
-    @examination_boards = ExaminationBoard.tcc_two_current_semester
-                                          .search(params[:term])
-                                          .page(params[:page])
-                                          .order(date: :desc)
-
+    @examination_boards = list_examination_boards(tcc: :two, period: :current)
     @search_url = responsible_examination_boards_tcc_two_current_semester_search_path
     render_with_data_to_tcc_two
   end
 
   def tcc_two
-    @examination_boards = ExaminationBoard.tcc_two
-                                          .search(params[:term])
-                                          .page(params[:page])
-                                          .order(date: :desc)
-
+    @examination_boards = list_examination_boards(tcc: :two, period: :history)
     @search_url = responsible_examination_boards_tcc_two_search_path
     render_with_data_to_tcc_two
   end
@@ -75,15 +59,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def new_to_tcc_one
-    @examination_board = ExaminationBoard.new
-    @orientations = Orientation.current_tcc_one
-    @activities = Activity.human_tcc_one_identifiers
+    load_form_context(ExaminationBoards::FormContext.for_new(tcc: :one))
   end
 
   def new_to_tcc_two
-    @examination_board = ExaminationBoard.new(identifier: :monograph)
-    @orientations = Orientation.current_tcc_two
-    @activities = Activity.human_tcc_two_identifiers
+    load_form_context(ExaminationBoards::FormContext.for_new(tcc: :two))
   end
 
   def create_to_tcc_one
@@ -93,9 +73,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       feminine_success_create_message
       redirect_to responsible_examination_boards_tcc_one_path
     else
-      @orientations = Orientation.current_tcc_one
-      @activities = Activity.human_tcc_one_identifiers
-
+      load_form_options(ExaminationBoards::FormContext.for_new(tcc: :one))
       error_message
       render :new_to_tcc_one, status: :unprocessable_content
     end
@@ -108,9 +86,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       feminine_success_create_message
       redirect_to responsible_examination_boards_tcc_two_path
     else
-      @orientations = Orientation.current_tcc_two
-      @activities = Activity.human_tcc_two_identifiers
-
+      load_form_options(ExaminationBoards::FormContext.for_new(tcc: :two))
       error_message
       render :new_to_tcc_two, status: :unprocessable_content
     end
@@ -135,13 +111,17 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def destroy
-    if @examination_board.defense_minutes.blank?
-      @examination_board.destroy
+    result = ExaminationBoards::Destroy.call(@examination_board)
+
+    if result.destroyed?
       feminine_success_destroy_message
 
       redirect_to responsible_examination_boards_path
-    else
+    elsif result.blocked_by_defense_minutes?
       flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to responsible_examination_board_path(@examination_board)
+    else
+      alert_destroy_bond_message
       redirect_to responsible_examination_board_path(@examination_board)
     end
   end
@@ -160,6 +140,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   private
+
+  def list_examination_boards(tcc:, period:)
+    ExaminationBoards::ListQuery.call(tcc:, period:, page: params[:page],
+                                      term: params[:term], ordering: :responsible)
+  end
 
   def set_examination_board
     @examination_board = ExaminationBoard.find(params.expect(:id))
@@ -185,13 +170,17 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def set_orientations_and_activities
-    if @examination_board.monograph?
-      @orientations = Orientation.current_tcc_two
-      @activities = Activity.human_tcc_two_identifiers
-    else
-      @orientations = Orientation.current_tcc_one
-      @activities = Activity.human_tcc_one_identifiers
-    end
+    load_form_context(ExaminationBoards::FormContext.for_board(@examination_board))
+  end
+
+  def load_form_context(context)
+    @examination_board = context.examination_board
+    load_form_options(context)
+  end
+
+  def load_form_options(context)
+    @orientations = context.orientations
+    @activities = context.activities
   end
 
   def set_breadcrumbs_new_tcc_one
