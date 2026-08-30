@@ -5,13 +5,11 @@ module ExternalMembers::ActiveLinkHelper
   end
 
   def external_members_activities_tcc_one_active_link?
-    activities_tcc_active_link?('one', 'external_members') # &&
-    #  calendar_equal_current_calendar_tcc_one?
+    activities_tcc_active_link?('one', 'external_members')
   end
 
   def external_members_activities_tcc_two_active_link?
-    activities_tcc_active_link?('two', 'external_members') # &&
-    #  calendar_equal_current_calendar_tcc_two?
+    activities_tcc_active_link?('two', 'external_members')
   end
 
   def external_members_supervisions_active_link?
@@ -19,10 +17,7 @@ module ExternalMembers::ActiveLinkHelper
       supervisions_documents_link?('external_members')
   end
 
-  def external_members_supervisions_history_active_link?
-    # TODO: rubocop:disable Style/CommentAnnotation
-    # supervisions_history_active_link?('external_members')
-  end
+  def external_members_supervisions_history_active_link?; end
 
   def external_members_documents_pending_active_link?
     documents_pending_active_link?('external_members')

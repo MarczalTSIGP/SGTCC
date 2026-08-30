@@ -49,39 +49,6 @@ class Dashboard::ProfessorReport
   end
   # rubocop:enable Metrics/AbcSize
 
-  # def calculate_orientations(method)
-  #   return {} unless valid_method?(method)
-
-  #   tcc_type = method.split('_').last
-
-  #   progress = tcc_type.eql?('one') ? 'IN_PROGRESS' : 'APPROVED_TCC_ONE'
-  #   approved = tcc_type.eql?('one') ? 'APPROVED_TCC_ONE' : 'APPROVED'
-  #   reproved = tcc_type.eql?('one') ? 'REPROVED_TCC_ONE' : 'REPROVED'
-
-  #   {
-  #     total: total_orientations(tcc_type),
-  #     in_progress: count_orientations(method, progress),
-  #     approved: count_orientations(method, approved),
-  #     canceled: count_orientations(method, 'CANCELED'),
-  #     reproved: count_orientations(method, reproved),
-  #     links: orientations_link(method)
-  #   }
-  # end
-
-  # def valid_method?(method)
-  #   %w[tcc_one tcc_two current_tcc_one current_tcc_two].include?(method)
-  # end
-
-  # def total_orientations(tcc_type)
-  #   orientations = @professor.orientations
-  #   .joins(:calendars).distinct.where(calendars: { tcc: tcc_type })
-  #   orientations.select { |o| o.send("tcc_#{tcc_type}?") }.count
-  # end
-
-  # def count_orientations(method, status)
-  #   @professor.orientations.send(method, status).count
-  # end
-
   def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})
     if @current_professor.responsible?
       url = "responsible_professor_orientations_search_#{method}_path"
