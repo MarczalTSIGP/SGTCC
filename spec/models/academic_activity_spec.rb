@@ -15,6 +15,19 @@ RSpec.describe AcademicActivity do
     end
   end
 
+  describe '#clear_examination_boards_cache' do
+    let(:professor) { create(:professor) }
+    let(:orientation) { create(:orientation, advisor: professor) }
+    let!(:examination_board) { create(:examination_board, :proposal, orientation:) }
+    let(:activity) { create(:activity, :proposal, calendar: orientation.current_calendar) }
+
+    it 'touches the examination board matching the activity identifier' do
+      expect do
+        create(:academic_activity, academic: orientation.academic, activity:)
+      end.to(change { examination_board.reload.updated_at })
+    end
+  end
+
   describe 'callbacks' do
     let(:activity) { create(:academic_activity) }
 

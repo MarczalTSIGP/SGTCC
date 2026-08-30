@@ -1,6 +1,4 @@
 class ExaminationBoard < ApplicationRecord
-  require 'action_view'
-  include ActionView::Helpers::DateHelper
   include ExaminationBoardDefenseMinutes
   include UsersToDocument
   include SituationEnum
@@ -88,65 +86,12 @@ class ExaminationBoard < ApplicationRecord
 
   after_commit :trigger_create_notifications, on: :create
 
-  def self.cs_asc_from_now_desc_ago
-    current_calendar = current_calendar_for_site
-    return none unless current_calendar
-
-    upcoming_from_now(current_calendar) + past_until_now(current_calendar)
-  end
-
-  def self.current_calendar_for_site
-    Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
-      Calendar.order(year: :desc, semester: :desc).first
-  end
-
-  private_class_method :current_calendar_for_site
-
-  def self.base_scope_for_calendar(current_calendar)
-    period = current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day
-
-    joins(orientation: :calendars)
-      .distinct
-      .where(date: period)
-  end
-
-  private_class_method :base_scope_for_calendar
-
-  def self.upcoming_from_now(current_calendar)
-    base_scope_for_calendar(current_calendar)
-      .where(date: Time.current..)
-      .order(date: :asc)
-      .site_with_relationships
-      .to_a
-  end
-
-  private_class_method :upcoming_from_now
-
-  def self.past_until_now(current_calendar)
-    base_scope_for_calendar(current_calendar)
-      .where(date: current_calendar.start_date.beginning_of_day...Time.current)
-      .order(date: :desc)
-      .site_with_relationships
-      .to_a
-  end
-
-  private_class_method :past_until_now
-
-  def status
-    current_date = Date.current.to_s
-    board_date = Date.parse(date.to_s).to_s
-    return 'today' if board_date == current_date
-
-    board_date > current_date ? 'next' : 'occurred'
-  end
-
-  def distance_of_date
-    i18n = 'views.tables.examination_board'
-    board_date = I18n.l(date, format: :datetime)
-    return I18n.t("#{i18n}.today", time: I18n.l(date, format: :time)) if status == 'today'
-
-    distance_of_time = distance_of_time_in_words(board_date, Time.current)
-    I18n.t("#{i18n}.#{status}", distance: distance_of_time)
+  def self.touch_related_to(academic_activity, orientation)
+    orientation.examination_boards.each do |board|
+      # rubocop:disable Rails/SkipsModelValidations
+      board.touch if board.academic_activity == academic_activity
+      # rubocop:enable Rails/SkipsModelValidations
+    end
   end
 
   def minutes_type
@@ -214,7 +159,6 @@ class ExaminationBoard < ApplicationRecord
 
   # Callback to after_add and after_remove a professor or external member
   # Necessary to clear cache after add or remove a professor or external member
-  # TODO: Tests for this method
   def touch_updated_at(_attendee)
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?

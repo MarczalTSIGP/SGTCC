@@ -24,7 +24,7 @@ class Academics::TsoRequestsController < Academics::BaseController
   def edit; end
 
   def create
-    @document = Document.new_tso(current_academic, request_params)
+    @document = Documents::TypeFactory.new_tso(current_academic, request_params)
 
     if @document.save
       feminine_success_create_message
@@ -88,7 +88,7 @@ class Academics::TsoRequestsController < Academics::BaseController
 
   def destroy_and_update
     @document.destroy
-    @document = Document.new_tso(current_academic, request_params)
+    @document = Documents::TypeFactory.new_tso(current_academic, request_params)
     @document.save
   end
 

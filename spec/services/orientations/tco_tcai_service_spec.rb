@@ -19,7 +19,12 @@ RSpec.describe Orientations::TcoTcaiService do
 
     it 'does not create TCAI when institution is absent' do
       orientation_without_institution = create(:orientation)
+      # Must bypass callbacks: a normal update would fire the after_update
+      # recreate callback and destroy/recreate tco/tcai before this test's
+      # own destroy_document call, defeating the point of the test.
+      # rubocop:disable Rails/SkipsModelValidations
       orientation_without_institution.update_columns(institution_id: nil)
+      # rubocop:enable Rails/SkipsModelValidations
       orientation_without_institution.destroy_document(orientation_without_institution.tcai)
       orientation_without_institution.reload
 

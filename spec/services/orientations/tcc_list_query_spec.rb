@@ -7,8 +7,8 @@ RSpec.describe Orientations::TccListQuery do
     create(:calendar, tcc:, year: (year || calendar_years.next).to_s)
   end
 
-  def call(**opts)
-    described_class.call(**{ relation: Orientation.all, tcc: :one, page: nil, term: nil }.merge(opts))
+  def call(**)
+    described_class.call(relation: Orientation.all, tcc: :one, page: nil, term: nil, **)
   end
 
   describe '.call with tcc: :one' do
@@ -27,7 +27,8 @@ RSpec.describe Orientations::TccListQuery do
   end
 
   describe '.call with tcc: :two' do
-    let!(:tcc_one_orientations) { create_list(:orientation, 2, :tcc_one) }
+    before { create_list(:orientation, 2, :tcc_one) }
+
     let!(:tcc_two_orientations) { create_list(:orientation, 3, :tcc_two) }
 
     it 'returns orientations in TCC two' do

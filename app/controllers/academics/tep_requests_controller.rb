@@ -24,7 +24,7 @@ class Academics::TepRequestsController < Academics::BaseController
   def edit; end
 
   def create
-    @document = Document.new_tep(current_academic, request_params)
+    @document = Documents::TypeFactory.new_tep(current_academic, request_params)
 
     if @document.save
       feminine_success_create_message
