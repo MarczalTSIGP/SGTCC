@@ -58,6 +58,8 @@ RSpec.describe Calendar, type: :model do
   describe 'validations' do
     subject(:calendar) { create(:calendar) }
 
+    before { described_class.delete_all }
+
     it { is_expected.to validate_presence_of(:year) }
     it { is_expected.to validate_presence_of(:tcc) }
     it { is_expected.to validate_presence_of(:semester) }

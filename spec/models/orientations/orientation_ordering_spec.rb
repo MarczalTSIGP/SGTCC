@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
-  describe '#professors_ranking' do
+  describe Dashboard::ProfessorsRankingReport do
     let!(:professor_orientations) do
       create_list(:orientation, 4, :tcc_two, :approved, :with_final_monograph)
     end
@@ -14,7 +14,7 @@ RSpec.describe Orientation do
         [professor.name_with_scholarity, professor.orientations.size]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse
-      expect(described_class.professors_ranking).to match_array(ranking)
+      expect(described_class.call).to match_array(ranking)
     end
   end
 

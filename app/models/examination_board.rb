@@ -66,7 +66,9 @@ class ExaminationBoard < ApplicationRecord
   }
 
   scope :current_semester, lambda {
-    current_calendar = Calendar.order(year: :desc, semester: :desc).first
+    current_calendar = Calendar
+                       .where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
+                       .order(year: :desc, semester: :desc).first
     return none unless current_calendar
 
     where(date: current_calendar.start_date..current_calendar.end_date)

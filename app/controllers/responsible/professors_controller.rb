@@ -75,8 +75,12 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def tcc_one
-    @orientations = @professor.orientations.by_tcc_one(
-      params[:page], params[:term], params[:status]
+    @orientations = Orientations::TccListQuery.call(
+      relation: @professor.orientations,
+      tcc: :one,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
     )
 
     @search_url = responsible_professor_orientations_search_tcc_one_path(@professor)
@@ -85,8 +89,12 @@ class Responsible::ProfessorsController < Responsible::BaseController
   end
 
   def tcc_two
-    @orientations = @professor.orientations.by_tcc_two(
-      params[:page], params[:term], params[:status]
+    @orientations = Orientations::TccListQuery.call(
+      relation: @professor.orientations,
+      tcc: :two,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
     )
 
     @search_url = responsible_professor_orientations_search_tcc_two_path(@professor)

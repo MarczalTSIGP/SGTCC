@@ -1,12 +1,7 @@
 class Orientation < ApplicationRecord
   include Searchable
   include OrientationStatus
-  include OrientationFilter
-  include OrientationJoin
-  include OrientationOption
   include OrientationDocuments
-  include OrientationTcoTcai
-  include OrientationReport
   include OrientationValidation
   include AcademicDocumentsInfo
   include UsersToDocument
@@ -50,20 +45,38 @@ class Orientation < ApplicationRecord
   validate :validate_supervisor_ids
   validates :calendars, presence: true
 
+  # 🚨 CORREÇÃO TEMPORÁRIA PARA MIGRAÇÃO: Troca after_create_commit por after_create
+  after_create_commit { Orientations::TcoTcaiService.create(self) }
+  after_update :recreate_tco_and_tcai, unless: -> { skip_documents_callbacks }
+
   scope :tcc_one, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc(:one, status, year, semester)
+    condition = { tcc: :one }
+    condition['year'] = year if year.present?
+    condition['semester'] = semester if semester.present?
+    query = joins(:calendars).where(calendars: condition)
+    status.blank? ? query : query.where(status:)
   }
 
   scope :tcc_two, lambda { |status, year = nil, semester = nil|
-    join_with_status_by_tcc(:two, status, year, semester)
+    condition = { tcc: :two }
+    condition['year'] = year if year.present?
+    condition['semester'] = semester if semester.present?
+    query = joins(:calendars).where(calendars: condition)
+    status.blank? ? query : query.where(status:)
   }
 
   scope :current_tcc_one, lambda { |status = nil|
-    join_with_status(join_current_calendar_tcc_one, status)
+    query = joins(:calendars).where(calendars: { tcc: :one,
+                                                 year: Calendar.current_year,
+                                                 semester: Calendar.current_semester })
+    status.blank? ? query : query.where(status:)
   }
 
   scope :current_tcc_two, lambda { |status = nil|
-    join_with_status(join_current_calendar_tcc_two, status)
+    query = joins(:calendars).where(calendars: { tcc: :two,
+                                                 year: Calendar.current_year,
+                                                 semester: Calendar.current_semester })
+    status.blank? ? query : query.where(status:)
   }
 
   scope :with_relationships, lambda {
@@ -94,12 +107,7 @@ class Orientation < ApplicationRecord
   }
 
   def migrate
-    if can_be_migrated?
-      new_calendar = Calendar.next_semester_tcc_two(current_calendar)
-      update(calendar_ids: calendar_ids << new_calendar.id)
-    else
-      false
-    end
+    Orientations::MigrationService.call(self).migrated
   end
 
   def short_title
@@ -118,9 +126,23 @@ class Orientation < ApplicationRecord
     !canceled? && !abandoned?
   end
 
+  def can_be_canceled?(professor)
+    professor&.role?(:responsible) && active?
+  end
+
+  def can_be_edited?
+    Orientations::EditabilityPolicy.new(self).editable?
+  end
+
+  def can_be_destroyed?
+    Orientations::EditabilityPolicy.new(self).destroyable?
+  end
+
   def current_calendar
     calendars.order(year: :desc, semester: :desc, tcc: :desc).first
   end
+
+  delegate :tcc_one?, :tcc_two?, to: :current_calendar
 
   def self.last_tcc_one_calendars
     Calendar.where(tcc: :one)
@@ -131,26 +153,6 @@ class Orientation < ApplicationRecord
   def self.count_orientations_in_last_tcc_one_calendar
     last_calendars = last_tcc_one_calendars
     Orientation.joins(:calendars).where(calendars: { id: last_calendars.pluck(:id) }).distinct.count
-  end
-
-  # TODO: Refactored and Remove
-  def calendar_tcc_one?
-    current_calendar.tcc_one?
-  end
-
-  # TODO: Refactore and Remove
-  def calendar_tcc_two?
-    current_calendar.tcc_two?
-  end
-
-  def tcc_one?
-    calendar = current_calendar
-    calendar.tcc_one?
-  end
-
-  def tcc_two?
-    calendar = current_calendar
-    calendar.tcc_two?
   end
 
   def professor_supervisors_to_document
@@ -226,29 +228,6 @@ class Orientation < ApplicationRecord
     exam_board&.date
   end
 
-  private
-
-  def can_be_migrated?
-    equal_status?('APPROVED_TCC_ONE') &&
-      Calendar
-        .next_semester_tcc_two(current_calendar)
-        .present?
-  end
-
-  def find_academic_activity(conditions = {})
-    academic_activities.joins(:activity)
-                       .includes(activity: :calendar)
-                       .where(activities: {
-                                identifier: conditions[:identifier],
-                                final_version: conditions[:final_version],
-                                calendar_id: [calendars.pluck(:id)]
-                              })
-                       .order('calendars.year DESC, calendars.semester DESC')
-                       .try(:first)
-  end
-
-  public
-
   # Class methods
   #----------------------------------------
   def self.to_json_table(orientations)
@@ -280,6 +259,24 @@ class Orientation < ApplicationRecord
 
   def self.in_tcc_one
     by_status('IN_PROGRESS')
+  end
+
+  private
+
+  def recreate_tco_and_tcai
+    Orientations::TcoTcaiService.recreate(self)
+  end
+
+  def find_academic_activity(conditions = {})
+    academic_activities.joins(:activity)
+                       .includes(activity: :calendar)
+                       .where(activities: {
+                                identifier: conditions[:identifier],
+                                final_version: conditions[:final_version],
+                                calendar_id: [calendars.pluck(:id)]
+                              })
+                       .order('calendars.year DESC, calendars.semester DESC')
+                       .try(:first)
   end
 
   def self.by_status(status)

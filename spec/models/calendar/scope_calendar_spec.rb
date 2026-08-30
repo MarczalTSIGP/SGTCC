@@ -22,8 +22,14 @@ RSpec.describe Calendar, type: :model do
   end
 
   describe '#search_by_tcc' do
-    let!(:calendar_tcc_one) { create(:calendar, :current, :tcc_one) }
-    let!(:calendar_tcc_two) { create(:calendar, :current, :tcc_two) }
+    let!(:calendar_tcc_one) do
+      find_or_create_calendar(year: described_class.current_year,
+                              semester: described_class.current_semester, tcc: :one)
+    end
+    let!(:calendar_tcc_two) do
+      find_or_create_calendar(year: described_class.current_year,
+                              semester: described_class.current_semester, tcc: :two)
+    end
 
     it 'finds calendar by tcc one' do
       results = described_class.search_by_tcc_one(1, calendar_tcc_one.year)
@@ -38,12 +44,14 @@ RSpec.describe Calendar, type: :model do
 
   describe '#current_by_tcc' do
     it 'returns current by tcc one' do
-      calendar = create(:calendar, :current, :tcc_one)
+      calendar = find_or_create_calendar(year: described_class.current_year,
+                                         semester: described_class.current_semester, tcc: :one)
       expect(described_class.current_by_tcc_one).to eq(calendar)
     end
 
     it 'returns current by tcc two' do
-      calendar = create(:calendar, :current, :tcc_two)
+      calendar = find_or_create_calendar(year: described_class.current_year,
+                                         semester: described_class.current_semester, tcc: :two)
       expect(described_class.current_by_tcc_two).to eq(calendar)
     end
   end

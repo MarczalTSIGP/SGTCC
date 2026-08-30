@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Populate::Calendars do
   describe '#populate' do
+    before { Calendar.delete_all }
+
     it 'creates calendars in the same tcc order using the enum persisted values' do
       expect { described_class.new.populate }.to change(Calendar, :count).by(8)
 
