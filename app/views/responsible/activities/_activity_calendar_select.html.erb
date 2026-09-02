@@ -3,7 +3,7 @@
                       url: responsible_calendar_activities_by_calendar_path) do |f| %>
     <%= f.input :calendar,
       as: :select,
-      collection: Calendar.select_data(@calendar.tcc),
+      collection: Calendars::SelectOptions.for_tcc(@calendar.tcc),
       class: 'form-control',
       input_html: { 
         data: { 

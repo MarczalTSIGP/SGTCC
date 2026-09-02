@@ -17,14 +17,14 @@ class Responsible::CalendarsController < Responsible::BaseController
                  only: [:edit]
 
   def tcc_one
-    @calendars = Calendar.search_by_tcc_one(params[:page], params[:term])
+    @calendars = Calendars::ListQuery.call(tcc: :one, page: params[:page], term: params[:term])
     @search_url = responsible_calendars_search_tcc_one_path
 
     render :index
   end
 
   def tcc_two
-    @calendars = Calendar.search_by_tcc_two(params[:page], params[:term])
+    @calendars = Calendars::ListQuery.call(tcc: :two, page: params[:page], term: params[:term])
     @search_url = responsible_calendars_search_tcc_two_path
 
     render :index

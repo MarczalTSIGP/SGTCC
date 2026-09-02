@@ -3,7 +3,7 @@ class TccOneProfessors::CalendarsController < TccOneProfessors::BaseController
                  :tcc_one_professors_calendars_tcc_one_path
 
   def tcc_one
-    @calendars = Calendar.search_by_tcc_one(params[:page], params[:term])
+    @calendars = Calendars::ListQuery.call(tcc: :one, page: params[:page], term: params[:term])
 
     @search_url = tcc_one_professors_calendars_search_tcc_one_path
     render :index
