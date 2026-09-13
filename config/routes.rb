@@ -354,8 +354,6 @@ Rails.application.routes.draw do
                 only: [:index, :show],
                 constraints: { id: /[0-9]+/ }
 
-      post 'orientations/(:id)/abandon', to: 'orientations#abandon', as: 'orientations_abandon'
-
       get 'meetings/orientations/(:id)',
           to: 'meetings#orientation',
           as: 'orientation_meetings'

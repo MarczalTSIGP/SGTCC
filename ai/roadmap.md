@@ -45,9 +45,13 @@ O roadmap possui **15 tasks**, distribuídas em **7 fases**. A tabela abaixo apr
 |  |  | REF-10 — Separar consultas e relatórios de `Calendar` | Retirar do model buscas paginadas, estruturas para selects e geração de relatórios. |
 | Fase 5 — Components e apresentação | 2 | REF-11 — Inventariar partials e regras de apresentação repetidas | Identificar repetições visuais que realmente justificam a criação de components reutilizáveis. |
 |  |  | REF-12 — Extrair components priorizados | Converter os candidatos selecionados em components com interface explícita e testes próprios. |
-| Fase 6 — Validação e avaliação do TCC | 2 | REF-13 — Validar regressão funcional por bloco | Executar testes e homologar os fluxos críticos ao final de cada bloco de refatoração. |
+| Fase 6 — Validação e avaliação do TCC | 6 | REF-13 — Validar regressão funcional por bloco | Executar testes e homologar os fluxos críticos ao final de cada bloco de refatoração. |
+|  |  | REF-13A — Remover código morto de apresentação e roteamento | Eliminar partials, rota e predicado sem consumidor, identificados pela REF-11 e pela REF-13. |
+|  |  | REF-13B — Desacoplar comparações de status do locale | Fechar o risco nº 1 do inventário da REF-01, substituindo literais traduzidos pela API de status. |
+|  |  | REF-13C — Consolidar mapeamento de badge de status | Unificar o mapeamento status → classe CSS duplicado entre dois components. |
+|  |  | REF-13D — Restabelecer ferramentas de medição | Reativar SimpleCov e corrigir a configuração do ERB Lint, pré-requisito da REF-14. |
 |  |  | REF-14 — Coletar métricas to-be e avaliar resultados | Repetir as medições do baseline e produzir a comparação quantitativa e qualitativa antes/depois. |
-| **Total** | **15** |  |  |
+| **Total** | **19** |  |  |
 
 ## Ordem de execução
 
@@ -356,6 +360,21 @@ Critérios de aceite:
 - Não há regressões conhecidas na suíte nem nos fluxos críticos de homologação.
 - Diferenças intencionais, se surgirem, são retiradas do escopo ou aprovadas como mudança funcional separada.
 - Cada fase possui evidências rastreáveis de validação.
+
+#### REF-13A a REF-13D — Pendências abertas pela validação
+
+**Prioridade:** alta
+**Estimativa:** 6 h no total
+**Dependências:** REF-13; devem ser concluídas **antes da REF-14**
+
+A execução da REF-13 confirmou que a suíte está verde, mas deixou quatro pendências que, se resolvidas depois da medição to-be, invalidariam a comparação e obrigariam a remedir. Cada uma tem task própria em `ai/tasks/fase-6-validacao-e-avaliacao-do-tcc/`:
+
+- **REF-13A** — três partials de tabela sem consumidor (herdadas da REF-11) e o fluxo de desistência nunca implementado: rota sem ação no controller e predicado `abandoned?` que sempre retorna `false`.
+- **REF-13B** — o risco nº 1 do inventário da REF-01, atribuído à REF-06 e não resolvido: quatro pontos comparam `orientation.status` contra literais em português, acoplando regra de negócio ao locale.
+- **REF-13C** — mapeamento status → classe CSS duplicado entre `Orientations::StatusBadgeComponent` e `Orientations::TableComponent`, fora do alcance do inventário da REF-11 por estar em components e não em partials.
+- **REF-13D** — SimpleCov desativado desde antes do baseline e ERB Lint inoperante por configuração obsoleta.
+
+Achados registrados e **deixados fora** deste bloco, por serem mudança funcional ou reestruturação maior: a duplicação do recurso inteiro `tep_requests`/`tso_requests` e a decisão sobre implementar ou descartar o fluxo de desistência de orientação.
 
 #### REF-14 — Coletar métricas to-be e avaliar resultados
 

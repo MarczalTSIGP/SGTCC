@@ -21,8 +21,8 @@ module OrientationStatus
       equal_status?('APPROVED')
     end
 
-    def abandoned?
-      equal_status?('ABANDONED')
+    def approved_tcc_one?
+      equal_status?('APPROVED_TCC_ONE')
     end
 
     def canceled?
@@ -31,6 +31,10 @@ module OrientationStatus
 
     def reproved?
       equal_status?('REPROVED')
+    end
+
+    def reproved_tcc_one?
+      equal_status?('REPROVED_TCC_ONE')
     end
 
     def in_progress?

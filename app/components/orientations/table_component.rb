@@ -75,23 +75,7 @@ class Orientations::TableComponent < ViewComponent::Base
   private
 
   def badge_for_status(status)
-    status_key = Orientation.statuses[status]
-    badge_class = status_badge_class(status_key)
+    badge_class = Orientations::StatusBadge.class_for(Orientations::StatusBadge.key_for(status))
     Badge.new(badge_class, status)
-  end
-
-  def status_badge_class(status_key)
-    status_mappings.fetch(status_key, 'badge-secondary')
-  end
-
-  def status_mappings
-    {
-      'APPROVED_TCC_ONE' => 'badge-approved-tcc-1',
-      'APPROVED' => 'badge-approved',
-      'IN_PROGRESS' => 'badge-in-progress',
-      'CANCELED' => 'badge-canceled',
-      'REPROVED_TCC_ONE' => 'badge-reproved-tcc-1',
-      'REPROVED' => 'badge-reproved'
-    }
   end
 end

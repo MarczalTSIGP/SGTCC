@@ -17,7 +17,6 @@ class Dashboard::ProfessorReport
       tcc_two: orientations_by_tcc_two }
   end
 
-  # rubocop:disable Metrics/AbcSize
   # TODO: Refactor this method
   # CODE SMELL: This method is horrible, should be refactor
   def orientations_by_tcc_one
@@ -25,10 +24,10 @@ class Dashboard::ProfessorReport
                              .distinct.where(calendars: { tcc: :one }).select(&:tcc_one?)
     {
       total: orientations.count,
-      in_progress: orientations.count { |o| o.status.eql?('em andamento') },
-      approved: orientations.count { |o| o.status.eql?('Aprovada em TCC 1') },
-      canceled: orientations.count { |o| o.status.eql?('cancelada') },
-      reproved: orientations.count { |o| o.status.eql?('Reprovada em TCC 1') },
+      in_progress: orientations.count(&:in_progress?),
+      approved: orientations.count(&:approved_tcc_one?),
+      canceled: orientations.count(&:canceled?),
+      reproved: orientations.count(&:reproved_tcc_one?),
       links: orientations_link('tcc_one')
     }
   end
@@ -47,7 +46,6 @@ class Dashboard::ProfessorReport
       links: orientations_link('tcc_two')
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   def orientations_link(method, url: 'professors_orientations_search_history_path', params_url: {})
     if @current_professor.responsible?

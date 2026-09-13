@@ -123,7 +123,7 @@ class Orientation < ApplicationRecord
   end
 
   def active?
-    !canceled? && !abandoned?
+    !canceled?
   end
 
   def can_be_canceled?(professor)
@@ -203,12 +203,11 @@ class Orientation < ApplicationRecord
   end
 
   def orientation_type
-    case status
-    when 'aprovada'
+    if approved?
       :approved if final_monograph.present?
-    when 'Aprovada em TCC 1'
+    elsif approved_tcc_one?
       :tcc_one if final_project.present?
-    when 'em andamento'
+    elsif in_progress?
       :in_tcc_one if final_proposal.present?
     else
       :unknown
