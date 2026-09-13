@@ -406,7 +406,7 @@ Critérios de aceite:
 | M3 — Domínio reorganizado | REF-06–08 | Models/concerns mais coesos e services consistentes | 20 h |
 | M4 — Calendário coeso | REF-09–10 | Regras temporais e relatórios separados | 10 h |
 | M5 — Apresentação organizada | REF-11–12 | Components extraídos apenas onde há reutilização | 8 h |
-| M6 — Evidências finais | REF-13–14 | Regressão validada e comparação as-is/to-be | 10 h |
+| M6 — Evidências finais | REF-13, REF-13A–13D, REF-14 | Regressão validada, pendências fechadas e comparação as-is/to-be | 10 h |
 | **Total restante estimado** |  |  | **84 h** |
 
 As estimativas devem ser recalibradas após o inventário da REF-01. REF-13 é contínua: suas horas estão consolidadas no marco final, mas a validação deve ocorrer ao término de cada fase, e não apenas no fim do projeto.

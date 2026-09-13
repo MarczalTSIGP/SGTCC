@@ -68,3 +68,14 @@ O grosso é cosmético e concentrado em indentação: o projeto usa tab em ERB e
 ## Preservado
 
 Nenhuma alteração em `app/`, `db/`, factories ou specs. Nenhuma offense de ERB Lint corrigida. Nenhuma gem adicionada.
+
+## Correção posterior (encontrada pela REF-14)
+
+O gate `minimum_coverage 90` foi validado apenas contra a suíte completa. Numa execução parcial (`rspec spec/models/...`) o SimpleCov mede a cobertura **daquele recorte** e reprovava o comando mesmo com todos os exemplos verdes:
+
+```
+Line coverage (62.73%) is below the expected minimum coverage (90.00%).
+SimpleCov failed with exit 2 due to a coverage related error
+```
+
+Corrigido em `spec/support/simplecov.rb`: o limiar passa a ser aplicado somente quando nenhum caminho de spec é passado na linha de comando. Verificado nos dois modos — execução parcial termina com exit 0, suíte completa mantém o gate e segue verde (1137 exemplos, 0 falhas, 96,18%).
