@@ -7,7 +7,12 @@
 <% end %>
 
 <%= provide(:appointment_file_form) do %>
-  <%= render 'external_members/examination_boards/appointment_file_form',
+  <%= render 'shared/examination_boards/appointment_file_form',
+    examination_board_note: @examination_board_note,
+    examination_board: @examination_board,
+    author_field: :external_member_id,
+    author_id: current_external_member.id,
+    form_html: { multipart: true },
     url: (@examination_board_note&.appointment_file&.url&.blank? ? external_members_examination_board_files_path(@examination_board)
       : external_members_examination_board_file_path(@examination_board, @examination_board_note)) %>
 <% end %>

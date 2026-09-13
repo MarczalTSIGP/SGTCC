@@ -1,5 +1,5 @@
 <div class="card card-body">
-  <%= simple_form_for(@examination_board_note, url: url, html: { multipart: true, id: 'appoints_form' }) do |f| %>
+  <%= simple_form_for(examination_board_note, url: url, html: form_html) do |f| %>
     <div class="form-inputs">
       <%= f.input :appointment_file,
                   as: :file_tabler,
@@ -8,21 +8,21 @@
 
       <%= f.hidden_field :appointment_file_cache %>
 
-      <% if @examination_board_note.appointment_file.present? %>
+      <% if examination_board_note.appointment_file.present? %>
         <div class="mt-4">
-          <%= link_to(@examination_board_note.appointment_file.url, target: :_blank) do %>
+          <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
             <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
           <% end %>
         </div>
       <% end %>
     </div>
 
-    <div class="mt-5 <%= @examination_board_note.appointment_text.present? ? 'border-green' : '' %>">
+    <div class="mt-5 <%= examination_board_note.appointment_text.present? ? 'border-green' : '' %>">
       <%= f.input :appointment_text, input_html: { class: 'markdown-editor', data: { controller: 'markdown--editor' } } %>
     </div>
 
-    <%= f.hidden_field :professor_id, value: current_professor.id %>
-    <%= f.hidden_field :examination_board_id, value: @examination_board.id %>
+    <%= f.hidden_field author_field, value: author_id %>
+    <%= f.hidden_field :examination_board_id, value: examination_board.id %>
 
     <div class="d-flex mt-4">
       <%= f.button :submit, t('views.buttons.save'),
