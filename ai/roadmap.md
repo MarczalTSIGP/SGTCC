@@ -55,7 +55,11 @@ O roadmap possui **15 tasks**, distribuídas em **7 fases**. A tabela abaixo apr
 |  |  | REF-16 — Remover código morto de `Orientation` | Eliminar quatro métodos de classe sem consumidor e um comentário que não descreve o código. |
 |  |  | REF-17 — Extrair os acessores de atividades acadêmicas | Unificar as três variantes idênticas de busca de documento de atividade. |
 |  |  | REF-18 — Recoletar métricas após a segunda rodada | Medir de novo o lado to-be e dizer, com número, se a piora do `Orientation` foi revertida. |
-| **Total** | **23** |  |  |
+| Fase 8 — Dívidas registradas | 4 | REF-19 — Corrigir o N+1 das listagens públicas de orientação | Filtrar no banco em vez de carregar tudo e descartar em Ruby, em caminho público sem autenticação. |
+|  |  | REF-20 — Consolidar a duplicação real entre TEP e TSO | Unificar listagem e esqueleto de CRUD, preservando as diferenças de domínio do pedido de troca. |
+|  |  | REF-21 — Eliminar a dependência de ordem nos specs | Fazer os specs afetados passarem isolados e na suíte, sem mascarar com ordem fixa. |
+|  |  | REF-22 — Resolver as offenses do ERB Lint | Alinhar a configuração à convenção do projeto e corrigir o que tem efeito real. |
+| **Total** | **27** |  |  |
 
 ## Ordem de execução
 
@@ -416,6 +420,19 @@ A REF-14 mediu que `Orientation` ficou 25,4% mais complexo no corpo da classe (9
 - **REF-18** — recoleta apenas o lado to-be e responde, com número, se a piora foi revertida.
 
 Achado registrado e **deixado fora** deste bloco: `Orientation.approved` e `Orientation.approved_tcc_one` carregam todos os registros e filtram em Ruby (`reject { |o| o.final_monograph.nil? }`), com uma consulta por registro. Corrigir isso muda consulta usada pelo site público e pela API, e merece task própria com medição de desempenho.
+
+### Fase 8 — Dívidas registradas
+
+Objetivo: fechar os achados que as fases anteriores identificaram e deixaram explicitamente fora de escopo, por serem mudança funcional, reestruturação maior ou infraestrutura de teste.
+
+**Prioridade:** REF-19 alta; REF-21 média; REF-20 e REF-22 baixas
+**Estimativa:** 14 h no total
+**Dependências:** REF-17 (para a REF-19), REF-11/REF-12 (para a REF-20), REF-16/REF-17 (para a REF-21), REF-13D (para a REF-22)
+
+- **REF-19** — `Orientation.approved` e `approved_tcc_one` carregam todos os registros do status e filtram em Ruby com `reject`, disparando uma consulta de atividade acadêmica por registro. Serve site público sem autenticação, API e ranking de professores, e cresce a cada semestre. É a dívida de maior impacto do conjunto.
+- **REF-20** — TEP e TSO compartilham listagem, linha, `new`, `edit` e esqueleto de CRUD, mas **não** são o mesmo recurso: o formulário e o `show` do TSO carregam orientador, coorientadores e a lógica de troca de orientação, com quatro métodos exclusivos no controller. A task corrige o inventário da REF-11 nesse ponto e consolida só o que é duplicação de fato.
+- **REF-21** — há specs que passam na suíte completa e falham isolados. A causa provável está mapeada: `Calendar.current_semester` consulta a própria tabela, então a resposta muda depois que o primeiro calendário é criado.
+- **REF-22** — metade das 2013 offenses do ERB Lint vem do linter `space_indentation`, que contraria uma convenção que o projeto já adotou ao desligar `Layout/IndentationStyle` no RuboCop. A task alinha a configuração em vez de reindentar as views, e corrige separadamente as 21 ocorrências de `Rails/LinkToBlank`, as únicas com efeito além de estilo.
 
 ## Marcos e estimativa restante
 
