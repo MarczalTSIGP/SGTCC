@@ -51,7 +51,11 @@ O roadmap possui **15 tasks**, distribuídas em **7 fases**. A tabela abaixo apr
 |  |  | REF-13C — Consolidar mapeamento de badge de status | Unificar o mapeamento status → classe CSS duplicado entre dois components. |
 |  |  | REF-13D — Restabelecer ferramentas de medição | Reativar SimpleCov e corrigir a configuração do ERB Lint, pré-requisito da REF-14. |
 |  |  | REF-14 — Coletar métricas to-be e avaliar resultados | Repetir as medições do baseline e produzir a comparação quantitativa e qualitativa antes/depois. |
-| **Total** | **19** |  |  |
+| Fase 7 — Segunda rodada de coesão | 4 | REF-15 — Deduplicar os scopes de período de `Orientation` | Reverter a duplicação que a REF-14 mediu como a única piora estrutural do roadmap. |
+|  |  | REF-16 — Remover código morto de `Orientation` | Eliminar quatro métodos de classe sem consumidor e um comentário que não descreve o código. |
+|  |  | REF-17 — Extrair os acessores de atividades acadêmicas | Unificar as três variantes idênticas de busca de documento de atividade. |
+|  |  | REF-18 — Recoletar métricas após a segunda rodada | Medir de novo o lado to-be e dizer, com número, se a piora do `Orientation` foi revertida. |
+| **Total** | **23** |  |  |
 
 ## Ordem de execução
 
@@ -395,6 +399,23 @@ Critérios de aceite:
 - Existe uma tabela as-is/to-be com variação absoluta e percentual.
 - A análise explica melhorias, resultados neutros e eventuais pioras.
 - As conclusões se relacionam diretamente aos objetivos específicos do TCC.
+
+### Fase 7 — Segunda rodada de coesão
+
+Objetivo: atacar o único alvo do roadmap que a medição da REF-14 mostrou ter piorado, e fechar o ciclo com nova medição.
+
+**Prioridade:** média
+**Estimativa:** 8 h no total
+**Dependências:** REF-14
+
+A REF-14 mediu que `Orientation` ficou 25,4% mais complexo no corpo da classe (99,9 → 125,3 pontos de Flog), apesar de ter sido alvo explícito da REF-06, e que o modelo não encolheu (295 → 293 linhas). A causa está identificada: a REF-06 removeu cinco concerns mas inlinou o conteúdo deles nos scopes, trocando indireção por duplicação local.
+
+- **REF-15** — os quatro scopes de período diferem apenas no valor de `tcc`; a montagem da consulta e o tratamento de status estão repetidos quatro vezes.
+- **REF-16** — `last_tcc_one_calendars`, `count_orientations_in_last_tcc_one_calendar`, `reproved` e `reproved_tcc_one` não têm nenhum consumidor; o comentário `🚨 CORREÇÃO TEMPORÁRIA` anuncia uma troca de callback que não está aplicada.
+- **REF-17** — `monograph`/`project`/`proposal` e suas variantes `final_*` são três cópias da mesma busca, diferindo só no identificador.
+- **REF-18** — recoleta apenas o lado to-be e responde, com número, se a piora foi revertida.
+
+Achado registrado e **deixado fora** deste bloco: `Orientation.approved` e `Orientation.approved_tcc_one` carregam todos os registros e filtram em Ruby (`reject { |o| o.final_monograph.nil? }`), com uma consulta por registro. Corrigir isso muda consulta usada pelo site público e pela API, e merece task própria com medição de desempenho.
 
 ## Marcos e estimativa restante
 

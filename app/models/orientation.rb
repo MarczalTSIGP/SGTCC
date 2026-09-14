@@ -45,39 +45,45 @@ class Orientation < ApplicationRecord
   validate :validate_supervisor_ids
   validates :calendars, presence: true
 
-  # 🚨 CORREÇÃO TEMPORÁRIA PARA MIGRAÇÃO: Troca after_create_commit por after_create
   after_create_commit { Orientations::TcoTcaiService.create(self) }
   after_update :recreate_tco_and_tcai, unless: -> { skip_documents_callbacks }
 
   scope :tcc_one, lambda { |status, year = nil, semester = nil|
-    condition = { tcc: :one }
-    condition['year'] = year if year.present?
-    condition['semester'] = semester if semester.present?
-    query = joins(:calendars).where(calendars: condition)
-    status.blank? ? query : query.where(status:)
+    by_tcc_period(:one, status, year, semester)
   }
 
   scope :tcc_two, lambda { |status, year = nil, semester = nil|
-    condition = { tcc: :two }
+    by_tcc_period(:two, status, year, semester)
+  }
+
+  scope :current_tcc_one, ->(status = nil) { by_current_tcc_period(:one, status) }
+
+  scope :current_tcc_two, ->(status = nil) { by_current_tcc_period(:two, status) }
+
+  # Apoio interno dos quatro scopes de período acima. Precisam ser métodos de classe
+  # públicos porque, dentro de um `scope`, `self` é a relation, que só delega métodos
+  # públicos — mantê-los privados quebraria o encadeamento (`professor.orientations.tcc_one`).
+  def self.by_tcc_period(tcc, status, year, semester)
+    condition = { tcc: }
     condition['year'] = year if year.present?
     condition['semester'] = semester if semester.present?
-    query = joins(:calendars).where(calendars: condition)
-    status.blank? ? query : query.where(status:)
-  }
 
-  scope :current_tcc_one, lambda { |status = nil|
-    query = joins(:calendars).where(calendars: { tcc: :one,
-                                                 year: Calendar.current_year,
-                                                 semester: Calendar.current_semester })
-    status.blank? ? query : query.where(status:)
-  }
+    by_calendars(condition, status)
+  end
 
-  scope :current_tcc_two, lambda { |status = nil|
-    query = joins(:calendars).where(calendars: { tcc: :two,
-                                                 year: Calendar.current_year,
-                                                 semester: Calendar.current_semester })
+  # Diferente de `by_tcc_period`, ano e semestre entram sempre na condição, mesmo quando
+  # `Calendar` não tem período corrente — comportamento preservado dos scopes originais.
+  def self.by_current_tcc_period(tcc, status)
+    by_calendars(
+      { tcc:, year: Calendar.current_year, semester: Calendar.current_semester },
+      status
+    )
+  end
+
+  def self.by_calendars(calendars_condition, status)
+    query = joins(:calendars).where(calendars: calendars_condition)
     status.blank? ? query : query.where(status:)
-  }
+  end
 
   scope :with_relationships, lambda {
     preload(:documents)
@@ -144,17 +150,6 @@ class Orientation < ApplicationRecord
 
   delegate :tcc_one?, :tcc_two?, to: :current_calendar
 
-  def self.last_tcc_one_calendars
-    Calendar.where(tcc: :one)
-            .select('DISTINCT ON (orientation_id) *')
-            .order(:orientation_id, year: :asc, semester: :asc, tcc: :asc)
-  end
-
-  def self.count_orientations_in_last_tcc_one_calendar
-    last_calendars = last_tcc_one_calendars
-    Orientation.joins(:calendars).where(calendars: { id: last_calendars.pluck(:id) }).distinct.count
-  end
-
   def professor_supervisors_to_document
     users_to_document(professor_supervisors)
   end
@@ -169,11 +164,11 @@ class Orientation < ApplicationRecord
 
   # Acadmic activities documents
   #-------------------------------
+  # Os três identificadores são alcançados dinamicamente por
+  # `ExaminationBoard#academic_activity` (`orientation.send(identifier)`), então os nomes
+  # públicos precisam continuar existindo como métodos.
   def monograph(options = { final_version: false })
-    conditions = { identifier: :monograph,
-                   final_version: options[:final_version] }
-
-    find_academic_activity(conditions)
+    academic_activity_by(:monograph, options)
   end
 
   def final_monograph
@@ -181,10 +176,7 @@ class Orientation < ApplicationRecord
   end
 
   def project(options = { final_version: false })
-    conditions = { identifier: :project,
-                   final_version: options[:final_version] }
-
-    find_academic_activity(conditions)
+    academic_activity_by(:project, options)
   end
 
   def final_project
@@ -192,10 +184,7 @@ class Orientation < ApplicationRecord
   end
 
   def proposal(options = { final_version: false })
-    conditions = { identifier: :proposal,
-                   final_version: options[:final_version] }
-
-    find_academic_activity(conditions)
+    academic_activity_by(:proposal, options)
   end
 
   def final_proposal
@@ -248,14 +237,6 @@ class Orientation < ApplicationRecord
     by_status('APPROVED_TCC_ONE').reject { |o| o.final_project.nil? }
   end
 
-  def self.reproved
-    by_status('REPROVED').reject { |o| o.final_monograph.nil? }
-  end
-
-  def self.reproved_tcc_one
-    by_status('REPROVED_TCC_ONE').reject { |o| o.final_project.nil? }
-  end
-
   def self.in_tcc_one
     by_status('IN_PROGRESS')
   end
@@ -266,16 +247,10 @@ class Orientation < ApplicationRecord
     Orientations::TcoTcaiService.recreate(self)
   end
 
-  def find_academic_activity(conditions = {})
-    academic_activities.joins(:activity)
-                       .includes(activity: :calendar)
-                       .where(activities: {
-                                identifier: conditions[:identifier],
-                                final_version: conditions[:final_version],
-                                calendar_id: [calendars.pluck(:id)]
-                              })
-                       .order('calendars.year DESC, calendars.semester DESC')
-                       .try(:first)
+  def academic_activity_by(identifier, options)
+    Orientations::AcademicActivityFinder.call(
+      self, identifier, final_version: options[:final_version]
+    )
   end
 
   def self.by_status(status)
