@@ -25,19 +25,24 @@ Isso valida tanto o documento de baseline quanto o ambiente desta coleta. RuboCo
 
 ## 1. Tabela as-is/to-be
 
-| Métrica | as-is | to-be | Δ absoluta | Δ % | Leitura |
-|---|---:|---:|---:|---:|---|
-| RuboCop — offenses | 0 | 0 | 0 | — | neutro |
-| RuboCop — arquivos inspecionados | 782 | 813 | +31 | +4,0% | mais arquivos, menores |
-| Reek — warnings | 690 | 716 | +26 | +3,8% | **piora aparente** |
-| Brakeman — alertas de segurança | 0 | 0 | 0 | — | neutro |
-| Brakeman — templates | 401 | 399 | −2 | −0,5% | views duplicadas removidas |
-| Flog — total | 8226,8 | 8263,3 | +36,5 | +0,4% | praticamente estável |
-| Flog — média por método | 5,8 | 5,6 | −0,2 | −3,4% | **melhora** |
-| Flay — score de duplicação | 9098 | 8627 | −471 | −5,2% | **melhora** |
-| Flay — blocos similares | 119 | 119 | 0 | 0% | neutro |
-| RubyCritic — nota global | 85,91 | 86,24 | +0,33 | +0,4% | melhora marginal |
-| SimpleCov — cobertura | não coletável | 96,18% | — | — | sem par de comparação |
+| Métrica | as-is | to-be (REF-14) | to-be (REF-18) | Δ total | Δ % total |
+|---|---:|---:|---:|---:|---:|
+| RuboCop — offenses | 0 | 0 | 0 | 0 | — |
+| RuboCop — arquivos inspecionados | 782 | 813 | 816 | +34 | +4,3% |
+| Reek — warnings | 690 | 716 | 714 | +24 | +3,5% |
+| Brakeman — alertas de segurança | 0 | 0 | 0 | 0 | — |
+| Brakeman — templates | 401 | 395 * | 395 | −6 | −1,5% |
+| Flog — total | 8226,8 | 8263,3 | **8225,3** | −1,5 | −0,02% |
+| Flog — média por método | 5,8 | 5,6 | 5,6 | −0,2 | −3,4% |
+| Flay — score de duplicação | 9098 | 8627 | **8431** | −667 | −7,3% |
+| Flay — blocos similares | 119 | 119 | **116** | −3 | −2,5% |
+| RubyCritic — nota global | 85,91 | 86,24 | **86,46** | +0,55 | +0,6% |
+| SimpleCov — cobertura | não coletável | 96,18% | 96,28% | — | — |
+| ERB Lint — offenses | não executável | 2013 | 2013 | — | — |
+
+\* **Correção de um número da primeira medição.** A coluna to-be da REF-14 publicou 399 templates. Esse valor tinha sido coletado durante a REF-13, **antes** de a REF-13A remover quatro views órfãs, e foi reaproveitado por engano na tabela da REF-14. O valor correto para o commit que a REF-14 mediu (`f3140bbb`) é **395**, o mesmo de agora — confirmado por contagem de arquivos `.erb`, idêntica entre `HEAD` e o estado atual. A conclusão qualitativa não muda; o número, sim.
+
+A coluna "to-be (REF-18)" mede `f3140bbb` acrescido das REF-15, REF-16 e REF-17.
 
 ---
 
@@ -54,7 +59,7 @@ Flog por método, as-is → to-be:
 | `Dashboard::ResponsibleReport#orientations_by_tcc_one` | 22,4 | 17,2 | −23,2% |
 | `Dashboard::ProfessorReport#orientations_by_tcc_one` | 24,2 | 19,0 | −21,5% |
 | `ExaminationBoard` (corpo da classe) | 115,0 | 97,7 | −15,0% |
-| `Orientation` (corpo da classe) | 99,9 | 125,3 | **+25,4%** |
+| `Orientation` (corpo da classe) | 99,9 | 125,3 → **89,3** na REF-18 | **+25,4% → −10,6%** |
 
 Os quatro métodos de listagem do controller mais crítico do inventário caíram entre 43% e 48%. `ExaminationBoard` saiu do topo da lista de complexidade, onde estava no baseline.
 
@@ -138,7 +143,7 @@ O roadmap pedia registrar o tempo da alteração. As duas execuções foram feit
 
 ### Melhorias
 
-- **Duplicação**: Flay −5,2%, concentrada na consolidação de views da REF-12.
+- **Duplicação**: Flay −5,2% na REF-14 e **−7,3% na REF-18**, quando o número de blocos similares finalmente caiu (119 → 116) — a deduplicação dos scopes e dos acessores de atividade acadêmica eliminou focos inteiros, não só massa.
 - **Complexidade por método**: Flog médio −3,4%, e −43% a −48% nos quatro métodos de listagem do controller mais crítico do inventário.
 - **Models centrais**: `Calendar` −45,6% e `ExaminationBoard` −23,3% em linhas; `ExaminationBoard` também caiu 15% em complexidade e deixou de ser o arquivo mais complexo do projeto.
 - **Lógica de consulta fora do HTTP**: nenhuma listagem de orientação monta consulta no controller, contra seis no baseline.
@@ -147,7 +152,8 @@ O roadmap pedia registrar o tempo da alteração. As duas execuções foram feit
 ### Neutros
 
 - RuboCop (0 → 0) e Brakeman (0 → 0): o projeto já estava em conformidade e continua.
-- Flay em número de blocos (119 → 119): a massa duplicada caiu, mas a quantidade de blocos similares não — a refatoração reduziu o tamanho da duplicação, não o número de focos.
+- ~~Flay em número de blocos (119 → 119)~~ — deixou de ser neutro na REF-18: **116 blocos**, três focos a menos.
+- Flog total (8226,8 → 8263,3 → **8225,3**): depois da segunda rodada, a complexidade total voltou a ficar marginalmente **abaixo** do baseline. Continua sendo um resultado neutro: o que mudou de verdade é a distribuição, não o volume.
 - Flog total (+0,4%): a complexidade não foi eliminada, foi redistribuída em mais métodos menores. É isso que o total estável somado à média em queda significa.
 - Contagem de controllers (78 → 78): nenhuma camada HTTP nova foi criada.
 
@@ -178,9 +184,32 @@ O roadmap pedia registrar o tempo da alteração. As duas execuções foram feit
 
   Ainda assim, **o número piorou** e a métrica não distingue as duas coisas sozinha. Registrado como está.
 
-- **`Orientation` ficou 25,4% mais complexo no corpo da classe** (99,9 → 125,3), apesar de ser um dos alvos da REF-06. A causa é rastreável: o baseline incluía cinco concerns (`OrientationFilter`, `OrientationJoin`, `OrientationOption`, `OrientationTcoTcai`, `OrientationReport`) e os scopes apenas delegavam a métodos deles (`join_with_status_by_tcc('one', ...)`). A refatoração removeu os concerns e **inlinou as condições** nos scopes, que passaram a montar `joins`/`where` explicitamente. O total do arquivo mal mudou (254,5 → 259,4) e cinco concerns sumiram, mas a consulta ficou concentrada no corpo da classe, com `tcc_one`/`tcc_two` e `current_tcc_one`/`current_tcc_two` quase idênticos entre si. **É uma troca, não um ganho**: menos indireção, mais duplicação local. `Orientation` continua sendo o candidato mais forte a uma próxima rodada.
+  **Atualização da REF-18:** após a segunda rodada o total caiu de 716 para **714**, ainda +24 sobre o baseline. A variação de −2 se decompõe integralmente:
 
-- **`app/models/orientation.rb` praticamente não encolheu** (295 → 293 linhas), embora fosse alvo explícito da REF-06.
+  | Smell | REF-14 | REF-18 | Δ | Origem |
+  |---|---:|---:|---:|---|
+  | NilCheck | 16 | 14 | −2 | remoção de `reproved`/`reproved_tcc_one` (REF-16) |
+  | UncommunicativeVariableName | 15 | 13 | −2 | mesmos dois métodos, que usavam a variável `o` |
+  | RepeatedConditional | 5 | 4 | −1 | deduplicação dos scopes (REF-15) |
+  | LongParameterList | 9 | 10 | **+1** | `Orientation.by_tcc_period`, com 4 parâmetros (REF-15) |
+  | BooleanParameter | 4 | 6 | **+2** | `AcademicActivityFinder`, com `final_version:` (REF-17) |
+
+  Os três warnings novos foram **introduzidos pela própria segunda rodada** e estão registrados como tal. São o preço de parametrizar a consulta em vez de duplicá-la: o `final_version:` é um booleano legítimo na API do finder, e os quatro parâmetros de `by_tcc_period` substituem quatro scopes duplicados.
+
+- ~~**`Orientation` ficou 25,4% mais complexo no corpo da classe** (99,9 → 125,3)~~ — **revertido pela REF-15** (ver atualização ao final desta seção). O diagnóstico original, mantido abaixo por ser o que orientou a correção: `Orientation` ficou 25,4% mais complexo no corpo da classe (99,9 → 125,3), apesar de ser um dos alvos da REF-06. A causa é rastreável: o baseline incluía cinco concerns (`OrientationFilter`, `OrientationJoin`, `OrientationOption`, `OrientationTcoTcai`, `OrientationReport`) e os scopes apenas delegavam a métodos deles (`join_with_status_by_tcc('one', ...)`). A refatoração removeu os concerns e **inlinou as condições** nos scopes, que passaram a montar `joins`/`where` explicitamente. O total do arquivo mal mudou (254,5 → 259,4) e cinco concerns sumiram, mas a consulta ficou concentrada no corpo da classe, com `tcc_one`/`tcc_two` e `current_tcc_one`/`current_tcc_two` quase idênticos entre si. **É uma troca, não um ganho**: menos indireção, mais duplicação local. `Orientation` continua sendo o candidato mais forte a uma próxima rodada.
+
+- ~~**`app/models/orientation.rb` praticamente não encolheu** (295 → 293 linhas)~~ — **corrigido pela segunda rodada**: 268 linhas, −8,5% sobre a REF-14 e −9,2% sobre o baseline.
+
+### Atualização da REF-18 — o que a segunda rodada fez com as duas pioras
+
+| Indicador | baseline | REF-14 | REF-18 | Situação |
+|---|---:|---:|---:|---|
+| `Orientation#none` (corpo da classe) | 99,9 | 125,3 | **89,3** | **revertido e abaixo do baseline** (−10,6%) |
+| Flog total de `orientation.rb` | — | 259,4 | **197,6** | −23,8% |
+| Linhas de `orientation.rb` | 295 | 293 | **268** | −8,5% |
+| Reek total | 690 | 716 | **714** | atenuado, ainda +24 |
+
+`Orientation` deixou de ser o arquivo mais complexo do projeto por corpo de classe — hoje está atrás de `ExaminationBoard` (97,7). A piora medida pela REF-14 **foi revertida**; a do Reek **foi apenas atenuada**, e com três warnings novos introduzidos pela própria correção.
 
 ---
 
@@ -208,8 +237,15 @@ O roadmap pedia registrar o tempo da alteração. As duas execuções foram feit
 
 ## 8. Conclusão
 
-O roadmap atingiu o que se propôs no eixo principal: a regra de consulta saiu da camada HTTP, os models mais críticos ficaram menores e a duplicação de apresentação caiu, tudo sem regressão funcional conhecida — 1137 exemplos verdes e 96,18% de cobertura.
+*Revisada pela REF-18, após a segunda rodada de coesão.*
 
-Os números que pioraram têm causa identificada e não são acidentais: o Reek sobe porque extrair objetos cria classes, e o `Orientation` ficou mais complexo no corpo da classe porque a remoção dos concerns inlinou consultas em vez de encapsulá-las. O segundo é uma dívida real e aponta o próximo alvo com clareza.
+O roadmap atingiu o que se propôs no eixo principal: a regra de consulta saiu da camada HTTP, os models mais críticos ficaram menores e a duplicação de apresentação caiu, tudo sem regressão funcional conhecida — hoje 1153 exemplos verdes e 96,28% de cobertura.
 
-O ganho mais defensável não está em nenhuma métrica isolada, e sim na alteração controlada: a mesma regra de negócio que antes precisava ser escrita sete vezes, seis delas dentro de controllers, hoje é escrita três vezes, nenhuma delas na camada HTTP.
+Das duas pioras que a primeira medição registrou, **uma foi revertida e a outra apenas atenuada**:
+
+- a complexidade do corpo de `Orientation` voltou de 125,3 para 89,3, **abaixo dos 99,9 do baseline**, e o arquivo encolheu de 295 para 268 linhas. A dívida que a REF-14 apontou como "o próximo alvo com clareza" foi efetivamente paga;
+- o Reek caiu de 716 para 714, ainda **+24 sobre o baseline**. A segunda rodada removeu 5 warnings e **introduziu 3 novos**, vindos das próprias abstrações criadas (um `LongParameterList` e dois `BooleanParameter`). O saldo continua negativo nessa métrica.
+
+Isso reforça a leitura metodológica do trabalho: métricas estáticas penalizam a extração de objetos por construção, e por isso não servem como juiz isolado de qualidade arquitetural. Flog total terminou praticamente idêntico ao baseline (8225,3 contra 8226,8) enquanto a média por método caiu 3,4% — o volume de complexidade não mudou, a distribuição sim.
+
+O ganho mais defensável continua não estando em nenhuma métrica isolada, e sim na alteração controlada: a mesma regra de negócio que antes precisava ser escrita sete vezes, seis delas dentro de controllers, hoje é escrita três vezes, nenhuma delas na camada HTTP.
