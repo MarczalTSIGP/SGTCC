@@ -59,7 +59,9 @@ O roadmap possui **15 tasks**, distribuídas em **7 fases**. A tabela abaixo apr
 |  |  | REF-20 — Consolidar a duplicação real entre TEP e TSO | Unificar listagem e esqueleto de CRUD, preservando as diferenças de domínio do pedido de troca. |
 |  |  | REF-21 — Eliminar a dependência de ordem nos specs | Fazer os specs afetados passarem isolados e na suíte, sem mascarar com ordem fixa. |
 |  |  | REF-22 — Resolver as offenses do ERB Lint | Alinhar a configuração à convenção do projeto e corrigir o que tem efeito real. |
-| **Total** | **27** |  |  |
+| Fase 9 — Subsistemas não cobertos | 2 | REF-23 — Organizar o subsistema de notificações | Área sensível que atravessou todo o roadmap sem nunca ter sido alvo de nenhuma fase. |
+|  |  | REF-24 — Reduzir `ExaminationBoard` com a receita da REF-15 | Deduplicar os scopes de período do novo corpo de classe mais complexo do projeto. |
+| **Total** | **29** |  |  |
 
 ## Ordem de execução
 
@@ -433,6 +435,19 @@ Objetivo: fechar os achados que as fases anteriores identificaram e deixaram exp
 - **REF-20** — TEP e TSO compartilham listagem, linha, `new`, `edit` e esqueleto de CRUD, mas **não** são o mesmo recurso: o formulário e o `show` do TSO carregam orientador, coorientadores e a lógica de troca de orientação, com quatro métodos exclusivos no controller. A task corrige o inventário da REF-11 nesse ponto e consolida só o que é duplicação de fato.
 - **REF-21** — há specs que passam na suíte completa e falham isolados. A causa provável está mapeada: `Calendar.current_semester` consulta a própria tabela, então a resposta muda depois que o primeiro calendário é criado.
 - **REF-22** — metade das 2013 offenses do ERB Lint vem do linter `space_indentation`, que contraria uma convenção que o projeto já adotou ao desligar `Layout/IndentationStyle` no RuboCop. A task alinha a configuração em vez de reindentar as views, e corrige separadamente as 21 ocorrências de `Rails/LinkToBlank`, as únicas com efeito além de estilo.
+
+### Fase 9 — Subsistemas não cobertos
+
+Objetivo: alcançar o que as sete primeiras fases não olharam e o alvo que a própria segunda rodada promoveu ao topo.
+
+**Prioridade:** média
+**Estimativa:** 10 h no total
+**Dependências:** REF-15 e REF-18 para a REF-24; a REF-23 é independente
+
+- **REF-23** — notificações nunca entraram em nenhuma fase do roadmap, apesar de serem área explicitamente sensível (processo assíncrono, disparo de e-mail). Concentram 44 smells em quatro arquivos, o maior bolo fora do código de seed. Dois problemas concretos: `SchedulerService#load_and_check_template?` é um predicado que atribui `@template`, lido depois por `schedule!`; e `calculate_base_time` engole qualquer `StandardError` e cai para `Time.current` **sem registro**, o que produz notificação no horário errado sem rastro. O subsistema tem specs em quase tudo — a lacuna é `services/notifications/hooks/`, sem spec dedicado e com `hooks/activity.rb` em 62,86%.
+- **REF-24** — com a REF-15, `Orientation#none` caiu para 89,3 e `ExaminationBoard` assumiu o topo com **97,7**. A causa é a mesma: `tcc_one_current_semester` e `tcc_two_current_semester` são 14 linhas cada, idênticas exceto por `:one`/`:two`. A receita da REF-15 se aplica quase literalmente, inclusive a armadilha dos métodos de apoio precisarem ser públicos dentro de um `scope`.
+
+Registrado e **fora** deste bloco: `Responsible::ExaminationBoardsController`, com 16 warnings, é o pior controller do projeto mesmo depois da REF-05.
 
 ## Marcos e estimativa restante
 

@@ -9,8 +9,9 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
     @orientations = Orientations::TccListQuery.call(
       relation: @calendar.orientations,
       tcc: :one,
-      page: params[:status],
-      term: params[:term]
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
     )
 
     render :index
