@@ -230,11 +230,11 @@ class Orientation < ApplicationRecord
   end
 
   def self.approved
-    by_status('APPROVED').reject { |o| o.final_monograph.nil? }
+    with_final_activity('APPROVED', :monograph)
   end
 
   def self.approved_tcc_one
-    by_status('APPROVED_TCC_ONE').reject { |o| o.final_project.nil? }
+    with_final_activity('APPROVED_TCC_ONE', :project)
   end
 
   def self.in_tcc_one
@@ -252,6 +252,15 @@ class Orientation < ApplicationRecord
       self, identifier, final_version: options[:final_version]
     )
   end
+
+  # Devolve Array, como antes: os consumidores (site público, API e ranking de
+  # professores) dependem desse tipo. O que mudou é que o filtro acontece no banco.
+  def self.with_final_activity(status, identifier)
+    by_status(status)
+      .where(id: Orientations::AcademicActivityFinder.orientation_ids(identifier))
+      .to_a
+  end
+  private_class_method :with_final_activity
 
   def self.by_status(status)
     where(status:).includes(:academic,
