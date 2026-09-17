@@ -12,7 +12,7 @@
                         label_method: :academic_with_calendar,
                         collection: @orientations.includes(:academic, :orientation_calendars, :calendars).order_by_academic,
                         prompt: t('prompt.select.f', name: Academic.model_name.human),
-                        disabled: @disabled_field  %>
+                        disabled: @disabled_field %>
 
       <div class="row">
          <div class="col-sm-6">

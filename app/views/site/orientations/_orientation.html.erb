@@ -4,15 +4,13 @@
       href="#summary_<%= orientation.id %>"
       data-bs-toggle="collapse"
       aria-expanded="false"
-      class="d-block"
-    >
+      class="d-block">
       <%= orientation.document_title %>
     </a>
 
     <div
       class="collapse mt-2"
-      id="summary_<%= orientation.id %>"
-    >
+      id="summary_<%= orientation.id %>">
       <% if orientation.summary.present? %>
         <div class="card card-body site-table mb-2">
           <p class="text-justify">

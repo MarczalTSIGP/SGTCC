@@ -119,7 +119,7 @@
   <div class="card-body">
     <% calendar_data = data[:calendar_report] %>
 
-    <% series = calendar_data.map do |item| 
+    <% series = calendar_data.map do |item|
       { name: item[:label], data: item[:data][:total] }
     end %>
 
@@ -138,4 +138,3 @@
     ) %>
   </div>
 </div>
-

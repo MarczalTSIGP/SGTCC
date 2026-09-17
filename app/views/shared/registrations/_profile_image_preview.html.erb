@@ -1,18 +1,15 @@
 <div data-controller="forms--image-preview"
-     data-forms--image-preview-url-value="<%= profile_image_url %>"
->
+     data-forms--image-preview-url-value="<%= profile_image_url %>">
   <div id="box-image-preview"
        data-controller="ui--tooltip"
        data-bs-placement="left"
-       title="<%= t('messages.registration.edit_image') %>"
-  >
+       title="<%= t('messages.registration.edit_image') %>">
     <div class="input-field image_preview">
       <div class="box-image center">
         <img
           src="<%= profile_image_url %>"
           class="file_preview active"
-          data-forms--image-preview-target="image"
-        >
+          data-forms--image-preview-target="image">
         <div class="form-group file optional <%= resource_name %>_profile_image">
           <%= file_field_tag "#{resource_name}[profile_image]",
                              accept: 'image/*',

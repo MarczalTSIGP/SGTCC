@@ -7,7 +7,7 @@
                url: professors_examination_boards_search_path,
                search_term: params[:term] %>
   </div>
-  
+
 </div>
 
 <%= render ExaminationBoards::TableComponent.new(examination_boards: @examination_boards, namespace: :professors) %>

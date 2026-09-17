@@ -14,7 +14,7 @@
 
     <tbody>
       <%= render('shared/no_results') if @meetings.empty? %>
-      <%= render partial: "#{namespace}/meetings/meeting", collection: @meetings%>
+      <%= render partial: "#{namespace}/meetings/meeting", collection: @meetings %>
     </tbody>
   </table>
 </div>

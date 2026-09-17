@@ -38,10 +38,10 @@
                 <%= orientation.academic.name %>
               <% else %>
                 <%= render partial: 'shared/orientations/menu/dropdown',
-                           locals: { 
+                           locals: {
                              dropdown_links: dropdown_links(orientation),
                              show_path: show_path(orientation),
-                             orientation: orientation 
+                             orientation: orientation
                            } %>
               <% end %>
             </td>
@@ -83,4 +83,3 @@
 
   <%= helpers.paginate @orientations %>
 </div>
-
