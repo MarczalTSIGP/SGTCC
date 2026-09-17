@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to(attached_document.file.url, target: :_blank) do %>
+    <%= link_to(attached_document.file.url, target: :_blank, rel: 'noopener') do %>
       <%= attached_document.name %>
     <% end %>
   </td>

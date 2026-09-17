@@ -42,7 +42,7 @@
 
     <% documents.each do |type, doc| %>
       <% if doc.url.present? %>
-        <%= link_to doc.url, target: "_blank", class: "btn btn-outline-primary btn-sm mt-2 mr-2" do %>
+        <%= link_to doc.url, target: "_blank", rel: 'noopener', class: "btn btn-outline-primary btn-sm mt-2 mr-2" do %>
           <%= type %>
         <% end %>
       <% end %>

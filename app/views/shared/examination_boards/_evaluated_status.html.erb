@@ -21,7 +21,7 @@
               <td><%= t("helpers.boolean.#{response.sent_note?}") %></td>
               <td>
                 <% if response.appointments_file? %>
-                  <%= link_to response.appointments_file.url, target: :_blank do %>
+                  <%= link_to response.appointments_file.url, target: :_blank, rel: 'noopener' do %>
                     <span class="mr-1">
                       <i class="fas fa-file-pdf"></i> Arquivo
                     </span>

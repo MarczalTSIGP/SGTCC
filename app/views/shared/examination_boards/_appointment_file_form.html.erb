@@ -10,7 +10,7 @@
 
       <% if examination_board_note.appointment_file.present? %>
         <div class="mt-4">
-          <%= link_to(examination_board_note.appointment_file.url, target: :_blank) do %>
+          <%= link_to(examination_board_note.appointment_file.url, target: :_blank, rel: 'noopener') do %>
             <%= ExaminationBoardNote.human_attribute_name('appointment_file') %>
           <% end %>
         </div>

@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-lg-4">
   <div class="card p-3">
-    <%= link_to(image.url.url, target: :_blank) do %>
+    <%= link_to(image.url.url, target: :_blank, rel: 'noopener') do %>
       <img src="<%= image.url %>" alt="<%= image.name %>" class="site-images rounded">
     <% end %>
     <p class="text-center my-2"><%= image.name %></p>

@@ -9,7 +9,7 @@
   </td>
   <td><%= professor.email %></td>
   <td class="text-center">
-    <%= link_to professor.lattes, target: '_blank' do %>
+    <%= link_to professor.lattes, target: '_blank', rel: 'noopener' do %>
       <i class="fas fa-external-link-alt" data-controller="ui--tooltip" title="lattes"></i>
     <% end %>
   </td>
