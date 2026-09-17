@@ -32,36 +32,35 @@ class ExaminationBoard < ApplicationRecord
   scope :tcc_one, -> { where(tcc: :one) }
   scope :tcc_two, -> { where(tcc: :two) }
 
-  scope :tcc_one_current_semester, lambda {
-    tcc_value = :one
-    current = Calendar.current_by_tcc_one ||
-              Calendar.where(tcc: tcc_value)
-                      .order(year: :desc, end_date: :desc)
-                      .first
+  scope :tcc_one_current_semester, -> { by_tcc_current_semester(:one) }
+
+  scope :tcc_two_current_semester, -> { by_tcc_current_semester(:two) }
+
+  # Apoio interno dos dois scopes acima. Precisa ser método de classe público:
+  # dentro de um `scope`, `self` é a relation, que só delega métodos públicos.
+  # Torná-lo privado levantaria NoMethodError, e chamá-lo com receptor explícito
+  # (`ExaminationBoard.by_tcc_current_semester`) descartaria a relation corrente
+  # em silêncio, quebrando o encadeamento.
+  def self.by_tcc_current_semester(tcc)
+    current = current_calendar_by_tcc(tcc)
 
     return none if current.blank?
 
     joins(orientation: :calendars)
       .where(calendars: { id: current.id })
-      .where(tcc: tcc_value)
+      .where(tcc:)
       .distinct
-  }
+  end
 
-  scope :tcc_two_current_semester, lambda {
-    tcc_value = :two
-
-    current = Calendar.current_by_tcc_two ||
-              Calendar.where(tcc: tcc_value)
-                      .order(year: :desc, end_date: :desc)
-                      .first
-
-    return none if current.blank?
-
-    joins(orientation: :calendars)
-      .where(calendars: { id: current.id })
-      .where(tcc: tcc_value)
-      .distinct
-  }
+  # O `||` é o fallback original para o calendário mais recente. Ele está
+  # preservado, mas nunca produz resultado diferente: `Calendar.current_by_tcc_*`
+  # já cai internamente em `where(tcc:).order(end_date: :desc).first`, então só
+  # devolve nil quando não existe nenhum calendário daquele TCC — caso em que
+  # este segundo `where` também devolve nil. Registrado no relatório da REF-24.
+  def self.current_calendar_by_tcc(tcc)
+    Calendar.public_send("current_by_tcc_#{tcc}") ||
+      Calendar.where(tcc:).order(year: :desc, end_date: :desc).first
+  end
 
   scope :current_semester, lambda {
     current_calendar = Calendar
