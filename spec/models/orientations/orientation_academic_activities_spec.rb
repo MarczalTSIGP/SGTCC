@@ -4,21 +4,28 @@ RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
   describe 'academic activities documents' do
+    # `Calendar.current_semester` consulta a própria tabela: ele cai no `default_semester`
+    # com a base vazia e passa a derivar do último calendário assim que um é criado. Por
+    # isso o período é capturado uma única vez por exemplo, antes de qualquer criação —
+    # recalcular a cada uso faria os dois calendários resolverem para o mesmo registro.
+    def period
+      @period ||= { year: Calendar.current_year, semester: Calendar.current_semester }
+    end
     # Simulates a orientation with two tcc two calendars
     # and sends files in both.
     # Must consider the last one the correct.
     describe '.proposal' do
       let(:previous_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester - 1,
+          year: period[:year],
+          semester: period[:semester] - 1,
           tcc: Calendar.tccs[:one]
         )
       end
       let(:current_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
+          year: period[:year],
+          semester: period[:semester],
           tcc: Calendar.tccs[:one]
         )
       end
@@ -52,15 +59,15 @@ RSpec.describe Orientation do
     describe '.project' do
       let(:previous_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester - 1,
+          year: period[:year],
+          semester: period[:semester] - 1,
           tcc: Calendar.tccs[:one]
         )
       end
       let(:current_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
+          year: period[:year],
+          semester: period[:semester],
           tcc: Calendar.tccs[:one]
         )
       end
@@ -90,15 +97,15 @@ RSpec.describe Orientation do
     describe '.monograph' do
       let(:previous_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester - 1,
+          year: period[:year],
+          semester: period[:semester] - 1,
           tcc: Calendar.tccs[:two]
         )
       end
       let(:current_calendar) do
         find_or_create_calendar(
-          year: Calendar.current_year,
-          semester: Calendar.current_semester,
+          year: period[:year],
+          semester: period[:semester],
           tcc: Calendar.tccs[:two]
         )
       end
