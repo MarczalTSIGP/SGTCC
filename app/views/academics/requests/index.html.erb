@@ -1,11 +1,11 @@
-<% provide(:head_title, t("breadcrumbs.documents.requests.tep.sidebar")) %>
-<% provide(:page_title, t("breadcrumbs.documents.requests.tep.sidebar")) %>
+<% provide(:head_title, request_title(:sidebar)) %>
+<% provide(:page_title, request_title(:sidebar)) %>
 
 <div class="float-right">
-  <%= link_to(new_academics_tep_request_path,
+  <%= link_to(new_request_path,
               class: 'btn btn-outline-primary d-block') do %>
     <i class="fe fe-plus"></i>
-      <%= t('breadcrumbs.documents.requests.tep.new') %>
+      <%= request_title(:new) %>
   <% end %>
 </div>
 
@@ -26,8 +26,8 @@
       <tr>
         <%= render('shared/no_results') if @requests.empty? %>
       </tr>
-      <% @requests.each do |request| %>
-        <%= render 'academics/tep_requests/request', document: request %>
+      <% @requests.each do |document| %>
+        <%= render 'request', document: document %>
       <% end %>
     </tbody>
   </table>
