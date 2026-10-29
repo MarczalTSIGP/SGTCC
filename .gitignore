@@ -69,3 +69,20 @@ reload.sh
 
 # RubyCritic HTML report
 /tmp/rubycritic
+
+# Local AI planning and generated reports
+/ai/output/*
+!/ai/output/.keep
+/ai/tasks/*
+!/ai/tasks/.keep
+/ai/roadmap.md
+
+# Local thesis source and generated output
+/monografia/
+/output/*
+!/output/.keep
+
+# Local agent and cloud configuration
+/.aws/
+/.agents/
+/.cloud/

@@ -23,7 +23,7 @@ RSpec.describe Orientations::MigrationService do
         calendar = find_or_create_calendar(
           year: Calendar.current_year,
           semester: Calendar.current_semester,
-          tcc: Calendar.tccs[:two]
+          tcc: Calendar.tccs[:one]
         )
         orientation = create(:orientation, calendars: [calendar], status: 'APPROVED_TCC_ONE')
 
@@ -66,8 +66,21 @@ RSpec.describe Orientations::MigrationService do
 
       it 'does not migrate twice' do
         described_class.call(orientation)
+        create(:calendar, year: '2026', semester: 'two', tcc: :two,
+                          start_date: Date.new(2026, 7, 1), end_date: Date.new(2026, 12, 31))
         result = described_class.call(orientation.reload)
+
         expect(result.migrated).to be(false)
+        expect(result.reason).to eq(:already_migrated)
+      end
+
+      it 'returns not migrated when the orientation update fails' do
+        allow(orientation).to receive(:update).and_return(false)
+
+        result = described_class.call(orientation)
+
+        expect(result.migrated).to be(false)
+        expect(result.reason).to eq(:update_failed)
       end
     end
   end

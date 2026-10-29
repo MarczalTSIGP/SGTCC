@@ -69,7 +69,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./
-          file: ./deploy/Dockerfile
+          file: ./Dockerfile.production
           push: true
           no-cache: true
           tags: |
