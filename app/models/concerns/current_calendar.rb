@@ -63,11 +63,11 @@ module CurrentCalendar
     end
 
     def current_by_tcc(tcc_key)
-      where(tcc: tccs[tcc_key])
+      where(tcc: tcc_key)
         .where('start_date <= ? AND end_date >= ?', current_date, current_date)
         .order(year: :desc, semester: :desc)
         .first ||
-        where(tcc: tccs[tcc_key]).order(end_date: :desc).first
+        where(tcc: tcc_key).order(end_date: :desc).first
     end
   end
 end

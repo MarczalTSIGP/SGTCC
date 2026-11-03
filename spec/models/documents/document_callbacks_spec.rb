@@ -129,7 +129,7 @@ RSpec.describe Document do
     describe 'when the document is created calls after_commit :on_create' do
       before do
         create(:responsible)
-        allow(orientation).to receive(:create_tco_and_tcai).and_return(true)
+        allow(Orientations::TcoTcaiService).to receive_messages(create: true, recreate: true)
         orientation.save!
 
         allow(document).to receive_messages(generate_unique_code: true, create_signatures: true,

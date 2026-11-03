@@ -11,19 +11,16 @@
     value="<%= icon %>"
     data-forms--fontawesome-picker-target="input"
     data-action="blur->forms--fontawesome-picker#blur focus->forms--fontawesome-picker#focus input->forms--fontawesome-picker#search"
-    autocomplete="off"
-  >
+    autocomplete="off">
 
-  <div 
-    class="preview-container" 
+  <div
+    class="preview-container"
     data-forms--fontawesome-picker-target="previewContainer"
-    style="display: none;"
-  >
-    <div 
+    style="display: none;">
+    <div
       class="previewer rounded shadow-sm"
       data-forms--fontawesome-picker-target="previewer"
-      data-action="click->forms--fontawesome-picker#clearSelection mouseover->forms--fontawesome-picker#hoverIn mouseout->forms--fontawesome-picker#hoverOut"
-    >
+      data-action="click->forms--fontawesome-picker#clearSelection mouseover->forms--fontawesome-picker#hoverIn mouseout->forms--fontawesome-picker#hoverOut">
     </div>
   </div>
 
@@ -35,4 +32,3 @@
     </div>
   <% end %>
 </div>
-

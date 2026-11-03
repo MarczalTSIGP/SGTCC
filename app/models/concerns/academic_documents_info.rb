@@ -13,12 +13,12 @@ module AcademicDocumentsInfo
     end
 
     def document_summary
-      document = calendar_tcc_one? ? document_tcc_one : document_tcc_two
+      document = tcc_one? ? document_tcc_one : document_tcc_two
       document&.summary
     end
 
     def document_title
-      document = calendar_tcc_one? ? document_tcc_one : document_tcc_two
+      document = tcc_one? ? document_tcc_one : document_tcc_two
       document&.title || title
     end
   end

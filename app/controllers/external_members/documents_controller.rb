@@ -35,6 +35,8 @@ class ExternalMembers::DocumentsController < ExternalMembers::BaseController
     @username = ExternalMember.human_attribute_name('email')
     @confirm_url = external_members_document_sign_path(@document)
     @back_url = external_members_document_path(@document)
+
+    render template: 'shared/documents/sign_form'
   end
 
   def sign

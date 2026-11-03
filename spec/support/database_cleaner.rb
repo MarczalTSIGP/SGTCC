@@ -24,18 +24,17 @@ RSpec.configure do |config|
     DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
   end
 
+  # Todo spec de feature deste projeto roda no Chrome remoto: `spec/support/capybara.rb`
+  # define `Capybara.default_driver = :chrome`, então o app sob teste NÃO compartilha a
+  # conexão de banco com o spec e a estratégia precisa ser truncation.
+  #
+  # A verificação `Capybara.current_driver == :rack_test`, que existia aqui e serviria para
+  # manter transaction nos specs que compartilham conexão, nunca era verdadeira — era ramo
+  # morto com aparência de proteção ativa. Se algum dia um driver :rack_test for adotado
+  # para specs de feature mais rápidos, a condição precisa voltar.
   config.before(:each, type: :feature) do
-    # :rack_test driver's Rack app under test shares database connection
-    # with the specs, so continue to use transaction strategy for speed.
-    driver_shares_db_connection_with_specs = Capybara.current_driver == :rack_test
-
-    unless driver_shares_db_connection_with_specs
-      # Driver is probably for an external browser with an app
-      # under test that does *not* share a database connection with the
-      # specs, so use truncation strategy.
-      DatabaseCleaner.strategy = :truncation
-      DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
-    end
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner[:active_record, db: :queue].strategy = :truncation
   end
 
   config.before do

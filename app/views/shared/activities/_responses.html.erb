@@ -12,11 +12,10 @@
           <td><%= academic.name %></td>
           <td>
             <% if user_can_access_activity_response %>
-              <%= link_to_if academic.sent?, 
-                          t("helpers.boolean.#{academic.sent?}"), 
+              <%= link_to_if academic.sent?,
+                          t("helpers.boolean.#{academic.sent?}"),
                           send("#{namespace}_orientation_calendar_activity_path",
-                                academic.orientation, @activity.calendar, @activity)
-            %>
+                                academic.orientation, @activity.calendar, @activity) %>
             <% else %>
               <%= t("helpers.boolean.#{academic.sent?}") %>
             <% end %>

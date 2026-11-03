@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Calendar, type: :model do
   describe '#search' do
-    let(:calendar) { create(:calendar, :current, :tcc_one) }
+    let(:calendar) do
+      find_or_create_calendar(year: described_class.current_year,
+                              semester: described_class.current_semester, tcc: :one)
+    end
 
     it 'finds calendar by year' do
       results = described_class.search(calendar.year)

@@ -114,6 +114,35 @@ RSpec.describe Notifications::SchedulerService, type: :service do
     end
   end
 
+  context 'when the base date in data cannot be parsed' do
+    let(:base_args) do
+      { notification_type: 'meu_template', recipient: recipient, event_key: 'key:parse' }
+    end
+
+    it 'falls back to the current time and logs when parsing raises' do
+      allow(Rails.logger).to receive(:warn)
+
+      result = described_class.new(**base_args, data: { 'final_date' => '2026-13-45' }).schedule!
+
+      expect(result.scheduled_at).to be_within(1.second).of(Time.current)
+      expect(Rails.logger).to have_received(:warn).with(/final_date.*ArgumentError/)
+    end
+
+    # Caracteriza um defeito PREEXISTENTE, confirmado contra o código anterior à REF-23:
+    # quando `Time.zone.parse` devolve nil em vez de levantar, o horário-base fica nil e
+    # `schedule!` estoura com NoMethodError. Registrado como achado, não corrigido aqui —
+    # decidir o que fazer com uma data inválida é mudança funcional.
+    it 'logs and then fails, because a nil base time is not handled' do
+      allow(Rails.logger).to receive(:warn)
+
+      expect do
+        described_class.new(**base_args, data: { 'final_date' => 'nao e uma data' }).schedule!
+      end.to raise_error(NoMethodError)
+
+      expect(Rails.logger).to have_received(:warn).with(/could not be parsed/)
+    end
+  end
+
   context 'when the notification template should not create or update a notification' do
     let(:base_args) do
       {

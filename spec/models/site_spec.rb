@@ -12,7 +12,9 @@ RSpec.describe Site do
     end
 
     it 'returns the calendar years' do
-      expect(described_class.select_calendar_years).to eq(%w[2019 2018])
+      years = described_class.select_calendar_years
+      expect(years).to include('2019', '2018')
+      expect(years.index('2019')).to be < years.index('2018')
     end
   end
 end

@@ -1,0 +1,33 @@
+---
+linters:
+  # O projeto aceita indentação com tabulação: o `.rubocop.yml` desliga
+  # `Layout/IndentationStyle` explicitamente e as views seguem a mesma
+  # convenção. `SpaceIndentation` é linter nativo do ERB Lint, fora do alcance
+  # do `inherit_from: .rubocop.yml` abaixo, então a decisão precisa ser repetida
+  # aqui. Eram 1018 das 2006 offenses — metade do relatório era a ferramenta
+  # cobrando uma convenção que o projeto já decidiu não seguir.
+  SpaceIndentation:
+    enabled: false
+  ErbSafety:
+    enabled: true
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Layout/TrailingWhitespace:
+        Enabled: false
+      Naming/FileName:
+        Enabled: false
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+      Layout/LineLength:
+        Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false
+      Rails/OutputSafety:
+        Enabled: false

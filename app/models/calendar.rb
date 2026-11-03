@@ -30,10 +30,10 @@ class Calendar < ApplicationRecord
     return if start_date.present? && end_date.present?
 
     y = year.to_i
-    s = semester.to_i
+    first_semester = semester_one?
 
-    self.start_date ||= Date.new(y, s == 1 ? 1 : 7, 1)
-    self.end_date   ||= Date.new(y, s == 1 ? 6 : 12, -1)
+    self.start_date ||= Date.new(y, first_semester ? 1 : 7, 1)
+    self.end_date   ||= Date.new(y, first_semester ? 6 : 12, -1)
   end
 
   def year_with_semester
@@ -52,83 +52,16 @@ class Calendar < ApplicationRecord
     Calendar.current_calendar?(self)
   end
 
-  def self.search_by_semester(calendar, semester)
-    find_by(semester:, year: calendar.year, tcc: tccs[calendar.tcc])
-  end
-
-  def self.search_by_first_semester_next_year(calendar)
-    find_by(semester: 1, year: calendar.year.to_i + 1, tcc: tccs[calendar.tcc])
-  end
-
-  def self.search_by_second_semester_previous_year(calendar)
-    find_by(semester: 2, year: calendar.year.to_i - 1, tcc: tccs[calendar.tcc])
-  end
-
   def self.previous_semester(calendar)
-    return nil if calendar.nil?
-    return search_by_semester(calendar, 1) if calendar.semester == 'two'
-
-    search_by_second_semester_previous_year(calendar)
+    Calendars::PeriodNavigation.previous_semester(calendar)
   end
 
   def self.next_semester(calendar)
-    return search_by_semester(calendar, 2) if calendar.semester == 'one'
-
-    search_by_first_semester_next_year(calendar)
+    Calendars::PeriodNavigation.next_semester(calendar)
   end
 
   def self.next_semester_tcc_two(calendar)
-    return next_semester(calendar) if calendar.tcc == 'two'
-
-    if calendar.semester == 'one'
-      return find_by(semester: 'two', year: calendar.year, tcc: tccs[:two])
-    end
-
-    find_by(semester: 'one', year: calendar.year.to_i + 1, tcc: tccs[:two])
-  end
-
-  def self.search_by_tcc(tcc, page, term)
-    where(tcc:).page(page).search(term).order({ year: :desc }, { semester: :desc })
-  end
-
-  def self.search_by_tcc_one(page, term)
-    search_by_tcc(tccs[:one], page, term)
-  end
-
-  def self.search_by_tcc_two(page, term)
-    search_by_tcc(tccs[:two], page, term)
-  end
-
-  def self.select_data(tcc)
-    where(tcc:).order({ year: :desc }, :semester).map do |calendar|
-      [calendar.id, calendar.year_with_semester]
-    end
-  end
-
-  def self.select_for_orientation
-    order({ year: :desc }, :tcc, :semester).map do |calendar|
-      [calendar.id, calendar.year_with_semester_and_tcc]
-    end
-  end
-
-  def self.by_first_year_and_tcc(tcc)
-    first_year = minimum('year')
-    first_calendar = find_by(year: first_year, semester: 'one', tcc:)
-    return first_calendar if first_calendar.present?
-
-    find_by(year: first_year, semester: 'two', tcc:)
-  end
-
-  def self.orientations_report_by_status(status, years: [], total: [])
-    calendar = by_first_year_and_tcc('two')
-    loop do
-      break if calendar.blank?
-
-      years.push(calendar.year_with_semester)
-      total.push(calendar.orientations.where(status:).size)
-      calendar = next_semester(calendar)
-    end
-    { years:, total: }
+    Calendars::PeriodNavigation.next_semester_tcc_two(calendar)
   end
 
   private

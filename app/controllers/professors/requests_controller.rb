@@ -24,7 +24,7 @@ class Professors::RequestsController < Professors::BaseController
   def edit; end
 
   def create
-    @document = Document.new_tdo(current_professor, request_params)
+    @document = Documents::TypeFactory.new_tdo(current_professor, request_params)
 
     if @document.save
       feminine_success_create_message
@@ -74,7 +74,7 @@ class Professors::RequestsController < Professors::BaseController
 
   def destroy_and_create
     @document.destroy
-    @document = Document.new_tdo(current_professor, request_params)
+    @document = Documents::TypeFactory.new_tdo(current_professor, request_params)
     @document.save
     feminine_success_update_message
     redirect_to professors_document_path(@document)

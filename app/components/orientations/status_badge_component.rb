@@ -15,26 +15,18 @@ class Orientations::StatusBadgeComponent < ViewComponent::Base
   end
 
   def text_color_class
-    return 'text-dark' if @status == 'em andamento'
+    return 'text-dark' if status_key == 'IN_PROGRESS'
 
     ''
   end
 
   private
 
-  def status_badge_class
-    status_key = Orientation.statuses[@status]
-    status_mappings.fetch(status_key, 'badge-secondary')
+  def status_key
+    Orientations::StatusBadge.key_for(@status)
   end
 
-  def status_mappings
-    {
-      'APPROVED_TCC_ONE' => 'badge-approved-tcc-1',
-      'APPROVED' => 'badge-approved',
-      'IN_PROGRESS' => 'badge-in-progress',
-      'CANCELED' => 'badge-canceled',
-      'REPROVED_TCC_ONE' => 'badge-reproved-tcc-1',
-      'REPROVED' => 'badge-reproved'
-    }
+  def status_badge_class
+    Orientations::StatusBadge.class_for(status_key)
   end
 end

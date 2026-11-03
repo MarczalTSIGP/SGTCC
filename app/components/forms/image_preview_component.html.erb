@@ -1,6 +1,6 @@
 <div data-controller="forms--image-preview" data-forms--image-preview-url-value="<%= image_url || '' %>">
   <!-- Box de preview quando há imagem -->
-  <div id="box-image-preview" 
+  <div id="box-image-preview"
        data-forms--image-preview-target="previewBox"
        data-controller="ui--tooltip"
        data-bs-placement="left"
@@ -8,12 +8,12 @@
        style="<%= 'display: none;' unless image? %>">
     <div class="input-field image_preview">
       <div class="box-image center">
-        <img class="file_preview active" 
-             data-forms--image-preview-target="image" 
-             src="<%= image_url %>" 
+        <img class="file_preview active"
+             data-forms--image-preview-target="image"
+             src="<%= image_url %>"
              alt="Preview">
         <div class="form-group file optional form-group">
-          <input 
+          <input
             id="<%= input_id %>"
             class="form-control-file file optional <%= error_class %>"
             accept="image/*"
@@ -39,7 +39,7 @@
     </label>
 
     <div class="custom-file">
-      <input 
+      <input
         id="<%= input_id %>_initial"
         class="custom-file-input <%= error_class %>"
         accept="image/*"
@@ -47,7 +47,7 @@
         name="<%= input_name %>"
         data-action="change->forms--image-preview#preview"
         data-forms--image-preview-target="initialInput">
-      <label class="custom-file-label" 
+      <label class="custom-file-label"
              for="<%= input_id %>_initial"
              data-forms--image-preview-target="fileLabel">
         Selecionar imagem

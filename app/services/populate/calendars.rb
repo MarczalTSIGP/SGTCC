@@ -1,4 +1,7 @@
 class Populate::Calendars
+  FIRST_SEMESTER = Calendar.semesters.fetch(:one)
+  SECOND_SEMESTER = Calendar.semesters.fetch(:two)
+
   attr_reader :current_year
 
   def initialize
@@ -18,11 +21,11 @@ class Populate::Calendars
 
     4.times do |_index|
       # this order is important to the populate
-      Calendar.create!(year:, semester:, tcc: 2)
-      Calendar.create!(year:, semester:, tcc: 1)
+      Calendar.create!(year:, semester:, tcc: :two)
+      Calendar.create!(year:, semester:, tcc: :one)
 
-      year -= 1 if semester == 1
-      semester = semester == 1 ? 2 : 1
+      year -= 1 if semester == FIRST_SEMESTER
+      semester = semester == FIRST_SEMESTER ? SECOND_SEMESTER : FIRST_SEMESTER
     end
   end
 end

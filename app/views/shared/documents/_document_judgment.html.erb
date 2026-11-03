@@ -19,7 +19,7 @@
       </label>
     </div>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :justification, class: "form-label" do %>
       Parecer
@@ -32,9 +32,9 @@
           class: "form-control",
           data: { controller: "markdown--editor" } %>
   </div>
-  
+
   <div class="mt-4 float-right">
-    <%= f.submit "Salvar", 
+    <%= f.submit "Salvar",
           id: "save_document_judgment",
           class: "btn btn-primary" %>
     <% if accept_value.present? %>

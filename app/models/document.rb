@@ -2,7 +2,6 @@ class Document < ApplicationRecord
   include TermJsonData
   include SignatureMark
   include DocumentSigned
-  include DocumentByType
   include DocumentReview
 
   attr_accessor :orientation_id, :advisor_id, :justification,

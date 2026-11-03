@@ -1,6 +1,4 @@
 class ExaminationBoard < ApplicationRecord
-  require 'action_view'
-  include ActionView::Helpers::DateHelper
   include ExaminationBoardDefenseMinutes
   include UsersToDocument
   include SituationEnum
@@ -31,42 +29,43 @@ class ExaminationBoard < ApplicationRecord
   has_many :external_members, class_name: 'ExternalMember', foreign_key: :external_member_id,
                               through: :examination_board_attendees, dependent: :destroy
 
-  scope :tcc_one, -> { where(tcc: Calendar.tccs[:one]) }
-  scope :tcc_two, -> { where(tcc: Calendar.tccs[:two]) }
+  scope :tcc_one, -> { where(tcc: :one) }
+  scope :tcc_two, -> { where(tcc: :two) }
 
-  scope :tcc_one_current_semester, lambda {
-    tcc_value = Calendar.tccs[:one]
-    current = Calendar.current_by_tcc_one ||
-              Calendar.where(tcc: tcc_value)
-                      .order(year: :desc, end_date: :desc)
-                      .first
+  scope :tcc_one_current_semester, -> { by_tcc_current_semester(:one) }
 
-    return none if current.blank?
+  scope :tcc_two_current_semester, -> { by_tcc_current_semester(:two) }
 
-    joins(orientation: :calendars)
-      .where(calendars: { id: current.id })
-      .where(tcc: tcc_value)
-      .distinct
-  }
-
-  scope :tcc_two_current_semester, lambda {
-    tcc_value = Calendar.tccs[:two]
-
-    current = Calendar.current_by_tcc_two ||
-              Calendar.where(tcc: tcc_value)
-                      .order(year: :desc, end_date: :desc)
-                      .first
+  # Apoio interno dos dois scopes acima. Precisa ser método de classe público:
+  # dentro de um `scope`, `self` é a relation, que só delega métodos públicos.
+  # Torná-lo privado levantaria NoMethodError, e chamá-lo com receptor explícito
+  # (`ExaminationBoard.by_tcc_current_semester`) descartaria a relation corrente
+  # em silêncio, quebrando o encadeamento.
+  def self.by_tcc_current_semester(tcc)
+    current = current_calendar_by_tcc(tcc)
 
     return none if current.blank?
 
     joins(orientation: :calendars)
       .where(calendars: { id: current.id })
-      .where(tcc: tcc_value)
+      .where(tcc:)
       .distinct
-  }
+  end
+
+  # O `||` é o fallback original para o calendário mais recente. Ele está
+  # preservado, mas nunca produz resultado diferente: `Calendar.current_by_tcc_*`
+  # já cai internamente em `where(tcc:).order(end_date: :desc).first`, então só
+  # devolve nil quando não existe nenhum calendário daquele TCC — caso em que
+  # este segundo `where` também devolve nil. Registrado no relatório da REF-24.
+  def self.current_calendar_by_tcc(tcc)
+    Calendar.public_send("current_by_tcc_#{tcc}") ||
+      Calendar.where(tcc:).order(year: :desc, end_date: :desc).first
+  end
 
   scope :current_semester, lambda {
-    current_calendar = Calendar.order(year: :desc, semester: :desc).first
+    current_calendar = Calendar
+                       .where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
+                       .order(year: :desc, semester: :desc).first
     return none unless current_calendar
 
     where(date: current_calendar.start_date..current_calendar.end_date)
@@ -86,65 +85,12 @@ class ExaminationBoard < ApplicationRecord
 
   after_commit :trigger_create_notifications, on: :create
 
-  def self.cs_asc_from_now_desc_ago
-    current_calendar = current_calendar_for_site
-    return none unless current_calendar
-
-    upcoming_from_now(current_calendar) + past_until_now(current_calendar)
-  end
-
-  def self.current_calendar_for_site
-    Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
-      Calendar.order(year: :desc, semester: :desc).first
-  end
-
-  private_class_method :current_calendar_for_site
-
-  def self.base_scope_for_calendar(current_calendar)
-    period = current_calendar.start_date.beginning_of_day..current_calendar.end_date.end_of_day
-
-    joins(orientation: :calendars)
-      .distinct
-      .where(date: period)
-  end
-
-  private_class_method :base_scope_for_calendar
-
-  def self.upcoming_from_now(current_calendar)
-    base_scope_for_calendar(current_calendar)
-      .where(date: Time.current..)
-      .order(date: :asc)
-      .site_with_relationships
-      .to_a
-  end
-
-  private_class_method :upcoming_from_now
-
-  def self.past_until_now(current_calendar)
-    base_scope_for_calendar(current_calendar)
-      .where(date: current_calendar.start_date.beginning_of_day...Time.current)
-      .order(date: :desc)
-      .site_with_relationships
-      .to_a
-  end
-
-  private_class_method :past_until_now
-
-  def status
-    current_date = Date.current.to_s
-    board_date = Date.parse(date.to_s).to_s
-    return 'today' if board_date == current_date
-
-    board_date > current_date ? 'next' : 'occurred'
-  end
-
-  def distance_of_date
-    i18n = 'views.tables.examination_board'
-    board_date = I18n.l(date, format: :datetime)
-    return I18n.t("#{i18n}.today", time: I18n.l(date, format: :time)) if status == 'today'
-
-    distance_of_time = distance_of_time_in_words(board_date, Time.current)
-    I18n.t("#{i18n}.#{status}", distance: distance_of_time)
+  def self.touch_related_to(academic_activity, orientation)
+    orientation.examination_boards.each do |board|
+      # rubocop:disable Rails/SkipsModelValidations
+      board.touch if board.academic_activity == academic_activity
+      # rubocop:enable Rails/SkipsModelValidations
+    end
   end
 
   def minutes_type
@@ -212,7 +158,6 @@ class ExaminationBoard < ApplicationRecord
 
   # Callback to after_add and after_remove a professor or external member
   # Necessary to clear cache after add or remove a professor or external member
-  # TODO: Tests for this method
   def touch_updated_at(_attendee)
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?

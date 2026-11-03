@@ -39,6 +39,8 @@ class Academics::DocumentsController < Academics::BaseController
     @username = Academic.human_attribute_name('ra')
     @confirm_url = academics_document_sign_path(@document)
     @back_url = academics_document_path(@document)
+
+    render template: 'shared/documents/sign_form'
   end
 
   def sign

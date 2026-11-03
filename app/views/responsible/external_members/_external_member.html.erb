@@ -2,7 +2,7 @@
   <td><%= link_to external_member.name, responsible_external_member_path(external_member) %></td>
   <td><%= external_member.email %></td>
   <td>
-    <%= link_to external_member.personal_page, target: '_blank' do %>
+    <%= link_to external_member.personal_page, target: '_blank', rel: 'noopener' do %>
       <i class="fas fa-external-link-alt" data-controller="ui--tooltip" title="Página pessoal"></i>
     <% end %>
   </td>

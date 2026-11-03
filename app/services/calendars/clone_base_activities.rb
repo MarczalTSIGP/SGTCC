@@ -11,7 +11,7 @@ module Calendars
     end
 
     def clone
-      base_activities = BaseActivity.where(tcc: @calendar.tcc)
+      base_activities = BaseActivity.where(tcc: @calendar.tcc.to_sym)
 
       base_activities.each do |base_activity|
         initial_date = initial_date_to(base_activity)
@@ -43,7 +43,7 @@ module Calendars
     end
 
     def beginning_of_semester
-      month = @calendar.semester == 'one' ? 'mar' : 'aug'
+      month = @calendar.semester_one? ? 'mar' : 'aug'
       Time.zone.parse("#{month} 01 00:00:00 #{@calendar.year}")
     end
   end

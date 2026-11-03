@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :calendar do
-    sequence(:year) { |n| (2020 + n).to_s }
+    sequence(:year) { |n| (Calendar.current_year + 100 + n).to_s }
     semester { :one }
     tcc { :one }
 

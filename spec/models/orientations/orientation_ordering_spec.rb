@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
-  describe '#professors_ranking' do
+  describe Dashboard::ProfessorsRankingReport do
     let!(:professor_orientations) do
       create_list(:orientation, 4, :tcc_two, :approved, :with_final_monograph)
     end
@@ -14,11 +14,11 @@ RSpec.describe Orientation do
         [professor.name_with_scholarity, professor.orientations.size]
       end
       ranking = ranking.sort_by { |professor| professor[1] }.reverse
-      expect(described_class.professors_ranking).to match_array(ranking)
+      expect(described_class.call).to match_array(ranking)
     end
   end
 
-  describe '#cs_asc_from_now_desc_ago' do
+  describe 'ExaminationBoards::SiteQuery' do
     let!(:current_calendar) do
       Calendar.where('? BETWEEN start_date AND end_date', Date.current).first ||
         create(:calendar, :tcc_one,
@@ -50,7 +50,7 @@ RSpec.describe Orientation do
         )
       )
 
-      expect(ExaminationBoard.cs_asc_from_now_desc_ago).to contain_exactly(current_board)
+      expect(ExaminationBoards::SiteQuery.call).to contain_exactly(current_board)
     end
 
     it 'orders upcoming examination boards ascending by date' do
@@ -71,7 +71,7 @@ RSpec.describe Orientation do
         )
       )
 
-      expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id)).to eq(
+      expect(ExaminationBoards::SiteQuery.call.map(&:id)).to eq(
         [board_soon.id,
          board_later.id]
       )
@@ -103,7 +103,7 @@ RSpec.describe Orientation do
         )
       )
 
-      expect(ExaminationBoard.cs_asc_from_now_desc_ago.map(&:id))
+      expect(ExaminationBoards::SiteQuery.call.map(&:id))
         .to eq([board_soon.id, board_recent_past.id, board_old_past.id])
     end
 
@@ -123,7 +123,7 @@ RSpec.describe Orientation do
         )
       )
 
-      expect(ExaminationBoard.cs_asc_from_now_desc_ago).to contain_exactly(board)
+      expect(ExaminationBoards::SiteQuery.call).to contain_exactly(board)
     end
   end
 end
