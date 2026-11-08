@@ -16,6 +16,12 @@ class Responsible::CalendarsController < Responsible::BaseController
                  :edit_responsible_calendar_path,
                  only: [:edit]
 
+  # A rota `resources :calendars` expõe um `index`, mas a listagem real é por TCC. Sem esta
+  # ação, o Rails renderizava `index.html.erb` com `@calendars` nulo e respondia 500.
+  def index
+    redirect_to responsible_calendars_tcc_one_path
+  end
+
   def tcc_one
     @calendars = Calendars::ListQuery.call(tcc: :one, page: params[:page], term: params[:term])
     @search_url = responsible_calendars_search_tcc_one_path

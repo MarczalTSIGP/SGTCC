@@ -75,6 +75,8 @@ class Professors::OrientationsController < Professors::BaseController
 
   def document
     @document = @orientation.documents.find(params.expect(:document_id))
+    @signatures = @document.mark
+    @not_show_sign_button = true
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    professors_orientation_document_path(@orientation, @document)
