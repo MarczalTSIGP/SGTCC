@@ -72,12 +72,32 @@ class Professors::RequestsController < Professors::BaseController
     redirect_to professors_document_path(@document)
   end
 
+  # O documento novo é criado antes de o antigo ser apagado, na mesma transação: se o novo
+  # for inválido, o antigo permanece e o formulário volta com o erro.
   def destroy_and_create
-    @document.destroy
-    @document = Documents::TypeFactory.new_tdo(current_professor, request_params)
-    @document.save
+    replacement = Documents::TypeFactory.new_tdo(current_professor, request_params)
+
+    unless replace_document(replacement)
+      copy_errors(replacement)
+      return render :edit, status: :unprocessable_content
+    end
+
+    @document = replacement
     feminine_success_update_message
     redirect_to professors_document_path(@document)
+  end
+
+  def replace_document(replacement)
+    Document.transaction do
+      next false unless replacement.save
+
+      @document.destroy!
+      true
+    end
+  end
+
+  def copy_errors(replacement)
+    replacement.errors.each { |error| @document.errors.add(error.attribute, error.message) }
   end
 
   def can_change

@@ -54,6 +54,24 @@ RSpec.describe 'Academics TSO request update' do
       .to contain_exactly(supervisor.id, other.id)
   end
 
+  context 'when the replacement is invalid' do
+    # Sem orientador, o TSO novo não passa na validação; o antigo não pode ser perdido.
+    before { submit(advisor_id: '') }
+
+    it 'keeps the original document' do
+      expect(Document.exists?(document.id)).to be(true)
+      expect(document.reload.request['new_orientation']['advisor']['id']).to eq(advisor.id)
+    end
+
+    it 'shows the form again with the error' do
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
+    it 'does not create another document' do
+      expect(Document.where(document_type: document.document_type).count).to eq(1)
+    end
+  end
+
   it 'recreates the document when the external member supervisors change' do
     external_member = create(:external_member)
     submit(external_ids: [external_member.id])

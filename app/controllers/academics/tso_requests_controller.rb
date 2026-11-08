@@ -33,15 +33,30 @@ class Academics::TsoRequestsController < Academics::RequestsController
     return super unless Documents::TsoRequestForm.new(request_params)
                                                  .orientation_changed?(@document)
 
-    # O resultado do save não é verificado, como antes desta task: a troca segue
-    # para o fluxo de sucesso mesmo que a recriação falhe.
     destroy_and_update
-    true
   end
 
+  # O documento novo é criado antes de o antigo ser apagado, na mesma transação. Se o novo
+  # for inválido, o antigo permanece, e o `update` do pai reexibe o formulário com o erro.
   def destroy_and_update
-    @document.destroy
-    @document = Documents::TypeFactory.new_tso(current_academic, request_params)
-    @document.save
+    replacement = Documents::TypeFactory.new_tso(current_academic, request_params)
+    replaced = replace_document(replacement)
+
+    if replaced
+      @document = replacement
+    else
+      replacement.errors.each { |error| @document.errors.add(error.attribute, error.message) }
+    end
+
+    replaced
+  end
+
+  def replace_document(replacement)
+    Document.transaction do
+      next false unless replacement.save
+
+      @document.destroy!
+      true
+    end
   end
 end
