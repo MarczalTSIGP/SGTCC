@@ -81,7 +81,7 @@ class Professors::RequestsController < Professors::BaseController
   end
 
   def can_change
-    return unless @document.professor_signed?(current_professor)
+    return if RequestPolicy.new(current_professor, @document).change?
 
     flash[:alert] = I18n.t('flash.documents.professors.requests.not_allowed')
     redirect_to professors_requests_path

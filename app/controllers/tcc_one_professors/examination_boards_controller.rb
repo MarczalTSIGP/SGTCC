@@ -38,7 +38,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def new
-    load_form_context(ExaminationBoards::FormContext.for_new(tcc: :one))
+    load_form_context(ExaminationBoards::FormPresenter.for_new(tcc: :one))
   end
 
   def edit
@@ -128,7 +128,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def set_orientations_and_activities
-    load_form_context(ExaminationBoards::FormContext.for_board(@examination_board))
+    load_form_context(ExaminationBoards::FormPresenter.for_board(@examination_board))
   end
 
   def load_form_context(context)
@@ -138,7 +138,8 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def can_update_or_destroy?
-    return false unless @examination_board.monograph?
+    return false if ExaminationBoardPolicy.new(current_professor, @examination_board)
+                                          .change_as_tcc_one_professor?
 
     flash[:error] = I18n.t('flash.not_authorized')
     redirect_back_or_to(tcc_one_professors_examination_boards_tcc_one_path)

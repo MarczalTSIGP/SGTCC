@@ -59,11 +59,11 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def new_to_tcc_one
-    load_form_context(ExaminationBoards::FormContext.for_new(tcc: :one))
+    load_form_context(ExaminationBoards::FormPresenter.for_new(tcc: :one))
   end
 
   def new_to_tcc_two
-    load_form_context(ExaminationBoards::FormContext.for_new(tcc: :two))
+    load_form_context(ExaminationBoards::FormPresenter.for_new(tcc: :two))
   end
 
   def create_to_tcc_one
@@ -73,7 +73,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       feminine_success_create_message
       redirect_to responsible_examination_boards_tcc_one_path
     else
-      load_form_options(ExaminationBoards::FormContext.for_new(tcc: :one))
+      load_form_options(ExaminationBoards::FormPresenter.for_new(tcc: :one))
       error_message
       render :new_to_tcc_one, status: :unprocessable_content
     end
@@ -86,7 +86,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
       feminine_success_create_message
       redirect_to responsible_examination_boards_tcc_two_path
     else
-      load_form_options(ExaminationBoards::FormContext.for_new(tcc: :two))
+      load_form_options(ExaminationBoards::FormPresenter.for_new(tcc: :two))
       error_message
       render :new_to_tcc_two, status: :unprocessable_content
     end
@@ -170,7 +170,7 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
   end
 
   def set_orientations_and_activities
-    load_form_context(ExaminationBoards::FormContext.for_board(@examination_board))
+    load_form_context(ExaminationBoards::FormPresenter.for_board(@examination_board))
   end
 
   def load_form_context(context)

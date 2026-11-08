@@ -29,11 +29,12 @@ class Calendar < ApplicationRecord
   def set_dates
     return if start_date.present? && end_date.present?
 
-    y = year.to_i
-    first_semester = semester_one?
+    # Mesmo mapeamento de antes: ano inválido vira `to_i` e semestre ausente conta como
+    # o 2º. Roda antes da validação, que reprova esses casos de qualquer forma.
+    period = AcademicPeriod.new(year: year.to_i, semester: semester_one? ? 1 : 2)
 
-    self.start_date ||= Date.new(y, first_semester ? 1 : 7, 1)
-    self.end_date   ||= Date.new(y, first_semester ? 6 : 12, -1)
+    self.start_date ||= period.first_day
+    self.end_date   ||= period.last_day
   end
 
   def year_with_semester
@@ -53,15 +54,15 @@ class Calendar < ApplicationRecord
   end
 
   def self.previous_semester(calendar)
-    Calendars::PeriodNavigation.previous_semester(calendar)
+    Calendars::PeriodNavigationQuery.previous_semester(calendar)
   end
 
   def self.next_semester(calendar)
-    Calendars::PeriodNavigation.next_semester(calendar)
+    Calendars::PeriodNavigationQuery.next_semester(calendar)
   end
 
   def self.next_semester_tcc_two(calendar)
-    Calendars::PeriodNavigation.next_semester_tcc_two(calendar)
+    Calendars::PeriodNavigationQuery.next_semester_tcc_two(calendar)
   end
 
   private

@@ -8,7 +8,13 @@ O SGTCC segue a estrutura típica de uma aplicação Ruby on Rails, com organiza
 
 - `app/models`: models, associações, validações, enums, scopes e parte do domínio.
 - `app/controllers`: entrada HTTP, autenticação, autorização implícita por área e orquestração de fluxo.
-- `app/services`: serviços e objetos de aplicação para regras que não cabem bem em model/controller.
+- `app/services`: Service Objects — um workflow ou operação de múltiplos passos (ex.: `Documents::SaveSignatures`, `Notifications::*`, `Orientations::MigrationService`).
+- `app/queries`: Query Objects — leituras nomeadas com filtro, joins e preload (ex.: `Orientations::TccListQuery`, `Dashboard::ProfessorsRankingQuery`).
+- `app/policies`: Policy Objects — decisões de autorização (ex.: `ExaminationBoardNotePolicy`, `RequestPolicy`, `ProfessorAreaPolicy`).
+- `app/presenters`: Presenters — dados prontos para a view (ex.: `Orientations::Links::*Presenter`, `Dashboard::*Presenter`).
+- `app/decorators`: Decorators — comportamento de exibição em volta de um objeto (ex.: `Activities::AcademicResponseDecorator`).
+- `app/forms`: Form Objects — entrada do usuário que não mapeia para um único model (ex.: `Documents::TsoRequestForm`).
+- `app/value_objects`: Value Objects — conceitos imutáveis comparados por valor (ex.: `AcademicPeriod`).
 - `app/views`: templates e renderização da interface.
 - `app/components`: componentes de interface com `ViewComponent`, se presentes.
 - `app/helpers`: helpers de visualização e formatação.
@@ -16,7 +22,7 @@ O SGTCC segue a estrutura típica de uma aplicação Ruby on Rails, com organiza
 - `config/routes.rb`: mapa de rotas, incluindo áreas públicas e áreas por perfil.
 - `config/locales`: traduções e mensagens de interface, predominantemente em português.
 - `db/migrate`: migrations incrementais de banco.
-- `lib/tasks`: tarefas auxiliares e rake tasks.
+- `lib/tasks`: tarefas auxiliares e rake tasks; `lib/tasks/db/populate` guarda as rotinas `Db::Populate::*` de dados de desenvolvimento.
 - `spec`: suíte de testes RSpec.
 
 ## Boas práticas Rails
@@ -24,7 +30,7 @@ O SGTCC segue a estrutura típica de uma aplicação Ruby on Rails, com organiza
 - Siga convenções de nomes e localização de arquivos.
 - Prefira métodos pequenos, coesos e testáveis.
 - Evite acoplamento excessivo entre controller, model e view.
-- Antes de introduzir um service, confirme que há benefício real de organização.
+- Antes de introduzir um objeto novo, confirme que há benefício real de organização e escolha a camada pelo papel (ver `ai/rules.md`, *Arquitetura e organização*).
 - Aproveite scopes, associations e validations quando fizer sentido, mas sem esconder complexidade demais.
 
 ## Cuidados com ActiveRecord

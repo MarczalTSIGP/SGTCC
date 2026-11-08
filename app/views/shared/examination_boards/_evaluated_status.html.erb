@@ -15,7 +15,7 @@
         </thead>
 
         <tbody>
-          <% @examination_board.evaluators.responses.each do |response| %>
+          <% ExaminationBoards::EvaluatorsResponsesPresenter.new(@examination_board).responses.each do |response| %>
             <tr>
               <td><%= response.evaluator.name_with_scholarity %></td>
               <td><%= t("helpers.boolean.#{response.sent_note?}") %></td>

@@ -102,7 +102,7 @@ class Academics::RequestsController < Academics::BaseController
   end
 
   def can_change
-    return unless @document.academic_signed?(current_academic)
+    return if RequestPolicy.new(current_academic, @document).change?
 
     flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
     redirect_to requests_path

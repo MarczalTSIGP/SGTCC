@@ -15,8 +15,8 @@ RSpec.describe Orientation do
   let(:consumers) do
     [
       'app/models/orientation.rb',
-      'app/services/dashboard/responsible_report.rb',
-      'app/services/dashboard/professor_report.rb',
+      'app/presenters/dashboard/responsible_presenter.rb',
+      'app/presenters/dashboard/professor_presenter.rb',
       'app/components/orientations/status_badge_component.rb'
     ]
   end

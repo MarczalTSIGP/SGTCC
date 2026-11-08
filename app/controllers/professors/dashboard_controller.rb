@@ -9,7 +9,7 @@ class Professors::DashboardController < Professors::BaseController
   def index; end
 
   def report
-    dashboard = Dashboard::ProfessorReport.new(current_professor, @professor)
+    dashboard = Dashboard::ProfessorPresenter.new(current_professor, @professor)
     render json: dashboard.report
   end
 
@@ -38,7 +38,7 @@ class Professors::DashboardController < Professors::BaseController
   end
 
   def set_orientations_report
-    dashboard = Dashboard::ProfessorReport.new(current_professor, current_professor)
+    dashboard = Dashboard::ProfessorPresenter.new(current_professor, current_professor)
     @orientations_report = dashboard.report[:orientations]
   end
 

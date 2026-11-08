@@ -8,7 +8,7 @@ class TccOneProfessors::BaseController < ActionController::Base
   layout 'layouts/professors/application'
 
   def authorized
-    return if current_professor.role?('tcc_one')
+    return if ProfessorAreaPolicy.new(current_professor).tcc_one_area?
 
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_root_path

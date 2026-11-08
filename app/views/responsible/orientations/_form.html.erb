@@ -7,7 +7,7 @@
          <div class="col-sm-6">
             <%= f.association :calendars,
                               input_html: { data: { controller: 'utils--slim-select' } },
-                              collection: Calendars::SelectOptions.for_orientation,
+                              collection: Calendars::SelectOptionsPresenter.for_orientation,
                               label_method: :second,
                               value_method: :first,
                               prompt: t('prompt.select.m', name: Orientation.human_attribute_name('calendar')) %>

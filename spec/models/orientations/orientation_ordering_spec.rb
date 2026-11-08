@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Orientation do
   subject(:orientation) { described_class.new }
 
-  describe Dashboard::ProfessorsRankingReport do
+  describe Dashboard::ProfessorsRankingQuery do
     let!(:professor_orientations) do
       create_list(:orientation, 4, :tcc_two, :approved, :with_final_monograph)
     end

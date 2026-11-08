@@ -46,10 +46,10 @@ class Professors::ExaminationBoardFilesController < Professors::BaseController
     ExaminationBoardNote.human_attribute_name('appointment_file')
   end
 
+  # Só alimenta a view (`show` é renderizado de novo quando o envio falha). Não bloqueia:
+  # apontamentos podem ser enviados depois da ata de defesa, e o formulário continua
+  # visível nesse caso. Ver resumo da REF-28.
   def can_edit_note
-    @can_edit_note = true
-    return if @examination_board.defense_minutes.blank?
-
-    @can_edit_note = false
+    @can_edit_note = ExaminationBoardNotePolicy.new(current_professor, @examination_board).edit?
   end
 end

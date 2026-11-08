@@ -248,7 +248,7 @@ class Orientation < ApplicationRecord
   end
 
   def academic_activity_by(identifier, options)
-    Orientations::AcademicActivityFinder.call(
+    Orientations::AcademicActivityQuery.call(
       self, identifier, final_version: options[:final_version]
     )
   end
@@ -257,7 +257,7 @@ class Orientation < ApplicationRecord
   # professores) dependem desse tipo. O que mudou é que o filtro acontece no banco.
   def self.with_final_activity(status, identifier)
     by_status(status)
-      .where(id: Orientations::AcademicActivityFinder.orientation_ids(identifier))
+      .where(id: Orientations::AcademicActivityQuery.orientation_ids(identifier))
       .to_a
   end
   private_class_method :with_final_activity

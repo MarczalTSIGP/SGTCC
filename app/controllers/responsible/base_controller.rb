@@ -9,7 +9,7 @@ class Responsible::BaseController < ActionController::Base
   layout 'layouts/professors/application'
 
   def authorized
-    return if current_professor.role?('responsible')
+    return if ProfessorAreaPolicy.new(current_professor).responsible_area?
 
     flash[:alert] = I18n.t('flash.not_authorized')
     redirect_to professors_root_path

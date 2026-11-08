@@ -152,10 +152,6 @@ class ExaminationBoard < ApplicationRecord
                            .or(examination_board_notes.where.not(appointment_text: nil)).present?
   end
 
-  def evaluators
-    Logics::ExaminationBoard::EvaluatorsResponses.new(self)
-  end
-
   # Callback to after_add and after_remove a professor or external member
   # Necessary to clear cache after add or remove a professor or external member
   def touch_updated_at(_attendee)

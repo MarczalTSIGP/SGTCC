@@ -29,7 +29,7 @@ module ExaminationBoardShowExamples
 
   def each_examination_board_evaluator_response
     within('table.table') do
-      examination_board.evaluators.responses.each_with_index do |response, index|
+      evaluator_responses.each_with_index do |response, index|
         within("tbody tr:nth-child(#{index + 1})") do
           yield response
         end
@@ -37,8 +37,12 @@ module ExaminationBoardShowExamples
     end
   end
 
+  def evaluator_responses
+    ExaminationBoards::EvaluatorsResponsesPresenter.new(examination_board).responses
+  end
+
   def create_examination_board_notes
-    examination_board.evaluators.responses.each do |response|
+    evaluator_responses.each do |response|
       create(:examination_board_note, examination_board_note_params(response))
     end
   end
