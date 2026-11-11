@@ -54,15 +54,15 @@ class Calendar < ApplicationRecord
   end
 
   def self.previous_semester(calendar)
-    Calendars::PeriodNavigationQuery.previous_semester(calendar)
+    Calendars::PeriodNavigationQuery.call(calendar, direction: :previous)
   end
 
   def self.next_semester(calendar)
-    Calendars::PeriodNavigationQuery.next_semester(calendar)
+    Calendars::PeriodNavigationQuery.call(calendar, direction: :next)
   end
 
   def self.next_semester_tcc_two(calendar)
-    Calendars::PeriodNavigationQuery.next_semester_tcc_two(calendar)
+    Calendars::PeriodNavigationQuery.call(calendar, direction: :next_tcc_two)
   end
 
   private

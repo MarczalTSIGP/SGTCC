@@ -7,17 +7,6 @@ module Orientations
       new(orientation, identifier, final_version:).call
     end
 
-    # Forma relacional da mesma regra: os ids das orientações que possuem atividade
-    # acadêmica do identificador em um dos seus próprios calendários. Existe para que as
-    # listagens públicas filtrem no banco em vez de carregar tudo e descartar em Ruby.
-    def self.orientation_ids(identifier, final_version: true)
-      Orientation
-        .joins(:orientation_calendars, academic_activities: :activity)
-        .where(activities: { identifier: identifier, final_version: final_version })
-        .where('activities.calendar_id = orientation_calendars.calendar_id')
-        .select(:id)
-    end
-
     def initialize(orientation, identifier, final_version: false)
       @orientation = orientation
       @identifier = identifier
