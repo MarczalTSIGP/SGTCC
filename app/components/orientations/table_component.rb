@@ -10,7 +10,7 @@ class Orientations::TableComponent < ViewComponent::Base
     @show_actions = options.fetch(:show_actions, false)
     @action_partial = options[:action_partial]
     @path_helper = options[:path_helper]
-    @service_class = options[:service_class]
+    @links_presenter = options[:links_presenter]
     @action_block = action_block
   end
 
@@ -27,11 +27,11 @@ class Orientations::TableComponent < ViewComponent::Base
   end
 
   def dropdown_links(orientation)
-    service_class = @service_class || "Orientations::Links::#{service_class_name}Service"
-    service_class.constantize.perform(orientation)
+    links_presenter = @links_presenter || "Orientations::Links::#{links_presenter_name}Presenter"
+    links_presenter.constantize.perform(orientation)
   end
 
-  def service_class_name
+  def links_presenter_name
     case @namespace.to_s
     when 'professors'
       'Professors'
@@ -75,23 +75,7 @@ class Orientations::TableComponent < ViewComponent::Base
   private
 
   def badge_for_status(status)
-    status_key = Orientation.statuses[status]
-    badge_class = status_badge_class(status_key)
+    badge_class = Orientations::StatusBadge.class_for(Orientations::StatusBadge.key_for(status))
     Badge.new(badge_class, status)
-  end
-
-  def status_badge_class(status_key)
-    status_mappings.fetch(status_key, 'badge-secondary')
-  end
-
-  def status_mappings
-    {
-      'APPROVED_TCC_ONE' => 'badge-approved-tcc-1',
-      'APPROVED' => 'badge-approved',
-      'IN_PROGRESS' => 'badge-in-progress',
-      'CANCELED' => 'badge-canceled',
-      'REPROVED_TCC_ONE' => 'badge-reproved-tcc-1',
-      'REPROVED' => 'badge-reproved'
-    }
   end
 end

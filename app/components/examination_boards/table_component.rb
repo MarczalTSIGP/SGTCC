@@ -58,13 +58,14 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
   end
 
   def badge_html(examination_board)
-    badge = badge_style(examination_board)
+    presenter = ExaminationBoards::StatusPresenter.new(examination_board)
+    badge = badge_style(presenter)
 
     content_tag(
       :span,
       '&nbsp;'.html_safe,
       data: { controller: 'tooltip' },
-      title: examination_board.distance_of_date,
+      title: presenter.distance_of_date,
       class: "badge badge-pill badge-#{badge.type}"
     )
   end
@@ -88,8 +89,8 @@ class ExaminationBoards::TableComponent < ViewComponent::Base
     end
   end
 
-  def badge_style(examination_board)
-    case examination_board.status
+  def badge_style(presenter)
+    case presenter.status
     when 'today'
       Badge.new('today', '#0b9b1e')
     when 'next'

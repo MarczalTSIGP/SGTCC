@@ -21,13 +21,13 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def tcc_one
-    @examination_boards = paginate(ExaminationBoard.tcc_one)
+    @examination_boards = list_examination_boards(:one)
     @search_url = tcc_one_professors_examination_boards_tcc_one_search_path
     render :index
   end
 
   def tcc_two
-    @examination_boards = paginate(ExaminationBoard.tcc_two)
+    @examination_boards = list_examination_boards(:two)
     @search_url = tcc_one_professors_examination_boards_tcc_two_search_path
     render :index
   end
@@ -38,9 +38,7 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def new
-    @examination_board = ExaminationBoard.new
-
-    set_orientations_and_activities
+    load_form_context(ExaminationBoards::FormPresenter.for_new(tcc: :one))
   end
 
   def edit
@@ -78,24 +76,26 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def destroy
-    if @examination_board.defense_minutes.blank?
-      @examination_board.destroy
+    result = ExaminationBoards::Destroy.call(@examination_board)
+
+    if result.destroyed?
       feminine_success_destroy_message
 
       redirect_to tcc_one_professors_examination_boards_path
-    else
+    elsif result.blocked_by_defense_minutes?
       flash[:alert] = I18n.t('flash.examination_board.defense_minutes.errors.destroy')
+      redirect_to tcc_one_professors_examination_board_path(@examination_board)
+    else
+      alert_destroy_bond_message
       redirect_to tcc_one_professors_examination_board_path(@examination_board)
     end
   end
 
   private
 
-  def paginate(data)
-    data.with_relationships
-        .search(params[:term])
-        .page(params[:page])
-        .recent
+  def list_examination_boards(tcc)
+    ExaminationBoards::ListQuery.call(tcc:, period: :history, page: params[:page],
+                                      term: params[:term], ordering: :tcc_one_professor)
   end
 
   def set_examination_board
@@ -128,12 +128,18 @@ class TccOneProfessors::ExaminationBoardsController < TccOneProfessors::BaseCont
   end
 
   def set_orientations_and_activities
-    @activities = Activity.human_tcc_one_identifiers
-    @orientations = Orientation.current_tcc_one
+    load_form_context(ExaminationBoards::FormPresenter.for_board(@examination_board))
+  end
+
+  def load_form_context(context)
+    @examination_board = context.examination_board
+    @orientations = context.orientations
+    @activities = context.activities
   end
 
   def can_update_or_destroy?
-    return false unless @examination_board.monograph?
+    return false if ExaminationBoardPolicy.new(current_professor, @examination_board)
+                                          .change_as_tcc_one_professor?
 
     flash[:error] = I18n.t('flash.not_authorized')
     redirect_back_or_to(tcc_one_professors_examination_boards_tcc_one_path)

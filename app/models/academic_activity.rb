@@ -33,15 +33,10 @@ class AcademicActivity < ApplicationRecord
     "#{academic_filename}_AC_#{activity.identifier_translated}".upcase
   end
 
-  # TODO: Refactor and write tests for this method
   def clear_examination_boards_cache
     return unless academic.current_orientation
 
-    academic.current_orientation.examination_boards.each do |examination_board|
-      # rubocop:disable Rails/SkipsModelValidations
-      examination_board.touch if examination_board.academic_activity == self
-      # rubocop:enable Rails/SkipsModelValidations
-    end
+    ExaminationBoard.touch_related_to(self, academic.current_orientation)
   end
 
   private

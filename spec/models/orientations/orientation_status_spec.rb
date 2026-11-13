@@ -17,6 +17,30 @@ RSpec.describe Orientation do
     end
   end
 
+  describe '#approved_tcc_one?' do
+    it 'returns if the orientation is approved in tcc one?' do
+      orientation = create(:orientation, :tcc_one, :approved_tcc_one)
+      expect(orientation.approved_tcc_one?).to be(true)
+    end
+
+    it 'returns false for another status' do
+      orientation = create(:orientation)
+      expect(orientation.approved_tcc_one?).to be(false)
+    end
+  end
+
+  describe '#reproved_tcc_one?' do
+    it 'returns if the orientation is reproved in tcc one?' do
+      orientation = create(:orientation, :tcc_one, :reproved_tcc_one)
+      expect(orientation.reproved_tcc_one?).to be(true)
+    end
+
+    it 'returns false for another status' do
+      orientation = create(:orientation)
+      expect(orientation.reproved_tcc_one?).to be(false)
+    end
+  end
+
   describe '#canceled?' do
     it 'returns if the orientation is canceled?' do
       orientation = create(:orientation, :canceled)

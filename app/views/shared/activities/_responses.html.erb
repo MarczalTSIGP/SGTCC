@@ -1,4 +1,5 @@
 <% if @activity.base_activity_type.send_document? %>
+  <% responses = Activities::ResponsesPresenter.new(@activity) %>
   <table class="table table-striped table-bordered mt-5">
     <thead>
       <tr>
@@ -7,16 +8,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @activity.responses.academics.each do |academic| %>
+      <% responses.academics.each do |academic| %>
         <tr>
           <td><%= academic.name %></td>
           <td>
             <% if user_can_access_activity_response %>
-              <%= link_to_if academic.sent?, 
-                          t("helpers.boolean.#{academic.sent?}"), 
+              <%= link_to_if academic.sent?,
+                          t("helpers.boolean.#{academic.sent?}"),
                           send("#{namespace}_orientation_calendar_activity_path",
-                                academic.orientation, @activity.calendar, @activity)
-            %>
+                                academic.orientation, @activity.calendar, @activity) %>
             <% else %>
               <%= t("helpers.boolean.#{academic.sent?}") %>
             <% end %>
@@ -28,7 +28,7 @@
           <strong><%= Activity.human_attribute_name(:total) %></strong>
         </td>
         <td>
-          <%= @activity.responses.entries_info %>
+          <%= responses.entries_info %>
         </td>
       </tr>
     </tbody>

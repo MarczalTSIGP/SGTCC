@@ -1,0 +1,4 @@
+<% provide(:page_title, request_title(:edit)) %>
+<% provide(:head_title, request_title(:edit)) %>
+
+<%= render 'form', url: request_path(@document) %>

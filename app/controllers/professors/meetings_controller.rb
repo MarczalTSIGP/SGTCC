@@ -1,7 +1,7 @@
 class Professors::MeetingsController < Professors::BaseController
   before_action :set_orientation, only: :orientation
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
-  before_action :can_edit, only: :edit
+  before_action :can_edit, only: [:edit, :update]
   before_action :can_destroy, only: :destroy
 
   add_breadcrumb I18n.t('breadcrumbs.meetings.index'),
@@ -84,18 +84,22 @@ class Professors::MeetingsController < Professors::BaseController
     params.expect(meeting: [:date, :content, :orientation_id])
   end
 
-  def can_update(action)
-    return if @meeting.can_update?
+  def meeting_policy
+    MeetingPolicy.new(current_professor, @meeting)
+  end
 
+  def deny_meeting_change(action)
     flash[:alert] = I18n.t("flash.orientation.meeting.errors.#{action}")
     redirect_to professors_meetings_path
   end
 
+  # `update` também passa por aqui: antes só `edit` era protegido, e um PATCH direto
+  # alterava reunião já visualizada pelo acadêmico (corrigido após a REF-28).
   def can_edit
-    can_update('edit')
+    deny_meeting_change('edit') unless meeting_policy.update?
   end
 
   def can_destroy
-    can_update('destroy')
+    deny_meeting_change('destroy') unless meeting_policy.destroy?
   end
 end

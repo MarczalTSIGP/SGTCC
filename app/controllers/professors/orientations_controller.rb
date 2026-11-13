@@ -1,14 +1,13 @@
 class Professors::OrientationsController < Professors::BaseController
   before_action :set_orientation, only: [:show, :edit, :update, :documents, :document]
   before_action :set_document_orientation_breadcrumb, only: [:documents, :document]
-  before_action :select_orientations, only: [:tcc_one, :tcc_two, :history]
   before_action :professor_can_edit, only: :edit
   include OrientationEdit
 
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), professors_orientations_tcc_one_path
     @title = orientation_calendar_title(Calendar.current_by_tcc_one)
-    @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
+    @orientations = list_orientations(:tcc_one)
     @search_url = professors_orientations_search_tcc_one_path
 
     render :index
@@ -17,7 +16,7 @@ class Professors::OrientationsController < Professors::BaseController
   def tcc_two
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), professors_orientations_tcc_two_path
     @title = orientation_calendar_title(Calendar.current_by_tcc_two)
-    @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
+    @orientations = list_orientations(:tcc_two)
     @search_url = professors_orientations_search_tcc_two_path
 
     render :index
@@ -25,7 +24,7 @@ class Professors::OrientationsController < Professors::BaseController
 
   def history
     add_breadcrumb I18n.t('breadcrumbs.orientations.history'), professors_orientations_history_path
-    @orientations = search_and_paginate(@orientations)
+    @orientations = list_orientations(:history)
   end
 
   def show
@@ -76,6 +75,8 @@ class Professors::OrientationsController < Professors::BaseController
 
   def document
     @document = @orientation.documents.find(params.expect(:document_id))
+    @signatures = @document.mark
+    @not_show_sign_button = true
 
     add_breadcrumb I18n.t('breadcrumbs.documents.show'),
                    professors_orientation_document_path(@orientation, @document)
@@ -87,13 +88,15 @@ class Professors::OrientationsController < Professors::BaseController
     @orientation = current_professor.orientations.find(params.expect(:id))
   end
 
-  def select_orientations(status: params[:status])
-    condition = status.present? ? { status: } : {}
-    @orientations = current_professor.orientations.where(condition)
-  end
-
-  def search_and_paginate(data)
-    data.with_relationships.recent.search(params[:term]).page(params[:page])
+  def list_orientations(segment)
+    Orientations::ParticipantListQuery.call(
+      relation: current_professor.orientations,
+      segment:,
+      status: params[:status],
+      term: params[:term],
+      page: params[:page],
+      profile: :professor_orientation
+    )
   end
 
   def orientation_params

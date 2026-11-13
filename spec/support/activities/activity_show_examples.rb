@@ -14,11 +14,11 @@ module ActivityShowExamples
 
   def expect_activity_responses(show_response_links: true)
     within('table.table') do
-      activity.responses.academics.each_with_index do |academic, index|
+      Activities::ResponsesPresenter.new(activity).academics.each_with_index do |academic, index|
         expect_activity_response(academic, index, show_response_links:)
       end
 
-      expect(page).to have_text(activity.responses.entries_info)
+      expect(page).to have_text(Activities::ResponsesPresenter.new(activity).entries_info)
     end
   end
 

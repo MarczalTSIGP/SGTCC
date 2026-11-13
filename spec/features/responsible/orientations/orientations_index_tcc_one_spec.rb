@@ -30,5 +30,23 @@ describe 'Orientation::index' do
         end
       end
     end
+
+    context 'when an orientation has advanced to TCC two' do
+      let(:tcc_one_calendar) { create(:calendar, :tcc_one) }
+      let(:tcc_two_calendar) { create(:calendar, :tcc_two) }
+      let!(:tcc_one_orientation) { create(:orientation, calendars: [tcc_one_calendar]) }
+      let!(:advanced_orientation) do
+        create(:orientation, calendars: [tcc_one_calendar, tcc_two_calendar])
+      end
+
+      before do
+        visit responsible_orientations_tcc_one_path
+      end
+
+      it 'shows only orientations that are exclusive to TCC one' do
+        expect(page).to have_text(tcc_one_orientation.academic.name)
+        expect(page).to have_no_text(advanced_orientation.academic.name)
+      end
+    end
   end
 end

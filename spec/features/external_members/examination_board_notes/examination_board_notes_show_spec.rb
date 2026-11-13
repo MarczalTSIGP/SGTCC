@@ -8,7 +8,7 @@ describe 'ExaminationBoardNote::show', :js do
   let(:academic) { orientation.academic }
 
   before do
-    examination_board.evaluators.responses.each do |response|
+    evaluator_responses.each do |response|
       params = { professor_id: response.evaluator.id } if response.evaluator.is_a?(Professor)
       params ||= { external_member_id: response.evaluator.id }
       params.merge!(examination_board:)

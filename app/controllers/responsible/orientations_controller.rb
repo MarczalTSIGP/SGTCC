@@ -10,52 +10,37 @@ class Responsible::OrientationsController < Responsible::BaseController
   before_action :responsible_can_edit, only: :edit
   before_action :responsible_can_destroy, only: :destroy
 
-  # rubocop:disable Metrics/AbcSize
-  # TEMPORARY SOLUCTION: This method must be refactored in the future
-  # TODO: Refactor this method
   def tcc_one
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_one_path
 
-    # @orientations = Orientation.by_tcc_one(params[:page], params[:term], params[:status])
-    @orientations = Orientation.joins(:calendars)
-                               .group('orientations.id')
-                               .having('COUNT(DISTINCT calendars.tcc) = 1
-                                        AND MIN(calendars.tcc) = 1')
-                               .order('orientations.created_at DESC')
-
-    @orientations = @orientations.where(status: params[:status]) if params[:status].present?
-    @orientations = @orientations.search(params[:term]).page(params[:page])
-
+    @orientations = Orientations::ResponsibleListQuery.call(
+      tcc: :one,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
+    )
     @search_url = responsible_orientations_search_tcc_one_path
 
     render :index
   end
 
-  # rubocop:enable Metrics/AbcSize
-
-  # rubocop:disable Metrics/AbcSize
-  # TEMPORARY SOLUCTION: This method must be refactored in the future
-  # TODO: Refactor this method
   def tcc_two
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_orientations_tcc_two_path
 
-    # @orientations = Orientation.by_tcc_two(params[:page], params[:term], params[:status])
-    @orientations = Orientation.includes(:calendars).where(calendars: { tcc: 2 })
-                               .order('orientations.created_at DESC')
-
-    @orientations = @orientations.where(status: params[:status]) if params[:status].present?
-    @orientations = @orientations.search(params[:term]).page(params[:page])
-
+    @orientations = Orientations::ResponsibleListQuery.call(
+      tcc: :two,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
+    )
     @search_url = responsible_orientations_search_tcc_two_path
     render :index
   end
 
-  # rubocop:enable Metrics/AbcSize
-
   def current_tcc_one
     @title = orientation_calendar_title(Calendar.current_by_tcc_one)
     add_breadcrumb @title, responsible_orientations_current_tcc_one_path
-    @orientations = Orientation.by_current_tcc_one(params[:page], params[:term], params[:status])
+    @orientations = current_tcc_list_query(tcc: :one)
     @search_url = responsible_orientations_search_current_tcc_one_path
     render :current_index
   end
@@ -63,7 +48,7 @@ class Responsible::OrientationsController < Responsible::BaseController
   def current_tcc_two
     @title = orientation_calendar_title(Calendar.current_by_tcc_two)
     add_breadcrumb @title, responsible_orientations_current_tcc_two_path
-    @orientations = Orientation.by_current_tcc_two(params[:page], params[:term], params[:status])
+    @orientations = current_tcc_list_query(tcc: :two)
     @search_url = responsible_orientations_search_current_tcc_two_path
     render :current_index
   end
@@ -168,5 +153,16 @@ class Responsible::OrientationsController < Responsible::BaseController
     add_breadcrumb I18n.t('breadcrumbs.orientations.index'), responsible_tcc_index_path
     add_breadcrumb I18n.t('breadcrumbs.documents.orientation'),
                    responsible_orientation_documents_path(@orientation)
+  end
+
+  def current_tcc_list_query(tcc:)
+    Orientations::TccListQuery.call(
+      relation: Orientation.all,
+      tcc:,
+      period: :current,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
+    )
   end
 end

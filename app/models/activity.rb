@@ -32,11 +32,6 @@ class Activity < ApplicationRecord
     :in_the_future
   end
 
-  # Academics and responses
-  def responses
-    Logics::Activity::Responses.new(self)
-  end
-
   def academic_activity(orientation)
     AcademicActivity.find_by(activity: id, academic: orientation.academic)
   end

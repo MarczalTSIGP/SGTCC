@@ -52,15 +52,9 @@ class SiteController < ApplicationController
   end
 
   def examination_boards
-    @proposal_examination_boards  = ExaminationBoard
-                                    .proposal
-                                    .cs_asc_from_now_desc_ago
-    @project_examination_boards   = ExaminationBoard
-                                    .project
-                                    .cs_asc_from_now_desc_ago
-    @monograph_examination_boards = ExaminationBoard
-                                    .monograph
-                                    .cs_asc_from_now_desc_ago
+    @proposal_examination_boards  = ExaminationBoards::SiteQuery.call(ExaminationBoard.proposal)
+    @project_examination_boards   = ExaminationBoards::SiteQuery.call(ExaminationBoard.project)
+    @monograph_examination_boards = ExaminationBoards::SiteQuery.call(ExaminationBoard.monograph)
 
     @page = Page.find_by(url: 'bancas-de-tcc')
   end

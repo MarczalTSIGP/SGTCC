@@ -4,8 +4,8 @@
 <%= turbo_frame_tag "document_review_#{document.id}" do %>
   <% if has_judgment %>
     <%# Parecer existente %>
-    <input type="checkbox" id="edit_judgment_<%= document.id %>" class="d-none" />
-    
+    <input type="checkbox" id="edit_judgment_<%= document.id %>" class="d-none">
+
     <div id="judgment_view_<%= document.id %>">
       <p>
         <b>Solicitação:</b>

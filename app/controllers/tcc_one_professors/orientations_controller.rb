@@ -6,7 +6,13 @@ class TccOneProfessors::OrientationsController < TccOneProfessors::BaseControlle
   before_action :set_document_orientation_breadcrumb, only: [:document, :documents]
 
   def by_calendar
-    @orientations = @calendar.orientations.by_tcc_one(params[:status], params[:term]).recent
+    @orientations = Orientations::TccListQuery.call(
+      relation: @calendar.orientations,
+      tcc: :one,
+      page: params[:page],
+      term: params[:term],
+      status: params[:status]
+    )
 
     render :index
   end

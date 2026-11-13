@@ -12,7 +12,6 @@ class Academic < ApplicationRecord
 
   has_many :orientations, dependent: :restrict_with_error
   has_many :meetings, through: :orientations
-  # has_many :calendars, through: :orientations #TODO: test
   has_many :examination_boards,
            through: :orientations
 

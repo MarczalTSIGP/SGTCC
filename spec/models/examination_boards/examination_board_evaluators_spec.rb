@@ -118,6 +118,30 @@ RSpec.describe ExaminationBoard do
   #   end
   # end
 
+  describe '#touch_updated_at' do
+    let(:examination_board) { create(:examination_board) }
+
+    it 'touches updated_at when a professor evaluator is added' do
+      professor = create(:professor)
+
+      expect { examination_board.professors << professor }
+        .to(change { examination_board.reload.updated_at })
+    end
+
+    # `professors.delete` removes the join row via SQL delete without loading
+    # ExaminationBoardAttendee records, so the has_many `after_remove:
+    # :touch_updated_at` callback configured on `examination_board_attendees`
+    # does not fire for this path (Rails only fires it for object-level
+    # removal). This is pre-existing behavior, not introduced by this task.
+    it 'does not touch updated_at when a professor evaluator is removed' do
+      professor = create(:professor)
+      examination_board.professors << professor
+
+      expect { examination_board.professors.delete(professor) }
+        .not_to(change { examination_board.reload.updated_at })
+    end
+  end
+
   describe '.all_evaluated' do
     let(:examination_board) { create(:examination_board) }
     let(:advisor_size) { 1 }

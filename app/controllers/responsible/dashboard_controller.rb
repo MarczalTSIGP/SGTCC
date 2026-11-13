@@ -2,11 +2,11 @@ class Responsible::DashboardController < Responsible::BaseController
   before_action :set_documents, only: :index
 
   def index
-    @dashboard_data = Dashboard::ResponsibleReport.new.report
+    @dashboard_data = Dashboard::ResponsiblePresenter.new.report
   end
 
   def report
-    dashboard = Dashboard::ResponsibleReport.new
+    dashboard = Dashboard::ResponsiblePresenter.new
     render json: dashboard.report
   end
 

@@ -26,18 +26,20 @@ class Signature < ApplicationRecord
   end
 
   def user_table
-    return Academic if user_type == 'academic'
+    return Academic if user_type_academic?
+    return ExternalMember if external_member_user_type?
 
-    ems = %w[external_member_supervisor external_member_evaluator responsible_institution]
-
-    if ems.include? user_type
-      ExternalMember
-    else
-      Professor
-    end
+    Professor
   end
 
   def user
     user_table.find(user_id)
+  end
+
+  private
+
+  def external_member_user_type?
+    user_type_external_member_supervisor? || user_type_external_member_evaluator? ||
+      user_type_responsible_institution?
   end
 end

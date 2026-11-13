@@ -1,8 +1,8 @@
 <div class="container-fluid fixed-top header py-4">
   <div class="d-flex">
     <%= link_to send("#{current_user.class.name.pluralize.underscore.downcase}_root_path"), class: 'header-brand ml-5' do %>
-      <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi'  %>
-    <% end  %>
+      <% image_tag 'tsi.png', class: 'header-brand-img', alt: 'logo-tsi' %>
+    <% end %>
     <div class="d-flex order-lg-2 ml-auto">
       <div class="dropdown">
         <a href="#" class="nav-link pr-0 leading-none" data-bs-toggle="dropdown" data-testid="user-menu">

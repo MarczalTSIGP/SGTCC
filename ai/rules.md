@@ -24,10 +24,28 @@
 ## Arquitetura e organização
 
 - Respeite a arquitetura Rails atual do projeto.
-- Prefira extração para `services`, `concerns` ou objetos de domínio quando models e controllers estiverem muito grandes e a task pedir reorganização.
 - Mantenha controllers enxutos e voltados a orquestração.
 - Evite lógica complexa em views.
 - Evite mover regra entre camadas sem necessidade concreta.
+- Ao extrair código de models ou controllers, escolha a camada pelo **papel** do objeto, nunca por conveniência. `app/services/` não é depósito genérico (Fase 10, REF-25 a REF-32):
+
+| Papel | Pergunta que responde | Local |
+|---|---|---|
+| Model domain behavior | Qual é o estado, a associação, o scope ou a invariante local deste registro? | `app/models/` |
+| Service Object | Como executar esta operação de negócio (vários models, transação, efeito externo, passos ordenados)? | `app/services/` |
+| Query Object | Quais registros satisfazem esta consulta? Somente leitura; um método `call`; preload faz parte do contrato | `app/queries/` |
+| Policy Object | Este usuário pode fazer isto com este registro? | `app/policies/` |
+| Value Object | Qual é o valor deste conceito imutável e como ele se combina? | `app/value_objects/` |
+| Form Object | Esta entrada do usuário (multi-model, busca, não persistida) é válida e o que ela pede? | `app/forms/` |
+| Presenter | Como exibir este recurso ou coleção (rótulos, valores formatados, links)? Não altera registros nem decide permissão | `app/presenters/` |
+| Decorator | Que comportamento de exibição acrescentar a um objeto existente, delegando o resto (`SimpleDelegator`)? | `app/decorators/` |
+| ViewComponent | Markup reutilizável e estilo condicional, com dados prontos | `app/components/` |
+
+- Predicados de estado persistido (`viewed?`, `signed?`, `role?`) ficam no model; a Policy os compõe numa decisão de acesso. O controller mantém o redirect e o flash.
+- Policies, Presenters, Forms e Value Objects são POROs: não adicione Pundit, Draper ou gems equivalentes sem necessidade justificada.
+- Rotinas de dados de desenvolvimento ficam em `lib/tasks/db/populate/` (`Db::Populate::*`), carregadas por `require` dentro da task, nunca em `app/`.
+- Ao mover ou renomear uma classe, procure também referências por **texto** (`constantize`, nomes de classe em strings, caminhos de arquivo em specs, `.rubocop.yml` e `spec/support/simplecov.rb`), não só pela constante.
+- Rode `bin/rails zeitwerk:check` depois de qualquer movimentação de arquivo em `app/`.
 
 ## Segurança e áreas sensíveis
 

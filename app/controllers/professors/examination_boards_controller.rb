@@ -67,7 +67,6 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   def set_can_edit_note
-    @can_edit_note = true
-    @can_edit_note = false if @examination_board.defense_minutes.present?
+    @can_edit_note = ExaminationBoardNotePolicy.new(current_professor, @examination_board).edit?
   end
 end

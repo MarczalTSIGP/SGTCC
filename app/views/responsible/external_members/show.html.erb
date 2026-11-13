@@ -27,7 +27,7 @@
       <strong>
         <%= ExternalMember.human_attribute_name('personal_page') %>:
       </strong>
-      <%= link_to(@external_member.personal_page, @external_member.personal_page, target: '_blank').html_safe %>
+      <%= link_to(@external_member.personal_page, @external_member.personal_page, target: '_blank', rel: 'noopener').html_safe %>
     </p>
     <p>
       <strong>
@@ -73,4 +73,3 @@
               edit_responsible_external_member_path(@external_member),
               class: 'btn btn-primary ml-auto' %>
 </div>
-

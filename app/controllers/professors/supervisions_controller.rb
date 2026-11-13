@@ -1,5 +1,4 @@
 class Professors::SupervisionsController < Professors::BaseController
-  before_action :set_orientations
   before_action :set_orientation, only: [:show, :documents, :document]
   before_action :set_orientation_document_breadcrumb, only: [:documents, :document]
 
@@ -11,7 +10,7 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_one),
                    professors_supervisions_tcc_one_path
     @title = supervision_tcc_calendar_title
-    @orientations = search_and_paginate(@orientations.current_tcc_one(params[:status]))
+    @orientations = list_supervisions(:tcc_one)
     @search_url = professors_supervisions_search_tcc_one_path
 
     render :index
@@ -21,14 +20,14 @@ class Professors::SupervisionsController < Professors::BaseController
     add_breadcrumb supervision_calendar_title(Calendar.current_by_tcc_two),
                    professors_supervisions_tcc_two_path
     @title = supervision_tcc_calendar_title('two')
-    @orientations = search_and_paginate(@orientations.current_tcc_two(params[:status]))
+    @orientations = list_supervisions(:tcc_two)
     @search_url = professors_supervisions_search_tcc_two_path
 
     render :index
   end
 
   def history
-    @orientations = search_and_paginate(@orientations)
+    @orientations = list_supervisions(:history)
   end
 
   def show
@@ -52,14 +51,15 @@ class Professors::SupervisionsController < Professors::BaseController
 
   private
 
-  def search_and_paginate(data)
-    data.search(params[:term]).page(params[:page])
-  end
-
-  def set_orientations
-    status = params[:status]
-    condition = status.present? ? { status: } : {}
-    @orientations = current_professor.supervisions.where(condition).with_relationships.recent
+  def list_supervisions(segment)
+    Orientations::ParticipantListQuery.call(
+      relation: current_professor.supervisions,
+      segment:,
+      status: params[:status],
+      term: params[:term],
+      page: params[:page],
+      profile: :professor_supervision
+    )
   end
 
   def set_orientation

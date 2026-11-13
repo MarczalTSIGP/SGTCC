@@ -1,7 +1,4 @@
-class Academics::TsoRequestsController < Academics::BaseController
-  before_action :set_document, only: [:edit, :update, :destroy]
-  before_action :can_change, only: [:edit, :update, :destroy]
-
+class Academics::TsoRequestsController < Academics::RequestsController
   add_breadcrumb I18n.t('breadcrumbs.documents.requests.tso.index'),
                  :academics_tso_requests_path
 
@@ -13,55 +10,14 @@ class Academics::TsoRequestsController < Academics::BaseController
                  :edit_academics_tso_request_path,
                  only: :edit
 
-  def index
-    @requests = current_academic.tsos.with_relationships.page(params[:page])
-  end
-
-  def new
-    @document = Document.new
-  end
-
-  def edit; end
-
-  def create
-    @document = Document.new_tso(current_academic, request_params)
-
-    if @document.save
-      feminine_success_create_message
-      redirect_to academics_document_path(@document)
-    else
-      render :new, status: :unprocessable_content
-    end
-  end
-
-  def update
-    if can_destroy_and_update?
-      destroy_and_update
-      feminine_success_update_message
-      redirect_to academics_document_path(@document)
-    elsif @document.update_requester_justification(request_params)
-      feminine_success_update_message
-      redirect_to academics_document_path(@document)
-    else
-      render :edit, status: :unprocessable_content
-    end
-  end
-
-  def destroy
-    @document.destroy
-    feminine_success_destroy_message
-
-    redirect_to academics_tso_requests_path
-  end
-
   private
 
-  def set_document
-    @document = current_academic.documents.find_by(id: params[:id])
+  def requests_scope
+    current_academic.tsos
   end
 
-  def model_human
-    I18n.t('flash.request.index')
+  def build_document
+    Documents::TypeFactory.new_tso(current_academic, request_params)
   end
 
   def request_params
@@ -70,32 +26,37 @@ class Academics::TsoRequestsController < Academics::BaseController
                          { professor_supervisor_ids: [], external_member_supervisor_ids: [] }])
   end
 
-  def diff_advisor?
-    request_params[:advisor_id].to_i != @document.request['new_orientation']['advisor']['id']
+  # Só o TSO pede troca de orientação. Quando orientador ou supervisores mudam,
+  # o documento é recriado em vez de atualizado, porque o `request` gravado
+  # descreve a nova orientação inteira. A comparação é do Form Object (REF-29).
+  def update_document
+    return super unless Documents::TsoRequestForm.new(request_params)
+                                                 .orientation_changed?(@document)
+
+    destroy_and_update
   end
 
-  def diff_supervisors?(param_name, request_name)
-    supervisor_ids = request_params[param_name]
-    supervisor_ids.shift
-    supervisor_ids = supervisor_ids.map(&:to_i)
-    supervisor_ids != @document.request['new_orientation'][request_name].pluck('id')
-  end
-
-  def can_destroy_and_update?
-    diff_advisor? || diff_supervisors?('professor_supervisor_ids', 'professorSupervisors') ||
-      diff_supervisors?('external_member_supervisor_ids', 'externalMemberSupervisors')
-  end
-
+  # O documento novo é criado antes de o antigo ser apagado, na mesma transação. Se o novo
+  # for inválido, o antigo permanece, e o `update` do pai reexibe o formulário com o erro.
   def destroy_and_update
-    @document.destroy
-    @document = Document.new_tso(current_academic, request_params)
-    @document.save
+    replacement = Documents::TypeFactory.new_tso(current_academic, request_params)
+    replaced = replace_document(replacement)
+
+    if replaced
+      @document = replacement
+    else
+      replacement.errors.each { |error| @document.errors.add(error.attribute, error.message) }
+    end
+
+    replaced
   end
 
-  def can_change
-    return unless @document.academic_signed?(current_academic)
+  def replace_document(replacement)
+    Document.transaction do
+      next false unless replacement.save
 
-    flash[:alert] = I18n.t('flash.documents.academics.requests.not_allowed')
-    redirect_to academics_tso_requests_path
+      @document.destroy!
+      true
+    end
   end
 end

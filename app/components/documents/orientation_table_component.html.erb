@@ -1,0 +1,34 @@
+<div class="text-right mt-3">
+  <%= helpers.page_entries_info @documents %>
+</div>
+
+<div class="table-striped mt-3 table-responsive w-100">
+  <table class="table card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th><%= Document.human_attribute_name('orientation') %></th>
+        <th><%= Document.human_attribute_name('academic') %></th>
+        <th><%= Document.human_attribute_name('document_type') %></th>
+        <% if show_all_signed? %>
+          <th><%= Document.human_attribute_name('all_signed') %></th>
+        <% end %>
+        <th><%= Document.human_attribute_name('created_at') %></th>
+        <% if show_actions? %>
+          <th colspan="<%= @actions_colspan %>"></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <%= render('shared/no_results') if @documents.empty? %>
+      </tr>
+      <%= render partial: @row_partial,
+                 collection: @documents,
+                 as: :document,
+                 locals: { orientation: @orientation } %>
+    </tbody>
+  </table>
+</div>
+
+<%= helpers.paginate @documents %>

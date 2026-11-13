@@ -45,6 +45,8 @@ class Professors::DocumentsController < Professors::BaseController
     @username = Professor.human_attribute_name('username')
     @confirm_url = professors_document_sign_path(@document)
     @back_url = professors_document_path(@document)
+
+    render template: 'shared/documents/sign_form'
   end
 
   def sign
