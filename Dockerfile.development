@@ -1,5 +1,5 @@
 # Base Image
-FROM ruby:3.4.7
+FROM ruby:4.0.9
 
 # Encoding
 # C.UTF8 locale supports Computer English language
@@ -119,6 +119,5 @@ USER ${_USER}:${_USER}
 # Set working directory
 WORKDIR $APP
 
-# Install bundler and rails
-RUN gem install bundler -v 2.7.2 \
-  && gem install rails -v 8.1.1
+# Install Bundler; Rails is installed from Gemfile.lock with the application gems.
+RUN gem install bundler -v 4.0.24

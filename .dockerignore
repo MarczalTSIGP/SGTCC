@@ -1,0 +1,23 @@
+# Local backups and credentials must never enter the application image.
+/.git
+/.aws
+/.agents
+/.codex
+/.bundle
+/.kamal/secrets*
+/backups
+/config/master.key
+/config/credentials/*.key
+/node_modules
+/coverage
+/log/*
+!/log/.keep
+/tmp/*
+!/tmp/.keep
+/storage/*
+!/storage/.keep
+/public/uploads/*
+/public/assets
+/ai/output/*
+/ai/tasks/*
+/output/*

@@ -21,7 +21,7 @@ jobs:
       LDAP_BASE: ''
       FILES_PATH_TO_TEST: /var/www/SGTCC/spec/samples
     container:
-      image: ruby:3.4.7
+      image: ruby:4.0.9
       options: --network-alias testHost
       volumes:
         - /var/www/SGTCC/spec/samples:/var/www/SGTCC/spec/samples
@@ -68,7 +68,7 @@ jobs:
 
       - name: Install bundle gems
         run: |
-          gem install bundler -v 2.7.2
+          gem install bundler -v 4.0.24
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 

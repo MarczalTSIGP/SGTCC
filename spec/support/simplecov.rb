@@ -18,15 +18,15 @@ SimpleCov.start 'rails' do
   # a medição comparativa da REF-14.
   minimum_coverage 90 if FULL_SUITE_RUN
 
-  add_filter %r{^/(?!app|lib)/}
-  add_filter %r{^/app/channels/}
+  skip %r{^/(?!app|lib)/}
+  skip %r{^/app/channels/}
 
-  add_filter 'app/channels/application_cable'
-  add_filter 'app/jobs/application_job.rb'
-  add_filter 'app/mailers/application_mailer.rb'
-  add_filter 'app/models/application_record.rb'
-  add_filter 'lib/ldap/ldap_authentication.rb'
-  add_filter 'app/controllers/concerns/ldap_authentication.rb'
-  add_filter 'app/controllers/concerns/document_signature.rb'
-  add_filter 'lib/tasks/db/populate'
+  skip 'app/channels/application_cable'
+  skip 'app/jobs/application_job.rb'
+  skip 'app/mailers/application_mailer.rb'
+  skip 'app/models/application_record.rb'
+  skip 'lib/ldap/ldap_authentication.rb'
+  skip 'app/controllers/concerns/ldap_authentication.rb'
+  skip 'app/controllers/concerns/document_signature.rb'
+  skip 'lib/tasks/db/populate'
 end
