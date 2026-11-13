@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '3.4.7'
+ruby '4.0.9'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 7'
-gem 'rails', '~> 8.1.1'
+gem 'puma', '~> 8.0'
+gem 'rails', '~> 8.1.4', '>= 8.1.4.1'
 # gem 'uglifier', '>= 1.3.0'
 
 gem 'active_link_to'
@@ -44,7 +44,7 @@ gem 'turbo-rails'
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
 
-gem 'psych', '~> 3.0'
+gem 'psych', '~> 5.5'
 gem 'view_component', '~> 4.5'
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
@@ -98,9 +98,9 @@ group :test do
   # gem 'database_cleaner', '~> 1.8.5'
   gem 'database_cleaner-active_record'
   gem 'guard-rspec', require: false
-  gem 'simplecov', '0.22.0', require: false
+  gem 'simplecov', '~> 1.3', require: false
   gem 'simplecov-console', require: false
-  gem 'shoulda-matchers', '~> 7.0.1'
+  gem 'shoulda-matchers', '~> 8.0'
   gem 'capybara-screenshot'
 end
 
