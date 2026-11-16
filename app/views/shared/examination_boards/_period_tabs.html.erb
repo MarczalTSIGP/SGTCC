@@ -1,0 +1,21 @@
+<ul class="nav nav-tabs mb-3">
+  <% [['current_semester', current_calendar_title], ['history', 'Histórico']].each do |period, label| %>
+    <% selected = (params[:period] == 'history' ? 'history' : 'current_semester') == period %>
+    <% tab_url = "#{url}/#{period}" %>
+    <% tab_url += "?#{ { term: params[:term] }.to_query }" if params[:term].present? %>
+    <li class="nav-item">
+      <%= link_to label, tab_url,
+                  class: "nav-link#{' active' if selected}",
+                  aria: { current: selected ? 'page' : nil } %>
+    </li>
+  <% end %>
+</ul>
+
+<% if local_assigns.fetch(:search, true) %>
+  <% search_url = "#{url}/#{params[:period] == 'history' ? 'history' : 'current_semester'}" %>
+  <%= form_with url: search_url, method: :get, class: 'input-group mb-3' do |form| %>
+    <%= form.text_field :term, value: params[:term], class: 'form-control',
+                        placeholder: t('messages.search'), aria: { label: t('messages.search') } %>
+    <%= form.submit t('messages.search'), class: 'btn btn-outline-primary', id: 'search' %>
+  <% end %>
+<% end %>

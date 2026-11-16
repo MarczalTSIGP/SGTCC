@@ -9,8 +9,13 @@ class Professors::ExaminationBoardsController < Professors::BaseController
                  :professors_examination_boards_path
 
   def index
-    data = current_professor.examination_boards(params[:term])
-    @examination_boards = Kaminari.paginate_array(data).page(params[:page])
+    @examination_boards = ExaminationBoard
+                          .where(id: current_professor.guest_examination_boards.select(:id))
+                          .or(ExaminationBoard.where(
+                            id: current_professor.orientation_examination_boards.select(:id)
+                          ))
+                          .for_period(params[:period])
+                          .search(params[:term]).with_relationships.recent.page(params[:page])
   end
 
   def show

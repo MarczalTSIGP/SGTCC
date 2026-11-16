@@ -1,12 +1,6 @@
 <% provide(:page_title, t('breadcrumbs.examination_boards.index')) %>
 <% provide(:head_title, t('breadcrumbs.examination_boards.index')) %>
 
-<div class="row">
-  <div class="col-12">
-    <%= render 'shared/search', url: external_members_examination_boards_search_path, search_term: params[:term] %>
-  </div>
-</div>
+<%= render 'shared/examination_boards/period_tabs', url: external_members_examination_boards_path %>
 
 <%= render ExaminationBoards::TableComponent.new(examination_boards: @examination_boards, namespace: :external_members) %>
-
-<%= paginate @examination_boards %>

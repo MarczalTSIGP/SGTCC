@@ -3,6 +3,26 @@ require 'rails_helper'
 RSpec.describe ExaminationBoard do
   before { travel_to Date.new(2026, 5, 15) }
 
+  describe '.for_period' do
+    let!(:current_board) { create(:examination_board, :current_tcc_one, :proposal) }
+    let!(:past_board) do
+      create(:examination_board, :tcc_one, date: 1.year.ago,
+             orientation: create(:orientation, :previous, :tcc_one))
+    end
+
+    it 'shows current boards by default' do
+      expect(described_class.for_period(nil)).to contain_exactly(current_board)
+    end
+
+    it 'shows only other boards in history' do
+      expect(described_class.for_period('history')).to contain_exactly(past_board)
+    end
+
+    it 'keeps the user association filter in history' do
+      expect(described_class.where(id: current_board.id).for_period('history')).to be_empty
+    end
+  end
+
   describe '.tcc_one' do
     let(:tccs) { [] }
 
