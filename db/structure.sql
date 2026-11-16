@@ -532,6 +532,40 @@ ALTER SEQUENCE public.examination_board_notes_id_seq OWNED BY public.examination
 
 
 --
+-- Name: examination_board_notification_states; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.examination_board_notification_states (
+    id bigint NOT NULL,
+    examination_board_id bigint NOT NULL,
+    snapshot jsonb,
+    targets jsonb DEFAULT '{}'::jsonb NOT NULL,
+    revision integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: examination_board_notification_states_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.examination_board_notification_states_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: examination_board_notification_states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.examination_board_notification_states_id_seq OWNED BY public.examination_board_notification_states.id;
+
+
+--
 -- Name: examination_boards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1151,6 +1185,13 @@ ALTER TABLE ONLY public.examination_board_notes ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: examination_board_notification_states id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.examination_board_notification_states ALTER COLUMN id SET DEFAULT nextval('public.examination_board_notification_states_id_seq'::regclass);
+
+
+--
 -- Name: examination_boards id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1360,6 +1401,14 @@ ALTER TABLE ONLY public.examination_board_notes
 
 
 --
+-- Name: examination_board_notification_states examination_board_notification_states_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.examination_board_notification_states
+    ADD CONSTRAINT examination_board_notification_states_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: examination_boards examination_boards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1485,6 +1534,13 @@ ALTER TABLE ONLY public.signatures
 
 ALTER TABLE ONLY public.sites
     ADD CONSTRAINT sites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_on_examination_board_id_fa930bcd2d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_examination_board_id_fa930bcd2d ON public.examination_board_notification_states USING btree (examination_board_id);
 
 
 --
@@ -1963,6 +2019,7 @@ ALTER TABLE ONLY public.meetings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261116120000'),
 ('20251106190118'),
 ('20251104201959'),
 ('20251104201958'),

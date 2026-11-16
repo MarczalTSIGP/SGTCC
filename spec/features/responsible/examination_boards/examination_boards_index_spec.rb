@@ -22,6 +22,8 @@ describe 'ExaminationBoard::index', :js do
     end
 
     it 'shows all the examination boards of the tcc one with options' do
+      expect(page).to have_no_button('✓ Confirmar Banca')
+      expect(page).to have_no_button('Banca Confirmada')
       ebs.each do |examination_board|
         academic_link_text = examination_board.orientation.academic_with_calendar
         expect(page).to have_link(academic_link_text,

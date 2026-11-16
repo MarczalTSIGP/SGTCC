@@ -1,5 +1,13 @@
 class NotificationMailer < ApplicationMailer
+  before_deliver :verify_board_event
+  after_deliver :record_board_delivery
   def generic_email(notification_id)
+    notification = Notification.find(notification_id)
+    return if notification.cancelled?
+    return unless Notifications::ExaminationBoards::Validity.call(
+      notification.notification_type, notification.event_key
+    )
+
     prepare_email_data(notification_id)
 
     mail(to: @recipient.email, subject: build_subject) do |format|
@@ -9,6 +17,19 @@ class NotificationMailer < ApplicationMailer
   end
 
   private
+
+  def verify_board_event
+    return unless @notification
+    return if Notifications::ExaminationBoards::Validity.call(
+      @notification.notification_type, @notification.event_key
+    )
+
+    throw :abort
+  end
+
+  def record_board_delivery
+    Notifications::ExaminationBoards::Delivery.record(@notification) if @notification
+  end
 
   def prepare_email_data(notification_id)
     @notification = Notification.find(notification_id)
