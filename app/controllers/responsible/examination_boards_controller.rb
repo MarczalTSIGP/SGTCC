@@ -126,19 +126,6 @@ class Responsible::ExaminationBoardsController < Responsible::BaseController
     end
   end
 
-  def confirm
-    @examination_board = ExaminationBoard.find(params.expect(:id))
-    @examination_board.confirm!
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html do
-        redirect_to responsible_examination_boards_path,
-                    notice: t('flash.examination_boards.confirm.success')
-      end
-    end
-  end
-
   private
 
   def list_examination_boards(tcc:, period:)

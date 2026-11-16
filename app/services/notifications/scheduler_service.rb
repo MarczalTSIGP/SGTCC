@@ -9,8 +9,9 @@ module Notifications
     end
 
     def schedule!
-      template = active_template
-      return if template.nil?
+      return unless Notifications::ExaminationBoards::Validity.call(notification_type, event_key)
+
+      return unless (template = active_template)
 
       scheduled_at_time = compute_scheduled_at(template.notification_rule)
 

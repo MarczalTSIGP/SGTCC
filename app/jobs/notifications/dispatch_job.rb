@@ -3,7 +3,8 @@ class Notifications::DispatchJob < ApplicationJob
 
   def perform(notification_id)
     notification = Notification.find_by(id: notification_id)
-    return unless notification
+    return if notification.nil? || notification.cancelled?
+    return unless valid_notification?(notification)
 
     Notifications::Dispatcher.new(notification).call
   rescue ActiveRecord::RecordNotFound
@@ -11,5 +12,13 @@ class Notifications::DispatchJob < ApplicationJob
   rescue StandardError => e
     Rails.logger.error("[DispatchJob] Dispatch error for #{notification_id}: #{e.message}")
     raise e
+  end
+
+  private
+
+  def valid_notification?(notification)
+    Notifications::ExaminationBoards::Validity.call(
+      notification.notification_type, notification.event_key
+    )
   end
 end

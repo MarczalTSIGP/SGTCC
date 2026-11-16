@@ -154,48 +154,6 @@ templates = [
     notification_rule_attributes: { hours_before: 0 }
   },
   {
-    title: 'Designação para banca de avaliação',
-    key: 'atendees_examination_board_assigned',
-    channel: 'email',
-    subject: 'Agendamento de banca para avaliação',
-    body: '
-    Você foi designado como avaliador na banca do aluno %<academic_name>s,
-    com TCC intitulado %<orientation_title>s.
-    <br> Data: %<date>s
-    <br> Horário: %<time>s
-    <br> Local: %<place>s
-    <br> Por favor, confirme sua disponibilidade.',
-    notification_rule_attributes: { hours_after: 1, max_retries: 2, retry_interval_hours: 48 }
-  },
-  {
-    title: 'Confirmação de banca de avaliação',
-    key: 'atendee_confirmed_examination_board',
-    channel: 'email',
-    subject: 'Agendamento de banca confirmado',
-    body: '
-    A banca de avaliação do aluno %<academic_name>s,
-    com TCC intitulado %<orientation_title>s,
-     foi confirmada com os seguintes detalhes:
-    <br> Data: %<date>s
-    <br> Horário: %<time>s
-    <br> Local: %<place>s
-    <br> Acesse o sistema para mais detalhes.',
-    notification_rule_attributes: { extra_notes: 'Envio único' }
-  },
-  {
-    title: 'Banca de avaliação agendada',
-    key: 'academic_confirmed_examination_board',
-    channel: 'email',
-    subject: 'Agendamento de banca confirmado',
-    body: '
-    Olá %<academic_name>s, a banca de defesa do seu TCC com os seguintes detalhes foi confirmada:
-    <br> Data: %<date>s
-    <br> Horário: %<time>s
-    <br> Local: %<place>s
-    <br> Acesse o sistema para mais detalhes.',
-    notification_rule_attributes: { extra_notes: 'Envio único' }
-  },
-  {
     title: 'Apontamentos da banca disponíveis',
     key: 'academic_examination_board_appointments',
     channel: 'email',
@@ -263,3 +221,5 @@ templates.each do |attrs|
     template.build_notification_rule(attrs[:notification_rule_attributes])
   end
 end
+
+Notifications::ExaminationBoards::Templates.install!

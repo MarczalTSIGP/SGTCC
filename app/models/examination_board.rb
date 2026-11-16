@@ -5,6 +5,7 @@ class ExaminationBoard < ApplicationRecord
   include TccIdentifier
   include Searchable
   include Tcc
+  include ExaminationBoardNotifications
 
   searchable place: { unaccent: true }, relationships: {
     orientation: { fields: [{ title: { unaccent: true } }] }
@@ -18,6 +19,8 @@ class ExaminationBoard < ApplicationRecord
   validates :document_available_until, presence: true
 
   has_many :examination_board_attendees, dependent: :delete_all,
+                                         before_add: :capture_notification_state,
+                                         before_remove: :capture_notification_state,
                                          after_add: :touch_updated_at,
                                          after_remove: :touch_updated_at
 
@@ -90,8 +93,6 @@ class ExaminationBoard < ApplicationRecord
              orientation: [:academic, :orientation_supervisors, :professor_supervisors,
                            :external_member_supervisors, { advisor: [:scholarity] }])
   }
-
-  after_commit :trigger_create_notifications, on: :create
 
   def self.touch_related_to(academic_activity, orientation)
     orientation.examination_boards.each do |board|
@@ -166,16 +167,5 @@ class ExaminationBoard < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     touch unless new_record?
     # rubocop:enable Rails/SkipsModelValidations
-  end
-
-  def confirm!
-    update(confirmed: true)
-    Notifications::Hooks::ExaminationBoard.confirmed_examination_board(self)
-  end
-
-  private
-
-  def trigger_create_notifications
-    Notifications::Hooks::ExaminationBoard.atendees_examination_board_assigned(self)
   end
 end
