@@ -9,11 +9,7 @@ class Professors::ExaminationBoardsController < Professors::BaseController
                  :professors_examination_boards_path
 
   def index
-    @examination_boards = ExaminationBoard
-                          .where(id: current_professor.guest_examination_boards.select(:id))
-                          .or(ExaminationBoard.where(
-                            id: current_professor.orientation_examination_boards.select(:id)
-                          ))
+    @examination_boards = user_examination_boards
                           .for_period(params[:period])
                           .search(params[:term]).with_relationships.recent.page(params[:page])
   end
@@ -61,6 +57,12 @@ class Professors::ExaminationBoardsController < Professors::BaseController
   end
 
   private
+
+  def user_examination_boards
+    boards = current_professor.guest_examination_boards.select(:id)
+    other_boards = current_professor.orientation_examination_boards.select(:id)
+    ExaminationBoard.where(id: boards).or(ExaminationBoard.where(id: other_boards))
+  end
 
   def set_examination_board
     @examination_board = ExaminationBoard.with_relationships.find(params.expect(:id))

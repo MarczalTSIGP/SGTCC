@@ -7,7 +7,7 @@ RSpec.describe ExaminationBoard do
     let!(:current_board) { create(:examination_board, :current_tcc_one, :proposal) }
     let!(:past_board) do
       create(:examination_board, :tcc_one, date: 1.year.ago,
-             orientation: create(:orientation, :previous, :tcc_one))
+                                           orientation: create(:orientation, :previous, :tcc_one))
     end
 
     it 'shows current boards by default' do

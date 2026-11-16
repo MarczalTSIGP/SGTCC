@@ -11,26 +11,29 @@ describe 'ExaminationBoard::index', :js do
   end
 
   it 'separates history and keeps the selected period when searching' do
-    past_board = create(:examination_board, :tcc_one, date: 1.year.ago,
-                        orientation: create(:orientation, :previous, :tcc_one))
+    past_orientation = create(:orientation, :previous, :tcc_one)
+    past_board = create(
+      :examination_board, :tcc_one, date: 1.year.ago, orientation: past_orientation
+    )
     past_board.professors << professor
     visit professors_examination_boards_path
 
+    expect(page).to have_css("#examination_board_#{examination_board.id}")
     expect(page).to have_no_css("#examination_board_#{past_board.id}")
     within('.nav-tabs') { click_link 'Histórico' }
-    expect(page).to have_current_path(/\/history$/)
+    expect(page).to have_current_path(%r{/history$})
     expect(page).to have_css("#examination_board_#{past_board.id}")
     expect(page).to have_no_css("#examination_board_#{examination_board.id}")
 
     fill_in 'term', with: past_board.orientation.title
-    find('#search').click
-    expect(page).to have_current_path(/\/history\?/)
+    find_by_id('search').click
+    expect(page).to have_current_path(%r{/history\?})
     expect(URI.parse(page.current_url).query).not_to include('period=')
     expect(page).to have_css('.nav-link.active', text: 'Histórico')
     expect(page).to have_css("#examination_board_#{past_board.id}")
 
     within('.nav-tabs') { click_link "#{Calendar.current_year}/#{Calendar.current_semester}" }
-    expect(page).to have_current_path(/\/current_semester\?/)
+    expect(page).to have_current_path(%r{/current_semester\?})
     expect(page).to have_no_css("#examination_board_#{past_board.id}")
   end
 
