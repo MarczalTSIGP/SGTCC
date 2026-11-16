@@ -5,7 +5,8 @@ class Professors::SupervisionExaminationBoardsController < Professors::BaseContr
                  :professors_supervision_examination_boards_path
 
   def index
-    data = current_professor.current_semester_supervision_examination_boards
+    data = current_professor.supervision_examination_boards
+                            .for_period(params[:period]).with_relationships
     @examination_boards = data.page(params[:page])
   end
 

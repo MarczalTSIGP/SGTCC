@@ -7,8 +7,8 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
                  :external_members_examination_boards_path
 
   def index
-    @examination_boards = current_external_member
-                          .examination_boards
+    @examination_boards = user_examination_boards
+                          .for_period(params[:period]).with_relationships.recent
                           .search(params[:term])
                           .page(params[:page])
   end
@@ -19,6 +19,12 @@ class ExternalMembers::ExaminationBoardsController < ExternalMembers::BaseContro
   end
 
   private
+
+  def user_examination_boards
+    boards = current_external_member.examination_boards.select(:id)
+    other_boards = current_external_member.supervision_examination_boards.select(:id)
+    ExaminationBoard.where(id: boards).or(ExaminationBoard.where(id: other_boards))
+  end
 
   def set_examination_board
     @examination_board = current_external_member

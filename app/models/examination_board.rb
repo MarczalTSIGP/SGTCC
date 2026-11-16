@@ -74,6 +74,14 @@ class ExaminationBoard < ApplicationRecord
     where(date: current_calendar.start_date..current_calendar.end_date)
   }
 
+  scope :for_period, lambda { |period|
+    if period == 'history'
+      where.not(id: ExaminationBoard.current_semester.select(:id))
+    else
+      current_semester
+    end
+  }
+
   scope :recent, -> { order(date: :desc) }
 
   scope :with_relationships, lambda {

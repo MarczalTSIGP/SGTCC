@@ -348,7 +348,12 @@ Rails.application.routes.draw do
 
       resources :examination_boards,
                 only: [:index, :show],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ } do
+        collection do
+          get :current_semester, action: :index, defaults: { period: 'current' }
+          get :history, action: :index, defaults: { period: 'history' }
+        end
+      end
 
       get 'meetings/orientations/(:id)',
           to: 'meetings#orientation',
@@ -422,6 +427,16 @@ Rails.application.routes.draw do
       get 'supervisions/examination_boards',
           to: 'supervision_examination_boards#index',
           as: 'supervision_examination_boards'
+
+      get 'supervisions/examination_boards/current_semester',
+          to: 'supervision_examination_boards#index',
+          defaults: { period: 'current' },
+          as: 'current_semester_supervision_examination_boards'
+
+      get 'supervisions/examination_boards/history',
+          to: 'supervision_examination_boards#index',
+          defaults: { period: 'history' },
+          as: 'history_supervision_examination_boards'
 
       get 'supervisions/examination_boards/(:id)',
           to: 'supervision_examination_boards#show',
@@ -732,7 +747,12 @@ Rails.application.routes.draw do
 
       resources :examination_boards,
                 only: [:index, :show],
-                constraints: { id: /[0-9]+/ }
+                constraints: { id: /[0-9]+/ } do
+        collection do
+          get :current_semester, action: :index, defaults: { period: 'current' }
+          get :history, action: :index, defaults: { period: 'history' }
+        end
+      end
 
       get 'documents/(:id)/sign', to: 'documents#sign_form', as: 'document_sign_form'
       post 'documents/(:id)/sign', to: 'documents#sign', as: 'document_sign'
