@@ -43,11 +43,11 @@ jobs:
 
               mailer: &mailer
                 mailer.from: 'tcc-tsi-gp@utfpr.edu.br'
-                mailer.host: 'tcc.tsi.pro.br'
+                mailer.host: 'tcc.tsi.gp.utfpr.edu.br'
                 mailer.host.port: '80'
                 mailer.smtp: 'in-v3.mailjet.com'
                 mailer.smtp.port: '587'
-                mailer.smtp.domain: 'tcc.tsi.pro.br'
+                mailer.smtp.domain: 'tcc.tsi.gp.utfpr.edu.br'
                 mailer.smtp.username: <%= ENV['MAILER_USERNAME'] %>
                 mailer.smtp.password: <%= ENV['MAILER_PASSWORD'] %>
                 mailer.smtp.authentication: 'plain'
